@@ -1,10 +1,19 @@
 import os
 
-# Iterar sobre los archivos en el directorio actual
-for filename in os.listdir('.'):
-    if ' ' in filename:  # Si el nombre contiene espacios
-        new_name = filename.replace(' ', '_')
-        os.rename(filename, new_name)
-        print(f"Renombrado: {filename} -> {new_name}")
+# Obtener el directorio actual
+carpeta = os.getcwd()
 
-print("Renombrado completado.")
+for nombre in os.listdir(carpeta):
+    ruta_antigua = os.path.join(carpeta, nombre)
+
+    # Evitar directorios
+    if os.path.isfile(ruta_antigua):
+        nuevo_nombre = nombre.lower()
+        ruta_nueva = os.path.join(carpeta, nuevo_nombre)
+
+        # Solo renombrar si cambia
+        if ruta_antigua != ruta_nueva:
+            print(f"Renombrando: {nombre} -> {nuevo_nombre}")
+            os.rename(ruta_antigua, ruta_nueva)
+
+print("✅ Renombrado completado")
