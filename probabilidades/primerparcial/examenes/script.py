@@ -8,7 +8,8 @@ for nombre in os.listdir(carpeta):
 
     # Evitar directorios
     if os.path.isfile(ruta_antigua):
-        nuevo_nombre = nombre.lower()
+        # Pasar a minúsculas y reemplazar espacios por guiones bajos
+        nuevo_nombre = nombre.lower().replace(" ", "_")
         ruta_nueva = os.path.join(carpeta, nuevo_nombre)
 
         # Solo renombrar si cambia
