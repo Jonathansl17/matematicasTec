@@ -5,27 +5,31 @@ import sys
 import argparse
 
 SPACE_RE = re.compile(r"\s+")
+NUM_PREFIX_RE = re.compile(r"^\d+[-_]*")  # detecta prefijos tipo 01-, 02_, etc.
 
 def es_puramente_numerica(nombre: str) -> bool:
-    # Solo el nombre sin extensión
     base, _ = os.path.splitext(nombre)
     return base.isdigit()
 
 def transformar_nombre(nombre: str) -> str:
-    # minúsculas + espacios reemplazados por "_"
-    return SPACE_RE.sub("_", nombre.strip().lower())
+    base, ext = os.path.splitext(nombre)
+
+    # 1. Quitar prefijo numérico (ej: 01-, 02_, 03 )
+    base = NUM_PREFIX_RE.sub("", base)
+
+    # 2. minúsculas + espacios a "_"
+    base = SPACE_RE.sub("_", base.strip().lower())
+
+    return base + ext.lower()
 
 def renombrar_archivos(path=".", recursivo=False, dry_run=False):
     try:
         with os.scandir(path) as it:
             for entry in it:
-                # Solo archivos reales
                 if not entry.is_file(follow_symlinks=False):
                     continue
 
                 original = entry.name
-
-                # Ignorar numéricos puros
                 if es_puramente_numerica(original):
                     print(f"Saltando (numérico): {original}")
                     continue
@@ -34,11 +38,9 @@ def renombrar_archivos(path=".", recursivo=False, dry_run=False):
                 origen = os.path.join(path, original)
                 destino = os.path.join(path, destino_nombre)
 
-                # Si no hay cambios, seguir
                 if destino_nombre == original:
                     continue
 
-                # Evitar colisiones
                 if os.path.exists(destino) and os.path.realpath(origen) != os.path.realpath(destino):
                     print(f"⚠️ Ya existe '{destino_nombre}'. No renombro '{original}'.")
                     continue
@@ -52,7 +54,6 @@ def renombrar_archivos(path=".", recursivo=False, dry_run=False):
                     except OSError as e:
                         print(f"✗ Error renombrando '{original}': {e}")
 
-        # Procesar subdirectorios si es recursivo
         if recursivo:
             with os.scandir(path) as it:
                 for entry in it:
@@ -66,8 +67,7 @@ def renombrar_archivos(path=".", recursivo=False, dry_run=False):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Renombra archivos a minúsculas y reemplaza espacios por '_' (snake_case). "
-                    "Ignora nombres puramente numéricos."
+        description="Renombra archivos a minúsculas, snake_case y quita prefijos numéricos."
     )
     parser.add_argument("ruta", nargs="?", default=".", help="Directorio a procesar (por defecto, actual).")
     parser.add_argument("-r", "--recursivo", action="store_true", help="Procesar subdirectorios recursivamente.")
