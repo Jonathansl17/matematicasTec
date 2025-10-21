@@ -11,7 +11,7 @@ shopt -s nullglob
 archivos=( *.xopp )
 
 if [ ${#archivos[@]} -eq 0 ]; then
-    echo "❌ No hay archivos .xopp para convertir."
+    echo "No hay archivos .xopp para convertir."
     exit 0
 fi
 
@@ -23,4 +23,4 @@ for archivo in "${archivos[@]}"; do
     xournalpp --create-pdf="$salida" "$archivo"
 done
 
-echo "✅ Conversión completa. Los PDF se guardaron en la carpeta '$DESTINO'."
+echo "Conversión completa. Los PDF se guardaron en la carpeta '$DESTINO'."
