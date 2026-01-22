@@ -1,0 +1,22 @@
+# Datos originales
+x_original = [2, 3, 5, 8, 12, 25]
+y = [27.3, 20.1, 14.6, 11.4, 9.2, 6.9]
+
+# Transformación: x = x1 = 1/x_original
+x = []
+for xi in x_original:
+    x.append(1 / xi)
+
+# Parámetros del modelo lineal y = a + b*x
+a = 5.70
+b = 43.15
+
+# Cálculo de y estimado
+y_m = []
+for xi in x:
+    y_m.append(a + b * xi)
+
+# Impresión manual
+print("x_original\t x=1/x\t\t y\t\t y_m = a + b*x")
+for i in range(len(x)):
+    print(f"{x_original[i]}\t\t {x[i]:.6f}\t {y[i]:.2f}\t {y_m[i]:.6f}")
