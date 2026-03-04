@@ -18,6 +18,4 @@ Este repositorio contiene material de estudio organizado por materia.
 - Predominan archivos en formato PDF (`.pdf`) y Xournal (`.xopp`).
 - También hay archivos de apoyo en formatos como `.py`, `.docx`, `.doc` y scripts.
 
-## Nota
 
-La carpeta `.git/` es interna de control de versiones y no corresponde a una materia.
