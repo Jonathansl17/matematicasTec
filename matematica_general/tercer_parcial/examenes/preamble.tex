@@ -1,0 +1,26 @@
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage[hidelinks]{hyperref}
+
+% Notación española opcional (descomenta si quieres \sen en lugar de \sin)
+% \DeclareMathOperator{\sen}{sen}
+% \DeclareMathOperator{\tg}{tg}
+% \DeclareMathOperator{\ctg}{ctg}
+
+\newtcolorbox{sol}{colback=blue!5,colframe=blue!50!black,title=Solución paso a paso,breakable}
+\newtcolorbox{teo}{colback=orange!8,colframe=orange!70!black,title=Teoría,breakable}
+\newtcolorbox{nota}{colback=green!5,colframe=green!50!black,title=Idea clave,breakable}
+\newtcolorbox{tip}{colback=yellow!10,colframe=yellow!60!black,title=Consejo,breakable}
+\newtcolorbox{resp}{colback=red!5,colframe=red!50!black,title=Respuesta,breakable}
+\newtcolorbox{reg}{colback=red!5,colframe=red!60!black,title=Regla,breakable}
+\newtcolorbox{paso}[1]{colback=gray!5,colframe=gray!50!black,title={#1},breakable}
