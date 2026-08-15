@@ -1,0 +1,662 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+
+\begin{center}{\LARGE\bfseries Principios de conteo}\\[2pt]{\large Ejercicios especiales --- Ejercicios 1--5}\end{center}
+
+\begin{teo}
+\textbf{1. Barras y estrellas: soluciones naturales de $x_1+x_2+\cdots+x_k=n$.}
+
+Queremos contar las $k$-tuplas $(x_1,\dots ,x_k)$ de números naturales (aquí, enteros $\ge 0$)
+cuya suma es $n$. La idea es representar cada solución con un dibujo: escribimos $n$ estrellas
+$\star$ en fila y colocamos $k-1$ barras $\mid$ entre ellas. Las estrellas que quedan antes de la
+primera barra son el valor de $x_1$; las que quedan entre la primera y la segunda barra son $x_2$;
+y así sucesivamente hasta $x_k$, que se lleva las estrellas posteriores a la última barra. Por ejemplo,
+para $n=5$ y $k=3$,
+\[
+\star\star\mid\;\mid\star\star\star \quad\longleftrightarrow\quad (x_1,x_2,x_3)=(2,0,3).
+\]
+Cada arreglo de símbolos produce exactamente una solución y cada solución produce exactamente un
+arreglo: la correspondencia es biyectiva. Contar soluciones equivale entonces a contar arreglos de
+$n$ estrellas y $k-1$ barras. Un arreglo queda determinado por \emph{dónde} van las barras dentro de
+las $n+k-1$ posiciones totales, y las barras son indistinguibles entre sí, de modo que se trata de una
+combinación:
+\[
+\boxed{\;\#\{(x_1,\dots ,x_k)\in\mathbb{N}^k:\;x_1+\cdots+x_k=n\}=\binom{n+k-1}{k-1}=\binom{n+k-1}{n}.\;}
+\]
+La segunda igualdad es la simetría $\binom{m}{r}=\binom{m}{m-r}$: elegir las posiciones de las barras
+o elegir las de las estrellas es la misma decisión vista al revés.
+
+\medskip
+\textbf{Advertencia sobre la palabra ``natural''.} La fórmula de arriba supone $x_i\ge 0$. Si en el
+curso ``natural'' significara $x_i\ge 1$, bastaría el cambio $y_i=x_i-1\ge 0$, que transforma la
+ecuación en $y_1+\cdots+y_k=n-k$ y da $\binom{n-1}{k-1}$. En esta práctica la convención correcta es
+$\mathbb{N}=\{0,1,2,\dots\}$, y lo verificamos con la respuesta oficial del Ejercicio 2 (ver allí).
+
+\medskip
+\textbf{2. Cotas inferiores estrictas: $x_i>m$ (equivalentemente $x_i\ge m+1$).}
+
+Una cota inferior nunca requiere inclusión--exclusión: se absorbe con un cambio de variable. Si exigimos
+$x_i\ge m+1$, definimos $x_i'=x_i-(m+1)$. Entonces $x_i\ge m+1 \iff x_i'\ge 0$, es decir $x_i'$ ya es
+una variable natural libre. Al sustituir, la ecuación pasa a ser
+\[
+x_1+\cdots+x_i'+\cdots+x_k=n-(m+1),
+\]
+y volvemos al caso sin restricciones, pero con un total \emph{reducido}. La lectura intuitiva es:
+``ya le regalamos $m+1$ unidades a $x_i$ de entrada; lo que queda por repartir libremente es
+$n-(m+1)$''. El conteo es entonces $\binom{n-(m+1)+k-1}{k-1}$.
+
+\medskip
+\textbf{3. Cotas superiores: $x_i\le c$, vía inclusión--exclusión.}
+
+Una cota superior sí es incómoda, porque ``$x_i$ a lo sumo $c$'' no se puede regalar de antemano.
+El truco es contar por complemento: en vez de contar directamente las soluciones buenas, contamos
+\emph{todas} y le restamos las malas. Definimos el evento malo
+\[
+A_i=\{\text{soluciones con } x_i\ge c+1\},
+\]
+que es una cota \emph{inferior} y por tanto se cuenta con el cambio de variable del punto 2:
+$|A_i|=\binom{n-(c+1)+k-1}{k-1}$. Las soluciones válidas son las que no caen en ningún $A_i$, así que
+por el principio de inclusión--exclusión
+\[
+\#\{\text{válidas}\}=\binom{n+k-1}{k-1}-\sum_i |A_i|+\sum_{i<j}|A_i\cap A_j|-\cdots
+\]
+donde $|A_i\cap A_j|=\binom{n-2(c+1)+k-1}{k-1}$ porque ahora regalamos $c+1$ unidades a \emph{dos}
+variables a la vez. Los términos se anulan en cuanto el total restante se vuelve negativo (no hay
+soluciones que repartir). El motivo de los signos alternados es el de siempre: al restar $|A_i|$ y
+$|A_j|$ quitamos dos veces las soluciones que están en ambos, y hay que devolverlas sumando
+$|A_i\cap A_j|$.
+
+\medskip
+\textbf{4. Principio del palomar aplicado a distancias.}
+
+El principio del palomar dice: si se colocan $p$ objetos en $c$ cajas y $p>c$, alguna caja recibe
+al menos dos objetos. Para trasladarlo a distancias sobre un segmento, la idea es fabricar cajas de
+\emph{diámetro controlado}: partimos un segmento de longitud $L$ en $c$ subintervalos consecutivos de
+longitud $L/c$ cada uno. Si dos puntos caen en el mismo subintervalo, su distancia no puede exceder la
+longitud de ese subintervalo, o sea $L/c$. Por tanto, con $p>c$ puntos siempre existen dos a distancia
+$\le L/c$. Todo el arte consiste en escoger $c$ para que $L/c$ sea la cota pedida.
+
+\medskip
+\textbf{5. Diagonales de un polígono convexo de $n$ lados.}
+
+Una diagonal es un segmento que une dos vértices \emph{no adyacentes}. Los vértices de un polígono
+convexo de $n$ lados son $n$ puntos, y todo segmento entre dos de ellos queda determinado por la
+pareja de extremos, sin importar el orden: hay $\binom{n}{2}$ segmentos en total. De esos segmentos,
+exactamente $n$ son lados del polígono (un lado por cada par de vértices consecutivos, y un polígono
+de $n$ lados tiene $n$ de esos pares). Restando,
+\[
+D(n)=\binom{n}{2}-n=\frac{n(n-1)}{2}-n=\frac{n(n-1)-2n}{2}=\frac{n(n-3)}{2}.
+\]
+La misma fórmula se obtiene por doble conteo: desde cada vértice salen $n-3$ diagonales (no cuenta él
+mismo ni sus dos vecinos), lo que da $n(n-3)$ pares (vértice, diagonal); como cada diagonal tiene dos
+extremos, se contó dos veces, y hay que dividir entre $2$.
+\end{teo}
+
+\section*{Ejercicio 1}
+
+\begin{quote}
+Considere la ecuación $x+y+z=15$ ¿Cuántas soluciones naturales $(x,y,z)$ tiene esta ecuación si:\\
+a) No hay restricciones.\\
+b) Cada incógnita debe ser menor igual a 6 \hfill R/ 10
+\end{quote}
+
+\begin{paso}{Paso 1 --- Fijar la convención de ``número natural''}
+\textbf{Qué hago:} antes de contar nada, decido si ``natural'' significa $x\ge 0$ o $x\ge 1$, porque
+el resultado del inciso (a) depende de eso.
+
+\textbf{¿De dónde sale?} No lo decido por gusto: lo decido por evidencia interna de la práctica. El
+Ejercicio 2 de esta misma sección trae respuesta oficial $440$, y más adelante se comprueba que ese
+$440$ solo se obtiene si las variables pueden valer $0$ (con la convención $x_i\ge 1$ el número sale
+distinto). Además, el Ejercicio 2 impone explícitamente la condición ``$x_2>6$'', condición que sería
+redundante de escribir si el mínimo ya fuera $1$ y superflua solo si el piso natural es $0$.
+
+\textbf{¿Por qué?} La consistencia manda: si una misma práctica usa dos convenciones distintas en
+ejercicios consecutivos, las respuestas oficiales dejan de ser comparables. Al calibrar con el
+Ejercicio 2 obtengo la convención del autor y la aplico a los dos incisos de este ejercicio.
+
+\textbf{¿Qué tomamos?} Tomamos $\mathbb{N}=\{0,1,2,3,\dots\}$, es decir, se admiten soluciones con
+alguna coordenada igual a cero, como $(15,0,0)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a): contar sin restricciones con barras y estrellas}
+\textbf{Qué hago:} cuento las ternas $(x,y,z)$ de enteros $\ge 0$ con $x+y+z=15$ usando el modelo de
+barras y estrellas.
+
+\textbf{¿De dónde sale?} De la fórmula $\binom{n+k-1}{k-1}$ demostrada en la Teoría. Aquí el total a
+repartir es $n=15$ (las estrellas) y la cantidad de variables es $k=3$ (por lo tanto $k-1=2$ barras).
+Cada arreglo de $15$ estrellas y $2$ barras codifica una y solo una terna.
+
+\textbf{¿Por qué?} Porque el problema es exactamente ``repartir 15 unidades idénticas en 3 cajas
+distinguibles, permitiendo cajas vacías''. Las unidades son idénticas (solo importa cuántas, no
+cuáles) y las cajas son distinguibles (no es lo mismo $x=15$ que $z=15$), que es justo la situación
+que modela barras y estrellas. La cuenta es
+\[
+\binom{15+3-1}{3-1}=\binom{17}{2}=\frac{17\cdot 16}{2\cdot 1}=\frac{272}{2}=136.
+\]
+
+\textbf{¿Qué tomamos?} Tomamos $136$ soluciones naturales sin restricciones.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (b): traducir la cota superior a eventos malos}
+\textbf{Qué hago:} ahora exijo $x\le 6$, $y\le 6$, $z\le 6$. En vez de contar directamente, defino los
+eventos ``malos''
+\[
+A_1=\{x\ge 7\},\qquad A_2=\{y\ge 7\},\qquad A_3=\{z\ge 7\},
+\]
+todos ellos dentro del universo de las $136$ soluciones del paso anterior.
+
+\textbf{¿De dónde sale?} De la negación lógica de la restricción: para enteros, ``$x\le 6$'' es falso
+exactamente cuando $x\ge 7$. Es decir, las soluciones buenas son las que no pertenecen a
+$A_1\cup A_2\cup A_3$.
+
+\textbf{¿Por qué?} Porque una cota superior no se puede ``regalar'' con un cambio de variable (no
+existe una sustitución que fuerce $x\le 6$ y deje una variable libre), mientras que su negación sí es
+una cota inferior, y las cotas inferiores se manejan con la sustitución del punto 2 de la Teoría. Por
+eso conviene contar el complemento.
+
+\textbf{¿Qué tomamos?} Tomamos la identidad de trabajo
+$\#\text{buenas}=136-|A_1\cup A_2\cup A_3|$, que resolveremos con inclusión--exclusión.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Contar cada evento malo simple $|A_i|$}
+\textbf{Qué hago:} cuento $|A_1|$, las soluciones con $x\ge 7$, y observo que por simetría
+$|A_1|=|A_2|=|A_3|$.
+
+\textbf{¿De dónde sale?} Del cambio de variable $x'=x-7$. La condición $x\ge 7$ equivale a $x'\ge 0$,
+y sustituyendo en la ecuación:
+\[
+(x'+7)+y+z=15 \quad\Longrightarrow\quad x'+y+z=8,
+\]
+que ya es una ecuación sin restricciones en $3$ variables naturales. Barras y estrellas con $n=8$,
+$k=3$ da
+\[
+\binom{8+3-1}{2}=\binom{10}{2}=\frac{10\cdot 9}{2}=45.
+\]
+
+\textbf{¿Por qué?} La simetría vale porque la ecuación $x+y+z=15$ y la cota $\le 6$ son idénticas para
+las tres variables: renombrar variables no cambia la cantidad de soluciones. Por eso basta calcular
+un caso y multiplicar.
+
+\textbf{¿Qué tomamos?} Tomamos $|A_1|=|A_2|=|A_3|=45$ y por lo tanto
+$\sum_i |A_i|=3\cdot 45=135$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Contar las intersecciones dobles y triples}
+\textbf{Qué hago:} cuento $|A_1\cap A_2|$ (ambos $x\ge 7$ y $y\ge 7$) y $|A_1\cap A_2\cap A_3|$.
+
+\textbf{¿De dónde sale?} Del mismo cambio de variable, aplicado dos veces a la vez: con $x'=x-7$ y
+$y'=y-7$ la ecuación queda
+\[
+(x'+7)+(y'+7)+z=15 \quad\Longrightarrow\quad x'+y'+z=1,
+\]
+y por barras y estrellas con $n=1$, $k=3$:
+\[
+\binom{1+3-1}{2}=\binom{3}{2}=3.
+\]
+Hay $\binom{3}{2}=3$ parejas de variables, así que $\sum_{i<j}|A_i\cap A_j|=3\cdot 3=9$. Para la
+triple intersección habría que regalar $7+7+7=21$ unidades, pero solo tenemos $15$: el total restante
+sería $15-21=-6<0$, imposible, luego $|A_1\cap A_2\cap A_3|=0$.
+
+\textbf{¿Por qué?} Regalar unidades a varias variables simultáneamente es legítimo porque las
+condiciones $x\ge 7$ y $y\ge 7$ son independientes entre sí como restricciones de piso; cada una
+consume su propio bloque de $7$ unidades del total. Y el término triple se anula porque no existe
+manera de que tres números sumen $15$ siendo cada uno $\ge 7$.
+
+\textbf{¿Qué tomamos?} Tomamos $\sum_{i<j}|A_i\cap A_j|=9$ y $|A_1\cap A_2\cap A_3|=0$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Armar la inclusión--exclusión y cerrar el inciso (b)}
+\textbf{Qué hago:} junto los tres niveles de conteo con los signos alternados y resto del total.
+
+\textbf{¿De dónde sale?} De la fórmula de inclusión--exclusión para tres conjuntos:
+\[
+|A_1\cup A_2\cup A_3|=\sum_i|A_i|-\sum_{i<j}|A_i\cap A_j|+|A_1\cap A_2\cap A_3|
+=135-9+0=126,
+\]
+y por lo tanto
+\[
+\#\text{buenas}=136-126=10.
+\]
+
+\textbf{¿Por qué?} Los signos no son un capricho: al restar $135$ quitamos dos veces cada solución que
+viola dos cotas a la vez (por ejemplo $(7,7,1)$, que está en $A_1$ y en $A_2$), así que hay que
+devolverlas sumando $9$. Como ninguna solución viola las tres cotas, no hay corrección de tercer
+nivel.
+
+\textbf{¿Qué tomamos?} Tomamos $10$ soluciones con todas las incógnitas $\le 6$, que coincide con la
+respuesta oficial R/ 10.
+\end{paso}
+
+\begin{nota}
+Conviene señalar un detalle honesto sobre la convención: el inciso (b) da $10$ \emph{con las dos}
+convenciones. En efecto, si se exigiera $x,y,z\ge 1$, el cambio $u=x-1$, $v=y-1$, $w=z-1$ lleva a
+$u+v+w=12$ con $u,v,w\le 5$, y la inclusión--exclusión da
+$\binom{14}{2}-3\binom{8}{2}+3\binom{2}{2}=91-84+3=10$. Es decir, el inciso (b) no distingue las
+convenciones. Quien sí las distingue es el Ejercicio 2, cuya respuesta oficial $440$ solo aparece con
+$\mathbb{N}$ incluyendo el cero; por eso usamos esa misma convención aquí y reportamos $136$ en el
+inciso (a). Con la convención $x,y,z\ge 1$ el inciso (a) valdría $\binom{14}{2}=91$.
+\end{nota}
+
+\begin{resp}
+\textbf{(a)} $\binom{17}{2}=136$ soluciones naturales (con $\mathbb{N}$ incluyendo el $0$).\\
+\textbf{(b)} $136-135+9=10$ soluciones con cada incógnita menor o igual a $6$. \hfill (R/ 10)
+\end{resp}
+
+\section*{Ejercicio 2}
+
+\begin{quote}
+Considere la ecuación $x_1+x_2+x_3+x_4=20$ ¿cuántas soluciones naturales tiene esta ecuación donde
+$x_1\le 5$ y $x_2>6$? \hfill R/ 440
+\end{quote}
+
+\begin{paso}{Paso 1 --- Separar las dos restricciones según su tipo}
+\textbf{Qué hago:} clasifico las condiciones antes de calcular. Tengo una cota inferior estricta
+($x_2>6$, o sea $x_2\ge 7$) y una cota superior ($x_1\le 5$).
+
+\textbf{¿De dónde sale?} De la Teoría: las cotas inferiores se eliminan con un cambio de variable
+(punto 2) y las cotas superiores exigen contar por complemento con inclusión--exclusión (punto 3).
+Son mecanismos distintos y conviene no mezclarlos.
+
+\textbf{¿Por qué?} El orden importa por comodidad: si primero absorbo la cota inferior, el problema se
+reduce a ``una sola cota superior'', que es el caso más simple de inclusión--exclusión (un solo evento
+malo, sin intersecciones). Si lo hiciera al revés tendría que arrastrar la condición $x_2\ge 7$ dentro
+de cada término.
+
+\textbf{¿Qué tomamos?} Tomamos el plan: primero sustituir para $x_2$, luego complementar para $x_1$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Absorber la cota inferior $x_2>6$}
+\textbf{Qué hago:} defino $x_2'=x_2-7$ y reescribo la ecuación.
+
+\textbf{¿De dónde sale?} Como $x_2$ es entero, $x_2>6$ significa $x_2\ge 7$. Entonces $x_2'=x_2-7$
+recorre exactamente los naturales $\ge 0$, sin huecos ni repeticiones: es una biyección entre las
+soluciones con $x_2\ge 7$ y las soluciones naturales libres de la nueva ecuación. Sustituyendo:
+\[
+x_1+(x_2'+7)+x_3+x_4=20 \quad\Longrightarrow\quad x_1+x_2'+x_3+x_4=13.
+\]
+
+\textbf{¿Por qué?} Porque ``regalar'' $7$ unidades a $x_2$ de entrada garantiza la restricción de
+manera automática y deja el resto del reparto totalmente libre. La restricción deja de existir y solo
+cambia el total, que baja de $20$ a $13$.
+
+\textbf{¿Qué tomamos?} Tomamos el problema equivalente: contar soluciones naturales de
+$x_1+x_2'+x_3+x_4=13$ con la única condición $x_1\le 5$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar el universo sin la cota superior}
+\textbf{Qué hago:} cuento todas las soluciones naturales de $x_1+x_2'+x_3+x_4=13$ ignorando por ahora
+$x_1\le 5$.
+
+\textbf{¿De dónde sale?} Barras y estrellas con $n=13$ y $k=4$ variables, es decir $k-1=3$ barras:
+\[
+\binom{13+4-1}{4-1}=\binom{16}{3}=\frac{16\cdot 15\cdot 14}{3\cdot 2\cdot 1}
+=\frac{3360}{6}=560.
+\]
+
+\textbf{¿Por qué?} Este número es el ``universo'' del que restaremos los casos malos. Necesito
+contarlo primero porque la técnica de complemento requiere conocer el total antes de descontar.
+
+\textbf{¿Qué tomamos?} Tomamos $560$ como total sin restricción de tope.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Descontar el evento malo $x_1\ge 6$}
+\textbf{Qué hago:} cuento las soluciones que violan $x_1\le 5$, es decir las que cumplen $x_1\ge 6$, y
+las resto.
+
+\textbf{¿De dónde sale?} De nuevo un cambio de variable: $x_1'=x_1-6\ge 0$ convierte la condición en
+una variable libre y baja el total en $6$:
+\[
+(x_1'+6)+x_2'+x_3+x_4=13 \quad\Longrightarrow\quad x_1'+x_2'+x_3+x_4=7,
+\]
+y por barras y estrellas con $n=7$, $k=4$:
+\[
+\binom{7+4-1}{3}=\binom{10}{3}=\frac{10\cdot 9\cdot 8}{6}=\frac{720}{6}=120.
+\]
+
+\textbf{¿Por qué?} Solo hay \emph{un} evento malo (la única cota superior es sobre $x_1$), así que la
+inclusión--exclusión se reduce a una simple resta: no hay intersecciones que corregir. Esta es la
+ventaja de haber absorbido primero la cota inferior.
+
+\textbf{¿Qué tomamos?} Tomamos $120$ soluciones malas.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Cerrar la cuenta}
+\textbf{Qué hago:} resto el conteo malo del universo.
+
+\textbf{¿De dónde sale?} De la regla del complemento: si $U$ es el conjunto de soluciones de
+$x_1+x_2'+x_3+x_4=13$ y $A=\{x_1\ge 6\}\subseteq U$, entonces
+$\#\{x_1\le 5\}=|U|-|A|=560-120=440$.
+
+\textbf{¿Por qué?} Cada solución de $U$ cumple exactamente una de las dos cosas: $x_1\le 5$ o
+$x_1\ge 6$. No hay solapamiento ni huecos, así que la resta es exacta. Además esto confirma la
+convención discutida en el Ejercicio 1: el $440$ oficial aparece justamente con $\mathbb{N}$
+incluyendo el cero.
+
+\textbf{¿Qué tomamos?} Tomamos $440$, que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+La ecuación $x_1+x_2+x_3+x_4=20$ con $x_1\le 5$ y $x_2>6$ tiene
+$\binom{16}{3}-\binom{10}{3}=560-120=440$ soluciones naturales. \hfill (R/ 440)
+\end{resp}
+
+\section*{Ejercicio 3}
+
+\begin{quote}
+De un segmento que mide 10 cm se eligen 6 puntos al azar. Demuestre que hay al menos dos puntos que
+se encuentran a una distancia menor o igual a 2 cm.
+\end{quote}
+
+\begin{paso}{Paso 1 --- Formalizar el enunciado}
+\textbf{Qué hago:} traduzco el enunciado geométrico a lenguaje preciso. Identifico el segmento con el
+intervalo $[0,10]$ de la recta real y llamo $p_1,p_2,\dots ,p_6\in[0,10]$ a los seis puntos elegidos.
+La distancia entre dos de ellos es $|p_i-p_j|$. Hay que demostrar que existen índices $i\ne j$ con
+$|p_i-p_j|\le 2$.
+
+\textbf{¿De dónde sale?} De la identificación estándar de un segmento de longitud $10$ con $[0,10]$
+mediante una coordenada que mide la distancia al extremo izquierdo; con esa coordenada, la distancia
+entre dos puntos es el valor absoluto de la diferencia.
+
+\textbf{¿Por qué?} Porque ``al azar'' no juega ningún papel aquí: el enunciado pide una propiedad que
+debe valer para \emph{cualquier} elección de seis puntos, no una probabilidad. Es un enunciado de tipo
+``existe'', y los enunciados de existencia sin construcción explícita son el terreno natural del
+principio del palomar.
+
+\textbf{¿Qué tomamos?} Tomamos como objetivo: probar que toda elección de $6$ puntos en $[0,10]$
+contiene dos a distancia $\le 2$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Diseñar las cajas del palomar}
+\textbf{Qué hago:} particiono $[0,10]$ en cinco subintervalos consecutivos de longitud $2$:
+\[
+C_1=[0,2],\quad C_2=(2,4],\quad C_3=(4,6],\quad C_4=(6,8],\quad C_5=(8,10].
+\]
+
+\textbf{¿De dónde sale?} De la meta que quiero alcanzar: necesito cajas cuyo ``diámetro'' sea a lo
+sumo $2$, porque esa es la cota que pide el problema. Con longitud total $10$ y cajas de longitud $2$
+resultan $10/2=5$ cajas. La elección de intervalos semiabiertos (cerrados por la derecha, abiertos
+por la izquierda salvo el primero) es para que la partición sea exacta: cada punto de $[0,10]$
+pertenece a una y solo una caja.
+
+\textbf{¿Por qué?} Si dos puntos caen en la misma caja $C_r$, ambos están dentro de un intervalo de
+longitud $2$, y dos puntos de un intervalo de longitud $2$ distan a lo sumo $2$. Es decir, las cajas
+están fabricadas justamente para forzar la conclusión deseada.
+
+\textbf{¿Qué tomamos?} Tomamos $c=5$ cajas, cada una de longitud $2$, que cubren todo $[0,10]$ sin
+solaparse.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Aplicar el principio del palomar}
+\textbf{Qué hago:} distribuyo los $6$ puntos entre las $5$ cajas y aplico el principio del palomar.
+
+\textbf{¿De dónde sale?} Del principio del palomar: si $p$ objetos se reparten en $c$ cajas y $p>c$,
+alguna caja contiene al menos dos objetos. Su justificación es por contradicción: si toda caja tuviera
+a lo sumo un objeto, el total de objetos sería a lo sumo $c$, contradiciendo $p>c$. Aquí
+$p=6$ puntos y $c=5$ cajas, y en efecto $6>5$.
+
+\textbf{¿Por qué?} La aplicación es legítima porque la asignación ``punto $\mapsto$ caja que lo
+contiene'' está bien definida (la partición del Paso 2 asigna a cada punto exactamente una caja) y
+está definida para los seis puntos (las cajas cubren todo el segmento).
+
+\textbf{¿Qué tomamos?} Tomamos la conclusión intermedia: existe un índice $r\in\{1,\dots ,5\}$ y dos
+puntos distintos $p_i,p_j$ con $p_i,p_j\in C_r$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Concluir la desigualdad y cerrar la demostración}
+\textbf{Qué hago:} acoto la distancia de esos dos puntos que comparten caja.
+
+\textbf{¿De dónde sale?} Si $C_r$ tiene extremos $a$ y $a+2$, entonces $a\le p_i\le a+2$ y
+$a\le p_j\le a+2$. Restando las desigualdades se obtiene
+\[
+-2\le p_i-p_j\le 2 \quad\Longrightarrow\quad |p_i-p_j|\le 2.
+\]
+
+\textbf{¿Por qué?} Porque la longitud del intervalo es exactamente la máxima distancia posible entre
+dos de sus puntos; el peor caso es que uno esté en cada extremo, y aun entonces la distancia es $2$,
+que satisface ``menor o igual a 2''. Nótese que la cota es óptima con este método: seis puntos
+colocados en $0,2,4,6,8,10$ dan distancias mínimas exactamente iguales a $2$, lo que muestra que no se
+puede mejorar a ``estrictamente menor que 2''.
+
+\textbf{¿Qué tomamos?} Tomamos la conclusión final: existen dos de los seis puntos a distancia
+$\le 2$ cm, que es lo que se quería demostrar. $\blacksquare$
+\end{paso}
+
+\begin{resp}
+Partiendo $[0,10]$ en las cinco cajas $[0,2],(2,4],(4,6],(6,8],(8,10]$ de longitud $2$, y siendo
+$6>5$, el principio del palomar garantiza que dos de los seis puntos caen en la misma caja; dos puntos
+de un intervalo de longitud $2$ distan a lo sumo $2$ cm. Por lo tanto siempre hay al menos dos puntos
+a distancia menor o igual a $2$ cm. $\blacksquare$
+\end{resp}
+
+\section*{Ejercicio 4}
+
+\begin{quote}
+Explore algunos casos y descubra una fórmula para el total de diagonales (líneas entre dos vértices no
+adyacentes) de un polígono convexo de $n$ lados. Luego use principios de conteo para demostrar su
+fórmula. \hfill R/ $\dfrac{n(n-3)}{2}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Explorar casos pequeños}
+\textbf{Qué hago:} cuento a mano las diagonales de los polígonos convexos con $n=3,4,5,6$ lados,
+listando explícitamente los segmentos para no equivocarme. Etiqueto los vértices $V_1,\dots ,V_n$ en
+orden alrededor del polígono, de modo que $V_i$ y $V_{i+1}$ son adyacentes (y también $V_n$ con
+$V_1$).
+
+\textbf{¿De dónde sale?} De la definición del enunciado: una diagonal une dos vértices \emph{no}
+adyacentes. Entonces basta listar todas las parejas de vértices y descartar las consecutivas.
+
+\medskip
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|c|l|c|l|c|}
+\hline
+$n$ & Polígono & Pares $\binom{n}{2}$ & Diagonales listadas & Total \\ \hline
+$3$ & triángulo & $3$ & ninguna (todos los pares son lados) & $0$ \\ \hline
+$4$ & cuadrilátero & $6$ & $V_1V_3,\;V_2V_4$ & $2$ \\ \hline
+$5$ & pentágono & $10$ & $V_1V_3,V_1V_4,V_2V_4,V_2V_5,V_3V_5$ & $5$ \\ \hline
+$6$ & hexágono & $15$ & $V_1V_3,V_1V_4,V_1V_5,V_2V_4,V_2V_5,$ & $9$ \\
+    &            &      & $V_2V_6,V_3V_5,V_3V_6,V_4V_6$ & \\ \hline
+\end{tabular}
+\end{center}
+\medskip
+
+\textbf{¿Por qué?} La exploración no demuestra nada por sí sola, pero sirve para dos cosas: sugerir la
+fórmula y, sobre todo, dar casos de prueba con los que verificar la fórmula que después demostremos.
+Obsérvese ya el patrón: en cada fila, Total $=\binom{n}{2}-n$, pues $3-3=0$, $6-4=2$, $10-5=5$ y
+$15-6=9$.
+
+\textbf{¿Qué tomamos?} Tomamos los datos $D(3)=0$, $D(4)=2$, $D(5)=5$, $D(6)=9$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Conjeturar la fórmula}
+\textbf{Qué hago:} busco una expresión cerrada $D(n)$ compatible con los cuatro valores obtenidos.
+
+\textbf{¿De dónde sale?} Del patrón detectado: en todos los casos el total de diagonales es el número
+de pares de vértices menos el número de lados, o sea $D(n)=\binom{n}{2}-n$. Desarrollando,
+\[
+\binom{n}{2}-n=\frac{n(n-1)}{2}-n=\frac{n(n-1)-2n}{2}=\frac{n^2-n-2n}{2}=\frac{n^2-3n}{2}=\frac{n(n-3)}{2}.
+\]
+
+\textbf{¿Por qué?} La conjetura se valida contra la tabla: $\frac{3\cdot 0}{2}=0$,
+$\frac{4\cdot 1}{2}=2$, $\frac{5\cdot 2}{2}=5$ y $\frac{6\cdot 3}{2}=9$. Coincide en los cuatro casos,
+así que es razonable creerla; pero cuatro coincidencias no son una demostración, y por eso sigue el
+Paso 3.
+
+\textbf{¿Qué tomamos?} Tomamos como conjetura $D(n)=\dfrac{n(n-3)}{2}$ para todo $n\ge 3$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Demostración por complemento (todos los segmentos menos los lados)}
+\textbf{Qué hago:} demuestro la fórmula contando primero todos los segmentos entre vértices y
+restando los que no son diagonales.
+
+\textbf{¿De dónde sale?} Sea $P$ un polígono convexo con vértices $V_1,\dots ,V_n$, $n\ge 3$. Todo
+segmento con extremos en dos vértices distintos queda determinado por el conjunto $\{V_i,V_j\}$ de sus
+extremos, sin importar el orden en que se nombren; además, por convexidad, vértices distintos dan
+segmentos distintos (no hay tres vértices alineados, así que ningún par produce el mismo segmento que
+otro). Por la definición de combinación, el número de tales conjuntos de dos elementos tomados de $n$
+es
+\[
+\binom{n}{2}=\frac{n(n-1)}{2}.
+\]
+De esos segmentos, los que \emph{no} son diagonales son exactamente los lados. Los lados corresponden
+a los pares de vértices consecutivos $\{V_1,V_2\},\{V_2,V_3\},\dots ,\{V_{n-1},V_n\},\{V_n,V_1\}$: hay
+uno por cada vértice (el lado que arranca en él siguiendo el recorrido), es decir $n$ lados, todos
+distintos entre sí. Como los conjuntos ``lados'' y ``diagonales'' son disjuntos y su unión es el
+total de segmentos, por la regla de la suma
+\[
+\binom{n}{2}=\underbrace{n}_{\text{lados}}+D(n)
+\quad\Longrightarrow\quad
+D(n)=\binom{n}{2}-n=\frac{n(n-1)}{2}-n=\frac{n(n-3)}{2}.
+\]
+
+\textbf{¿Por qué?} La partición en ``lados'' y ``diagonales'' es exhaustiva y excluyente por la propia
+definición del enunciado: un segmento entre dos vértices une o bien vértices adyacentes (y es un lado)
+o bien vértices no adyacentes (y es una diagonal); no hay tercera posibilidad ni traslape. Eso
+legitima la regla de la suma y la resta que de ella se deduce.
+
+\textbf{¿Qué tomamos?} Tomamos demostrado que $D(n)=\dfrac{n(n-3)}{2}$ para todo $n\ge 3$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Segunda demostración por doble conteo}
+\textbf{Qué hago:} demuestro la misma fórmula por un camino distinto, contando pares
+(vértice, diagonal que sale de él), para confirmar el resultado y explicar el factor $\tfrac12$.
+
+\textbf{¿De dónde sale?} Fijemos un vértice $V_i$. Podemos unirlo con los otros $n-1$ vértices, pero
+tres de esas uniones no son diagonales: la unión consigo mismo no existe (ya está descartada), y las
+uniones con sus dos vecinos $V_{i-1}$ y $V_{i+1}$ son lados. Por lo tanto de cada vértice salen
+exactamente $n-3$ diagonales. Contando el conjunto
+\[
+S=\{(V,d)\;:\; d \text{ es una diagonal y } V \text{ es un extremo de } d\}
+\]
+de dos maneras: agrupando por vértice, $|S|=n(n-3)$; agrupando por diagonal, cada diagonal aporta
+exactamente $2$ pares (sus dos extremos), luego $|S|=2D(n)$. Igualando,
+\[
+2D(n)=n(n-3)\quad\Longrightarrow\quad D(n)=\frac{n(n-3)}{2}.
+\]
+
+\textbf{¿Por qué?} El doble conteo es válido porque $S$ es un único conjunto finito y ambas maneras lo
+recorren íntegramente sin repetir. El factor $2$ que aparece es la explicación conceptual del
+denominador de la fórmula: cada diagonal se ``ve'' desde sus dos extremos y por eso se contaría dos
+veces si solo sumáramos $n-3$ por vértice.
+
+\textbf{¿Qué tomamos?} Tomamos la fórmula confirmada por dos métodos independientes, y verificada
+además contra la tabla del Paso 1. $\blacksquare$
+\end{paso}
+
+\begin{resp}
+El total de diagonales de un polígono convexo de $n$ lados ($n\ge 3$) es
+\[
+D(n)=\binom{n}{2}-n=\frac{n(n-1)}{2}-n=\frac{n(n-3)}{2},
+\]
+lo cual concuerda con la exploración $D(3)=0$, $D(4)=2$, $D(5)=5$, $D(6)=9$.
+\hfill \Big(R/ $\tfrac{n(n-3)}{2}$\Big)
+\end{resp}
+
+\section*{Ejercicio 5}
+
+\begin{quote}
+Un polinomio entero de grado 8 tiene la forma $p(x)=\displaystyle\sum_{i=0}^{8} a_i x^i$, con
+$a_i\in\mathbb{Z}$. Determine la cantidad de polinomios enteros de grado 8 que cumplen
+simultáneamente las siguientes condiciones: \hfill R/ 84\\
+$\bullet$ $a_i=1 \vee a_i=-1$\\
+$\bullet$ $\displaystyle\sum_{i=0}^{8} a_i = 3$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Identificar qué objeto se está contando}
+\textbf{Qué hago:} determino con precisión qué es una ``configuración'' aquí. Un polinomio
+$p(x)=\sum_{i=0}^{8}a_i x^i$ queda completamente determinado por la lista ordenada de sus
+coeficientes $(a_0,a_1,a_2,\dots ,a_8)$, y dos listas distintas dan polinomios distintos.
+
+\textbf{¿De dónde sale?} De la igualdad de polinomios: dos polinomios son iguales si y solo si
+coinciden coeficiente a coeficiente. Por lo tanto contar polinomios que cumplen las condiciones es
+exactamente contar tuplas $(a_0,\dots ,a_8)$ que las cumplen.
+
+\textbf{¿Por qué?} Este paso evita el error clásico de contar ``cuántos $-1$ hay'' como si el orden no
+importara: sí importa, porque $-x^0+x^1$ y $x^0-x^1$ son polinomios distintos. Lo que se cuenta son
+tuplas ordenadas, aunque el criterio que las selecciona dependa solo de una cantidad global.
+
+\textbf{¿Qué tomamos?} Tomamos que hay $9$ coeficientes (los índices $i=0,1,\dots ,8$, que son
+$8-0+1=9$ valores), cada uno perteneciente a $\{1,-1\}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Traducir la condición de la suma a un conteo de signos}
+\textbf{Qué hago:} llamo $k$ a la cantidad de índices $i$ con $a_i=-1$ y expreso la suma total en
+términos de $k$.
+
+\textbf{¿De dónde sale?} Si $k$ coeficientes valen $-1$, entonces los restantes $9-k$ valen $1$
+(porque cada coeficiente toma uno de los dos valores y no hay otra opción). Sumando por grupos:
+\[
+\sum_{i=0}^{8} a_i = \underbrace{(9-k)\cdot 1}_{\text{los que valen }+1}\;+\;\underbrace{k\cdot(-1)}_{\text{los que valen }-1}
+= 9-k-k = 9-2k.
+\]
+
+\textbf{¿Por qué?} Porque la suma no depende de \emph{cuáles} coeficientes son negativos sino solo de
+\emph{cuántos} lo son: la suma es invariante ante reordenar los signos. Eso convierte una condición
+sobre nueve variables en una sola ecuación con una incógnita entera $k$.
+
+\textbf{¿Qué tomamos?} Tomamos la traducción $\sum a_i = 9-2k$, con $k\in\{0,1,\dots ,9\}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Resolver para $k$}
+\textbf{Qué hago:} impongo la condición del enunciado y despejo.
+
+\textbf{¿De dónde sale?} De igualar la expresión anterior al valor pedido:
+\[
+9-2k=3 \;\Longrightarrow\; -2k = 3-9 = -6 \;\Longrightarrow\; k=\frac{-6}{-2}=3.
+\]
+
+\textbf{¿Por qué?} La ecuación es lineal y tiene solución única, así que no hay que considerar varios
+casos: la condición ``la suma vale $3$'' es \emph{equivalente} a ``exactamente tres coeficientes valen
+$-1$''. Conviene además verificar la coherencia: $k=3$ está en el rango permitido $0\le k\le 9$ y es
+entero, así que hay configuraciones posibles. (Si el enunciado hubiese pedido suma $2$, saldría
+$k=3.5$, imposible, y la respuesta sería $0$: la paridad de $9-2k$ obliga a que la suma sea impar.)
+
+\textbf{¿Qué tomamos?} Tomamos $k=3$: exactamente tres de los nueve coeficientes valen $-1$ y los
+otros seis valen $1$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Contar las tuplas con exactamente tres coeficientes iguales a $-1$}
+\textbf{Qué hago:} cuento de cuántas maneras se pueden elegir esos tres índices.
+
+\textbf{¿De dónde sale?} Construir un polinomio válido equivale a decidir \emph{qué} subconjunto de
+$3$ índices, dentro de los $9$ disponibles $\{0,1,\dots ,8\}$, recibe el signo $-1$; el resto queda
+determinado automáticamente con signo $+1$. Elegir un subconjunto de tamaño $3$ de un conjunto de $9$
+elementos, sin importar el orden y sin repetición, es una combinación:
+\[
+\binom{9}{3}=\frac{9!}{3!\,6!}=\frac{9\cdot 8\cdot 7}{3\cdot 2\cdot 1}=\frac{504}{6}=84.
+\]
+
+\textbf{¿Por qué?} Es combinación y no permutación porque el conjunto de posiciones negativas
+$\{0,2,5\}$ describe el mismo polinomio que $\{5,0,2\}$: solo importa cuáles posiciones son negativas,
+no en qué orden se eligieron. Y la correspondencia ``subconjunto $\leftrightarrow$ polinomio válido''
+es biyectiva: distintos subconjuntos dan coeficientes distintos, y todo polinomio válido determina su
+subconjunto de posiciones negativas.
+
+\textbf{¿Qué tomamos?} Tomamos $84$ polinomios.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Verificar la condición de grado 8}
+\textbf{Qué hago:} compruebo que todos los $84$ candidatos son efectivamente de grado $8$.
+
+\textbf{¿De dónde sale?} El grado es $8$ si y solo si el coeficiente principal $a_8$ es distinto de
+cero. Pero por hipótesis $a_8\in\{1,-1\}$, y ninguno de esos dos valores es $0$.
+
+\textbf{¿Por qué?} Este chequeo importa porque en otros problemas la restricción de grado obliga a
+descartar casos (cuando el coeficiente principal puede anularse), y ahí habría que restar. Aquí no
+hay nada que descartar, así que el conteo del paso anterior es final y no hace falta corregirlo.
+
+\textbf{¿Qué tomamos?} Tomamos que los $84$ polinomios cumplen las tres condiciones a la vez, en
+coincidencia con la respuesta oficial R/ 84.
+\end{paso}
+
+\begin{resp}
+Como cada $a_i\in\{1,-1\}$ y hay $9$ coeficientes, si $k$ de ellos valen $-1$ entonces
+$\sum_{i=0}^{8}a_i=9-2k$; imponer $9-2k=3$ da $k=3$. Por lo tanto hay
+\[
+\binom{9}{3}=\frac{9\cdot 8\cdot 7}{3\cdot 2\cdot 1}=84
+\]
+polinomios enteros de grado $8$ que cumplen ambas condiciones. \hfill (R/ 84)
+\end{resp}
+
+\end{document}

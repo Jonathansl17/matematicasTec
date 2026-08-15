@@ -1,0 +1,21 @@
+% Master — une todos los PDFs de las partes en un solo documento
+\documentclass[11pt]{article}
+\input{preamble}
+\usepackage{pdfpages}
+
+\title{Solucionario\\\large Lista de ejercicios de Probabilidad\\[4pt]\normalsize Capítulo 1 --- Introducción a teoría de conteo}
+\author{Resuelto paso a paso}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Conjuntos y operaciones (1--4),p01}]{../pdf/parte01_conjuntos_operaciones.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Diagramas de Venn y propiedades (5--8),p02}]{../pdf/parte02_venn_propiedades.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Cardinalidades (9--14),p03}]{../pdf/parte03_cardinalidades.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Múltiplos e inclusión-exclusión (15--26),p04}]{../pdf/parte04_inclusion_exclusion.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Principio de la suma y del palomar (27--32),p05}]{../pdf/parte05_palomar.pdf}
+
+\end{document}

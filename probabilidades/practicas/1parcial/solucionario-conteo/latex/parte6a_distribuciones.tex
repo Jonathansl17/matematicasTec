@@ -1,0 +1,693 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\begin{center}{\LARGE\bfseries Principios de conteo}\\[2pt]{\large Distribuciones --- Ejercicios 1--7}\end{center}
+
+\begin{teo}
+\textbf{Los cuatro casos de distribución (y de dónde sale cada fórmula).}
+
+Un problema de \emph{distribución} consiste en repartir $n$ objetos en $k$ recipientes (cajas, personas, cartucheras). Todo depende de dos preguntas: \emph{¿los objetos se distinguen entre sí?} y \emph{¿los recipientes se distinguen entre sí?} En esta práctica los recipientes \textbf{siempre son distintos} (son personas o cartucheras con nombre), así que lo único que cambia es si los objetos son idénticos o distintos.
+
+\medskip
+\textbf{Caso 1. Objetos idénticos en cajas distintas, sin restricción.}
+Si los $n$ objetos son indistinguibles, un reparto queda completamente determinado por \emph{cuántos} objetos recibe cada caja, es decir por una solución entera
+\[
+x_1+x_2+\cdots+x_k=n,\qquad x_i\ge 0 .
+\]
+Para contar esas soluciones se usa el modelo de \textbf{barras y estrellas}: dibujamos los $n$ objetos como $n$ estrellas en fila y colocamos $k-1$ barras para separarlas en $k$ bloques; el primer bloque es lo que recibe la caja $1$, el segundo lo que recibe la caja $2$, etc. Por ejemplo, con $n=5$ y $k=3$, la fila $\star\star\,|\,\star\star\star\,|\,$ significa $x_1=2$, $x_2=3$, $x_3=0$. Cada reparto produce exactamente una fila de símbolos y cada fila produce exactamente un reparto: la correspondencia es uno a uno. La fila tiene $n+k-1$ posiciones y elegir el reparto equivale a \emph{escoger cuáles $n$ posiciones son estrellas} (o, lo que es lo mismo, cuáles $k-1$ son barras). Por eso
+\[
+\#\{\text{repartos}\}=C(n+k-1,\;n)=C(n+k-1,\;k-1).
+\]
+Nótese que es una \emph{combinación} y no una permutación porque las estrellas son iguales entre sí y las barras también: solo importa el patrón, no el orden en que las escribimos.
+
+\medskip
+\textbf{Caso 2. Objetos idénticos con mínimos por caja.}
+Si cada caja debe recibir al menos $1$ objeto, primero \emph{depositamos} un objeto en cada caja (eso se hace de una sola manera, porque los objetos son iguales) y luego repartimos libremente los $n-k$ restantes. Formalmente es el cambio de variable $y_i=x_i-1\ge 0$, que convierte $x_1+\cdots+x_k=n$ en $y_1+\cdots+y_k=n-k$, y por el Caso 1 esto da
+\[
+C\bigl((n-k)+k-1,\;n-k\bigr)=C(n-1,\;n-k)=C(n-1,\;k-1).
+\]
+Si el mínimo de una caja es $m$ en lugar de $1$, se hace el mismo cambio de variable restando $m$ únicamente a esa caja: se le adelantan $m$ objetos y se reparten los $n-m$ que sobran sin restricción. La idea es siempre la misma: \emph{pagar por adelantado lo obligatorio y contar libremente el resto}.
+
+Cuando lo que hay es un \emph{máximo} (``a lo sumo $t$''), no existe fórmula directa; se cuenta el complemento (``al menos $t+1$'', que sí se resuelve adelantando $t+1$ objetos) y se resta del total.
+
+\medskip
+\textbf{Caso 3. Objetos distintos en cajas distintas, sin restricción.}
+Si los objetos se distinguen, el reparto ya no se describe por cantidades sino por una \emph{función} que a cada objeto le asigna su caja. Construimos el reparto objeto por objeto: el objeto $1$ puede ir a cualquiera de las $k$ cajas, el objeto $2$ también a cualquiera de las $k$ (la decisión anterior no lo limita, porque las cajas no tienen cupo), y así hasta el objeto $n$. Por el principio del producto,
+\[
+\underbrace{k\cdot k\cdots k}_{n\ \text{factores}}=k^{\,n}.
+\]
+El exponente es el número de \emph{objetos} y la base el número de \emph{cajas}: quien elige es el objeto.
+
+\medskip
+\textbf{Caso 4. Objetos distintos con todas las cajas no vacías.}
+Aquí se cuentan las funciones \emph{sobreyectivas} de los $n$ objetos sobre las $k$ cajas. Se parte de las $k^n$ funciones totales y se descuentan las que dejan alguna caja vacía; como los conjuntos ``la caja $i$ quedó vacía'' se traslapan, hay que usar inclusión--exclusión:
+\[
+\#\{\text{sobreyecciones}\}=\sum_{i=0}^{k}(-1)^i\,C(k,i)\,(k-i)^n
+=k^n-C(k,1)(k-1)^n+C(k,2)(k-2)^n-\cdots
+\]
+El término $C(k,i)(k-i)^n$ cuenta: elijo $i$ cajas que prohíbo ($C(k,i)$ maneras) y reparto los $n$ objetos distintos entre las $k-i$ cajas permitidas ($(k-i)^n$ maneras, por el Caso 3). Los signos alternados corrigen que esos casos se contaron varias veces. Cuando $n=k$ la fórmula colapsa a $k!$, porque una sobreyección entre conjuntos del mismo tamaño es una biyección.
+
+\medskip
+\textbf{¿Por qué se multiplican los dos conteos cuando hay dos tipos de objeto?}
+En casi todos estos ejercicios hay dos clases de objeto (por ejemplo lapiceros idénticos \emph{y} lápices distintos). Repartir cada clase es un \emph{proceso independiente}: la manera en que se acomodan los lapiceros no restringe ni una sola de las maneras de acomodar los lápices, y viceversa (las cajas no tienen capacidad limitada ni las restricciones mezclan los dos tipos). Un reparto completo es entonces un par ordenado (reparto de la clase A, reparto de la clase B), y por el \textbf{principio del producto} el total es
+\[
+N=N_A\cdot N_B .
+\]
+La única precaución es que la restricción del enunciado se aplique a la clase correcta: ``al menos un lapicero y al menos un lápiz'' impone una condición a cada factor por separado, y ahí sí se multiplican los dos conteos ya restringidos.
+\end{teo}
+
+\begin{tip}
+\textbf{Fórmulas de bolsillo} ($n$ objetos, $k$ cajas distintas):
+\begin{itemize}[leftmargin=1.2cm]
+  \item Objetos idénticos, sin restricción: $C(n+k-1,\,n)$.
+  \item Objetos idénticos, cada caja $\ge 1$: $C(n-1,\,k-1)$.
+  \item Objetos idénticos, una caja con $\ge m$: adelanto $m$ y cuento $C\bigl((n-m)+k-1,\,n-m\bigr)$.
+  \item Objetos idénticos, una caja con $\le t$: total $-$ (esa caja con $\ge t+1$).
+  \item Objetos distintos, sin restricción: $k^{\,n}$.
+  \item Objetos distintos, una caja con exactamente $r$: $C(n,r)\,(k-1)^{\,n-r}$.
+  \item Objetos distintos, todas las cajas no vacías: $\sum_{i=0}^{k}(-1)^i C(k,i)(k-i)^n$.
+  \item Dos clases de objeto: se multiplican los conteos de cada clase.
+\end{itemize}
+\end{tip}
+
+% ==========================================================
+\section*{Ejercicio 1}
+
+\begin{quote}
+Se desea distribuir 17 lapiceros idénticos y 5 lápices de color distintos en 5 cartucheras distintas. Determine el número de maneras de distribuir estos objetos en las cartucheras si:\\
+\textit{a)} No hay restricciones \hfill R/ $18\,703\,125$\\
+\textit{b)} Cada cartuchera tendrá al menos un lapicero y al menos un lápiz de color \hfill R/ $218\,400$\\
+\textit{c)} Al menos una cartuchera tiene más de 4 lapiceros \hfill R/ $5\,950\cdot 5^5$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Tipificación: qué es idéntico, qué es distinto, cuántas cajas}
+\textbf{Qué hago:} separo los objetos en dos clases y fijo el número de cajas antes de escribir cualquier fórmula.
+Los \textbf{17 lapiceros son idénticos}: entre ellos no se distinguen, así que un reparto de lapiceros queda descrito solo por \emph{cuántos} recibe cada cartuchera. Los \textbf{5 lápices de color son distintos}: cada lápiz tiene identidad propia, así que un reparto de lápices queda descrito por \emph{a cuál cartuchera va cada lápiz}. Las \textbf{cajas son 5 cartucheras distintas}.
+\textbf{¿De dónde sale?} Las tres cifras ($17$, $5$, $5$) están literalmente en el enunciado; lo único que agrego es la clasificación ``idéntico / distinto'', que es la que decide la fórmula.
+\textbf{¿Por qué?} Porque las fórmulas de distribución no dependen del contexto sino de esta clasificación: los lapiceros caen en el modelo de barras y estrellas $C(n+k-1,n)$ y los lápices caen en el modelo de elección independiente $k^n$. Confundirlas es el error típico: usar $5^{17}$ para los lapiceros contaría como distintos objetos que no lo son.
+\textbf{¿Qué tomamos?} El esquema de trabajo: en cada inciso contaré por separado los lapiceros y los lápices, y multiplicaré, porque son procesos independientes.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a): lapiceros idénticos sin restricción}
+\textbf{Qué hago:} cuento las soluciones enteras no negativas de $x_1+x_2+x_3+x_4+x_5=17$, donde $x_i$ es el número de lapiceros de la cartuchera $i$.
+\[
+C(17+5-1,\;17)=C(21,17)=C(21,4).
+\]
+\textbf{¿De dónde sale?} El $17$ es el número de estrellas (lapiceros) y el $5-1=4$ el número de barras (separadores entre 5 cartucheras); la fila total mide $17+4=21$ símbolos y escogemos las $4$ posiciones de las barras.
+\textbf{¿Por qué?} Porque los lapiceros no se distinguen: dos repartos que dan la misma cantidad a cada cartuchera son \emph{el mismo} reparto, y eso es exactamente lo que cuenta barras y estrellas. Uso $C(21,4)$ en vez de $C(21,17)$ solo por comodidad aritmética, son iguales por simetría de las combinaciones.
+\textbf{¿Qué tomamos?}
+\[
+C(21,4)=\frac{21\cdot 20\cdot 19\cdot 18}{4\cdot 3\cdot 2\cdot 1}
+=\frac{143\,640}{24}=5985 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (a): lápices distintos sin restricción y producto final}
+\textbf{Qué hago:} reparto los 5 lápices distintos entre las 5 cartucheras y multiplico por el conteo del paso anterior.
+\[
+5^5=3125,\qquad N_a=5985\cdot 3125 .
+\]
+\textbf{¿De dónde sale?} La base $5$ son las cartucheras disponibles para cada lápiz y el exponente $5$ es la cantidad de lápices; el producto $5\cdot5\cdot5\cdot5\cdot5$ viene de decidir el destino de cada lápiz uno tras otro.
+\textbf{¿Por qué?} Porque cada lápiz elige cartuchera libremente y su elección no limita la de los demás (no hay cupos), así que aplica el principio del producto con $5$ opciones repetidas. Y multiplico los dos conteos porque un reparto completo es un par (colocación de lapiceros, colocación de lápices) y ambas colocaciones son independientes entre sí.
+\textbf{¿Qué tomamos?}
+\[
+5985\cdot 3125=5985\cdot 3000+5985\cdot 125=17\,955\,000+748\,125=18\,703\,125 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (b): cada cartuchera con al menos un lapicero}
+\textbf{Qué hago:} impongo $x_i\ge 1$ para las cinco cartucheras mediante el cambio de variable $y_i=x_i-1$.
+\[
+x_1+\cdots+x_5=17,\;x_i\ge1
+\iff y_1+\cdots+y_5=17-5=12,\;y_i\ge 0,
+\]
+\[
+C(12+5-1,\,12)=C(16,12)=C(16,4).
+\]
+\textbf{¿De dónde sale?} El $12$ sale de $17-5$: le entrego de una vez un lapicero obligatorio a cada una de las 5 cartucheras y me quedan $12$ lapiceros libres. El $5-1=4$ vuelve a ser el número de barras.
+\textbf{¿Por qué?} Porque ese adelanto se puede hacer de una sola manera (los lapiceros son idénticos, no hay que decidir \emph{cuál} lapicero entregar) y después el problema queda idéntico al caso sin restricción. Es la fórmula $C(n-1,k-1)=C(16,4)$.
+\textbf{¿Qué tomamos?}
+\[
+C(16,4)=\frac{16\cdot 15\cdot 14\cdot 13}{24}=\frac{43\,680}{24}=1820 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (b): cada cartuchera con al menos un lápiz de color}
+\textbf{Qué hago:} cuento los repartos de 5 lápices distintos en 5 cartucheras sin dejar ninguna vacía.
+\[
+\sum_{i=0}^{5}(-1)^iC(5,i)(5-i)^5=5!=120 .
+\]
+\textbf{¿De dónde sale?} Son $5$ lápices y $5$ cartucheras: hay tantos objetos como cajas, y la condición ``ninguna vacía'' obliga a que cada cartuchera reciba exactamente uno.
+\textbf{¿Por qué?} Porque una función sobreyectiva entre dos conjuntos de igual tamaño es forzosamente biyectiva; contar biyecciones de 5 lápices a 5 cartucheras es contar permutaciones. Aquí no sirve $5^5$, porque ese número incluye repartos con cartucheras vacías.
+\textbf{¿Qué tomamos?} $5!=5\cdot4\cdot3\cdot2\cdot1=120$, y por el principio del producto
+\[
+N_b=1820\cdot 120=218\,400 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso (c): complemento para ``más de 4 lapiceros''}
+\textbf{Qué hago:} ``al menos una cartuchera tiene más de 4 lapiceros'' es la negación de ``todas tienen a lo sumo 4''. Cuento el caso prohibido y lo resto del total.
+\[
+x_1+\cdots+x_5=17,\quad 0\le x_i\le 4 .
+\]
+Con el cambio $z_i=4-x_i\ge0$: $\;\sum z_i=20-17=3$, luego $C(3+4,4)=C(7,4)=35$.
+\textbf{¿De dónde sale?} El $20$ es $5\cdot 4$, el máximo total permitido si cada cartuchera llega a su tope de 4; el $3$ es lo que ``falta'' para llegar a ese tope, $20-17$. El $C(7,4)$ es barras y estrellas con $n=3$ y $k=5$: $C(3+5-1,5-1)$.
+\textbf{¿Por qué?} Porque contar directamente ``al menos una supera 4'' obligaría a inclusión--exclusión sobre cuál cartuchera se pasa; el complemento es mucho más limpio. Y el truco $z_i=4-x_i$ funciona porque la cota superior se vuelve automáticamente $z_i\le 4$, que ya se cumple sola al ser $\sum z_i=3$.
+\textbf{¿Qué tomamos?} $C(7,4)=\dfrac{7\cdot6\cdot5\cdot4}{24}=35$ repartos ``malos''.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Inciso (c): resta y producto}
+\textbf{Qué hago:} resto los repartos malos del total de lapiceros y multiplico por los lápices, que siguen sin restricción.
+\[
+5985-35=5950,\qquad N_c=5950\cdot 5^5 .
+\]
+\textbf{¿De dónde sale?} El $5985$ es el total de repartos de lapiceros del Paso 2, el $35$ es el conteo del Paso 6 y el $5^5$ es el reparto libre de los 5 lápices distintos (el enunciado no les pone ninguna condición).
+\textbf{¿Por qué?} Porque la restricción del inciso habla solo de lapiceros; los lápices quedan como en el inciso (a) y por independencia se multiplican.
+\textbf{¿Qué tomamos?} $5950\cdot 3125=18\,593\,750$, que es la forma factorizada $5950\cdot 5^5$ del folleto.
+\end{paso}
+
+\begin{resp}
+\textbf{(a)} $C(21,4)\cdot 5^5=5985\cdot 3125=18\,703\,125$.\\
+\textbf{(b)} $C(16,4)\cdot 5!=1820\cdot 120=218\,400$.\\
+\textbf{(c)} $\bigl(C(21,4)-C(7,4)\bigr)\cdot 5^5=5950\cdot 5^5=18\,593\,750$.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 2}
+
+\begin{quote}
+Una confitería desea premiar a sus mejores clientes: Juan, María y Lucía. Para ello, se propone distribuir entre ellos 5 frutinis (cada uno de sabor distinto) y 12 chupas (todas diferentes entre sí) ¿De cuántas maneras se pueden distribuir estos confites sí?\\
+\textit{a)} A Lucía le corresponde a lo sumo un frutini \hfill R/ $59\,521\,392$\\
+\textit{b)} A Juan le corresponden al menos 10 chupas \hfill R/ $70\,227$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Tipificación}
+\textbf{Qué hago:} clasifico las dos clases de confite y cuento las cajas.
+Los \textbf{5 frutinis son distintos} (cada uno de sabor distinto) y las \textbf{12 chupas también son distintas} (``todas diferentes entre sí''). Las \textbf{cajas son 3 personas distintas}: Juan, María y Lucía.
+\textbf{¿De dónde sale?} El enunciado insiste en ``sabor distinto'' y ``todas diferentes'', que es la señal explícita de objetos distinguibles; el $3$ sale de los tres nombres.
+\textbf{¿Por qué?} Porque al ser ambas clases de objetos distintos, la fórmula base para cada una es $3^{\,n}$ (cada confite escoge dueño), y las restricciones ``a lo sumo'' o ``al menos'' se traducen en escoger \emph{cuáles} confites recibe la persona señalada, es decir en combinaciones $C(n,r)$ multiplicadas por $2^{\,n-r}$ para el resto.
+\textbf{¿Qué tomamos?} Frutinis: $3^5$ sin restricción. Chupas: $3^{12}$ sin restricción. Y en cada inciso solo una de las dos clases queda restringida; la otra entra completa.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a): frutinis con ``a lo sumo uno para Lucía''}
+\textbf{Qué hago:} separo en los dos casos posibles compatibles con ``a lo sumo 1'': Lucía recibe $0$ frutinis o exactamente $1$.
+\[
+\text{(0 frutinis)}=C(5,0)\cdot 2^5=1\cdot 32=32,\qquad
+\text{(1 frutini)}=C(5,1)\cdot 2^4=5\cdot 16=80 .
+\]
+\textbf{¿De dónde sale?} El $C(5,r)$ escoge cuáles de los 5 frutinis van a Lucía; el $2^{5-r}$ reparte los frutinis restantes entre las \emph{otras dos} personas (Juan y María), que son $2$ opciones para cada uno. Así $2^5=32$ y $2^4=16$.
+\textbf{¿Por qué?} Porque ``a lo sumo 1'' es una unión de dos casos disjuntos (recibir 0 y recibir 1 no pueden ocurrir a la vez), y por el principio de la suma se suman. Uso combinación y no permutación porque el conjunto de frutinis que se lleva Lucía no tiene orden interno.
+\textbf{¿Qué tomamos?} $32+80=112$ maneras de repartir los frutinis.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (a): chupas libres y producto}
+\textbf{Qué hago:} reparto las 12 chupas distintas sin restricción y multiplico.
+\[
+3^{12}=531\,441,\qquad N_a=112\cdot 531\,441 .
+\]
+\textbf{¿De dónde sale?} Base $3$ (las tres personas), exponente $12$ (las doce chupas distintas). El valor $3^{12}$ se obtiene como $3^6\cdot 3^6=729\cdot 729=531\,441$.
+\textbf{¿Por qué?} Porque el inciso (a) solo restringe los frutinis; las chupas siguen totalmente libres. Y multiplico porque el reparto de frutinis y el de chupas son procesos independientes.
+\textbf{¿Qué tomamos?}
+\[
+112\cdot 531\,441=100\cdot531\,441+12\cdot531\,441=53\,144\,100+6\,377\,292=59\,521\,392 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (b): chupas con ``al menos 10 para Juan''}
+\textbf{Qué hago:} desgloso ``al menos 10'' en los casos $10$, $11$ y $12$ chupas para Juan.
+\[
+C(12,10)\cdot 2^2+C(12,11)\cdot 2^1+C(12,12)\cdot 2^0 .
+\]
+\[
+C(12,10)=C(12,2)=\frac{12\cdot 11}{2}=66,\quad C(12,11)=12,\quad C(12,12)=1 .
+\]
+\[
+66\cdot 4+12\cdot 2+1\cdot 1=264+24+1=289 .
+\]
+\textbf{¿De dónde sale?} $C(12,r)$ escoge cuáles chupas se lleva Juan; $2^{12-r}$ reparte las que sobran entre María y Lucía ($2$ destinos por chupa). Con $r=10$ sobran $2$ chupas, de ahí $2^2=4$; con $r=11$ sobra $1$, $2^1=2$; con $r=12$ no sobra ninguna, $2^0=1$.
+\textbf{¿Por qué?} Porque ``al menos 10'' con solo 12 chupas admite pocos casos, y contarlos directamente es más corto que el complemento. Los casos son disjuntos (Juan recibe una cantidad exacta), así que se suman.
+\textbf{¿Qué tomamos?} $289$ repartos válidos de las chupas.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (b): frutinis libres y producto}
+\textbf{Qué hago:} multiplico por el reparto libre de los frutinis.
+\[
+3^5=243,\qquad N_b=289\cdot 243 .
+\]
+\textbf{¿De dónde sale?} $3^5$ porque cada uno de los 5 frutinis distintos escoge entre 3 personas; $3^5=3\cdot3\cdot3\cdot3\cdot3=243$.
+\textbf{¿Por qué?} Porque en este inciso la restricción recae solo en las chupas; los frutinis vuelven al caso 3 (objetos distintos, sin restricción).
+\textbf{¿Qué tomamos?}
+\[
+289\cdot 243=289\cdot 200+289\cdot 43=57\,800+12\,427=70\,227 .
+\]
+\end{paso}
+
+\begin{resp}
+\textbf{(a)} $\bigl(2^5+C(5,1)2^4\bigr)\cdot 3^{12}=112\cdot 531\,441=59\,521\,392$.\\
+\textbf{(b)} $\bigl(C(12,10)2^2+C(12,11)2+C(12,12)\bigr)\cdot 3^5=289\cdot 243=70\,227$.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 3}
+
+\begin{quote}
+En una fiesta de fin de año, se desea distribuir 15 regalos sorpresa distintos y 7 cajas de chocolate idénticas. Estos serán distribuidos a 9 personas. Determine el número de manera de distribuirlos si:\\
+\textit{a)} No hay restricciones \hfill R/ $9^{15}\cdot C(15,7)$\\
+\textit{b)} A la persona $X$ le corresponde a lo sumo 5 regalos sorpresa y exactamente 3 cajas de chocolates \hfill R/ $C(11,4)\cdot[8^{15}\cdot C(15,0)+8^{14}\cdot C(15,1)+\ldots+8^{10}\cdot C(15,5)]$\\
+\textit{c)} Cada persona debe tener al menos un regalo sorpresa y a la persona $X$ le toca a lo sumo 2 cajas de chocolates \hfill R/ $9^{15}-[8^{15}\cdot C(9,1)-7^{15}\cdot C(9,2)+\ldots+0^{15}\cdot C(9,9)]$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Tipificación}
+\textbf{Qué hago:} identifico las dos clases y el número de cajas.
+Los \textbf{15 regalos sorpresa son distintos} y las \textbf{7 cajas de chocolate son idénticas}. Los recipientes son \textbf{9 personas distintas}.
+\textbf{¿De dónde sale?} Todo del enunciado: ``distintos'' para los regalos, ``idénticas'' para los chocolates, ``9 personas'' como destinatarios.
+\textbf{¿Por qué?} Porque esto fija de una vez las dos fórmulas base: regalos $\to 9^{15}$ (cada regalo elige persona) y chocolates $\to C(7+9-1,7)=C(15,7)$ (barras y estrellas con $n=7$ estrellas y $9-1=8$ barras).
+\textbf{¿Qué tomamos?} Ojo con una coincidencia peligrosa: el $15$ de $C(15,7)$ \emph{no} es el número de regalos, es $7+9-1$. Son dos quinces distintos.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a)}
+\textbf{Qué hago:} multiplico los dos conteos libres.
+\[
+N_a=9^{15}\cdot C(15,7).
+\]
+\textbf{¿De dónde sale?} $9^{15}$: base $9$ personas, exponente $15$ regalos distintos. $C(15,7)$: $n=7$ cajas idénticas, $k=9$ personas, $C(n+k-1,n)=C(7+9-1,7)=C(15,7)$.
+\textbf{¿Por qué?} Porque ninguna restricción liga las dos clases: repartir regalos y repartir chocolates son procesos independientes, y aplica el principio del producto.
+\textbf{¿Qué tomamos?} $C(15,7)=6435$ y $9^{15}=205\,891\,132\,094\,649$, de modo que
+\[
+N_a=9^{15}\cdot C(15,7)=1\,324\,909\,435\,029\,066\,315 .
+\]
+Se conserva la forma factorizada del folleto por ser mucho más legible.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (b): las cajas de chocolate de $X$}
+\textbf{Qué hago:} fijo que $X$ recibe exactamente 3 cajas y reparto las restantes.
+\[
+7-3=4 \text{ cajas idénticas entre las otras } 9-1=8 \text{ personas}:\quad C(4+8-1,4)=C(11,4).
+\]
+\textbf{¿De dónde sale?} El $4$ es $7-3$ (cajas que sobran tras darle 3 a $X$) y el $8$ son las personas distintas de $X$; barras y estrellas da $C(4+8-1,\,8-1)=C(11,7)=C(11,4)$.
+\textbf{¿Por qué?} Porque ``exactamente 3'' se resuelve retirando esas 3 cajas del conjunto y sacando a $X$ del reparto: si $X$ siguiera participando podría recibir más y violaría la condición. Al ser las cajas idénticas, elegir \emph{cuáles} 3 recibe $X$ no aporta variantes: hay una sola manera.
+\textbf{¿Qué tomamos?} $C(11,4)=\dfrac{11\cdot10\cdot9\cdot8}{24}=\dfrac{7920}{24}=330$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (b): los regalos de $X$, ``a lo sumo 5''}
+\textbf{Qué hago:} sumo los casos en que $X$ recibe $0,1,2,3,4$ o $5$ regalos.
+\[
+\sum_{r=0}^{5}C(15,r)\,8^{\,15-r}
+=8^{15}C(15,0)+8^{14}C(15,1)+8^{13}C(15,2)
+\]
+\[
++\,8^{12}C(15,3)+8^{11}C(15,4)+8^{10}C(15,5).
+\]
+\textbf{¿De dónde sale?} $C(15,r)$ escoge cuáles regalos se lleva $X$ (son distintos, por eso sí importa cuáles); $8^{15-r}$ reparte los demás entre las $8$ personas restantes, con $8$ opciones por regalo. Los coeficientes son $C(15,0)=1$, $C(15,1)=15$, $C(15,2)=105$, $C(15,3)=455$, $C(15,4)=1365$, $C(15,5)=3003$.
+\textbf{¿Por qué?} Porque ``a lo sumo 5'' con $15$ regalos genera solo $6$ casos disjuntos y contarlos directamente es más corto que el complemento (que tendría $10$ casos). Se suman por el principio de la suma.
+\textbf{¿Qué tomamos?} La suma vale $205\,096\,499\,544\,064$, y el resultado del inciso es
+\[
+N_b=C(11,4)\cdot\sum_{r=0}^{5}C(15,r)8^{15-r}=330\cdot 205\,096\,499\,544\,064=67\,681\,844\,849\,541\,120 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (c): regalos con todas las personas no vacías}
+\textbf{Qué hago:} cuento las sobreyecciones de 15 regalos distintos sobre 9 personas por inclusión--exclusión.
+\[
+\sum_{i=0}^{9}(-1)^iC(9,i)(9-i)^{15}
+=9^{15}-C(9,1)8^{15}+C(9,2)7^{15}-\cdots+C(9,9)0^{15}.
+\]
+\textbf{¿De dónde sale?} $C(9,i)$ elige las $i$ personas a las que les prohíbo recibir regalos y $(9-i)^{15}$ reparte los 15 regalos entre las $9-i$ personas permitidas. El último término $C(9,9)0^{15}=0$ corresponde a prohibirlas todas.
+\textbf{¿Por qué?} Porque ``cada persona al menos un regalo'' es exactamente la condición de sobreyectividad, y los sucesos ``la persona $i$ quedó sin regalos'' se traslapan: hay repartos que dejan a dos o tres personas vacías simultáneamente y se restarían de más. Los signos alternados reparan ese doble conteo.
+\textbf{¿Qué tomamos?} El valor de la suma es $24\,359\,586\,451\,200$ repartos de regalos.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso (c): cajas de chocolate con ``$X$ a lo sumo 2''}
+\textbf{Qué hago:} sumo los casos en que $X$ recibe $0$, $1$ o $2$ cajas idénticas, repartiendo el resto entre las otras $8$ personas.
+\[
+\sum_{j=0}^{2}C\bigl((7-j)+8-1,\;7-j\bigr)=C(14,7)+C(13,6)+C(12,5)
+=3432+1716+792=5940 .
+\]
+\textbf{¿De dónde sale?} Con $j$ cajas para $X$ quedan $7-j$ cajas idénticas para $8$ personas: barras y estrellas da $C((7-j)+8-1,\,7-j)$. Para $j=0$: $C(14,7)=3432$; para $j=1$: $C(13,6)=1716$; para $j=2$: $C(12,5)=792$.
+\textbf{¿Por qué?} Porque las cajas son idénticas y, por lo tanto, fijar la \emph{cantidad} que recibe $X$ agota la información; los tres casos son disjuntos y se suman. También se podía hacer por complemento: $C(15,7)-\;(X\text{ con}\ge3)=6435-C(12,4)\cdot\!$\,... pero el conteo directo es inmediato aquí.
+\textbf{¿Qué tomamos?} $5940$ repartos válidos de las cajas de chocolate.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Inciso (c): producto final}
+\textbf{Qué hago:} multiplico los dos conteos restringidos.
+\[
+N_c=\Bigl[\sum_{i=0}^{9}(-1)^iC(9,i)(9-i)^{15}\Bigr]\cdot\bigl[C(14,7)+C(13,6)+C(12,5)\bigr]
+=24\,359\,586\,451\,200\cdot 5940 .
+\]
+\textbf{¿De dónde sale?} El primer corchete es el Paso 5 (regalos) y el segundo el Paso 6 (cajas).
+\textbf{¿Por qué?} Porque el enunciado impone una condición a cada clase por separado (``cada persona al menos un regalo'' toca solo los regalos; ``$X$ a lo sumo 2 cajas'' toca solo los chocolates) y ninguna liga las dos clases; por independencia se multiplican.
+\textbf{¿Qué tomamos?} $N_c=144\,695\,943\,520\,128\,000$.
+\end{paso}
+
+\begin{nota}
+\textbf{Discrepancia en el inciso (c).} La respuesta oficial del folleto es
+\[
+9^{15}-[8^{15}\cdot C(9,1)-7^{15}\cdot C(9,2)+\ldots+0^{15}\cdot C(9,9)],
+\]
+que corresponde \emph{únicamente} al conteo de los regalos sorpresa (las sobreyecciones sobre las 9 personas) y no incluye el factor de las cajas de chocolate, pese a que el enunciado sí les impone la condición ``a $X$ le toca a lo sumo 2 cajas''. Con el mismo criterio usado en (a) y (b) —donde ambos factores sí aparecen— el resultado completo debería ser el del Paso 7, es decir el valor oficial multiplicado por $5940$. Se conserva la respuesta oficial tal cual; aquí se deja registrado que, a nuestro juicio, falta ese factor.
+\end{nota}
+
+\begin{resp}
+\textbf{(a)} $9^{15}\cdot C(15,7)=1\,324\,909\,435\,029\,066\,315$.\\
+\textbf{(b)} $C(11,4)\cdot\bigl[8^{15}C(15,0)+8^{14}C(15,1)+\cdots+8^{10}C(15,5)\bigr]=330\cdot 205\,096\,499\,544\,064=67\,681\,844\,849\,541\,120$.\\
+\textbf{(c)} Oficial: $9^{15}-\bigl[8^{15}C(9,1)-7^{15}C(9,2)+\cdots+0^{15}C(9,9)\bigr]=24\,359\,586\,451\,200$. \emph{Obtenido por nosotros} (incluyendo las cajas): $24\,359\,586\,451\,200\cdot 5940=144\,695\,943\,520\,128\,000$.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 4}
+
+\begin{quote}
+En una fiesta se desea distribuir 10 regalos sorpresa distintos y 15 cajas de chocolates idénticas. Estos serán distribuidos a 9 personas. Determine el número de maneras de distribuirlos si:\\
+\textit{a)} No hay restricciones \hfill R/ $9^{10}\cdot C(23,15)$\\
+\textit{b)} Cada persona debe tener al menos una caja de chocolates y a la persona $X$ le toca a lo sumo 2 regalos sorpresa \hfill R/ $C(14,6)\cdot(8^{10}\cdot C(10,0)+8^9\cdot C(10,1)+8^8\cdot C(10,2))$\\
+\textit{c)} A la persona $X$ le corresponde más de 2 regalos sorpresa y exactamente 3 cajas de chocolates \hfill R/ $[9^{10}-(8^{10}\cdot C(10,0)+8^9\cdot C(10,1)+8^8\cdot C(10,2))\cdot C(19,12)]$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Tipificación}
+\textbf{Qué hago:} clasifico y cuento cajas.
+\textbf{10 regalos sorpresa distintos}, \textbf{15 cajas de chocolates idénticas}, \textbf{9 personas distintas}.
+\textbf{¿De dónde sale?} Del enunciado, palabra por palabra.
+\textbf{¿Por qué?} Porque de ahí salen las dos fórmulas base: regalos $\to 9^{10}$ y chocolates $\to C(15+9-1,15)=C(23,15)$.
+\textbf{¿Qué tomamos?} Es el mismo esquema del ejercicio 3 con los papeles numéricos intercambiados: ahora hay más cajas idénticas ($15$) que objetos distintos ($10$).
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a)}
+\textbf{Qué hago:} multiplico ambos conteos libres.
+\[
+N_a=9^{10}\cdot C(23,15).
+\]
+\textbf{¿De dónde sale?} $9^{10}$: cada uno de los $10$ regalos distintos elige entre $9$ personas. $C(23,15)$: barras y estrellas con $n=15$ estrellas y $9-1=8$ barras, $15+8=23$ posiciones.
+\textbf{¿Por qué?} Sin restricciones, cada clase se cuenta con su modelo y ambos procesos son independientes.
+\textbf{¿Qué tomamos?} $9^{10}=3\,486\,784\,401$ y $C(23,15)=C(23,8)=490\,314$, luego
+\[
+N_a=3\,486\,784\,401\cdot 490\,314=1\,709\,619\,206\,791\,914 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (b): cada persona con al menos una caja}
+\textbf{Qué hago:} aplico el cambio de variable $y_i=x_i-1$ a las 15 cajas idénticas repartidas entre 9 personas.
+\[
+x_1+\cdots+x_9=15,\;x_i\ge1\iff y_1+\cdots+y_9=6,\;y_i\ge0,
+\]
+\[
+C(6+9-1,\,6)=C(14,6)=3003 .
+\]
+\textbf{¿De dónde sale?} El $6$ es $15-9$: se adelanta una caja obligatoria a cada una de las 9 personas y sobran $6$. El $C(14,6)$ es la fórmula $C(n-1,k-1)=C(14,8)$, igual a $C(14,6)$ por simetría.
+\textbf{¿Por qué?} Porque las cajas son idénticas y el adelanto se hace de una sola forma; después el problema queda sin restricción.
+\textbf{¿Qué tomamos?} $C(14,6)=\dfrac{14\cdot13\cdot12\cdot11\cdot10\cdot9}{720}=\dfrac{2\,162\,160}{720}=3003$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (b): regalos con ``$X$ a lo sumo 2''}
+\textbf{Qué hago:} sumo los casos $r=0,1,2$ regalos para $X$.
+\[
+8^{10}C(10,0)+8^{9}C(10,1)+8^{8}C(10,2)
+=1\,073\,741\,824+10\cdot134\,217\,728+45\cdot16\,777\,216 .
+\]
+\[
+=1\,073\,741\,824+1\,342\,177\,280+754\,974\,720=3\,170\,893\,824 .
+\]
+\textbf{¿De dónde sale?} $C(10,r)$ escoge cuáles regalos recibe $X$ ($C(10,0)=1$, $C(10,1)=10$, $C(10,2)=45$) y $8^{10-r}$ reparte los restantes entre las otras $8$ personas.
+\textbf{¿Por qué?} Porque los regalos son distintos, así que no basta decir ``cuántos''; hay que decir cuáles. Los tres casos son disjuntos y se suman.
+\textbf{¿Qué tomamos?} $3\,170\,893\,824$, y el inciso queda
+\[
+N_b=3003\cdot 3\,170\,893\,824=9\,522\,194\,153\,472 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (c): regalos con ``$X$ más de 2'' por complemento}
+\textbf{Qué hago:} resto del total de repartos de regalos los casos en que $X$ recibe $0$, $1$ o $2$.
+\[
+9^{10}-\bigl(8^{10}C(10,0)+8^9C(10,1)+8^8C(10,2)\bigr)=3\,486\,784\,401-3\,170\,893\,824=315\,890\,577 .
+\]
+\textbf{¿De dónde sale?} El minuendo es el total sin restricción del Paso 2 y el sustraendo es exactamente la suma del Paso 4.
+\textbf{¿Por qué?} Porque ``más de 2'' es la negación de ``a lo sumo 2'', y contar directamente $r=3,4,\ldots,10$ obligaría a ocho sumandos en vez de tres. El complemento es válido porque los dos sucesos son disjuntos y su unión es todo el espacio.
+\textbf{¿Qué tomamos?} $315\,890\,577$ repartos de regalos.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso (c): cajas con ``$X$ exactamente 3'' y producto}
+\textbf{Qué hago:} retiro 3 cajas para $X$ y reparto las $12$ restantes entre las otras $8$ personas.
+\[
+C(12+8-1,\,12)=C(19,12)=C(19,7)=50\,388 .
+\]
+\[
+N_c=315\,890\,577\cdot 50\,388=15\,917\,094\,393\,876 .
+\]
+\textbf{¿De dónde sale?} El $12$ es $15-3$ y el $8$ es $9-1$ (todas las personas menos $X$); barras y estrellas da $C(12+8-1,\,8-1)=C(19,7)$.
+\textbf{¿Por qué?} Porque ``exactamente 3'' obliga a sacar a $X$ del reparto posterior: si quedara dentro podría recibir una cuarta caja. Y multiplico ambos factores porque las dos condiciones actúan sobre clases distintas de objeto.
+\textbf{¿Qué tomamos?} $N_c=15\,917\,094\,393\,876$.
+\end{paso}
+
+\begin{nota}
+En la respuesta oficial de (c) el paréntesis de cierre está colocado de modo que $C(19,12)$ parece multiplicar solo al sustraendo:
+$[9^{10}-(8^{10}C(10,0)+8^9C(10,1)+8^8C(10,2))\cdot C(19,12)]$. La lectura correcta —y la que hace coherente al inciso— es
+$\bigl[9^{10}-\bigl(8^{10}C(10,0)+8^9C(10,1)+8^8C(10,2)\bigr)\bigr]\cdot C(19,12)$: primero se obtiene el conteo de regalos con ``$X$ recibe más de 2'' y \emph{después} se multiplica por el conteo de las cajas. Se trata de una errata de paréntesis en el folleto, no de un método distinto.
+\end{nota}
+
+\begin{resp}
+\textbf{(a)} $9^{10}\cdot C(23,15)=1\,709\,619\,206\,791\,914$.\\
+\textbf{(b)} $C(14,6)\cdot\bigl(8^{10}C(10,0)+8^9C(10,1)+8^8C(10,2)\bigr)=3003\cdot 3\,170\,893\,824=9\,522\,194\,153\,472$.\\
+\textbf{(c)} $\bigl[9^{10}-\bigl(8^{10}C(10,0)+8^9C(10,1)+8^8C(10,2)\bigr)\bigr]\cdot C(19,12)=315\,890\,577\cdot 50\,388=15\,917\,094\,393\,876$.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 5}
+
+\begin{quote}
+En un concurso de oratoria en la escuela $C$, los 3 primeros lugares de la competencia: Jeremy, Valerie y Brittany han ganado 12 premios: 7 entradas al Museo de los Niños y 5 libros de literatura distintos, los cuales serán distribuidos aleatoriamente. Determine el número de maneras de distribuirlos si:\\
+\textit{a)} No hay restricciones \hfill R/ $8\,748$\\
+\textit{b)} A Valerie le toca por lo menos 2 entradas y exactamente 2 libros \hfill R/ $800$\\
+\textit{c)} A Brittany y Jeremy les toca al menos 2 entradas y exactamente 2 libros a ambas personas \hfill R/ $300$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Tipificación}
+\textbf{Qué hago:} separo las dos clases de premio.
+Las \textbf{7 entradas al Museo son idénticas} (el enunciado no las diferencia; solo los libros se declaran ``distintos''), los \textbf{5 libros de literatura son distintos} y los recipientes son \textbf{3 personas distintas}: Jeremy, Valerie y Brittany.
+\textbf{¿De dónde sale?} El contraste está en el propio enunciado: dice ``5 libros de literatura \emph{distintos}'' y no dice nada análogo de las entradas, lo cual las marca como intercambiables.
+\textbf{¿Por qué?} Porque la clasificación decide la fórmula: entradas $\to$ barras y estrellas $C(7+3-1,7)=C(9,7)$; libros $\to 3^5$. Si se tratara a las entradas como distintas saldría $3^7$, que sobrecuenta.
+\textbf{¿Qué tomamos?} $12=7+5$ es solo la suma de los premios; nunca se usa como un único conteo, siempre se reparten las dos clases por separado y se multiplica.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a)}
+\textbf{Qué hago:} cuento cada clase libre y multiplico.
+\[
+\text{entradas}=C(7+3-1,\,7)=C(9,7)=C(9,2)=\frac{9\cdot 8}{2}=36,\qquad \text{libros}=3^5=243 .
+\]
+\[
+N_a=36\cdot 243=8748 .
+\]
+\textbf{¿De dónde sale?} $C(9,7)$: $7$ estrellas y $3-1=2$ barras, $7+2=9$ posiciones. $3^5$: cada uno de los $5$ libros elige entre $3$ personas.
+\textbf{¿Por qué?} Es el caso 1 para las entradas y el caso 3 para los libros; sin restricciones, y por independencia se multiplican.
+\textbf{¿Qué tomamos?} $36\cdot 243=36\cdot 240+36\cdot3=8640+108=8748$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (b): entradas con ``Valerie al menos 2''}
+\textbf{Qué hago:} adelanto 2 entradas a Valerie y reparto las restantes sin restricción.
+\[
+x_J+x_V+x_B=7,\;x_V\ge2 \iff x_J+y_V+x_B=5,\;\text{todas}\ge0,
+\]
+\[
+C(5+3-1,\,5)=C(7,5)=C(7,2)=\frac{7\cdot 6}{2}=21 .
+\]
+\textbf{¿De dónde sale?} El $5$ es $7-2$: las entradas que quedan libres tras garantizarle $2$ a Valerie. El $3-1=2$ vuelve a ser el número de barras.
+\textbf{¿Por qué?} Porque ``por lo menos 2'' se resuelve con el cambio de variable $y_V=x_V-2$: entregar por adelantado las dos entradas obligatorias se hace de una sola manera (son idénticas) y el resto queda libre, incluida la posibilidad de que Valerie reciba más.
+\textbf{¿Qué tomamos?} $21$ repartos de entradas.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (b): libros con ``Valerie exactamente 2''}
+\textbf{Qué hago:} escojo cuáles 2 libros son de Valerie y reparto los otros 3 entre Jeremy y Brittany.
+\[
+C(5,2)\cdot 2^3=10\cdot 8=80 .
+\]
+\textbf{¿De dónde sale?} $C(5,2)=\dfrac{5\cdot4}{2}=10$ escoge el par de libros de Valerie; $2^{3}$ reparte los $5-2=3$ libros sobrantes entre las $3-1=2$ personas restantes.
+\textbf{¿Por qué?} Porque los libros son distintos: importa \emph{cuáles} dos recibe. Y hay que excluir a Valerie del reparto de los tres restantes, pues si participara podría llegar a tener 3 o más y se rompería el ``exactamente 2''.
+\textbf{¿Qué tomamos?} $80$ repartos de libros, y por el principio del producto
+\[
+N_b=21\cdot 80=1680 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (c): entradas con Brittany y Jeremy al menos 2 cada uno}
+\textbf{Qué hago:} adelanto 2 entradas a Brittany y 2 a Jeremy, y reparto las restantes.
+\[
+7-2-2=3\ \text{entradas libres entre 3 personas}:\quad C(3+3-1,\,3)=C(5,3)=C(5,2)=10 .
+\]
+\textbf{¿De dónde sale?} El $3$ es $7-4$ (las cuatro entradas obligatorias ya entregadas) y el $3-1=2$ son las barras.
+\textbf{¿Por qué?} Porque son dos condiciones de mínimo simultáneas y ambas se atienden con el mismo cambio de variable: $y_B=x_B-2$, $y_J=x_J-2$. Valerie sigue participando del reparto libre porque no tiene condición sobre las entradas.
+\textbf{¿Qué tomamos?} $10$ repartos de entradas.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso (c): libros con exactamente 2 para cada uno de los dos}
+\textbf{Qué hago:} escojo los 2 libros de Brittany, luego los 2 de Jeremy, y el que sobra va forzosamente a Valerie.
+\[
+C(5,2)\cdot C(3,2)\cdot C(1,1)=10\cdot 3\cdot 1=30 .
+\]
+\[
+N_c=10\cdot 30=300 .
+\]
+\textbf{¿De dónde sale?} $C(5,2)=10$ de los $5$ libros disponibles; luego quedan $3$ y $C(3,2)=3$; queda $1$ libro y solo Valerie puede recibirlo, $C(1,1)=1$.
+\textbf{¿Por qué?} Porque las selecciones son sucesivas sobre un conjunto que se va reduciendo, y por el principio del producto se multiplican. El último libro no se reparte libremente: Brittany y Jeremy ya tienen su cupo exacto de 2, así que solo Valerie puede quedárselo.
+\textbf{¿Qué tomamos?} $N_c=10\cdot 30=300$, que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{nota}
+\textbf{Discrepancia en el inciso (b).} La respuesta oficial es $800$, pero el método —el mismo que en (c), donde sí reproduce el $300$ oficial— da
+\[
+\underbrace{C(7,5)}_{21}\cdot\underbrace{C(5,2)\cdot 2^3}_{80}=1680 .
+\]
+Los dos factores se verifican por separado: hay $21$ soluciones de $x_J+x_V+x_B=7$ con $x_V\ge 2$, y $80$ maneras de que Valerie tenga exactamente 2 de los 5 libros distintos. Como $800$ no es múltiplo de $21$, la respuesta oficial no puede escribirse como (entradas)$\times$(libros) con el factor $21$; parece provenir de usar el conteo de entradas del inciso (c) ($10$) en lugar del de (b). Se conserva la oficial $800$ y se registra que el valor obtenido aquí es $\mathbf{1680}$.
+\end{nota}
+
+\begin{resp}
+\textbf{(a)} $C(9,7)\cdot 3^5=36\cdot 243=8748$.\\
+\textbf{(b)} Oficial: $800$. \emph{Obtenido por nosotros}: $C(7,5)\cdot C(5,2)\cdot 2^3=21\cdot 80=\mathbf{1680}$.\\
+\textbf{(c)} $C(5,3)\cdot C(5,2)\cdot C(3,2)=10\cdot 30=300$.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 6}
+
+\begin{quote}
+Se desea distribuir 10 pases generales al parque de diversiones y 9 celulares distintos entre los 4 ganadores de un concurso: Alex, Byron, Carlos, Daniel ¿De cuántas maneras se pueden distribuir los obsequios si:\\
+\textit{a)} A cada ganador le corresponde al menos un pase general al parque de diversiones y al menos 2 celulares \hfill R/ $360\cdot C(9,6)\cdot C(9,3)$\\
+\textit{b)} A Alex y Byron se le darán exactamente 4 celulares a cada uno y a Carlos a lo sumo 4 pases al parque \hfill R/ $230\cdot C(9,4)\cdot C(5,4)\cdot C(2,1)$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Tipificación}
+\textbf{Qué hago:} clasifico los obsequios.
+Los \textbf{10 pases generales son idénticos} (no se distinguen entre sí: un pase es un pase) y los \textbf{9 celulares son distintos}. Los recipientes son \textbf{4 personas distintas}.
+\textbf{¿De dónde sale?} El enunciado marca ``celulares \emph{distintos}'' y no dice nada de los pases, lo que los deja como objetos intercambiables.
+\textbf{¿Por qué?} Porque pases $\to$ barras y estrellas $C(10+4-1,10)=C(13,3)$ y celulares $\to 4^{9}$ en el caso libre; las restricciones se aplican sobre cada modelo.
+\textbf{¿Qué tomamos?} El total libre sería $C(13,3)\cdot 4^9$, pero ningún inciso lo pide; sí usaremos $C(13,3)=286$ en el inciso (b).
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a): pases con al menos uno por ganador}
+\textbf{Qué hago:} adelanto un pase a cada uno de los 4 ganadores y reparto los restantes.
+\[
+10-4=6\ \text{pases libres entre 4 personas}:\quad C(6+4-1,\,6)=C(9,6)=C(9,3)=84 .
+\]
+\textbf{¿De dónde sale?} El $6$ es $10-4$ y el $4-1=3$ son las barras; $C(9,3)=\dfrac{9\cdot8\cdot7}{6}=84$.
+\textbf{¿Por qué?} Es la fórmula $C(n-1,k-1)=C(9,3)$ del caso 2: el mínimo obligatorio se paga por adelantado y el resto se reparte libremente. Nótese que $C(9,6)$ y $C(9,3)$ son el mismo número, y en la respuesta oficial aparecen ambos: uno corresponde a los pases y el otro a un factor de los celulares.
+\textbf{¿Qué tomamos?} $84$ repartos de pases.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (a): el reparto forzado de los celulares}
+\textbf{Qué hago:} averiguo qué cantidades por persona son posibles si cada uno recibe al menos 2 celulares y hay 9 en total.
+El mínimo obligatorio es $4\cdot 2=8$ celulares; queda $9-8=1$ celular sobrante, que va completo a una sola persona. Por lo tanto el único perfil de cantidades es $(3,2,2,2)$ en algún orden.
+\textbf{¿De dónde sale?} De comparar $9$ con $8$: la holgura es de un solo celular, así que no hay margen para otros repartos como $(4,3,1,1)$ o $(3,3,2,1)$, que violarían el mínimo de 2.
+\textbf{¿Por qué?} Porque los celulares son \emph{distintos}, no se puede usar directamente barras y estrellas; hay que enumerar los perfiles de cantidades compatibles con la restricción y luego contar de cuántas formas se materializa cada perfil con objetos identificables.
+\textbf{¿Qué tomamos?} Un solo perfil: una persona con $3$ celulares y las otras tres con $2$ cada una.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (a): conteo de los celulares y producto}
+\textbf{Qué hago:} elijo quién recibe 3 celulares y luego reparto los celulares concretos.
+\[
+\underbrace{4}_{\text{quién recibe }3}\cdot\underbrace{C(9,3)}_{\text{sus 3 celulares}}\cdot\underbrace{C(6,2)\cdot C(4,2)\cdot C(2,2)}_{\text{los pares de los otros tres}}
+=4\cdot 84\cdot 15\cdot 6\cdot 1=30\,240 .
+\]
+\textbf{¿De dónde sale?} El $4$ son las cuatro personas candidatas a recibir el celular extra; $C(9,3)=84$ escoge sus tres celulares; quedan $6$ y $C(6,2)=15$, quedan $4$ y $C(4,2)=6$, quedan $2$ y $C(2,2)=1$.
+\textbf{¿Por qué?} Porque las personas están \emph{etiquetadas} (Alex, Byron, Carlos, Daniel), así que asignar los pares en un orden fijo de personas no genera repeticiones y no hay que dividir por $3!$. Se multiplican las elecciones sucesivas por el principio del producto.
+\textbf{¿Qué tomamos?} $4\cdot 15\cdot 6=360$, de modo que los celulares aportan $360\cdot C(9,3)=360\cdot 84=30\,240$, que es exactamente el $360\cdot C(9,6)$ de la respuesta oficial. El total es
+\[
+N_a=\bigl(360\cdot C(9,6)\bigr)\cdot C(9,3)=30\,240\cdot 84=2\,540\,160 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (b): celulares con exactamente 4 para Alex y 4 para Byron}
+\textbf{Qué hago:} escojo los celulares de Alex, luego los de Byron, y coloco el que sobra.
+\[
+C(9,4)\cdot C(5,4)\cdot C(2,1)=126\cdot 5\cdot 2=1260 .
+\]
+\textbf{¿De dónde sale?} $C(9,4)=\dfrac{9\cdot8\cdot7\cdot6}{24}=126$ para Alex; quedan $5$ celulares y $C(5,4)=5$ para Byron; queda $1$ celular y solo Carlos o Daniel pueden recibirlo, es decir $C(2,1)=2$ opciones.
+\textbf{¿Por qué?} Porque los celulares son distintos y ``exactamente 4'' obliga a fijar cuáles; una vez cubiertos los cupos exactos, Alex y Byron quedan fuera del reparto del celular sobrante, pues recibirlo los llevaría a 5.
+\textbf{¿Qué tomamos?} $1260$ repartos de celulares.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso (b): pases con ``Carlos a lo sumo 4'' y producto}
+\textbf{Qué hago:} cuento por complemento sobre el total de repartos de los 10 pases idénticos entre 4 personas.
+\[
+\text{total}=C(10+4-1,\,10)=C(13,3)=\frac{13\cdot 12\cdot 11}{6}=286,
+\]
+\[
+\text{(Carlos}\ge 5)=C\bigl((10-5)+4-1,\,5\bigr)=C(8,3)=\frac{8\cdot7\cdot6}{6}=56,
+\]
+\[
+286-56=230,\qquad N_b=230\cdot 1260=289\,800 .
+\]
+\textbf{¿De dónde sale?} El $C(13,3)$ son $10$ estrellas y $3$ barras. Para el complemento se adelantan $5$ pases a Carlos ($10-5=5$ libres) y se reparte el resto entre las $4$ personas, incluido Carlos, lo que da $C(5+3,3)=C(8,3)$.
+\textbf{¿Por qué?} Porque ``a lo sumo 4'' no tiene fórmula directa, mientras que su negación ``al menos 5'' sí se resuelve con el adelanto del caso 2. Y multiplico por el conteo de celulares porque las dos condiciones actúan sobre clases distintas de obsequio.
+\textbf{¿Qué tomamos?} $230\cdot 1260=289\,800$.
+\end{paso}
+
+\begin{resp}
+\textbf{(a)} $360\cdot C(9,6)\cdot C(9,3)=30\,240\cdot 84=2\,540\,160$.\\
+\textbf{(b)} $230\cdot C(9,4)\cdot C(5,4)\cdot C(2,1)=230\cdot 1260=289\,800$.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 7}
+
+\begin{quote}
+Se quiere repartir tres helados diferentes y cinco confites iguales entre siete niños ¿De cuántas maneras se puede hacer la distribución si se quiere que todos los niños reciban algo? \hfill R/ $1\,596$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Tipificación}
+\textbf{Qué hago:} clasifico los objetos y observo la restricción global.
+Los \textbf{3 helados son distintos}, los \textbf{5 confites son iguales} y hay \textbf{7 niños distintos}. La condición ``todos reciban algo'' \emph{mezcla} las dos clases: un niño queda satisfecho con un helado \emph{o} con un confite.
+\textbf{¿De dónde sale?} Del enunciado: ``tres helados diferentes'', ``cinco confites iguales'', ``siete niños''.
+\textbf{¿Por qué es distinto a los ejercicios anteriores?} Porque aquí la restricción no se puede separar en ``una condición para los helados y otra para los confites''; por eso \textbf{no} se puede multiplicar un conteo de helados por un conteo de confites de forma independiente. Hay que razonar sobre el reparto conjunto.
+\textbf{¿Qué tomamos?} El dato clave: hay $3+5=8$ objetos y $7$ niños, y cada niño debe recibir al menos $1$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- El perfil de cantidades queda forzado}
+\textbf{Qué hago:} determino cuántos objetos recibe cada niño.
+Si $c_1+c_2+\cdots+c_7=8$ con $c_i\ge 1$, entonces $\sum (c_i-1)=8-7=1$: exactamente un niño recibe $2$ objetos y los otros seis reciben $1$ objeto cada uno.
+\textbf{¿De dónde sale?} El $8$ es el total de objetos ($3$ helados $+$ $5$ confites) y el $7$ el número de niños; la holgura es $8-7=1$.
+\textbf{¿Por qué?} Porque con un solo objeto de sobrante no hay más configuraciones posibles: no puede haber un niño con 3 (necesitaría holgura 2) ni dos niños con 2.
+\textbf{¿Qué tomamos?} El reparto se describe eligiendo al ``niño afortunado'' $X$ que recibe 2 objetos. Hay $7$ elecciones para $X$, y por simetría cada una produce la misma cantidad de repartos; contaré una y multiplicaré por $7$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Caso A: $X$ recibe dos confites}
+\textbf{Qué hago:} fijado $X$, supongo que sus 2 objetos son confites. Quedan $3$ confites y $3$ helados para los otros $6$ niños, uno por niño.
+\[
+C(6,3)\cdot 3!=20\cdot 6=120 .
+\]
+\textbf{¿De dónde sale?} $C(6,3)=20$ escoge cuáles $3$ de los $6$ niños restantes reciben helado; $3!=6$ asigna los tres helados distintos a esos tres niños; los otros $3$ niños reciben un confite cada uno, y como los confites son iguales eso ocurre de una sola manera.
+\textbf{¿Por qué?} Porque los helados son distinguibles y el orden en que se reparten sí distingue repartos; los confites, al ser iguales, solo aportan ``quién recibe'' sin variantes internas.
+\textbf{¿Qué tomamos?} $120$ repartos en este caso.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Caso B: $X$ recibe un helado y un confite}
+\textbf{Qué hago:} elijo cuál helado se lleva $X$ y reparto lo demás.
+\[
+3\cdot\bigl[C(6,2)\cdot 2!\bigr]=3\cdot(15\cdot 2)=3\cdot 30=90 .
+\]
+\textbf{¿De dónde sale?} El $3$ son los tres helados distintos que $X$ puede recibir. Quedan $2$ helados y $4$ confites para $6$ niños: $C(6,2)=15$ escoge quiénes reciben helado y $2!=2$ les asigna los helados concretos; los $4$ niños restantes reciben un confite cada uno.
+\textbf{¿Por qué?} Porque los dos objetos de $X$ pueden ser de tipos distintos, y ese es un caso genuinamente diferente del anterior; al ser disjuntos, se sumarán al final.
+\textbf{¿Qué tomamos?} $90$ repartos en este caso.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Caso C: $X$ recibe dos helados}
+\textbf{Qué hago:} elijo el par de helados de $X$ y coloco el helado restante.
+\[
+C(3,2)\cdot 6=3\cdot 6=18 .
+\]
+\textbf{¿De dónde sale?} $C(3,2)=3$ escoge los dos helados de $X$; queda $1$ helado y $5$ confites para $6$ niños, así que hay $6$ maneras de elegir cuál niño recibe el helado y los otros $5$ reciben un confite cada uno.
+\textbf{¿Por qué?} Uso combinación $C(3,2)$ y no permutación porque los dos helados van al mismo niño y no hay orden entre ellos dentro de su bolsa.
+\textbf{¿Qué tomamos?} $18$ repartos en este caso.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Suma sobre los casos y sobre el niño afortunado}
+\textbf{Qué hago:} sumo los tres casos y multiplico por las $7$ elecciones de $X$.
+\[
+120+90+18=228,\qquad N=7\cdot 228=1596 .
+\]
+\textbf{¿De dónde sale?} $120$, $90$ y $18$ son los Pasos 3, 4 y 5; el $7$ son los siete niños que pueden ser el que recibe dos objetos.
+\textbf{¿Por qué?} Los tres casos son disjuntos (el par de objetos de $X$ es ``dos confites'', ``mixto'' o ``dos helados'', y son excluyentes), de ahí la suma. Y la multiplicación por $7$ no duplica nada porque en cada reparto válido hay \emph{exactamente un} niño con dos objetos, así que cada reparto se cuenta una sola vez.
+\textbf{¿Qué tomamos?} $N=1596$, que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+\textbf{Ejercicio 7:} $7\cdot\bigl[C(6,3)\cdot 3!+3\cdot C(6,2)\cdot 2!+C(3,2)\cdot 6\bigr]=7\cdot(120+90+18)=7\cdot 228=1596$.
+\end{resp}
+
+\end{document}

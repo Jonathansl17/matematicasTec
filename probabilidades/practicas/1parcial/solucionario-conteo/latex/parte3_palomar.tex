@@ -1,0 +1,392 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+
+\begin{center}{\LARGE\bfseries Principios de conteo}\\[2pt]{\large Principio del palomar --- Ejercicios 1--4}\end{center}
+
+\vspace{4pt}
+
+\begin{teo}
+\textbf{Principio del palomar (forma simple).} Si se reparten $n$ objetos (\emph{palomas}) en $m$ cajas (\emph{nidos}) y se cumple que $n>m$, entonces existe al menos una caja que contiene $2$ o más objetos.
+
+\smallskip
+\textbf{Demostración.} Razonamos por contradicción. Supongamos que ninguna caja contiene $2$ o más objetos; es decir, cada caja contiene a lo sumo $1$ objeto. Si $x_1,x_2,\dots,x_m$ denotan las cantidades de objetos en cada una de las $m$ cajas, la suposición dice que $x_i\le 1$ para todo $i$. Como cada objeto está en exactamente una caja, el total reparte todo el conjunto:
+\[
+n=x_1+x_2+\cdots+x_m\le \underbrace{1+1+\cdots+1}_{m\ \text{sumandos}}=m .
+\]
+Obtenemos $n\le m$, lo que contradice la hipótesis $n>m$. Por lo tanto la suposición es falsa y alguna caja tiene al menos $2$ objetos. $\blacksquare$
+
+\smallskip
+\textbf{Principio del palomar (forma generalizada).} Si se reparten $n$ objetos en $m$ cajas, entonces existe al menos una caja que contiene al menos
+\[
+\left\lceil \frac{n}{m} \right\rceil
+\]
+objetos, donde $\lceil x \rceil$ es el menor entero mayor o igual que $x$.
+
+\smallskip
+\textbf{Demostración.} Escribamos $k=\left\lceil n/m \right\rceil$ y supongamos, por contradicción, que \emph{ninguna} caja alcanza $k$ objetos. Entonces cada caja tiene a lo sumo $k-1$ objetos, o sea $x_i\le k-1$ para todo $i=1,\dots,m$. Sumando sobre las $m$ cajas:
+\[
+n=x_1+\cdots+x_m\le m(k-1)=mk-m .
+\]
+Ahora usamos la definición de techo: $k=\lceil n/m\rceil$ significa que $k\ge n/m$, y por eso $mk\ge n$; pero además $k-1<n/m$ (si no, $k-1$ ya sería un entero $\ge n/m$ menor que $k$, contradiciendo que $k$ es el \emph{menor} entero con esa propiedad). De $k-1<n/m$ se sigue $m(k-1)<n$. Juntando ambas desigualdades:
+\[
+n\le m(k-1)<n,
+\]
+es decir $n<n$, que es absurdo. Luego alguna caja contiene al menos $k=\lceil n/m\rceil$ objetos. $\blacksquare$
+
+\smallskip
+\textbf{De dónde sale la fórmula.} Si repartiéramos los $n$ objetos lo más parejo posible, a cada caja le tocarían $n/m$ objetos. Como las cantidades reales son enteras, la caja más cargada no puede quedar por debajo de ese promedio, y el menor entero que no queda por debajo de $n/m$ es exactamente $\lceil n/m\rceil$. Por eso el techo (y no el piso) es la cota correcta: se redondea \emph{hacia arriba}.
+
+\smallskip
+\textbf{Forma inversa (¿cuántos objetos hacen falta?).} Si queremos \emph{garantizar} que alguna de las $m$ cajas tenga al menos $k$ objetos, se necesitan al menos
+\[
+n=m(k-1)+1
+\]
+objetos. En efecto, el peor reparto posible (el que más evita el objetivo) coloca $k-1$ objetos en cada caja, lo que da $m(k-1)$ objetos sin que ninguna caja llegue a $k$; ese reparto muestra que con $m(k-1)$ objetos todavía \emph{no} hay garantía. Pero al agregar un objeto más, ese objeto debe entrar en alguna caja que ya tenía $k-1$, y esa caja pasa a tener $k$. De ahí el ``$+1$''. $\blacksquare$
+\end{teo}
+
+\begin{nota}
+Las tres formas son la misma idea vista desde ángulos distintos: la simple es el caso $k=2$ de la generalizada, y la forma inversa es despejar $n$ de la condición $\lceil n/m\rceil\ge k$. En todos los ejercicios el trabajo real es \emph{decidir quiénes son las palomas y quiénes los nidos}; una vez elegidos, la aritmética es inmediata.
+\end{nota}
+
+% ============================================================
+\section*{Ejercicio 1}
+
+\begin{quote}
+El \textbf{Estadio Nacional de Costa Rica} tiene capacidad aproximada de 35 000 aficionados. Demuestre que, si está en toda su capacidad, existe al menos un grupo de 96 personas o más que cumplen años el mismo día. \hfill R/ 96
+\end{quote}
+
+\begin{paso}{Paso 1 --- Identificar las palomas y los nidos}
+\textbf{Qué hago:} traduzco el enunciado al lenguaje del principio del palomar, que es el único paso donde hay que pensar.
+
+Las \textbf{palomas} (objetos) son las \emph{personas} presentes en el estadio: hay $n=35\,000$, porque el enunciado dice que el estadio está en toda su capacidad. Los \textbf{nidos} (cajas) son las \emph{fechas posibles de cumpleaños} del calendario: hay $m=365$ días.
+
+\textbf{¿De dónde sale?} De la propia redacción: se pregunta por personas que ``cumplen años el mismo día'', o sea que se están agrupando personas según su fecha de cumpleaños. Lo que se comparte es la fecha, así que la fecha es la caja y la persona es el objeto.
+
+\textbf{¿Por qué?} Porque la asignación ``a cada persona le corresponde su fecha de cumpleaños'' es una función bien definida: toda persona tiene una fecha de cumpleaños y tiene exactamente una. Esa es justamente la condición que exige el principio del palomar (cada objeto entra en una y sólo una caja); si una persona pudiera estar en dos cajas, el conteo $n=x_1+\cdots+x_m$ de la demostración no sería válido.
+
+\textbf{¿Qué tomamos?} $n=35\,000$ palomas y $m=365$ nidos.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Aplicar la forma generalizada}
+\textbf{Qué hago:} aplico el teorema generalizado, que garantiza una caja con al menos $\lceil n/m\rceil$ objetos.
+
+\[
+\left\lceil \frac{n}{m} \right\rceil=\left\lceil \frac{35\,000}{365} \right\rceil .
+\]
+
+\textbf{¿De dónde sale?} Del enunciado del teorema demostrado arriba, con la identificación del Paso 1. No hace falta la forma simple porque no queremos sólo ``dos personas'', queremos una cota grande.
+
+\textbf{¿Por qué?} Porque el reparto más equitativo posible de $35\,000$ personas entre $365$ fechas le daría a cada fecha $35\,000/365$ personas; ninguna distribución real puede tener \emph{todas} sus fechas por debajo de ese promedio, así que la fecha más concurrida alcanza por lo menos ese valor, redondeado hacia arriba por ser una cantidad entera de personas.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Desarrollar la división y el techo}
+\textbf{Qué hago:} hago la división entera con residuo para justificar el redondeo sin apelar a la calculadora.
+
+\[
+365\cdot 95 = 34\,675, \qquad 35\,000-34\,675 = 325 .
+\]
+Por lo tanto $35\,000 = 365\cdot 95 + 325$ con $0<325<365$, es decir
+\[
+95 < \frac{35\,000}{365} = 95+\frac{325}{365} < 96 .
+\]
+
+\textbf{¿De dónde sale?} De la división entera: $35\,000$ entre $365$ da cociente $95$ y residuo $325$.
+
+\textbf{¿Por qué se redondea hacia arriba?} Porque $\lceil x\rceil$ es el \emph{menor entero mayor o igual} que $x$. Como el residuo $325$ no es cero, el cociente $35\,000/365$ no es entero y queda estrictamente entre $95$ y $96$; el menor entero que lo supera o iguala es entonces $96$. Redondear hacia abajo daría $95$, y $95$ \emph{sí} podría estar por debajo del promedio, así que no serviría como garantía.
+
+\textbf{¿Qué tomamos?} $\left\lceil 35\,000/365 \right\rceil = 96$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Cerrar la demostración}
+\textbf{Qué hago:} escribo el argumento completo, incluyendo la contradicción, para que la demostración quede cerrada y no dependa sólo de citar el teorema.
+
+Supongamos que \emph{ninguna} fecha del calendario es compartida por $96$ personas o más. Entonces cada una de las $365$ fechas es el cumpleaños de a lo sumo $95$ de los aficionados presentes. Como cada aficionado tiene exactamente una fecha de cumpleaños, el total de aficionados sería a lo sumo
+\[
+365\cdot 95 = 34\,675 < 35\,000 ,
+\]
+lo cual contradice que en el estadio hay $35\,000$ personas. Por lo tanto existe al menos una fecha compartida por $96$ personas o más.
+
+\textbf{¿De dónde sale?} Es la demostración por contradicción del teorema, particularizada con $n=35\,000$, $m=365$ y $k=96$.
+
+\textbf{¿Por qué cierra?} Porque la negación de lo que se quiere probar conduce a $35\,000\le 34\,675$, que es falso; siendo la negación imposible, la afirmación original es verdadera. Nótese que las $325$ personas ``sobrantes'' del Paso 3 son exactamente las que obligan a que alguna fecha se desborde.
+\end{paso}
+
+\begin{nota}
+Si en lugar de $365$ se usan $366$ días (contemplando el 29 de febrero), la conclusión no cambia: $366\cdot 95=34\,770<35\,000$, así que también se obtiene $\lceil 35\,000/366\rceil=96$. La respuesta oficial es robusta ante esa elección.
+\end{nota}
+
+\begin{resp}
+Queda demostrado: con el estadio lleno ($35\,000$ aficionados) repartidos entre las $365$ fechas de cumpleaños posibles, alguna fecha reúne al menos $\left\lceil 35\,000/365\right\rceil=\mathbf{96}$ personas, pues si todas tuvieran a lo sumo $95$ el aforo no pasaría de $34\,675$.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 2}
+
+\begin{quote}
+¿Cuál es la mínima cantidad de personas que debe asistir a un corto musical, si se quiere asegurar que al menos 9 personas tengan su primer apellido que comience con la misma letra? \hfill R/ 217
+\end{quote}
+
+\begin{paso}{Paso 1 --- Identificar las palomas y los nidos}
+\textbf{Qué hago:} fijo quién es objeto y quién es caja antes de tocar cualquier número.
+
+Las \textbf{palomas} son las \emph{personas} que asisten al corto musical; su cantidad $n$ es precisamente la incógnita. Los \textbf{nidos} son las \emph{letras iniciales posibles del primer apellido}, es decir las letras del abecedario español: $m=27$.
+
+\textbf{¿De dónde sale?} Del enunciado: se agrupa a las personas según ``la letra con que comienza su primer apellido''. Lo compartido es la letra, así que la letra es la caja.
+
+\textbf{¿Por qué?} Porque cada persona tiene un primer apellido y ese apellido empieza con exactamente una letra: la asignación persona $\mapsto$ letra inicial está bien definida y es única, que es lo que el principio exige. El abecedario español tiene $27$ letras (las $26$ del alfabeto latino más la ñ), y todas son iniciales admisibles de un apellido.
+
+\textbf{¿Qué tomamos?} $m=27$ nidos, $k=9$ personas por nido como objetivo, y $n$ desconocido.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Reconocer que es la forma inversa}
+\textbf{Qué hago:} identifico cuál de las tres formas del principio corresponde.
+
+Aquí no se dan los objetos y se pide la concentración; se da la concentración deseada ($k=9$) y se pide la cantidad mínima de objetos. Ésa es la \textbf{forma inversa}:
+\[
+n_{\min}=m(k-1)+1 .
+\]
+
+\textbf{¿De dónde sale?} De despejar la condición $\lceil n/m\rceil\ge k$: se necesita que el reparto más parejo ya supere $k-1$ por caja, y el primer $n$ que lo logra es $m(k-1)+1$.
+
+\textbf{¿Por qué?} Porque la palabra clave es \emph{asegurar}: la respuesta debe funcionar para \emph{cualquier} grupo de personas que llegue al evento, incluso el más adverso. El grupo más adverso es el que distribuye las iniciales lo más parejo posible para evitar acumulaciones.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Construir el peor caso y contarlo}
+\textbf{Qué hago:} exhibo explícitamente el reparto que evita el objetivo, para saber qué cantidad todavía \emph{no} basta.
+
+Si de cada una de las $27$ letras llegan exactamente $8$ personas, entonces ninguna letra alcanza $9$, y el total de asistentes es
+\[
+m(k-1)=27\cdot 8 = 216 .
+\]
+Desglose: $27\cdot 8 = 27\cdot(10-2)=270-54=216$.
+
+\textbf{¿De dónde sale?} De tomar $k-1=9-1=8$ personas por caja, que es el máximo permitido sin que ninguna caja llegue a $9$.
+
+\textbf{¿Por qué?} Porque este ejemplo concreto \emph{prueba} que con $216$ asistentes la garantía es imposible: existe al menos una configuración de $216$ personas sin ninguna inicial repetida $9$ veces. Sin este contraejemplo sólo tendríamos una cota, no el mínimo.
+
+\textbf{¿Qué tomamos?} $216$ es la mayor cantidad de personas que \emph{no} garantiza el objetivo.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Agregar una persona más y verificar}
+\textbf{Qué hago:} sumo el objeto que fuerza el desborde y compruebo la garantía con la forma generalizada.
+
+\[
+n_{\min}=27\cdot 8+1 = 216+1 = 217 .
+\]
+Verificación con el techo: $27\cdot 8=216<217$ y $27\cdot 9=243\ge 217$, luego
+\[
+8<\frac{217}{27}=8+\frac{1}{27}<9 \quad\Longrightarrow\quad \left\lceil \frac{217}{27} \right\rceil = 9 .
+\]
+
+\textbf{¿De dónde sale?} El ``$+1$'' sale de la forma inversa demostrada en la Teoría; la verificación sale de aplicar la forma generalizada a $n=217$.
+
+\textbf{¿Por qué funciona?} Porque con $217$ personas, si supusiéramos que ninguna letra reúne $9$, cada una de las $27$ letras tendría a lo sumo $8$ y el total sería a lo sumo $216<217$: contradicción. El residuo $1$ en la división $217=27\cdot 8+1$ es exactamente la persona que obliga a que alguna letra llegue a $9$. Y el redondeo es hacia arriba porque esa persona sobrante no puede quedarse fuera de todas las cajas.
+
+\textbf{¿Qué tomamos?} $n_{\min}=217$.
+\end{paso}
+
+\begin{resp}
+Deben asistir como mínimo $\mathbf{217}$ personas. Con $216$ el resultado no está asegurado (podrían llegar $8$ personas por cada una de las $27$ letras), pero con $217=27\cdot 8+1$ alguna letra inicial reúne forzosamente al menos $9$ personas.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 3}
+
+\begin{quote}
+En \textbf{Pandalandia}, próximamente se realizarán elecciones para elegir un presidente, sin embargo, un candidato realiza un cambio en su estrategia política, con el propósito de reducir los casos de corrupción presentes en la zona. Para ello, se plantea regalar \$1 000 a cada uno de los ciudadanos en su día de cumpleaños. Si en Pandalandia viven 6 543 personas, demuestre que al menos en un día, se pagarán \$17 000.
+\end{quote}
+
+\begin{paso}{Paso 1 --- Identificar las palomas y los nidos}
+\textbf{Qué hago:} traduzco la situación económica a un problema de reparto de objetos en cajas.
+
+Las \textbf{palomas} son los \emph{ciudadanos} de Pandalandia: $n=6\,543$. Los \textbf{nidos} son los \emph{días del año} en que puede caer un cumpleaños: $m=365$.
+
+\textbf{¿De dónde sale?} Del mecanismo del pago: el candidato paga \$1\,000 a cada ciudadano el día de su cumpleaños, de modo que lo pagado en un día concreto es $1\,000$ veces la cantidad de ciudadanos que cumplen años ese día. Para acotar el pago de un día basta acotar cuántos ciudadanos comparten fecha.
+
+\textbf{¿Por qué?} Porque cada ciudadano cumple años en exactamente una fecha del calendario: la asignación ciudadano $\mapsto$ fecha es única y cubre a todos, que es la hipótesis del principio del palomar.
+
+\textbf{¿Qué tomamos?} $n=6\,543$ palomas, $m=365$ nidos, y la relación pago $=1\,000\times(\text{ciudadanos en esa fecha})$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Traducir la meta \$17 000 a una cantidad de personas}
+\textbf{Qué hago:} convierto el objetivo monetario en un objetivo de conteo, que es lo que el principio sabe manejar.
+
+\[
+\frac{17\,000}{1\,000}=17 .
+\]
+Es decir, ``pagar al menos \$17\,000 en un día'' equivale a ``que haya al menos $17$ ciudadanos cumpliendo años ese día''.
+
+\textbf{¿De dónde sale?} De que cada persona genera un pago fijo de \$1\,000: el dinero es una escala lineal del número de personas.
+
+\textbf{¿Por qué?} Porque el principio del palomar produce cotas sobre \emph{cantidades de objetos}, no sobre dinero; hay que llevar el enunciado a esa forma antes de aplicarlo. Nuestro objetivo pasa a ser $k=17$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Aplicar la forma generalizada y desglosar el techo}
+\textbf{Qué hago:} calculo la concentración garantizada con el teorema generalizado.
+
+\[
+\left\lceil \frac{6\,543}{365} \right\rceil .
+\]
+División entera: $365\cdot 17 = 6\,205$ y $6\,543-6\,205 = 338$, o sea $6\,543 = 365\cdot 17 + 338$ con $0<338<365$. Entonces
+\[
+17<\frac{6\,543}{365}=17+\frac{338}{365}<18
+\quad\Longrightarrow\quad
+\left\lceil \frac{6\,543}{365} \right\rceil = 18 .
+\]
+
+\textbf{¿De dónde sale?} De la división de $6\,543$ entre $365$: cociente $17$, residuo $338$.
+
+\textbf{¿Por qué se redondea hacia arriba?} Porque el residuo es distinto de cero, así que el cociente no es entero y cae estrictamente entre $17$ y $18$; el menor entero mayor o igual es $18$. Esas $338$ personas del residuo no caben ``a $17$ por día'' y obligan a que alguna fecha llegue a $18$.
+
+\textbf{¿Qué tomamos?} Alguna fecha del calendario es el cumpleaños de al menos $18$ ciudadanos.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Cerrar la demostración y convertir de vuelta a dinero}
+\textbf{Qué hago:} escribo la contradicción explícita y traduzco el resultado a colones/dólares.
+
+Supongamos que ningún día del año reúne $18$ cumpleaños o más. Entonces cada uno de los $365$ días tiene a lo sumo $17$ ciudadanos cumpliendo años, y como cada ciudadano cumple en exactamente un día, la población total sería a lo sumo
+\[
+365\cdot 17 = 6\,205 < 6\,543 ,
+\]
+contradiciendo que en Pandalandia viven $6\,543$ personas. Luego existe un día con al menos $18$ cumpleaños, y ese día el candidato paga al menos
+\[
+18\cdot 1\,000 = 18\,000 \ \ge\ 17\,000 .
+\]
+
+\textbf{¿De dónde sale?} La contradicción es la demostración del teorema con $n=6\,543$, $m=365$, $k=18$; la conversión final es la escala de \$1\,000 por persona del Paso 2.
+
+\textbf{¿Por qué demuestra lo pedido?} Porque el enunciado pide probar que \emph{al menos} se pagarán \$17\,000 en algún día, y hemos probado algo más fuerte: se pagarán al menos \$18\,000. Como $18\,000\ge 17\,000$, la afirmación del enunciado queda demostrada. $\blacksquare$
+\end{paso}
+
+\begin{nota}
+Discrepancia con el enunciado oficial: el enunciado pide \$17\,000, cifra que corresponde a $17$ personas por día, es decir al \emph{piso} $\lfloor 6\,543/365\rfloor = 17$. La cota correcta del principio del palomar es el techo, $\lceil 6\,543/365\rceil = 18$, que da \$18\,000. Se conserva el enunciado oficial porque la afirmación pedida es verdadera (es una consecuencia más débil de la nuestra), pero conviene saber que el resultado exacto garantizado es \$18\,000. Con $366$ días la conclusión es la misma: $366\cdot 17=6\,222<6\,543$, así que $\lceil 6\,543/366\rceil=18$.
+\end{nota}
+
+\begin{resp}
+Queda demostrado: repartiendo los $6\,543$ ciudadanos entre las $365$ fechas de cumpleaños, alguna fecha reúne al menos $\left\lceil 6\,543/365\right\rceil=18$ personas (si todas tuvieran a lo sumo $17$, la población no pasaría de $6\,205$). Ese día el candidato paga al menos $18\cdot\$1\,000=\$18\,000$, y en particular \textbf{al menos \$17 000}, que es lo pedido.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 4}
+
+\begin{quote}
+En el \textbf{Teatro Nacional de México}, se tiene una capacidad de 800 personas. Si el teatro se encuentra en su máxima capacidad:\\
+a) ¿Se puede asegurar que ese día, habrá al menos 2 personas cuyo nombre inicia y termina con la misma letra (Aarón y Adrián, Emilio y Eduardo)? \hfill R/ Sí\\
+b) ¿Se puede asegurar que habrá al menos tres personas, de los asistentes al teatro, que cumplan años el mismo día? \hfill R/ Sí
+\end{quote}
+
+\subsection*{Inciso a)}
+
+\begin{paso}{Paso 1 --- Entender qué significa ``inicia y termina con la misma letra''}
+\textbf{Qué hago:} interpreto la propiedad con ayuda de los ejemplos del enunciado antes de contar nada.
+
+Los ejemplos son ``Aarón y Adrián'' y ``Emilio y Eduardo''. Aarón inicia con \textsf{A} y termina en \textsf{n}; Adrián también inicia con \textsf{A} y termina en \textsf{n}. Emilio inicia con \textsf{E} y termina en \textsf{o}; Eduardo también inicia con \textsf{E} y termina en \textsf{o}. Es decir, la propiedad compartida por las \emph{dos} personas es el \textbf{par (letra inicial, letra final)} de su nombre.
+
+\textbf{¿De dónde sale?} De los ejemplos dados entre paréntesis, que son la definición operativa del enunciado.
+
+\textbf{¿Por qué importa?} Porque de esta lectura depende cuántos nidos hay. Si el par de letras es lo compartido, la caja no es una letra sino una \emph{pareja ordenada} de letras, y eso cambia el conteo por completo.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Identificar palomas y nidos, y contar los nidos}
+\textbf{Qué hago:} defino las cajas y cuento cuántas hay usando el principio multiplicativo del folleto.
+
+Las \textbf{palomas} son las \emph{personas} en el teatro: $n=800$, porque el teatro está en su máxima capacidad. Los \textbf{nidos} son los \emph{pares ordenados} (letra inicial, letra final) del nombre. Como hay $27$ letras posibles para la inicial y, independientemente, $27$ para la final, el principio multiplicativo da
+\[
+m=27\cdot 27 = 729 .
+\]
+Desglose: $27\cdot 27 = 27\cdot 20+27\cdot 7 = 540+189 = 729$.
+
+\textbf{¿De dónde sale?} El $27$ es el tamaño del abecedario español; el producto sale del principio multiplicativo: elegir la primera coordenada y luego la segunda son dos decisiones sucesivas e independientes.
+
+\textbf{¿Por qué es válida la asignación?} Porque todo nombre no vacío tiene una primera letra y una última letra bien determinadas, así que a cada persona le corresponde exactamente un par; ninguna persona queda fuera ni cae en dos cajas.
+
+\textbf{¿Qué tomamos?} $n=800$ palomas y $m=729$ nidos.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Comparar y aplicar el principio}
+\textbf{Qué hago:} comparo $n$ con $m$ para decidir si se puede asegurar la conclusión.
+
+\[
+n=800 > 729 = m .
+\]
+Como hay más personas que pares posibles, la forma simple del principio del palomar garantiza que algún par se repite. Con la forma generalizada se llega a lo mismo: $729\cdot 1=729<800$ y $729\cdot 2 = 1\,458\ge 800$, luego
+\[
+1<\frac{800}{729}=1+\frac{71}{729}<2
+\quad\Longrightarrow\quad
+\left\lceil \frac{800}{729} \right\rceil = 2 .
+\]
+
+\textbf{¿De dónde sale?} De la forma simple ($n>m\Rightarrow$ alguna caja con $\ge 2$) y, equivalentemente, del techo con $800=729\cdot 1+71$.
+
+\textbf{¿Por qué se redondea hacia arriba?} Porque el residuo $71$ no es cero: el cociente cae estrictamente entre $1$ y $2$, y el menor entero que lo iguala o supera es $2$. Esas $71$ personas sobrantes son las que fuerzan la repetición.
+
+\textbf{¿Qué tomamos?} Sí se puede asegurar; el par se repite al menos una vez.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Redactar la garantía}
+\textbf{Qué hago:} cierro el argumento por contradicción para que la respuesta ``Sí'' quede justificada.
+
+Si ningún par (inicial, final) fuera compartido por dos personas, cada uno de los $729$ pares correspondería a lo sumo a una persona y el aforo no pasaría de $729$, contradiciendo que hay $800$ asistentes. Por lo tanto existen al menos $2$ personas cuyos nombres inician y terminan con las mismas letras.
+
+\textbf{¿Por qué basta?} Porque la pregunta es de garantía (``¿se puede asegurar?''), y la contradicción muestra que \emph{ninguna} distribución de $800$ personas puede evitarlo.
+\end{paso}
+
+\begin{resp}
+\textbf{a) Sí.} Hay $n=800$ personas y sólo $m=27\cdot 27=729$ pares posibles (letra inicial, letra final). Como $800>729$, el principio del palomar garantiza al menos $\left\lceil 800/729\right\rceil=2$ personas con el mismo par de letras.
+\end{resp}
+
+\subsection*{Inciso b)}
+
+\begin{paso}{Paso 1 --- Identificar palomas y nidos}
+\textbf{Qué hago:} vuelvo a plantear el reparto, ahora con el criterio de cumpleaños.
+
+Las \textbf{palomas} siguen siendo las \emph{personas} en el teatro: $n=800$. Los \textbf{nidos} son ahora las \emph{fechas de cumpleaños} del calendario: $m=365$.
+
+\textbf{¿De dónde sale?} Del enunciado: se pide que ``cumplan años el mismo día'', así que lo compartido es la fecha y por eso la fecha es la caja.
+
+\textbf{¿Por qué es válida la asignación?} Porque cada asistente tiene una y sólo una fecha de cumpleaños, condición que exige el principio para que la suma $n=x_1+\cdots+x_{365}$ tenga sentido.
+
+\textbf{¿Qué tomamos?} $n=800$, $m=365$, objetivo $k=3$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Aplicar la forma generalizada y desglosar el techo}
+\textbf{Qué hago:} calculo $\lceil n/m\rceil$ y lo comparo con el $3$ que pide el enunciado.
+
+División entera: $365\cdot 2 = 730$ y $800-730 = 70$, es decir $800 = 365\cdot 2 + 70$ con $0<70<365$. Entonces
+\[
+2<\frac{800}{365}=2+\frac{70}{365}<3
+\quad\Longrightarrow\quad
+\left\lceil \frac{800}{365} \right\rceil = 3 .
+\]
+
+\textbf{¿De dónde sale?} De dividir $800$ entre $365$: cociente $2$, residuo $70$.
+
+\textbf{¿Por qué se redondea hacia arriba?} Porque el residuo $70$ es no nulo, de modo que $800/365$ no es entero y queda entre $2$ y $3$; el menor entero mayor o igual es $3$. Si se redondeara hacia abajo se obtendría $2$, que no serviría: $2$ sí puede quedar por debajo del reparto real.
+
+\textbf{¿Qué tomamos?} Alguna fecha reúne al menos $3$ asistentes, que es exactamente lo pedido.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Cerrar con la contradicción}
+\textbf{Qué hago:} verifico la garantía por el camino directo, mostrando qué pasaría si sólo hubiera parejas.
+
+Supongamos que ninguna fecha reúne $3$ o más asistentes. Entonces cada uno de los $365$ días tiene a lo sumo $2$ cumpleañeros y el aforo total sería a lo sumo
+\[
+365\cdot 2 = 730 < 800 ,
+\]
+contradiciendo que hay $800$ personas en el teatro. Por lo tanto existe una fecha con al menos $3$ asistentes.
+
+\textbf{¿De dónde sale?} Es la contradicción del teorema con $k=3$; equivale a decir que $800$ supera el umbral de la forma inversa $m(k-1)+1 = 365\cdot 2+1 = 731$.
+
+\textbf{¿Por qué es concluyente?} Porque $800\ge 731$: incluso el reparto más adverso (dos cumpleañeros por fecha) se queda corto por $70$ personas, y esas $70$ obligan a que alguna fecha llegue a tres. La respuesta ``Sí'' vale para cualquier público de $800$ personas.
+\end{paso}
+
+\begin{nota}
+Con $366$ fechas el resultado no cambia: $366\cdot 2 = 732 < 800$, de modo que $\lceil 800/366\rceil = 3$ y la garantía se mantiene.
+\end{nota}
+
+\begin{resp}
+\textbf{b) Sí.} Con $n=800$ asistentes y $m=365$ fechas posibles, el principio del palomar garantiza una fecha con al menos $\left\lceil 800/365\right\rceil=3$ cumpleañeros; si todas tuvieran a lo sumo $2$, el aforo no pasaría de $730<800$.
+\end{resp}
+
+\end{document}

@@ -1,0 +1,1512 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\begin{center}{\LARGE\bfseries Principios de conteo}\\[2pt]{\large Principio de la suma y producto --- Ejercicios 14--29}\end{center}
+
+\begin{teo}
+\textbf{Método general para los ejercicios 14--29.} A partir del ejercicio 14 los enunciados combinan varias herramientas en un mismo conteo (repartos por filas, manos de cartas, selecciones con restricciones, compras de objetos idénticos). La rutina que se aplica sin excepción es esta:
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Describir con precisión qué es un resultado.} Antes de escribir un número hay que poder decir en una frase qué objeto se está contando: una asignación de $30$ personas a $3$ filas de asientos, una mano de $5$ cartas, una hoja de respuestas de $20$ ítems, una bolsa con $10$ lapiceros. Dos resultados son distintos exactamente cuando difieren en algo que esa descripción reconoce; si la descripción no distingue el orden, el conteo tampoco debe distinguirlo.
+
+  \item \textbf{Decidir si los objetos elegidos son distinguibles o idénticos.} Personas, cartas y preguntas son objetos \emph{distinguibles}: cada uno tiene identidad propia y por eso se cuentan con $C(n,r)$ o con permutaciones. Los lapiceros de una misma marca son \emph{idénticos}: de ellos sólo importa \emph{cuántos} se llevan, y eso obliga a usar combinaciones con repetición. Confundir los dos mundos es el error más caro de esta sección.
+
+  \item \textbf{Principio de la suma (casos excluyentes).} Si el conjunto de resultados se parte en familias $A_1,\dots,A_k$ disjuntas dos a dos y que juntas lo cubren todo, entonces
+  \[
+    |A_1\cup\cdots\cup A_k| = |A_1|+\cdots+|A_k| .
+  \]
+  \emph{Por qué vale:} contar es recorrer una lista sin repetidos; si ninguna familia comparte elementos con otra, la lista total tiene tantos renglones como la suma de los renglones parciales. Cuando las familias se traslapan, cada elemento común se contaría dos veces y la suma sobreestima: por eso siempre hay que verificar que el criterio de partición sea excluyente (``exactamente $k$ mujeres'', ``el naipe es de tal palo'', ``se deja en blanco tal disciplina'').
+
+  \item \textbf{Principio del producto (etapas sucesivas).} Si un resultado se construye con decisiones sucesivas de $n_1,n_2,\dots,n_k$ maneras y el \emph{número} de opciones de cada etapa no depende de cuál opción se tomó antes, el total es $n_1 n_2\cdots n_k$.
+  \emph{Por qué vale:} en el árbol de decisiones la primera etapa abre $n_1$ ramas, de cada una salen $n_2$ ramas nuevas, y así sucesivamente; cada etapa multiplica el número de hojas. La condición de independencia \emph{numérica} es la clave: no hace falta que las opciones sean las mismas, sólo que sean igual de muchas. Cuando esa cantidad sí cambia (por ejemplo, la última cifra pierde una opción si la primera ya gastó un dígito par), hay que partir en casos y sumar.
+
+  \item \textbf{Elegir la fórmula según orden y repetición.} Con $n$ objetos distinguibles: si el orden importa y no hay repetición se usa $P(n,r)$; si el orden no importa y no hay repetición se usa $C(n,r)$; si el orden importa y sí hay repetición se usa $m^k$; si el orden no importa pero los objetos se pueden repetir (objetos idénticos por tipo) se usan combinaciones con repetición $CR(m,k)=C(m+k-1,k)$. La pregunta operativa siempre es la misma: \emph{si intercambio dos de los objetos elegidos, ¿obtengo un resultado distinto?}
+
+  \item \textbf{Usar el complemento cuando la condición dice ``al menos''.} Contar directamente ``al menos uno'' obliga a sumar muchos casos; contar lo contrario (``ninguno'') suele ser un solo cálculo. Como los casos que cumplen y los que no cumplen parten el total en dos familias disjuntas, el principio de la suma da
+  \[
+    (\text{cumplen}) = (\text{total}) - (\text{no cumplen}).
+  \]
+
+  \item \textbf{Usar inclusión--exclusión cuando las familias malas se traslapan.} Si hay que descartar los resultados que caen en $A_1\cup\cdots\cup A_k$ y esas familias comparten elementos, restar $|A_1|+\cdots+|A_k|$ quita de más. La corrección es
+  \[
+    |A_1\cup\cdots\cup A_k|=\sum |A_i|-\sum_{i<j}|A_i\cap A_j|+\sum_{i<j<l}|A_i\cap A_j\cap A_l|-\cdots
+  \]
+  \emph{Por qué vale:} un elemento que pertenece a exactamente $m$ de las familias se suma $\binom{m}{1}$ veces, se resta $\binom{m}{2}$, se vuelve a sumar $\binom{m}{3}$, etc.; la suma alternada $\binom{m}{1}-\binom{m}{2}+\cdots$ vale exactamente $1$, de modo que cada elemento de la unión termina contado una sola vez.
+
+  \item \textbf{Verificar el resultado con una lectura alternativa.} Casi todos estos ejercicios admiten dos caminos (directo y complemento, o dos particiones distintas). Cuando ambos dan lo mismo, el conteo está bien; cuando difieren, uno de los dos olvidó una restricción.
+\end{enumerate}
+\end{teo}
+
+\begin{tip}
+Fórmulas e identidades que se repiten en los ejercicios 14--29:
+\begin{itemize}[leftmargin=*]
+  \item Suma (casos disjuntos): $N=N_1+N_2+\cdots+N_k$. Vale porque ningún resultado pertenece a dos casos.
+  \item Producto (etapas): $N=n_1\cdot n_2\cdots n_k$. Vale porque cada etapa multiplica las hojas del árbol de decisiones.
+  \item Permutaciones sin repetición: $P(n,r)=\dfrac{n!}{(n-r)!}=n(n-1)\cdots(n-r+1)$; sale de llenar $r$ casillas gastando un objeto cada vez.
+  \item Permutaciones de todos los objetos: $P(n,n)=n!$.
+  \item Combinaciones: $C(n,r)=\dbinom{n}{r}=\dfrac{n!}{r!\,(n-r)!}=\dfrac{P(n,r)}{r!}$; sale de dividir las listas ordenadas entre las $r!$ reordenaciones que describen el mismo grupo.
+  \item Simetría: $C(n,r)=C(n,n-r)$, porque escoger los $r$ que entran equivale a escoger los $n-r$ que quedan fuera.
+  \item Repetición permitida en $k$ posiciones con $m$ símbolos: $m^k$.
+  \item Combinaciones con repetición (objetos idénticos repartidos en $m$ tipos): $CR(m,k)=\dbinom{m+k-1}{k}$; sale del modelo de barras y estrellas, donde $k$ estrellas y $m-1$ barras se ordenan en una fila de $m+k-1$ símbolos y basta decidir cuáles posiciones llevan estrella.
+  \item Complemento: (casos que cumplen) $=$ (total) $-$ (casos que no cumplen).
+  \item Total de subconjuntos: $\displaystyle\sum_{i=0}^{n}\binom{n}{i}=2^{n}$, porque cada elemento entra o no entra; y $\displaystyle\sum_{i\ \text{par}}\binom{n}{i}=2^{n-1}$ para $n\ge 1$, porque los subconjuntos de tamaño par y los de tamaño impar se emparejan uno a uno.
+\end{itemize}
+\end{tip}
+
+% ==========================================================
+\section*{Ejercicio 14}
+\addcontentsline{toc}{subsection}{Ejercicio 14}
+
+\begin{quote}
+30 personas se van a colocar en 3 filas, cada fila con 10 personas. Marco y Mario son amigos y quieren quedar en la misma fila y juntos (uno a la par del otro). Determine el total de maneras en que ocurre esta situación.\\[2pt]
+\textbf{R/ $6\cdot C(30,8)\cdot 8!\cdot C(20,10)\cdot (10!)^2$}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Definir qué es una colocación y por qué el orden dentro de la fila cuenta}
+\textbf{Qué hago:} describo el objeto que se cuenta antes de aplicar ninguna fórmula, para decidir si se usan combinaciones o permutaciones.
+
+Un resultado es una asignación completa: se dice qué persona ocupa cada uno de los $30$ asientos, repartidos en tres filas de $10$ asientos cada una. Dos colocaciones son distintas si alguna persona cambia de asiento, aunque el conjunto de personas de cada fila sea el mismo.
+
+\textbf{¿De dónde sale?} Del enunciado: se habla de ``colocar'' personas en filas y de que dos amigos queden ``uno a la par del otro''. La condición ``a la par'' sólo tiene sentido si los asientos de una fila están ordenados de izquierda a derecha; si la fila fuera un conjunto sin orden, la palabra ``juntos'' no significaría nada.
+
+\textbf{¿Por qué?} La teoría dice que el orden importa cuando intercambiar dos objetos elegidos produce un resultado distinto. Aquí intercambiar a dos personas de la misma fila cambia quién está sentado al lado de quién, y como el enunciado se fija precisamente en eso, el orden dentro de la fila es relevante: se contará con permutaciones, no sólo con combinaciones.
+
+\textbf{¿Qué tomamos?} Se anota que el conteo tendrá dos niveles: repartir las personas entre las filas (combinaciones) y ordenarlas dentro de cada fila (permutaciones), con la restricción de adyacencia sobre Marco y Mario.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Escoger la fila de Marco y Mario con el principio de la suma}
+\textbf{Qué hago:} aplico el principio de la suma partiendo el problema según en cuál de las tres filas quedan los dos amigos.
+
+Las tres posibilidades son: ambos en la fila $1$, ambos en la fila $2$, ambos en la fila $3$. Como los tres casos producen exactamente el mismo conteo interno, en lugar de sumar tres números iguales se multiplica por $3$:
+\[
+  N = 3\cdot N_{\text{una fila fija}} .
+\]
+
+\textbf{¿De dónde sale?} El $3$ es la cantidad de filas que menciona el enunciado (``3 filas'').
+
+\textbf{¿Por qué?} Los tres casos son mutuamente excluyentes, porque Marco no puede estar en dos filas a la vez, y son exhaustivos, porque el enunciado exige que estén en la misma fila y sólo hay tres filas. Al ser disjuntos, sus cantidades se suman sin corregir nada, y al ser numéricamente iguales, esa suma es $N_{\text{fila}}+N_{\text{fila}}+N_{\text{fila}}=3N_{\text{fila}}$: las filas son intercambiables porque todas tienen $10$ asientos.
+
+\textbf{¿Qué tomamos?} Se anota el factor $3$ y se pasa a contar lo que ocurre suponiendo que la fila de los amigos ya está fijada.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Elegir a los otros ocho compañeros de esa fila}
+\textbf{Qué hago:} aplico combinaciones $C(n,r)$ para escoger quiénes acompañan a los amigos en su fila, porque en este momento sólo interesa \emph{quiénes} son, no en qué asiento van.
+
+Descontando a Marco y a Mario quedan $30-2=28$ personas disponibles, y la fila de los amigos tiene $10-2=8$ asientos libres:
+\[
+  C(28,8)=\frac{28!}{8!\,20!}
+  =\frac{28\cdot 27\cdot 26\cdot 25\cdot 24\cdot 23\cdot 22\cdot 21}{8\cdot 7\cdot 6\cdot 5\cdot 4\cdot 3\cdot 2\cdot 1}
+  =\frac{29\,591\,300\,160}{40\,320}=3\,108\,105 .
+\]
+
+\textbf{¿De dónde sale?} El $28$ es $30$ personas menos los $2$ amigos; el $8$ es $10$ asientos por fila menos los $2$ que ocupan los amigos.
+
+\textbf{¿Por qué?} La fórmula $C(n,r)=\frac{n!}{r!(n-r)!}$ vale aquí porque escoger el grupo de acompañantes es una selección sin orden: el orden se decidirá después, al sentarlos. Si se contaran listas ordenadas se estaría contando dos veces el mismo grupo, y precisamente por eso $C(n,r)=P(n,r)/r!$. En el desarrollo, $\frac{28!}{20!}$ deja sólo los ocho factores descendentes $28\cdot 27\cdots 21$, porque $20!$ cancela la cola de $28!$; y $8!=40\,320$ es el denominador.
+
+\textbf{¿Qué tomamos?} Se anota el factor $C(28,8)=3\,108\,105$ como número de maneras de escoger a los ocho compañeros de fila.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Ordenar la fila de los amigos tratándolos como un bloque}
+\textbf{Qué hago:} aplico la técnica del bloque junto con permutaciones $P(n,n)=n!$ para contar los órdenes de esa fila en los que Marco y Mario quedan contiguos.
+
+Se pegan Marco y Mario formando un solo paquete. La fila pasa a tener $8$ personas sueltas más $1$ bloque, es decir $9$ unidades que se ordenan entre sí de $9!$ maneras; y dentro del bloque los dos amigos se pueden colocar en $2!$ órdenes (Marco a la izquierda o Mario a la izquierda):
+\[
+  9!\cdot 2! = 362\,880\cdot 2 = 725\,760 .
+\]
+El desarrollo de $9!$ es $9\cdot 8\cdot 7\cdot 6\cdot 5\cdot 4\cdot 3\cdot 2\cdot 1$: $9\cdot 8=72$, $72\cdot 7=504$, $504\cdot 6=3\,024$, $3\,024\cdot 5=15\,120$, $15\,120\cdot 4=60\,480$, $60\,480\cdot 3=181\,440$, $181\,440\cdot 2=362\,880$.
+
+\textbf{¿De dónde sale?} El $9$ son las $8$ personas del Paso 3 más el bloque, es decir $8+1=9$ unidades; el $2!$ son las dos maneras de ordenar a dos personas dentro del bloque.
+
+\textbf{¿Por qué?} Pegar a los dos amigos convierte la restricción ``deben quedar juntos'' en una propiedad automática: cualquier orden de las $9$ unidades los deja contiguos, y recíprocamente todo orden de la fila en que estén contiguos se obtiene de exactamente un orden de las $9$ unidades y una de las $2$ orientaciones internas. La correspondencia es uno a uno, así que el principio del producto se aplica sin duplicar ni perder resultados. Otra manera de verlo, equivalente: en una fila de $10$ asientos hay $9$ parejas de asientos contiguos, se elige una de ellas ($9$ maneras), se orienta a los amigos ($2$ maneras) y se sientan los otros $8$ en los $8$ asientos restantes ($8!$ maneras), lo que da $9\cdot 2\cdot 8!=9!\cdot 2$, el mismo número.
+
+\textbf{¿Qué tomamos?} Se anota el factor $9!\cdot 2=725\,760$ para el orden interno de la fila de los amigos.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Repartir y ordenar a las 20 personas restantes en las otras dos filas}
+\textbf{Qué hago:} aplico de nuevo combinaciones para repartir y permutaciones para ordenar, sobre las personas que aún no se han sentado.
+
+Después de llenar la fila de los amigos quedan $30-10=20$ personas y dos filas de $10$ asientos. Se elige quiénes van a la primera de esas dos filas y el resto queda determinado:
+\[
+  C(20,10)=\frac{20!}{10!\,10!}
+  =\frac{20\cdot 19\cdot 18\cdot 17\cdot 16\cdot 15\cdot 14\cdot 13\cdot 12\cdot 11}{10\cdot 9\cdot 8\cdot 7\cdot 6\cdot 5\cdot 4\cdot 3\cdot 2\cdot 1}
+  =\frac{670\,442\,572\,800}{3\,628\,800}=184\,756 .
+\]
+Dentro de cada una de esas dos filas las $10$ personas se ordenan de $10!$ maneras, lo que aporta $(10!)^2$.
+
+\textbf{¿De dónde sale?} El $20$ es $30$ menos las $10$ que ya se sentaron; el $10$ es la cantidad de asientos por fila que da el enunciado; el exponente $2$ de $(10!)^2$ son las dos filas que quedan.
+
+\textbf{¿Por qué?} No hace falta un $C(10,10)$ para la última fila porque vale $1$: una vez decidida la penúltima fila, las personas sobrantes están obligadas a ocupar la última. Y las filas son distinguibles entre sí (son lugares físicos distintos), de modo que no hay que dividir por $2!$: mandar al grupo $A$ a la fila $2$ y al grupo $B$ a la fila $3$ es un resultado distinto de mandarlos al revés.
+
+\textbf{¿Qué tomamos?} Se anotan los factores $C(20,10)=184\,756$ y $(10!)^2$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Multiplicar todas las etapas}
+\textbf{Qué hago:} aplico el principio del producto encadenando los cuatro factores obtenidos, ya que todas las etapas se realizan en un mismo resultado.
+\[
+  N = \underbrace{3}_{\text{fila de los amigos}}\cdot
+      \underbrace{C(28,8)}_{\text{compañeros}}\cdot
+      \underbrace{9!\cdot 2}_{\text{orden de esa fila}}\cdot
+      \underbrace{C(20,10)}_{\text{reparto restante}}\cdot
+      \underbrace{(10!)^2}_{\text{orden de las otras dos filas}}
+    = 6\cdot C(28,8)\cdot 9!\cdot C(20,10)\cdot (10!)^2 .
+\]
+donde el $6$ es $3\cdot 2$, es decir el factor de la fila multiplicado por las dos orientaciones del bloque.
+
+\textbf{¿De dónde sale?} Cada factor viene de un paso anterior: el $3$ del Paso 2, el $C(28,8)$ del Paso 3, el $9!\cdot 2$ del Paso 4 y el $C(20,10)\cdot(10!)^2$ del Paso 5.
+
+\textbf{¿Por qué?} Las etapas se pueden multiplicar porque el número de opciones de cada una no depende de cuál opción concreta se tomó en las anteriores: sea cual sea la fila elegida siempre hay $C(28,8)$ maneras de escoger acompañantes, y sea cual sea ese grupo siempre hay $9!\cdot 2$ órdenes válidos de la fila. Además ninguna colocación se cuenta dos veces, porque a partir del resultado final se puede reconstruir sin ambigüedad qué se decidió en cada etapa.
+
+\textbf{¿Qué tomamos?} Se anota la expresión $6\cdot C(28,8)\cdot 9!\cdot C(20,10)\cdot (10!)^2$ como total.
+\end{paso}
+
+\begin{nota}
+\textbf{Discrepancia con la respuesta oficial.} El PDF da $6\cdot C(30,8)\cdot 8!\cdot C(20,10)\cdot (10!)^2$, mientras que el desarrollo anterior conduce a $6\cdot C(28,8)\cdot 9!\cdot C(20,10)\cdot (10!)^2$. Hay dos diferencias:
+\begin{itemize}[leftmargin=*]
+  \item La oficial escribe $C(30,8)$; sin embargo, al escoger a los ocho compañeros de fila ya no están disponibles Marco ni Mario (ellos ocupan dos de los diez asientos), de modo que se escoge entre $28$ personas y no entre $30$.
+  \item La oficial escribe $8!$, que ordena únicamente a los ocho acompañantes, pero falta decidir en cuál de las $9$ parejas de asientos contiguos se sienta el bloque; incluyendo ese factor se obtiene $9\cdot 8!=9!$.
+\end{itemize}
+Se conserva la respuesta oficial tal como aparece en la práctica, señalando la diferencia para que quede a criterio del profesor.
+\end{nota}
+
+\begin{resp}
+Respuesta oficial: $\mathbf{6\cdot C(30,8)\cdot 8!\cdot C(20,10)\cdot (10!)^2}$.\\
+Resultado del desarrollo anterior: $6\cdot C(28,8)\cdot 9!\cdot C(20,10)\cdot (10!)^2$.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 15}
+\addcontentsline{toc}{subsection}{Ejercicio 15}
+
+\begin{quote}
+El examen de admisión de cierta universidad consta de 80 preguntas de selección única, donde 50 son de razonamiento matemático y las otras 30 de razonamiento verbal. Además, cada pregunta tiene cinco opciones de respuesta. Determine el número de maneras distintas de contestar la prueba si:\\[2pt]
+a) Se dejan en blanco 10 preguntas o 15 preguntas de todas las preguntas dispuestas en la prueba. \quad \textbf{R/ $C(80,10)\cdot 5^{70}+C(80,15)\cdot 5^{65}$}\\
+b) Se dejan en blanco 8 preguntas de razonamiento matemático y 6 preguntas en blanco de razonamiento verbal \quad \textbf{R/ $C(50,8)\cdot 5^{42}\cdot C(30,6)\cdot 5^{24}$}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Describir qué es ``una manera de contestar la prueba''}
+\textbf{Qué hago:} defino el objeto contado y observo que las preguntas son distinguibles entre sí.
+
+Una manera de contestar es una hoja de respuestas completa: para cada una de las $80$ preguntas se dice si quedó en blanco y, si fue contestada, cuál de las cinco opciones se marcó. Dos hojas son distintas si difieren en al menos una pregunta.
+
+\textbf{¿De dónde sale?} Del enunciado: hay $80$ preguntas, cada una con ``cinco opciones de respuesta'', y los incisos hablan de preguntas dejadas ``en blanco''.
+
+\textbf{¿Por qué?} Las preguntas están numeradas y no son intercambiables: dejar en blanco la pregunta $1$ no es lo mismo que dejar en blanco la pregunta $2$. Por eso escoger cuáles quedan en blanco es una selección de un subconjunto de preguntas concretas, que se cuenta con $C(n,r)$, y no un simple reparto de cantidades.
+
+\textbf{¿Qué tomamos?} Se anota que cada conteo tendrá dos etapas: escoger el conjunto de preguntas en blanco y luego marcar una opción en cada una de las restantes.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): contar las hojas con exactamente 10 preguntas en blanco}
+\textbf{Qué hago:} aplico combinaciones para escoger las preguntas en blanco y el principio del producto (repetición permitida) para las contestadas.
+
+Se escogen $10$ preguntas de las $80$ para dejarlas en blanco, y las otras $80-10=70$ se contestan, cada una con $5$ opciones posibles:
+\[
+  N_{10}=C(80,10)\cdot 5^{70},\qquad
+  C(80,10)=\frac{80!}{10!\,70!}=\frac{80\cdot 79\cdot 78\cdot 77\cdot 76\cdot 75\cdot 74\cdot 73\cdot 72\cdot 71}{10\cdot 9\cdot 8\cdot 7\cdot 6\cdot 5\cdot 4\cdot 3\cdot 2\cdot 1}.
+\]
+
+\textbf{¿De dónde sale?} El $80$ es el total de preguntas; el $10$ es la cantidad que pide dejar en blanco el inciso; el $70$ es $80-10$; el $5$ son las cinco opciones de respuesta que menciona el enunciado.
+
+\textbf{¿Por qué?} La selección de las preguntas en blanco no tiene orden: dejar en blanco $\{3,7\}$ es lo mismo que dejar en blanco $\{7,3\}$, así que se usa $C(80,10)$ y no $P(80,10)$. Para las $70$ contestadas se aplica el principio del producto con repetición: cada pregunta se responde independientemente de las demás y siempre tiene las mismas $5$ opciones, de modo que el árbol se multiplica por $5$ en cada una de las $70$ etapas, dando $5\cdot 5\cdots 5=5^{70}$. Y los dos bloques se multiplican entre sí porque, fijado cualquier conjunto de preguntas en blanco, el número de maneras de llenar las demás es siempre el mismo $5^{70}$.
+
+\textbf{¿Qué tomamos?} Se anota $N_{10}=C(80,10)\cdot 5^{70}$, dejado en forma de expresión porque los números involucrados son enormes y el enunciado no exige evaluarlos.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso a): contar el caso de 15 preguntas en blanco y sumar}
+\textbf{Qué hago:} repito el conteo del Paso 2 cambiando $10$ por $15$ y cierro con el principio de la suma, porque el enunciado dice ``10 preguntas \emph{o} 15 preguntas''.
+\[
+  N_{15}=C(80,15)\cdot 5^{65},\qquad
+  N_a=N_{10}+N_{15}=C(80,10)\cdot 5^{70}+C(80,15)\cdot 5^{65} .
+\]
+
+\textbf{¿De dónde sale?} El $15$ es la segunda cantidad de blancos que menciona el inciso; el exponente $65$ es $80-15$; los dos sumandos son los conteos de los Pasos 2 y 3.
+
+\textbf{¿Por qué?} La conjunción ``o'' del enunciado señala alternativas, y esas alternativas son excluyentes: una misma hoja no puede tener a la vez exactamente $10$ y exactamente $15$ preguntas en blanco, porque el número de blancos de una hoja es un solo valor. Al ser familias disjuntas, el principio de la suma se aplica sin ninguna corrección por traslape; si en cambio se hubiera pedido ``a lo sumo $15$'', las familias seguirían siendo disjuntas pero habría que sumar todos los valores de $0$ a $15$.
+
+\textbf{¿Qué tomamos?} Se anota $N_a=C(80,10)\cdot 5^{70}+C(80,15)\cdot 5^{65}$, exactamente en la forma de la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso b): tratar por separado las dos áreas del examen}
+\textbf{Qué hago:} aplico el principio del producto sobre cuatro etapas: escoger blancos de matemática, contestar el resto de matemática, escoger blancos de verbal y contestar el resto de verbal.
+
+Hay $50$ preguntas de razonamiento matemático, de las cuales $8$ quedan en blanco y $50-8=42$ se contestan; y $30$ de razonamiento verbal, de las cuales $6$ quedan en blanco y $30-6=24$ se contestan:
+\[
+  N_b = C(50,8)\cdot 5^{42}\cdot C(30,6)\cdot 5^{24}.
+\]
+
+\textbf{¿De dónde sale?} Los números $50$ y $30$ son el reparto de preguntas que da el enunciado ($50+30=80$); el $8$ y el $6$ son las cantidades de blancos que pide el inciso; los exponentes $42$ y $24$ salen de $50-8$ y $30-6$; el $5$ vuelve a ser el número de opciones por pregunta.
+
+\textbf{¿Por qué?} Ahora la restricción no se impone sobre el total sino sobre cada área por separado, así que ya no sirve escoger $14$ preguntas de las $80$: hay que garantizar que exactamente $8$ de los blancos caigan entre las matemáticas y exactamente $6$ entre las verbales. Como los dos bloques de preguntas son disjuntos, decidir los blancos de matemática no cambia cuántas opciones quedan en verbal, y por eso las cuatro etapas se multiplican. Obsérvese además que $5^{42}\cdot 5^{24}=5^{66}$, coherente con que se contestan $80-8-6=66$ preguntas en total.
+
+\textbf{¿Qué tomamos?} Se anota $N_b=C(50,8)\cdot 5^{42}\cdot C(30,6)\cdot 5^{24}$, en la forma de la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+a) $\mathbf{C(80,10)\cdot 5^{70}+C(80,15)\cdot 5^{65}}$ (coincide con la respuesta oficial).\\
+b) $\mathbf{C(50,8)\cdot 5^{42}\cdot C(30,6)\cdot 5^{24}}$ (coincide con la respuesta oficial).
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 16}
+\addcontentsline{toc}{subsection}{Ejercicio 16}
+
+\begin{quote}
+Se tiene una baraja de naipe (52 cartas: 13 espadas, 13 corazones, 13 tréboles y 13 diamantes) Se eligen 5 cartas al azar\\[2pt]
+a) ¿De cuántas maneras se puede obtener full (3 cartas con igual número y 2 con igual número)? \quad \textbf{R/ 3\,744}\\
+b) ¿De cuántas maneras se puede obtener color (5 cartas de un mismo palo)? \quad \textbf{R/ 5\,148}\\
+c) ¿Qué es más probable obtener en una mano de 5 cartas: color o cuadra (4 cartas con exactamente el mismo número)? \quad \textbf{R/ Color}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Fijar la estructura de la baraja y el tipo de resultado}
+\textbf{Qué hago:} describo el objeto contado y establezco que se trata de selecciones sin orden.
+
+Una mano es un conjunto de $5$ cartas distintas tomadas de las $52$. El orden en que se reparten no importa: la misma mano llega igual sin importar cuál carta salió primero. La baraja tiene $4$ palos (espadas, corazones, tréboles, diamantes) con $13$ cartas cada uno, y por lo tanto $13$ valores o ``números'' distintos, cada uno presente en los $4$ palos.
+
+\textbf{¿De dónde sale?} Del paréntesis del enunciado: ``52 cartas: 13 espadas, 13 corazones, 13 tréboles y 13 diamantes''. De ahí $52=4\cdot 13$, y como los $13$ valores se repiten en cada palo, cada valor aparece exactamente $4$ veces en la baraja.
+
+\textbf{¿Por qué?} Todos los incisos hablan de ``una mano de 5 cartas'', y una mano es un conjunto: intercambiar dos de sus cartas no produce una mano nueva. Ese es el criterio de la teoría para usar combinaciones $C(n,r)$ en lugar de permutaciones.
+
+\textbf{¿Qué tomamos?} Se anota que hay $13$ valores, $4$ cartas por valor, $4$ palos y $13$ cartas por palo, y que todos los conteos serán con $C(n,r)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): armar el full por etapas}
+\textbf{Qué hago:} aplico el principio del producto sobre cuatro decisiones: el valor del trío, cuáles palos forman el trío, el valor de la pareja y cuáles palos forman la pareja.
+\begin{align*}
+  \text{valor del trío:}&\quad 13 \text{ opciones},\\
+  \text{palos del trío:}&\quad C(4,3)=\frac{4!}{3!\,1!}=\frac{4\cdot 3\cdot 2\cdot 1}{(3\cdot 2\cdot 1)\cdot 1}=4,\\
+  \text{valor de la pareja:}&\quad 13-1=12 \text{ opciones},\\
+  \text{palos de la pareja:}&\quad C(4,2)=\frac{4!}{2!\,2!}=\frac{4\cdot 3}{2\cdot 1}=\frac{12}{2}=6 .
+\end{align*}
+Multiplicando:
+\[
+  N_a = 13\cdot 4\cdot 12\cdot 6 .
+\]
+Aritmética paso a paso: $13\cdot 4=52$; $52\cdot 12=624$; $624\cdot 6=3\,744$.
+
+\textbf{¿De dónde sale?} El $13$ son los valores distintos de la baraja; el $C(4,3)$ escoge $3$ de los $4$ palos en que existe ese valor; el $12$ es $13-1$, porque el valor de la pareja debe ser distinto del valor del trío; el $C(4,2)$ escoge $2$ de los $4$ palos del segundo valor.
+
+\textbf{¿Por qué?} La resta $13-1$ es obligatoria: si la pareja tuviera el mismo valor que el trío se necesitarían $5$ cartas de un solo valor y sólo hay $4$; además el full se define con \emph{dos} valores distintos. El producto es legítimo porque, fijado el valor del trío, siempre hay $C(4,3)$ maneras de escoger sus palos, y fijado eso, siempre hay $12$ valores para la pareja: la cantidad de opciones no depende de cuáles fueron las elecciones anteriores. Y no hay doble conteo porque los roles no son intercambiables: en una mano de full se distingue sin ambigüedad cuál valor aparece tres veces y cuál dos, de modo que cada mano se genera por un único camino de decisiones. Ese es justamente el motivo para \emph{no} dividir entre $2$ al final.
+
+\textbf{¿Qué tomamos?} Se anota $N_a=3\,744$ manos de full.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso b): contar las manos de color}
+\textbf{Qué hago:} aplico el principio de la suma sobre los cuatro palos y, dentro de cada palo, combinaciones para escoger las cinco cartas.
+
+Fijado un palo, ese palo tiene $13$ cartas y hay que tomar $5$ de ellas:
+\[
+  C(13,5)=\frac{13!}{5!\,8!}=\frac{13\cdot 12\cdot 11\cdot 10\cdot 9}{5\cdot 4\cdot 3\cdot 2\cdot 1}=\frac{154\,440}{120}=1\,287 .
+\]
+Como hay $4$ palos y los casos son excluyentes,
+\[
+  N_b = 4\cdot 1\,287 = 5\,148 .
+\]
+Detalle del numerador: $13\cdot 12=156$, $156\cdot 11=1\,716$, $1\,716\cdot 10=17\,160$, $17\,160\cdot 9=154\,440$; y del denominador: $5\cdot 4=20$, $20\cdot 3=60$, $60\cdot 2=120$.
+
+\textbf{¿De dónde sale?} El $13$ son las cartas por palo que declara el enunciado; el $5$ es el tamaño de la mano; el $4$ es la cantidad de palos.
+
+\textbf{¿Por qué?} Los cuatro casos son disjuntos porque una mano de cinco cartas del mismo palo determina ese palo de manera única: no puede ser a la vez toda de corazones y toda de tréboles. Por eso el principio de la suma se aplica directamente y, al ser los cuatro subtotales iguales, la suma se escribe como $4\cdot C(13,5)$. Dentro de cada palo se usa combinación porque la mano no tiene orden.
+
+\textbf{¿Qué tomamos?} Se anota $N_b=5\,148$ manos de color.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso c): contar las manos de cuadra}
+\textbf{Qué hago:} aplico el principio del producto para armar una cuadra, con el fin de tener el número que se comparará contra el color.
+
+Una cuadra son $4$ cartas del mismo valor más una quinta carta cualquiera de otro valor:
+\[
+  \text{valor de la cuadra: } 13,\qquad
+  \text{palos: } C(4,4)=\frac{4!}{4!\,0!}=1,\qquad
+  \text{quinta carta: } 52-4=48 .
+\]
+\[
+  N_{\text{cuadra}} = 13\cdot 1\cdot 48 = 624 .
+\]
+Aritmética: $13\cdot 48 = 13\cdot 40 + 13\cdot 8 = 520+104=624$.
+
+\textbf{¿De dónde sale?} El $13$ son los valores de la baraja; el $C(4,4)=1$ refleja que para tener las cuatro cartas de un valor hay que tomar los cuatro palos, sin opción; el $48$ es $52$ cartas menos las $4$ del valor ya usado.
+
+\textbf{¿Por qué?} La quinta carta se toma entre $48$ y no entre $52$ porque las cuatro del valor elegido ya están en la mano y no se pueden repetir; y automáticamente esa quinta carta tiene otro valor, que es lo que exige la palabra ``exactamente'' del enunciado. Se usa $0!=1$ en $C(4,4)$ porque el factorial de cero se define como $1$, lo cual es coherente con que hay una sola manera de no escoger nada.
+
+\textbf{¿Qué tomamos?} Se anota $N_{\text{cuadra}}=624$ manos de cuadra.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso c): comparar las dos cantidades}
+\textbf{Qué hago:} comparo los conteos de color y de cuadra, usando que ambas manos se extraen del mismo total de manos posibles.
+
+El total de manos de cinco cartas es
+\[
+  C(52,5)=\frac{52\cdot 51\cdot 50\cdot 49\cdot 48}{5\cdot 4\cdot 3\cdot 2\cdot 1}=\frac{311\,875\,200}{120}=2\,598\,960 ,
+\]
+y comparando los casos favorables:
+\[
+  N_b = 5\,148 \;>\; 624 = N_{\text{cuadra}},\qquad \frac{5\,148}{624}=8{,}25 .
+\]
+
+\textbf{¿De dónde sale?} El $5\,148$ viene del Paso 3 y el $624$ del Paso 4; el $C(52,5)$ se calcula con los $52$ naipes del enunciado y el tamaño $5$ de la mano.
+
+\textbf{¿Por qué?} Como todas las manos de cinco cartas son igualmente probables al elegir ``al azar'', la probabilidad de cada evento es (casos favorables)$/C(52,5)$, y el denominador es el mismo para ambos. Por lo tanto comparar probabilidades se reduce a comparar los numeradores, y $5\,148>624$: el color es más probable, y de hecho ocurre $8{,}25$ veces más seguido que la cuadra.
+
+\textbf{¿Qué tomamos?} Se anota que la respuesta del inciso c) es \emph{color}.
+\end{paso}
+
+\begin{resp}
+a) $13\cdot C(4,3)\cdot 12\cdot C(4,2)=13\cdot 4\cdot 12\cdot 6=\mathbf{3\,744}$ (coincide con R/ 3\,744).\\
+b) $4\cdot C(13,5)=4\cdot 1\,287=\mathbf{5\,148}$ (coincide con R/ 5\,148).\\
+c) Es más probable el \textbf{color}, porque tiene $5\,148$ manos favorables contra $624$ de la cuadra (coincide con R/ Color).
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 17}
+\addcontentsline{toc}{subsection}{Ejercicio 17}
+
+\begin{quote}
+¿De cuántas maneras se pueden escoger 3 números del 1 al 20, tal que su suma sea divisible por 3?\\[2pt]
+\textbf{R/ 384}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Clasificar los veinte números según su residuo al dividir por 3}
+\textbf{Qué hago:} agrupo los números disponibles en tres clases según el residuo módulo $3$, porque la divisibilidad de una suma sólo depende de los residuos de los sumandos.
+
+Recorriendo del $1$ al $20$:
+\begin{align*}
+  \text{residuo }0:&\quad 3,6,9,12,15,18 &&\Rightarrow\; n_0=6,\\
+  \text{residuo }1:&\quad 1,4,7,10,13,16,19 &&\Rightarrow\; n_1=7,\\
+  \text{residuo }2:&\quad 2,5,8,11,14,17,20 &&\Rightarrow\; n_2=7 .
+\end{align*}
+Verificación: $6+7+7=20$, que es la cantidad total de números.
+
+\textbf{¿De dónde sale?} El rango $1$ a $20$ es el del enunciado; las tres listas se obtienen avanzando de tres en tres desde $3$, desde $1$ y desde $2$ respectivamente.
+
+\textbf{¿Por qué?} Si $a$ deja residuo $r_a$ y $b$ deja residuo $r_b$, entonces $a+b$ deja el mismo residuo que $r_a+r_b$, porque las partes múltiplos de $3$ se suman entre sí y siguen siendo múltiplos de $3$. Por eso, para decidir si $a+b+c$ es divisible por $3$ no hace falta conocer los números, sólo sus residuos: basta que $r_a+r_b+r_c$ sea múltiplo de $3$. Esta reducción es la que convierte un problema aparentemente aritmético en un problema de conteo por casos.
+
+\textbf{¿Qué tomamos?} Se anotan los tamaños $n_0=6$, $n_1=7$, $n_2=7$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Determinar cuáles combinaciones de residuos sirven}
+\textbf{Qué hago:} aplico el principio de la suma listando todas las ternas de residuos cuya suma es múltiplo de $3$; cada una será un caso disjunto.
+
+Con residuos en $\{0,1,2\}$ y sin importar el orden, las posibilidades y sus sumas son:
+\[
+\begin{array}{llll}
+ (0,0,0)\to 0\ \checkmark & (1,1,1)\to 3\ \checkmark & (2,2,2)\to 6\ \checkmark & (0,1,2)\to 3\ \checkmark\\
+ (0,0,1)\to 1 & (0,0,2)\to 2 & (0,1,1)\to 2 & (0,2,2)\to 4\\
+ (1,1,2)\to 4 & (1,2,2)\to 5 & &
+\end{array}
+\]
+Sólo las cuatro marcadas dan suma divisible por $3$.
+
+\textbf{¿De dónde sale?} Las diez ternas son todas las multiselecciones de tamaño $3$ tomadas de $3$ residuos, es decir $CR(3,3)=C(3+3-1,3)=C(5,3)=10$; la lista de arriba efectivamente tiene $10$ renglones, lo que confirma que no falta ninguna.
+
+\textbf{¿Por qué?} Es una revisión exhaustiva: se calcula la suma de cada patrón de residuos y se conserva el que da $0$ módulo $3$. Los cuatro casos que quedan son mutuamente excluyentes, porque una terna concreta de números tiene un único patrón de residuos, y son exhaustivos, porque cualquier terna cae en alguno de los diez patrones listados. Eso habilita el principio de la suma.
+
+\textbf{¿Qué tomamos?} Se anota que $N=N_{000}+N_{111}+N_{222}+N_{012}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar los tres casos de residuos iguales}
+\textbf{Qué hago:} aplico combinaciones $C(n,r)$ dentro de cada clase, porque escoger tres números de una misma clase es una selección sin orden.
+\begin{align*}
+  N_{000}&=C(6,3)=\frac{6!}{3!\,3!}=\frac{6\cdot 5\cdot 4}{3\cdot 2\cdot 1}=\frac{120}{6}=20,\\
+  N_{111}&=C(7,3)=\frac{7!}{3!\,4!}=\frac{7\cdot 6\cdot 5}{3\cdot 2\cdot 1}=\frac{210}{6}=35,\\
+  N_{222}&=C(7,3)=35 .
+\end{align*}
+
+\textbf{¿De dónde sale?} Los $6$, $7$ y $7$ son los tamaños de las clases calculados en el Paso 1; el $3$ es la cantidad de números que pide el enunciado.
+
+\textbf{¿Por qué?} Se usa combinación y no permutación porque ``escoger 3 números'' no distingue el orden: el conjunto $\{3,6,9\}$ es la misma selección que $\{9,3,6\}$, y la suma es la misma. La cancelación $\frac{6!}{3!}=6\cdot 5\cdot 4$ ocurre porque $6!=6\cdot5\cdot4\cdot(3\cdot2\cdot1)$ y el paréntesis es exactamente $3!$.
+
+\textbf{¿Qué tomamos?} Se anotan los subtotales $20$, $35$ y $35$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Contar el caso de un número de cada clase y sumar}
+\textbf{Qué hago:} aplico el principio del producto para el caso $(0,1,2)$ y cierro con el principio de la suma sobre los cuatro casos.
+
+Hay que tomar un número de residuo $0$, uno de residuo $1$ y uno de residuo $2$:
+\[
+  N_{012}=6\cdot 7\cdot 7 = 42\cdot 7 = 294 .
+\]
+Y el total es
+\[
+  N = 20+35+35+294 = 384 .
+\]
+Aritmética de la suma: $20+35=55$, $55+35=90$, $90+294=384$.
+
+\textbf{¿De dónde sale?} Los factores $6$, $7$ y $7$ son los tamaños de las tres clases; los cuatro sumandos son los subtotales de los Pasos 3 y 4.
+
+\textbf{¿Por qué?} Se multiplica porque las tres clases son disjuntas: escoger el número de residuo $0$ no reduce cuántos hay de residuo $1$, de modo que cada una de las $6$ opciones se combina con cada una de las $7$ y con cada una de las $7$. Aquí no hay que dividir entre $3!$ aunque el orden no importe, porque los tres números provienen de listas distintas y cada selección se produce una sola vez: el primer factor siempre aporta el múltiplo de $3$, el segundo el de residuo $1$ y el tercero el de residuo $2$. Finalmente la suma es válida porque los cuatro patrones de residuos no comparten ninguna terna.
+
+\textbf{¿Qué tomamos?} Se anota $N=384$.
+\end{paso}
+
+\begin{resp}
+Se pueden escoger $C(6,3)+C(7,3)+C(7,3)+6\cdot 7\cdot 7=20+35+35+294=\mathbf{384}$ ternas cuya suma es divisible por $3$. Coincide con la respuesta oficial R/ 384.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 18}
+\addcontentsline{toc}{subsection}{Ejercicio 18}
+
+\begin{quote}
+Considere el conjunto $S_{25}=\{1,2,3,\dots,25\}$. Recuerde que los múltiplos de 3 son: 0, 3, 6, $\dots$ Determine el número de subconjuntos de $S_{25}$ de 6 elementos que tienen:\\[2pt]
+a) Exactamente 2 múltiplos de 3 \quad \textbf{R/ 66\,640}\\
+b) Al menos un múltiplo de 3 \quad \textbf{R/ 164\,724}\\
+c) Exactamente 2 múltiplos de 5 y exactamente 2 múltiplos de 3 \quad \textbf{R/ 17\,836}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Contar cuántos múltiplos de 3 y de 5 hay en el conjunto}
+\textbf{Qué hago:} preparo los tamaños de las clases que van a intervenir, listándolas explícitamente.
+
+En $S_{25}=\{1,2,\dots,25\}$:
+\begin{align*}
+  \text{múltiplos de }3:&\quad 3,6,9,12,15,18,21,24 &&\Rightarrow\; 8 \text{ elementos},\\
+  \text{no múltiplos de }3:&\quad 25-8 = 17 \text{ elementos},\\
+  \text{múltiplos de }5:&\quad 5,10,15,20,25 &&\Rightarrow\; 5 \text{ elementos}.
+\end{align*}
+
+\textbf{¿De dónde sale?} El conjunto y su tamaño ($25$ elementos) los da el enunciado. Los múltiplos de $3$ se obtienen avanzando de tres en tres hasta no pasarse de $25$: el mayor es $24=3\cdot 8$, de ahí que sean $8$. Los múltiplos de $5$ terminan en $25=5\cdot 5$, de ahí que sean $5$. Obsérvese que el $0$ que menciona el enunciado no pertenece a $S_{25}$, así que no se cuenta.
+
+\textbf{¿Por qué?} Todos los incisos imponen condiciones sobre cuántos elementos del subconjunto pertenecen a ciertas clases; para poder aplicar el principio del producto sobre esas clases hay que conocer primero sus tamaños. Además, un subconjunto de $6$ elementos no tiene orden, de modo que todo se contará con $C(n,r)$.
+
+\textbf{¿Qué tomamos?} Se anotan: $8$ múltiplos de $3$, $17$ no múltiplos de $3$, $5$ múltiplos de $5$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): repartir el subconjunto entre las dos clases}
+\textbf{Qué hago:} aplico el principio del producto sobre dos etapas: escoger los múltiplos de $3$ que entran y escoger los elementos restantes fuera de esa clase.
+
+Se toman $2$ de los $8$ múltiplos de $3$ y los otros $6-2=4$ elementos salen de los $17$ que no son múltiplos de $3$:
+\begin{align*}
+  C(8,2)&=\frac{8!}{2!\,6!}=\frac{8\cdot 7}{2\cdot 1}=\frac{56}{2}=28,\\
+  C(17,4)&=\frac{17!}{4!\,13!}=\frac{17\cdot 16\cdot 15\cdot 14}{4\cdot 3\cdot 2\cdot 1}=\frac{57\,120}{24}=2\,380,\\
+  N_a&=28\cdot 2\,380 = 66\,640 .
+\end{align*}
+Detalle del numerador de $C(17,4)$: $17\cdot 16=272$, $272\cdot 15=4\,080$, $4\,080\cdot 14=57\,120$. Detalle del producto final: $28\cdot 2\,380 = 28\cdot 2\,000 + 28\cdot 380 = 56\,000 + 10\,640 = 66\,640$.
+
+\textbf{¿De dónde sale?} El $8$ y el $17$ son los tamaños de clase del Paso 1; el $2$ es la cantidad exacta que pide el inciso; el $4$ es $6-2$, porque el subconjunto debe tener $6$ elementos en total.
+
+\textbf{¿Por qué?} La palabra ``exactamente'' obliga a que los otros cuatro elementos \emph{no} sean múltiplos de $3$; por eso se escogen de los $17$ y no de los $23$ restantes. Las dos etapas se multiplican porque las clases son disjuntas: fijados los dos múltiplos de $3$, siguen disponibles los mismos $17$ no múltiplos, sin importar cuáles dos se hayan tomado. Y cada subconjunto se genera una sola vez, porque a partir del subconjunto final se recupera sin ambigüedad qué elementos vinieron de cada clase.
+
+\textbf{¿Qué tomamos?} Se anota $N_a=66\,640$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso b): usar el complemento}
+\textbf{Qué hago:} aplico el principio del complemento, porque ``al menos un múltiplo de 3'' abarca los casos de $1,2,3,4,5$ y $6$ múltiplos, mientras que su negación es un solo caso.
+
+El total de subconjuntos de $6$ elementos y los que no tienen ningún múltiplo de $3$ son:
+\begin{align*}
+  C(25,6)&=\frac{25\cdot 24\cdot 23\cdot 22\cdot 21\cdot 20}{6\cdot 5\cdot 4\cdot 3\cdot 2\cdot 1}=\frac{127\,512\,000}{720}=177\,100,\\
+  C(17,6)&=\frac{17\cdot 16\cdot 15\cdot 14\cdot 13\cdot 12}{6\cdot 5\cdot 4\cdot 3\cdot 2\cdot 1}=\frac{8\,910\,720}{720}=12\,376,\\
+  N_b&=177\,100-12\,376=164\,724 .
+\end{align*}
+Detalle del numerador de $C(25,6)$: $25\cdot 24=600$, $600\cdot 23=13\,800$, $13\,800\cdot 22=303\,600$, $303\,600\cdot 21=6\,375\,600$, $6\,375\,600\cdot 20=127\,512\,000$. Detalle del de $C(17,6)$: $57\,120$ (calculado en el Paso 2) $\cdot\,13=742\,560$, y $742\,560\cdot 12=8\,910\,720$. La resta: $177\,100-12\,376=164\,724$.
+
+\textbf{¿De dónde sale?} El $25$ es el tamaño de $S_{25}$; el $6$ es el tamaño de los subconjuntos pedidos; el $17$ es la cantidad de elementos que no son múltiplos de $3$, del Paso 1.
+
+\textbf{¿Por qué?} Los subconjuntos que cumplen la condición y los que no la cumplen forman dos familias disjuntas que juntas dan el total, así que por el principio de la suma $(\text{cumplen})=(\text{total})-(\text{no cumplen})$. Y ``no tener al menos un múltiplo de $3$'' significa ``no tener ninguno'', es decir que los seis elementos salen de los $17$ no múltiplos: un solo cálculo en vez de seis. Contar directamente daría $C(8,1)C(17,5)+C(8,2)C(17,4)+\cdots+C(8,6)C(17,0)$, seis productos que conducen al mismo número pero con mucho más trabajo.
+
+\textbf{¿Qué tomamos?} Se anota $N_b=164\,724$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso c): separar los elementos en cuatro clases disjuntas}
+\textbf{Qué hago:} construyo una partición de $S_{25}$ que distinga los múltiplos de $3$, los de $5$, los de ambos y los de ninguno, porque el $15$ pertenece a las dos condiciones a la vez y no puede tratarse como si fuera dos elementos.
+\begin{align*}
+  A&=\text{múltiplos de }3\text{ pero no de }5: \{3,6,9,12,18,21,24\} &&\Rightarrow\; 7,\\
+  B&=\text{múltiplos de }5\text{ pero no de }3: \{5,10,20,25\} &&\Rightarrow\; 4,\\
+  C&=\text{múltiplos de }3\text{ y de }5: \{15\} &&\Rightarrow\; 1,\\
+  D&=\text{ni de }3\text{ ni de }5: 25-7-4-1 &&\Rightarrow\; 13 .
+\end{align*}
+
+\textbf{¿De dónde sale?} Las listas se obtienen de las del Paso 1: de los $8$ múltiplos de $3$ se retira el $15$, quedando $7$; de los $5$ múltiplos de $5$ se retira el $15$, quedando $4$; el único múltiplo común dentro de $S_{25}$ es $15$, porque los múltiplos de $15$ son $15,30,45,\dots$ y sólo el primero cabe en el conjunto.
+
+\textbf{¿Por qué?} Si se contara ingenuamente ``$C(8,2)$ para los de $3$ por $C(5,2)$ para los de $5$'', el elemento $15$ podría ser escogido dos veces y además se estarían pidiendo $2+2=4$ elementos que no siempre son distintos, con lo cual el conteo del resto quedaría mal. Al partir en cuatro clases disjuntas cada elemento pertenece a una y sólo una, y el principio del producto vuelve a ser aplicable sin traslapes.
+
+\textbf{¿Qué tomamos?} Se anotan los tamaños $|A|=7$, $|B|=4$, $|C|=1$, $|D|=13$, y se observa que $7+4+1+13=25$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso c): partir en dos casos según si el 15 está o no}
+\textbf{Qué hago:} aplico el principio de la suma separando según si el elemento $15$ pertenece al subconjunto, porque ese elemento cuenta simultáneamente como múltiplo de $3$ y de $5$.
+
+\emph{Caso 1: el $15$ está en el subconjunto.} Entonces ya aporta un múltiplo de $3$ y un múltiplo de $5$, así que falta $1$ múltiplo de $3$ tomado de $A$ y $1$ múltiplo de $5$ tomado de $B$, y los otros $6-3=3$ elementos deben salir de $D$:
+\[
+  N_1=C(7,1)\cdot C(4,1)\cdot C(13,3)
+     =7\cdot 4\cdot \frac{13\cdot 12\cdot 11}{3\cdot 2\cdot 1}
+     =7\cdot 4\cdot \frac{1\,716}{6}
+     =7\cdot 4\cdot 286 .
+\]
+Aritmética: $7\cdot 4=28$ y $28\cdot 286=8\,008$ (pues $28\cdot 286 = 28\cdot 300 - 28\cdot 14 = 8\,400-392=8\,008$).
+
+\emph{Caso 2: el $15$ no está.} Entonces los $2$ múltiplos de $3$ salen de $A$, los $2$ múltiplos de $5$ salen de $B$, y los otros $6-4=2$ elementos salen de $D$:
+\[
+  N_2=C(7,2)\cdot C(4,2)\cdot C(13,2)
+     =\frac{7\cdot 6}{2}\cdot\frac{4\cdot 3}{2}\cdot\frac{13\cdot 12}{2}
+     =21\cdot 6\cdot 78 .
+\]
+Aritmética: $21\cdot 6=126$ y $126\cdot 78 = 126\cdot 80 - 126\cdot 2 = 10\,080-252=9\,828$.
+
+\textbf{¿De dónde sale?} Los tamaños $7$, $4$, $13$ son los del Paso 4; los ``$2$ múltiplos de cada tipo'' los exige el inciso; los tamaños $3$ y $2$ del resto salen de $6-3$ y $6-4$ respectivamente.
+
+\textbf{¿Por qué?} Los dos casos son disjuntos (el $15$ está o no está, no hay término medio) y exhaustivos, de modo que el principio de la suma es aplicable. Dentro de cada caso los factores se multiplican porque las clases $A$, $B$ y $D$ no comparten elementos: escoger en $A$ no altera cuántas opciones quedan en $B$ ni en $D$. Los elementos de relleno se toman de $D$ y no de todo lo que sobra, porque tomar uno más de $A$ o de $B$ rompería la palabra ``exactamente''.
+
+\textbf{¿Qué tomamos?} Se anotan $N_1=8\,008$ y $N_2=9\,828$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso c): sumar los dos casos}
+\textbf{Qué hago:} cierro con el principio de la suma sobre los casos disjuntos del Paso 5.
+\[
+  N_c = 8\,008 + 9\,828 = 17\,836 .
+\]
+
+\textbf{¿De dónde sale?} Ambos sumandos vienen del Paso 5.
+
+\textbf{¿Por qué?} Ningún subconjunto se cuenta dos veces: los del primer caso contienen al $15$ y los del segundo no, de modo que las dos listas son ajenas y sus longitudes se suman sin corrección.
+
+\textbf{¿Qué tomamos?} Se anota $N_c=17\,836$.
+\end{paso}
+
+\begin{resp}
+a) $C(8,2)\cdot C(17,4)=28\cdot 2\,380=\mathbf{66\,640}$ (coincide con R/ 66\,640).\\
+b) $C(25,6)-C(17,6)=177\,100-12\,376=\mathbf{164\,724}$ (coincide con R/ 164\,724).\\
+c) $C(7,1)C(4,1)C(13,3)+C(7,2)C(4,2)C(13,2)=8\,008+9\,828=\mathbf{17\,836}$ (coincide con R/ 17\,836).
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 19}
+\addcontentsline{toc}{subsection}{Ejercicio 19}
+
+\begin{quote}
+¿Cuántos números múltiplos de 5 y de 4 cifras se pueden formar con los dígitos del 0 al 9, si no se pueden repetir cifras en cada uno de esos números?\\[2pt]
+\textbf{R/ 952}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Traducir las condiciones a restricciones sobre posiciones}
+\textbf{Qué hago:} identifico qué exige cada condición del enunciado sobre las cuatro casillas del número.
+
+Un número de cuatro cifras se escribe como $d_1d_2d_3d_4$ con $d_1\neq 0$ (si no, tendría tres cifras), y ser múltiplo de $5$ obliga a que $d_4\in\{0,5\}$. Además los cuatro dígitos deben ser distintos entre sí.
+
+\textbf{¿De dónde sale?} El ``de 4 cifras'' fija cuatro casillas y prohíbe el cero inicial; el ``múltiplos de 5'' restringe la última cifra; el ``no se pueden repetir cifras'' impide reutilizar un dígito ya colocado; el alfabeto es $\{0,1,\dots,9\}$, es decir $10$ dígitos.
+
+\textbf{¿Por qué?} Un número es múltiplo de $5$ exactamente cuando su última cifra es $0$ o $5$: al escribir $N=10q+d_4$, el término $10q$ siempre es múltiplo de $5$, de modo que $N$ lo es si y sólo si $d_4$ lo es, y los únicos dígitos múltiplos de $5$ son $0$ y $5$. Aquí el orden de las cifras importa (los números $1230$ y $3210$ son distintos), así que se contará con producto y permutaciones, no con combinaciones.
+
+\textbf{¿Qué tomamos?} Se anota que hay dos posiciones restringidas, la primera y la última, y que conviene decidirlas antes que las intermedias.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Partir en dos casos según la última cifra}
+\textbf{Qué hago:} aplico el principio de la suma separando según si el número termina en $0$ o en $5$.
+
+\textbf{¿De dónde sale?} Los dos valores posibles de $d_4$ salen del Paso 1.
+
+\textbf{¿Por qué?} Porque el número de opciones de la primera cifra depende de cuál sea la última: si $d_4=0$, entonces el cero ya está usado y la primera cifra puede ser cualquiera de $1$ a $9$; pero si $d_4=5$, la primera cifra no puede ser $0$ (regla de las cuatro cifras) ni $5$ (ya usado), de modo que pierde dos opciones. Como esa cantidad cambia, el principio del producto no se puede aplicar de un solo golpe y hay que partir en casos. Los dos casos son disjuntos porque un número no termina en $0$ y en $5$ a la vez.
+
+\textbf{¿Qué tomamos?} Se anota que $N=N_{(d_4=0)}+N_{(d_4=5)}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar los números que terminan en 0}
+\textbf{Qué hago:} aplico el principio del producto recorriendo las posiciones en el orden más restringido primero.
+
+Última cifra: fija en $0$, $1$ opción. Primera cifra: cualquier dígito de $1$ a $9$, es decir $9$ opciones (ninguna se pierde, porque el único dígito ya usado es el $0$, que de todos modos estaba prohibido ahí). Segunda cifra: quedan $10-2=8$ dígitos sin usar. Tercera cifra: quedan $7$.
+\[
+  N_{(d_4=0)}=1\cdot 9\cdot 8\cdot 7 = 504 .
+\]
+Aritmética: $9\cdot 8=72$ y $72\cdot 7=504$.
+
+\textbf{¿De dónde sale?} El $9$ son los dígitos $1$ a $9$; el $8$ es $10$ dígitos menos los $2$ ya colocados ($0$ y la primera cifra); el $7$ es $10$ menos los $3$ colocados.
+
+\textbf{¿Por qué?} Se multiplica porque, fijada la primera cifra, siempre quedan exactamente $8$ dígitos libres para la segunda, sin importar cuál se haya usado; y fijada la segunda, siempre quedan $7$ para la tercera. Esa constancia numérica es la condición que exige el principio del producto. El descuento progresivo $10,9,8,7$ es la mecánica de la permutación: cada casilla consume un dígito del alfabeto.
+
+\textbf{¿Qué tomamos?} Se anota $N_{(d_4=0)}=504$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Contar los números que terminan en 5 y sumar}
+\textbf{Qué hago:} repito el conteo del Paso 3 corrigiendo las opciones de la primera cifra, y cierro con el principio de la suma.
+
+Última cifra: fija en $5$, $1$ opción. Primera cifra: no puede ser $0$ ni $5$, así que quedan $10-2=8$ opciones. Segunda cifra: $10-2=8$ dígitos libres. Tercera cifra: $7$.
+\[
+  N_{(d_4=5)} = 1\cdot 8\cdot 8\cdot 7 = 448 ,
+\]
+y por lo tanto
+\[
+  N = 504 + 448 = 952 .
+\]
+Aritmética: $8\cdot 8=64$, $64\cdot 7=448$; y $504+448=952$.
+
+\textbf{¿De dónde sale?} El primer $8$ son los $10$ dígitos menos el $0$ (prohibido al inicio) y menos el $5$ (ya usado al final); el segundo $8$ son los $10$ dígitos menos los dos ya colocados (el $5$ y la primera cifra); el $7$ descuenta el tercero colocado; los sumandos vienen de los Pasos 3 y 4.
+
+\textbf{¿Por qué?} Es importante notar que los dos ochos tienen orígenes distintos aunque coincidan en valor: el primero mezcla una prohibición estructural (no empezar con cero) con una de no repetición, mientras que el segundo es puramente de no repetición y sí admite el $0$. La suma final es legítima porque las dos familias de números son ajenas.
+
+\textbf{¿Qué tomamos?} Se anota $N=952$.
+\end{paso}
+
+\begin{resp}
+Se pueden formar $9\cdot 8\cdot 7 + 8\cdot 8\cdot 7 = 504+448=\mathbf{952}$ números. Coincide con la respuesta oficial R/ 952.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 20}
+\addcontentsline{toc}{subsection}{Ejercicio 20}
+
+\begin{quote}
+Determine la cantidad de números pares de 3 dígitos distintos que se pueden formar con 1, 3, 4 y 6.\\[2pt]
+\textbf{R/ 12}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Identificar cuáles dígitos pueden ir en la última posición}
+\textbf{Qué hago:} traduzco la condición ``par'' a una restricción sobre la última cifra, que es la posición condicionada.
+
+El alfabeto disponible es $\{1,3,4,6\}$, cuatro dígitos. Un número es par exactamente cuando su última cifra es par, y en este alfabeto los pares son $4$ y $6$, es decir $2$ opciones.
+
+\textbf{¿De dónde sale?} Los cuatro dígitos son los que lista el enunciado; los pares se identifican revisando cuáles son divisibles entre $2$: $1$ no, $3$ no, $4$ sí, $6$ sí.
+
+\textbf{¿Por qué?} Al escribir $N=10q+d_3$, el término $10q$ siempre es par, así que la paridad de $N$ coincide con la de su última cifra. Además, ningún dígito es $0$, de modo que aquí no hay restricción sobre la primera posición: cualquiera de los cuatro dígitos puede encabezar el número.
+
+\textbf{¿Qué tomamos?} Se anota que la última posición tiene $2$ opciones y que conviene decidirla primero.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Llenar las dos primeras posiciones con una permutación}
+\textbf{Qué hago:} aplico el principio del producto poniendo primero la posición restringida y luego una permutación $P(n,r)$ sobre las dos casillas libres.
+
+Una vez elegido el dígito final quedan $4-1=3$ dígitos sin usar para las dos primeras casillas, y deben ser distintos entre sí:
+\[
+  P(3,2)=\frac{3!}{(3-2)!}=\frac{3!}{1!}=3\cdot 2 = 6 .
+\]
+
+\textbf{¿De dónde sale?} El $3$ son los cuatro dígitos del enunciado menos el que ya se colocó al final; el $2$ son las posiciones que faltan (la de las centenas y la de las decenas).
+
+\textbf{¿Por qué?} Se usa permutación y no combinación porque el orden de las cifras cambia el número: con los dígitos $1$ y $3$ se forman $13\ldots$ y $31\ldots$, que son números distintos. La expansión $\frac{3!}{1!}=3\cdot 2$ ocurre porque $3!=3\cdot 2\cdot 1$ y el $1!=1$ del denominador cancela el último factor. Leído directamente: la primera casilla tiene $3$ dígitos libres y la segunda $2$, porque uno se gastó.
+
+\textbf{¿Qué tomamos?} Se anota $P(3,2)=6$ maneras de llenar las dos primeras casillas por cada elección de la última.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Multiplicar las etapas}
+\textbf{Qué hago:} cierro con el principio del producto uniendo las dos etapas anteriores.
+\[
+  N = 2\cdot P(3,2) = 2\cdot 6 = 12 .
+\]
+
+\textbf{¿De dónde sale?} El $2$ son los finales pares del Paso 1 y el $6$ es la permutación del Paso 2.
+
+\textbf{¿Por qué?} La multiplicación es válida porque el número de maneras de llenar las dos primeras casillas es el mismo ($6$) tanto si el número termina en $4$ como si termina en $6$: en ambos casos sobran exactamente $3$ dígitos. Por eso no hace falta partir en casos. Verificación por enumeración del caso ``termina en 4'': $134,314,164,614,364,634$, que son $6$ números, como predice el cálculo.
+
+\textbf{¿Qué tomamos?} Se anota $N=12$.
+\end{paso}
+
+\begin{resp}
+Se pueden formar $2\cdot P(3,2)=2\cdot 6=\mathbf{12}$ números pares de tres dígitos distintos. Coincide con la respuesta oficial R/ 12.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 21}
+\addcontentsline{toc}{subsection}{Ejercicio 21}
+
+\begin{quote}
+Se tienen diez bolas enumeradas del uno al diez, del uno al seis son verdes y el resto rojas\\[2pt]
+a) ¿De cuántas maneras se pueden elegir cinco bolas con al menos tres verdes? \quad \textbf{R/ 186}\\
+b) ¿De cuántas maneras se pueden elegir cinco bolas con a lo sumo tres verdes? \quad \textbf{R/ 186}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Contar las bolas de cada color y fijar el tipo de conteo}
+\textbf{Qué hago:} determino los tamaños de las dos clases y observo que la elección no tiene orden.
+
+Las bolas $1,2,3,4,5,6$ son verdes, es decir $6$ verdes; ``el resto'' son las bolas $7,8,9,10$, es decir $10-6=4$ rojas. Una elección es un conjunto de $5$ bolas.
+
+\textbf{¿De dónde sale?} Del enunciado: hay diez bolas numeradas, del uno al seis verdes y el resto rojas.
+
+\textbf{¿Por qué?} Las bolas están numeradas, así que son distinguibles una a una y el conteo se hace con $C(n,r)$ sobre bolas concretas, no sobre colores. Y ``elegir cinco bolas'' no menciona ningún orden ni papel distinto para cada bola, de modo que intercambiarlas no produce una elección nueva: corresponde combinación.
+
+\textbf{¿Qué tomamos?} Se anotan $6$ verdes, $4$ rojas y tamaño de selección $5$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): enumerar los casos posibles según la cantidad de verdes}
+\textbf{Qué hago:} aplico el principio de la suma partiendo según cuántas bolas verdes entran, ya que ``al menos tres'' abarca varios valores.
+
+Sea $v$ la cantidad de verdes elegidas; entonces se toman $5-v$ rojas. La condición del inciso es $v\ge 3$, pero además $5-v\le 4$ (sólo hay cuatro rojas) y $v\le 5$, lo que deja
+\[
+  v\in\{3,4,5\}.
+\]
+
+\textbf{¿De dónde sale?} El $3$ es el mínimo que pide el enunciado; el tope $v\le 5$ es el tamaño de la selección; también $v\le 6$ por el número de verdes, condición que no restringe más.
+
+\textbf{¿Por qué?} Los casos son disjuntos porque una selección tiene un número de verdes bien definido, y son exhaustivos dentro de la condición, así que el principio de la suma aplica. Vale la pena revisar los límites antes de calcular: si se escribiera ``$v$ de $3$ a $6$'' aparecería el término $C(6,6)C(4,-1)$, que no tiene sentido.
+
+\textbf{¿Qué tomamos?} Se anota que $N_a=N_{v=3}+N_{v=4}+N_{v=5}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso a): calcular y sumar los tres casos}
+\textbf{Qué hago:} dentro de cada caso aplico el principio del producto (verdes por rojas) y luego sumo.
+\begin{align*}
+  N_{v=3}&=C(6,3)\cdot C(4,2)=\frac{6\cdot 5\cdot 4}{3\cdot 2\cdot 1}\cdot\frac{4\cdot 3}{2\cdot 1}=\frac{120}{6}\cdot\frac{12}{2}=20\cdot 6=120,\\
+  N_{v=4}&=C(6,4)\cdot C(4,1)=\frac{6\cdot 5}{2\cdot 1}\cdot 4=15\cdot 4=60,\\
+  N_{v=5}&=C(6,5)\cdot C(4,0)=6\cdot 1=6,\\
+  N_a&=120+60+6=186 .
+\end{align*}
+
+\textbf{¿De dónde sale?} Los $6$ y $4$ son las cantidades de verdes y rojas del Paso 1; los segundos argumentos salen de la partición del Paso 2 ($v$ verdes y $5-v$ rojas).
+
+\textbf{¿Por qué?} Se usó $C(6,4)=C(6,2)=15$ por la identidad de simetría $C(n,r)=C(n,n-r)$, válida porque escoger cuáles $4$ verdes entran equivale a escoger cuáles $2$ quedan fuera; igual $C(6,5)=C(6,1)=6$. El valor $C(4,0)=1$ refleja que hay una única manera de no tomar ninguna roja. Dentro de cada caso se multiplica porque las bolas verdes y las rojas son colecciones disjuntas: escoger las verdes no cambia cuántas rojas quedan disponibles.
+
+\textbf{¿Qué tomamos?} Se anota $N_a=186$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso b): resolver por complemento}
+\textbf{Qué hago:} aplico el principio del complemento sobre el total de selecciones, porque ``a lo sumo tres verdes'' es la negación de ``cuatro o más verdes''.
+
+El total de selecciones de $5$ bolas entre $10$ es
+\[
+  C(10,5)=\frac{10\cdot 9\cdot 8\cdot 7\cdot 6}{5\cdot 4\cdot 3\cdot 2\cdot 1}=\frac{30\,240}{120}=252 .
+\]
+Las que \emph{no} cumplen son las de $v=4$ y $v=5$, ya calculadas en el Paso 3:
+\[
+  N_b = 252 - (60+6) = 252-66 = 186 .
+\]
+Detalle del numerador: $10\cdot 9=90$, $90\cdot 8=720$, $720\cdot 7=5\,040$, $5\,040\cdot 6=30\,240$.
+
+\textbf{¿De dónde sale?} El $10$ y el $5$ son el total de bolas y el tamaño de la selección; los $60$ y $6$ son $N_{v=4}$ y $N_{v=5}$ del Paso 3.
+
+\textbf{¿Por qué?} ``A lo sumo tres verdes'' significa $v\le 3$, y su negación es $v\ge 4$; como toda selección cae en exactamente uno de los dos bandos, el principio de la suma da la resta. Reutilizar $N_{v=4}$ y $N_{v=5}$ ahorra trabajo. También se puede comprobar directamente: $N_{v=1}+N_{v=2}+N_{v=3}=C(6,1)C(4,4)+C(6,2)C(4,3)+C(6,3)C(4,2)=6\cdot 1+15\cdot 4+20\cdot 6=6+60+120=186$, el mismo valor; obsérvese que $v=0$ es imposible porque haría falta tomar $5$ rojas y sólo hay $4$.
+
+\textbf{¿Qué tomamos?} Se anota $N_b=186$.
+\end{paso}
+
+\begin{nota}
+Que ambos incisos den $186$ no es casualidad ni error: los casos con $v\ge 3$ y los casos con $v\le 3$ se traslapan justo en $v=3$, y se cumple $N_a+N_b=186+186=372=252+120=C(10,5)+N_{v=3}$, exactamente lo que predice el principio de inclusión--exclusión al sumar dos familias que comparten el caso $v=3$.
+\end{nota}
+
+\begin{resp}
+a) $C(6,3)C(4,2)+C(6,4)C(4,1)+C(6,5)C(4,0)=120+60+6=\mathbf{186}$ (coincide con R/ 186).\\
+b) $C(10,5)-\big[C(6,4)C(4,1)+C(6,5)C(4,0)\big]=252-66=\mathbf{186}$ (coincide con R/ 186).
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 22}
+\addcontentsline{toc}{subsection}{Ejercicio 22}
+
+\begin{quote}
+Se tiene una urna con 12 bolas enumeradas del 1 al 12. Una persona debe seleccionar 4 de ellas y colocarlas en fila en el orden en que las seleccionó ¿De cuántas maneras se pueden extraer las 4 bolas de forma que la tercera tenga un número múltiplo de 3?\\[2pt]
+\textbf{R/ 3\,960}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Reconocer que el resultado es una fila ordenada sin repetición}
+\textbf{Qué hago:} defino el objeto contado para decidir entre permutaciones y combinaciones.
+
+Un resultado es una fila $(b_1,b_2,b_3,b_4)$ de cuatro bolas distintas, donde $b_i$ es la bola que ocupa la posición $i$. Dos resultados son distintos si alguna posición cambia de bola.
+
+\textbf{¿De dónde sale?} Del enunciado: las bolas se colocan ``en fila en el orden en que las seleccionó'', y la condición se impone sobre ``la tercera'', lo que sólo tiene sentido si las posiciones se distinguen. Que no haya repetición se debe a que las bolas se extraen de la urna y no se devuelven.
+
+\textbf{¿Por qué?} El criterio de la teoría es directo: intercambiar dos bolas de la fila produce otra fila, luego el orden importa y se usan permutaciones. Si el enunciado hubiera pedido simplemente ``escoger 4 bolas'', habría que dividir después entre $4!$.
+
+\textbf{¿Qué tomamos?} Se anota que hay $4$ posiciones ordenadas, una de ellas restringida.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar las opciones de la tercera posición}
+\textbf{Qué hago:} aplico el principio del producto empezando por la posición restringida, y cuento cuántas bolas la satisfacen.
+
+Los múltiplos de $3$ entre $1$ y $12$ son $3,6,9,12$, es decir
+\[
+  n_3 = 4 \quad\text{opciones para la tercera bola.}
+\]
+
+\textbf{¿De dónde sale?} La numeración $1$ a $12$ es la del enunciado; los múltiplos se obtienen avanzando de tres en tres: $3\cdot 1=3$, $3\cdot 2=6$, $3\cdot 3=9$, $3\cdot 4=12$, y el siguiente ya se pasa.
+
+\textbf{¿Por qué?} Conviene decidir primero la posición condicionada: si se llenaran antes las otras tres, el número de múltiplos de $3$ disponibles para la tercera dependería de cuáles bolas se hubieran gastado, y el principio del producto dejaría de aplicarse sin partir en casos. Al fijarla primero, en cambio, las demás posiciones quedan todas en igualdad de condiciones.
+
+\textbf{¿Qué tomamos?} Se anota el factor $4$ para la tercera posición.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Llenar las tres posiciones restantes con una permutación}
+\textbf{Qué hago:} aplico permutaciones $P(n,r)$ sobre las posiciones $1$, $2$ y $4$, que ya no tienen restricción.
+
+Retirada la bola de la tercera posición quedan $12-1=11$ bolas para $3$ casillas ordenadas:
+\[
+  P(11,3)=\frac{11!}{(11-3)!}=\frac{11!}{8!}=11\cdot 10\cdot 9 = 990 .
+\]
+Aritmética: $11\cdot 10=110$ y $110\cdot 9=990$.
+
+\textbf{¿De dónde sale?} El $11$ es $12$ bolas menos la ya colocada en la tercera posición; el $3$ son las posiciones $1$, $2$ y $4$.
+
+\textbf{¿Por qué?} La cancelación $\frac{11!}{8!}=11\cdot 10\cdot 9$ ocurre porque $11!=11\cdot 10\cdot 9\cdot(8\cdot 7\cdots 1)$ y el paréntesis es exactamente $8!$. Leído directamente: la primera casilla tiene $11$ bolas libres, la segunda $10$ porque una se gastó, y la cuarta $9$. Se usa permutación porque las tres casillas restantes son posiciones distinguibles de la fila.
+
+\textbf{¿Qué tomamos?} Se anota el factor $P(11,3)=990$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Multiplicar las dos etapas}
+\textbf{Qué hago:} cierro con el principio del producto uniendo el Paso 2 y el Paso 3.
+\[
+  N = 4\cdot P(11,3) = 4\cdot 990 = 3\,960 .
+\]
+
+\textbf{¿De dónde sale?} El $4$ son los múltiplos de $3$ del Paso 2 y el $990$ es la permutación del Paso 3.
+
+\textbf{¿Por qué?} La multiplicación es válida porque el conteo interior no depende de cuál múltiplo de $3$ se haya colocado: sea el $3$, el $6$, el $9$ o el $12$, siempre quedan $11$ bolas para las tres casillas libres. Y ninguna fila se cuenta dos veces, porque de la fila final se lee sin ambigüedad qué bola quedó en la tercera posición.
+
+\textbf{¿Qué tomamos?} Se anota $N=3\,960$.
+\end{paso}
+
+\begin{resp}
+Se pueden extraer las cuatro bolas de $4\cdot P(11,3)=4\cdot 990=\mathbf{3\,960}$ maneras. Coincide con la respuesta oficial R/ 3\,960.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 23}
+\addcontentsline{toc}{subsection}{Ejercicio 23}
+
+\begin{quote}
+En la librería \textbf{ABC S.A.} tienen cuatro marcas de lapiceros azules $X$, $Y$, $Z$, $W$. Suponiendo que los lapiceros azules de una misma marca son idénticos ¿De cuántas maneras puede Jorge comprar 10 lapiceros? si:\\[2pt]
+a) No hay restricciones. \quad \textbf{R/ 286}\\
+b) Debe comprar exactamente dos lapiceros marca $Z$. \quad \textbf{R/ 45}\\
+c) Debe comprar al menos 2 lapiceros de cada marca. \quad \textbf{R/ 10}\\
+d) De la marca $X$ hay solamente 3 lapiceros. \quad \textbf{R/ 202}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Modelar la compra como una solución en enteros no negativos}
+\textbf{Qué hago:} traduzco la compra a un problema de combinaciones con repetición, porque los lapiceros de una misma marca son indistinguibles.
+
+Sean $x,y,z,w$ las cantidades compradas de cada marca. Una compra queda completamente descrita por la cuádrupla de cantidades, y la condición del enunciado es
+\[
+  x+y+z+w = 10,\qquad x,y,z,w\ \text{enteros}\ \ge 0 .
+\]
+
+\textbf{¿De dónde sale?} El $10$ es la cantidad de lapiceros que compra Jorge; las cuatro incógnitas son las cuatro marcas $X$, $Y$, $Z$, $W$ que menciona el enunciado; la no negatividad refleja que puede no llevar ninguno de alguna marca.
+
+\textbf{¿Por qué?} Como ``los lapiceros azules de una misma marca son idénticos'', llevarse el primer lapicero $X$ o el segundo lapicero $X$ da exactamente la misma compra: lo único observable es \emph{cuántos} de cada marca. Por eso no se puede usar $C(n,r)$ sobre lapiceros individuales; el objeto contado es un vector de cantidades, y ese es precisamente el escenario de las combinaciones con repetición.
+
+\textbf{¿Qué tomamos?} Se anota el modelo $x+y+z+w=10$ con $m=4$ tipos y $k=10$ objetos.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Justificar y aplicar la fórmula de combinaciones con repetición}
+\textbf{Qué hago:} aplico la fórmula $CR(m,k)=C(m+k-1,k)$ para resolver el inciso a).
+
+Se representa la compra con $10$ estrellas (los lapiceros) y $3$ barras que separan las cuatro marcas; por ejemplo
+\[
+  \star\star\,|\,\star\star\star\,|\,\star\,|\,\star\star\star\star \quad\text{significa } x=2,\ y=3,\ z=1,\ w=4 .
+\]
+La fila tiene $10+3=13$ símbolos y basta decidir cuáles $3$ posiciones llevan barra (o equivalentemente cuáles $10$ llevan estrella):
+\[
+  N_a = C(13,3)=\frac{13!}{3!\,10!}=\frac{13\cdot 12\cdot 11}{3\cdot 2\cdot 1}=\frac{1\,716}{6}=286 .
+\]
+Aritmética del numerador: $13\cdot 12=156$ y $156\cdot 11=1\,716$; y $1\,716/6=286$.
+
+\textbf{¿De dónde sale?} El $10$ son los lapiceros; el $3$ es $m-1=4-1$, el número de separadores necesarios para partir la fila en cuatro bloques; el $13$ es $10+3$.
+
+\textbf{¿Por qué?} La correspondencia entre compras y filas de símbolos es uno a uno: de cada fila se lee una única cuádrupla $(x,y,z,w)$ contando estrellas entre barras, y de cada cuádrupla se construye una única fila. Como contar filas es escoger las posiciones de las barras dentro de $13$ casillas, es un $C(13,3)$ ordinario, y ahí sí los objetos (las posiciones) son distinguibles. Esto justifica la fórmula general $CR(m,k)=C(m+k-1,k)=C(m+k-1,m-1)$; nótese que $C(13,3)=C(13,10)$ por simetría.
+
+\textbf{¿Qué tomamos?} Se anota $N_a=286$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso b): fijar la cantidad de la marca Z y reducir el problema}
+\textbf{Qué hago:} sustituyo el valor obligado de $z$ y vuelvo a aplicar combinaciones con repetición sobre las marcas restantes.
+
+Si $z=2$, la ecuación del Paso 1 se convierte en
+\[
+  x+y+w = 10-2 = 8,\qquad x,y,w\ge 0 ,
+\]
+que tiene $m=3$ tipos y $k=8$ objetos:
+\[
+  N_b = C(8+3-1,\,8)=C(10,8)=C(10,2)=\frac{10\cdot 9}{2\cdot 1}=\frac{90}{2}=45 .
+\]
+
+\textbf{¿De dónde sale?} El $2$ es la cantidad exacta de lapiceros $Z$ que pide el inciso; el $8$ es $10-2$; el $3$ son las marcas $X$, $Y$, $W$ que quedan libres.
+
+\textbf{¿Por qué?} Fijar $z=2$ se puede hacer de una sola manera, porque los lapiceros $Z$ son idénticos: no hay que escoger \emph{cuáles} dos, sólo cuántos. Por eso el factor correspondiente vale $1$ y todo el conteo se reduce al problema más pequeño. Además la palabra ``exactamente'' impide que las otras marcas aporten más $Z$, cosa que ya está garantizada porque $z$ es una variable con valor fijo. Se usó la simetría $C(10,8)=C(10,2)$ para calcular más rápido.
+
+\textbf{¿Qué tomamos?} Se anota $N_b=45$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso c): repartir primero el mínimo obligatorio}
+\textbf{Qué hago:} aplico un cambio de variable que descuenta el mínimo exigido, para volver al caso sin restricciones.
+
+Si cada marca debe aportar al menos $2$, se entregan de entrada $2$ lapiceros a cada una de las cuatro marcas, es decir $4\cdot 2=8$ lapiceros, y quedan $10-8=2$ por repartir libremente. Con $x'=x-2$, $y'=y-2$, $z'=z-2$, $w'=w-2$ la condición pasa a ser
+\[
+  x'+y'+z'+w' = 2,\qquad x',y',z',w'\ge 0 ,
+\]
+y por lo tanto
+\[
+  N_c = C(2+4-1,\,2)=C(5,2)=\frac{5\cdot 4}{2\cdot 1}=\frac{20}{2}=10 .
+\]
+
+\textbf{¿De dónde sale?} El $2$ por marca es el mínimo que exige el inciso; el $8$ es $4\cdot 2$; el $2$ restante es $10-8$; el $4$ son las cuatro marcas.
+
+\textbf{¿Por qué?} El cambio de variable es una biyección: toda solución con $x\ge 2$ corresponde a exactamente una solución con $x'\ge 0$, y viceversa sumando $2$. Por eso el número de soluciones no cambia y se puede aplicar la fórmula estándar, que exige variables no negativas. Sin ese truco habría que enumerar casos, mucho más largo. Verificación: las $10$ compras son las que reparten $2$ lapiceros extra entre $4$ marcas, o sea $4$ maneras de dar los dos a una misma marca más $C(4,2)=6$ maneras de darlos a dos marcas distintas, y $4+6=10$.
+
+\textbf{¿Qué tomamos?} Se anota $N_c=10$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso d): usar el complemento para la cota superior de la marca X}
+\textbf{Qué hago:} aplico el principio del complemento, porque la restricción $x\le 3$ es más cómoda de tratar por su negación $x\ge 4$.
+
+Del total sin restricciones se descuentan las compras que llevan $4$ o más lapiceros $X$. Para contarlas se entregan $4$ lapiceros $X$ de entrada y se reparte el resto libremente: con $x''=x-4$,
+\[
+  x''+y+z+w = 10-4 = 6,\qquad
+  \#\{x\ge 4\} = C(6+4-1,\,6)=C(9,6)=C(9,3)=\frac{9\cdot 8\cdot 7}{3\cdot 2\cdot 1}=\frac{504}{6}=84 .
+\]
+Por lo tanto
+\[
+  N_d = 286 - 84 = 202 .
+\]
+
+\textbf{¿De dónde sale?} El $286$ es el total del Paso 2; el $4$ es el primer valor prohibido, porque ``hay solamente 3 lapiceros'' de la marca $X$ significa $x\le 3$; el $6$ es $10-4$.
+
+\textbf{¿Por qué?} Las compras con $x\le 3$ y las compras con $x\ge 4$ parten el total en dos familias disjuntas, así que el principio de la suma justifica la resta. El cambio de variable $x''=x-4$ funciona igual que en el inciso c): descontar el mínimo transforma una restricción incómoda en el caso libre. Aquí basta un solo término de resta porque sólo una marca tiene tope; si dos marcas lo tuvieran, habría que aplicar inclusión--exclusión para no restar dos veces las compras que violan ambas cotas.
+
+\textbf{¿Qué tomamos?} Se anota $N_d=202$.
+\end{paso}
+
+\begin{resp}
+a) $C(13,3)=\mathbf{286}$ (coincide con R/ 286).\\
+b) $C(10,8)=\mathbf{45}$ (coincide con R/ 45).\\
+c) $C(5,2)=\mathbf{10}$ (coincide con R/ 10).\\
+d) $C(13,3)-C(9,6)=286-84=\mathbf{202}$ (coincide con R/ 202).
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 24}
+\addcontentsline{toc}{subsection}{Ejercicio 24}
+
+\begin{quote}
+En un grupo del \textbf{TEC} hay 10 mujeres y 10 hombres. Se deben seleccionar 12 personas para un comité ¿De cuántas maneras se puede realizar la selección? si:\\[2pt]
+a) No hay restricciones. \quad \textbf{R/ 125\,970}\\
+b) María y Carlos deben estar en el comité. \quad \textbf{R/ 43\,758}\\
+c) Debe haber seis mujeres y seis hombres.\\
+d) Debe haber un número par de mujeres.\\
+e) Debe haber más mujeres que hombres. \quad \textbf{R/ 40\,935}\\
+f) Debe haber ocho hombres como mínimo.
+\end{quote}
+
+\begin{paso}{Paso 1 --- Fijar el tipo de conteo y los tamaños disponibles}
+\textbf{Qué hago:} defino el objeto contado y observo que un comité es un conjunto sin cargos.
+
+Hay $10$ mujeres y $10$ hombres, en total $20$ personas distinguibles, y un comité es un subconjunto de $12$ de ellas. Dos comités son distintos si difieren en al menos una persona; intercambiar dos miembros no produce un comité nuevo.
+
+\textbf{¿De dónde sale?} Del enunciado: ``10 mujeres y 10 hombres'' da $10+10=20$; ``seleccionar 12 personas para un comité'' da el tamaño.
+
+\textbf{¿Por qué?} El enunciado no asigna cargos ni posiciones dentro del comité, así que el orden no importa y corresponde usar combinaciones $C(n,r)$. Además, en varios incisos habrá que controlar cuántas mujeres y cuántos hombres entran, lo que se hará multiplicando una combinación sobre cada grupo, ya que ambos grupos son disjuntos.
+
+\textbf{¿Qué tomamos?} Se anota: $10$ mujeres, $10$ hombres, comité de tamaño $12$, conteo con combinaciones.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): contar sin restricciones}
+\textbf{Qué hago:} aplico directamente la fórmula de combinaciones sobre las $20$ personas.
+\[
+  N_a=C(20,12)=C(20,8)=\frac{20\cdot 19\cdot 18\cdot 17\cdot 16\cdot 15\cdot 14\cdot 13}{8\cdot 7\cdot 6\cdot 5\cdot 4\cdot 3\cdot 2\cdot 1}
+     =\frac{5\,079\,110\,400}{40\,320}=125\,970 .
+\]
+Detalle del numerador: $20\cdot 19=380$, $380\cdot 18=6\,840$, $6\,840\cdot 17=116\,280$, $116\,280\cdot 16=1\,860\,480$, $1\,860\,480\cdot 15=27\,907\,200$, $27\,907\,200\cdot 14=390\,700\,800$, $390\,700\,800\cdot 13=5\,079\,110\,400$. Denominador: $8!=40\,320$.
+
+\textbf{¿De dónde sale?} El $20$ es el total de personas y el $12$ el tamaño del comité, ambos del enunciado.
+
+\textbf{¿Por qué?} Se usó la simetría $C(20,12)=C(20,8)$, válida porque escoger a los $12$ que entran equivale a escoger a los $8$ que quedan fuera; trabajar con $8$ factores en vez de $12$ acorta la aritmética sin cambiar el resultado. Y se usa combinación porque el comité no tiene orden ni cargos.
+
+\textbf{¿Qué tomamos?} Se anota $N_a=125\,970$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso b): fijar dos miembros obligatorios}
+\textbf{Qué hago:} descuento a las personas cuya presencia es obligatoria y cuento el resto con combinaciones.
+
+Si María y Carlos ya están dentro, quedan $12-2=10$ lugares por llenar entre las $20-2=18$ personas restantes:
+\[
+  N_b=C(18,10)=C(18,8)=\frac{18\cdot 17\cdot 16\cdot 15\cdot 14\cdot 13\cdot 12\cdot 11}{8\cdot 7\cdot 6\cdot 5\cdot 4\cdot 3\cdot 2\cdot 1}=\frac{1\,764\,322\,560}{40\,320}=43\,758 .
+\]
+Detalle del numerador: $18\cdot 17=306$, $306\cdot 16=4\,896$, $4\,896\cdot 15=73\,440$, $73\,440\cdot 14=1\,028\,160$, $1\,028\,160\cdot 13=13\,366\,080$, $13\,366\,080\cdot 12=160\,392\,960$, $160\,392\,960\cdot 11=1\,764\,322\,560$.
+
+\textbf{¿De dónde sale?} El $2$ son María y Carlos; el $10$ es $12-2$ y el $18$ es $20-2$.
+
+\textbf{¿Por qué?} Hay una sola manera de ``escoger'' a María y a Carlos, porque su presencia está impuesta, de modo que esa etapa aporta un factor $1$ y todo el conteo se reduce a llenar los lugares que sobran. No se puede escribir $C(20,10)$: eso permitiría que María o Carlos fueran escogidos otra vez o que quedaran fuera, contradiciendo la restricción.
+
+\textbf{¿Qué tomamos?} Se anota $N_b=43\,758$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso c): seis mujeres y seis hombres}
+\textbf{Qué hago:} aplico el principio del producto sobre los dos grupos, escogiendo por separado dentro de cada uno.
+\[
+  C(10,6)=C(10,4)=\frac{10\cdot 9\cdot 8\cdot 7}{4\cdot 3\cdot 2\cdot 1}=\frac{5\,040}{24}=210 ,
+\]
+\[
+  N_c=C(10,6)\cdot C(10,6)=210\cdot 210=44\,100 .
+\]
+Aritmética final: $210\cdot 210 = 21\cdot 21\cdot 100 = 441\cdot 100 = 44\,100$.
+
+\textbf{¿De dónde sale?} Los dos $10$ son los tamaños de cada grupo; los dos $6$ los impone el inciso, y son consistentes porque $6+6=12$, el tamaño del comité.
+
+\textbf{¿Por qué?} Se multiplica porque los grupos de mujeres y de hombres son disjuntos: escoger a las seis mujeres no cambia cuántos hombres quedan disponibles, así que cada una de las $210$ selecciones femeninas se puede acompañar con cada una de las $210$ masculinas. No hay doble conteo porque a partir del comité final se recupera sin ambigüedad quiénes son las mujeres y quiénes los hombres.
+
+\textbf{¿Qué tomamos?} Se anota $N_c=44\,100$. Este inciso no trae respuesta oficial en la práctica.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso d): determinar qué cantidades de mujeres son posibles}
+\textbf{Qué hago:} aplico el principio de la suma sobre los valores pares admisibles del número de mujeres, revisando primero cuáles son factibles.
+
+Sea $m$ la cantidad de mujeres del comité; entonces hay $12-m$ hombres. Las restricciones son $m\le 10$ (sólo hay diez mujeres) y $12-m\le 10$, es decir $m\ge 2$. Los valores pares en el rango $2\le m\le 10$ son
+\[
+  m\in\{2,4,6,8,10\}.
+\]
+
+\textbf{¿De dónde sale?} Los topes $10$ son los tamaños de cada grupo; el $12$ es el tamaño del comité; la paridad la exige el inciso.
+
+\textbf{¿Por qué?} Es indispensable revisar el rango antes de sumar: los valores $m=0$ exigirían $12$ hombres y sólo hay $10$, de modo que $C(10,0)C(10,12)$ no tiene sentido y no debe aparecer en la suma. Los cinco casos son disjuntos porque el comité tiene un número de mujeres bien definido, lo que habilita el principio de la suma.
+
+\textbf{¿Qué tomamos?} Se anota que $N_d=\sum_{m\in\{2,4,6,8,10\}} C(10,m)\,C(10,12-m)$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso d): calcular y sumar los cinco casos}
+\textbf{Qué hago:} evalúo cada término con el principio del producto y cierro con la suma.
+
+Los valores necesarios son $C(10,2)=\frac{10\cdot 9}{2}=45$, $C(10,4)=210$ (calculado en el Paso 4), $C(10,6)=210$, $C(10,8)=C(10,2)=45$ y $C(10,10)=1$. Entonces
+\begin{align*}
+  m=2:&\quad C(10,2)\cdot C(10,10)=45\cdot 1 = 45,\\
+  m=4:&\quad C(10,4)\cdot C(10,8)=210\cdot 45 = 9\,450,\\
+  m=6:&\quad C(10,6)\cdot C(10,6)=210\cdot 210 = 44\,100,\\
+  m=8:&\quad C(10,8)\cdot C(10,4)=45\cdot 210 = 9\,450,\\
+  m=10:&\quad C(10,10)\cdot C(10,2)=1\cdot 45 = 45 .
+\end{align*}
+\[
+  N_d = 45+9\,450+44\,100+9\,450+45 = 63\,090 .
+\]
+Aritmética de la suma: $45+9\,450=9\,495$; $9\,495+44\,100=53\,595$; $53\,595+9\,450=63\,045$; $63\,045+45=63\,090$. Y $210\cdot 45 = 210\cdot 40 + 210\cdot 5 = 8\,400+1\,050=9\,450$.
+
+\textbf{¿De dónde sale?} Los primeros argumentos son siempre $10$ (tamaño de cada grupo); los segundos salen de $m$ y de $12-m$ según el Paso 5.
+
+\textbf{¿Por qué?} Cada término se multiplica por el mismo motivo del Paso 4 (grupos disjuntos) y los términos se suman porque los valores de $m$ son excluyentes entre sí. La simetría de la lista ($45$, $9\,450$, $44\,100$, $9\,450$, $45$) no es casual: cambiar mujeres por hombres transforma el caso $m$ en el caso $12-m$, y como ambos grupos tienen $10$ integrantes los conteos coinciden.
+
+\textbf{¿Qué tomamos?} Se anota $N_d=63\,090$. Este inciso no trae respuesta oficial en la práctica.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Inciso e): traducir ``más mujeres que hombres'' a una desigualdad}
+\textbf{Qué hago:} convierto la condición verbal en una condición numérica sobre $m$ y aplico el principio de la suma.
+
+Con $m$ mujeres y $12-m$ hombres, la condición ``más mujeres que hombres'' es
+\[
+  m > 12-m \iff 2m > 12 \iff m > 6 \iff m\ge 7 ,
+\]
+y junto con $m\le 10$ queda $m\in\{7,8,9,10\}$. Calculando cada caso, con $C(10,7)=C(10,3)=\frac{10\cdot 9\cdot 8}{3\cdot 2\cdot 1}=\frac{720}{6}=120$ y $C(10,5)=\frac{10\cdot 9\cdot 8\cdot 7\cdot 6}{5\cdot 4\cdot 3\cdot 2\cdot 1}=\frac{30\,240}{120}=252$:
+\begin{align*}
+  m=7:&\quad C(10,7)\cdot C(10,5)=120\cdot 252 = 30\,240,\\
+  m=8:&\quad C(10,8)\cdot C(10,4)=45\cdot 210 = 9\,450,\\
+  m=9:&\quad C(10,9)\cdot C(10,3)=10\cdot 120 = 1\,200,\\
+  m=10:&\quad C(10,10)\cdot C(10,2)=1\cdot 45 = 45 .
+\end{align*}
+\[
+  N_e = 30\,240+9\,450+1\,200+45 = 40\,935 .
+\]
+Aritmética: $120\cdot 252 = 120\cdot 250 + 120\cdot 2 = 30\,000+240=30\,240$; y la suma $30\,240+9\,450=39\,690$, $39\,690+1\,200=40\,890$, $40\,890+45=40\,935$.
+
+\textbf{¿De dónde sale?} La desigualdad sale de que el comité tiene $12$ miembros, de modo que si hay $m$ mujeres los hombres son forzosamente $12-m$; los topes vienen de que cada grupo tiene $10$ personas.
+
+\textbf{¿Por qué?} Como $m$ es entero, $m>6$ equivale a $m\ge 7$; conviene despejar antes de listar casos para no equivocarse con el $m=6$, que da empate y por lo tanto no cumple. Los cuatro casos son disjuntos y exhaustivos dentro de la condición, así que se suman.
+
+\textbf{¿Qué tomamos?} Se anota $N_e=40\,935$.
+\end{paso}
+
+\begin{paso}{Paso 8 --- Inciso f): ocho hombres como mínimo}
+\textbf{Qué hago:} aplico el principio de la suma sobre los valores admisibles del número de hombres.
+
+Sea $h$ la cantidad de hombres; entonces hay $12-h$ mujeres, con $h\le 10$ y $12-h\le 10$. La condición del inciso es $h\ge 8$, así que $h\in\{8,9,10\}$:
+\begin{align*}
+  h=8:&\quad C(10,8)\cdot C(10,4)=45\cdot 210 = 9\,450,\\
+  h=9:&\quad C(10,9)\cdot C(10,3)=10\cdot 120 = 1\,200,\\
+  h=10:&\quad C(10,10)\cdot C(10,2)=1\cdot 45 = 45 .
+\end{align*}
+\[
+  N_f = 9\,450+1\,200+45 = 10\,695 .
+\]
+Aritmética: $9\,450+1\,200=10\,650$ y $10\,650+45=10\,695$.
+
+\textbf{¿De dónde sale?} El $8$ es el mínimo que impone el inciso; el tope $h\le 10$ es la cantidad de hombres del grupo; los segundos argumentos son $12-h$, las mujeres que completan el comité.
+
+\textbf{¿Por qué?} Aquí conviene el conteo directo y no el complemento, porque ``al menos ocho'' deja sólo tres casos, mientras que su negación ($h\le 7$) tendría seis. Los casos son disjuntos porque el número de hombres del comité es único, y los productos se justifican igual que antes: mujeres y hombres forman colecciones separadas. Obsérvese que este inciso reutiliza exactamente los tres últimos términos del inciso e), lo cual tiene sentido: si hay $8$, $9$ o $10$ hombres, entonces hay $4$, $3$ o $2$ mujeres, es decir, ``más hombres que mujeres''.
+
+\textbf{¿Qué tomamos?} Se anota $N_f=10\,695$. Este inciso no trae respuesta oficial en la práctica.
+\end{paso}
+
+\begin{resp}
+a) $C(20,12)=\mathbf{125\,970}$ (coincide con R/ 125\,970).\\
+b) $C(18,10)=\mathbf{43\,758}$ (coincide con R/ 43\,758).\\
+c) $C(10,6)\cdot C(10,6)=210\cdot 210=\mathbf{44\,100}$ (sin respuesta oficial en la práctica).\\
+d) $45+9\,450+44\,100+9\,450+45=\mathbf{63\,090}$ (sin respuesta oficial en la práctica).\\
+e) $30\,240+9\,450+1\,200+45=\mathbf{40\,935}$ (coincide con R/ 40\,935).\\
+f) $9\,450+1\,200+45=\mathbf{10\,695}$ (sin respuesta oficial en la práctica).
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 25}
+\addcontentsline{toc}{subsection}{Ejercicio 25}
+
+\begin{quote}
+El estudiante de primaria que desee ingresar al colegio \textbf{Bienestar Seguro} debe realizar una prueba de 20 ítems de selección única distribuidos en 5 ítems sobre cada una de las siguientes disciplinas: matemática, ciencias, español y estudios sociales. Cada ítem tiene 4 opciones de respuesta ¿De cuántas maneras se puede contestar esta prueba? si:\\[2pt]
+a) No hay restricciones \quad \textbf{R/ $5^{20}$}\\
+b) Se deben dejar exactamente dos ítems sin contestar y estos deben ser de una misma disciplina. \quad \textbf{R/ $10\cdot 4^{19}$}\\
+c) Se debe dejar exactamente un ítem sin contestar para cada disciplina. \quad \textbf{R/ $5^4\cdot 4^{16}$}\\
+d) Se debe contestar al menos un ítem de cada disciplina. \quad \textbf{R/ $5^{20}-(4\cdot 5^{15}-6\cdot 5^{10}+4\cdot 5^{5}-1)$}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Contar cuántos estados puede tener cada ítem}
+\textbf{Qué hago:} determino el alfabeto de decisiones por ítem, que es el dato que alimenta todos los conteos de este ejercicio.
+
+Cada ítem admite $5$ estados: marcar la opción $1$, la $2$, la $3$, la $4$, o dejarlo en blanco. Hay $4$ disciplinas con $5$ ítems cada una, o sea $4\cdot 5=20$ ítems, consistente con lo que dice el enunciado.
+
+\textbf{¿De dónde sale?} Las $4$ opciones de respuesta las da el enunciado; el quinto estado (blanco) se deduce de que los incisos b), c) y d) hablan de ítems ``sin contestar'', y de que la respuesta oficial del inciso a) es $5^{20}$ y no $4^{20}$.
+
+\textbf{¿Por qué?} Si dejar en blanco no estuviera permitido, ``no hay restricciones'' daría $4^{20}$; que la respuesta oficial sea $5^{20}$ confirma que el blanco cuenta como una manera más de responder cada ítem. Los ítems son distinguibles (están numerados y pertenecen a disciplinas distintas), así que la hoja de respuestas es una secuencia ordenada de $20$ decisiones.
+
+\textbf{¿Qué tomamos?} Se anota: $20$ ítems, $5$ estados por ítem cuando el blanco está permitido y $4$ estados cuando el ítem debe contestarse.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): aplicar el principio del producto sobre los 20 ítems}
+\textbf{Qué hago:} multiplico las opciones de cada ítem, ya que las decisiones son independientes.
+\[
+  N_a = \underbrace{5\cdot 5\cdots 5}_{20\ \text{factores}} = 5^{20} .
+\]
+
+\textbf{¿De dónde sale?} El $5$ es el número de estados por ítem del Paso 1 y el exponente $20$ es la cantidad de ítems de la prueba.
+
+\textbf{¿Por qué?} Cada ítem se decide sin afectar a los demás: haber marcado la opción $3$ en el ítem $1$ no elimina ninguna posibilidad en el ítem $2$. Por eso el árbol de decisiones se ramifica en $5$ en cada uno de los $20$ niveles, lo que da $5^{20}$ hojas. Es el caso ``con repetición permitida'' de la teoría.
+
+\textbf{¿Qué tomamos?} Se anota $N_a=5^{20}$, en la forma sin evaluar de la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso b): escoger la disciplina y los dos ítems en blanco}
+\textbf{Qué hago:} aplico el principio de la suma sobre la disciplina (o, equivalentemente, un factor $4$) y combinaciones para escoger los dos ítems dentro de ella.
+
+Hay $4$ disciplinas y, fijada una, se escogen $2$ de sus $5$ ítems para dejarlos en blanco:
+\[
+  C(5,2)=\frac{5!}{2!\,3!}=\frac{5\cdot 4}{2\cdot 1}=\frac{20}{2}=10 ,
+\]
+lo que da $4\cdot 10 = 40$ maneras de elegir la pareja de ítems en blanco.
+
+\textbf{¿De dónde sale?} El $4$ son las disciplinas listadas (matemática, ciencias, español y estudios sociales); el $5$ son los ítems por disciplina; el $2$ es la cantidad de blancos que exige el inciso.
+
+\textbf{¿Por qué?} Los cuatro casos según la disciplina son disjuntos: si los dos blancos deben ser ``de una misma disciplina'', esa disciplina queda determinada por la pareja elegida y no puede ser dos a la vez. Dentro de una disciplina se usa combinación porque el par de ítems en blanco no tiene orden. No se puede escribir $C(20,2)$: eso permitiría blancos en disciplinas distintas.
+
+\textbf{¿Qué tomamos?} Se anota el factor $4\cdot C(5,2)=40$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso b): contestar los ítems restantes y multiplicar}
+\textbf{Qué hago:} aplico el principio del producto sobre los ítems que sí se contestan, que ahora tienen $4$ estados y no $5$.
+
+Quedan $20-2=18$ ítems que deben ser contestados, cada uno con $4$ opciones:
+\[
+  N_b = 40\cdot 4^{18} = 10\cdot 4\cdot 4^{18} = 10\cdot 4^{19}.
+\]
+
+\textbf{¿De dónde sale?} El $40$ viene del Paso 3; el $18$ es $20-2$; el $4$ son las opciones de respuesta.
+
+\textbf{¿Por qué?} Los ítems no señalados deben contestarse obligatoriamente, porque el inciso dice ``exactamente dos ítems sin contestar''; por eso su alfabeto se reduce de $5$ a $4$ estados: el blanco ya no está permitido en ellos. La reescritura $40\cdot 4^{18}=10\cdot 4^{19}$ es sólo álgebra de potencias ($40=10\cdot 4$ y $4\cdot 4^{18}=4^{19}$), y produce exactamente la forma de la respuesta oficial.
+
+\textbf{¿Qué tomamos?} Se anota $N_b=10\cdot 4^{19}$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso c): un blanco por disciplina}
+\textbf{Qué hago:} aplico el principio del producto sobre las cuatro disciplinas para escoger el blanco de cada una, y luego sobre los ítems contestados.
+
+En cada disciplina se escoge $1$ de sus $5$ ítems para dejarlo en blanco: $C(5,1)=5$ maneras por disciplina, y como son cuatro disciplinas independientes,
+\[
+  5\cdot 5\cdot 5\cdot 5 = 5^{4} = 625 .
+\]
+Quedan $20-4=16$ ítems que deben contestarse con $4$ opciones cada uno, de donde
+\[
+  N_c = 5^{4}\cdot 4^{16} .
+\]
+
+\textbf{¿De dónde sale?} El $5$ son los ítems de cada disciplina; el exponente $4$ son las cuatro disciplinas; el $16$ es $20-4$, es decir los ítems que no quedaron en blanco.
+
+\textbf{¿Por qué?} Se multiplican las cuatro elecciones porque las disciplinas tienen ítems distintos: escoger cuál ítem de matemática queda en blanco no altera las opciones dentro de ciencias. Aquí hay exactamente $4$ blancos, uno por disciplina, y todos los demás ítems se contestan, de nuevo con $4$ estados cada uno.
+
+\textbf{¿Qué tomamos?} Se anota $N_c=5^4\cdot 4^{16}$, en la forma de la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso d): plantear el complemento y las familias malas}
+\textbf{Qué hago:} aplico el principio del complemento, porque ``al menos un ítem contestado en cada disciplina'' es incómodo de contar directamente.
+
+Sea $A_i$ el conjunto de hojas en las que la disciplina $i$ quedó \emph{completamente} en blanco, para $i=1,2,3,4$. La condición del inciso falla exactamente cuando alguna disciplina queda totalmente en blanco, es decir cuando la hoja pertenece a $A_1\cup A_2\cup A_3\cup A_4$. Entonces
+\[
+  N_d = 5^{20} - |A_1\cup A_2\cup A_3\cup A_4| .
+\]
+
+\textbf{¿De dónde sale?} El $5^{20}$ es el total del inciso a); las cuatro familias corresponden a las cuatro disciplinas.
+
+\textbf{¿Por qué?} La negación de ``en cada disciplina hay al menos un ítem contestado'' es ``existe alguna disciplina sin ningún ítem contestado'', es decir con sus cinco ítems en blanco. Como las hojas buenas y las malas parten el total en dos familias disjuntas, el principio de la suma justifica la resta. Sin embargo, las familias $A_i$ sí se traslapan entre sí (una hoja puede tener dos disciplinas completamente en blanco), así que restar $|A_1|+|A_2|+|A_3|+|A_4|$ quitaría de más: hace falta inclusión--exclusión.
+
+\textbf{¿Qué tomamos?} Se anota el esquema $N_d=5^{20}-|A_1\cup A_2\cup A_3\cup A_4|$ y se pasa a calcular la unión.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Inciso d): aplicar inclusión--exclusión}
+\textbf{Qué hago:} calculo los tamaños de las intersecciones y aplico la fórmula de inclusión--exclusión.
+
+Si una disciplina queda toda en blanco, sus $5$ ítems tienen un único estado posible (blanco), o sea $1$ manera, y los otros $20-5=15$ ítems siguen libres con $5$ estados cada uno. Igual con dos, tres o cuatro disciplinas:
+\begin{align*}
+  |A_i| &= 5^{20-5}=5^{15}, &&\text{y hay } C(4,1)=4 \text{ términos};\\
+  |A_i\cap A_j| &= 5^{20-10}=5^{10}, &&\text{y hay } C(4,2)=\tfrac{4\cdot 3}{2}=6 \text{ términos};\\
+  |A_i\cap A_j\cap A_l| &= 5^{20-15}=5^{5}, &&\text{y hay } C(4,3)=4 \text{ términos};\\
+  |A_1\cap A_2\cap A_3\cap A_4| &= 5^{0}=1, &&\text{y hay } C(4,4)=1 \text{ término}.
+\end{align*}
+Por lo tanto
+\[
+  |A_1\cup A_2\cup A_3\cup A_4| = 4\cdot 5^{15} - 6\cdot 5^{10} + 4\cdot 5^{5} - 1 ,
+\]
+y en consecuencia
+\[
+  N_d = 5^{20} - \left(4\cdot 5^{15} - 6\cdot 5^{10} + 4\cdot 5^{5} - 1\right).
+\]
+
+\textbf{¿De dónde sale?} Los exponentes salen de restar $5$ ítems por cada disciplina forzada al blanco: $20-5=15$, $20-10=10$, $20-15=5$, $20-20=0$. Los coeficientes $4,6,4,1$ son $C(4,1)$, $C(4,2)$, $C(4,3)$ y $C(4,4)$, es decir de cuántas maneras se escogen las disciplinas que se fuerzan.
+
+\textbf{¿Por qué?} Los signos alternados corrigen el doble conteo: una hoja con exactamente dos disciplinas en blanco se cuenta $2$ veces en la primera suma y se resta $1$ vez en la segunda, quedando contada una sola vez; una hoja con tres se cuenta $3$, se resta $3$ y se vuelve a sumar $1$, quedando también $1$. En general, un elemento que pertenece a $m$ familias contribuye $\binom{m}{1}-\binom{m}{2}+\binom{m}{3}-\cdots=1$. Nótese que en las intersecciones no se multiplica por nada extra en los ítems forzados, porque quedar en blanco es una sola posibilidad.
+
+\textbf{¿Qué tomamos?} Se anota $N_d=5^{20}-(4\cdot 5^{15}-6\cdot 5^{10}+4\cdot 5^5-1)$, exactamente en la forma de la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+a) $\mathbf{5^{20}}$ (coincide con la respuesta oficial).\\
+b) $4\cdot C(5,2)\cdot 4^{18}=40\cdot 4^{18}=\mathbf{10\cdot 4^{19}}$ (coincide con la respuesta oficial).\\
+c) $\mathbf{5^{4}\cdot 4^{16}}$ (coincide con la respuesta oficial).\\
+d) $\mathbf{5^{20}-\left(4\cdot 5^{15}-6\cdot 5^{10}+4\cdot 5^{5}-1\right)}$ (coincide con la respuesta oficial).
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 26}
+\addcontentsline{toc}{subsection}{Ejercicio 26}
+
+\begin{quote}
+En una sala hay 54 personas y se va a votar por una propuesta. Al hacer el conteo se detecta que 43 personas votaron a favor, 8 en contra y 3 se abstuvieron. Determine el total de maneras en que se pueden distribuir las personas en esta votación.\\[2pt]
+\textbf{R/ $(54C43)\cdot(11C8)$}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Ver la votación como un reparto en tres grupos etiquetados}
+\textbf{Qué hago:} defino el objeto contado y verifico la consistencia de los datos.
+
+Un resultado es una asignación que dice, para cada una de las $54$ personas, si votó a favor, en contra o se abstuvo, respetando los totales $43$, $8$ y $3$. Verificación: $43+8+3=54$, así que los tres grupos cubren exactamente a todas las personas.
+
+\textbf{¿De dónde sale?} Todos los números son del enunciado: $54$ personas, $43$ a favor, $8$ en contra, $3$ abstenciones.
+
+\textbf{¿Por qué?} Las personas son distinguibles (son individuos), pero dentro de cada grupo no hay orden: el bloque de los que votaron a favor es un conjunto, no una lista. En cambio los tres grupos sí son distinguibles entre sí, porque ``a favor'', ``en contra'' y ``abstención'' son etiquetas distintas. Por eso el conteo se hace con combinaciones encadenadas y no hay que dividir por $3!$ al final.
+
+\textbf{¿Qué tomamos?} Se anota que el conteo tendrá tres etapas, una por grupo.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Escoger sucesivamente los integrantes de cada grupo}
+\textbf{Qué hago:} aplico el principio del producto encadenando tres combinaciones, descontando en cada etapa a las personas ya asignadas.
+\begin{align*}
+  \text{a favor:}&\quad C(54,43) \quad \text{(de las 54 personas se escogen 43)},\\
+  \text{en contra:}&\quad C(54-43,\,8)=C(11,8) \quad \text{(de las 11 restantes se escogen 8)},\\
+  \text{abstenciones:}&\quad C(11-8,\,3)=C(3,3)=1 \quad \text{(las 3 que sobran)} .
+\end{align*}
+\[
+  N = C(54,43)\cdot C(11,8)\cdot C(3,3)= C(54,43)\cdot C(11,8) .
+\]
+
+\textbf{¿De dónde sale?} El $54$ es el total de personas; el $43$, el $8$ y el $3$ son los tamaños de los grupos; el $11$ es $54-43$ y el $3$ final es $11-8$.
+
+\textbf{¿Por qué?} Después de decidir quiénes votaron a favor esas personas ya no están disponibles, de modo que la segunda etapa se hace sobre $11$ y no sobre $54$. El producto es válido porque la cantidad de opciones de la segunda etapa, $C(11,8)$, es la misma cualquiera que haya sido el grupo de los $43$: siempre sobran $11$ personas. La última etapa aporta $C(3,3)=1$ porque las personas que quedan están obligadas a abstenerse, y por eso la respuesta oficial la omite.
+
+\textbf{¿Qué tomamos?} Se anota $N=C(54,43)\cdot C(11,8)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Simplificar y comprobar la expresión}
+\textbf{Qué hago:} reescribo el resultado con la simetría de las combinaciones para ver su estructura y confirmar que es lo mismo que la respuesta oficial.
+
+Por la identidad $C(n,r)=C(n,n-r)$,
+\[
+  C(54,43)=C(54,11),\qquad C(11,8)=C(11,3),
+\]
+y en forma de factoriales el producto se telescopia:
+\[
+  C(54,43)\cdot C(11,8)=\frac{54!}{43!\,11!}\cdot\frac{11!}{8!\,3!}=\frac{54!}{43!\,8!\,3!} .
+\]
+
+\textbf{¿De dónde sale?} Las expresiones vienen del Paso 2; los factoriales son la definición de $C(n,r)$.
+
+\textbf{¿Por qué?} El $11!$ del denominador de la primera fracción se cancela con el $11!$ del numerador de la segunda, dejando la fórmula del coeficiente multinomial $\frac{54!}{43!\,8!\,3!}$. Esa forma confirma que el resultado no depende del orden en que se escojan los grupos: si se hubiera empezado por los que se abstienen se habría obtenido $C(54,3)\cdot C(51,8)$, que da exactamente el mismo número. La notación del enunciado, $(54C43)\cdot(11C8)$, es la misma que $C(54,43)\cdot C(11,8)$.
+
+\textbf{¿Qué tomamos?} Se anota la respuesta en la forma $C(54,43)\cdot C(11,8)$, tal como la pide la práctica.
+\end{paso}
+
+\begin{resp}
+Las personas se pueden distribuir de $\mathbf{C(54,43)\cdot C(11,8)}=\dfrac{54!}{43!\,8!\,3!}$ maneras. Coincide con la respuesta oficial R/ $(54C43)\cdot(11C8)$.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 27}
+\addcontentsline{toc}{subsection}{Ejercicio 27}
+
+\begin{quote}
+En una fiesta hay 20 personas.\\[2pt]
+a) Se desea elegir al menos tres personas para que realizar una actividad. ¿Cuántas maneras hay de elegir las personas? \quad \textbf{R/ $\displaystyle\sum_{i=3}^{20}\binom{20}{i}$}\\
+b) ¿Cuántas maneras hay de elegir un número par de personas? \quad \textbf{R/ $\displaystyle\sum_{i=0}^{10}\binom{20}{2i}$}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Identificar que el tamaño del grupo no está fijado}
+\textbf{Qué hago:} defino el objeto contado y noto la diferencia con los ejercicios anteriores.
+
+Un resultado es un subconjunto de las $20$ personas de la fiesta, sin orden, cuyo tamaño $i$ puede variar. Por eso el conteo no será una sola combinación, sino una suma de combinaciones sobre los tamaños admisibles.
+
+\textbf{¿De dónde sale?} Del enunciado: hay $20$ personas y se pide elegir ``al menos tres'' en el inciso a) y ``un número par'' en el b); en ninguno de los dos se fija un tamaño único.
+
+\textbf{¿Por qué?} Para cada tamaño $i$ fijo, el número de grupos posibles es $\binom{20}{i}$, porque elegir $i$ personas de $20$ sin orden es exactamente una combinación. Y los grupos de tamaños distintos son familias disjuntas (un grupo tiene un solo tamaño), así que el principio de la suma permite sumar esas cantidades sin corregir traslapes.
+
+\textbf{¿Qué tomamos?} Se anota que ambos incisos se escribirán como sumas de coeficientes binomiales.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): escribir la suma directa}
+\textbf{Qué hago:} aplico el principio de la suma sobre todos los tamaños que cumplen ``al menos tres''.
+
+Los tamaños válidos van de $3$ (mínimo pedido) hasta $20$ (todas las personas de la fiesta), así que
+\[
+  N_a=\sum_{i=3}^{20}\binom{20}{i}.
+\]
+
+\textbf{¿De dónde sale?} El $3$ es el mínimo del enunciado; el $20$ es el total de asistentes; el $\binom{20}{i}$ es el conteo de grupos de tamaño $i$ del Paso 1.
+
+\textbf{¿Por qué?} ``Al menos tres'' significa $i\ge 3$, y como no hay tope superior explícito, el tope lo pone la fiesta misma: no se pueden elegir más de $20$ personas. Los sumandos son disjuntos por tamaño, lo que valida la suma. Esta es la forma en que la práctica presenta la respuesta.
+
+\textbf{¿Qué tomamos?} Se anota $N_a=\sum_{i=3}^{20}\binom{20}{i}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso a): evaluar la suma con el complemento}
+\textbf{Qué hago:} aplico el principio del complemento sobre el total de subconjuntos, para obtener un valor numérico sin sumar dieciocho términos.
+
+El total de subconjuntos de un conjunto de $20$ elementos es
+\[
+  \sum_{i=0}^{20}\binom{20}{i}=2^{20}=1\,048\,576 ,
+\]
+porque cada persona decide independientemente si entra o no ($2$ opciones por persona, $20$ personas, principio del producto). Restando los tamaños prohibidos $i=0,1,2$:
+\[
+  \binom{20}{0}=1,\qquad \binom{20}{1}=20,\qquad \binom{20}{2}=\frac{20\cdot 19}{2\cdot 1}=\frac{380}{2}=190,
+\]
+\[
+  \sum_{i=3}^{20}\binom{20}{i} = 1\,048\,576 - (1+20+190) = 1\,048\,576 - 211 = 1\,048\,365 .
+\]
+
+\textbf{¿De dónde sale?} El $2^{20}$ sale del conteo por decisiones individuales; los tres términos restados son los tamaños $0$, $1$ y $2$, que son exactamente los que incumplen ``al menos tres''.
+
+\textbf{¿Por qué?} Los subconjuntos con $i\ge 3$ y los subconjuntos con $i\le 2$ parten el total en dos familias disjuntas, de modo que el principio de la suma da la resta. El valor $\binom{20}{0}=1$ corresponde al grupo vacío y $\binom{20}{1}=20$ a los grupos de una sola persona.
+
+\textbf{¿Qué tomamos?} Se conserva la forma oficial $\sum_{i=3}^{20}\binom{20}{i}$ y se registra que su valor numérico es $1\,048\,365$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso b): escribir la suma sobre los tamaños pares}
+\textbf{Qué hago:} aplico el principio de la suma restringiendo los tamaños a los pares, escritos como $2i$.
+
+Los tamaños pares posibles son $0,2,4,\dots,20$, que se escriben como $2i$ con $i$ de $0$ a $10$:
+\[
+  N_b=\sum_{i=0}^{10}\binom{20}{2i}=\binom{20}{0}+\binom{20}{2}+\binom{20}{4}+\cdots+\binom{20}{20}.
+\]
+
+\textbf{¿De dónde sale?} El tope $i=10$ sale de $2\cdot 10=20$, el tamaño máximo posible; el índice empieza en $i=0$ porque $0$ es par y el enunciado no excluye el grupo vacío.
+
+\textbf{¿Por qué?} La reparametrización $i\mapsto 2i$ recorre exactamente los enteros pares del intervalo, ni uno más ni uno menos, y así se evita escribir una condición de paridad dentro del símbolo de suma. Los sumandos siguen siendo disjuntos por tamaño.
+
+\textbf{¿Qué tomamos?} Se anota $N_b=\sum_{i=0}^{10}\binom{20}{2i}$, en la forma de la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso b): evaluar la suma de los binomiales pares}
+\textbf{Qué hago:} uso la identidad de los subconjuntos de tamaño par para obtener un valor numérico, justificándola desde el conteo.
+
+Se afirma que
+\[
+  \sum_{i=0}^{10}\binom{20}{2i} = 2^{19} = 524\,288 ,
+\]
+es decir, la mitad de los $2^{20}$ subconjuntos.
+
+\textbf{¿De dónde sale?} El $2^{20}$ es el total de subconjuntos del Paso 3; el $19$ es $20-1$.
+
+\textbf{¿Por qué?} Se construye una correspondencia uno a uno entre subconjuntos de tamaño par y de tamaño impar: fíjese una persona concreta, digamos la persona $1$, y a cada subconjunto asígnese el subconjunto que resulta de agregar a la persona $1$ si no estaba, o de quitarla si estaba. Esa operación cambia el tamaño en $\pm 1$, o sea cambia la paridad, y aplicada dos veces devuelve el subconjunto original, de modo que empareja perfectamente los pares con los impares. Como ambas familias tienen la misma cantidad de elementos y juntas suman $2^{20}$, cada una vale $2^{20}/2=2^{19}=524\,288$.
+
+\textbf{¿Qué tomamos?} Se conserva la forma oficial $\sum_{i=0}^{10}\binom{20}{2i}$ y se registra que su valor numérico es $524\,288$.
+\end{paso}
+
+\begin{resp}
+a) $\displaystyle\mathbf{\sum_{i=3}^{20}\binom{20}{i}}$ (respuesta oficial), cuyo valor numérico es $2^{20}-1-20-190=1\,048\,365$.\\[4pt]
+b) $\displaystyle\mathbf{\sum_{i=0}^{10}\binom{20}{2i}}$ (respuesta oficial), cuyo valor numérico es $2^{19}=524\,288$.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 28}
+\addcontentsline{toc}{subsection}{Ejercicio 28}
+
+\begin{quote}
+Hay 20 personas en una sala y se quiere elegir 11 personas para regalarles un cuaderno idéntico a cada uno ¿De cuántas maneras se pueden elegir las 11 personas?\\[2pt]
+\textbf{R/ 167\,960}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Decidir si el orden importa}
+\textbf{Qué hago:} analizo el papel de la palabra ``idéntico'' para escoger entre permutaciones y combinaciones.
+
+Un resultado es el conjunto de las $11$ personas que reciben cuaderno. Como los cuadernos son idénticos, no hay manera de distinguir ``cuál cuaderno recibió cada quien'': lo único observable es quiénes recibieron y quiénes no.
+
+\textbf{¿De dónde sale?} Del enunciado: ``un cuaderno idéntico a cada uno'', y la pregunta final es ``de cuántas maneras se pueden elegir las 11 personas''.
+
+\textbf{¿Por qué?} Aplicando el criterio de la teoría: si se intercambian los cuadernos de dos de las personas premiadas, el resultado observable no cambia, porque los cuadernos son indistinguibles. Luego el orden no importa y corresponde una combinación. Si en cambio los cuadernos fueran distintos (uno rojo, uno azul, \dots), habría que multiplicar además por $11!$ para repartirlos, obteniendo $P(20,11)$.
+
+\textbf{¿Qué tomamos?} Se anota que el conteo es $C(20,11)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Calcular la combinación usando la simetría}
+\textbf{Qué hago:} evalúo $C(20,11)$ aprovechando la identidad $C(n,r)=C(n,n-r)$ para reducir el número de factores.
+\[
+  C(20,11)=C(20,9)=\frac{20\cdot 19\cdot 18\cdot 17\cdot 16\cdot 15\cdot 14\cdot 13\cdot 12}{9\cdot 8\cdot 7\cdot 6\cdot 5\cdot 4\cdot 3\cdot 2\cdot 1}
+  =\frac{60\,949\,324\,800}{362\,880}=167\,960 .
+\]
+Detalle del numerador, partiendo del valor $5\,079\,110\,400=20\cdot 19\cdots 13$ ya calculado en el Ejercicio 24: $5\,079\,110\,400\cdot 12 = 60\,949\,324\,800$. Denominador: $9!=362\,880$. División: $60\,949\,324\,800/362\,880=167\,960$.
+
+\textbf{¿De dónde sale?} El $20$ es la cantidad de personas de la sala y el $11$ la cantidad de cuadernos, ambos del enunciado; el $9$ es $20-11$.
+
+\textbf{¿Por qué?} La simetría vale porque escoger a las $11$ personas que reciben cuaderno equivale a escoger a las $9$ que no lo reciben: cada selección de premiados determina exactamente una selección de no premiados y viceversa, de modo que ambas listas tienen la misma longitud. Aritméticamente conviene, porque se trabaja con $9$ factores en vez de $11$.
+
+\textbf{¿Qué tomamos?} Se anota $N=167\,960$.
+\end{paso}
+
+\begin{resp}
+Se pueden elegir las once personas de $C(20,11)=C(20,9)=\mathbf{167\,960}$ maneras. Coincide con la respuesta oficial R/ 167\,960.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 29}
+\addcontentsline{toc}{subsection}{Ejercicio 29}
+
+\begin{quote}
+Suponga que la Asamblea Legislativa está conformada por 16 diputados demócratas, 26 republicanos y 11 minoritarios. Se debe hacer una comisión de 8 diputados ¿De cuántas maneras se puede formar la comisión, de forma que haya 3 diputados demócratas, 4 diputados republicanos y un diputado minoritario?\\[2pt]
+\textbf{R/ 92\,092\,000}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Comprobar la consistencia de la cuota pedida}
+\textbf{Qué hago:} verifico que los tamaños solicitados son compatibles con el tamaño de la comisión y con la disponibilidad de cada bancada.
+
+La comisión tiene $8$ diputados y la cuota pedida es $3+4+1=8$, así que es consistente. Además $3\le 16$, $4\le 26$ y $1\le 11$, de modo que cada bancada puede aportar lo que se le pide.
+
+\textbf{¿De dónde sale?} Los tamaños de las bancadas ($16$ demócratas, $26$ republicanos, $11$ minoritarios) y las cuotas ($3$, $4$ y $1$) son del enunciado.
+
+\textbf{¿Por qué?} Esta verificación evita términos sin sentido: si la suma de cuotas no diera $8$, no existiría ninguna comisión válida, y si alguna cuota superara el tamaño de su bancada, la combinación correspondiente valdría $0$. Comprobarlo antes de calcular es parte del método.
+
+\textbf{¿Qué tomamos?} Se anota que el conteo será un producto de tres combinaciones, una por bancada.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar las selecciones dentro de cada bancada}
+\textbf{Qué hago:} aplico combinaciones $C(n,r)$ dentro de cada partido, porque la comisión no distingue cargos ni orden.
+\begin{align*}
+  C(16,3)&=\frac{16!}{3!\,13!}=\frac{16\cdot 15\cdot 14}{3\cdot 2\cdot 1}=\frac{3\,360}{6}=560,\\
+  C(26,4)&=\frac{26!}{4!\,22!}=\frac{26\cdot 25\cdot 24\cdot 23}{4\cdot 3\cdot 2\cdot 1}=\frac{358\,800}{24}=14\,950,\\
+  C(11,1)&=\frac{11!}{1!\,10!}=11 .
+\end{align*}
+Detalle de $C(16,3)$: $16\cdot 15=240$ y $240\cdot 14=3\,360$; luego $3\,360/6=560$. Detalle de $C(26,4)$: $26\cdot 25=650$, $650\cdot 24=15\,600$, $15\,600\cdot 23=358\,800$; luego $358\,800/24=14\,950$.
+
+\textbf{¿De dónde sale?} Cada primer argumento es el tamaño de una bancada y cada segundo argumento es la cuota que le corresponde, según el Paso 1.
+
+\textbf{¿Por qué?} Dentro de una bancada los diputados escogidos no reciben papeles distintos, así que el orden no importa y corresponde combinación. La cancelación $\frac{16!}{13!}=16\cdot 15\cdot 14$ ocurre porque $13!$ elimina la cola de $16!$; lo mismo con $\frac{26!}{22!}=26\cdot 25\cdot 24\cdot 23$.
+
+\textbf{¿Qué tomamos?} Se anotan los tres factores $560$, $14\,950$ y $11$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Multiplicar las tres bancadas}
+\textbf{Qué hago:} aplico el principio del producto, porque la comisión se arma escogiendo simultáneamente en las tres bancadas.
+\[
+  N = C(16,3)\cdot C(26,4)\cdot C(11,1) = 560\cdot 14\,950\cdot 11 .
+\]
+Aritmética por partes: $560\cdot 14\,950 = 14\,950\cdot 500 + 14\,950\cdot 60 = 7\,475\,000 + 897\,000 = 8\,372\,000$; y luego $8\,372\,000\cdot 11 = 8\,372\,000\cdot 10 + 8\,372\,000 = 83\,720\,000 + 8\,372\,000 = 92\,092\,000$.
+
+\textbf{¿De dónde sale?} Los tres factores vienen del Paso 2.
+
+\textbf{¿Por qué?} Las tres bancadas son colecciones disjuntas de diputados: escoger a los tres demócratas no cambia cuántos republicanos quedan disponibles, de modo que el número de opciones de cada etapa no depende de las anteriores y el principio del producto se aplica sin ajustes. Tampoco hay doble conteo, porque a partir de la comisión final se recupera sin ambigüedad qué diputado pertenece a cada bancada, de modo que cada comisión se genera por un único camino de decisiones. Y no se suma, porque una comisión válida contiene diputados de las tres bancadas a la vez, no de una u otra.
+
+\textbf{¿Qué tomamos?} Se anota $N=92\,092\,000$.
+\end{paso}
+
+\begin{resp}
+La comisión se puede formar de $C(16,3)\cdot C(26,4)\cdot C(11,1)=560\cdot 14\,950\cdot 11=\mathbf{92\,092\,000}$ maneras. Coincide con la respuesta oficial R/ 92\,092\,000.
+\end{resp}
+
+\end{document}

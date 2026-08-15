@@ -1,0 +1,1327 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+
+\begin{document}
+
+\begin{center}
+	{\LARGE\bfseries Solucionario --- Práctica de Probabilidad}\\[2mm]
+	{\large Parte 01: Repaso a Teoría de Conjuntos (Ejercicios 1--4)}\\[1mm]
+	{\normalsize Capítulo 1. Introducción a teoría de conteo --- Sección 1.1}
+\end{center}
+
+\vspace{4mm}
+
+%=====================================================================
+\begin{teo}
+\textbf{Método general para operar con conjuntos finitos.}
+
+Todos los ejercicios de esta parte se resuelven con el mismo procedimiento, que aplicaremos
+sin excepción. Los pasos son:
+
+\begin{enumerate}[leftmargin=*]
+	\item \textbf{Escribir el universo por extensión.} Si el enunciado da el universo por
+	comprensión (por ejemplo $M=\{x\in\mathbb{N}: 0\le x\le 10\}$), lo primero es listar todos
+	sus elementos uno por uno. Sin el universo escrito no se puede calcular ningún complemento.
+	\item \textbf{Escribir por extensión cada conjunto que interviene.} Se copian del enunciado
+	tal cual, sin reordenar ni omitir elementos.
+	\item \textbf{Identificar el orden de las operaciones.} Se respetan los paréntesis: lo que
+	está dentro del paréntesis más interno se calcula primero. Una expresión como
+	$(A\cup B)\cap C$ obliga a calcular \emph{antes} $A\cup B$ y solo después intersecar con $C$.
+	\item \textbf{Ejecutar una sola operación por paso.} Cada operación se resuelve recorriendo
+	elemento por elemento y decidiendo, con la definición correspondiente, si el elemento entra
+	o no entra en el resultado.
+	\item \textbf{Escribir el resultado parcial por extensión} y darle un nombre provisional
+	(por ejemplo $T_1=A\cup B$), para poder citarlo en el paso siguiente y que ningún elemento
+	aparezca sin origen.
+	\item \textbf{Verificar el conteo cuando la operación lo permite.} Para conjunto potencia
+	se verifica $|\mathcal{P}(A)|=2^{|A|}$; para producto cartesiano se verifica
+	$|A\times B|=|A|\cdot|B|$.
+	\item \textbf{Redactar la respuesta final} en el formato que pide el objeto: conjunto por
+	extensión con llaves, conjunto de conjuntos para el conjunto potencia, conjunto de pares
+	ordenados para el producto cartesiano.
+\end{enumerate}
+\end{teo}
+
+\begin{tip}
+\textbf{Definiciones e identidades que se usan en toda esta parte.}
+Sea $U$ el conjunto universo y sean $A,B$ subconjuntos de $U$.
+
+\begin{itemize}[leftmargin=*]
+	\item \textbf{Unión:} $A\cup B=\{x: x\in A \ \text{ó}\ x\in B\}$. Un elemento entra si
+	pertenece a por lo menos uno de los dos conjuntos.
+	\item \textbf{Intersección:} $A\cap B=\{x: x\in A \ \text{y}\ x\in B\}$. Un elemento entra
+	solo si pertenece a los dos conjuntos a la vez.
+	\item \textbf{Diferencia:} $A\setminus B=\{x: x\in A \ \text{y}\ x\notin B\}$. Se parte de
+	los elementos de $A$ y se descartan los que también están en $B$.
+	\item \textbf{Complemento:} $A^{c}=U\setminus A=\{x\in U: x\notin A\}$. El complemento
+	\emph{siempre} depende del universo $U$; por eso el universo debe estar escrito por
+	extensión antes de complementar.
+	\item \textbf{Diferencia simétrica:} $A\triangle B=(A\setminus B)\cup(B\setminus A)$. Son
+	los elementos que están en exactamente uno de los dos conjuntos.
+	\item \textbf{Producto cartesiano:} $A\times B=\{(a,b): a\in A,\ b\in B\}$. Sus elementos
+	son pares ordenados; el orden importa, $(a,b)\neq(b,a)$ salvo que $a=b$.
+	\item \textbf{Conjunto potencia:} $\mathcal{P}(A)=\{X: X\subseteq A\}$. Sus elementos son
+	conjuntos, e incluye siempre a $\varnothing$ y al propio $A$.
+	\item \textbf{Cardinalidades:} $|\mathcal{P}(A)|=2^{|A|}$ y $|A\times B|=|A|\cdot|B|$.
+	\item \textbf{Leyes de De Morgan:} $(A\cup B)^{c}=A^{c}\cap B^{c}$ y
+	$(A\cap B)^{c}=A^{c}\cup B^{c}$. Se usan solo para verificar, nunca para saltarse el
+	conteo elemento por elemento.
+	\item \textbf{Convenio sobre $\mathbb{N}$ en esta práctica:} el enunciado del Ejercicio~1
+	define $M=\{x\in\mathbb{N}: 0\le x\le 10\}$ y el del Ejercicio~4 usa $P=\{0,2,4,6,8\}$
+	como subconjunto de $U=\{x\in\mathbb{N}: 0\le x\le 12\}$. Para que $0$ pueda pertenecer a
+	esos conjuntos, en toda la práctica se toma $\mathbb{N}=\{0,1,2,3,\dots\}$.
+\end{itemize}
+\end{tip}
+
+%=====================================================================
+\section*{Ejercicio 1}
+
+\begin{quote}
+A continuación considere el conjunto universo $M=\{x\in\mathbb{N}: 0\le x\le 10\}$.
+Consideremos luego los conjuntos $A=\{1,2,5,7\}$, $B=\{2,3,4,5,6,7,8\}$, $C=\{1,3,5,7\}$ y
+$D=\{8,9,10\}$. Calcule entonces los siguientes conjuntos:
+
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+	\item $(A\cup B)\cap C$
+	\item $B^{c}\setminus A^{c}$
+	\item $C\cap D^{c}$
+	\item $D\setminus C$
+	\item $A\triangle B$
+	\item $C\triangle(A\cup D)$
+	\item $(B\setminus C)^{c}$
+	\item $\mathcal{P}(A\cap B)$
+	\item $(A\cap B)\times D$
+	\item $(A\setminus B)\times(B\setminus A)$
+\end{enumerate}
+\end{quote}
+
+\begin{paso}{Paso 0 --- Escribir el universo por extensión}
+\textbf{Qué hago:} traduzco el universo dado por comprensión,
+$M=\{x\in\mathbb{N}: 0\le x\le 10\}$, a su forma por extensión, es decir, listo uno por uno
+todos los números naturales que cumplen la condición.
+
+\textbf{¿De dónde sale?} La condición viene textualmente del enunciado del Ejercicio~1: los
+elementos deben ser naturales y deben satisfacer simultáneamente $0\le x$ y $x\le 10$.
+
+\textbf{¿Por qué?} Porque varios incisos ((b), (c), (g)) piden complementos, y por definición
+$X^{c}=M\setminus X$. El complemento no es una operación interna a $X$: depende por completo
+del universo. Si no se escribe $M$ elemento por elemento, no hay forma de decidir qué queda
+fuera de $X$. Recorriendo los naturales desde $0$: $0$ cumple ($0\le 0\le 10$), $1$ cumple,
+$2$ cumple, y así hasta $10$ que cumple ($10\le 10$); $11$ ya no cumple porque $11>10$.
+
+\textbf{¿Qué tomamos?} Escribimos el universo por extensión, con sus elementos en orden
+creciente, y lo dejamos fijo para todo el ejercicio:
+\[
+M=\{0,1,2,3,4,5,6,7,8,9,10\},\qquad |M|=11.
+\]
+Los conjuntos de trabajo, copiados del enunciado, son
+$A=\{1,2,5,7\}$, $B=\{2,3,4,5,6,7,8\}$, $C=\{1,3,5,7\}$ y $D=\{8,9,10\}$.
+\end{paso}
+
+\subsection*{(a) \ $(A\cup B)\cap C$}
+
+\begin{paso}{Paso 1 --- Calcular la unión interna $A\cup B$}
+\textbf{Qué hago:} aplico la definición de unión al par de conjuntos $A$ y $B$, que es la
+operación que está dentro del paréntesis y por lo tanto debe ejecutarse primero.
+
+\textbf{¿De dónde sale?} $A=\{1,2,5,7\}$ y $B=\{2,3,4,5,6,7,8\}$ vienen del enunciado del
+Ejercicio~1; no hay ningún otro conjunto involucrado en esta operación.
+
+\textbf{¿Por qué?} Por definición, $A\cup B=\{x: x\in A \text{ ó } x\in B\}$: un elemento
+entra en la unión si pertenece a por lo menos uno de los dos conjuntos, y se escribe una sola
+vez aunque pertenezca a ambos. Reviso elemento por elemento:
+$1\in A$, entra; $2\in A$ (y también $2\in B$), entra una sola vez; $3\in B$, entra;
+$4\in B$, entra; $5\in A$ y $5\in B$, entra; $6\in B$, entra; $7\in A$ y $7\in B$, entra;
+$8\in B$, entra. Ningún otro elemento de $M$ pertenece a $A$ ni a $B$.
+
+\textbf{¿Qué tomamos?} Guardamos el resultado parcial, por extensión y ordenado, con nombre
+propio para poder citarlo en el paso siguiente:
+\[
+T_1:=A\cup B=\{1,2,3,4,5,6,7,8\}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Intersecar el resultado con $C$}
+\textbf{Qué hago:} aplico la definición de intersección entre el conjunto $T_1$ obtenido en
+el Paso~1 y el conjunto $C$.
+
+\textbf{¿De dónde sale?} $T_1=\{1,2,3,4,5,6,7,8\}$ se calculó en el Paso~1 como $A\cup B$, y
+$C=\{1,3,5,7\}$ se toma del enunciado.
+
+\textbf{¿Por qué?} Por definición, $T_1\cap C=\{x: x\in T_1 \text{ y } x\in C\}$: un elemento
+entra solo si pertenece a los dos conjuntos a la vez. Conviene recorrer el conjunto más
+pequeño, que es $C$: $1\in C$ y $1\in T_1$, entra; $3\in C$ y $3\in T_1$, entra; $5\in C$ y
+$5\in T_1$, entra; $7\in C$ y $7\in T_1$, entra. Los cuatro elementos de $C$ están en $T_1$,
+es decir $C\subseteq A\cup B$, y por eso la intersección devuelve todo $C$.
+
+\textbf{¿Qué tomamos?} La respuesta se escribe como conjunto por extensión, con llaves y
+elementos separados por comas:
+\[
+(A\cup B)\cap C=\{1,3,5,7\}=C.
+\]
+\end{paso}
+
+\subsection*{(b) \ $B^{c}\setminus A^{c}$}
+
+\begin{paso}{Paso 1 --- Calcular el complemento $B^{c}$ respecto del universo $M$}
+\textbf{Qué hago:} calculo el complemento de $B$, es decir el conjunto de los elementos del
+universo que \emph{no} pertenecen a $B$.
+
+\textbf{¿De dónde sale?} $B=\{2,3,4,5,6,7,8\}$ es del enunciado y el universo
+$M=\{0,1,2,3,4,5,6,7,8,9,10\}$ se escribió en el Paso~0.
+
+\textbf{¿Por qué?} Por definición, el complemento se toma \emph{siempre respecto de un
+universo}: $B^{c}=M\setminus B=\{x\in M: x\notin B\}$. Aquí el universo es exactamente
+$M=\{0,1,2,3,4,5,6,7,8,9,10\}$. Recorro $M$ entero: $0\notin B$, entra; $1\notin B$, entra;
+$2\in B$, se descarta; $3,4,5,6,7,8\in B$, se descartan; $9\notin B$, entra;
+$10\notin B$, entra.
+
+\textbf{¿Qué tomamos?} Guardamos
+\[
+B^{c}=\{0,1,9,10\},
+\]
+y observamos que $|B^{c}|=|M|-|B|=11-7=4$, lo que confirma que no se olvidó ningún elemento.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Calcular el complemento $A^{c}$ respecto del mismo universo $M$}
+\textbf{Qué hago:} repito la operación de complemento, ahora sobre $A$, y con el mismo
+universo $M$.
+
+\textbf{¿De dónde sale?} $A=\{1,2,5,7\}$ es del enunciado y $M=\{0,1,\dots,10\}$ es el
+universo fijado en el Paso~0.
+
+\textbf{¿Por qué?} Nuevamente por definición $A^{c}=M\setminus A=\{x\in M: x\notin A\}$; el
+universo respecto del cual complementamos es $M$ y no otro. Recorro $M$: $0\notin A$, entra;
+$1\in A$, se descarta; $2\in A$, se descarta; $3\notin A$, entra; $4\notin A$, entra;
+$5\in A$, se descarta; $6\notin A$, entra; $7\in A$, se descarta; $8,9,10\notin A$, entran.
+
+\textbf{¿Qué tomamos?} Guardamos
+\[
+A^{c}=\{0,3,4,6,8,9,10\},
+\]
+con $|A^{c}|=11-4=7$, que coincide con la cantidad de elementos listados.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Calcular la diferencia $B^{c}\setminus A^{c}$}
+\textbf{Qué hago:} aplico la definición de diferencia entre los dos complementos calculados
+en los pasos anteriores.
+
+\textbf{¿De dónde sale?} $B^{c}=\{0,1,9,10\}$ viene del Paso~1 y $A^{c}=\{0,3,4,6,8,9,10\}$
+viene del Paso~2. No se usa ningún elemento que no provenga de esos dos pasos.
+
+\textbf{¿Por qué?} Por definición, $B^{c}\setminus A^{c}=\{x: x\in B^{c} \text{ y }
+x\notin A^{c}\}$: se parte de los elementos de $B^{c}$ y se descartan los que además están en
+$A^{c}$. Reviso los cuatro elementos de $B^{c}$: $0\in A^{c}$, se descarta; $1\notin A^{c}$
+(porque $1\in A$), se conserva; $9\in A^{c}$, se descarta; $10\in A^{c}$, se descarta.
+
+\textbf{¿Qué tomamos?} Queda un único elemento, y se escribe como conjunto por extensión (no
+como número suelto):
+\[
+B^{c}\setminus A^{c}=\{1\}.
+\]
+\end{paso}
+
+\subsection*{(c) \ $C\cap D^{c}$}
+
+\begin{paso}{Paso 1 --- Calcular el complemento $D^{c}$ respecto de $M$}
+\textbf{Qué hago:} complemento el conjunto $D$ tomando como universo $M$.
+
+\textbf{¿De dónde sale?} $D=\{8,9,10\}$ es del enunciado; el universo
+$M=\{0,1,2,3,4,5,6,7,8,9,10\}$ se fijó en el Paso~0.
+
+\textbf{¿Por qué?} Por definición, $D^{c}=M\setminus D=\{x\in M: x\notin D\}$; el complemento
+se toma respecto del universo $M$ explícitamente listado. Recorro $M$: $0,1,2,3,4,5,6,7$ no
+pertenecen a $D$ y por lo tanto entran; $8,9,10$ sí pertenecen a $D$ y se descartan.
+
+\textbf{¿Qué tomamos?} Guardamos
+\[
+D^{c}=\{0,1,2,3,4,5,6,7\},\qquad |D^{c}|=11-3=8 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Intersecar $C$ con $D^{c}$}
+\textbf{Qué hago:} aplico la definición de intersección entre $C$ y el complemento hallado.
+
+\textbf{¿De dónde sale?} $C=\{1,3,5,7\}$ es del enunciado y $D^{c}=\{0,1,2,3,4,5,6,7\}$ se
+calculó en el Paso~1.
+
+\textbf{¿Por qué?} Por definición $C\cap D^{c}=\{x: x\in C \text{ y } x\in D^{c}\}$. Recorro
+los elementos de $C$: $1\in D^{c}$, entra; $3\in D^{c}$, entra; $5\in D^{c}$, entra;
+$7\in D^{c}$, entra. Los cuatro sobreviven porque ninguno de ellos pertenece a
+$D=\{8,9,10\}$; en otras palabras $C$ y $D$ son disjuntos, así que quitar $D$ no le quita nada
+a $C$.
+
+\textbf{¿Qué tomamos?} Se escribe el conjunto por extensión:
+\[
+C\cap D^{c}=\{1,3,5,7\}=C.
+\]
+\end{paso}
+
+\subsection*{(d) \ $D\setminus C$}
+
+\begin{paso}{Paso 1 --- Aplicar la definición de diferencia}
+\textbf{Qué hago:} calculo directamente la diferencia $D\setminus C$, partiendo de los
+elementos de $D$ y descartando los que pertenezcan también a $C$.
+
+\textbf{¿De dónde sale?} $D=\{8,9,10\}$ y $C=\{1,3,5,7\}$ son conjuntos dados literalmente en
+el enunciado del Ejercicio~1.
+
+\textbf{¿Por qué?} Por definición, $D\setminus C=\{x: x\in D \text{ y } x\notin C\}$. Reviso
+uno por uno los elementos de $D$: $8\notin C$, se conserva; $9\notin C$, se conserva;
+$10\notin C$, se conserva. Ninguno de los tres aparece en $C$, así que no se descarta nada.
+Nótese que aquí no interviene el universo: la diferencia no es un complemento.
+
+\textbf{¿Qué tomamos?} La respuesta es el propio $D$, escrito por extensión:
+\[
+D\setminus C=\{8,9,10\}=D.
+\]
+\end{paso}
+
+\subsection*{(e) \ $A\triangle B$}
+
+\begin{paso}{Paso 1 --- Calcular $A\setminus B$}
+\textbf{Qué hago:} calculo la primera de las dos diferencias que componen la diferencia
+simétrica.
+
+\textbf{¿De dónde sale?} $A=\{1,2,5,7\}$ y $B=\{2,3,4,5,6,7,8\}$ son del enunciado.
+
+\textbf{¿Por qué?} Por definición de diferencia simétrica,
+$A\triangle B=(A\setminus B)\cup(B\setminus A)$, de modo que hay que calcular las dos
+diferencias por separado antes de unirlas. Empiezo por $A\setminus B=\{x: x\in A,\ x\notin
+B\}$: reviso $A$ elemento por elemento; $1\notin B$, se conserva; $2\in B$, se descarta;
+$5\in B$, se descarta; $7\in B$, se descarta.
+
+\textbf{¿Qué tomamos?} Guardamos el primer trozo:
+\[
+T_1:=A\setminus B=\{1\}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Calcular $B\setminus A$}
+\textbf{Qué hago:} calculo la segunda diferencia, ahora en el sentido contrario.
+
+\textbf{¿De dónde sale?} Los mismos conjuntos $A$ y $B$ del enunciado; lo único que cambia es
+el rol de cada uno.
+
+\textbf{¿Por qué?} Porque la diferencia no es conmutativa: $B\setminus A=\{x: x\in B,\
+x\notin A\}$ parte de $B$ y descarta lo que esté en $A$. Reviso $B$: $2\in A$, se descarta;
+$3\notin A$, se conserva; $4\notin A$, se conserva; $5\in A$, se descarta; $6\notin A$, se
+conserva; $7\in A$, se descarta; $8\notin A$, se conserva.
+
+\textbf{¿Qué tomamos?} Guardamos el segundo trozo:
+\[
+T_2:=B\setminus A=\{3,4,6,8\}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Unir las dos diferencias}
+\textbf{Qué hago:} aplico la unión a los dos resultados parciales, que es lo que la definición
+de diferencia simétrica prescribe.
+
+\textbf{¿De dónde sale?} $T_1=\{1\}$ viene del Paso~1 y $T_2=\{3,4,6,8\}$ viene del Paso~2.
+
+\textbf{¿Por qué?} Por definición $A\triangle B=(A\setminus B)\cup(B\setminus A)$, y la unión
+mete en el resultado todo elemento que esté en alguno de los dos. Como $T_1$ contiene
+elementos que están solo en $A$ y $T_2$ contiene elementos que están solo en $B$, los dos
+conjuntos son disjuntos y la unión simplemente los junta: $\{1\}$ aporta $1$ y
+$\{3,4,6,8\}$ aporta $3,4,6,8$.
+
+\textbf{¿Qué tomamos?} Escribimos el resultado por extensión y en orden creciente:
+\[
+A\triangle B=\{1,3,4,6,8\}.
+\]
+Conviene notar la lectura del resultado: son exactamente los elementos que están en uno de los
+dos conjuntos pero no en los dos, mientras que $2,5,7$ (que están en ambos) quedaron fuera.
+\end{paso}
+
+\subsection*{(f) \ $C\triangle(A\cup D)$}
+
+\begin{paso}{Paso 1 --- Calcular la unión interna $A\cup D$}
+\textbf{Qué hago:} resuelvo primero el paréntesis, aplicando la definición de unión a $A$ y
+$D$.
+
+\textbf{¿De dónde sale?} $A=\{1,2,5,7\}$ y $D=\{8,9,10\}$ son del enunciado.
+
+\textbf{¿Por qué?} Porque la diferencia simétrica está planteada entre $C$ y el conjunto
+$A\cup D$, así que ese conjunto debe existir antes de operar. Por definición
+$A\cup D=\{x: x\in A \text{ ó } x\in D\}$: entran $1,2,5,7$ por venir de $A$ y entran $8,9,10$
+por venir de $D$; no hay repeticiones porque $A$ y $D$ no comparten elementos.
+
+\textbf{¿Qué tomamos?} Guardamos
+\[
+E:=A\cup D=\{1,2,5,7,8,9,10\},\qquad |E|=4+3=7 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Calcular $C\setminus E$}
+\textbf{Qué hago:} primera diferencia de la diferencia simétrica: los elementos que están en
+$C$ y no en $E$.
+
+\textbf{¿De dónde sale?} $C=\{1,3,5,7\}$ es del enunciado y $E=\{1,2,5,7,8,9,10\}$ se obtuvo
+en el Paso~1.
+
+\textbf{¿Por qué?} Por definición $C\setminus E=\{x: x\in C,\ x\notin E\}$. Reviso $C$
+elemento por elemento: $1\in E$, se descarta; $3\notin E$, se conserva; $5\in E$, se
+descarta; $7\in E$, se descarta.
+
+\textbf{¿Qué tomamos?} Guardamos $T_1:=C\setminus E=\{3\}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Calcular $E\setminus C$}
+\textbf{Qué hago:} segunda diferencia, ahora partiendo de $E$ y descartando lo que esté en
+$C$.
+
+\textbf{¿De dónde sale?} $E=\{1,2,5,7,8,9,10\}$ del Paso~1 y $C=\{1,3,5,7\}$ del enunciado.
+
+\textbf{¿Por qué?} Por definición $E\setminus C=\{x: x\in E,\ x\notin C\}$, y hay que
+calcularla aparte porque la diferencia no es simétrica. Reviso $E$: $1\in C$, se descarta;
+$2\notin C$, se conserva; $5\in C$, se descarta; $7\in C$, se descarta; $8\notin C$, se
+conserva; $9\notin C$, se conserva; $10\notin C$, se conserva.
+
+\textbf{¿Qué tomamos?} Guardamos $T_2:=E\setminus C=\{2,8,9,10\}$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Unir ambas diferencias}
+\textbf{Qué hago:} aplico la unión a los dos resultados parciales para cerrar la definición de
+diferencia simétrica.
+
+\textbf{¿De dónde sale?} $T_1=\{3\}$ viene del Paso~2 y $T_2=\{2,8,9,10\}$ viene del Paso~3.
+
+\textbf{¿Por qué?} Porque $C\triangle E=(C\setminus E)\cup(E\setminus C)$ por definición, y la
+unión incorpora todo elemento que esté en cualquiera de los dos conjuntos. $T_1$ y $T_2$ son
+disjuntos por construcción (uno recoge lo exclusivo de $C$ y el otro lo exclusivo de $E$), de
+modo que la unión es la simple reunión de sus elementos.
+
+\textbf{¿Qué tomamos?} Escribimos el conjunto por extensión, ordenado:
+\[
+C\triangle(A\cup D)=\{2,3,8,9,10\}.
+\]
+\end{paso}
+
+\subsection*{(g) \ $(B\setminus C)^{c}$}
+
+\begin{paso}{Paso 1 --- Calcular la diferencia interna $B\setminus C$}
+\textbf{Qué hago:} resuelvo el paréntesis aplicando la definición de diferencia.
+
+\textbf{¿De dónde sale?} $B=\{2,3,4,5,6,7,8\}$ y $C=\{1,3,5,7\}$ son del enunciado.
+
+\textbf{¿Por qué?} Por definición $B\setminus C=\{x: x\in B,\ x\notin C\}$: se parte de $B$ y
+se eliminan los elementos que también aparecen en $C$. Reviso $B$: $2\notin C$, se conserva;
+$3\in C$, se descarta; $4\notin C$, se conserva; $5\in C$, se descarta; $6\notin C$, se
+conserva; $7\in C$, se descarta; $8\notin C$, se conserva.
+
+\textbf{¿Qué tomamos?} Guardamos $F:=B\setminus C=\{2,4,6,8\}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Complementar $F$ respecto del universo $M$}
+\textbf{Qué hago:} calculo $F^{c}$, es decir, quito de $M$ los elementos de $F$.
+
+\textbf{¿De dónde sale?} $F=\{2,4,6,8\}$ se obtuvo en el Paso~1 y el universo es
+$M=\{0,1,2,3,4,5,6,7,8,9,10\}$, escrito en el Paso~0.
+
+\textbf{¿Por qué?} Por definición, el complemento se toma respecto del universo del problema,
+que en este ejercicio es $M=\{0,1,2,3,4,5,6,7,8,9,10\}$; así $F^{c}=M\setminus F=\{x\in M:
+x\notin F\}$. Recorro $M$ completo: $0\notin F$, entra; $1\notin F$, entra; $2\in F$, se
+descarta; $3\notin F$, entra; $4\in F$, se descarta; $5\notin F$, entra; $6\in F$, se
+descarta; $7\notin F$, entra; $8\in F$, se descarta; $9\notin F$, entra; $10\notin F$, entra.
+
+\textbf{¿Qué tomamos?} El resultado se escribe por extensión, y el conteo cuadra:
+$|F^{c}|=|M|-|F|=11-4=7$.
+\[
+(B\setminus C)^{c}=\{0,1,3,5,7,9,10\}.
+\]
+\end{paso}
+
+\subsection*{(h) \ $\mathcal{P}(A\cap B)$}
+
+\begin{paso}{Paso 1 --- Calcular la intersección $A\cap B$}
+\textbf{Qué hago:} resuelvo primero el conjunto del que se pedirá el conjunto potencia.
+
+\textbf{¿De dónde sale?} $A=\{1,2,5,7\}$ y $B=\{2,3,4,5,6,7,8\}$ son del enunciado.
+
+\textbf{¿Por qué?} Por definición $A\cap B=\{x: x\in A \text{ y } x\in B\}$. Recorro el
+conjunto menor, $A$: $1\in A$ pero $1\notin B$, no entra; $2\in A$ y $2\in B$, entra;
+$5\in A$ y $5\in B$, entra; $7\in A$ y $7\in B$, entra.
+
+\textbf{¿Qué tomamos?} Guardamos $G:=A\cap B=\{2,5,7\}$, con $|G|=3$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Anticipar cuántos subconjuntos debe haber}
+\textbf{Qué hago:} uso la fórmula de cardinalidad del conjunto potencia para saber de
+antemano cuántos elementos debe tener la lista que voy a escribir.
+
+\textbf{¿De dónde sale?} $|G|=3$ se obtuvo en el Paso~1 al contar los elementos de
+$A\cap B=\{2,5,7\}$.
+
+\textbf{¿Por qué?} Por el resultado $|\mathcal{P}(X)|=2^{|X|}$: para formar un subconjunto de
+$X$ hay que decidir, para cada uno de los $|X|$ elementos, si se incluye o no se incluye, y
+esas decisiones son independientes, de donde salen $2^{|X|}$ subconjuntos distintos. Con
+$|G|=3$ se obtiene $2^{3}=8$.
+
+\textbf{¿Qué tomamos?} Nos quedamos con la meta de conteo: la lista final debe tener
+exactamente $8$ subconjuntos, ni uno más ni uno menos.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Listar todos los subconjuntos por tamaño}
+\textbf{Qué hago:} enumero sistemáticamente todos los subconjuntos de $G=\{2,5,7\}$,
+organizándolos por cantidad de elementos para no repetir ni omitir ninguno.
+
+\textbf{¿De dónde sale?} Los elementos $2$, $5$ y $7$ son precisamente los de $G=A\cap B$
+calculado en el Paso~1.
+
+\textbf{¿Por qué?} Por definición $\mathcal{P}(G)=\{X: X\subseteq G\}$, y todo subconjunto de
+$G$ tiene $0$, $1$, $2$ ó $3$ elementos. De tamaño $0$ solo está $\varnothing$, que es
+subconjunto de cualquier conjunto. De tamaño $1$ hay uno por cada elemento: $\{2\},\{5\},
+\{7\}$. De tamaño $2$ hay uno por cada pareja: $\{2,5\},\{2,7\},\{5,7\}$. De tamaño $3$ solo
+está el propio $G$.
+
+\textbf{¿Qué tomamos?} Verificamos el conteo: $1+3+3+1=8=2^{3}$, que coincide con lo previsto
+en el Paso~2. La respuesta se escribe como un conjunto \emph{cuyos elementos son conjuntos}:
+\[
+\mathcal{P}(A\cap B)=\bigl\{\varnothing,\{2\},\{5\},\{7\},\{2,5\},\{2,7\},\{5,7\},\{2,5,7\}\bigr\}.
+\]
+\end{paso}
+
+\subsection*{(i) \ $(A\cap B)\times D$}
+
+\begin{paso}{Paso 1 --- Recuperar los dos factores del producto}
+\textbf{Qué hago:} identifico exactamente cuáles son los dos conjuntos que se multiplican y en
+qué orden aparecen.
+
+\textbf{¿De dónde sale?} El primer factor es $A\cap B=\{2,5,7\}$, ya calculado en el Paso~1
+del inciso~(h); el segundo factor es $D=\{8,9,10\}$, tomado del enunciado.
+
+\textbf{¿Por qué?} Porque el producto cartesiano no es conmutativo: en $(A\cap B)\times D$ la
+primera coordenada de cada par debe salir de $A\cap B$ y la segunda de $D$, por definición
+$X\times Y=\{(x,y): x\in X,\ y\in Y\}$. Además, antes de listar conviene saber cuántos pares
+esperamos: $|A\cap B|\cdot|D|=3\cdot 3=9$.
+
+\textbf{¿Qué tomamos?} Fijamos los factores $\{2,5,7\}$ (primera coordenada) y $\{8,9,10\}$
+(segunda coordenada), y la meta de $9$ pares ordenados.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Formar todos los pares ordenados}
+\textbf{Qué hago:} construyo los pares recorriendo ordenadamente: fijo cada elemento de la
+primera coordenada y lo combino con todos los de la segunda.
+
+\textbf{¿De dónde sale?} Los valores $2,5,7$ provienen de $A\cap B$ y los valores $8,9,10$
+provienen de $D$, según lo fijado en el Paso~1.
+
+\textbf{¿Por qué?} Por definición del producto cartesiano hay que agotar todas las
+combinaciones posibles. Fijando $2$: se obtienen $(2,8),(2,9),(2,10)$. Fijando $5$:
+$(5,8),(5,9),(5,10)$. Fijando $7$: $(7,8),(7,9),(7,10)$. En cada bloque hay $3$ pares porque
+$|D|=3$, y hay $3$ bloques porque $|A\cap B|=3$.
+
+\textbf{¿Qué tomamos?} Verificamos el conteo $3\cdot 3=9$ pares, que coincide con lo previsto.
+La respuesta se escribe como conjunto de pares ordenados:
+\[
+(A\cap B)\times D=\bigl\{(2,8),(2,9),(2,10),(5,8),(5,9),(5,10),(7,8),(7,9),(7,10)\bigr\}.
+\]
+\end{paso}
+
+\subsection*{(j) \ $(A\setminus B)\times(B\setminus A)$}
+
+\begin{paso}{Paso 1 --- Recuperar las diferencias que actúan como factores}
+\textbf{Qué hago:} identifico los dos factores, que son las diferencias ya calculadas en el
+inciso~(e).
+
+\textbf{¿De dónde sale?} En el Paso~1 del inciso~(e) obtuvimos $A\setminus B=\{1\}$ y en el
+Paso~2 obtuvimos $B\setminus A=\{3,4,6,8\}$; ambos salieron de $A=\{1,2,5,7\}$ y
+$B=\{2,3,4,5,6,7,8\}$ del enunciado.
+
+\textbf{¿Por qué?} Porque el producto pedido tiene como primer factor $A\setminus B$ y como
+segundo factor $B\setminus A$, y el orden fija qué conjunto aporta la primera coordenada.
+Antes de listar, la fórmula $|X\times Y|=|X|\cdot|Y|$ anticipa
+$|A\setminus B|\cdot|B\setminus A|=1\cdot 4=4$ pares.
+
+\textbf{¿Qué tomamos?} Fijamos $\{1\}$ como conjunto de primeras coordenadas y
+$\{3,4,6,8\}$ como conjunto de segundas coordenadas, con meta de $4$ pares.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Formar todos los pares ordenados}
+\textbf{Qué hago:} construyo los pares combinando el único elemento del primer factor con cada
+elemento del segundo.
+
+\textbf{¿De dónde sale?} El $1$ proviene de $A\setminus B$ y los valores $3,4,6,8$ provienen
+de $B\setminus A$, tal como se fijó en el Paso~1.
+
+\textbf{¿Por qué?} Por definición $X\times Y=\{(x,y): x\in X,\ y\in Y\}$: como $X=\{1\}$ tiene
+un solo elemento, solo hay un bloque de pares, y ese bloque tiene tantos pares como elementos
+tenga $Y$. Se obtienen $(1,3),(1,4),(1,6),(1,8)$.
+
+\textbf{¿Qué tomamos?} Verificamos $1\cdot 4=4$ pares, igual a lo previsto. La respuesta se
+escribe como conjunto de pares ordenados:
+\[
+(A\setminus B)\times(B\setminus A)=\bigl\{(1,3),(1,4),(1,6),(1,8)\bigr\}.
+\]
+\end{paso}
+
+\begin{resp}
+Con $M=\{0,1,2,3,4,5,6,7,8,9,10\}$, $A=\{1,2,5,7\}$, $B=\{2,3,4,5,6,7,8\}$, $C=\{1,3,5,7\}$ y
+$D=\{8,9,10\}$:
+\begin{align*}
+	\text{(a)}\ & (A\cup B)\cap C=\{1,3,5,7\} &
+	\text{(b)}\ & B^{c}\setminus A^{c}=\{1\}\\
+	\text{(c)}\ & C\cap D^{c}=\{1,3,5,7\} &
+	\text{(d)}\ & D\setminus C=\{8,9,10\}\\
+	\text{(e)}\ & A\triangle B=\{1,3,4,6,8\} &
+	\text{(f)}\ & C\triangle(A\cup D)=\{2,3,8,9,10\}\\
+	\text{(g)}\ & (B\setminus C)^{c}=\{0,1,3,5,7,9,10\} &&
+\end{align*}
+\begin{align*}
+	\text{(h)}\ \mathcal{P}(A\cap B)&=\bigl\{\varnothing,\{2\},\{5\},\{7\},\{2,5\},\{2,7\},\{5,7\},\{2,5,7\}\bigr\}\quad (8=2^{3}\ \text{elementos})\\
+	\text{(i)}\ (A\cap B)\times D&=\bigl\{(2,8),(2,9),(2,10),(5,8),(5,9),(5,10),(7,8),(7,9),(7,10)\bigr\}\quad (9\ \text{pares})\\
+	\text{(j)}\ (A\setminus B)\times(B\setminus A)&=\bigl\{(1,3),(1,4),(1,6),(1,8)\bigr\}\quad (4\ \text{pares})
+\end{align*}
+\end{resp}
+
+%=====================================================================
+\section*{Ejercicio 2}
+
+\begin{quote}
+Considere los siguientes conjuntos finitos dados por extensión. En cada uno de los siguientes
+incisos escriba el conjunto correspondiente en forma de comprensión o intensiva, utilizando una
+propiedad que caracterice a sus elementos.
+
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+	\item $\{2,4,6,8,10\}$
+	\item $\{1,4,9,16,25\}$
+	\item $\{a,e,i,o,u\}$
+	\item $\{\text{lunes},\text{martes},\text{miércoles},\text{jueves},\text{viernes}\}$
+	\item $\{-3,-2,-1,1,2,3\}$
+	\item $\{\text{rojo},\text{azul},\text{amarillo}\}$
+	\item $\{\text{Mercurio},\text{Venus},\text{Tierra},\text{Marte}\}$
+	\item $\{\triangle,\square,\circ\}$
+\end{enumerate}
+\end{quote}
+
+\begin{paso}{Paso 0 --- Fijar qué significa escribir un conjunto por comprensión}
+\textbf{Qué hago:} establezco el formato al que hay que llegar en los ocho incisos, para que
+todas las respuestas tengan la misma estructura.
+
+\textbf{¿De dónde sale?} Del enunciado del Ejercicio~2, que pide pasar de la forma por
+extensión (lista de elementos) a la forma por comprensión o intensiva (propiedad
+caracterizadora).
+
+\textbf{¿Por qué?} Por definición, un conjunto escrito por comprensión tiene la forma
+$\{x\in X : p(x)\}$, donde $X$ es un conjunto de referencia (el tipo de objeto del que
+hablamos) y $p(x)$ es una propiedad que cumplen \emph{todos} los elementos del conjunto y
+\emph{ningún} objeto de $X$ que no esté en él. Es decir, la propiedad debe ser a la vez
+suficiente (no deja entrar intrusos) y necesaria (no deja fuera ningún elemento de la lista).
+
+\textbf{¿Qué tomamos?} En cada inciso escribiremos la respuesta en el formato
+$\{x\in X : p(x)\}$ y comprobaremos las dos direcciones: que cada elemento listado cumple
+$p$, y que ningún otro elemento de $X$ la cumple. Advertimos además que la escritura por
+comprensión no es única: cualquier propiedad equivalente es igualmente válida.
+\end{paso}
+
+\begin{paso}{Paso 1 --- Incisos (a) y (b): conjuntos numéricos con patrón aritmético}
+\textbf{Qué hago:} detecto el patrón que genera la lista en cada caso y lo convierto en una
+propiedad, acotando el rango para no dejar entrar elementos de más.
+
+\textbf{¿De dónde sale?} Las listas $\{2,4,6,8,10\}$ y $\{1,4,9,16,25\}$ son las dadas en los
+incisos (a) y (b) del enunciado.
+
+\textbf{¿Por qué?} En (a) los cinco números son pares (cada uno es divisible por $2$) y van de
+$2$ a $10$; la propiedad ``ser par'' por sí sola dejaría entrar $12$, $14$, etc., por lo que
+hay que acotar con $2\le x\le 10$. En (b) los números son $1=1^{2}$, $4=2^{2}$, $9=3^{2}$,
+$16=4^{2}$ y $25=5^{2}$: son los cuadrados perfectos de los cinco primeros enteros positivos,
+y la acotación $1\le k\le 5$ impide que entre $36$.
+
+\textbf{¿Qué tomamos?} Escribimos:
+\[
+\text{(a)}\ \{x\in\mathbb{N}: x \text{ es par},\ 2\le x\le 10\}
+=\{2k : k\in\mathbb{N},\ 1\le k\le 5\},
+\]
+\[
+\text{(b)}\ \{x\in\mathbb{N}: x=k^{2} \text{ para algún } k\in\mathbb{N} \text{ con } 1\le k\le 5\}
+=\{k^{2} : k\in\mathbb{N},\ 1\le k\le 5\}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (e): conjunto numérico descrito por valor absoluto}
+\textbf{Qué hago:} busco una propiedad que capture simultáneamente los tres negativos y los
+tres positivos de la lista $\{-3,-2,-1,1,2,3\}$.
+
+\textbf{¿De dónde sale?} La lista es la del inciso (e) del enunciado del Ejercicio~2.
+
+\textbf{¿Por qué?} Los seis números son enteros y sus valores absolutos son $3,2,1,1,2,3$, es
+decir, todos cumplen $1\le|x|\le 3$. La cota superior $|x|\le 3$ impide que entren $4$ ó
+$-4$, y la cota inferior $1\le|x|$ es la que excluye al $0$, que es el único entero con
+$|x|=0$ y que efectivamente no aparece en la lista. Equivalentemente puede escribirse
+$-3\le x\le 3$ con $x\neq 0$.
+
+\textbf{¿Qué tomamos?} Escribimos la respuesta en forma de comprensión:
+\[
+\text{(e)}\ \{x\in\mathbb{Z}: 1\le |x| \le 3\}=\{x\in\mathbb{Z}: -3\le x\le 3,\ x\neq 0\}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Incisos (c), (d), (f), (g) y (h): conjuntos no numéricos}
+\textbf{Qué hago:} para cada lista de objetos no numéricos identifico la categoría a la que
+pertenecen todos sus elementos y que además los agota, y la uso como propiedad.
+
+\textbf{¿De dónde sale?} Las listas son exactamente las de los incisos (c), (d), (f), (g) y
+(h) del enunciado: las vocales, los cinco primeros días de la semana, tres colores, cuatro
+planetas y tres figuras.
+
+\textbf{¿Por qué?} La propiedad debe ser necesaria y suficiente, como se estableció en el
+Paso~0. En (c), $a,e,i,o,u$ son exactamente las letras vocales del alfabeto español, y no hay
+ninguna vocal fuera de la lista. En (d), lunes a viernes son exactamente los días hábiles de
+la semana, quedando fuera sábado y domingo. En (f), rojo, azul y amarillo son los colores
+primarios del modelo sustractivo (pigmentos), y son solo esos tres. En (g), Mercurio, Venus,
+Tierra y Marte son exactamente los planetas rocosos o interiores del sistema solar, es decir,
+los que orbitan más cerca del Sol que el cinturón de asteroides. En (h), el triángulo, el
+cuadrado y el círculo son las figuras planas elementales listadas; la propiedad se enuncia
+como pertenencia a esa familia de figuras.
+
+\textbf{¿Qué tomamos?} Escribimos cada conjunto por comprensión indicando el conjunto de
+referencia y la propiedad:
+\begin{align*}
+	\text{(c)}\ & \{x : x \text{ es una vocal del alfabeto español}\}\\
+	\text{(d)}\ & \{x : x \text{ es un día hábil de la semana}\}\\
+	\text{(f)}\ & \{x : x \text{ es un color primario del modelo sustractivo (pigmentos)}\}\\
+	\text{(g)}\ & \{x : x \text{ es un planeta rocoso (interior) del sistema solar}\}\\
+	\text{(h)}\ & \{x : x \text{ es una figura plana elemental: triángulo, cuadrado o círculo}\}
+\end{align*}
+\end{paso}
+
+\begin{resp}
+Una escritura por comprensión válida para cada inciso (la respuesta no es única):
+\begin{align*}
+	\text{(a)}\ & \{x\in\mathbb{N}: x\ \text{es par},\ 2\le x\le 10\}\\
+	\text{(b)}\ & \{k^{2} : k\in\mathbb{N},\ 1\le k\le 5\}\\
+	\text{(c)}\ & \{x : x\ \text{es una vocal del alfabeto español}\}\\
+	\text{(d)}\ & \{x : x\ \text{es un día hábil de la semana}\}\\
+	\text{(e)}\ & \{x\in\mathbb{Z}: 1\le |x|\le 3\}\\
+	\text{(f)}\ & \{x : x\ \text{es un color primario del modelo sustractivo}\}\\
+	\text{(g)}\ & \{x : x\ \text{es un planeta rocoso del sistema solar}\}\\
+	\text{(h)}\ & \{x : x\ \text{es una figura plana elemental: triángulo, cuadrado o círculo}\}
+\end{align*}
+\end{resp}
+
+%=====================================================================
+\section*{Ejercicio 3}
+
+\begin{quote}
+Considere los siguientes conjuntos numéricos definidos por comprensión. En cada uno de los
+siguientes incisos escriba el conjunto correspondiente en forma de extensión, listando
+explícitamente todos sus elementos.
+
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+	\item $\{x\in\mathbb{N}: x<12,\ x \text{ es múltiplo de } 3\}$
+	\item $\{x\in\mathbb{Z}: -5\le x\le 5,\ x \text{ es impar}\}$
+	\item $\{x\in\mathbb{N}: x^{2}\le 20\}$
+	\item $\{x\in\mathbb{Z}: |x|=3\}$
+	\item $\{x\in\mathbb{N}: 10<x<30,\ x \text{ es primo}\}$
+	\item $\{x\in\mathbb{Z}: x^{2}<10\}$
+	\item $\{x\in\mathbb{N}: x \text{ divide a } 24\}$
+	\item $\{x\in\mathbb{Z}: -8\le x\le 8,\ x \text{ es múltiplo de } 4\}$
+	\item $\{x\in\mathbb{R}: x^{2}=4\}$
+	\item $\{x\in\mathbb{R}: (x-1)(x-3)=0\}$
+	\item $\{x\in\mathbb{R}: |x|=2\}$
+	\item $\{x\in\mathbb{R}: x^{2}-5x+6=0\}$
+	\item $\{x\in\mathbb{R}: (x+2)^{2}=0\}$
+\end{enumerate}
+\end{quote}
+
+\begin{paso}{Paso 0 --- Fijar el conjunto de referencia de cada inciso}
+\textbf{Qué hago:} antes de listar nada, separo los incisos según el conjunto numérico de
+referencia que aparece a la izquierda de los dos puntos: $\mathbb{N}$, $\mathbb{Z}$ ó
+$\mathbb{R}$.
+
+\textbf{¿De dónde sale?} De la escritura misma de cada conjunto en el enunciado: (a), (c),
+(e) y (g) están en $\mathbb{N}$; (b), (d), (f) y (h) están en $\mathbb{Z}$; (i), (j), (k),
+(l) y (m) están en $\mathbb{R}$.
+
+\textbf{¿Por qué?} Porque en la notación $\{x\in X: p(x)\}$ el conjunto $X$ delimita qué
+candidatos siquiera pueden ser considerados. La misma condición produce conjuntos distintos
+según $X$: por ejemplo, $x^{2}=4$ da $\{2\}$ si $x\in\mathbb{N}$, pero da $\{-2,2\}$ si
+$x\in\mathbb{R}$. Ignorar $X$ es la fuente más común de error en estos incisos. Recordamos
+además el convenio de la práctica, $\mathbb{N}=\{0,1,2,3,\dots\}$, fijado en el Ejercicio~1.
+
+\textbf{¿Qué tomamos?} En cada inciso recorreremos únicamente los candidatos del conjunto de
+referencia indicado, y descartaremos los que no cumplan la propiedad.
+\end{paso}
+
+\begin{paso}{Paso 1 --- Incisos en $\mathbb{N}$: (a), (c), (e) y (g)}
+\textbf{Qué hago:} recorro los naturales que caben en cada condición y verifico la propiedad
+uno por uno.
+
+\textbf{¿De dónde sale?} Las condiciones son textuales del enunciado: (a) múltiplos de $3$
+menores que $12$; (c) naturales con $x^{2}\le 20$; (e) primos estrictamente entre $10$ y
+$30$; (g) naturales que dividen a $24$.
+
+\textbf{¿Por qué?} En (a), un múltiplo de $3$ es un número de la forma $3k$; los múltiplos de
+$3$ naturales son $0,3,6,9,12,\dots$, y la condición $x<12$ es estricta, así que $12$ queda
+excluido. En (c), evalúo cuadrados: $0^{2}=0\le 20$, $1^{2}=1\le 20$, $2^{2}=4\le 20$,
+$3^{2}=9\le 20$, $4^{2}=16\le 20$, pero $5^{2}=25>20$, y de ahí en adelante crecen, así que
+se corta en $4$. En (e), pruebo los naturales entre $11$ y $29$ y me quedo con los que solo
+son divisibles por $1$ y por sí mismos: $11,13,17,19,23,29$; quedan fuera los pares, los
+múltiplos de $3$ como $21$ y $27$, y $25=5\cdot 5$. En (g), $x$ divide a $24$ significa que
+existe $k$ natural con $24=xk$; el $0$ no divide a nadie, y los divisores positivos de
+$24=2^{3}\cdot 3$ son $1,2,3,4,6,8,12,24$.
+
+\textbf{¿Qué tomamos?} Escribimos los cuatro conjuntos por extensión, ordenados:
+\begin{align*}
+	\text{(a)}\ & \{0,3,6,9\} & \text{(c)}\ & \{0,1,2,3,4\}\\
+	\text{(e)}\ & \{11,13,17,19,23,29\} & \text{(g)}\ & \{1,2,3,4,6,8,12,24\}
+\end{align*}
+\end{paso}
+
+\begin{paso}{Paso 2 --- Incisos en $\mathbb{Z}$: (b), (d), (f) y (h)}
+\textbf{Qué hago:} recorro los enteros del rango indicado, incluyendo explícitamente los
+negativos, y verifico la condición.
+
+\textbf{¿De dónde sale?} Las condiciones son las del enunciado: (b) impares entre $-5$ y $5$;
+(d) enteros con $|x|=3$; (f) enteros con $x^{2}<10$; (h) múltiplos de $4$ entre $-8$ y $8$.
+
+\textbf{¿Por qué?} La clave en estos cuatro incisos es que $\mathbb{Z}$ incluye los negativos,
+de modo que cada solución positiva suele venir acompañada de su opuesta. En (b), los enteros
+de $-5$ a $5$ son $-5,-4,\dots,5$ y los impares (no divisibles por $2$) son
+$-5,-3,-1,1,3,5$. En (d), $|x|=3$ significa $x=3$ ó $x=-3$, por la definición de valor
+absoluto. En (f), evalúo $x^{2}<10$: $0^{2}=0$, $(\pm1)^{2}=1$, $(\pm2)^{2}=4$,
+$(\pm3)^{2}=9$ cumplen, mientras que $(\pm4)^{2}=16>10$ ya no. En (h), un múltiplo de $4$ es
+$4k$ con $k$ entero; entre $-8$ y $8$ inclusive esos números son $-8,-4,0,4,8$, y no debe
+olvidarse el $0$, que es múltiplo de $4$ porque $0=4\cdot 0$.
+
+\textbf{¿Qué tomamos?} Escribimos los cuatro conjuntos por extensión, ordenados de menor a
+mayor:
+\begin{align*}
+	\text{(b)}\ & \{-5,-3,-1,1,3,5\} & \text{(d)}\ & \{-3,3\}\\
+	\text{(f)}\ & \{-3,-2,-1,0,1,2,3\} & \text{(h)}\ & \{-8,-4,0,4,8\}
+\end{align*}
+\end{paso}
+
+\begin{paso}{Paso 3 --- Incisos en $\mathbb{R}$: (i), (j), (k), (l) y (m)}
+\textbf{Qué hago:} resuelvo la ecuación que define cada conjunto y tomo como elementos todas
+sus soluciones reales.
+
+\textbf{¿De dónde sale?} Las ecuaciones son las del enunciado: (i) $x^{2}=4$;
+(j) $(x-1)(x-3)=0$; (k) $|x|=2$; (l) $x^{2}-5x+6=0$; (m) $(x+2)^{2}=0$.
+
+\textbf{¿Por qué?} Cada conjunto es, por definición, el conjunto solución de su ecuación
+dentro de $\mathbb{R}$. En (i), $x^{2}=4$ equivale a $x^{2}-4=0$, es decir $(x-2)(x+2)=0$, y
+un producto es cero exactamente cuando alguno de sus factores lo es, de donde $x=2$ ó $x=-2$;
+ambos son reales, así que ambos entran. En (j), el producto $(x-1)(x-3)$ ya está factorizado,
+y se anula si $x-1=0$ ó $x-3=0$, es decir $x=1$ ó $x=3$. En (k), $|x|=2$ significa por
+definición de valor absoluto que $x=2$ ó $x=-2$. En (l), factorizo
+$x^{2}-5x+6=(x-2)(x-3)$, pues $(-2)+(-3)=-5$ y $(-2)(-3)=6$; se anula en $x=2$ y $x=3$.
+En (m), $(x+2)^{2}=0$ obliga a $x+2=0$, o sea $x=-2$; aunque la raíz sea doble, como elemento
+de un conjunto se escribe una sola vez, porque un conjunto no repite elementos.
+
+\textbf{¿Qué tomamos?} Escribimos los conjuntos solución por extensión:
+\begin{align*}
+	\text{(i)}\ & \{-2,2\} & \text{(j)}\ & \{1,3\} & \text{(k)}\ & \{-2,2\}\\
+	\text{(l)}\ & \{2,3\} & \text{(m)}\ & \{-2\} &&
+\end{align*}
+\end{paso}
+
+\begin{nota}
+En el inciso (a) el conjunto de referencia es $\mathbb{N}$ y, con el convenio
+$\mathbb{N}=\{0,1,2,\dots\}$ que la propia práctica usa en los Ejercicios~1 y 4 (donde $0$
+pertenece al universo y al conjunto $P$), el número $0$ es múltiplo de $3$ y cumple $0<12$,
+por lo que pertenece al conjunto: $\{0,3,6,9\}$. Lo mismo ocurre en (c), donde $0^{2}=0\le
+20$, dando $\{0,1,2,3,4\}$. Si en el curso se adoptara el convenio $\mathbb{N}=\{1,2,3,\dots\}$,
+esos dos conjuntos serían $\{3,6,9\}$ y $\{1,2,3,4\}$ respectivamente. En cambio, en el inciso
+(g) el $0$ nunca entra, porque $0$ no divide a $24$ (no existe $k$ con $24=0\cdot k$).
+\end{nota}
+
+\begin{resp}
+\begin{align*}
+	\text{(a)}\ & \{0,3,6,9\} & \text{(b)}\ & \{-5,-3,-1,1,3,5\}\\
+	\text{(c)}\ & \{0,1,2,3,4\} & \text{(d)}\ & \{-3,3\}\\
+	\text{(e)}\ & \{11,13,17,19,23,29\} & \text{(f)}\ & \{-3,-2,-1,0,1,2,3\}\\
+	\text{(g)}\ & \{1,2,3,4,6,8,12,24\} & \text{(h)}\ & \{-8,-4,0,4,8\}\\
+	\text{(i)}\ & \{-2,2\} & \text{(j)}\ & \{1,3\}\\
+	\text{(k)}\ & \{-2,2\} & \text{(l)}\ & \{2,3\}\\
+	\text{(m)}\ & \{-2\} &&
+\end{align*}
+\end{resp}
+
+%=====================================================================
+\section*{Ejercicio 4}
+
+\begin{quote}
+A continuación considere el conjunto universo $U=\{x\in\mathbb{N}: 0\le x\le 12\}$.
+Consideremos luego los conjuntos $P=\{0,2,4,6,8\}$, $Q=\{1,2,3,4,5,6\}$, $R=\{3,6,9,12\}$ y
+$S=\{7,10,11\}$. Calcule entonces los siguientes conjuntos:
+
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+	\item $(P\cap Q)\cup R$
+	\item $(P\cup S)^{c}$
+	\item $Q\setminus(P\cap R)$
+	\item $(R^{c}\cap Q)\cup S$
+	\item $(P\cup Q)\setminus R$
+	\item $(P^{c}\cap Q^{c})$
+	\item $(R\cup S)\cap Q^{c}$
+	\item $\mathcal{P}(Q\setminus P)$
+	\item $P\times(Q\cap R)$
+	\item $(P\cap Q)\times(R^{c}\cap S^{c})$
+\end{enumerate}
+\end{quote}
+
+\begin{paso}{Paso 0 --- Escribir el universo por extensión}
+\textbf{Qué hago:} traduzco $U=\{x\in\mathbb{N}: 0\le x\le 12\}$ a su forma por extensión,
+listando todos sus elementos.
+
+\textbf{¿De dónde sale?} La condición viene del enunciado del Ejercicio~4: naturales que
+cumplen a la vez $0\le x$ y $x\le 12$.
+
+\textbf{¿Por qué?} Porque los incisos (b), (d), (f), (g) y (j) piden complementos, y por
+definición $X^{c}=U\setminus X$, de modo que el complemento se toma respecto de este universo
+y de ningún otro. Recorro los naturales desde $0$: $0$ cumple, $1$ cumple, \dots, $12$ cumple
+($12\le 12$), y $13$ ya no cumple.
+
+\textbf{¿Qué tomamos?} Fijamos para todo el ejercicio
+\[
+U=\{0,1,2,3,4,5,6,7,8,9,10,11,12\},\qquad |U|=13,
+\]
+junto con los conjuntos del enunciado $P=\{0,2,4,6,8\}$, $Q=\{1,2,3,4,5,6\}$,
+$R=\{3,6,9,12\}$ y $S=\{7,10,11\}$.
+\end{paso}
+
+\subsection*{(a) \ $(P\cap Q)\cup R$}
+
+\begin{paso}{Paso 1 --- Calcular la intersección interna $P\cap Q$}
+\textbf{Qué hago:} resuelvo el paréntesis aplicando la definición de intersección a $P$ y $Q$.
+
+\textbf{¿De dónde sale?} $P=\{0,2,4,6,8\}$ y $Q=\{1,2,3,4,5,6\}$ son del enunciado.
+
+\textbf{¿Por qué?} Por definición $P\cap Q=\{x: x\in P \text{ y } x\in Q\}$; un elemento entra
+solo si está en los dos. Recorro $P$: $0\notin Q$, no entra; $2\in Q$, entra; $4\in Q$, entra;
+$6\in Q$, entra; $8\notin Q$, no entra.
+
+\textbf{¿Qué tomamos?} Guardamos $T_1:=P\cap Q=\{2,4,6\}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Unir con $R$}
+\textbf{Qué hago:} aplico la definición de unión entre el resultado parcial $T_1$ y el
+conjunto $R$.
+
+\textbf{¿De dónde sale?} $T_1=\{2,4,6\}$ viene del Paso~1 y $R=\{3,6,9,12\}$ es del enunciado.
+
+\textbf{¿Por qué?} Por definición $T_1\cup R=\{x: x\in T_1 \text{ ó } x\in R\}$: se juntan
+todos los elementos de ambos, escribiendo una sola vez los repetidos. De $T_1$ entran $2$, $4$
+y $6$; de $R$ entran $3$, $9$ y $12$, mientras que $6$ ya estaba y no se repite.
+
+\textbf{¿Qué tomamos?} La respuesta, por extensión y en orden creciente:
+\[
+(P\cap Q)\cup R=\{2,3,4,6,9,12\}.
+\]
+\end{paso}
+
+\subsection*{(b) \ $(P\cup S)^{c}$}
+
+\begin{paso}{Paso 1 --- Calcular la unión interna $P\cup S$}
+\textbf{Qué hago:} resuelvo el paréntesis con la definición de unión antes de complementar.
+
+\textbf{¿De dónde sale?} $P=\{0,2,4,6,8\}$ y $S=\{7,10,11\}$ son del enunciado.
+
+\textbf{¿Por qué?} Por definición $P\cup S=\{x: x\in P \text{ ó } x\in S\}$. Entran $0,2,4,6,8$
+por venir de $P$ y entran $7,10,11$ por venir de $S$; $P$ y $S$ no comparten elementos, así
+que no hay repeticiones y $|P\cup S|=5+3=8$.
+
+\textbf{¿Qué tomamos?} Guardamos $T_1:=P\cup S=\{0,2,4,6,7,8,10,11\}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Complementar respecto del universo $U$}
+\textbf{Qué hago:} calculo $T_1^{c}$ quitando de $U$ todos los elementos de $T_1$.
+
+\textbf{¿De dónde sale?} $T_1=\{0,2,4,6,7,8,10,11\}$ viene del Paso~1 y el universo es
+$U=\{0,1,2,3,4,5,6,7,8,9,10,11,12\}$, escrito en el Paso~0.
+
+\textbf{¿Por qué?} Por definición el complemento se toma respecto del universo $U$ del
+Ejercicio~4, que es $U=\{0,1,2,3,4,5,6,7,8,9,10,11,12\}$: $T_1^{c}=U\setminus T_1=\{x\in U:
+x\notin T_1\}$. Recorro $U$ completo: $0\in T_1$, fuera; $1\notin T_1$, entra; $2\in T_1$,
+fuera; $3\notin T_1$, entra; $4\in T_1$, fuera; $5\notin T_1$, entra; $6,7,8\in T_1$, fuera;
+$9\notin T_1$, entra; $10,11\in T_1$, fuera; $12\notin T_1$, entra.
+
+\textbf{¿Qué tomamos?} La respuesta por extensión, y el conteo cuadra:
+$|T_1^{c}|=13-8=5$.
+\[
+(P\cup S)^{c}=\{1,3,5,9,12\}.
+\]
+\end{paso}
+
+\subsection*{(c) \ $Q\setminus(P\cap R)$}
+
+\begin{paso}{Paso 1 --- Calcular la intersección interna $P\cap R$}
+\textbf{Qué hago:} resuelvo el paréntesis aplicando la definición de intersección a $P$ y $R$.
+
+\textbf{¿De dónde sale?} $P=\{0,2,4,6,8\}$ y $R=\{3,6,9,12\}$ son del enunciado.
+
+\textbf{¿Por qué?} Por definición $P\cap R=\{x: x\in P \text{ y } x\in R\}$. Recorro $P$:
+$0\notin R$, no entra; $2\notin R$, no entra; $4\notin R$, no entra; $6\in R$, entra;
+$8\notin R$, no entra. Solo sobrevive el $6$.
+
+\textbf{¿Qué tomamos?} Guardamos $T_1:=P\cap R=\{6\}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Restar $T_1$ a $Q$}
+\textbf{Qué hago:} aplico la definición de diferencia entre $Q$ y el resultado parcial $T_1$.
+
+\textbf{¿De dónde sale?} $Q=\{1,2,3,4,5,6\}$ es del enunciado y $T_1=\{6\}$ viene del Paso~1.
+
+\textbf{¿Por qué?} Por definición $Q\setminus T_1=\{x: x\in Q,\ x\notin T_1\}$: parto de los
+elementos de $Q$ y descarto los que estén en $T_1$. Reviso $Q$: $1\notin T_1$, se conserva;
+$2\notin T_1$, se conserva; $3\notin T_1$, se conserva; $4\notin T_1$, se conserva;
+$5\notin T_1$, se conserva; $6\in T_1$, se descarta.
+
+\textbf{¿Qué tomamos?} La respuesta por extensión:
+\[
+Q\setminus(P\cap R)=\{1,2,3,4,5\}.
+\]
+\end{paso}
+
+\subsection*{(d) \ $(R^{c}\cap Q)\cup S$}
+
+\begin{paso}{Paso 1 --- Calcular el complemento $R^{c}$ respecto de $U$}
+\textbf{Qué hago:} complemento $R$ tomando como universo $U$.
+
+\textbf{¿De dónde sale?} $R=\{3,6,9,12\}$ es del enunciado y
+$U=\{0,1,2,3,4,5,6,7,8,9,10,11,12\}$ se fijó en el Paso~0.
+
+\textbf{¿Por qué?} Por definición el complemento se toma respecto del universo, aquí
+$U=\{0,1,2,3,4,5,6,7,8,9,10,11,12\}$: $R^{c}=U\setminus R=\{x\in U: x\notin R\}$. Recorro
+$U$: $0,1,2$ entran; $3\in R$, fuera; $4,5$ entran; $6\in R$, fuera; $7,8$ entran; $9\in R$,
+fuera; $10,11$ entran; $12\in R$, fuera.
+
+\textbf{¿Qué tomamos?} Guardamos
+\[
+R^{c}=\{0,1,2,4,5,7,8,10,11\},\qquad |R^{c}|=13-4=9 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Intersecar $R^{c}$ con $Q$}
+\textbf{Qué hago:} aplico la definición de intersección entre el complemento del Paso~1 y $Q$.
+
+\textbf{¿De dónde sale?} $R^{c}=\{0,1,2,4,5,7,8,10,11\}$ viene del Paso~1 y
+$Q=\{1,2,3,4,5,6\}$ es del enunciado.
+
+\textbf{¿Por qué?} Por definición $R^{c}\cap Q=\{x: x\in R^{c} \text{ y } x\in Q\}$. Recorro
+el más pequeño, $Q$: $1\in R^{c}$, entra; $2\in R^{c}$, entra; $3\notin R^{c}$ (porque
+$3\in R$), no entra; $4\in R^{c}$, entra; $5\in R^{c}$, entra; $6\notin R^{c}$ (porque
+$6\in R$), no entra.
+
+\textbf{¿Qué tomamos?} Guardamos $T_1:=R^{c}\cap Q=\{1,2,4,5\}$; obsérvese que coincide con
+$Q\setminus R$, como era de esperar por la definición de diferencia.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Unir con $S$}
+\textbf{Qué hago:} aplico la definición de unión entre $T_1$ y $S$ para cerrar la expresión.
+
+\textbf{¿De dónde sale?} $T_1=\{1,2,4,5\}$ viene del Paso~2 y $S=\{7,10,11\}$ es del
+enunciado.
+
+\textbf{¿Por qué?} Por definición $T_1\cup S=\{x: x\in T_1 \text{ ó } x\in S\}$: se juntan los
+elementos de ambos. De $T_1$ entran $1,2,4,5$ y de $S$ entran $7,10,11$; los dos conjuntos son
+disjuntos, así que no hay repeticiones y $|T_1\cup S|=4+3=7$.
+
+\textbf{¿Qué tomamos?} La respuesta por extensión, ordenada:
+\[
+(R^{c}\cap Q)\cup S=\{1,2,4,5,7,10,11\}.
+\]
+\end{paso}
+
+\subsection*{(e) \ $(P\cup Q)\setminus R$}
+
+\begin{paso}{Paso 1 --- Calcular la unión interna $P\cup Q$}
+\textbf{Qué hago:} resuelvo el paréntesis con la definición de unión.
+
+\textbf{¿De dónde sale?} $P=\{0,2,4,6,8\}$ y $Q=\{1,2,3,4,5,6\}$ son del enunciado.
+
+\textbf{¿Por qué?} Por definición $P\cup Q=\{x: x\in P \text{ ó } x\in Q\}$. De $P$ entran
+$0,2,4,6,8$; de $Q$ entran $1,3,5$ como elementos nuevos, mientras que $2,4,6$ ya estaban por
+$P$ y se escriben una sola vez.
+
+\textbf{¿Qué tomamos?} Guardamos $T_1:=P\cup Q=\{0,1,2,3,4,5,6,8\}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Restar $R$}
+\textbf{Qué hago:} aplico la definición de diferencia entre $T_1$ y $R$.
+
+\textbf{¿De dónde sale?} $T_1=\{0,1,2,3,4,5,6,8\}$ viene del Paso~1 y $R=\{3,6,9,12\}$ es del
+enunciado.
+
+\textbf{¿Por qué?} Por definición $T_1\setminus R=\{x: x\in T_1,\ x\notin R\}$: se parte de
+$T_1$ y se descartan los que también estén en $R$. Reviso $T_1$: $0\notin R$, se conserva;
+$1\notin R$, se conserva; $2\notin R$, se conserva; $3\in R$, se descarta; $4\notin R$, se
+conserva; $5\notin R$, se conserva; $6\in R$, se descarta; $8\notin R$, se conserva. Los
+elementos $9$ y $12$ de $R$ no influyen porque no estaban en $T_1$.
+
+\textbf{¿Qué tomamos?} La respuesta por extensión:
+\[
+(P\cup Q)\setminus R=\{0,1,2,4,5,8\}.
+\]
+\end{paso}
+
+\subsection*{(f) \ $(P^{c}\cap Q^{c})$}
+
+\begin{paso}{Paso 1 --- Calcular el complemento $P^{c}$ respecto de $U$}
+\textbf{Qué hago:} complemento $P$ usando el universo $U$.
+
+\textbf{¿De dónde sale?} $P=\{0,2,4,6,8\}$ es del enunciado y
+$U=\{0,1,2,3,4,5,6,7,8,9,10,11,12\}$ se fijó en el Paso~0.
+
+\textbf{¿Por qué?} Por definición, respecto del universo
+$U=\{0,1,2,3,4,5,6,7,8,9,10,11,12\}$ se tiene $P^{c}=U\setminus P=\{x\in U: x\notin P\}$.
+Recorro $U$: $0\in P$, fuera; $1$ entra; $2\in P$, fuera; $3$ entra; $4\in P$, fuera; $5$
+entra; $6\in P$, fuera; $7$ entra; $8\in P$, fuera; $9,10,11,12$ entran.
+
+\textbf{¿Qué tomamos?} Guardamos $P^{c}=\{1,3,5,7,9,10,11,12\}$, con $|P^{c}|=13-5=8$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Calcular el complemento $Q^{c}$ respecto del mismo universo $U$}
+\textbf{Qué hago:} repito la operación de complemento sobre $Q$, con el mismo universo.
+
+\textbf{¿De dónde sale?} $Q=\{1,2,3,4,5,6\}$ es del enunciado y el universo es el mismo
+$U=\{0,1,2,3,4,5,6,7,8,9,10,11,12\}$ del Paso~0.
+
+\textbf{¿Por qué?} Por definición $Q^{c}=U\setminus Q=\{x\in U: x\notin Q\}$; el complemento
+se toma otra vez respecto de $U$, nunca respecto de $P$ ni de otro conjunto. Recorro $U$:
+$0\notin Q$, entra; $1,2,3,4,5,6\in Q$, fuera; $7,8,9,10,11,12\notin Q$, entran.
+
+\textbf{¿Qué tomamos?} Guardamos $Q^{c}=\{0,7,8,9,10,11,12\}$, con $|Q^{c}|=13-6=7$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Intersecar ambos complementos}
+\textbf{Qué hago:} aplico la definición de intersección a los dos complementos calculados.
+
+\textbf{¿De dónde sale?} $P^{c}=\{1,3,5,7,9,10,11,12\}$ viene del Paso~1 y
+$Q^{c}=\{0,7,8,9,10,11,12\}$ viene del Paso~2.
+
+\textbf{¿Por qué?} Por definición $P^{c}\cap Q^{c}=\{x: x\in P^{c} \text{ y } x\in Q^{c}\}$.
+Recorro $P^{c}$: $1\notin Q^{c}$, fuera; $3\notin Q^{c}$, fuera; $5\notin Q^{c}$, fuera;
+$7\in Q^{c}$, entra; $9\in Q^{c}$, entra; $10\in Q^{c}$, entra; $11\in Q^{c}$, entra;
+$12\in Q^{c}$, entra.
+
+\textbf{¿Qué tomamos?} La respuesta por extensión:
+\[
+P^{c}\cap Q^{c}=\{7,9,10,11,12\}.
+\]
+Como verificación con la ley de De Morgan, $P^{c}\cap Q^{c}=(P\cup Q)^{c}$, y en el inciso (e)
+obtuvimos $P\cup Q=\{0,1,2,3,4,5,6,8\}$, cuyo complemento en $U$ es en efecto
+$\{7,9,10,11,12\}$.
+\end{paso}
+
+\subsection*{(g) \ $(R\cup S)\cap Q^{c}$}
+
+\begin{paso}{Paso 1 --- Calcular la unión interna $R\cup S$}
+\textbf{Qué hago:} resuelvo el paréntesis con la definición de unión.
+
+\textbf{¿De dónde sale?} $R=\{3,6,9,12\}$ y $S=\{7,10,11\}$ son del enunciado.
+
+\textbf{¿Por qué?} Por definición $R\cup S=\{x: x\in R \text{ ó } x\in S\}$. De $R$ entran
+$3,6,9,12$ y de $S$ entran $7,10,11$; no hay elementos comunes, de modo que
+$|R\cup S|=4+3=7$.
+
+\textbf{¿Qué tomamos?} Guardamos $T_1:=R\cup S=\{3,6,7,9,10,11,12\}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Intersecar con $Q^{c}$}
+\textbf{Qué hago:} aplico la definición de intersección entre $T_1$ y el complemento de $Q$.
+
+\textbf{¿De dónde sale?} $T_1=\{3,6,7,9,10,11,12\}$ viene del Paso~1 y
+$Q^{c}=\{0,7,8,9,10,11,12\}$ se calculó en el Paso~2 del inciso~(f), respecto del universo
+$U=\{0,1,2,3,4,5,6,7,8,9,10,11,12\}$.
+
+\textbf{¿Por qué?} Por definición $T_1\cap Q^{c}=\{x: x\in T_1 \text{ y } x\in Q^{c}\}$.
+Recorro $T_1$: $3\notin Q^{c}$ (porque $3\in Q$), fuera; $6\notin Q^{c}$ (porque $6\in Q$),
+fuera; $7\in Q^{c}$, entra; $9\in Q^{c}$, entra; $10\in Q^{c}$, entra; $11\in Q^{c}$, entra;
+$12\in Q^{c}$, entra.
+
+\textbf{¿Qué tomamos?} La respuesta por extensión:
+\[
+(R\cup S)\cap Q^{c}=\{7,9,10,11,12\}.
+\]
+\end{paso}
+
+\subsection*{(h) \ $\mathcal{P}(Q\setminus P)$}
+
+\begin{paso}{Paso 1 --- Calcular la diferencia $Q\setminus P$}
+\textbf{Qué hago:} obtengo primero el conjunto del que se pedirá el conjunto potencia.
+
+\textbf{¿De dónde sale?} $Q=\{1,2,3,4,5,6\}$ y $P=\{0,2,4,6,8\}$ son del enunciado.
+
+\textbf{¿Por qué?} Por definición $Q\setminus P=\{x: x\in Q,\ x\notin P\}$: se parte de $Q$ y
+se descartan los elementos que también estén en $P$. Reviso $Q$: $1\notin P$, se conserva;
+$2\in P$, se descarta; $3\notin P$, se conserva; $4\in P$, se descarta; $5\notin P$, se
+conserva; $6\in P$, se descarta.
+
+\textbf{¿Qué tomamos?} Guardamos $H:=Q\setminus P=\{1,3,5\}$, con $|H|=3$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Anticipar la cantidad de subconjuntos}
+\textbf{Qué hago:} aplico la fórmula de cardinalidad del conjunto potencia para saber cuántos
+subconjuntos debe tener la lista.
+
+\textbf{¿De dónde sale?} $|H|=3$ se obtuvo en el Paso~1 al contar los elementos de
+$Q\setminus P=\{1,3,5\}$.
+
+\textbf{¿Por qué?} Porque $|\mathcal{P}(X)|=2^{|X|}$: cada elemento de $X$ se incluye o no se
+incluye en un subconjunto dado, y esas decisiones independientes generan $2^{|X|}$
+subconjuntos distintos. Con $|H|=3$ resulta $2^{3}=8$.
+
+\textbf{¿Qué tomamos?} Nos quedamos con la meta de conteo: la lista final debe contener
+exactamente $8$ subconjuntos.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Listar todos los subconjuntos por tamaño}
+\textbf{Qué hago:} enumero sistemáticamente los subconjuntos de $H=\{1,3,5\}$, agrupados por
+cantidad de elementos.
+
+\textbf{¿De dónde sale?} Los elementos $1$, $3$ y $5$ son los de $H=Q\setminus P$ calculado en
+el Paso~1.
+
+\textbf{¿Por qué?} Por definición $\mathcal{P}(H)=\{X: X\subseteq H\}$, y todo subconjunto de
+$H$ tiene $0$, $1$, $2$ ó $3$ elementos. De tamaño $0$: $\varnothing$, que es subconjunto de
+todo conjunto. De tamaño $1$: $\{1\},\{3\},\{5\}$. De tamaño $2$: $\{1,3\},\{1,5\},\{3,5\}$.
+De tamaño $3$: el propio $H$.
+
+\textbf{¿Qué tomamos?} Verificamos el conteo $1+3+3+1=8=2^{3}$, igual a lo previsto en el
+Paso~2. La respuesta se escribe como conjunto cuyos elementos son conjuntos:
+\[
+\mathcal{P}(Q\setminus P)=\bigl\{\varnothing,\{1\},\{3\},\{5\},\{1,3\},\{1,5\},\{3,5\},\{1,3,5\}\bigr\}.
+\]
+\end{paso}
+
+\subsection*{(i) \ $P\times(Q\cap R)$}
+
+\begin{paso}{Paso 1 --- Calcular la intersección $Q\cap R$}
+\textbf{Qué hago:} obtengo el segundo factor del producto aplicando la definición de
+intersección.
+
+\textbf{¿De dónde sale?} $Q=\{1,2,3,4,5,6\}$ y $R=\{3,6,9,12\}$ son del enunciado.
+
+\textbf{¿Por qué?} Por definición $Q\cap R=\{x: x\in Q \text{ y } x\in R\}$. Recorro $R$:
+$3\in Q$, entra; $6\in Q$, entra; $9\notin Q$, no entra; $12\notin Q$, no entra.
+
+\textbf{¿Qué tomamos?} Guardamos $T_1:=Q\cap R=\{3,6\}$; el primer factor será
+$P=\{0,2,4,6,8\}$, dado en el enunciado. Anticipamos
+$|P|\cdot|T_1|=5\cdot 2=10$ pares.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Formar todos los pares ordenados}
+\textbf{Qué hago:} construyo los pares fijando cada elemento de $P$ como primera coordenada y
+recorriendo $T_1$ como segunda coordenada.
+
+\textbf{¿De dónde sale?} Los valores $0,2,4,6,8$ provienen de $P$ (enunciado) y los valores
+$3,6$ provienen de $T_1=Q\cap R$ calculado en el Paso~1.
+
+\textbf{¿Por qué?} Por definición $P\times T_1=\{(p,t): p\in P,\ t\in T_1\}$, y el orden de los
+factores fija cuál conjunto aporta cada coordenada: la primera sale de $P$ y la segunda de
+$Q\cap R$. Fijando $0$: $(0,3),(0,6)$. Fijando $2$: $(2,3),(2,6)$. Fijando $4$:
+$(4,3),(4,6)$. Fijando $6$: $(6,3),(6,6)$. Fijando $8$: $(8,3),(8,6)$. Nótese que $(6,6)$ es
+un par legítimo, pues $6$ pertenece a los dos factores.
+
+\textbf{¿Qué tomamos?} Verificamos $5\cdot 2=10$ pares, igual a lo anticipado. La respuesta se
+escribe como conjunto de pares ordenados:
+\[
+P\times(Q\cap R)=\bigl\{(0,3),(0,6),(2,3),(2,6),(4,3),(4,6),(6,3),(6,6),(8,3),(8,6)\bigr\}.
+\]
+\end{paso}
+
+\subsection*{(j) \ $(P\cap Q)\times(R^{c}\cap S^{c})$}
+
+\begin{paso}{Paso 1 --- Recuperar el primer factor $P\cap Q$}
+\textbf{Qué hago:} identifico el conjunto que aportará las primeras coordenadas.
+
+\textbf{¿De dónde sale?} $P\cap Q=\{2,4,6\}$ ya se calculó en el Paso~1 del inciso~(a), a
+partir de $P=\{0,2,4,6,8\}$ y $Q=\{1,2,3,4,5,6\}$ del enunciado.
+
+\textbf{¿Por qué?} Porque en el producto $(P\cap Q)\times(R^{c}\cap S^{c})$ el primer factor
+es $P\cap Q$, y por definición del producto cartesiano la primera coordenada de cada par debe
+pertenecer a ese conjunto. No hace falta recalcularlo: se reutiliza el resultado ya
+justificado.
+
+\textbf{¿Qué tomamos?} Fijamos el primer factor $P\cap Q=\{2,4,6\}$, con $|P\cap Q|=3$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Calcular el complemento $S^{c}$ respecto de $U$}
+\textbf{Qué hago:} complemento $S$ usando el universo $U$, ya que $R^{c}$ ya fue calculado
+antes.
+
+\textbf{¿De dónde sale?} $S=\{7,10,11\}$ es del enunciado y
+$U=\{0,1,2,3,4,5,6,7,8,9,10,11,12\}$ se fijó en el Paso~0.
+
+\textbf{¿Por qué?} Por definición el complemento se toma respecto del universo
+$U=\{0,1,2,3,4,5,6,7,8,9,10,11,12\}$: $S^{c}=U\setminus S=\{x\in U: x\notin S\}$. Recorro
+$U$: $0,1,2,3,4,5,6$ entran; $7\in S$, fuera; $8,9$ entran; $10\in S$, fuera; $11\in S$,
+fuera; $12$ entra.
+
+\textbf{¿Qué tomamos?} Guardamos $S^{c}=\{0,1,2,3,4,5,6,8,9,12\}$, con $|S^{c}|=13-3=10$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Intersecar $R^{c}$ con $S^{c}$}
+\textbf{Qué hago:} aplico la definición de intersección a los dos complementos para obtener el
+segundo factor del producto.
+
+\textbf{¿De dónde sale?} $R^{c}=\{0,1,2,4,5,7,8,10,11\}$ se calculó en el Paso~1 del
+inciso~(d) y $S^{c}=\{0,1,2,3,4,5,6,8,9,12\}$ se acaba de calcular en el Paso~2; ambos
+respecto del mismo universo $U$.
+
+\textbf{¿Por qué?} Por definición $R^{c}\cap S^{c}=\{x: x\in R^{c} \text{ y } x\in S^{c}\}$.
+Recorro $R^{c}$: $0\in S^{c}$, entra; $1\in S^{c}$, entra; $2\in S^{c}$, entra; $4\in S^{c}$,
+entra; $5\in S^{c}$, entra; $7\notin S^{c}$ (porque $7\in S$), fuera; $8\in S^{c}$, entra;
+$10\notin S^{c}$, fuera; $11\notin S^{c}$, fuera.
+
+\textbf{¿Qué tomamos?} Guardamos $T_2:=R^{c}\cap S^{c}=\{0,1,2,4,5,8\}$, con $|T_2|=6$. Como
+verificación con la ley de De Morgan, $R^{c}\cap S^{c}=(R\cup S)^{c}$, y en el inciso (g)
+obtuvimos $R\cup S=\{3,6,7,9,10,11,12\}$, cuyo complemento en $U$ es efectivamente
+$\{0,1,2,4,5,8\}$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Formar todos los pares ordenados}
+\textbf{Qué hago:} construyo el producto cartesiano fijando cada elemento del primer factor y
+recorriendo entero el segundo factor.
+
+\textbf{¿De dónde sale?} Las primeras coordenadas $2,4,6$ provienen de $P\cap Q$ (Paso~1) y
+las segundas coordenadas $0,1,2,4,5,8$ provienen de $R^{c}\cap S^{c}$ (Paso~3).
+
+\textbf{¿Por qué?} Por definición $X\times Y=\{(x,y): x\in X,\ y\in Y\}$, hay que agotar todas
+las combinaciones. Antes de listar, la fórmula $|X\times Y|=|X|\cdot|Y|$ anticipa
+$3\cdot 6=18$ pares, repartidos en $3$ bloques de $6$.
+
+\textbf{¿Qué tomamos?} Escribimos el conjunto de pares ordenados, agrupado por primera
+coordenada, y verificamos que son $6+6+6=18$ pares:
+\begin{align*}
+(P\cap Q)\times(R^{c}\cap S^{c})=\bigl\{\;
+&(2,0),(2,1),(2,2),(2,4),(2,5),(2,8),\\
+&(4,0),(4,1),(4,2),(4,4),(4,5),(4,8),\\
+&(6,0),(6,1),(6,2),(6,4),(6,5),(6,8)\;\bigr\}.
+\end{align*}
+\end{paso}
+
+\begin{resp}
+Con $U=\{0,1,2,3,4,5,6,7,8,9,10,11,12\}$, $P=\{0,2,4,6,8\}$, $Q=\{1,2,3,4,5,6\}$,
+$R=\{3,6,9,12\}$ y $S=\{7,10,11\}$:
+\begin{align*}
+	\text{(a)}\ & (P\cap Q)\cup R=\{2,3,4,6,9,12\} &
+	\text{(b)}\ & (P\cup S)^{c}=\{1,3,5,9,12\}\\
+	\text{(c)}\ & Q\setminus(P\cap R)=\{1,2,3,4,5\} &
+	\text{(d)}\ & (R^{c}\cap Q)\cup S=\{1,2,4,5,7,10,11\}\\
+	\text{(e)}\ & (P\cup Q)\setminus R=\{0,1,2,4,5,8\} &
+	\text{(f)}\ & P^{c}\cap Q^{c}=\{7,9,10,11,12\}\\
+	\text{(g)}\ & (R\cup S)\cap Q^{c}=\{7,9,10,11,12\} &&
+\end{align*}
+\begin{align*}
+	\text{(h)}\ \mathcal{P}(Q\setminus P)&=\bigl\{\varnothing,\{1\},\{3\},\{5\},\{1,3\},\{1,5\},\{3,5\},\{1,3,5\}\bigr\}\quad(8=2^{3}\ \text{elementos})\\
+	\text{(i)}\ P\times(Q\cap R)&=\bigl\{(0,3),(0,6),(2,3),(2,6),(4,3),(4,6),(6,3),(6,6),(8,3),(8,6)\bigr\}\quad(10\ \text{pares})
+\end{align*}
+\begin{align*}
+	\text{(j)}\ (P\cap Q)\times(R^{c}\cap S^{c})=\bigl\{\;
+	&(2,0),(2,1),(2,2),(2,4),(2,5),(2,8),\\
+	&(4,0),(4,1),(4,2),(4,4),(4,5),(4,8),\\
+	&(6,0),(6,1),(6,2),(6,4),(6,5),(6,8)\;\bigr\}\quad(18\ \text{pares})
+\end{align*}
+\end{resp}
+
+\begin{nota}
+El enunciado original del inciso (d) del Ejercicio~4 lleva el símbolo de complemento colocado
+sobre $R$, de modo que la expresión se lee $(R^{c}\cap Q)\cup S$ y así se resolvió aquí. Los
+Ejercicios~1 a 4 de la práctica no traen respuesta oficial marcada con ``R:'', por lo que no
+hay ninguna discrepancia que reportar frente a resultados del autor.
+\end{nota}
+
+\end{document}

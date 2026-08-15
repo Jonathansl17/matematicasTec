@@ -1,0 +1,1036 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+
+\begin{center}{\LARGE\bfseries Principios de probabilidad}\\[2pt]{\large Probabilidad condicionada --- Ejercicios 1--10}\end{center}
+
+\vspace{1em}
+
+\begin{teo}
+\textbf{1. Probabilidad condicionada: qué es y por qué se divide.}
+Si $A$ y $B$ son eventos de un mismo experimento y $P(B)>0$, se define
+\[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)}.
+\]
+La idea es la siguiente. La probabilidad $P(A)$ mide el peso de $A$ dentro de \emph{todo} el espacio muestral $S$, cuyo peso total es $P(S)=1$. Cuando alguien nos informa que $B$ ya ocurrió, los resultados que están fuera de $B$ quedan descartados: ya no pueden pasar. El espacio muestral se \emph{reduce} a $B$. Pero entonces el nuevo ``todo'' es $B$, y su peso es $P(B)$, que en general no vale $1$. Para que la nueva medida vuelva a ser una probabilidad legítima (es decir, para que el nuevo total valga $1$) hay que reescalar dividiendo entre $P(B)$. Del evento $A$ solo sobrevive la parte que cae dentro de $B$, o sea $A\cap B$. Por eso el numerador es $P(A\cap B)$ y el denominador es $P(B)$: estamos midiendo qué fracción de $B$ está ocupada por $A$. La exigencia $P(B)>0$ no es un capricho: si $P(B)=0$ la división no existe, y además no tiene sentido condicionar a algo que nunca ocurre.
+
+\medskip
+\textbf{2. Regla del producto.}
+Multiplicando la definición anterior por $P(B)$ en ambos lados se despeja
+\[
+P(A\cap B)=P(B)\,P(A\mid B),
+\]
+y, simétricamente, condicionando a $A$ (si $P(A)>0$), $P(A\cap B)=P(A)\,P(B\mid A)$. Esta regla es la herramienta para experimentos que ocurren \emph{en etapas}: primero pasa algo con probabilidad $P(A)$, y luego, ya sabiendo que pasó, lo siguiente ocurre con probabilidad $P(B\mid A)$. La intersección es el camino completo, y su probabilidad es el producto de las probabilidades de cada tramo.
+
+\medskip
+\textbf{3. Independencia.}
+Dos eventos son independientes cuando
+\[
+P(A\cap B)=P(A)\,P(B).
+\]
+¿Por qué esto es lo mismo que decir ``saber $B$ no cambia la probabilidad de $A$''? Supongamos $P(B)>0$ y sustituyamos en la definición de condicional:
+\[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)}=\frac{P(A)\,P(B)}{P(B)}=P(A).
+\]
+Es decir, la información de que $B$ ocurrió deja intacta la probabilidad de $A$. Y al revés: si $P(A\mid B)=P(A)$, al multiplicar por $P(B)$ se recupera $P(A\cap B)=P(A)P(B)$. Ambas afirmaciones son equivalentes, y por eso podemos usar cualquiera de las dos como criterio.
+
+Una consecuencia útil: si $A$ y $B$ son independientes, también lo son $\overline{A}$ y $B$, y $A$ y $\overline{B}$, y $\overline{A}$ y $\overline{B}$. Lo verificamos en el caso que más usaremos. Como $B$ se parte en dos pedazos disjuntos, $B=(A\cap B)\cup(\overline{A}\cap B)$, la aditividad da $P(B)=P(A\cap B)+P(\overline{A}\cap B)$, de donde
+\[
+P(\overline{A}\cap B)=P(B)-P(A\cap B)=P(B)-P(A)P(B)=P(B)\bigl(1-P(A)\bigr)=P(\overline{A})\,P(B).
+\]
+O sea: negar uno de los dos eventos no destruye la independencia.
+
+\medskip
+\textbf{4. Eventos excluyentes, y por qué NO son lo mismo que independientes.}
+$A$ y $B$ son mutuamente excluyentes (o disjuntos) cuando no pueden ocurrir a la vez, es decir $A\cap B=\varnothing$, y por tanto
+\[
+P(A\cap B)=0.
+\]
+Es fácil confundir esto con independencia porque ambas palabras suenan a ``no tienen nada que ver'', pero dicen cosas opuestas. Ser excluyentes es una relación \emph{muy fuerte} de dependencia: si sé que $B$ ocurrió, entonces sé con certeza que $A$ \emph{no} ocurrió, así que $P(A\mid B)=0$. Eso cambia radicalmente la probabilidad de $A$, mientras que la independencia exige que no cambie nada. De hecho, si $A$ y $B$ fueran a la vez excluyentes e independientes, tendríamos $P(A)P(B)=P(A\cap B)=0$, lo que obliga a que $P(A)=0$ o $P(B)=0$: uno de los dos tendría que ser prácticamente imposible. Salvo ese caso degenerado, excluyente e independiente son incompatibles entre sí.
+
+\medskip
+\textbf{5. Complemento y leyes de De Morgan.}
+Como $A$ y $\overline{A}$ son disjuntos y juntos llenan $S$, la aditividad da $P(A)+P(\overline{A})=P(S)=1$, es decir
+\[
+P(\overline{A})=1-P(A).
+\]
+Las leyes de De Morgan traducen negaciones entre uniones e intersecciones:
+\[
+\overline{A\cup B}=\overline{A}\cap\overline{B},
+\qquad
+\overline{A\cap B}=\overline{A}\cup\overline{B}.
+\]
+En palabras: ``no ocurrió ninguno de los dos'' es lo mismo que ``no ocurrió $A$ y tampoco ocurrió $B$''; y ``no ocurrieron ambos'' es lo mismo que ``falló al menos uno''. Combinadas con el complemento se vuelven muy prácticas:
+\[
+P(\overline{A}\cap\overline{B})=P(\overline{A\cup B})=1-P(A\cup B).
+\]
+Esta última igualdad es la que convierte un problema de ``ninguno'' en un problema de ``al menos uno'', que sí sabemos calcular.
+
+\medskip
+\textbf{6. Inclusión--exclusión (dos eventos).}
+\[
+P(A\cup B)=P(A)+P(B)-P(A\cap B).
+\]
+La justificación es de conteo de peso: al sumar $P(A)+P(B)$ recorremos $A$ una vez y $B$ una vez, pero la zona común $A\cap B$ pertenece a los dos, así que su peso quedó sumado \emph{dos} veces. Para que cada resultado de $A\cup B$ aporte exactamente una vez, hay que restar el excedente $P(A\cap B)$. Formalmente: $A\cup B$ se parte en los tres pedazos disjuntos $A\cap\overline{B}$, $A\cap B$ y $\overline{A}\cap B$, y al reagruparlos aparece justo esa fórmula.
+
+Para tres eventos el mismo razonamiento (sumar, quitar lo contado de más, devolver lo quitado de más) produce
+\[
+P(A\cup B\cup C)=P(A)+P(B)+P(C)-P(A\cap B)-P(A\cap C)-P(B\cap C)+P(A\cap B\cap C).
+\]
+El último término se devuelve porque la zona triple se sumó tres veces y luego se restó tres veces, quedando en cero; hay que reponerla una vez.
+\end{teo}
+
+\begin{tip}
+Fórmulas de trabajo de toda esta sección:
+\[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)},\quad P(B)>0
+\qquad\qquad
+P(A\cap B)=P(B)P(A\mid B)=P(A)P(B\mid A)
+\]
+\[
+A,B \text{ independientes}\iff P(A\cap B)=P(A)P(B)\iff P(A\mid B)=P(A)
+\]
+\[
+A,B \text{ excluyentes}\iff P(A\cap B)=0
+\qquad\qquad
+P(\overline{A})=1-P(A)
+\]
+\[
+\overline{A\cup B}=\overline{A}\cap\overline{B}
+\qquad
+\overline{A\cap B}=\overline{A}\cup\overline{B}
+\qquad
+P(\overline{A}\cap\overline{B})=1-P(A\cup B)
+\]
+\[
+P(A\cup B)=P(A)+P(B)-P(A\cap B)
+\]
+\[
+P(A\cup B\cup C)=P(A)+P(B)+P(C)-P(A\cap B)-P(A\cap C)-P(B\cap C)+P(A\cap B\cap C)
+\]
+Si $A$ y $B$ son independientes, entonces $P(\overline{A}\cap B)=P(\overline{A})P(B)$ y $P(A\cap\overline{B})=P(A)P(\overline{B})$.
+\end{tip}
+
+% ==================================================================
+\section*{Ejercicio 1}
+
+\begin{quote}
+Sean $A$, $B$, $C$ eventos tales que $A$ y $B$ son independientes y $B$ y $C$ son excluyentes. Para $A$ y $C$ se cumple que $P(A|C) = 0{,}2$. Si $P(A) = P(B) = 0{,}1$ y $P(C) = 0{,}3$. Determine el valor de $P(A \cup B \cup C)$\hfill R/ $0{,}433$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Traducción: eventos, datos e incógnita}
+\textbf{Qué hago:} traduzco el enunciado a símbolos antes de calcular nada, para tener a la vista qué me dan y qué me falta.
+
+Aquí los eventos ya vienen bautizados en el enunciado: $A$, $B$ y $C$ son tres eventos del mismo espacio muestral. Los datos son
+\[
+P(A)=0{,}1,\qquad P(B)=0{,}1,\qquad P(C)=0{,}3,\qquad P(A\mid C)=0{,}2,
+\]
+más dos relaciones estructurales: ``$A$ y $B$ son independientes'', que en símbolos es $P(A\cap B)=P(A)P(B)$, y ``$B$ y $C$ son excluyentes'', que en símbolos es $P(B\cap C)=0$. La incógnita es
+\[
+P(A\cup B\cup C)=\;?
+\]
+
+\textbf{¿De dónde sale?} Cada número viene literalmente de la lista del enunciado; las dos relaciones vienen de las palabras ``independientes'' y ``excluyentes'', que son las definiciones dadas en la teoría.
+
+\textbf{¿Por qué?} Porque la fórmula que vamos a usar (inclusión--exclusión para tres eventos) pide seis piezas: las tres probabilidades simples, las tres intersecciones dobles y la intersección triple. Escribir el inventario me deja ver de inmediato que me faltan $P(A\cap B)$, $P(A\cap C)$, $P(B\cap C)$ y $P(A\cap B\cap C)$, y que las palabras del enunciado son justamente las llaves para conseguirlas.
+
+\textbf{¿Qué tomamos?} No se produce todavía ningún valor nuevo; solo se registra el inventario de datos en forma simbólica.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Intersección de $A$ y $B$ por independencia}
+\textbf{Qué hago:} aplico la definición de eventos independientes para calcular $P(A\cap B)$.
+
+\[
+P(A\cap B)=P(A)\,P(B)=(0{,}1)(0{,}1)=0{,}01.
+\]
+
+\textbf{¿De dónde sale?} El $0{,}1$ de la izquierda es $P(A)$ y el $0{,}1$ de la derecha es $P(B)$, ambos dados explícitamente en el enunciado (``$P(A)=P(B)=0{,}1$''). La autorización para multiplicarlos viene de la frase ``$A$ y $B$ son independientes''.
+
+\textbf{¿Por qué?} Porque la independencia se define exactamente como $P(A\cap B)=P(A)P(B)$; equivalentemente, saber que $B$ ocurrió no altera la probabilidad de $A$, así que $P(A\mid B)=P(A)=0{,}1$ y la regla del producto da $P(A\cap B)=P(B)P(A\mid B)=(0{,}1)(0{,}1)$. Ambas rutas dan lo mismo, que es lo esperable porque son la misma condición escrita de dos formas.
+
+\textbf{¿Qué tomamos?} Anotamos $P(A\cap B)=0{,}01$, en decimal exacto (dos decimales bastan porque el producto termina ahí).
+\end{paso}
+
+\begin{paso}{Paso 3 --- Intersección de $B$ y $C$ por ser excluyentes}
+\textbf{Qué hago:} aplico la definición de eventos mutuamente excluyentes.
+
+\[
+B\cap C=\varnothing \;\Longrightarrow\; P(B\cap C)=0.
+\]
+
+\textbf{¿De dónde sale?} Directamente de la frase ``$B$ y $C$ son excluyentes''. No hay ningún número que calcular: la palabra ya fija el valor.
+
+\textbf{¿Por qué?} Porque ``excluyentes'' significa que los dos eventos no pueden ocurrir simultáneamente, o sea que su intersección es el conjunto vacío. Y por el axioma que asigna probabilidad cero al evento imposible, $P(\varnothing)=0$.
+
+\textbf{¿Qué tomamos?} Anotamos $P(B\cap C)=0$, valor exacto.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Intersección de $A$ y $C$ mediante la regla del producto}
+\textbf{Qué hago:} despejo la intersección a partir de la probabilidad condicionada que me dieron.
+
+Partiendo de la definición de condicional con $P(C)=0{,}3>0$,
+\[
+P(A\mid C)=\frac{P(A\cap C)}{P(C)}
+\;\Longrightarrow\;
+P(A\cap C)=P(C)\,P(A\mid C)=(0{,}3)(0{,}2)=0{,}06.
+\]
+
+\textbf{¿De dónde sale?} El $0{,}3$ es $P(C)$, dato del enunciado; el $0{,}2$ es $P(A\mid C)$, que el enunciado da con la frase ``Para $A$ y $C$ se cumple que $P(A|C)=0{,}2$''. La igualdad de la izquierda es la definición de probabilidad condicionada.
+
+\textbf{¿Por qué?} Porque la regla del producto no es una fórmula nueva: es la definición de condicional multiplicada por el denominador. Y podemos usarla porque $P(C)=0{,}3$ es estrictamente positivo, que es la única condición que exige la definición. Nótese de paso que $P(A\mid C)=0{,}2\neq 0{,}1=P(A)$, así que $A$ y $C$ \emph{no} son independientes; por eso no podemos multiplicar $P(A)P(C)$ aquí.
+
+\textbf{¿Qué tomamos?} Anotamos $P(A\cap C)=0{,}06$, en decimal exacto.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Intersección triple usando monotonía}
+\textbf{Qué hago:} deduzco $P(A\cap B\cap C)$ a partir del hecho de que $B$ y $C$ no pueden coincidir.
+
+Como $A\cap B\cap C$ es un subconjunto de $B\cap C$, y $B\cap C=\varnothing$, resulta $A\cap B\cap C=\varnothing$ y por tanto
+\[
+P(A\cap B\cap C)=0.
+\]
+
+\textbf{¿De dónde sale?} Del resultado del Paso 3, $P(B\cap C)=0$, que a su vez sale de la palabra ``excluyentes'' del enunciado.
+
+\textbf{¿Por qué?} Porque un resultado que esté en $A\cap B\cap C$ tendría que estar simultáneamente en $B$ y en $C$; pero no existe ningún resultado con esa propiedad, ya que $B$ y $C$ son excluyentes. Un conjunto contenido en el vacío es el vacío, y el evento imposible tiene probabilidad $0$.
+
+\textbf{¿Qué tomamos?} Anotamos $P(A\cap B\cap C)=0$, valor exacto.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inclusión--exclusión para tres eventos}
+\textbf{Qué hago:} ensamblo las seis piezas en la fórmula de inclusión--exclusión.
+
+\[
+P(A\cup B\cup C)=P(A)+P(B)+P(C)-P(A\cap B)-P(A\cap C)-P(B\cap C)+P(A\cap B\cap C)
+\]
+\[
+=0{,}1+0{,}1+0{,}3-0{,}01-0{,}06-0+0.
+\]
+Sumo primero los positivos: $0{,}1+0{,}1=0{,}2$ y $0{,}2+0{,}3=0{,}5$. Sumo los negativos: $0{,}01+0{,}06=0{,}07$. Finalmente
+\[
+P(A\cup B\cup C)=0{,}5-0{,}07=0{,}43.
+\]
+
+\textbf{¿De dónde sale?} Los tres primeros sumandos son los datos del enunciado (Paso 1); $0{,}01$ viene del Paso 2 (independencia), $0{,}06$ del Paso 4 (regla del producto), y los dos ceros de los Pasos 3 y 5 (exclusión).
+
+\textbf{¿Por qué?} Porque al sumar $P(A)+P(B)+P(C)$ las zonas donde dos eventos se traslapan quedan contadas dos veces, así que hay que restarlas; pero al restar las tres intersecciones dobles, la zona donde los tres coinciden queda restada de más (se sumó $3$ veces y se restó $3$ veces, quedando en $0$), y por eso se le devuelve una vez. Así cada resultado de la unión aporta su peso exactamente una vez.
+
+\textbf{¿Qué tomamos?} Tomamos $P(A\cup B\cup C)=0{,}43$, en decimal con dos cifras (la aritmética termina exactamente ahí, no hay redondeo).
+\end{paso}
+
+\begin{nota}
+La respuesta oficial indica $0{,}433$, pero con los datos tal como aparecen en el enunciado el cálculo cierra exactamente en $0{,}43$: todos los sumandos tienen a lo sumo dos decimales, así que el resultado no puede tener una tercera cifra distinta de cero. Es muy probable que se trate de una errata de un dígito en la hoja de respuestas. Conservamos la respuesta oficial tal cual aparece y señalamos la diferencia.
+\end{nota}
+
+\begin{resp}
+$P(A\cup B\cup C)=0{,}43$. \quad (Respuesta oficial de la práctica: $0{,}433$.)
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 2}
+
+\begin{quote}
+El $80\,\%$ de los estudiantes de probabilidades son aficionados a natación y el $60\,\%$ son aficionados al cine. Se sabe que el $50\,\%$ de los estudiantes son aficionados a ambas actividades. Si se elige un estudiante al azar. ¿Cuál es la probabilidad que el estudiante seleccionado?\\
+a) No sea aficionado a ninguna de las dos actividades \hfill R/ $\dfrac{1}{10}$\\
+b) Sea aficionado al cine, sabiendo que no es aficionado a la natación \hfill R/ $\dfrac{1}{2}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Traducción: eventos, datos e incógnitas}
+\textbf{Qué hago:} bautizo los eventos con letras y paso todos los porcentajes a probabilidades.
+
+Sea $N=$ ``el estudiante elegido es aficionado a la natación'' y $C=$ ``el estudiante elegido es aficionado al cine''. Como se elige un estudiante al azar, el porcentaje de estudiantes con una característica es directamente la probabilidad de esa característica. Entonces
+\[
+P(N)=0{,}80,\qquad P(C)=0{,}60,\qquad P(N\cap C)=0{,}50.
+\]
+Las incógnitas son
+\[
+\text{a) } P(\overline{N}\cap\overline{C})=?
+\qquad\qquad
+\text{b) } P(C\mid \overline{N})=?
+\]
+
+\textbf{¿De dónde sale?} ``El $80\,\%$ \dots\ son aficionados a natación'' da $P(N)=0{,}80$; ``el $60\,\%$ son aficionados al cine'' da $P(C)=0{,}60$; ``el $50\,\%$ \dots\ son aficionados a ambas actividades'' es la intersección, $P(N\cap C)=0{,}50$. En a), ``no sea aficionado a ninguna de las dos'' significa que falla natación \emph{y} falla cine, o sea $\overline{N}\cap\overline{C}$. En b), ``sabiendo que no es aficionado a la natación'' es la condición, y va a la derecha de la barra: $\overline{N}$.
+
+\textbf{¿Por qué?} Porque un porcentaje sobre una población, cuando el individuo se escoge al azar y todos tienen la misma oportunidad, coincide con la probabilidad de que el elegido tenga esa característica. Y porque la palabra ``sabiendo que'' es la marca lingüística del condicionamiento: nos dice cuál es el nuevo espacio muestral reducido.
+
+\textbf{¿Qué tomamos?} Anotamos las tres probabilidades en decimal con dos cifras, tal como salen de los porcentajes.
+\end{paso}
+
+\begin{paso}{Paso 2 --- (a) Probabilidad de la unión}
+\textbf{Qué hago:} calculo primero $P(N\cup C)$ con inclusión--exclusión, porque es el paso previo a ``ninguna de las dos''.
+
+\[
+P(N\cup C)=P(N)+P(C)-P(N\cap C)=0{,}80+0{,}60-0{,}50.
+\]
+Sumo: $0{,}80+0{,}60=1{,}40$. Resto: $1{,}40-0{,}50=0{,}90$. Es decir $P(N\cup C)=0{,}90$.
+
+\textbf{¿De dónde sale?} Los tres números son exactamente los del Paso 1: $0{,}80$ de la frase del $80\,\%$, $0{,}60$ de la del $60\,\%$ y $0{,}50$ de la del $50\,\%$ (``ambas actividades'').
+
+\textbf{¿Por qué?} Porque el $50\,\%$ que gusta de las dos cosas está contado dentro del $80\,\%$ de natación y también dentro del $60\,\%$ de cine; si solo sumáramos, ese grupo aportaría dos veces. Restar $P(N\cap C)$ corrige justamente ese doble conteo. Obsérvese que $1{,}40>1$ delata el problema: una suma de probabilidades sin corregir puede pasarse de $1$, mientras que la unión nunca puede.
+
+\textbf{¿Qué tomamos?} Anotamos $P(N\cup C)=0{,}90$, decimal exacto con dos cifras.
+\end{paso}
+
+\begin{paso}{Paso 3 --- (a) De Morgan y complemento}
+\textbf{Qué hago:} traduzco ``ninguna de las dos'' con la ley de De Morgan y aplico el complemento.
+
+\[
+\overline{N}\cap\overline{C}=\overline{N\cup C}
+\quad\Longrightarrow\quad
+P(\overline{N}\cap\overline{C})=1-P(N\cup C)=1-0{,}90=0{,}10=\frac{1}{10}.
+\]
+
+\textbf{¿De dónde sale?} El $0{,}90$ es el resultado del Paso 2. El $1$ es la probabilidad del espacio muestral completo, es decir, el total de estudiantes.
+
+\textbf{¿Por qué?} Porque ``no le gusta la natación y tampoco el cine'' es exactamente la negación de ``le gusta al menos una de las dos''. Esa equivalencia es la primera ley de De Morgan. Y como un evento y su complemento son disjuntos y entre ambos cubren todo el espacio, sus probabilidades suman $1$, de donde $P(\overline{E})=1-P(E)$.
+
+\textbf{¿Qué tomamos?} Tomamos $P(\overline{N}\cap\overline{C})=1/10$, expresado en fracción para coincidir con el formato de la respuesta oficial (equivale a $0{,}10$).
+\end{paso}
+
+\begin{paso}{Paso 4 --- (b) Las dos piezas de la condicional}
+\textbf{Qué hago:} preparo el numerador y el denominador de $P(C\mid\overline{N})$ antes de dividir.
+
+Denominador (regla del complemento):
+\[
+P(\overline{N})=1-P(N)=1-0{,}80=0{,}20.
+\]
+Numerador: el grupo ``le gusta el cine pero no la natación''. Los aficionados al cine se parten en dos bloques disjuntos, los que además nadan y los que no:
+\[
+C=(C\cap N)\cup(C\cap\overline{N})
+\;\Longrightarrow\;
+P(C)=P(C\cap N)+P(C\cap\overline{N}),
+\]
+\[
+P(C\cap\overline{N})=P(C)-P(C\cap N)=0{,}60-0{,}50=0{,}10.
+\]
+
+\textbf{¿De dónde sale?} $0{,}80$ y $0{,}60$ y $0{,}50$ son los tres datos del Paso 1. La partición de $C$ es simplemente separar a los aficionados al cine según si además les gusta nadar o no.
+
+\textbf{¿Por qué?} Un estudiante que va al cine o bien nada o bien no nada: no hay tercera opción y no puede estar en las dos categorías. Al ser bloques disjuntos que reconstruyen $C$, sus probabilidades se suman (axioma de aditividad), y de ahí se despeja el bloque que nos interesa. El denominador usa el complemento porque el $20\,\%$ restante es exactamente quien no es aficionado a la natación.
+
+\textbf{¿Qué tomamos?} Anotamos $P(\overline{N})=0{,}20$ y $P(C\cap\overline{N})=0{,}10$, ambos decimales exactos con dos cifras.
+\end{paso}
+
+\begin{paso}{Paso 5 --- (b) Aplicar la definición de probabilidad condicionada}
+\textbf{Qué hago:} divido las dos piezas del paso anterior según la definición de condicional.
+
+Como $P(\overline{N})=0{,}20>0$, la definición aplica:
+\[
+P(C\mid\overline{N})=\frac{P(C\cap\overline{N})}{P(\overline{N})}=\frac{0{,}10}{0{,}20}
+=\frac{10}{20}=\frac{1}{2}=0{,}5.
+\]
+
+\textbf{¿De dónde sale?} $0{,}10$ es el numerador construido en el Paso 4 y $0{,}20$ es el denominador del mismo paso.
+
+\textbf{¿Por qué?} Porque al saber que el estudiante \emph{no} es aficionado a la natación, el espacio muestral deja de ser todo el curso y pasa a ser solo ese $20\,\%$. Dentro de ese subgrupo hay que ver qué fracción va al cine, y esa fracción es la mitad. Dividir entre $0{,}20$ es lo que reescala el nuevo total a $1$; si no dividiéramos, estaríamos midiendo el $10\,\%$ respecto de todo el curso, que responde otra pregunta.
+
+\textbf{¿Qué tomamos?} Tomamos $P(C\mid\overline{N})=1/2$, en fracción simplificada (equivale a $0{,}5$).
+\end{paso}
+
+\begin{resp}
+a) $P(\overline{N}\cap\overline{C})=\dfrac{1}{10}=0{,}10$.\\[2pt]
+b) $P(C\mid\overline{N})=\dfrac{1}{2}=0{,}5$.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 3}
+
+\begin{quote}
+El administrador de una empresa ha realizado estudios sobre los procesos de ocupación de las dos líneas de atención al público y ha detectado que: la línea 1 pasa ocupada el $70\,\%$ del tiempo y la línea 2 el $50\,\%$ del tiempo. Si se sabe que la probabilidad de que alguna de las líneas esté en uso es de $0{,}80$\\
+a) ¿Cuál es la probabilidad que la línea 2 esté en uso dado que la línea 1 lo esté? \hfill R/ $\dfrac{4}{7}$\\
+b) ¿Cuál es la probabilidad que la línea 1 esté en uso dado que la línea 2 lo esté? \hfill R/ $\dfrac{4}{5}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Traducción: eventos, datos e incógnitas}
+\textbf{Qué hago:} nombro los eventos y escribo los datos y las preguntas en símbolos.
+
+Sea $L_1=$ ``la línea 1 está ocupada'' y $L_2=$ ``la línea 2 está ocupada'', en un instante cualquiera elegido al azar. Los datos son
+\[
+P(L_1)=0{,}70,\qquad P(L_2)=0{,}50,\qquad P(L_1\cup L_2)=0{,}80,
+\]
+y las incógnitas
+\[
+\text{a) } P(L_2\mid L_1)=?
+\qquad\qquad
+\text{b) } P(L_1\mid L_2)=?
+\]
+
+\textbf{¿De dónde sale?} ``La línea 1 pasa ocupada el $70\,\%$ del tiempo'' se lee como $P(L_1)=0{,}70$, y análogamente $P(L_2)=0{,}50$. La frase clave es ``la probabilidad de que \emph{alguna} de las líneas esté en uso es de $0{,}80$'': ``alguna'' significa al menos una, y ``al menos una'' es la unión, así que $P(L_1\cup L_2)=0{,}80$. En a), la condición es ``dado que la línea 1 lo esté'', es decir $L_1$ va tras la barra; en b) se invierten los papeles.
+
+\textbf{¿Por qué?} Porque una fracción de tiempo se comporta igual que una probabilidad cuando el instante se elige al azar: la proporción del tiempo en que ocurre algo es la probabilidad de encontrarlo ocurriendo. Y porque distinguir ``alguna'' (unión) de ``ambas'' (intersección) es lo que decide qué fórmula aplicar.
+
+\textbf{¿Qué tomamos?} Anotamos los tres datos en decimal con dos cifras. Observamos ya que no nos dan la intersección: habrá que fabricarla.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Despejar la intersección desde inclusión--exclusión}
+\textbf{Qué hago:} uso la fórmula de la unión al revés, despejando la intersección.
+
+\[
+P(L_1\cup L_2)=P(L_1)+P(L_2)-P(L_1\cap L_2)
+\]
+\[
+\Longrightarrow\quad
+P(L_1\cap L_2)=P(L_1)+P(L_2)-P(L_1\cup L_2)=0{,}70+0{,}50-0{,}80.
+\]
+Sumo: $0{,}70+0{,}50=1{,}20$. Resto: $1{,}20-0{,}80=0{,}40$. Entonces $P(L_1\cap L_2)=0{,}40$.
+
+\textbf{¿De dónde sale?} $0{,}70$ y $0{,}50$ son las ocupaciones de cada línea y $0{,}80$ es la probabilidad de que alguna esté en uso, los tres del Paso 1.
+
+\textbf{¿Por qué?} Porque inclusión--exclusión es una identidad con cuatro cantidades ligadas; si conozco tres, la cuarta queda determinada. Intuitivamente: si las dos líneas nunca coincidieran, ``alguna ocupada'' valdría $0{,}70+0{,}50=1{,}20$, que es imposible por superar a $1$. El exceso $1{,}20-0{,}80=0{,}40$ es exactamente el tiempo en que ambas están ocupadas a la vez y que quedó contado dos veces.
+
+\textbf{¿Qué tomamos?} Anotamos $P(L_1\cap L_2)=0{,}40$, decimal exacto con dos cifras. Este es el numerador común de los dos incisos.
+\end{paso}
+
+\begin{paso}{Paso 3 --- (a) Condicionar a la línea 1}
+\textbf{Qué hago:} aplico la definición de probabilidad condicionada tomando $L_1$ como nuevo espacio muestral.
+
+Como $P(L_1)=0{,}70>0$,
+\[
+P(L_2\mid L_1)=\frac{P(L_1\cap L_2)}{P(L_1)}=\frac{0{,}40}{0{,}70}=\frac{40}{70}=\frac{4}{7}\approx 0{,}5714.
+\]
+
+\textbf{¿De dónde sale?} El numerador $0{,}40$ es la intersección hallada en el Paso 2; el denominador $0{,}70$ es el dato ``la línea 1 pasa ocupada el $70\,\%$ del tiempo''.
+
+\textbf{¿Por qué?} Porque al restringirnos a los instantes en que la línea 1 está ocupada, ese $70\,\%$ del tiempo pasa a ser el ``todo''. De ese bloque, la parte en que además la línea 2 está ocupada es el $40\,\%$ del tiempo total. La pregunta es qué porción de $0{,}70$ representa $0{,}40$, y eso es literalmente la división.
+
+\textbf{¿Qué tomamos?} Tomamos $P(L_2\mid L_1)=4/7$, en fracción simplificada (dividiendo numerador y denominador entre $10$); en decimal serían $0{,}5714$ con cuatro cifras, pero la fracción es exacta y es el formato de la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 4 --- (b) Condicionar a la línea 2}
+\textbf{Qué hago:} repito la definición de condicional, ahora con $L_2$ como espacio reducido.
+
+Como $P(L_2)=0{,}50>0$,
+\[
+P(L_1\mid L_2)=\frac{P(L_1\cap L_2)}{P(L_2)}=\frac{0{,}40}{0{,}50}=\frac{40}{50}=\frac{4}{5}=0{,}8.
+\]
+
+\textbf{¿De dónde sale?} El numerador vuelve a ser el $0{,}40$ del Paso 2 (la intersección es simétrica: ``ambas ocupadas'' no depende del orden). El denominador $0{,}50$ es el dato ``la línea 2 el $50\,\%$ del tiempo''.
+
+\textbf{¿Por qué?} Porque cambiar la condición cambia el espacio muestral reducido y, por tanto, el denominador; el numerador no cambia porque $L_1\cap L_2=L_2\cap L_1$. Esto explica por qué las dos respuestas son distintas aunque midan ``lo mismo'': se compara el mismo bloque contra dos totales diferentes.
+
+\textbf{¿Qué tomamos?} Tomamos $P(L_1\mid L_2)=4/5$, en fracción simplificada (equivale a $0{,}8$).
+\end{paso}
+
+\begin{resp}
+a) $P(L_2\mid L_1)=\dfrac{4}{7}\approx 0{,}5714$.\\[2pt]
+b) $P(L_1\mid L_2)=\dfrac{4}{5}=0{,}8$.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 4}
+
+\begin{quote}
+Sabiendo que $P(A) = 0{,}28$ y $P(B) = 0{,}57$ y que $A$ y $B$, son eventos independientes. Determine $P(\overline{A} \cap B)$ \hfill R/ $0{,}4104$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Traducción: datos e incógnita}
+\textbf{Qué hago:} escribo el inventario simbólico antes de operar.
+
+Los eventos ya vienen nombrados. Los datos son
+\[
+P(A)=0{,}28,\qquad P(B)=0{,}57,\qquad A \text{ y } B \text{ independientes, o sea } P(A\cap B)=P(A)P(B),
+\]
+y la incógnita es
+\[
+P(\overline{A}\cap B)=?,
+\]
+que en palabras es: ``que $A$ \emph{no} ocurra y que $B$ sí ocurra''.
+
+\textbf{¿De dónde sale?} Los dos números están dados literalmente; la relación $P(A\cap B)=P(A)P(B)$ viene de la frase ``son eventos independientes''.
+
+\textbf{¿Por qué?} Porque hay dos rutas posibles (partir $B$ en dos trozos, o usar directamente que $\overline{A}$ y $B$ heredan la independencia) y conviene ver el inventario para elegir. Escribir la incógnita en palabras evita el error clásico de calcular $P(\overline{A\cap B})$, que es algo distinto.
+
+\textbf{¿Qué tomamos?} No se produce valor todavía; solo el inventario.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Probabilidad del complemento de $A$}
+\textbf{Qué hago:} aplico la regla del complemento.
+
+\[
+P(\overline{A})=1-P(A)=1-0{,}28=0{,}72.
+\]
+
+\textbf{¿De dónde sale?} El $0{,}28$ es el dato $P(A)$ del enunciado; el $1$ es la probabilidad del espacio muestral completo.
+
+\textbf{¿Por qué?} Porque $A$ y $\overline{A}$ son excluyentes (no pueden ocurrir juntos) y entre los dos agotan todas las posibilidades. Por aditividad, $P(A)+P(\overline{A})=P(S)=1$, y despejando queda la regla usada.
+
+\textbf{¿Qué tomamos?} Anotamos $P(\overline{A})=0{,}72$, decimal exacto con dos cifras.
+\end{paso}
+
+\begin{paso}{Paso 3 --- La independencia se hereda al complemento}
+\textbf{Qué hago:} justifico que $\overline{A}$ y $B$ también son independientes, para poder multiplicar.
+
+Partimos $B$ en dos trozos disjuntos según ocurra o no $A$:
+\[
+B=(A\cap B)\cup(\overline{A}\cap B)
+\;\Longrightarrow\;
+P(B)=P(A\cap B)+P(\overline{A}\cap B).
+\]
+Despejando y usando la independencia de $A$ y $B$:
+\[
+P(\overline{A}\cap B)=P(B)-P(A\cap B)=P(B)-P(A)P(B)=P(B)\bigl(1-P(A)\bigr)=P(\overline{A})P(B).
+\]
+
+\textbf{¿De dónde sale?} La sustitución $P(A\cap B)=P(A)P(B)$ viene de la frase ``son eventos independientes''; el factor $1-P(A)=P(\overline{A})$ viene del Paso 2.
+
+\textbf{¿Por qué?} Porque todo resultado de $B$ está o bien acompañado de $A$ o bien acompañado de $\overline{A}$, sin solaparse; por eso las dos probabilidades suman $P(B)$. Al factorizar $P(B)$ aparece $1-P(A)$, que es exactamente $P(\overline{A})$: eso demuestra que negar $A$ no rompe la independencia con $B$. Sin esta justificación estaríamos multiplicando $P(\overline{A})P(B)$ sin permiso.
+
+\textbf{¿Qué tomamos?} Anotamos la identidad $P(\overline{A}\cap B)=P(\overline{A})P(B)$, lista para usar con números.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Multiplicación final}
+\textbf{Qué hago:} sustituyo los valores en la identidad recién justificada.
+
+\[
+P(\overline{A}\cap B)=P(\overline{A})\,P(B)=(0{,}72)(0{,}57).
+\]
+Desgloso el producto: $72\times 57=72\times 50+72\times 7=3600+504=4104$. Como $0{,}72$ aporta dos decimales y $0{,}57$ otros dos, el resultado lleva cuatro decimales:
+\[
+P(\overline{A}\cap B)=0{,}4104.
+\]
+
+\textbf{¿De dónde sale?} El $0{,}72$ es el resultado del Paso 2 y el $0{,}57$ es el dato $P(B)$ del enunciado.
+
+\textbf{¿Por qué?} Porque el Paso 3 demostró que $\overline{A}$ y $B$ son independientes, y para eventos independientes la probabilidad de que ocurran ambos es el producto de sus probabilidades. Como comprobación por la otra ruta: $P(A\cap B)=(0{,}28)(0{,}57)=0{,}1596$ y $P(B)-P(A\cap B)=0{,}57-0{,}1596=0{,}4104$, el mismo valor.
+
+\textbf{¿Qué tomamos?} Tomamos $P(\overline{A}\cap B)=0{,}4104$, en decimal con cuatro cifras (valor exacto, sin redondeo), coincidiendo con la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+$P(\overline{A}\cap B)=0{,}4104$.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 5}
+
+\begin{quote}
+Sean $A$ y $B$ dos sucesos independientes. Determine $P(A \cap \overline{B})$, sabiendo que $P(A) = 0{,}30$ y $P(B) = 0{,}53$ \hfill R/ $0{,}141$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Traducción: datos e incógnita}
+\textbf{Qué hago:} paso el enunciado a símbolos.
+
+Los sucesos vienen nombrados. Datos:
+\[
+P(A)=0{,}30,\qquad P(B)=0{,}53,\qquad A \text{ y } B \text{ independientes},
+\]
+incógnita:
+\[
+P(A\cap\overline{B})=?,
+\]
+que en palabras es ``ocurre $A$ pero no ocurre $B$''.
+
+\textbf{¿De dónde sale?} Ambos valores están dados de forma explícita; la independencia es la primera frase del enunciado.
+
+\textbf{¿Por qué?} Porque es el mismo esquema del ejercicio anterior con los papeles cambiados: ahora se niega el segundo suceso en lugar del primero. Identificarlo así permite reutilizar el argumento en vez de improvisar.
+
+\textbf{¿Qué tomamos?} Solo el inventario simbólico.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Complemento de $B$}
+\textbf{Qué hago:} aplico la regla del complemento a $B$.
+
+\[
+P(\overline{B})=1-P(B)=1-0{,}53=0{,}47.
+\]
+
+\textbf{¿De dónde sale?} El $0{,}53$ es el dato $P(B)$ del enunciado.
+
+\textbf{¿Por qué?} Porque $B$ y $\overline{B}$ son excluyentes y cubren todo el espacio muestral, de modo que sus probabilidades suman $P(S)=1$. Despejar da la regla. Numéricamente, si $B$ ocurre el $53\,\%$ de las veces, no ocurre el $47\,\%$ restante.
+
+\textbf{¿Qué tomamos?} Anotamos $P(\overline{B})=0{,}47$, decimal exacto con dos cifras.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Justificar la independencia entre $A$ y $\overline{B}$}
+\textbf{Qué hago:} demuestro que puedo multiplicar $P(A)$ por $P(\overline{B})$.
+
+Parto $A$ según ocurra o no $B$; son trozos disjuntos que reconstruyen $A$:
+\[
+A=(A\cap B)\cup(A\cap\overline{B})
+\;\Longrightarrow\;
+P(A)=P(A\cap B)+P(A\cap\overline{B}),
+\]
+\[
+P(A\cap\overline{B})=P(A)-P(A\cap B)=P(A)-P(A)P(B)=P(A)\bigl(1-P(B)\bigr)=P(A)\,P(\overline{B}).
+\]
+
+\textbf{¿De dónde sale?} El reemplazo $P(A\cap B)=P(A)P(B)$ proviene de la palabra ``independientes'' del enunciado, y $1-P(B)=P(\overline{B})=0{,}47$ del Paso 2.
+
+\textbf{¿Por qué?} Porque cada vez que ocurre $A$, o bien $B$ lo acompaña o bien no; no hay más casos ni traslape. La aditividad permite sumar las dos partes, y al factorizar $P(A)$ aparece $P(\overline{B})$. Así queda probado que negar $B$ no altera la independencia, que es la licencia que necesitamos para multiplicar.
+
+\textbf{¿Qué tomamos?} Anotamos la identidad $P(A\cap\overline{B})=P(A)P(\overline{B})$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Multiplicación final}
+\textbf{Qué hago:} sustituyo los números en la identidad justificada.
+
+\[
+P(A\cap\overline{B})=(0{,}30)(0{,}47).
+\]
+Desgloso: $30\times 47=30\times 40+30\times 7=1200+210=1410$. Con cuatro decimales en total sería $0{,}1410$, que se escribe $0{,}141$:
+\[
+P(A\cap\overline{B})=0{,}141.
+\]
+
+\textbf{¿De dónde sale?} El $0{,}30$ es el dato $P(A)$ y el $0{,}47$ es el complemento calculado en el Paso 2.
+
+\textbf{¿Por qué?} Porque el Paso 3 estableció que $A$ y $\overline{B}$ son independientes, y para eventos independientes la probabilidad de la intersección es el producto. Comprobación por la otra vía: $P(A\cap B)=(0{,}30)(0{,}53)=0{,}159$ y $P(A)-P(A\cap B)=0{,}30-0{,}159=0{,}141$, el mismo número.
+
+\textbf{¿Qué tomamos?} Tomamos $P(A\cap\overline{B})=0{,}141$, en decimal con tres cifras (valor exacto), igual que la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+$P(A\cap\overline{B})=0{,}141$.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 6}
+
+\begin{quote}
+Sabiendo que $P(\overline{A}) = \dfrac{9}{10}$, $P(B) = \dfrac{9}{20}$ y $P(B|A) = \dfrac{17}{20}$ ¿Cuál es el valor de la probabilidad $P(A|B)$? \hfill R/ $\dfrac{17}{90}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Traducción: datos e incógnita}
+\textbf{Qué hago:} escribo el inventario simbólico y detecto qué falta.
+
+Datos:
+\[
+P(\overline{A})=\frac{9}{10},\qquad P(B)=\frac{9}{20},\qquad P(B\mid A)=\frac{17}{20},
+\]
+incógnita:
+\[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)}=?
+\]
+
+\textbf{¿De dónde sale?} Los tres valores están dados explícitamente en el enunciado, ya en forma de fracción.
+
+\textbf{¿Por qué?} Porque al escribir la incógnita mediante su definición veo que necesito dos cosas: $P(B)$, que ya la tengo, y $P(A\cap B)$, que no me la dan. Fabricar $P(A\cap B)$ será el trabajo central. Nótese además que me dan $P(\overline{A})$ y no $P(A)$: hay que invertir eso primero.
+
+\textbf{¿Qué tomamos?} Solo el inventario; conservaremos todo en fracciones para no perder exactitud.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Recuperar $P(A)$ desde su complemento}
+\textbf{Qué hago:} aplico la regla del complemento al revés.
+
+\[
+P(A)=1-P(\overline{A})=1-\frac{9}{10}=\frac{10}{10}-\frac{9}{10}=\frac{1}{10}.
+\]
+
+\textbf{¿De dónde sale?} El $9/10$ es el dato $P(\overline{A})$ del enunciado.
+
+\textbf{¿Por qué?} Porque $A$ y $\overline{A}$ son excluyentes y su unión es todo el espacio muestral, así que $P(A)+P(\overline{A})=1$. Para restar escribí el $1$ como $10/10$, de modo que ambas fracciones tuvieran el mismo denominador y pudiera restar solo los numeradores.
+
+\textbf{¿Qué tomamos?} Anotamos $P(A)=\dfrac{1}{10}$, en fracción (equivale a $0{,}1$).
+\end{paso}
+
+\begin{paso}{Paso 3 --- Construir la intersección con la regla del producto}
+\textbf{Qué hago:} uso la regla del producto en la versión condicionada a $A$.
+
+Como $P(A)=1/10>0$, la definición $P(B\mid A)=P(A\cap B)/P(A)$ tiene sentido y al multiplicar por $P(A)$ queda
+\[
+P(A\cap B)=P(A)\,P(B\mid A)=\frac{1}{10}\cdot\frac{17}{20}=\frac{1\cdot 17}{10\cdot 20}=\frac{17}{200}.
+\]
+
+\textbf{¿De dónde sale?} El $1/10$ es $P(A)$, obtenido en el Paso 2; el $17/20$ es el dato $P(B\mid A)$ del enunciado.
+
+\textbf{¿Por qué?} Porque la regla del producto es la definición de condicional despejada, y aquí se usa en la dirección en que sí tenemos información: nos dan la condicional respecto de $A$, no respecto de $B$. Este es el puente clásico entre las dos condicionales: se sube de $P(B\mid A)$ a la intersección, y desde la intersección se baja a $P(A\mid B)$.
+
+\textbf{¿Qué tomamos?} Anotamos $P(A\cap B)=\dfrac{17}{200}$, en fracción sin simplificar posible ($17$ es primo y no divide a $200$).
+\end{paso}
+
+\begin{paso}{Paso 4 --- Dividir para obtener la condicional pedida}
+\textbf{Qué hago:} aplico la definición de probabilidad condicionada, con $B$ como espacio reducido.
+
+Como $P(B)=9/20>0$,
+\[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)}=\frac{\;\dfrac{17}{200}\;}{\;\dfrac{9}{20}\;}
+=\frac{17}{200}\cdot\frac{20}{9}
+=\frac{17\cdot 20}{200\cdot 9}
+=\frac{340}{1800}.
+\]
+Simplifico dividiendo numerador y denominador entre $20$: $340\div 20=17$ y $1800\div 20=90$, de modo que
+\[
+P(A\mid B)=\frac{17}{90}\approx 0{,}1889.
+\]
+
+\textbf{¿De dónde sale?} El numerador $17/200$ viene del Paso 3 y el denominador $9/20$ es el dato $P(B)$ del enunciado.
+
+\textbf{¿Por qué?} Porque dividir entre una fracción es multiplicar por su recíproco: $9/20$ invertido es $20/9$. Esa regla se justifica porque $\frac{9}{20}\cdot\frac{20}{9}=1$, así que multiplicar por $20/9$ deshace exactamente la división por $9/20$. Conceptualmente, estamos midiendo qué porción del bloque $B$ está ocupada por $A$, y por eso $B$ va al denominador.
+
+\textbf{¿Qué tomamos?} Tomamos $P(A\mid B)=\dfrac{17}{90}$, en fracción simplificada (aproximadamente $0{,}1889$ con cuatro decimales), tal como pide la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+$P(A\mid B)=\dfrac{17}{90}\approx 0{,}1889$.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 7}
+
+\begin{quote}
+A una fiesta fueron niñas y niños. La probabilidad de que un niño beba Coca Cola es de $0{,}93$, mientras que la probabilidad de que una niña beba Coca Cola es de $0{,}75$. Determine la proporción de niños y niñas que fueron a la fiesta, sabiendo que el $85\,\%$ beben Coca Cola \hfill R/ Niños $56\,\%$ y niñas $44\,\%$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Traducción: eventos, datos e incógnita}
+\textbf{Qué hago:} nombro los eventos, identifico cuáles datos son condicionales y planteo la incógnita.
+
+Elegimos una persona al azar de la fiesta. Sea $O=$ ``la persona elegida es un niño'', $A=$ ``la persona elegida es una niña'' y $K=$ ``la persona elegida bebe Coca Cola''. Los datos son
+\[
+P(K\mid O)=0{,}93,\qquad P(K\mid A)=0{,}75,\qquad P(K)=0{,}85,
+\]
+y como en la fiesta solo hay niños y niñas, $A=\overline{O}$, es decir
+\[
+P(O)+P(A)=1.
+\]
+La incógnita es la pareja $P(O)$ y $P(A)$.
+
+\textbf{¿De dónde sale?} ``La probabilidad de que \emph{un niño} beba Coca Cola es $0{,}93$'' ya restringe la población a los niños: es una probabilidad condicionada a ser niño, $P(K\mid O)=0{,}93$. Igual con las niñas, $P(K\mid A)=0{,}75$. En cambio ``el $85\,\%$ beben Coca Cola'' se refiere a toda la fiesta, sin restringir, así que es $P(K)=0{,}85$. La relación $P(O)+P(A)=1$ sale de ``a una fiesta fueron niñas y niños'', que fija esas dos como las únicas categorías.
+
+\textbf{¿Por qué?} Porque confundir un dato condicional con uno global es el error que arruina este ejercicio: si tomáramos $0{,}93$ como $P(K\cap O)$ el planteo quedaría mal. La marca lingüística ``de que \emph{un niño} beba'' indica que ya estamos dentro del grupo de niños.
+
+\textbf{¿Qué tomamos?} Anotamos los tres datos en decimal y la restricción $P(O)+P(A)=1$. Llamaremos $x=P(O)$ para tener una sola letra desconocida.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Descomponer a los bebedores en dos bloques}
+\textbf{Qué hago:} parto el evento ``bebe Coca Cola'' según el sexo, y expreso cada bloque con la regla del producto.
+
+Como toda persona es niño o niña y no ambos, el evento $K$ se parte en dos trozos disjuntos:
+\[
+K=(K\cap O)\cup(K\cap A)
+\;\Longrightarrow\;
+P(K)=P(K\cap O)+P(K\cap A).
+\]
+Cada trozo se calcula con la regla del producto:
+\[
+P(K\cap O)=P(O)\,P(K\mid O),\qquad P(K\cap A)=P(A)\,P(K\mid A).
+\]
+Sustituyendo $P(O)=x$ y $P(A)=1-x$:
+\[
+0{,}85=0{,}93\,x+0{,}75\,(1-x).
+\]
+
+\textbf{¿De dónde sale?} El $0{,}85$ de la izquierda es $P(K)$ (``el $85\,\%$ beben Coca Cola''); $0{,}93$ y $0{,}75$ son las condicionales del enunciado; $x$ y $1-x$ son las proporciones desconocidas, ligadas por $P(O)+P(A)=1$ del Paso 1.
+
+\textbf{¿Por qué?} Porque un bebedor de Coca Cola de la fiesta necesariamente es niño o niña, así que su probabilidad total es la suma de las dos rutas, y las rutas no se solapan. Cada ruta tiene dos tramos: primero que la persona sea de ese grupo, y luego que, siendo de ese grupo, beba; por eso se multiplica proporción por condicional. Esta es exactamente la regla del producto aplicada dos veces.
+
+\textbf{¿Qué tomamos?} Anotamos la ecuación $0{,}85=0{,}93x+0{,}75(1-x)$, con la única incógnita $x$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Resolver la ecuación lineal}
+\textbf{Qué hago:} despejo $x$ agrupando términos.
+
+Distribuyo el $0{,}75$:
+\[
+0{,}85=0{,}93x+0{,}75-0{,}75x.
+\]
+Agrupo los términos con $x$: $0{,}93x-0{,}75x=(0{,}93-0{,}75)x=0{,}18x$. Queda
+\[
+0{,}85=0{,}18x+0{,}75.
+\]
+Resto $0{,}75$ a ambos lados: $0{,}85-0{,}75=0{,}10$, luego $0{,}18x=0{,}10$. Divido:
+\[
+x=\frac{0{,}10}{0{,}18}=\frac{10}{18}=\frac{5}{9}\approx 0{,}5556.
+\]
+
+\textbf{¿De dónde sale?} Todos los números provienen de la ecuación armada en el Paso 2, que a su vez recoge los tres datos del enunciado.
+
+\textbf{¿Por qué?} Porque es una ecuación lineal en $x$: se agrupan los términos semejantes y se aísla la incógnita usando las mismas operaciones en ambos lados de la igualdad. La fracción $10/18$ se simplifica dividiendo numerador y denominador entre $2$, obteniendo $5/9$.
+
+\textbf{¿Qué tomamos?} Tomamos $P(O)=x=\dfrac{5}{9}\approx 0{,}5556$, que como porcentaje es aproximadamente $55{,}56\,\%$, o $56\,\%$ redondeando a entero.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Proporción de niñas por complemento}
+\textbf{Qué hago:} obtengo la otra proporción con la regla del complemento.
+
+\[
+P(A)=1-P(O)=1-\frac{5}{9}=\frac{9}{9}-\frac{5}{9}=\frac{4}{9}\approx 0{,}4444,
+\]
+es decir aproximadamente $44{,}44\,\%$, o $44\,\%$ redondeando a entero.
+
+\textbf{¿De dónde sale?} El $5/9$ es el resultado del Paso 3, y el $1$ representa el total de asistentes a la fiesta.
+
+\textbf{¿Por qué?} Porque en la fiesta solo hay dos categorías y son excluyentes: quien no es niño es niña. Por eso $A=\overline{O}$ y sus probabilidades suman $1$. Escribí el $1$ como $9/9$ para restar fracciones con el mismo denominador.
+
+\textbf{¿Qué tomamos?} Tomamos $P(A)=\dfrac{4}{9}\approx 0{,}4444$, que redondeado al entero más cercano en porcentaje es $44\,\%$, coincidiendo con la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Verificación}
+\textbf{Qué hago:} compruebo que las proporciones halladas reproducen el $85\,\%$ del enunciado.
+
+\[
+P(K)=\frac{5}{9}(0{,}93)+\frac{4}{9}(0{,}75)
+=\frac{5(0{,}93)+4(0{,}75)}{9}
+=\frac{4{,}65+3{,}00}{9}
+=\frac{7{,}65}{9}=0{,}85.
+\]
+
+\textbf{¿De dónde sale?} Las fracciones $5/9$ y $4/9$ son los resultados de los Pasos 3 y 4; los factores $0{,}93$ y $0{,}75$ son los datos condicionales del enunciado.
+
+\textbf{¿Por qué?} Porque si las proporciones son correctas, al recorrer las dos rutas (niño que bebe, niña que bebe) debemos recuperar exactamente la probabilidad global de beber que nos dieron. Obtener $0{,}85$ confirma que la ecuación se planteó y se resolvió bien.
+
+\textbf{¿Qué tomamos?} No se genera un valor nuevo; la verificación cierra en $0{,}85$ exacto y valida los resultados anteriores.
+\end{paso}
+
+\begin{resp}
+Niños: $P(O)=\dfrac{5}{9}\approx 0{,}5556$, es decir $\approx 56\,\%$.\\[2pt]
+Niñas: $P(A)=\dfrac{4}{9}\approx 0{,}4444$, es decir $\approx 44\,\%$.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 8}
+
+\begin{quote}
+En un semestre en el \textbf{TEC} se obtuvieron los siguientes resultados: el $25\,\%$ de los estudiantes perdieron cálculo, el $15\,\%$ perdió química, mientras que el $10\,\%$ perdió ambas materias.\\
+a) Si perdió química, ¿cuál es la probabilidad que perdiera cálculo? \hfill R/ $\dfrac{2}{3}$\\
+b) Si perdió cálculo, ¿cuál es la probabilidad que perdiera química? \hfill R/ $\dfrac{2}{5}$\\
+c) ¿Cuál es la probabilidad que perdiera cálculo o química? \hfill R/ $\dfrac{3}{10}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Traducción: eventos, datos e incógnitas}
+\textbf{Qué hago:} bautizo los eventos y convierto los porcentajes en probabilidades.
+
+Se elige un estudiante al azar. Sea $C=$ ``el estudiante perdió cálculo'' y $Q=$ ``el estudiante perdió química''. Entonces
+\[
+P(C)=0{,}25,\qquad P(Q)=0{,}15,\qquad P(C\cap Q)=0{,}10,
+\]
+y las incógnitas son
+\[
+\text{a) } P(C\mid Q)=?
+\qquad
+\text{b) } P(Q\mid C)=?
+\qquad
+\text{c) } P(C\cup Q)=?
+\]
+
+\textbf{¿De dónde sale?} ``El $25\,\%$ \dots\ perdieron cálculo'' da $P(C)=0{,}25$; ``el $15\,\%$ perdió química'' da $P(Q)=0{,}15$; ``el $10\,\%$ perdió \emph{ambas} materias'' es la intersección, $P(C\cap Q)=0{,}10$. En a) la frase ``si perdió química'' es la condición, así que $Q$ va tras la barra; en b) es al revés. En c) la palabra ``o'' señala la unión.
+
+\textbf{¿Por qué?} Porque las tres preguntas usan los mismos tres datos, y lo único que cambia es cómo se combinan. Distinguir ``ambas'' (intersección) de ``o'' (unión) y ``si \dots'' (condición) es todo el trabajo de traducción.
+
+\textbf{¿Qué tomamos?} Anotamos los tres datos en decimal con dos cifras.
+\end{paso}
+
+\begin{paso}{Paso 2 --- (a) Condicionar a haber perdido química}
+\textbf{Qué hago:} aplico la definición de probabilidad condicionada con $Q$ como espacio reducido.
+
+Como $P(Q)=0{,}15>0$,
+\[
+P(C\mid Q)=\frac{P(C\cap Q)}{P(Q)}=\frac{0{,}10}{0{,}15}=\frac{10}{15}=\frac{2}{3}\approx 0{,}6667.
+\]
+
+\textbf{¿De dónde sale?} El numerador $0{,}10$ es el $10\,\%$ que perdió ambas materias, y el denominador $0{,}15$ es el $15\,\%$ que perdió química.
+
+\textbf{¿Por qué?} Porque al saber que el estudiante perdió química, dejamos de mirar a todo el semestre y nos quedamos solo con ese $15\,\%$. Dentro de ese grupo, quienes además perdieron cálculo son el $10\,\%$ del total. La pregunta ``qué parte de $0{,}15$ es $0{,}10$'' se responde dividiendo. Sin dividir estaríamos comparando contra la población entera, que no es lo que se pide.
+
+\textbf{¿Qué tomamos?} Tomamos $P(C\mid Q)=2/3$, en fracción simplificada (dividiendo $10$ y $15$ entre $5$); en decimal, $0{,}6667$ con cuatro cifras.
+\end{paso}
+
+\begin{paso}{Paso 3 --- (b) Condicionar a haber perdido cálculo}
+\textbf{Qué hago:} repito la definición de condicional intercambiando los papeles.
+
+Como $P(C)=0{,}25>0$,
+\[
+P(Q\mid C)=\frac{P(C\cap Q)}{P(C)}=\frac{0{,}10}{0{,}25}=\frac{10}{25}=\frac{2}{5}=0{,}4.
+\]
+
+\textbf{¿De dónde sale?} El numerador vuelve a ser el $10\,\%$ de ``ambas materias'' (la intersección no depende del orden en que se nombren las materias), y el denominador es ahora el $25\,\%$ de cálculo.
+
+\textbf{¿Por qué?} Porque cambiar la condición cambia el subgrupo al que nos restringimos, y por eso cambia el denominador. Aquí el grupo de referencia es más grande ($0{,}25$ frente a $0{,}15$), así que la misma intersección representa una fracción menor: $2/5<2/3$. Esto ilustra que $P(C\mid Q)$ y $P(Q\mid C)$ son cantidades distintas y no deben confundirse.
+
+\textbf{¿Qué tomamos?} Tomamos $P(Q\mid C)=2/5$, en fracción simplificada (dividiendo $10$ y $25$ entre $5$), equivalente a $0{,}4$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- (c) Unión por inclusión--exclusión}
+\textbf{Qué hago:} aplico la fórmula de la unión de dos eventos.
+
+\[
+P(C\cup Q)=P(C)+P(Q)-P(C\cap Q)=0{,}25+0{,}15-0{,}10.
+\]
+Sumo: $0{,}25+0{,}15=0{,}40$. Resto: $0{,}40-0{,}10=0{,}30$. Entonces
+\[
+P(C\cup Q)=0{,}30=\frac{30}{100}=\frac{3}{10}.
+\]
+
+\textbf{¿De dónde sale?} Los tres sumandos son los datos del Paso 1: $0{,}25$ de cálculo, $0{,}15$ de química y $0{,}10$ de ambas.
+
+\textbf{¿Por qué?} Porque el $10\,\%$ que perdió las dos materias está contado dentro del $25\,\%$ de cálculo y también dentro del $15\,\%$ de química; al sumar quedaría contado dos veces, y por eso se resta una vez. Así cada estudiante que perdió al menos una materia aporta exactamente una vez. Nótese que $C$ y $Q$ no son excluyentes, precisamente porque hay un $10\,\%$ en común.
+
+\textbf{¿Qué tomamos?} Tomamos $P(C\cup Q)=3/10$, en fracción simplificada (dividiendo $30$ y $100$ entre $10$), equivalente a $0{,}30$.
+\end{paso}
+
+\begin{resp}
+a) $P(C\mid Q)=\dfrac{2}{3}\approx 0{,}6667$.\\[2pt]
+b) $P(Q\mid C)=\dfrac{2}{5}=0{,}4$.\\[2pt]
+c) $P(C\cup Q)=\dfrac{3}{10}=0{,}30$.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 9}
+
+\begin{quote}
+En un comedor de beneficencia, una trabajadora social reúne los siguientes datos de las personas que asisten al comedor: el $59\,\%$ son hombres, $32\,\%$ son alcohólicos y el $21\,\%$ son hombres alcohólicos ¿Cuál es la probabilidad que un hombre seleccionado al azar sea alcohólico? \hfill R/ $0{,}3559$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Traducción: eventos, datos e incógnita}
+\textbf{Qué hago:} nombro los eventos y traduzco cada porcentaje.
+
+Se elige al azar una persona que asiste al comedor. Sea $H=$ ``la persona elegida es hombre'' y $L=$ ``la persona elegida es alcohólica''. Entonces
+\[
+P(H)=0{,}59,\qquad P(L)=0{,}32,\qquad P(H\cap L)=0{,}21,
+\]
+y la incógnita es
+\[
+P(L\mid H)=?
+\]
+
+\textbf{¿De dónde sale?} ``El $59\,\%$ son hombres'' da $P(H)=0{,}59$; ``$32\,\%$ son alcohólicos'' da $P(L)=0{,}32$; ``el $21\,\%$ son hombres alcohólicos'' describe a quienes cumplen las dos condiciones a la vez, así que es la intersección $P(H\cap L)=0{,}21$. La pregunta ``¿probabilidad que \emph{un hombre} seleccionado al azar sea alcohólico?'' ya restringe la selección a los hombres, de modo que $H$ es la condición.
+
+\textbf{¿Por qué?} Porque el $21\,\%$ está medido sobre el total de asistentes, no sobre los hombres: es una intersección, no una condicional. Si fuera condicional el enunciado diría ``de los hombres, el $21\,\%$ es alcohólico''. Detectar esta diferencia es lo que decide el planteo.
+
+\textbf{¿Qué tomamos?} Anotamos los tres datos en decimal con dos cifras. Observamos que $P(L)=0{,}32$ no se usará: es información que sobra para esta pregunta concreta.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Aplicar la definición de probabilidad condicionada}
+\textbf{Qué hago:} divido la intersección entre la probabilidad de la condición.
+
+Como $P(H)=0{,}59>0$,
+\[
+P(L\mid H)=\frac{P(H\cap L)}{P(H)}=\frac{0{,}21}{0{,}59}=\frac{21}{59}.
+\]
+
+\textbf{¿De dónde sale?} El numerador $0{,}21$ es el porcentaje de hombres alcohólicos sobre el total, y el denominador $0{,}59$ es el porcentaje de hombres sobre el total.
+
+\textbf{¿Por qué?} Porque al seleccionar solo entre hombres, el nuevo espacio muestral es ese $59\,\%$ de asistentes. De ellos, los alcohólicos son el $21\,\%$ del total original. Para expresar ese $21\,\%$ como fracción \emph{del grupo de hombres} hay que dividirlo entre $0{,}59$: eso reescala el nuevo total a $1$, que es justamente lo que exige la definición de probabilidad condicionada. Al multiplicar numerador y denominador por $100$ la fracción decimal se vuelve $21/59$, que es más cómoda para dividir.
+
+\textbf{¿Qué tomamos?} Anotamos la fracción exacta $21/59$, pendiente de pasarla a decimal.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Convertir a decimal y redondear}
+\textbf{Qué hago:} efectúo la división y redondeo al formato de la respuesta oficial.
+
+Dividiendo $21$ entre $59$:
+\[
+\frac{21}{59}=0{,}355932\ldots
+\]
+La quinta cifra decimal es $3$, menor que $5$, así que al redondear a cuatro decimales la cuarta cifra se mantiene:
+\[
+P(L\mid H)\approx 0{,}3559.
+\]
+
+\textbf{¿De dónde sale?} La fracción $21/59$ es el resultado del Paso 2.
+
+\textbf{¿Por qué?} Porque $59$ no divide exactamente a $21$ y el decimal es periódico, así que hay que decidir un corte. Se toman cuatro decimales porque es la precisión con que está escrita la respuesta de la práctica, y la regla usual es mirar la cifra siguiente para decidir si se sube o se mantiene la última que se conserva.
+
+\textbf{¿Qué tomamos?} Tomamos $P(L\mid H)=\dfrac{21}{59}\approx 0{,}3559$, en decimal con cuatro cifras, coincidiendo con la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+$P(L\mid H)=\dfrac{21}{59}\approx 0{,}3559$.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 10}
+
+\begin{quote}
+Una caja tiene en su interior tres bolas rojas y tres bolas azules. Se extraen dos bolas sin reemplazar la primera.\\
+a) ¿Cuál es la probabilidad de que la segunda bola sea roja, dado que la primera fue roja? \hfill R/ $\dfrac{2}{5}$\\
+b) ¿Cuál es la probabilidad de que la primera bola sea roja, dado que la segunda fue roja? \hfill R/ $\dfrac{2}{5}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Traducción: eventos, datos e incógnitas}
+\textbf{Qué hago:} describo el experimento y nombro los eventos de cada extracción.
+
+La caja contiene $3$ bolas rojas y $3$ azules, en total $3+3=6$ bolas. Se extraen dos, una tras otra, sin devolver la primera. Sea
+\[
+R_1=\text{``la primera bola extraída es roja''},\qquad
+R_2=\text{``la segunda bola extraída es roja''},
+\]
+y análogamente $Z_1$ y $Z_2$ para azul. Como en la primera extracción todas las bolas son igualmente probables,
+\[
+P(R_1)=\frac{3}{6}=\frac{1}{2},\qquad P(Z_1)=\frac{3}{6}=\frac{1}{2}.
+\]
+Las incógnitas son
+\[
+\text{a) } P(R_2\mid R_1)=?
+\qquad\qquad
+\text{b) } P(R_1\mid R_2)=?
+\]
+
+\textbf{¿De dónde sale?} El $3$ y el $3$ vienen de ``tres bolas rojas y tres bolas azules''; el $6$ es su suma. La frase ``sin reemplazar la primera'' es la que hace que la composición de la caja cambie entre una extracción y la otra. En a), la condición es lo que pasó en la primera extracción; en b), la condición es lo que pasó en la \emph{segunda}, aunque preguntemos por la primera.
+
+\textbf{¿Por qué?} Porque $P(R_1)=3/6$ es conteo elemental: hay $6$ resultados igualmente probables y $3$ son favorables. Y porque distinguir a) de b) importa: en a) la condición precede al evento en el tiempo, mientras que en b) la condición es posterior. La probabilidad condicionada no exige ningún orden temporal; solo mide proporciones entre eventos.
+
+\textbf{¿Qué tomamos?} Anotamos $P(R_1)=1/2$, en fracción simplificada, y el inventario de la caja: $3$ rojas, $3$ azules, $6$ en total.
+\end{paso}
+
+\begin{paso}{Paso 2 --- (a) Recomponer la caja tras la primera extracción}
+\textbf{Qué hago:} razono directamente sobre el espacio muestral reducido que deja la condición.
+
+Si la primera bola fue roja y no se reemplaza, en la caja quedan $6-1=5$ bolas, de las cuales las rojas son $3-1=2$ y las azules siguen siendo $3$. Como cualquiera de esas $5$ tiene la misma oportunidad de salir,
+\[
+P(R_2\mid R_1)=\frac{2}{5}=0{,}4.
+\]
+
+\textbf{¿De dónde sale?} El $5$ es $6$ menos la bola ya extraída; el $2$ es $3$ rojas menos la roja que salió. Ambos descuentos vienen de la frase ``sin reemplazar la primera'' combinada con la condición ``dado que la primera fue roja''.
+
+\textbf{¿Por qué?} Porque condicionar a $R_1$ es exactamente reducir el espacio muestral a los escenarios en que la primera salió roja; en todos ellos la caja quedó con la composición descrita. Dentro de ese escenario reducido volvemos a tener resultados igualmente probables, así que basta contar favorables entre totales. Es la definición de condicional puesta en práctica sin necesidad de dividir dos probabilidades.
+
+\textbf{¿Qué tomamos?} Tomamos $P(R_2\mid R_1)=2/5$, en fracción (equivale a $0{,}4$).
+\end{paso}
+
+\begin{paso}{Paso 3 --- (b) Probabilidad de la intersección $R_1\cap R_2$}
+\textbf{Qué hago:} aplico la regla del producto para el numerador del inciso b).
+
+\[
+P(R_1\cap R_2)=P(R_1)\,P(R_2\mid R_1)=\frac{1}{2}\cdot\frac{2}{5}=\frac{1\cdot 2}{2\cdot 5}=\frac{2}{10}=\frac{1}{5}.
+\]
+
+\textbf{¿De dónde sale?} El $1/2$ es $P(R_1)$ del Paso 1 y el $2/5$ es el resultado del Paso 2.
+
+\textbf{¿Por qué?} Porque el experimento ocurre en dos etapas: primero sale una bola, luego otra con la caja ya modificada. La regla del producto encadena las dos etapas, y es simplemente la definición de condicional despejada. La simplificación $2/10=1/5$ se obtiene dividiendo numerador y denominador entre $2$.
+
+\textbf{¿Qué tomamos?} Anotamos $P(R_1\cap R_2)=\dfrac{1}{5}$, en fracción simplificada.
+\end{paso}
+
+\begin{paso}{Paso 4 --- (b) Probabilidad de que la segunda sea roja}
+\textbf{Qué hago:} calculo $P(R_2)$ partiendo el evento según el color de la primera bola.
+
+La segunda bola es roja en dos escenarios disjuntos: la primera fue roja, o la primera fue azul. Entonces
+\[
+P(R_2)=P(R_1\cap R_2)+P(Z_1\cap R_2)=P(R_1)P(R_2\mid R_1)+P(Z_1)P(R_2\mid Z_1).
+\]
+Si la primera fue azul, quedan $5$ bolas de las cuales $3$ son rojas (no se quitó ninguna roja), así que $P(R_2\mid Z_1)=\dfrac{3}{5}$. Sustituyendo:
+\[
+P(R_2)=\frac{1}{2}\cdot\frac{2}{5}+\frac{1}{2}\cdot\frac{3}{5}
+=\frac{2}{10}+\frac{3}{10}
+=\frac{5}{10}=\frac{1}{2}.
+\]
+
+\textbf{¿De dónde sale?} $P(R_1)=P(Z_1)=1/2$ vienen del Paso 1; $P(R_2\mid R_1)=2/5$ del Paso 2; y $P(R_2\mid Z_1)=3/5$ del recuento de la caja cuando sale una azul: $3-0=3$ rojas entre $6-1=5$ bolas.
+
+\textbf{¿Por qué?} Porque la primera bola es roja o azul, sin más opciones y sin traslape, así que la probabilidad de $R_2$ se reparte en esas dos rutas y se suman. Cada ruta se calcula con la regla del producto. El resultado $1/2$ tiene sentido: sin ninguna información sobre la primera extracción, la segunda bola es tan probablemente roja como la primera, porque la caja está balanceada con $3$ y $3$.
+
+\textbf{¿Qué tomamos?} Anotamos $P(R_2)=\dfrac{1}{2}$, en fracción simplificada.
+\end{paso}
+
+\begin{paso}{Paso 5 --- (b) Invertir la condicional}
+\textbf{Qué hago:} aplico la definición de condicional con $R_2$ como espacio reducido.
+
+Como $P(R_2)=1/2>0$,
+\[
+P(R_1\mid R_2)=\frac{P(R_1\cap R_2)}{P(R_2)}=\frac{\;\dfrac{1}{5}\;}{\;\dfrac{1}{2}\;}
+=\frac{1}{5}\cdot\frac{2}{1}=\frac{1\cdot 2}{5\cdot 1}=\frac{2}{5}=0{,}4.
+\]
+
+\textbf{¿De dónde sale?} El numerador $1/5$ es el resultado del Paso 3 y el denominador $1/2$ es el del Paso 4.
+
+\textbf{¿Por qué?} Porque dividir entre $1/2$ es multiplicar por su recíproco $2/1$, ya que $\frac{1}{2}\cdot\frac{2}{1}=1$. Conceptualmente: nos han dicho que la segunda salió roja, lo cual selecciona la mitad de todos los escenarios posibles; dentro de esa mitad, aquellos en que la primera también fue roja pesan $1/5$ del total. La razón entre ambos es $2/5$. Que coincida con el inciso a) es una consecuencia de la simetría de la caja ($3$ rojas y $3$ azules) y no una regla general: en otras condiciones $P(R_1\mid R_2)$ y $P(R_2\mid R_1)$ pueden diferir.
+
+\textbf{¿Qué tomamos?} Tomamos $P(R_1\mid R_2)=2/5$, en fracción (equivale a $0{,}4$).
+\end{paso}
+
+\begin{resp}
+a) $P(R_2\mid R_1)=\dfrac{2}{5}=0{,}4$.\\[2pt]
+b) $P(R_1\mid R_2)=\dfrac{2}{5}=0{,}4$.
+\end{resp}
+
+\end{document}

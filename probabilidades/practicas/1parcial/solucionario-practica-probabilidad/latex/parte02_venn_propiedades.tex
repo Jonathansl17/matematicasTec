@@ -1,0 +1,2664 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+
+\title{Solucionario --- Parte 2: Diagramas de Venn y propiedades\\ \large Capítulo 1, sección 1.1 --- Ejercicios 5 a 8}
+\author{Lista de ejercicios de Probabilidad --- Anddy Alvarado Solano}
+\date{}
+
+%---------------------------------------------------------------------
+% Herramientas de dibujo para los diagramas de Venn
+%---------------------------------------------------------------------
+\colorlet{sombra}{blue!25}
+
+% ---- Disposición I: tres círculos en posición general (las 8 regiones) ----
+\def\cA{(-0.85,0.5) circle (1.45)}
+\def\cB{(0.85,0.5) circle (1.45)}
+\def\cC{(0,-0.85) circle (1.45)}
+\def\Uni{(-2.75,-2.75) rectangle (2.75,2.45)}
+
+\newcommand{\Ain}{\clip \cA;}
+\newcommand{\Aout}{\clip \Uni \cA;}
+\newcommand{\Bin}{\clip \cB;}
+\newcommand{\Bout}{\clip \Uni \cB;}
+\newcommand{\Cin}{\clip \cC;}
+\newcommand{\Cout}{\clip \Uni \cC;}
+\newcommand{\pinta}{\fill[sombra] \Uni;}
+
+\newcommand{\marcoI}{%
+  \draw[thick] \Uni;
+  \draw[thick] \cA; \draw[thick] \cB; \draw[thick] \cC;
+  \node at (-1.85,1.65) {$A$};
+  \node at (1.85,1.65) {$B$};
+  \node at (0,-2.05) {$C$};
+  \node at (-2.45,2.15) {$U$};
+}
+
+% Las ocho regiones elementales de la Disposición I
+\newcommand{\Rone}{\begin{scope}[even odd rule]\Ain\Bout\Cout\pinta\end{scope}}
+\newcommand{\Rtwo}{\begin{scope}[even odd rule]\Aout\Bin\Cout\pinta\end{scope}}
+\newcommand{\Rthree}{\begin{scope}[even odd rule]\Aout\Bout\Cin\pinta\end{scope}}
+\newcommand{\Rfour}{\begin{scope}[even odd rule]\Ain\Bin\Cout\pinta\end{scope}}
+\newcommand{\Rfive}{\begin{scope}[even odd rule]\Ain\Bout\Cin\pinta\end{scope}}
+\newcommand{\Rsix}{\begin{scope}[even odd rule]\Aout\Bin\Cin\pinta\end{scope}}
+\newcommand{\Rseven}{\begin{scope}[even odd rule]\Ain\Bin\Cin\pinta\end{scope}}
+\newcommand{\Reight}{\begin{scope}[even odd rule]\Aout\Bout\Cout\pinta\end{scope}}
+
+% ---- Disposición II: A y B se cortan, C disjunto de ambos ----
+\def\dA{(-1.35,0.65) circle (1.2)}
+\def\dB{(0.15,0.65) circle (1.2)}
+\def\dC{(1.95,-1.3) circle (0.95)}
+\def\Unii{(-2.95,-2.55) rectangle (3.15,2.35)}
+
+\newcommand{\dAin}{\clip \dA;}
+\newcommand{\dAout}{\clip \Unii \dA;}
+\newcommand{\dBin}{\clip \dB;}
+\newcommand{\dBout}{\clip \Unii \dB;}
+\newcommand{\dCin}{\clip \dC;}
+\newcommand{\dCout}{\clip \Unii \dC;}
+\newcommand{\pintaII}{\fill[sombra] \Unii;}
+
+\newcommand{\marcoII}{%
+  \draw[thick] \Unii;
+  \draw[thick] \dA; \draw[thick] \dB; \draw[thick] \dC;
+  \node at (-2.15,1.45) {$A$};
+  \node at (0.95,1.45) {$B$};
+  \node at (1.95,-1.3) {$C$};
+  \node at (-2.65,2.05) {$U$};
+}
+
+% ---- Disposición III: C contenido en B, A corta a B pero no a C ----
+\def\eA{(-1.1,0) circle (1.5)}
+\def\eB{(0.9,0) circle (1.7)}
+\def\eC{(1.35,0) circle (0.8)}
+\def\Uniii{(-3.05,-2.15) rectangle (3.05,2.15)}
+
+\newcommand{\eAin}{\clip \eA;}
+\newcommand{\eAout}{\clip \Uniii \eA;}
+\newcommand{\eBin}{\clip \eB;}
+\newcommand{\eBout}{\clip \Uniii \eB;}
+\newcommand{\eCin}{\clip \eC;}
+\newcommand{\eCout}{\clip \Uniii \eC;}
+\newcommand{\pintaIII}{\fill[sombra] \Uniii;}
+
+\newcommand{\marcoIII}{%
+  \draw[thick] \Uniii;
+  \draw[thick] \eA; \draw[thick] \eB; \draw[thick] \eC;
+  \node at (-2.15,1.05) {$A$};
+  \node at (0.15,1.35) {$B$};
+  \node at (1.35,0) {$C$};
+  \node at (-2.75,1.85) {$U$};
+}
+
+% ---- Dos conjuntos (para el Ejercicio 5) ----
+\def\dosA{(-0.6,0) circle (1.2)}
+\def\dosB{(0.6,0) circle (1.2)}
+\def\Udos{(-2.35,-1.75) rectangle (2.35,1.75)}
+\newcommand{\marcoDos}{%
+  \draw[thick] \Udos;
+  \draw[thick] \dosA; \draw[thick] \dosB;
+  \node at (-1.45,1.15) {$A$};
+  \node at (1.45,1.15) {$B$};
+  \node at (-2.05,1.45) {$U$};
+}
+
+\begin{document}
+\maketitle
+
+%=====================================================================
+\begin{teo}
+\textbf{Álgebra de conjuntos: todas las propiedades que se usarán en esta parte.}
+
+Sea $U$ el conjunto universo y sean $A,B,C\subseteq U$. Todas las igualdades de los
+Ejercicios~7 y~8 se demostrarán encadenando \emph{exclusivamente} las propiedades siguientes,
+citando el nombre de la que se usa en cada paso. No se argumentará nunca con elementos ni con
+diagramas en esos dos ejercicios, porque el enunciado lo prohíbe expresamente.
+
+\medskip
+\textbf{(P1) Definición de diferencia.} $A\setminus B=A\cap B^{c}$.
+
+\emph{Motivación:} quitar de $A$ lo que está en $B$ es lo mismo que quedarse con lo que está
+en $A$ y a la vez fuera de $B$. Esta identidad es la \emph{puerta de entrada} al álgebra: la
+diferencia no tiene propiedades propias (no es conmutativa ni asociativa), así que lo primero
+que se hace siempre es convertirla en una intersección, que sí las tiene.
+
+\medskip
+\textbf{(P2) Definición de diferencia simétrica.}
+$A\triangle B=(A\setminus B)\cup(B\setminus A)=(A\cap B^{c})\cup(A^{c}\cap B)$.
+
+\emph{Motivación:} la diferencia simétrica recoge lo que pertenece a exactamente uno de los dos
+conjuntos. Al desarrollarla con (P1) queda escrita como una unión de dos intersecciones, que ya
+es una expresión manipulable con las leyes distributivas.
+
+\medskip
+\textbf{(P3) Conmutativa.} $A\cup B=B\cup A$ \quad y \quad $A\cap B=B\cap A$.
+
+\emph{Motivación:} ni la unión ni la intersección distinguen el orden de sus argumentos, porque
+las condiciones ``$x\in A$ ó $x\in B$'' y ``$x\in B$ ó $x\in A$'' son la misma condición. Sirve
+para reordenar factores y poder aplicar después absorción o complementación.
+
+\medskip
+\textbf{(P4) Asociativa.} $(A\cup B)\cup C=A\cup(B\cup C)$ \quad y \quad
+$(A\cap B)\cap C=A\cap(B\cap C)$.
+
+\emph{Motivación:} permite borrar paréntesis en cadenas de uniones o de intersecciones y
+escribir sin ambigüedad $A\cup B\cup C$ y $A\cap B\cap C$. Es lo que autoriza a reagrupar
+términos para que aparezca un par $X$, $X^{c}$ o un par repetido.
+
+\medskip
+\textbf{(P5) Distributiva de $\cap$ sobre $\cup$.}
+$A\cap(B\cup C)=(A\cap B)\cup(A\cap C)$.
+
+\emph{Motivación:} es la ley que ``abre'' un paréntesis de unión multiplicado por una
+intersección. Es la herramienta principal para llevar una expresión a la \emph{forma de unión
+de intersecciones}, que es la forma normal en la que dos expresiones se comparan con facilidad.
+
+\medskip
+\textbf{(P6) Distributiva de $\cup$ sobre $\cap$.}
+$A\cup(B\cap C)=(A\cup B)\cap(A\cup C)$.
+
+\emph{Motivación:} es la simétrica de (P5) y no tiene análogo en la aritmética de números; en
+conjuntos sí vale. Se usa en el sentido inverso (de derecha a izquierda) para \emph{factorizar}
+un término común que aparece en dos paréntesis unidos por $\cap$.
+
+\medskip
+\textbf{(P7) Leyes de De Morgan.} $(A\cup B)^{c}=A^{c}\cap B^{c}$ \quad y \quad
+$(A\cap B)^{c}=A^{c}\cup B^{c}$.
+
+\emph{Motivación:} un complemento colocado sobre una unión o una intersección bloquea todas las
+demás leyes, porque ninguna de ellas sabe operar con un paréntesis complementado. De Morgan
+mete el complemento hacia dentro y a la vez intercambia $\cup$ por $\cap$, dejando la expresión
+lista para distribuir.
+
+\medskip
+\textbf{(P8) Doble complemento (involución).} $(A^{c})^{c}=A$.
+
+\emph{Motivación:} estar fuera de ``lo que está fuera de $A$'' es estar en $A$. Aparece siempre
+justo después de aplicar De Morgan a un paréntesis que ya contenía complementos.
+
+\medskip
+\textbf{(P9) Elemento neutro (identidad).} $A\cup\varnothing=A$ \quad y \quad $A\cap U=A$.
+
+\emph{Motivación:} $\varnothing$ no aporta elementos a una unión y $U$ no quita elementos a una
+intersección. Es el paso que hace desaparecer los restos que dejan las leyes de
+complementación.
+
+\medskip
+\textbf{(P10) Dominación (absorbente).} $A\cup U=U$ \quad y \quad $A\cap\varnothing=\varnothing$.
+
+\emph{Motivación:} $U$ ya contiene todo, así que unirle algo no lo agranda; $\varnothing$ no
+contiene nada, así que intersecarlo no puede producir nada.
+
+\medskip
+\textbf{(P11) Idempotencia.} $A\cup A=A$ \quad y \quad $A\cap A=A$.
+
+\emph{Motivación:} los conjuntos no cuentan multiplicidades: repetir un conjunto en una unión o
+en una intersección no cambia el resultado. Es lo que permite colapsar dos términos idénticos
+que hayan aparecido tras distribuir.
+
+\medskip
+\textbf{(P12) Absorción.} $A\cup(A\cap B)=A$ \quad y \quad $A\cap(A\cup B)=A$.
+
+\emph{Motivación:} $A\cap B$ está contenido en $A$, de modo que unirlo a $A$ no añade nada; y
+$A$ está contenido en $A\cup B$, de modo que intersecarlos devuelve $A$. Es el atajo que
+elimina términos redundantes al final de una cadena.
+
+\medskip
+\textbf{(P13) Complementación.} $A\cap A^{c}=\varnothing$ \quad y \quad $A\cup A^{c}=U$.
+
+\emph{Motivación:} ningún elemento puede estar y no estar en $A$ a la vez (de ahí $\varnothing$),
+y todo elemento del universo o está en $A$ o está fuera de $A$ (de ahí $U$). Son las dos
+igualdades que producen los $\varnothing$ y los $U$ que luego se limpian con (P9) y (P10).
+
+\medskip
+\textbf{(P14) Complemento de $U$ y de $\varnothing$.} $U^{c}=\varnothing$ y
+$\varnothing^{c}=U$.
+
+\medskip
+\textbf{(P15) Forma general de la absorción.} Si $X\subseteq Y$ entonces $X\cup Y=Y$ y
+$X\cap Y=X$. En las demostraciones siguientes esta situación se justificará siempre
+algebraicamente, escribiendo $X\cup Y=(Y\cap U)\cup(Y\cap Z)=Y\cap(U\cup Z)=Y\cap U=Y$ cuando
+$X=Y\cap Z$; es decir, no se invocará como un hecho geométrico sino como una consecuencia de
+(P5), (P9) y (P10).
+\end{teo}
+
+\begin{tip}
+\textbf{Estrategia general para verificar una igualdad de conjuntos usando solo propiedades.}
+
+Cuando el enunciado prohíbe los diagramas y el trabajo elemento por elemento, la verificación se
+convierte en un cálculo algebraico. Conviene seguir siempre el mismo orden de trabajo:
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Eliminar toda diferencia y toda diferencia simétrica.} Se aplica (P1),
+  $A\setminus B=A\cap B^{c}$, y (P2), $A\triangle B=(A\cap B^{c})\cup(A^{c}\cap B)$, hasta que
+  en la expresión solo queden $\cup$, $\cap$ y $^{c}$. Mientras haya un $\setminus$ o un
+  $\triangle$ no se puede distribuir nada, porque esas dos operaciones no tienen leyes propias.
+  \item \textbf{Meter los complementos hacia dentro con De Morgan.} Todo complemento que esté
+  colocado sobre un paréntesis se empuja hacia los conjuntos individuales con (P7), y los
+  complementos dobles que aparezcan se cancelan con (P8). Al terminar este paso, los únicos
+  complementos que quedan están pegados a letras sueltas.
+  \item \textbf{Distribuir hasta llegar a unión de intersecciones.} Con (P5) se abren los
+  paréntesis. Esta es la forma normal: una unión de bloques, cada bloque una intersección de
+  letras y letras complementadas. Dos expresiones son iguales cuando sus formas normales
+  coinciden.
+  \item \textbf{Simplificar.} Se buscan los patrones $X\cap X^{c}=\varnothing$ y $X\cup X^{c}=U$
+  de (P13); los $\varnothing$ desaparecen de las uniones con (P9) y matan las intersecciones con
+  (P10); los $U$ desaparecen de las intersecciones con (P9). Se colapsan los términos repetidos
+  con (P11) y los términos contenidos en otros con (P12).
+  \item \textbf{Trabajar los dos lados por separado si hace falta.} Si el lado izquierdo y el
+  derecho son ambos complicados, se reduce cada uno a su forma normal de manera independiente y
+  se comparan al final. Es perfectamente legítimo y suele ser más corto que forzar la cadena en
+  una sola dirección.
+  \item \textbf{Usar la hipótesis extra cuando la haya.} Si el enunciado añade una condición
+  (por ejemplo ``$A$ y $B$ disjuntos'', que significa $A\cap B=\varnothing$), esa igualdad se
+  usa como una propiedad más, sustituyendo $A\cap B$ por $\varnothing$ en el momento en que
+  aparezca.
+\end{enumerate}
+\end{tip}
+
+%=====================================================================
+\section*{Ejercicio 5}
+
+\begin{quote}
+En un caso de dos conjuntos, se sabe que existen cuatro disposiciones para diagramas de Venn.
+Cuántas disposiciones hay para tres conjuntos? Presentelas. Cuántas hay para cuatro conjuntos?
+\end{quote}
+
+\begin{paso}{Paso 1 --- Leer el dato de partida: qué son las cuatro disposiciones del caso de dos conjuntos}
+\textbf{Qué hago:} antes de contar nada para tres conjuntos, obligo al enunciado a decirme qué
+está llamando ``disposición''. El único dato que se me da es que \emph{para dos conjuntos hay
+cuatro}, así que toda interpretación que proponga debe reproducir ese número $4$; si no lo
+reproduce, la interpretación es incorrecta.
+
+\textbf{¿De dónde sale?} Del propio enunciado del Ejercicio~5, que afirma como hecho conocido
+que ``en un caso de dos conjuntos existen cuatro disposiciones para diagramas de Venn''.
+
+\textbf{¿Por qué?} Porque en un diagrama de Venn de dos conjuntos $A$ y $B$ dentro de un
+universo $U$, cada punto del universo queda clasificado por dos preguntas independientes: ``¿está
+en $A$?'' y ``¿está en $B$?''. Cada pregunta admite dos respuestas, sí o no, y las respuestas de
+una no condicionan las de la otra, porque $A$ y $B$ son subconjuntos arbitrarios. Eso produce
+$2\cdot 2=4$ combinaciones de respuestas, y cada combinación es exactamente una de las zonas
+básicas en que el dibujo parte al universo. Esas cuatro zonas son
+\[
+A\cap B^{c},\qquad A^{c}\cap B,\qquad A\cap B,\qquad A^{c}\cap B^{c},
+\]
+y son las \emph{disposiciones} de las que habla el enunciado: las piezas elementales, disjuntas
+entre sí, cuya unión es todo $U$ y a partir de las cuales se arma cualquier región sombreable.
+
+\textbf{¿Qué tomamos?} Nos quedamos con la lectura que sí reproduce el dato: \emph{disposición
+$=$ región elemental del diagrama}, y con la fórmula que la genera: para $n$ conjuntos hay $2^{n}$
+regiones elementales, porque hay $n$ preguntas independientes de respuesta doble. Para $n=2$ esto
+da $2^{2}=4$, que es exactamente el número que el enunciado da por conocido.
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.72]
+  \begin{scope}[even odd rule]\clip \dosA; \fill[even odd rule,sombra] \Udos \dosB;\end{scope}
+  \marcoDos
+  \node at (0,-2.15) {\small $A\cap B^{c}$};
+\end{tikzpicture}\hspace{4mm}
+\begin{tikzpicture}[scale=0.72]
+  \begin{scope}[even odd rule]\clip \dosB; \fill[even odd rule,sombra] \Udos \dosA;\end{scope}
+  \marcoDos
+  \node at (0,-2.15) {\small $A^{c}\cap B$};
+\end{tikzpicture}\hspace{4mm}
+\begin{tikzpicture}[scale=0.72]
+  \begin{scope}[even odd rule]\clip \dosA; \fill[sombra] \dosB;\end{scope}
+  \marcoDos
+  \node at (0,-2.15) {\small $A\cap B$};
+\end{tikzpicture}\hspace{4mm}
+\begin{tikzpicture}[scale=0.72]
+  \begin{scope}[even odd rule]\clip \Udos \dosA; \fill[even odd rule,sombra] \Udos \dosB;\end{scope}
+  \marcoDos
+  \node at (0,-2.15) {\small $A^{c}\cap B^{c}$};
+\end{tikzpicture}
+\end{center}
+
+\begin{paso}{Paso 2 --- Contar las disposiciones para tres conjuntos}
+\textbf{Qué hago:} extiendo a tres conjuntos el razonamiento del Paso~1, es decir, cuento
+cuántas combinaciones de respuestas ``dentro/fuera'' hay cuando las preguntas son tres en lugar
+de dos, y con eso obtengo el número de regiones elementales del diagrama de tres conjuntos.
+
+\textbf{¿De dónde sale?} Del criterio fijado en el Paso~1: una disposición es una región
+elemental, y una región elemental queda determinada por decidir, para cada uno de los conjuntos
+del diagrama, si la región está dentro o fuera de él. Ahora los conjuntos son $A$, $B$ y $C$.
+
+\textbf{¿Por qué?} Porque las tres decisiones son independientes entre sí: que una región esté
+dentro de $A$ no obliga a nada respecto de $B$ ni de $C$, ya que los tres conjuntos son
+subconjuntos arbitrarios del universo y el diagrama de Venn se dibuja precisamente en posición
+general, con los tres círculos cortándose de todas las formas posibles. Por el principio
+multiplicativo, elegir una de dos opciones tres veces seguidas produce $2\cdot 2\cdot 2=2^{3}=8$
+resultados distintos. Cada uno de esos ocho resultados es una intersección de la forma
+$A^{\pm}\cap B^{\pm}\cap C^{\pm}$, donde el signo $+$ significa el conjunto y el signo $-$
+significa su complemento. Además esas ocho regiones son disjuntas dos a dos (dos combinaciones
+distintas difieren en al menos una respuesta, y ningún punto puede estar y no estar en el mismo
+conjunto) y su unión es todo $U$ (todo punto da alguna respuesta a cada pregunta).
+
+\textbf{¿Qué tomamos?} Para tres conjuntos hay $2^{3}=8$ disposiciones, que son
+\[
+\begin{array}{llll}
+A\cap B^{c}\cap C^{c}, & A^{c}\cap B\cap C^{c}, & A^{c}\cap B^{c}\cap C, & A\cap B\cap C^{c},\\[2pt]
+A\cap B^{c}\cap C, & A^{c}\cap B\cap C, & A\cap B\cap C, & A^{c}\cap B^{c}\cap C^{c}.
+\end{array}
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Presentar las ocho disposiciones de tres conjuntos}
+\textbf{Qué hago:} dibujo una por una las ocho regiones elementales listadas en el Paso~2,
+usando siempre la misma disposición de circunferencias (tres círculos del mismo radio en
+posición general, cortándose los tres) y sombreando en cada figura exactamente una región.
+
+\textbf{¿De dónde sale?} Las ocho expresiones sombreadas son las ocho combinaciones de signos
+obtenidas en el Paso~2; el marco (rectángulo $U$ más tres círculos) es el diagrama de Venn
+estándar de tres conjuntos.
+
+\textbf{¿Por qué?} Porque presentar las disposiciones significa exhibir las piezas en que el
+diagrama corta al universo, y la única manera de mostrarlas sin ambigüedad es sombrear cada
+pieza por separado. Nótese que los tres círculos deben cortarse de a dos y también de a tres:
+si dos de ellos fueran disjuntos, alguna de las ocho regiones sería vacía y el dibujo dejaría de
+representar el caso general de tres subconjuntos arbitrarios.
+
+\textbf{¿Qué tomamos?} La colección completa de los ocho dibujos, que a la vez sirve de catálogo
+para el Ejercicio~6: cualquier región que se pida sombrear allí será una unión de algunas de
+estas ocho piezas.
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+  \begin{scope}[even odd rule]\Ain\Bout\Cout\pinta\end{scope}\marcoI
+  \node at (0,-3.15) {\small $A\cap B^{c}\cap C^{c}$};
+\end{tikzpicture}\hspace{2mm}
+\begin{tikzpicture}[scale=0.5]
+  \begin{scope}[even odd rule]\Aout\Bin\Cout\pinta\end{scope}\marcoI
+  \node at (0,-3.15) {\small $A^{c}\cap B\cap C^{c}$};
+\end{tikzpicture}\hspace{2mm}
+\begin{tikzpicture}[scale=0.5]
+  \begin{scope}[even odd rule]\Aout\Bout\Cin\pinta\end{scope}\marcoI
+  \node at (0,-3.15) {\small $A^{c}\cap B^{c}\cap C$};
+\end{tikzpicture}\hspace{2mm}
+\begin{tikzpicture}[scale=0.5]
+  \begin{scope}[even odd rule]\Ain\Bin\Cout\pinta\end{scope}\marcoI
+  \node at (0,-3.15) {\small $A\cap B\cap C^{c}$};
+\end{tikzpicture}
+
+\vspace{5mm}
+\begin{tikzpicture}[scale=0.5]
+  \begin{scope}[even odd rule]\Ain\Bout\Cin\pinta\end{scope}\marcoI
+  \node at (0,-3.15) {\small $A\cap B^{c}\cap C$};
+\end{tikzpicture}\hspace{2mm}
+\begin{tikzpicture}[scale=0.5]
+  \begin{scope}[even odd rule]\Aout\Bin\Cin\pinta\end{scope}\marcoI
+  \node at (0,-3.15) {\small $A^{c}\cap B\cap C$};
+\end{tikzpicture}\hspace{2mm}
+\begin{tikzpicture}[scale=0.5]
+  \begin{scope}[even odd rule]\Ain\Bin\Cin\pinta\end{scope}\marcoI
+  \node at (0,-3.15) {\small $A\cap B\cap C$};
+\end{tikzpicture}\hspace{2mm}
+\begin{tikzpicture}[scale=0.5]
+  \begin{scope}[even odd rule]\Aout\Bout\Cout\pinta\end{scope}\marcoI
+  \node at (0,-3.15) {\small $A^{c}\cap B^{c}\cap C^{c}$};
+\end{tikzpicture}
+\end{center}
+
+\begin{paso}{Paso 4 --- Contar las disposiciones para cuatro conjuntos}
+\textbf{Qué hago:} aplico el mismo principio multiplicativo con una pregunta más, y además
+señalo qué cambia en el dibujo al pasar de tres a cuatro conjuntos.
+
+\textbf{¿De dónde sale?} De la fórmula obtenida en los Pasos~1 y~2: el número de disposiciones
+de un diagrama de $n$ conjuntos es $2^{n}$, porque hay $n$ preguntas independientes de respuesta
+doble. Ahora $n=4$.
+
+\textbf{¿Por qué?} Con cuatro conjuntos $A$, $B$, $C$ y $D$, una región elemental queda descrita
+por una tira de cuatro respuestas ``dentro/fuera'', una por conjunto, y las cuatro decisiones son
+independientes. El principio multiplicativo da $2\cdot 2\cdot 2\cdot 2=2^{4}=16$ regiones. La
+comprobación de coherencia es inmediata: para $n=2$ la fórmula da $4$, que es el dato del
+enunciado, y para $n=3$ da $8$, que es lo que dibujamos en el Paso~3.
+
+\textbf{¿Qué tomamos?} Para cuatro conjuntos hay $2^{4}=16$ disposiciones. Sus expresiones son
+las dieciséis intersecciones $A^{\pm}\cap B^{\pm}\cap C^{\pm}\cap D^{\pm}$:
+\[
+\begin{array}{llll}
+A^{c}B^{c}C^{c}D^{c} & A\,B^{c}C^{c}D^{c} & A^{c}B\,C^{c}D^{c} & A^{c}B^{c}C\,D^{c}\\
+A^{c}B^{c}C^{c}D & A\,B\,C^{c}D^{c} & A\,B^{c}C\,D^{c} & A\,B^{c}C^{c}D\\
+A^{c}B\,C\,D^{c} & A^{c}B\,C^{c}D & A^{c}B^{c}C\,D & A\,B\,C\,D^{c}\\
+A\,B\,C^{c}D & A\,B^{c}C\,D & A^{c}B\,C\,D & A\,B\,C\,D
+\end{array}
+\]
+donde la yuxtaposición abrevia la intersección.
+\end{paso}
+
+\begin{nota}
+\textbf{Por qué el diagrama de cuatro conjuntos no se dibuja con círculos.}
+Cuatro circunferencias en el plano no pueden generar las $16$ regiones: dos circunferencias
+distintas se cortan a lo sumo en dos puntos, y ese límite hace que con cuatro círculos falten
+siempre algunas de las intersecciones múltiples. Por eso el diagrama de Venn de cuatro conjuntos
+se dibuja con cuatro elipses inclinadas, que sí se cortan lo suficiente como para producir las
+$16$ piezas. El conteo $2^{4}=16$, en cambio, no depende del dibujo: sale del principio
+multiplicativo del Paso~4.
+\end{nota}
+
+\begin{nota}
+\textbf{Sobre la palabra ``disposiciones''.}
+Si en lugar de contar las regiones elementales se contaran los \emph{sombreados posibles} del
+diagrama, el número sería distinto: elegir un sombreado equivale a decidir, para cada una de las
+$2^{n}$ regiones, si se pinta o no se pinta, lo que da $2^{2^{n}}$ posibilidades. Para $n=2$ eso
+sería $2^{4}=16$ y no $4$, de modo que esa lectura \emph{contradice} el dato que el propio
+enunciado da por conocido. Por eso en este solucionario se adopta la lectura del Paso~1
+(disposición $=$ región elemental), que es la única compatible con las ``cuatro disposiciones''
+del caso de dos conjuntos. A título informativo: con esa otra lectura habría $2^{8}=256$
+sombreados para tres conjuntos y $2^{16}=65\,536$ para cuatro.
+\end{nota}
+
+\begin{resp}
+El número de disposiciones (regiones elementales) de un diagrama de Venn de $n$ conjuntos es
+$2^{n}$, porque cada región se determina decidiendo ``dentro'' o ``fuera'' para cada uno de los
+$n$ conjuntos, y esas decisiones son independientes.
+\begin{itemize}[leftmargin=*]
+  \item Dos conjuntos: $2^{2}=4$ disposiciones (el dato del enunciado, que valida el método).
+  \item \textbf{Tres conjuntos: $2^{3}=8$ disposiciones}, presentadas en los ocho diagramas del
+  Paso~3:
+  $A\cap B^{c}\cap C^{c}$, $A^{c}\cap B\cap C^{c}$, $A^{c}\cap B^{c}\cap C$,
+  $A\cap B\cap C^{c}$, $A\cap B^{c}\cap C$, $A^{c}\cap B\cap C$, $A\cap B\cap C$ y
+  $A^{c}\cap B^{c}\cap C^{c}$.
+  \item \textbf{Cuatro conjuntos: $2^{4}=16$ disposiciones}, listadas en el Paso~4 (se dibujan
+  con cuatro elipses, no con cuatro círculos).
+\end{itemize}
+\end{resp}
+
+%=====================================================================
+\section*{Ejercicio 6}
+
+\begin{quote}
+Considere un conjunto universo $U$ y sean $A$, $B$ y $C$ subconjuntos arbitrarios de $U$.
+Represente mediante un diagrama de Venn el conjunto resultante de cada una de las siguientes
+operaciones, sombreando únicamente la región correspondiente. Debe utilizar al menos 3
+diferentes disposiciones de los diagramas en cada caso.
+
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+	\item $(A\cap B)\cup C^{c}$
+	\item $(A\cup C)\cap(B^{c}\cup A^{c})$
+	\item $(A\setminus B)\cup(B\cap C)$
+	\item $(A\cap C^{c})\cup(B\setminus A)$
+	\item $(A\cup B\cup C)^{c}$
+	\item $(A^{c}\cap B)\cup C$
+	\item $(A\cap B^{c})\cup(C\setminus A)$
+	\item $(A\cup B^{c})\cap C^{c}$
+	\item $(A\cap B\cap C)^{c}$
+	\item $(A^{c}\cup B)\cap(C\cup B^{c})$
+\end{enumerate}
+\end{quote}
+
+\begin{paso}{Paso 0 --- Fijar el método: sombrear es escoger regiones elementales}
+\textbf{Qué hago:} establezco de una vez el procedimiento que aplicaré en los diez incisos, en
+lugar de improvisar un dibujo distinto en cada uno. El procedimiento consiste en traducir la
+expresión de conjuntos a una lista de regiones elementales del diagrama y luego pintar
+exactamente esas regiones.
+
+\textbf{¿De dónde sale?} Del Ejercicio~5: allí probamos que un diagrama de tres conjuntos parte
+al universo en $2^{3}=8$ piezas disjuntas cuya unión es todo $U$. Les damos nombre para poder
+citarlas:
+\[
+\begin{array}{llll}
+R_{1}=A\cap B^{c}\cap C^{c}, & R_{2}=A^{c}\cap B\cap C^{c}, & R_{3}=A^{c}\cap B^{c}\cap C, & R_{4}=A\cap B\cap C^{c},\\[2pt]
+R_{5}=A\cap B^{c}\cap C, & R_{6}=A^{c}\cap B\cap C, & R_{7}=A\cap B\cap C, & R_{8}=A^{c}\cap B^{c}\cap C^{c}.
+\end{array}
+\]
+
+\textbf{¿Por qué?} Porque cualquier conjunto construido a partir de $A$, $B$ y $C$ con uniones,
+intersecciones, diferencias y complementos es unión de algunas de estas ocho piezas, y de
+ningún trozo de pieza: dentro de una región elemental todos los puntos dan las mismas tres
+respuestas ``dentro/fuera'', de modo que o toda la región cumple la condición o no la cumple
+ninguna parte de ella. Así, sombrear un conjunto se reduce a decidir, para cada $R_{i}$, si
+entra o no entra. Las lecturas básicas que usaremos son
+\[
+A=R_{1}\cup R_{4}\cup R_{5}\cup R_{7},\qquad
+B=R_{2}\cup R_{4}\cup R_{6}\cup R_{7},\qquad
+C=R_{3}\cup R_{5}\cup R_{6}\cup R_{7},
+\]
+y el complemento de cada conjunto es la unión de las cuatro regiones restantes.
+
+\textbf{¿Qué tomamos?} En cada inciso escribiremos primero la lista de regiones que componen el
+conjunto pedido y después el diagrama con esas regiones sombreadas. La disposición usada por
+defecto es la que llamaremos \textbf{Disposición~I}: tres círculos del mismo radio en posición
+general, que se cortan de a dos y también de a tres. Es la única que muestra las ocho regiones
+a la vez y por tanto la única válida para conjuntos \emph{arbitrarios}, que es lo que pide el
+enunciado.
+\end{paso}
+
+%---------------------------------------------------------------------
+\subsection*{(a) \ $(A\cap B)\cup C^{c}$}
+
+\begin{paso}{Paso 1 --- Descomponer cada sumando en regiones elementales}
+\textbf{Qué hago:} descompongo por separado los dos conjuntos que se unen, $A\cap B$ y $C^{c}$,
+y después junto las dos listas, porque unir conjuntos equivale a juntar sus listas de regiones.
+
+\textbf{¿De dónde sale?} Las lecturas básicas del Paso~0: $A=R_{1}\cup R_{4}\cup R_{5}\cup R_{7}$
+y $B=R_{2}\cup R_{4}\cup R_{6}\cup R_{7}$, de donde $A\cap B$ son las regiones comunes a ambas
+listas, es decir $R_{4}$ y $R_{7}$. Por su parte $C=R_{3}\cup R_{5}\cup R_{6}\cup R_{7}$, así
+que $C^{c}$ son las cuatro regiones que no aparecen ahí: $R_{1},R_{2},R_{4},R_{8}$.
+
+\textbf{¿Por qué?} Porque la intersección se queda con las regiones que están en las dos listas
+(una región está en $A\cap B$ exactamente cuando está en $A$ y en $B$), y el complemento se
+queda con las regiones que no están en la lista, ya que las ocho piezas cubren todo $U$ sin
+solaparse. La unión final acumula sin repetir: $R_{4}$ aparece en ambas listas y se cuenta una
+sola vez.
+
+\textbf{¿Qué tomamos?} La región pedida es
+\[
+(A\cap B)\cup C^{c}=R_{1}\cup R_{2}\cup R_{4}\cup R_{7}\cup R_{8},
+\]
+es decir, todo el universo salvo $R_{3}$, $R_{5}$ y $R_{6}$: se pinta todo lo que está fuera de
+$C$, y además el trozo de $C$ que queda dentro de $A$ y de $B$ a la vez.
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \Rone\Rtwo\Rfour\Rseven\Reight
+  \marcoI
+\end{tikzpicture}
+\end{center}
+
+%---------------------------------------------------------------------
+\subsection*{(b) \ $(A\cup C)\cap(B^{c}\cup A^{c})$}
+
+\begin{paso}{Paso 1 --- Descomponer cada factor y luego intersecar las listas}
+\textbf{Qué hago:} descompongo el primer factor $A\cup C$, después el segundo factor
+$B^{c}\cup A^{c}$, y finalmente me quedo con las regiones que aparecen en las dos listas, porque
+los factores están unidos por una intersección.
+
+\textbf{¿De dónde sale?} Del Paso~0: $A=R_{1}\cup R_{4}\cup R_{5}\cup R_{7}$ y
+$C=R_{3}\cup R_{5}\cup R_{6}\cup R_{7}$, luego
+$A\cup C=R_{1}\cup R_{3}\cup R_{4}\cup R_{5}\cup R_{6}\cup R_{7}$. Para el segundo factor conviene
+observar que $B^{c}\cup A^{c}=(A\cap B)^{c}$ por De Morgan, y $A\cap B=R_{4}\cup R_{7}$ como se
+vio en el inciso~(a); por tanto $B^{c}\cup A^{c}=R_{1}\cup R_{2}\cup R_{3}\cup R_{5}\cup R_{6}\cup R_{8}$.
+
+\textbf{¿Por qué?} Porque la unión acumula todas las regiones de ambos conjuntos y la
+intersección conserva solo las repetidas. Al cruzar las dos listas, de la primera sobreviven
+$R_{1},R_{3},R_{5},R_{6}$ (están también en la segunda) y se caen $R_{4}$ y $R_{7}$, que son
+precisamente las dos regiones de $A\cap B$ que el segundo factor prohíbe.
+
+\textbf{¿Qué tomamos?} La región pedida es
+\[
+(A\cup C)\cap(B^{c}\cup A^{c})=R_{1}\cup R_{3}\cup R_{5}\cup R_{6}=(A\cup C)\setminus(A\cap B),
+\]
+o sea: todo $A\cup C$ menos la lente central donde $A$ y $B$ se solapan.
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \Rone\Rthree\Rfive\Rsix
+  \marcoI
+\end{tikzpicture}
+\end{center}
+
+%---------------------------------------------------------------------
+\subsection*{(c) \ $(A\setminus B)\cup(B\cap C)$}
+
+\begin{paso}{Paso 1 --- Traducir la diferencia y descomponer}
+\textbf{Qué hago:} primero convierto la diferencia en intersección con el complemento, para
+poder leerla en la lista de regiones, y después descompongo los dos sumandos.
+
+\textbf{¿De dónde sale?} Por definición de diferencia, $A\setminus B=A\cap B^{c}$. Con
+$A=R_{1}\cup R_{4}\cup R_{5}\cup R_{7}$ y $B^{c}=R_{1}\cup R_{3}\cup R_{5}\cup R_{8}$, las regiones
+comunes son $R_{1}$ y $R_{5}$. Para el segundo sumando, $B=R_{2}\cup R_{4}\cup R_{6}\cup R_{7}$ y
+$C=R_{3}\cup R_{5}\cup R_{6}\cup R_{7}$ tienen en común $R_{6}$ y $R_{7}$.
+
+\textbf{¿Por qué?} Porque quitarle $B$ a $A$ deja exactamente los trozos de $A$ que caen fuera de
+$B$, que son el trozo exclusivo de $A$ ($R_{1}$) y el trozo que $A$ comparte solo con $C$
+($R_{5}$). Y $B\cap C$ es la lente entre $B$ y $C$, formada por el trozo que excluye a $A$
+($R_{6}$) y el centro común a los tres ($R_{7}$). La unión junta las dos listas.
+
+\textbf{¿Qué tomamos?} La región pedida es
+\[
+(A\setminus B)\cup(B\cap C)=R_{1}\cup R_{5}\cup R_{6}\cup R_{7}.
+\]
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \Rone\Rfive\Rsix\Rseven
+  \marcoI
+\end{tikzpicture}
+\end{center}
+
+%---------------------------------------------------------------------
+\subsection*{(d) \ $(A\cap C^{c})\cup(B\setminus A)$}
+
+\begin{paso}{Paso 1 --- Descomponer los dos sumandos}
+\textbf{Qué hago:} calculo por separado la parte de $A$ que queda fuera de $C$ y la parte de $B$
+que queda fuera de $A$, y luego uno ambas listas.
+
+\textbf{¿De dónde sale?} $A=R_{1}\cup R_{4}\cup R_{5}\cup R_{7}$ y
+$C^{c}=R_{1}\cup R_{2}\cup R_{4}\cup R_{8}$ tienen en común $R_{1}$ y $R_{4}$. Por otro lado,
+$B\setminus A=B\cap A^{c}$ por definición de diferencia, y $B=R_{2}\cup R_{4}\cup R_{6}\cup R_{7}$
+con $A^{c}=R_{2}\cup R_{3}\cup R_{6}\cup R_{8}$ tienen en común $R_{2}$ y $R_{6}$.
+
+\textbf{¿Por qué?} Porque intersecar con $C^{c}$ significa borrar de $A$ todo lo que toque a
+$C$: de las cuatro piezas de $A$ desaparecen $R_{5}$ y $R_{7}$, que son las que están dentro de
+$C$. Del mismo modo, restarle $A$ a $B$ borra las piezas $R_{4}$ y $R_{7}$, que son las que
+están dentro de $A$. La unión final acumula las cuatro piezas supervivientes, todas distintas.
+
+\textbf{¿Qué tomamos?} La región pedida es
+\[
+(A\cap C^{c})\cup(B\setminus A)=R_{1}\cup R_{2}\cup R_{4}\cup R_{6}.
+\]
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \Rone\Rtwo\Rfour\Rsix
+  \marcoI
+\end{tikzpicture}
+\end{center}
+
+%---------------------------------------------------------------------
+\subsection*{(e) \ $(A\cup B\cup C)^{c}$}
+
+\begin{paso}{Paso 1 --- Unir las tres listas y complementar}
+\textbf{Qué hago:} formo primero la lista de $A\cup B\cup C$ y después me quedo con las regiones
+que \emph{no} aparecen en ella.
+
+\textbf{¿De dónde sale?} Del Paso~0: $A$ aporta $R_{1},R_{4},R_{5},R_{7}$; $B$ aporta
+$R_{2},R_{4},R_{6},R_{7}$; $C$ aporta $R_{3},R_{5},R_{6},R_{7}$. Reunidas sin repetir, esas
+listas dan $R_{1},R_{2},R_{3},R_{4},R_{5},R_{6},R_{7}$: siete de las ocho regiones.
+
+\textbf{¿Por qué?} Porque una región elemental está en $A\cup B\cup C$ si está dentro de al menos
+uno de los tres conjuntos, y la única de las ocho que está fuera de los tres a la vez es
+$R_{8}=A^{c}\cap B^{c}\cap C^{c}$. Al complementar respecto de $U$, esa es exactamente la única
+que sobrevive. Se puede confirmar con De Morgan: $(A\cup B\cup C)^{c}=A^{c}\cap B^{c}\cap C^{c}$,
+que es la definición misma de $R_{8}$.
+
+\textbf{¿Qué tomamos?} La región pedida es $R_{8}$: la zona del rectángulo que queda fuera de los
+tres círculos.
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \Reight
+  \marcoI
+\end{tikzpicture}
+\end{center}
+
+%---------------------------------------------------------------------
+\subsection*{(f) \ $(A^{c}\cap B)\cup C$}
+
+\begin{paso}{Paso 1 --- Descomponer los dos sumandos}
+\textbf{Qué hago:} calculo la parte de $B$ que queda fuera de $A$ y le uno el conjunto $C$
+completo.
+
+\textbf{¿De dónde sale?} $A^{c}=R_{2}\cup R_{3}\cup R_{6}\cup R_{8}$ y
+$B=R_{2}\cup R_{4}\cup R_{6}\cup R_{7}$ tienen en común $R_{2}$ y $R_{6}$; y $C$ es, por el
+Paso~0, $R_{3}\cup R_{5}\cup R_{6}\cup R_{7}$.
+
+\textbf{¿Por qué?} Porque $A^{c}\cap B$ es la media luna de $B$ que no toca a $A$, formada por el
+trozo exclusivo de $B$ ($R_{2}$) y el trozo que $B$ comparte solo con $C$ ($R_{6}$). Al unirle
+$C$ entero se añaden $R_{3},R_{5},R_{7}$, mientras que $R_{6}$ ya estaba y no se repite. Nótese
+que $R_{1}$, $R_{4}$ y $R_{8}$ quedan fuera: no están en $C$ ni en la media luna de $B$.
+
+\textbf{¿Qué tomamos?} La región pedida es
+\[
+(A^{c}\cap B)\cup C=R_{2}\cup R_{3}\cup R_{5}\cup R_{6}\cup R_{7}.
+\]
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \Rtwo\Rthree\Rfive\Rsix\Rseven
+  \marcoI
+\end{tikzpicture}
+\end{center}
+
+%---------------------------------------------------------------------
+\subsection*{(g) \ $(A\cap B^{c})\cup(C\setminus A)$}
+
+\begin{paso}{Paso 1 --- Descomponer los dos sumandos}
+\textbf{Qué hago:} calculo la parte de $A$ que queda fuera de $B$ y la parte de $C$ que queda
+fuera de $A$, y uno ambas listas.
+
+\textbf{¿De dónde sale?} $A=R_{1}\cup R_{4}\cup R_{5}\cup R_{7}$ y
+$B^{c}=R_{1}\cup R_{3}\cup R_{5}\cup R_{8}$ comparten $R_{1}$ y $R_{5}$. Y
+$C\setminus A=C\cap A^{c}$ por definición de diferencia, con
+$C=R_{3}\cup R_{5}\cup R_{6}\cup R_{7}$ y $A^{c}=R_{2}\cup R_{3}\cup R_{6}\cup R_{8}$, que
+comparten $R_{3}$ y $R_{6}$.
+
+\textbf{¿Por qué?} Porque quitarle $B$ a $A$ elimina de $A$ las piezas $R_{4}$ y $R_{7}$, y
+quitarle $A$ a $C$ elimina de $C$ las piezas $R_{5}$ y $R_{7}$. Las cuatro piezas restantes son
+distintas entre sí, de modo que la unión simplemente las junta.
+
+\textbf{¿Qué tomamos?} La región pedida es
+\[
+(A\cap B^{c})\cup(C\setminus A)=R_{1}\cup R_{3}\cup R_{5}\cup R_{6},
+\]
+que coincide exactamente con la región obtenida en el inciso~(b). Los dos incisos describen
+entonces el mismo conjunto con expresiones distintas, y por eso sus diagramas son idénticos.
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \Rone\Rthree\Rfive\Rsix
+  \marcoI
+\end{tikzpicture}
+\end{center}
+
+%---------------------------------------------------------------------
+\subsection*{(h) \ $(A\cup B^{c})\cap C^{c}$}
+
+\begin{paso}{Paso 1 --- Descomponer el factor de la izquierda y cortar con $C^{c}$}
+\textbf{Qué hago:} formo la lista de $A\cup B^{c}$ y después elimino de ella todas las regiones
+que estén dentro de $C$, porque el segundo factor es $C^{c}$.
+
+\textbf{¿De dónde sale?} $A=R_{1}\cup R_{4}\cup R_{5}\cup R_{7}$ y
+$B^{c}=R_{1}\cup R_{3}\cup R_{5}\cup R_{8}$; su unión, sin repetir, es
+$A\cup B^{c}=R_{1}\cup R_{3}\cup R_{4}\cup R_{5}\cup R_{7}\cup R_{8}$. Además
+$C^{c}=R_{1}\cup R_{2}\cup R_{4}\cup R_{8}$.
+
+\textbf{¿Por qué?} Porque intersecar dos conjuntos equivale a quedarse con las regiones comunes a
+las dos listas. Cruzándolas: $R_{1}$ está en ambas, $R_{4}$ está en ambas, $R_{8}$ está en ambas;
+en cambio $R_{3},R_{5},R_{7}$ están dentro de $C$ y por eso el factor $C^{c}$ los descarta, y
+$R_{2}$ no está en $A\cup B^{c}$ porque pertenece a $B$ y no a $A$.
+
+\textbf{¿Qué tomamos?} La región pedida es
+\[
+(A\cup B^{c})\cap C^{c}=R_{1}\cup R_{4}\cup R_{8}.
+\]
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \Rone\Rfour\Reight
+  \marcoI
+\end{tikzpicture}
+\end{center}
+
+%---------------------------------------------------------------------
+\subsection*{(i) \ $(A\cap B\cap C)^{c}$}
+
+\begin{paso}{Paso 1 --- Identificar la región central y complementarla}
+\textbf{Qué hago:} localizo la lista de $A\cap B\cap C$ y me quedo con todas las demás regiones.
+
+\textbf{¿De dónde sale?} Por la propia definición dada en el Paso~0, la región
+$R_{7}=A\cap B\cap C$ es una de las ocho piezas elementales: es el trozo central donde los tres
+círculos se superponen.
+
+\textbf{¿Por qué?} Porque el complemento respecto de $U$ conserva exactamente las regiones que no
+están en el conjunto, y las ocho piezas cubren $U$ sin traslaparse. Como $A\cap B\cap C$ es
+justamente una de ellas, su complemento son las siete restantes. Equivalentemente, por De Morgan
+$(A\cap B\cap C)^{c}=A^{c}\cup B^{c}\cup C^{c}$: basta con estar fuera de uno solo de los tres
+conjuntos para pertenecer a la región sombreada.
+
+\textbf{¿Qué tomamos?} La región pedida es
+\[
+(A\cap B\cap C)^{c}=R_{1}\cup R_{2}\cup R_{3}\cup R_{4}\cup R_{5}\cup R_{6}\cup R_{8},
+\]
+es decir, todo el rectángulo excepto el pétalo central.
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \Rone\Rtwo\Rthree\Rfour\Rfive\Rsix\Reight
+  \marcoI
+\end{tikzpicture}
+\end{center}
+
+%---------------------------------------------------------------------
+\subsection*{(j) \ $(A^{c}\cup B)\cap(C\cup B^{c})$}
+
+\begin{paso}{Paso 1 --- Descomponer los dos factores}
+\textbf{Qué hago:} escribo la lista de cada uno de los dos factores por separado, antes de
+cruzarlas.
+
+\textbf{¿De dónde sale?} Del Paso~0. Primer factor: $A^{c}=R_{2}\cup R_{3}\cup R_{6}\cup R_{8}$ y
+$B=R_{2}\cup R_{4}\cup R_{6}\cup R_{7}$, luego
+$A^{c}\cup B=R_{2}\cup R_{3}\cup R_{4}\cup R_{6}\cup R_{7}\cup R_{8}$. Segundo factor:
+$C=R_{3}\cup R_{5}\cup R_{6}\cup R_{7}$ y $B^{c}=R_{1}\cup R_{3}\cup R_{5}\cup R_{8}$, luego
+$C\cup B^{c}=R_{1}\cup R_{3}\cup R_{5}\cup R_{6}\cup R_{7}\cup R_{8}$.
+
+\textbf{¿Por qué?} Porque en una unión se acumulan las regiones de ambos conjuntos sin repetir, y
+conviene tener las dos listas completas antes de intersecar para no olvidar ninguna pieza. Cada
+lista tiene seis de las ocho regiones: al primer factor le faltan $R_{1}$ y $R_{5}$ (las piezas
+que están en $A$ pero no en $B$), y al segundo le faltan $R_{2}$ y $R_{4}$ (las piezas que están
+en $B$ pero no en $C$).
+
+\textbf{¿Qué tomamos?} Guardamos las dos listas para cruzarlas en el paso siguiente.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Cruzar las listas y sombrear}
+\textbf{Qué hago:} me quedo con las regiones que aparecen simultáneamente en las dos listas del
+Paso~1, porque los factores están unidos por una intersección.
+
+\textbf{¿De dónde sale?} Las dos listas obtenidas en el Paso~1:
+$\{R_{2},R_{3},R_{4},R_{6},R_{7},R_{8}\}$ y $\{R_{1},R_{3},R_{5},R_{6},R_{7},R_{8}\}$.
+
+\textbf{¿Por qué?} Porque una región está en la intersección exactamente cuando está en los dos
+factores. Reviso una por una: $R_{1}$ falta en la primera, se descarta; $R_{2}$ falta en la
+segunda, se descarta; $R_{3}$ está en las dos, entra; $R_{4}$ falta en la segunda, se descarta;
+$R_{5}$ falta en la primera, se descarta; $R_{6}$, $R_{7}$ y $R_{8}$ están en las dos, entran.
+
+\textbf{¿Qué tomamos?} La región pedida es
+\[
+(A^{c}\cup B)\cap(C\cup B^{c})=R_{3}\cup R_{6}\cup R_{7}\cup R_{8},
+\]
+esto es: todo $C$ salvo el trozo $R_{5}$ que $C$ comparte con $A$ sin $B$, más la zona exterior
+a los tres conjuntos.
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \Rthree\Rsix\Rseven\Reight
+  \marcoI
+\end{tikzpicture}
+\end{center}
+
+%---------------------------------------------------------------------
+\subsection*{Las otras dos disposiciones que exige el enunciado}
+
+\begin{paso}{Paso 1 --- Elegir dos disposiciones particulares y decir qué representa cada una}
+\textbf{Qué hago:} además de la Disposición~I usada en los diez incisos, presento dos
+disposiciones más y redibujo con ellas algunos incisos, tal como pide el enunciado al exigir al
+menos tres disposiciones distintas de los diagramas.
+
+\textbf{¿De dónde sale?} Del enunciado del Ejercicio~6, que además de sombrear pide variar la
+disposición de los diagramas. Las dos nuevas se obtienen moviendo los círculos hasta anular
+alguna de las ocho regiones del Paso~0.
+
+\textbf{¿Por qué?} Porque la posición relativa de los círculos codifica hipótesis adicionales
+sobre los conjuntos. En la \textbf{Disposición~II} el círculo $C$ se dibuja separado de $A$ y de
+$B$: eso representa el caso $A\cap C=\varnothing$ y $B\cap C=\varnothing$, y en él se anulan las
+regiones $R_{5}$, $R_{6}$ y $R_{7}$. En la \textbf{Disposición~III} el círculo $C$ se dibuja
+dentro de $B$ y separado de $A$: eso representa el caso $C\subseteq B$ con $A\cap C=\varnothing$,
+y en él se anulan $R_{3}$, $R_{5}$ y $R_{7}$. Conviene subrayar que estas dos disposiciones son
+casos particulares: sirven para ilustrar y para comprobar resultados, pero la respuesta general
+de cada inciso, válida para conjuntos arbitrarios, es la de la Disposición~I.
+
+\textbf{¿Qué tomamos?} Redibujamos con la Disposición~II los incisos (a), (e) y (f), y con la
+Disposición~III los incisos (c), (i) y (j), recalculando en cada caso qué regiones sobreviven.
+\end{paso}
+
+\begin{center}
+\textbf{Disposición II} \quad ($A\cap C=\varnothing$, $B\cap C=\varnothing$; se anulan $R_{5},R_{6},R_{7}$)
+
+\vspace{2mm}
+\begin{tikzpicture}[scale=0.8]
+  \begin{scope}[even odd rule]\dCout\pintaII\end{scope}
+  \marcoII
+  \node at (0,-2.95) {\small (a) $(A\cap B)\cup C^{c}$};
+\end{tikzpicture}\hspace{4mm}
+\begin{tikzpicture}[scale=0.8]
+  \begin{scope}[even odd rule]\dAout\dBout\dCout\pintaII\end{scope}
+  \marcoII
+  \node at (0,-2.95) {\small (e) $(A\cup B\cup C)^{c}$};
+\end{tikzpicture}\hspace{4mm}
+\begin{tikzpicture}[scale=0.8]
+  \begin{scope}[even odd rule]\dAout\dBin\pintaII\end{scope}
+  \begin{scope}[even odd rule]\dCin\pintaII\end{scope}
+  \marcoII
+  \node at (0,-2.95) {\small (f) $(A^{c}\cap B)\cup C$};
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\textbf{Disposición III} \quad ($C\subseteq B$ y $A\cap C=\varnothing$; se anulan $R_{3},R_{5},R_{7}$)
+
+\vspace{2mm}
+\begin{tikzpicture}[scale=0.8]
+  \begin{scope}[even odd rule]\eAin\eBout\pintaIII\end{scope}
+  \begin{scope}[even odd rule]\eCin\pintaIII\end{scope}
+  \marcoIII
+  \node at (0,-2.65) {\small (c) $(A\setminus B)\cup(B\cap C)$};
+\end{tikzpicture}\hspace{4mm}
+\begin{tikzpicture}[scale=0.8]
+  \pintaIII
+  \marcoIII
+  \node at (0,-2.65) {\small (i) $(A\cap B\cap C)^{c}$};
+\end{tikzpicture}\hspace{4mm}
+\begin{tikzpicture}[scale=0.8]
+  \begin{scope}[even odd rule]\eCin\pintaIII\end{scope}
+  \begin{scope}[even odd rule]\eAout\eBout\pintaIII\end{scope}
+  \marcoIII
+  \node at (0,-2.65) {\small (j) $(A^{c}\cup B)\cap(C\cup B^{c})$};
+\end{tikzpicture}
+\end{center}
+
+\begin{nota}
+\textbf{Lectura de los tres dibujos particulares de la Disposición~III.}
+En (c) desaparece el trozo $R_{5}$ y $B\cap C$ pasa a ser todo $C$, porque $C$ está contenido en
+$B$; queda sombreado $A\setminus B$ junto con $C$. En (i) la región central $A\cap B\cap C$ es
+vacía, ya que $A$ y $C$ no se tocan, y por eso su complemento es \emph{todo} el universo: el
+diagrama aparece completamente sombreado. En (j) sobreviven solo $R_{6}$, que aquí es todo $C$,
+y $R_{8}$, la zona exterior. Estos tres casos muestran por qué una disposición particular no
+puede sustituir a la general: en ella hay igualdades que se cumplen por accidente de la posición
+de los círculos y no por la expresión de conjuntos.
+\end{nota}
+
+\begin{resp}
+Con las ocho regiones $R_{1},\dots,R_{8}$ del Paso~0, las regiones sombreadas son:
+\begin{align*}
+	\text{(a)}\ & R_{1}\cup R_{2}\cup R_{4}\cup R_{7}\cup R_{8} &
+	\text{(b)}\ & R_{1}\cup R_{3}\cup R_{5}\cup R_{6}\\
+	\text{(c)}\ & R_{1}\cup R_{5}\cup R_{6}\cup R_{7} &
+	\text{(d)}\ & R_{1}\cup R_{2}\cup R_{4}\cup R_{6}\\
+	\text{(e)}\ & R_{8} &
+	\text{(f)}\ & R_{2}\cup R_{3}\cup R_{5}\cup R_{6}\cup R_{7}\\
+	\text{(g)}\ & R_{1}\cup R_{3}\cup R_{5}\cup R_{6} &
+	\text{(h)}\ & R_{1}\cup R_{4}\cup R_{8}\\
+	\text{(i)}\ & \text{todas menos } R_{7} &
+	\text{(j)}\ & R_{3}\cup R_{6}\cup R_{7}\cup R_{8}
+\end{align*}
+Cada una está dibujada en la Disposición~I (tres círculos en posición general), y además se
+emplearon la Disposición~II ($C$ disjunto de $A$ y de $B$) y la Disposición~III ($C\subseteq B$
+con $A\cap C=\varnothing$), con lo que se cumple el requisito de usar al menos tres disposiciones
+distintas. Obsérvese que los incisos (b) y (g) producen la misma región, de modo que
+$(A\cup C)\cap(B^{c}\cup A^{c})=(A\cap B^{c})\cup(C\setminus A)$.
+\end{resp}
+
+%=====================================================================
+\section*{Ejercicio 7}
+
+\begin{quote}
+En las siguientes ecuaciones, asuma que todos los conjuntos pertenecen a un mismo universo.
+Implementando únicamente propiedades, verifique justificando cada paso las siguientes
+propiedades:
+
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+	\item $(A\setminus B)\cup(B\setminus A)=(A\cup B)\cap(A^{c}\cup B^{c})$
+	\item $(A\cup B)\setminus B=A\setminus(A\cap B)$
+	\item $(A\cup B)\setminus A=B\setminus A$
+	\item $A\setminus(A\cap B^{c})=A\cap B$
+	\item $(A\cup B)^{c}\cap C=C\setminus(C\cap(A\cup B))$
+\end{enumerate}
+\end{quote}
+
+\begin{nota}
+\textbf{Restricción del enunciado que gobierna todo el Ejercicio~7.}
+El enunciado ordena verificar ``implementando únicamente propiedades''. Por lo tanto, en todo
+este ejercicio no se usará ningún diagrama de Venn ni ningún razonamiento del tipo ``sea
+$x\in\dots$''. Cada renglón de cada cadena de igualdades irá acompañado del nombre de la
+propiedad que lo justifica, tomada de la lista (P1)--(P15) de la caja de teoría.
+\end{nota}
+
+%---------------------------------------------------------------------
+\subsection*{(a) \ $(A\setminus B)\cup(B\setminus A)=(A\cup B)\cap(A^{c}\cup B^{c})$}
+
+\begin{paso}{Paso 1 --- Eliminar las dos diferencias con la definición de diferencia}
+\textbf{Qué hago:} aplico la definición de diferencia (P1) a los dos paréntesis del lado
+izquierdo, para que en la expresión solo queden unión, intersección y complemento.
+
+\textbf{¿De dónde sale?} Los dos términos $A\setminus B$ y $B\setminus A$ son literalmente los
+del lado izquierdo del inciso~(a) del enunciado.
+
+\textbf{¿Por qué?} La propiedad (P1) dice, en general, que para conjuntos cualesquiera $X$ e $Y$
+se cumple $X\setminus Y=X\cap Y^{c}$. Se puede aplicar aquí dos veces: con $X=A$, $Y=B$ da
+$A\setminus B=A\cap B^{c}$; con $X=B$, $Y=A$ da $B\setminus A=B\cap A^{c}$. Este paso es
+obligatorio antes de cualquier otro, porque la diferencia no es conmutativa ni asociativa ni
+distributiva, de modo que ninguna de las leyes (P3)--(P13) puede tocar una expresión que
+contenga el símbolo $\setminus$.
+
+\textbf{¿Qué tomamos?} Nos quedamos con el lado izquierdo reescrito solo con $\cup$, $\cap$ y
+$^{c}$:
+\[
+(A\setminus B)\cup(B\setminus A)=(A\cap B^{c})\cup(B\cap A^{c}).
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Distribuir la unión sobre la primera intersección}
+\textbf{Qué hago:} aplico la distributiva de $\cup$ sobre $\cap$, propiedad (P6), tomando como
+término que se distribuye el bloque $A\cap B^{c}$ y como paréntesis de intersección el bloque
+$B\cap A^{c}$.
+
+\textbf{¿De dónde sale?} De la expresión $(A\cap B^{c})\cup(B\cap A^{c})$ obtenida en el Paso~1.
+
+\textbf{¿Por qué?} La propiedad (P6) afirma que para conjuntos cualesquiera $X,Y,Z$ se cumple
+$X\cup(Y\cap Z)=(X\cup Y)\cap(X\cup Z)$. Aquí la instanciamos con $X=A\cap B^{c}$ (un conjunto
+como cualquier otro: la ley vale para conjuntos arbitrarios, no solo para letras sueltas), $Y=B$
+y $Z=A^{c}$. Al aplicarla, el bloque $A\cap B^{c}$ se copia en los dos factores nuevos.
+
+\textbf{¿Qué tomamos?} Guardamos la expresión factorizada
+\[
+(A\cap B^{c})\cup(B\cap A^{c})=\bigl[(A\cap B^{c})\cup B\bigr]\cap\bigl[(A\cap B^{c})\cup A^{c}\bigr].
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Simplificar el primer factor $(A\cap B^{c})\cup B$}
+\textbf{Qué hago:} trabajo por separado el factor de la izquierda, distribuyendo de nuevo con
+(P6) y luego usando complementación y elemento neutro.
+
+\textbf{¿De dónde sale?} El factor $(A\cap B^{c})\cup B$ es el primero de los dos corchetes
+producidos en el Paso~2.
+
+\textbf{¿Por qué?} Aplico (P6) con $X=B$, $Y=A$, $Z=B^{c}$, tras conmutar la unión con (P3) para
+poner $B$ delante:
+\[
+(A\cap B^{c})\cup B \overset{\text{(P3)}}{=} B\cup(A\cap B^{c})
+\overset{\text{(P6)}}{=} (B\cup A)\cap(B\cup B^{c}).
+\]
+Ahora el segundo factor es exactamente el patrón de la propiedad de complementación (P13),
+$X\cup X^{c}=U$, que es válida porque todo elemento del universo está en $B$ o está fuera de
+$B$: $B\cup B^{c}=U$. Y con el elemento neutro de la intersección (P9), $X\cap U=X$, el $U$
+desaparece. Por último (P3) reordena $B\cup A$ como $A\cup B$.
+
+\textbf{¿Qué tomamos?} El primer factor se reduce a
+\[
+(A\cap B^{c})\cup B=(A\cup B)\cap U=A\cup B.
+\]
+\end{paso}
+
+\begin{paso}{Paso 4 --- Simplificar el segundo factor $(A\cap B^{c})\cup A^{c}$}
+\textbf{Qué hago:} repito el procedimiento del Paso~3, ahora en el corchete de la derecha.
+
+\textbf{¿De dónde sale?} El factor $(A\cap B^{c})\cup A^{c}$ es el segundo corchete producido en
+el Paso~2.
+
+\textbf{¿Por qué?} Conmuto con (P3) para dejar $A^{c}$ al frente y distribuyo con (P6), esta vez
+con $X=A^{c}$, $Y=A$, $Z=B^{c}$:
+\[
+(A\cap B^{c})\cup A^{c} \overset{\text{(P3)}}{=} A^{c}\cup(A\cap B^{c})
+\overset{\text{(P6)}}{=} (A^{c}\cup A)\cap(A^{c}\cup B^{c}).
+\]
+El primer factor es de nuevo el patrón de complementación (P13): $A^{c}\cup A=A\cup A^{c}=U$,
+usando también (P3). Y (P9), $U\cap X=X$, elimina el $U$.
+
+\textbf{¿Qué tomamos?} El segundo factor se reduce a
+\[
+(A\cap B^{c})\cup A^{c}=U\cap(A^{c}\cup B^{c})=A^{c}\cup B^{c}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 5 --- Recomponer la cadena completa}
+\textbf{Qué hago:} sustituyo en la expresión del Paso~2 los dos factores ya simplificados en los
+Pasos~3 y~4, y escribo la cadena de igualdades completa con su justificación renglón a renglón.
+
+\textbf{¿De dónde sale?} Del Paso~2 sale la estructura de dos factores; del Paso~3 sale que el
+primero vale $A\cup B$; del Paso~4 sale que el segundo vale $A^{c}\cup B^{c}$.
+
+\textbf{¿Por qué?} Porque la igualdad de conjuntos es transitiva: si cada renglón es igual al
+anterior por una propiedad válida, el primero es igual al último. Reunimos todo:
+\begin{align*}
+(A\setminus B)\cup(B\setminus A)
+&=(A\cap B^{c})\cup(B\cap A^{c}) && \text{(P1) definición de diferencia, dos veces}\\
+&=\bigl[(A\cap B^{c})\cup B\bigr]\cap\bigl[(A\cap B^{c})\cup A^{c}\bigr] && \text{(P6) distributiva de }\cup\text{ sobre }\cap\\
+&=\bigl[(A\cup B)\cap(B\cup B^{c})\bigr]\cap\bigl[(A^{c}\cup A)\cap(A^{c}\cup B^{c})\bigr] && \text{(P3) conmutativa y (P6) otra vez}\\
+&=\bigl[(A\cup B)\cap U\bigr]\cap\bigl[U\cap(A^{c}\cup B^{c})\bigr] && \text{(P13) complementación}\\
+&=(A\cup B)\cap(A^{c}\cup B^{c}) && \text{(P9) elemento neutro}
+\end{align*}
+
+\textbf{¿Qué tomamos?} El último renglón es exactamente el lado derecho del enunciado, de modo
+que la igualdad queda verificada usando solo propiedades.
+\end{paso}
+
+\begin{resp}
+Queda verificado que $(A\setminus B)\cup(B\setminus A)=(A\cup B)\cap(A^{c}\cup B^{c})$, mediante
+la cadena definición de diferencia $\to$ distributiva de $\cup$ sobre $\cap$ (dos veces) $\to$
+conmutativa $\to$ complementación $\to$ elemento neutro. Como el lado izquierdo es, por
+definición, $A\triangle B$, lo demostrado dice además que
+$A\triangle B=(A\cup B)\cap(A\cap B)^{c}=(A\cup B)\setminus(A\cap B)$.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(b) \ $(A\cup B)\setminus B=A\setminus(A\cap B)$}
+
+\begin{paso}{Paso 1 --- Convertir la diferencia del lado izquierdo}
+\textbf{Qué hago:} aplico la definición de diferencia (P1) al lado izquierdo para quitar el
+símbolo $\setminus$.
+
+\textbf{¿De dónde sale?} La expresión $(A\cup B)\setminus B$ es el lado izquierdo del inciso~(b).
+
+\textbf{¿Por qué?} Por (P1), $X\setminus Y=X\cap Y^{c}$ para conjuntos cualesquiera; aquí
+$X=A\cup B$ (que es un conjunto perfectamente legítimo, aunque esté escrito como una unión) e
+$Y=B$. Mientras el $\setminus$ siga presente no se puede distribuir, y distribuir es
+justamente lo que necesitamos para separar el papel de $A$ y el de $B$.
+
+\textbf{¿Qué tomamos?} $(A\cup B)\setminus B=(A\cup B)\cap B^{c}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Distribuir la intersección sobre la unión}
+\textbf{Qué hago:} aplico la distributiva de $\cap$ sobre $\cup$, propiedad (P5), para repartir
+$B^{c}$ entre los dos sumandos de $A\cup B$.
+
+\textbf{¿De dónde sale?} De la expresión $(A\cup B)\cap B^{c}$ obtenida en el Paso~1.
+
+\textbf{¿Por qué?} La propiedad (P5) dice que $X\cap(Y\cup Z)=(X\cap Y)\cup(X\cap Z)$. Aquí la
+usamos con $X=B^{c}$, $Y=A$, $Z=B$, después de conmutar con (P3) para poner $B^{c}$ al frente;
+como la intersección es conmutativa, el resultado puede escribirse igualmente con $B^{c}$ a la
+derecha de cada bloque. Este paso es el que hace aparecer el par $B\cap B^{c}$, que es el que
+después se anula.
+
+\textbf{¿Qué tomamos?} $(A\cup B)\cap B^{c}=(A\cap B^{c})\cup(B\cap B^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Anular el término $B\cap B^{c}$ por complementación}
+\textbf{Qué hago:} aplico la propiedad de complementación (P13) al segundo sumando.
+
+\textbf{¿De dónde sale?} El sumando $B\cap B^{c}$ apareció en el Paso~2 al distribuir.
+
+\textbf{¿Por qué?} Por (P13), $X\cap X^{c}=\varnothing$ para todo conjunto $X$: un elemento no
+puede pertenecer a $X$ y a la vez estar fuera de $X$, así que la intersección no tiene ningún
+elemento. Con $X=B$ obtenemos $B\cap B^{c}=\varnothing$. El paso es puramente sustitutivo:
+reemplazamos un subtérmino por otro que le es igual.
+
+\textbf{¿Qué tomamos?} $(A\cap B^{c})\cup(B\cap B^{c})=(A\cap B^{c})\cup\varnothing$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Quitar el conjunto vacío con el elemento neutro}
+\textbf{Qué hago:} aplico el elemento neutro de la unión, propiedad (P9), para borrar el
+$\varnothing$.
+
+\textbf{¿De dónde sale?} El $\varnothing$ es el que produjo la complementación en el Paso~3.
+
+\textbf{¿Por qué?} Por (P9), $X\cup\varnothing=X$ para todo conjunto $X$: unirle a $X$ un
+conjunto sin elementos no le agrega nada. Con $X=A\cap B^{c}$ el vacío desaparece y termina la
+reducción del lado izquierdo.
+
+\textbf{¿Qué tomamos?} El lado izquierdo quedó reducido a su forma más simple:
+\[
+(A\cup B)\setminus B=A\cap B^{c}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 5 --- Convertir la diferencia del lado derecho}
+\textbf{Qué hago:} empiezo ahora con el lado derecho, aplicándole también la definición de
+diferencia (P1).
+
+\textbf{¿De dónde sale?} La expresión $A\setminus(A\cap B)$ es el lado derecho del inciso~(b).
+
+\textbf{¿Por qué?} Por (P1) con $X=A$ e $Y=A\cap B$: la definición no exige que el conjunto que
+se resta sea una letra suelta, sirve para cualquier conjunto, y $A\cap B$ lo es. Reducir los dos
+lados por separado hasta una forma común es una estrategia legítima, porque la igualdad de
+conjuntos es simétrica y transitiva.
+
+\textbf{¿Qué tomamos?} $A\setminus(A\cap B)=A\cap(A\cap B)^{c}$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Meter el complemento hacia dentro con De Morgan}
+\textbf{Qué hago:} aplico la ley de De Morgan (P7) al paréntesis complementado $(A\cap B)^{c}$.
+
+\textbf{¿De dónde sale?} Del resultado del Paso~5, $A\cap(A\cap B)^{c}$.
+
+\textbf{¿Por qué?} Por (P7), $(X\cap Y)^{c}=X^{c}\cup Y^{c}$: estar fuera de la intersección de
+dos conjuntos equivale a fallar en al menos uno de los dos, es decir, a estar fuera de $X$ o
+fuera de $Y$. Con $X=A$, $Y=B$ queda $(A\cap B)^{c}=A^{c}\cup B^{c}$. Este paso es
+imprescindible: mientras el complemento esté sobre un paréntesis, ninguna ley distributiva puede
+actuar sobre su interior.
+
+\textbf{¿Qué tomamos?} $A\cap(A\cap B)^{c}=A\cap(A^{c}\cup B^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Distribuir en el lado derecho}
+\textbf{Qué hago:} aplico la distributiva de $\cap$ sobre $\cup$, propiedad (P5), al producto
+$A\cap(A^{c}\cup B^{c})$.
+
+\textbf{¿De dónde sale?} De la expresión obtenida en el Paso~6.
+
+\textbf{¿Por qué?} Por (P5) con $X=A$, $Y=A^{c}$, $Z=B^{c}$: la intersección se reparte sobre
+cada sumando de la unión. Es exactamente el movimiento que hace aparecer el par $A\cap A^{c}$,
+que la complementación anulará en el paso siguiente.
+
+\textbf{¿Qué tomamos?} $A\cap(A^{c}\cup B^{c})=(A\cap A^{c})\cup(A\cap B^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 8 --- Anular $A\cap A^{c}$ y limpiar el vacío}
+\textbf{Qué hago:} aplico primero la complementación (P13) y después el elemento neutro (P9),
+igual que en los Pasos~3 y~4 pero ahora en el lado derecho.
+
+\textbf{¿De dónde sale?} El término $A\cap A^{c}$ apareció al distribuir en el Paso~7.
+
+\textbf{¿Por qué?} Por (P13), $A\cap A^{c}=\varnothing$, porque ningún elemento está dentro y
+fuera de $A$ a la vez; y por (P9), $\varnothing\cup X=X$, porque el vacío no aporta elementos a
+una unión. Aplicadas en ese orden dejan solo el segundo sumando.
+
+\textbf{¿Qué tomamos?} El lado derecho quedó reducido a
+\[
+A\setminus(A\cap B)=\varnothing\cup(A\cap B^{c})=A\cap B^{c}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 9 --- Comparar las dos reducciones}
+\textbf{Qué hago:} confronto la forma reducida del lado izquierdo (Paso~4) con la del lado
+derecho (Paso~8) y concluyo.
+
+\textbf{¿De dónde sale?} Del Paso~4: $(A\cup B)\setminus B=A\cap B^{c}$. Del Paso~8:
+$A\setminus(A\cap B)=A\cap B^{c}$.
+
+\textbf{¿Por qué?} Porque dos conjuntos iguales a un mismo tercero son iguales entre sí
+(transitividad y simetría de la igualdad). Ambos lados se redujeron a la misma expresión
+$A\cap B^{c}$, que por (P1) es precisamente $A\setminus B$.
+
+\textbf{¿Qué tomamos?} La cadena completa:
+\begin{align*}
+(A\cup B)\setminus B
+&=(A\cup B)\cap B^{c} && \text{(P1)}\\
+&=(A\cap B^{c})\cup(B\cap B^{c}) && \text{(P5)}\\
+&=(A\cap B^{c})\cup\varnothing && \text{(P13)}\\
+&=A\cap B^{c} && \text{(P9)}\\
+&=\varnothing\cup(A\cap B^{c}) && \text{(P9), leído al revés}\\
+&=(A\cap A^{c})\cup(A\cap B^{c}) && \text{(P13), leído al revés}\\
+&=A\cap(A^{c}\cup B^{c}) && \text{(P5)}\\
+&=A\cap(A\cap B)^{c} && \text{(P7) De Morgan}\\
+&=A\setminus(A\cap B) && \text{(P1)}
+\end{align*}
+\end{paso}
+
+\begin{resp}
+Queda verificado que $(A\cup B)\setminus B=A\setminus(A\cap B)$, y además que ambos lados valen
+$A\cap B^{c}=A\setminus B$. Las propiedades empleadas fueron: definición de diferencia,
+distributiva de $\cap$ sobre $\cup$, complementación, elemento neutro y De Morgan.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(c) \ $(A\cup B)\setminus A=B\setminus A$}
+
+\begin{paso}{Paso 1 --- Convertir la diferencia con la definición}
+\textbf{Qué hago:} aplico (P1) al lado izquierdo para eliminar el símbolo $\setminus$.
+
+\textbf{¿De dónde sale?} $(A\cup B)\setminus A$ es el lado izquierdo del inciso~(c).
+
+\textbf{¿Por qué?} Por (P1), $X\setminus Y=X\cap Y^{c}$; instanciamos con $X=A\cup B$ e $Y=A$.
+Es el paso obligado de apertura: ninguna ley del álgebra de conjuntos opera directamente sobre
+una diferencia, y aquí además necesitamos distribuir para separar $A$ de $B$.
+
+\textbf{¿Qué tomamos?} $(A\cup B)\setminus A=(A\cup B)\cap A^{c}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Distribuir la intersección sobre la unión}
+\textbf{Qué hago:} aplico la distributiva (P5) para repartir $A^{c}$ entre $A$ y $B$.
+
+\textbf{¿De dónde sale?} De $(A\cup B)\cap A^{c}$, obtenido en el Paso~1.
+
+\textbf{¿Por qué?} Por (P5), $X\cap(Y\cup Z)=(X\cap Y)\cup(X\cap Z)$, con $X=A^{c}$, $Y=A$,
+$Z=B$ (previa conmutación con (P3) para colocar $A^{c}$ al frente). El objetivo del movimiento es
+provocar la aparición del par $A\cap A^{c}$, único término que puede desaparecer.
+
+\textbf{¿Qué tomamos?} $(A\cup B)\cap A^{c}=(A\cap A^{c})\cup(B\cap A^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Anular el término $A\cap A^{c}$}
+\textbf{Qué hago:} aplico la complementación (P13) al primer sumando.
+
+\textbf{¿De dónde sale?} El término $A\cap A^{c}$ se produjo al distribuir en el Paso~2.
+
+\textbf{¿Por qué?} Por (P13), $X\cap X^{c}=\varnothing$ para todo conjunto $X$, pues ningún
+elemento puede cumplir a la vez ``estar en $X$'' y ``no estar en $X$''. Con $X=A$ queda
+$A\cap A^{c}=\varnothing$, y sustituimos.
+
+\textbf{¿Qué tomamos?} $(A\cap A^{c})\cup(B\cap A^{c})=\varnothing\cup(B\cap A^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Quitar el vacío y volver a la diferencia}
+\textbf{Qué hago:} aplico el elemento neutro de la unión (P9) y después leo el resultado con la
+definición de diferencia (P1) en sentido inverso.
+
+\textbf{¿De dónde sale?} De $\varnothing\cup(B\cap A^{c})$, obtenido en el Paso~3.
+
+\textbf{¿Por qué?} Por (P9), $\varnothing\cup X=X$: el vacío es el neutro de la unión. Queda
+$B\cap A^{c}$, y por (P1) leída de derecha a izquierda, $B\cap A^{c}=B\setminus A$. Usar una
+propiedad en sentido inverso es legítimo porque se trata de una igualdad, no de una regla de
+reescritura en una sola dirección.
+
+\textbf{¿Qué tomamos?} La cadena completa:
+\begin{align*}
+(A\cup B)\setminus A
+&=(A\cup B)\cap A^{c} && \text{(P1) definición de diferencia}\\
+&=(A\cap A^{c})\cup(B\cap A^{c}) && \text{(P5) distributiva de }\cap\text{ sobre }\cup\\
+&=\varnothing\cup(B\cap A^{c}) && \text{(P13) complementación}\\
+&=B\cap A^{c} && \text{(P9) elemento neutro}\\
+&=B\setminus A && \text{(P1) definición de diferencia}
+\end{align*}
+\end{paso}
+
+\begin{resp}
+Queda verificado que $(A\cup B)\setminus A=B\setminus A$. Lo que el cálculo muestra es que al
+quitar $A$ de la unión $A\cup B$, el sumando $A$ se anula por completo (complementación) y solo
+sobrevive la parte de $B$ ajena a $A$.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(d) \ $A\setminus(A\cap B^{c})=A\cap B$}
+
+\begin{paso}{Paso 1 --- Convertir la diferencia externa}
+\textbf{Qué hago:} aplico (P1) al lado izquierdo, tomando como conjunto que se resta el bloque
+completo $A\cap B^{c}$.
+
+\textbf{¿De dónde sale?} $A\setminus(A\cap B^{c})$ es el lado izquierdo del inciso~(d).
+
+\textbf{¿Por qué?} Por (P1), $X\setminus Y=X\cap Y^{c}$ con $X=A$ e $Y=A\cap B^{c}$. Nótese que
+el conjunto restado ya viene escrito con intersección y complemento, así que este paso no
+introduce nuevos $\setminus$: solo traslada el complemento al bloque entero.
+
+\textbf{¿Qué tomamos?} $A\setminus(A\cap B^{c})=A\cap(A\cap B^{c})^{c}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Aplicar De Morgan al paréntesis complementado}
+\textbf{Qué hago:} aplico la ley de De Morgan (P7) para meter el complemento dentro del
+paréntesis $(A\cap B^{c})^{c}$.
+
+\textbf{¿De dónde sale?} De la expresión $A\cap(A\cap B^{c})^{c}$ del Paso~1.
+
+\textbf{¿Por qué?} Por (P7), $(X\cap Y)^{c}=X^{c}\cup Y^{c}$, con $X=A$ e $Y=B^{c}$. El
+complemento sobre un paréntesis bloquea las leyes distributivas, así que hay que empujarlo hacia
+dentro. El resultado inmediato es $A^{c}\cup(B^{c})^{c}$.
+
+\textbf{¿Qué tomamos?} $A\cap(A\cap B^{c})^{c}=A\cap\bigl(A^{c}\cup(B^{c})^{c}\bigr)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Cancelar el complemento doble}
+\textbf{Qué hago:} aplico la propiedad de doble complemento (P8) al término $(B^{c})^{c}$.
+
+\textbf{¿De dónde sale?} El término $(B^{c})^{c}$ lo generó De Morgan en el Paso~2, al
+complementar un conjunto que ya venía complementado.
+
+\textbf{¿Por qué?} Por (P8), $(X^{c})^{c}=X$: estar fuera del conjunto de los que están fuera de
+$X$ es estar en $X$. Con $X=B$ queda $(B^{c})^{c}=B$. Sin esta cancelación la expresión seguiría
+teniendo complementos anidados que impiden reconocer el lado derecho.
+
+\textbf{¿Qué tomamos?} $A\cap\bigl(A^{c}\cup(B^{c})^{c}\bigr)=A\cap(A^{c}\cup B)$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Distribuir}
+\textbf{Qué hago:} aplico la distributiva de $\cap$ sobre $\cup$, propiedad (P5), al producto
+$A\cap(A^{c}\cup B)$.
+
+\textbf{¿De dónde sale?} De la expresión obtenida en el Paso~3.
+
+\textbf{¿Por qué?} Por (P5), $X\cap(Y\cup Z)=(X\cap Y)\cup(X\cap Z)$, con $X=A$, $Y=A^{c}$,
+$Z=B$. Al distribuir aparece el par $A\cap A^{c}$, que es el término que se anula y deja
+únicamente lo que buscamos.
+
+\textbf{¿Qué tomamos?} $A\cap(A^{c}\cup B)=(A\cap A^{c})\cup(A\cap B)$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Anular por complementación y limpiar con el neutro}
+\textbf{Qué hago:} aplico (P13) al término $A\cap A^{c}$ y después (P9) para borrar el
+$\varnothing$ resultante.
+
+\textbf{¿De dónde sale?} El término $A\cap A^{c}$ apareció en el Paso~4.
+
+\textbf{¿Por qué?} Por (P13), $A\cap A^{c}=\varnothing$, ya que ningún elemento puede estar y no
+estar en $A$. Y por (P9), $\varnothing\cup X=X$, porque el vacío es el neutro de la unión. Con
+$X=A\cap B$ queda exactamente el lado derecho del enunciado.
+
+\textbf{¿Qué tomamos?} La cadena completa:
+\begin{align*}
+A\setminus(A\cap B^{c})
+&=A\cap(A\cap B^{c})^{c} && \text{(P1) definición de diferencia}\\
+&=A\cap\bigl(A^{c}\cup(B^{c})^{c}\bigr) && \text{(P7) De Morgan}\\
+&=A\cap(A^{c}\cup B) && \text{(P8) doble complemento}\\
+&=(A\cap A^{c})\cup(A\cap B) && \text{(P5) distributiva}\\
+&=\varnothing\cup(A\cap B) && \text{(P13) complementación}\\
+&=A\cap B && \text{(P9) elemento neutro}
+\end{align*}
+\end{paso}
+
+\begin{resp}
+Queda verificado que $A\setminus(A\cap B^{c})=A\cap B$: quitarle a $A$ su parte ajena a $B$ deja
+justamente la parte común con $B$. Propiedades usadas: definición de diferencia, De Morgan,
+doble complemento, distributiva, complementación y elemento neutro.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(e) \ $(A\cup B)^{c}\cap C=C\setminus(C\cap(A\cup B))$}
+
+\begin{paso}{Paso 1 --- Elegir por qué lado empezar}
+\textbf{Qué hago:} decido trabajar el lado derecho, que es el complicado (contiene una
+diferencia), y reducirlo hasta el lado izquierdo, que ya está en forma simple.
+
+\textbf{¿De dónde sale?} Los dos lados son los del inciso~(e): a la izquierda
+$(A\cup B)^{c}\cap C$ y a la derecha $C\setminus\bigl(C\cap(A\cup B)\bigr)$.
+
+\textbf{¿Por qué?} Porque la estrategia general dice que primero hay que eliminar diferencias, y
+la única diferencia del enunciado está a la derecha. Empezar por el lado que contiene el
+$\setminus$ garantiza que cada paso siguiente sea aplicable; empezar por la izquierda obligaría
+a introducir artificialmente un $\setminus$. Escribimos $D:=A\cup B$ para abreviar, entendiendo
+que $D$ es un conjunto como cualquier otro y que todas las propiedades se le aplican igual.
+
+\textbf{¿Qué tomamos?} El objetivo es transformar $C\setminus(C\cap D)$ hasta obtener
+$D^{c}\cap C$, con $D=A\cup B$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Convertir la diferencia}
+\textbf{Qué hago:} aplico la definición de diferencia (P1) al lado derecho.
+
+\textbf{¿De dónde sale?} De la expresión $C\setminus(C\cap D)$ fijada en el Paso~1.
+
+\textbf{¿Por qué?} Por (P1), $X\setminus Y=X\cap Y^{c}$, aquí con $X=C$ e $Y=C\cap D$. El
+conjunto que se resta es una intersección, y eso es admisible: la definición vale para cualquier
+par de conjuntos.
+
+\textbf{¿Qué tomamos?} $C\setminus(C\cap D)=C\cap(C\cap D)^{c}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Aplicar De Morgan}
+\textbf{Qué hago:} meto el complemento hacia dentro del paréntesis $(C\cap D)^{c}$ con la ley de
+De Morgan (P7).
+
+\textbf{¿De dónde sale?} Del resultado del Paso~2, $C\cap(C\cap D)^{c}$.
+
+\textbf{¿Por qué?} Por (P7), $(X\cap Y)^{c}=X^{c}\cup Y^{c}$, con $X=C$ e $Y=D$. Es
+indispensable: mientras el complemento envuelva al paréntesis, la distributiva no puede
+aplicarse y no hay forma de hacer aparecer el par $C\cap C^{c}$ que buscamos.
+
+\textbf{¿Qué tomamos?} $C\cap(C\cap D)^{c}=C\cap(C^{c}\cup D^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Distribuir}
+\textbf{Qué hago:} aplico la distributiva de $\cap$ sobre $\cup$, propiedad (P5).
+
+\textbf{¿De dónde sale?} De la expresión $C\cap(C^{c}\cup D^{c})$ del Paso~3.
+
+\textbf{¿Por qué?} Por (P5), $X\cap(Y\cup Z)=(X\cap Y)\cup(X\cap Z)$, con $X=C$, $Y=C^{c}$,
+$Z=D^{c}$. El primer sumando resultante es el patrón de complementación y el segundo es ya el
+objetivo.
+
+\textbf{¿Qué tomamos?} $C\cap(C^{c}\cup D^{c})=(C\cap C^{c})\cup(C\cap D^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Anular, limpiar y conmutar}
+\textbf{Qué hago:} aplico complementación (P13), después elemento neutro (P9) y finalmente
+conmutativa (P3) para dejar la expresión con el mismo orden que el lado izquierdo del enunciado.
+
+\textbf{¿De dónde sale?} Del Paso~4, donde apareció el término $C\cap C^{c}$ junto al término
+$C\cap D^{c}$.
+
+\textbf{¿Por qué?} Por (P13), $C\cap C^{c}=\varnothing$; por (P9), $\varnothing\cup X=X$, con lo
+que sobrevive $C\cap D^{c}$; y por (P3), $C\cap D^{c}=D^{c}\cap C$, ya que la intersección no
+distingue el orden de sus argumentos. Sustituyendo $D=A\cup B$ se obtiene $(A\cup B)^{c}\cap C$,
+que es exactamente el lado izquierdo.
+
+\textbf{¿Qué tomamos?} La cadena completa, con $D=A\cup B$:
+\begin{align*}
+C\setminus\bigl(C\cap(A\cup B)\bigr)
+&=C\cap\bigl(C\cap(A\cup B)\bigr)^{c} && \text{(P1) definición de diferencia}\\
+&=C\cap\bigl(C^{c}\cup(A\cup B)^{c}\bigr) && \text{(P7) De Morgan}\\
+&=(C\cap C^{c})\cup\bigl(C\cap(A\cup B)^{c}\bigr) && \text{(P5) distributiva}\\
+&=\varnothing\cup\bigl(C\cap(A\cup B)^{c}\bigr) && \text{(P13) complementación}\\
+&=C\cap(A\cup B)^{c} && \text{(P9) elemento neutro}\\
+&=(A\cup B)^{c}\cap C && \text{(P3) conmutativa}
+\end{align*}
+\end{paso}
+
+\begin{resp}
+Queda verificado que $(A\cup B)^{c}\cap C=C\setminus\bigl(C\cap(A\cup B)\bigr)$. El cálculo
+muestra el hecho general subyacente: para cualesquiera $X$ e $Y$ se cumple
+$X\setminus(X\cap Y)=X\cap Y^{c}=X\setminus Y$, y el inciso es el caso $X=C$, $Y=A\cup B$.
+\end{resp}
+
+%=====================================================================
+\section*{Ejercicio 8}
+
+\begin{quote}
+Considere un conjunto universo $U$ y sean $A$, $B$ y $C$ subconjuntos arbitrarios de $U$. En
+cada uno de los siguientes incisos verifique la ecuación de conjuntos indicada, utilizando
+únicamente propiedades de las operaciones de conjuntos. No se permite el uso de diagramas de
+Venn ni de elementos.
+
+\begin{enumerate}[leftmargin=*,itemsep=1pt]
+	\item[(a)] $(A\cap B)\cup(A\cap B^{c})=A$
+	\item[(b)] $(A\cup B)\cap(A\cup B^{c})=A$
+	\item[(c)] $(A\setminus B)\cup(A\cap B)=A$
+	\item[(d)] $(A\cap(B\cup C))\cup(A\cap C^{c})=A$
+	\item[(e)] $(A\cup B)\cap(A^{c}\cup B)=B$
+	\item[(f)] Suponga $A,B$ disjuntos: $(A\cup B)^{c}\cup(A\cap B)=A^{c}\cap B^{c}$
+	\item[(g)] $(A\cap(B\cup C))^{c}=A^{c}\cup(B^{c}\cap C^{c})$
+	\item[(h)] $A\setminus(B\cap C)=(A\setminus B)\cup(A\setminus C)$
+	\item[(i)] $(A\cap B)\cup(A\cap C)\cup(B\cap C)=(A\cup B)\cap(A\cup C)\cap(B\cup C)$
+	\item[(j)] $(A\cup(B\cap C))\cap(A^{c}\cup B)=(A\cap B)\cup(B\cap C)$
+	\item[(k)] $(A\cap B^{c})\cup(A^{c}\cap B)=A\triangle B$
+	\item[(l)] $(A\triangle B)\cap C=(A\cap C)\triangle(B\cap C)$
+	\item[(m)] $(A\triangle B)^{c}=(A\cap B)\cup(A^{c}\cap B^{c})$
+	\item[(n)] $A\cap(B\triangle C)=(A\cap B)\triangle(A\cap C)$
+	\item[(ñ)] $(A\triangle B)\setminus C=(A\setminus C)\triangle(B\setminus C)$
+\end{enumerate}
+\end{quote}
+
+\begin{nota}
+\textbf{Restricción del enunciado que gobierna todo el Ejercicio~8.}
+El enunciado prohíbe expresamente ``el uso de diagramas de Venn ni de elementos''. Por eso
+ninguna de las quince verificaciones siguientes contiene dibujos ni frases del tipo ``tomemos
+$x$ en el lado izquierdo''. Toda la argumentación consiste en cadenas de igualdades entre
+conjuntos, donde cada renglón se obtiene del anterior aplicando una única propiedad de la lista
+(P1)--(P15), citada por su nombre.
+\end{nota}
+
+%---------------------------------------------------------------------
+\subsection*{(a) \ $(A\cap B)\cup(A\cap B^{c})=A$}
+
+\begin{paso}{Paso 1 --- Factorizar el término común con la distributiva}
+\textbf{Qué hago:} reconozco que $A$ aparece como factor en los dos sumandos y lo saco fuera,
+aplicando la distributiva de $\cap$ sobre $\cup$ (P5) leída de derecha a izquierda.
+
+\textbf{¿De dónde sale?} De la expresión $(A\cap B)\cup(A\cap B^{c})$, que es el lado izquierdo
+del inciso~(a) tal como aparece en el enunciado.
+
+\textbf{¿Por qué?} La propiedad (P5) afirma que $X\cap(Y\cup Z)=(X\cap Y)\cup(X\cap Z)$ para
+conjuntos cualesquiera. Como se trata de una igualdad, se puede usar en cualquiera de las dos
+direcciones; leída de derecha a izquierda permite \emph{factorizar}. Aquí la instanciamos con
+$X=A$, $Y=B$, $Z=B^{c}$, y el lado derecho de la propiedad coincide exactamente, término a
+término, con nuestra expresión.
+
+\textbf{¿Qué tomamos?} $(A\cap B)\cup(A\cap B^{c})=A\cap(B\cup B^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Reemplazar $B\cup B^{c}$ por el universo}
+\textbf{Qué hago:} aplico la propiedad de complementación (P13) al paréntesis.
+
+\textbf{¿De dónde sale?} El paréntesis $B\cup B^{c}$ es el que produjo la factorización del
+Paso~1.
+
+\textbf{¿Por qué?} Por (P13), $X\cup X^{c}=U$ para todo conjunto $X$: todo elemento del universo
+está en $X$ o está fuera de $X$, sin tercera posibilidad, de modo que la unión de un conjunto con
+su complemento agota el universo. Con $X=B$ obtenemos $B\cup B^{c}=U$, y sustituimos ese
+subtérmino.
+
+\textbf{¿Qué tomamos?} $A\cap(B\cup B^{c})=A\cap U$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Eliminar el universo con el elemento neutro}
+\textbf{Qué hago:} aplico el elemento neutro de la intersección (P9).
+
+\textbf{¿De dónde sale?} De la expresión $A\cap U$ obtenida en el Paso~2.
+
+\textbf{¿Por qué?} Por (P9), $X\cap U=X$: intersecar con el universo no descarta nada, porque
+todos los elementos de $X$ ya están en $U$ por ser $X\subseteq U$. Con $X=A$ se obtiene el lado
+derecho del enunciado.
+
+\textbf{¿Qué tomamos?} La cadena completa:
+\begin{align*}
+(A\cap B)\cup(A\cap B^{c})
+&=A\cap(B\cup B^{c}) && \text{(P5) distributiva, factorizando}\\
+&=A\cap U && \text{(P13) complementación}\\
+&=A && \text{(P9) elemento neutro}
+\end{align*}
+\end{paso}
+
+\begin{resp}
+Queda verificado que $(A\cap B)\cup(A\cap B^{c})=A$. Propiedades: distributiva de $\cap$ sobre
+$\cup$ (usada para factorizar), complementación y elemento neutro.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(b) \ $(A\cup B)\cap(A\cup B^{c})=A$}
+
+\begin{paso}{Paso 1 --- Factorizar con la distributiva de $\cup$ sobre $\cap$}
+\textbf{Qué hago:} observo que $A$ es el sumando común de los dos factores y lo extraigo,
+aplicando (P6) de derecha a izquierda.
+
+\textbf{¿De dónde sale?} De $(A\cup B)\cap(A\cup B^{c})$, lado izquierdo del inciso~(b).
+
+\textbf{¿Por qué?} La propiedad (P6) dice $X\cup(Y\cap Z)=(X\cup Y)\cap(X\cup Z)$; su lado
+derecho tiene exactamente la forma de nuestra expresión con $X=A$, $Y=B$, $Z=B^{c}$. Esta es la
+ley distributiva que no tiene análogo aritmético, y es la que hace que este inciso sea el
+``espejo'' exacto del inciso~(a).
+
+\textbf{¿Qué tomamos?} $(A\cup B)\cap(A\cup B^{c})=A\cup(B\cap B^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Reemplazar $B\cap B^{c}$ por el vacío}
+\textbf{Qué hago:} aplico la complementación (P13) al paréntesis interior.
+
+\textbf{¿De dónde sale?} El paréntesis $B\cap B^{c}$ apareció al factorizar en el Paso~1.
+
+\textbf{¿Por qué?} Por (P13), $X\cap X^{c}=\varnothing$: ningún elemento puede pertenecer a $X$
+y simultáneamente estar fuera de $X$, de modo que esa intersección no contiene nada. Con $X=B$
+queda $B\cap B^{c}=\varnothing$.
+
+\textbf{¿Qué tomamos?} $A\cup(B\cap B^{c})=A\cup\varnothing$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Eliminar el vacío con el elemento neutro}
+\textbf{Qué hago:} aplico el elemento neutro de la unión (P9).
+
+\textbf{¿De dónde sale?} De $A\cup\varnothing$, obtenido en el Paso~2.
+
+\textbf{¿Por qué?} Por (P9), $X\cup\varnothing=X$: unir un conjunto sin elementos no agrega
+nada. Con $X=A$ se llega al lado derecho.
+
+\textbf{¿Qué tomamos?} La cadena completa:
+\begin{align*}
+(A\cup B)\cap(A\cup B^{c})
+&=A\cup(B\cap B^{c}) && \text{(P6) distributiva, factorizando}\\
+&=A\cup\varnothing && \text{(P13) complementación}\\
+&=A && \text{(P9) elemento neutro}
+\end{align*}
+\end{paso}
+
+\begin{resp}
+Queda verificado que $(A\cup B)\cap(A\cup B^{c})=A$. Es el dual del inciso~(a): se obtiene de él
+intercambiando $\cup$ por $\cap$ y $U$ por $\varnothing$.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(c) \ $(A\setminus B)\cup(A\cap B)=A$}
+
+\begin{paso}{Paso 1 --- Eliminar la diferencia}
+\textbf{Qué hago:} aplico la definición de diferencia (P1) al primer sumando.
+
+\textbf{¿De dónde sale?} El término $A\setminus B$ es el primer sumando del lado izquierdo del
+inciso~(c).
+
+\textbf{¿Por qué?} Por (P1), $X\setminus Y=X\cap Y^{c}$ con $X=A$, $Y=B$. Es obligatorio hacerlo
+antes de factorizar: la distributiva no sabe operar con el símbolo $\setminus$, y solo tras la
+conversión se ve que $A$ es factor común de los dos sumandos.
+
+\textbf{¿Qué tomamos?} $(A\setminus B)\cup(A\cap B)=(A\cap B^{c})\cup(A\cap B)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Factorizar el común $A$}
+\textbf{Qué hago:} aplico (P5) de derecha a izquierda para sacar $A$ fuera.
+
+\textbf{¿De dónde sale?} De la expresión $(A\cap B^{c})\cup(A\cap B)$ del Paso~1.
+
+\textbf{¿Por qué?} Por (P5), $(X\cap Y)\cup(X\cap Z)=X\cap(Y\cup Z)$, aquí con $X=A$, $Y=B^{c}$
+y $Z=B$. El factor $A$ está literalmente presente en los dos sumandos, que es la única condición
+que la ley exige.
+
+\textbf{¿Qué tomamos?} $(A\cap B^{c})\cup(A\cap B)=A\cap(B^{c}\cup B)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Reordenar y aplicar complementación}
+\textbf{Qué hago:} conmuto el paréntesis con (P3) y le aplico la complementación (P13).
+
+\textbf{¿De dónde sale?} El paréntesis $B^{c}\cup B$ salió de la factorización del Paso~2.
+
+\textbf{¿Por qué?} Por (P3), la unión es conmutativa, así que $B^{c}\cup B=B\cup B^{c}$; y por
+(P13), $B\cup B^{c}=U$, porque todo elemento del universo o está en $B$ o está fuera de $B$. El
+paso de conmutar no es cosmético: deja la expresión en la forma exacta que (P13) reconoce.
+
+\textbf{¿Qué tomamos?} $A\cap(B^{c}\cup B)=A\cap U$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Aplicar el elemento neutro}
+\textbf{Qué hago:} aplico (P9) para quitar el universo.
+
+\textbf{¿De dónde sale?} De $A\cap U$, obtenido en el Paso~3.
+
+\textbf{¿Por qué?} Por (P9), $X\cap U=X$: como $A\subseteq U$, intersecar $A$ con $U$ devuelve
+$A$ íntegro. Con eso se alcanza el lado derecho del enunciado.
+
+\textbf{¿Qué tomamos?} La cadena completa:
+\begin{align*}
+(A\setminus B)\cup(A\cap B)
+&=(A\cap B^{c})\cup(A\cap B) && \text{(P1) definición de diferencia}\\
+&=A\cap(B^{c}\cup B) && \text{(P5) distributiva, factorizando}\\
+&=A\cap(B\cup B^{c}) && \text{(P3) conmutativa}\\
+&=A\cap U && \text{(P13) complementación}\\
+&=A && \text{(P9) elemento neutro}
+\end{align*}
+\end{paso}
+
+\begin{resp}
+Queda verificado que $(A\setminus B)\cup(A\cap B)=A$: la parte de $A$ ajena a $B$ junto con la
+parte de $A$ compartida con $B$ reconstruyen $A$ completo.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(d) \ $(A\cap(B\cup C))\cup(A\cap C^{c})=A$}
+
+\begin{paso}{Paso 1 --- Factorizar el común $A$}
+\textbf{Qué hago:} extraigo el factor $A$, que aparece en los dos sumandos, aplicando (P5) de
+derecha a izquierda.
+
+\textbf{¿De dónde sale?} De $(A\cap(B\cup C))\cup(A\cap C^{c})$, lado izquierdo del inciso~(d).
+
+\textbf{¿Por qué?} Por (P5), $(X\cap Y)\cup(X\cap Z)=X\cap(Y\cup Z)$, con $X=A$, $Y=B\cup C$ y
+$Z=C^{c}$. El hecho de que $Y$ sea a su vez una unión no es obstáculo: la propiedad vale para
+conjuntos arbitrarios y no exige que los argumentos sean letras sueltas.
+
+\textbf{¿Qué tomamos?} $(A\cap(B\cup C))\cup(A\cap C^{c})=A\cap\bigl((B\cup C)\cup C^{c}\bigr)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Reagrupar la unión con la asociativa}
+\textbf{Qué hago:} aplico la asociativa de la unión (P4) para juntar $C$ con $C^{c}$.
+
+\textbf{¿De dónde sale?} Del paréntesis $(B\cup C)\cup C^{c}$ producido en el Paso~1.
+
+\textbf{¿Por qué?} Por (P4), $(X\cup Y)\cup Z=X\cup(Y\cup Z)$, con $X=B$, $Y=C$, $Z=C^{c}$. La
+asociatividad es lo que autoriza a cambiar el agrupamiento sin alterar el resultado, y aquí es
+esencial: solo después de reagrupar quedan $C$ y $C^{c}$ juntos, que es el patrón que (P13)
+reconoce.
+
+\textbf{¿Qué tomamos?} $A\cap\bigl((B\cup C)\cup C^{c}\bigr)=A\cap\bigl(B\cup(C\cup C^{c})\bigr)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Aplicar la complementación}
+\textbf{Qué hago:} sustituyo $C\cup C^{c}$ por $U$ usando (P13).
+
+\textbf{¿De dónde sale?} El subtérmino $C\cup C^{c}$ quedó formado tras reagrupar en el Paso~2.
+
+\textbf{¿Por qué?} Por (P13), $X\cup X^{c}=U$ para todo conjunto $X$: la unión de un conjunto
+con su complemento cubre todo el universo. Con $X=C$ se obtiene $C\cup C^{c}=U$.
+
+\textbf{¿Qué tomamos?} $A\cap\bigl(B\cup(C\cup C^{c})\bigr)=A\cap(B\cup U)$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Aplicar la dominación}
+\textbf{Qué hago:} sustituyo $B\cup U$ por $U$ usando la propiedad de dominación (P10).
+
+\textbf{¿De dónde sale?} De la expresión $A\cap(B\cup U)$ del Paso~3.
+
+\textbf{¿Por qué?} Por (P10), $X\cup U=U$: el universo ya contiene a todos los conjuntos con los
+que se trabaja, así que unirle cualquier $X\subseteq U$ no lo agranda. Con $X=B$ queda
+$B\cup U=U$. Nótese que aquí no sirve el elemento neutro: el neutro de la unión es $\varnothing$,
+no $U$.
+
+\textbf{¿Qué tomamos?} $A\cap(B\cup U)=A\cap U$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Aplicar el elemento neutro}
+\textbf{Qué hago:} elimino el universo con (P9).
+
+\textbf{¿De dónde sale?} De $A\cap U$, obtenido en el Paso~4.
+
+\textbf{¿Por qué?} Por (P9), $X\cap U=X$, porque $X\subseteq U$ y por tanto ningún elemento de
+$X$ se pierde al intersecar con $U$. Con $X=A$ llegamos al lado derecho del enunciado.
+
+\textbf{¿Qué tomamos?} La cadena completa:
+\begin{align*}
+\bigl(A\cap(B\cup C)\bigr)\cup(A\cap C^{c})
+&=A\cap\bigl((B\cup C)\cup C^{c}\bigr) && \text{(P5) distributiva, factorizando}\\
+&=A\cap\bigl(B\cup(C\cup C^{c})\bigr) && \text{(P4) asociativa}\\
+&=A\cap(B\cup U) && \text{(P13) complementación}\\
+&=A\cap U && \text{(P10) dominación}\\
+&=A && \text{(P9) elemento neutro}
+\end{align*}
+\end{paso}
+
+\begin{resp}
+Queda verificado que $\bigl(A\cap(B\cup C)\bigr)\cup(A\cap C^{c})=A$. Propiedades usadas:
+distributiva (factorizando), asociativa, complementación, dominación y elemento neutro.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(e) \ $(A\cup B)\cap(A^{c}\cup B)=B$}
+
+\begin{paso}{Paso 1 --- Reordenar para dejar visible el sumando común}
+\textbf{Qué hago:} aplico la conmutativa de la unión (P3) dentro de cada factor, de modo que $B$
+quede escrito al principio en ambos.
+
+\textbf{¿De dónde sale?} De $(A\cup B)\cap(A^{c}\cup B)$, lado izquierdo del inciso~(e).
+
+\textbf{¿Por qué?} Por (P3), $X\cup Y=Y\cup X$, porque la unión no distingue el orden de sus
+argumentos. Aplicada a cada factor da $A\cup B=B\cup A$ y $A^{c}\cup B=B\cup A^{c}$. El
+movimiento es necesario para que la expresión adopte la forma exacta $(B\cup A)\cap(B\cup A^{c})$
+que la ley distributiva (P6) reconoce como su lado derecho.
+
+\textbf{¿Qué tomamos?} $(A\cup B)\cap(A^{c}\cup B)=(B\cup A)\cap(B\cup A^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Factorizar el común $B$}
+\textbf{Qué hago:} aplico (P6) de derecha a izquierda para extraer $B$.
+
+\textbf{¿De dónde sale?} De la expresión reordenada del Paso~1.
+
+\textbf{¿Por qué?} Por (P6), $X\cup(Y\cap Z)=(X\cup Y)\cap(X\cup Z)$, con $X=B$, $Y=A$ y
+$Z=A^{c}$. Leída de derecha a izquierda, la ley permite recoger el sumando repetido $B$ y dejar
+dentro del paréntesis la intersección de lo que queda en cada factor.
+
+\textbf{¿Qué tomamos?} $(B\cup A)\cap(B\cup A^{c})=B\cup(A\cap A^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Anular con complementación y limpiar con el neutro}
+\textbf{Qué hago:} aplico (P13) al paréntesis y después (P9) al vacío que queda.
+
+\textbf{¿De dónde sale?} El paréntesis $A\cap A^{c}$ apareció al factorizar en el Paso~2.
+
+\textbf{¿Por qué?} Por (P13), $A\cap A^{c}=\varnothing$, porque ningún elemento está a la vez
+dentro y fuera de $A$; y por (P9), $B\cup\varnothing=B$, porque el vacío es el neutro de la
+unión. El resultado es exactamente el lado derecho del enunciado.
+
+\textbf{¿Qué tomamos?} La cadena completa:
+\begin{align*}
+(A\cup B)\cap(A^{c}\cup B)
+&=(B\cup A)\cap(B\cup A^{c}) && \text{(P3) conmutativa}\\
+&=B\cup(A\cap A^{c}) && \text{(P6) distributiva, factorizando}\\
+&=B\cup\varnothing && \text{(P13) complementación}\\
+&=B && \text{(P9) elemento neutro}
+\end{align*}
+\end{paso}
+
+\begin{resp}
+Queda verificado que $(A\cup B)\cap(A^{c}\cup B)=B$: lo que $A$ aporta en un factor lo quita
+$A^{c}$ en el otro, y solo $B$ sobrevive a la intersección.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(f) \ Suponga $A,B$ disjuntos: \ $(A\cup B)^{c}\cup(A\cap B)=A^{c}\cap B^{c}$}
+
+\begin{paso}{Paso 1 --- Traducir la hipótesis a una igualdad utilizable}
+\textbf{Qué hago:} escribo qué dice exactamente la hipótesis extra del inciso, para poder usarla
+como una propiedad más dentro de la cadena.
+
+\textbf{¿De dónde sale?} Del propio enunciado del inciso~(f), que antepone la condición
+``Suponga $A,B$ disjuntos''.
+
+\textbf{¿Por qué?} Por definición, dos conjuntos son disjuntos cuando no tienen ningún elemento
+en común, es decir, cuando su intersección es el conjunto vacío. La hipótesis se convierte
+entonces en la igualdad $A\cap B=\varnothing$, que es una igualdad de conjuntos y por lo tanto
+puede sustituirse en cualquier punto de la cadena, igual que cualquier otra propiedad. Sin esta
+hipótesis el inciso no sería cierto, como se explica en la caja posterior.
+
+\textbf{¿Qué tomamos?} La hipótesis en forma de igualdad: $A\cap B=\varnothing$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Aplicar De Morgan al primer sumando}
+\textbf{Qué hago:} meto el complemento hacia dentro del paréntesis $(A\cup B)^{c}$ con la ley de
+De Morgan (P7).
+
+\textbf{¿De dónde sale?} El término $(A\cup B)^{c}$ es el primer sumando del lado izquierdo del
+inciso~(f).
+
+\textbf{¿Por qué?} Por (P7), $(X\cup Y)^{c}=X^{c}\cap Y^{c}$: estar fuera de la unión de dos
+conjuntos equivale a estar fuera de los dos a la vez. Con $X=A$, $Y=B$ obtenemos
+$(A\cup B)^{c}=A^{c}\cap B^{c}$, que es justamente la expresión que aparece en el lado derecho
+del enunciado.
+
+\textbf{¿Qué tomamos?} $(A\cup B)^{c}\cup(A\cap B)=(A^{c}\cap B^{c})\cup(A\cap B)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Sustituir usando la hipótesis de disjunción}
+\textbf{Qué hago:} reemplazo el segundo sumando $A\cap B$ por $\varnothing$, según la igualdad
+obtenida en el Paso~1.
+
+\textbf{¿De dónde sale?} El término $A\cap B$ es el segundo sumando del lado izquierdo, y la
+igualdad $A\cap B=\varnothing$ es la hipótesis del Paso~1.
+
+\textbf{¿Por qué?} Porque en una cadena de igualdades se puede reemplazar cualquier subtérmino
+por otro que sea igual a él, y la hipótesis nos garantiza precisamente esa igualdad. Este es el
+único punto de toda la demostración en el que interviene la condición ``$A$ y $B$ disjuntos'', y
+sin ella el paso sería inválido.
+
+\textbf{¿Qué tomamos?} $(A^{c}\cap B^{c})\cup(A\cap B)=(A^{c}\cap B^{c})\cup\varnothing$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Eliminar el vacío con el elemento neutro}
+\textbf{Qué hago:} aplico (P9) para borrar el $\varnothing$.
+
+\textbf{¿De dónde sale?} Del resultado del Paso~3.
+
+\textbf{¿Por qué?} Por (P9), $X\cup\varnothing=X$, con $X=A^{c}\cap B^{c}$: unirle a un conjunto
+otro que no tiene elementos lo deja intacto. Con eso se llega exactamente al lado derecho.
+
+\textbf{¿Qué tomamos?} La cadena completa, bajo la hipótesis $A\cap B=\varnothing$:
+\begin{align*}
+(A\cup B)^{c}\cup(A\cap B)
+&=(A^{c}\cap B^{c})\cup(A\cap B) && \text{(P7) De Morgan}\\
+&=(A^{c}\cap B^{c})\cup\varnothing && \text{hipótesis: }A\cap B=\varnothing\\
+&=A^{c}\cap B^{c} && \text{(P9) elemento neutro}
+\end{align*}
+\end{paso}
+
+\begin{nota}
+\textbf{La hipótesis de disjunción es imprescindible.}
+Sin suponer $A\cap B=\varnothing$, el Paso~2 sigue siendo válido y deja
+$(A\cup B)^{c}\cup(A\cap B)=(A^{c}\cap B^{c})\cup(A\cap B)$, expresión que por el inciso~(m) de
+este mismo ejercicio es igual a $(A\triangle B)^{c}$. Y $(A\triangle B)^{c}$ no coincide con
+$A^{c}\cap B^{c}$ salvo que $A\cap B=\varnothing$, porque $(A\triangle B)^{c}$ contiene además
+todo $A\cap B$. Por eso el enunciado añade la condición: es exactamente la que hace desaparecer
+ese sumando sobrante.
+\end{nota}
+
+\begin{resp}
+Queda verificado que, si $A$ y $B$ son disjuntos, entonces
+$(A\cup B)^{c}\cup(A\cap B)=A^{c}\cap B^{c}$. Se usaron De Morgan, la hipótesis
+$A\cap B=\varnothing$ y el elemento neutro de la unión.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(g) \ $(A\cap(B\cup C))^{c}=A^{c}\cup(B^{c}\cap C^{c})$}
+
+\begin{paso}{Paso 1 --- Aplicar De Morgan al complemento exterior}
+\textbf{Qué hago:} empujo hacia dentro el complemento que envuelve toda la expresión, tratando
+la intersección $A\cap(B\cup C)$ como una intersección de dos conjuntos.
+
+\textbf{¿De dónde sale?} De $\bigl(A\cap(B\cup C)\bigr)^{c}$, lado izquierdo del inciso~(g).
+
+\textbf{¿Por qué?} Por (P7), $(X\cap Y)^{c}=X^{c}\cup Y^{c}$: fallar en la intersección de dos
+conjuntos equivale a fallar en al menos uno de ellos. Aquí instanciamos con $X=A$ e
+$Y=B\cup C$; que el segundo argumento sea una unión no importa, porque la propiedad se enuncia
+para conjuntos arbitrarios. Hay que aplicar primero el complemento exterior y solo después el
+interior, respetando el orden de los paréntesis.
+
+\textbf{¿Qué tomamos?} $\bigl(A\cap(B\cup C)\bigr)^{c}=A^{c}\cup(B\cup C)^{c}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Aplicar De Morgan al complemento interior}
+\textbf{Qué hago:} vuelvo a usar (P7), ahora sobre el paréntesis $(B\cup C)^{c}$ que quedó tras
+el Paso~1.
+
+\textbf{¿De dónde sale?} Del término $(B\cup C)^{c}$ producido en el Paso~1.
+
+\textbf{¿Por qué?} Por la otra mitad de (P7), $(X\cup Y)^{c}=X^{c}\cap Y^{c}$: estar fuera de una
+unión equivale a estar fuera de los dos conjuntos a la vez. Con $X=B$, $Y=C$ obtenemos
+$(B\cup C)^{c}=B^{c}\cap C^{c}$. Obsérvese cómo cada aplicación de De Morgan intercambia el
+símbolo de operación: la primera cambió $\cap$ por $\cup$ y esta cambia $\cup$ por $\cap$.
+
+\textbf{¿Qué tomamos?} La cadena completa:
+\begin{align*}
+\bigl(A\cap(B\cup C)\bigr)^{c}
+&=A^{c}\cup(B\cup C)^{c} && \text{(P7) De Morgan, complemento exterior}\\
+&=A^{c}\cup(B^{c}\cap C^{c}) && \text{(P7) De Morgan, complemento interior}
+\end{align*}
+que es exactamente el lado derecho del enunciado.
+\end{paso}
+
+\begin{resp}
+Queda verificado que $\bigl(A\cap(B\cup C)\bigr)^{c}=A^{c}\cup(B^{c}\cap C^{c})$, aplicando dos
+veces las leyes de De Morgan, primero al paréntesis exterior y después al interior.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(h) \ $A\setminus(B\cap C)=(A\setminus B)\cup(A\setminus C)$}
+
+\begin{paso}{Paso 1 --- Convertir la diferencia del lado izquierdo}
+\textbf{Qué hago:} aplico la definición de diferencia (P1) al lado izquierdo, tomando como
+conjunto restado el bloque $B\cap C$.
+
+\textbf{¿De dónde sale?} De $A\setminus(B\cap C)$, lado izquierdo del inciso~(h).
+
+\textbf{¿Por qué?} Por (P1), $X\setminus Y=X\cap Y^{c}$, con $X=A$ e $Y=B\cap C$. Trabajaremos
+desde la izquierda porque allí la única diferencia envuelve un bloque compuesto, y convertirla
+es lo que permitirá aplicar De Morgan después.
+
+\textbf{¿Qué tomamos?} $A\setminus(B\cap C)=A\cap(B\cap C)^{c}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Aplicar De Morgan}
+\textbf{Qué hago:} meto el complemento dentro del paréntesis $(B\cap C)^{c}$.
+
+\textbf{¿De dónde sale?} Del resultado del Paso~1.
+
+\textbf{¿Por qué?} Por (P7), $(X\cap Y)^{c}=X^{c}\cup Y^{c}$ con $X=B$, $Y=C$. Este cambio de
+$\cap$ a $\cup$ es la clave del inciso: explica por qué en el lado derecho aparece una
+\emph{unión} de diferencias aunque en el lado izquierdo se restaba una \emph{intersección}.
+
+\textbf{¿Qué tomamos?} $A\cap(B\cap C)^{c}=A\cap(B^{c}\cup C^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Distribuir}
+\textbf{Qué hago:} aplico la distributiva de $\cap$ sobre $\cup$ (P5) para repartir $A$ entre los
+dos sumandos.
+
+\textbf{¿De dónde sale?} De la expresión $A\cap(B^{c}\cup C^{c})$ del Paso~2.
+
+\textbf{¿Por qué?} Por (P5), $X\cap(Y\cup Z)=(X\cap Y)\cup(X\cap Z)$, con $X=A$, $Y=B^{c}$,
+$Z=C^{c}$. El objetivo es fabricar dos bloques con la forma $A\cap(\ \cdot\ )^{c}$, que son
+justamente los que la definición de diferencia sabe volver a empaquetar.
+
+\textbf{¿Qué tomamos?} $A\cap(B^{c}\cup C^{c})=(A\cap B^{c})\cup(A\cap C^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Volver a escribir las diferencias}
+\textbf{Qué hago:} aplico la definición de diferencia (P1) en sentido inverso a cada uno de los
+dos bloques.
+
+\textbf{¿De dónde sale?} De los bloques $A\cap B^{c}$ y $A\cap C^{c}$ obtenidos en el Paso~3.
+
+\textbf{¿Por qué?} Porque (P1) es una igualdad y puede leerse en los dos sentidos: de
+$X\cap Y^{c}=X\setminus Y$ se obtiene $A\cap B^{c}=A\setminus B$ y $A\cap C^{c}=A\setminus C$.
+Con esto la expresión adquiere literalmente la forma del lado derecho del enunciado.
+
+\textbf{¿Qué tomamos?} La cadena completa:
+\begin{align*}
+A\setminus(B\cap C)
+&=A\cap(B\cap C)^{c} && \text{(P1) definición de diferencia}\\
+&=A\cap(B^{c}\cup C^{c}) && \text{(P7) De Morgan}\\
+&=(A\cap B^{c})\cup(A\cap C^{c}) && \text{(P5) distributiva}\\
+&=(A\setminus B)\cup(A\setminus C) && \text{(P1) definición de diferencia}
+\end{align*}
+\end{paso}
+
+\begin{resp}
+Queda verificado que $A\setminus(B\cap C)=(A\setminus B)\cup(A\setminus C)$. Es la versión ``de
+De Morgan para la diferencia'': al restar una intersección, las diferencias parciales se unen.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(i) \ $(A\cap B)\cup(A\cap C)\cup(B\cap C)=(A\cup B)\cap(A\cup C)\cap(B\cup C)$}
+
+\begin{paso}{Paso 1 --- Elegir el lado por el que se empieza y factorizar los dos primeros factores}
+\textbf{Qué hago:} trabajo desde el lado derecho y empiezo agrupando sus dos primeros factores,
+$(A\cup B)$ y $(A\cup C)$, para extraer de ellos el sumando común $A$.
+
+\textbf{¿De dónde sale?} Del lado derecho del inciso~(i), $(A\cup B)\cap(A\cup C)\cap(B\cup C)$,
+donde la asociativa (P4) permite agrupar los dos primeros factores sin ambigüedad.
+
+\textbf{¿Por qué?} Por (P6), $X\cup(Y\cap Z)=(X\cup Y)\cap(X\cup Z)$; leída de derecha a
+izquierda con $X=A$, $Y=B$, $Z=C$ da $(A\cup B)\cap(A\cup C)=A\cup(B\cap C)$. Empezamos por la
+derecha porque es el lado con estructura de producto de factores, y factorizar reduce el número
+de factores, mientras que el lado izquierdo ya está en la forma normal de unión de
+intersecciones a la que queremos llegar.
+
+\textbf{¿Qué tomamos?}
+$(A\cup B)\cap(A\cup C)\cap(B\cup C)=\bigl(A\cup(B\cap C)\bigr)\cap(B\cup C)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Distribuir el factor restante sobre la unión}
+\textbf{Qué hago:} reparto el factor $(B\cup C)$ sobre los dos sumandos de $A\cup(B\cap C)$.
+
+\textbf{¿De dónde sale?} De la expresión $\bigl(A\cup(B\cap C)\bigr)\cap(B\cup C)$ obtenida en el
+Paso~1.
+
+\textbf{¿Por qué?} Por (P3) escribimos primero $\bigl(A\cup(B\cap C)\bigr)\cap(B\cup C)
+=(B\cup C)\cap\bigl(A\cup(B\cap C)\bigr)$, y luego por (P5),
+$X\cap(Y\cup Z)=(X\cap Y)\cup(X\cap Z)$, con $X=B\cup C$, $Y=A$ y $Z=B\cap C$. Distribuir es lo
+que rompe el producto y produce una unión, que es la forma del lado izquierdo.
+
+\textbf{¿Qué tomamos?}
+$\bigl(A\cup(B\cap C)\bigr)\cap(B\cup C)=\bigl((B\cup C)\cap A\bigr)\cup\bigl((B\cup C)\cap(B\cap C)\bigr)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Simplificar el primer sumando}
+\textbf{Qué hago:} desarrollo el bloque $(B\cup C)\cap A$ hasta dejarlo como unión de dos
+intersecciones.
+
+\textbf{¿De dónde sale?} Es el primer sumando producido en el Paso~2.
+
+\textbf{¿Por qué?} Por (P3), $(B\cup C)\cap A=A\cap(B\cup C)$, y por (P5),
+$A\cap(B\cup C)=(A\cap B)\cup(A\cap C)$. Aparecen así los dos primeros bloques del lado
+izquierdo del enunciado, exactamente en el orden en que están escritos allí.
+
+\textbf{¿Qué tomamos?} $(B\cup C)\cap A=(A\cap B)\cup(A\cap C)$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Simplificar el segundo sumando}
+\textbf{Qué hago:} desarrollo el bloque $(B\cup C)\cap(B\cap C)$ y compruebo que se reduce a
+$B\cap C$.
+
+\textbf{¿De dónde sale?} Es el segundo sumando producido en el Paso~2.
+
+\textbf{¿Por qué?} Por (P3) lo escribo como $(B\cap C)\cap(B\cup C)$ y aplico (P5) con
+$X=B\cap C$, $Y=B$, $Z=C$:
+\[
+(B\cap C)\cap(B\cup C)=\bigl((B\cap C)\cap B\bigr)\cup\bigl((B\cap C)\cap C\bigr).
+\]
+Cada bloque se simplifica con la asociativa (P4) y la idempotencia (P11): por ejemplo
+$(B\cap C)\cap B=(B\cap B)\cap C=B\cap C$, usando también (P3) para reordenar; análogamente
+$(B\cap C)\cap C=B\cap(C\cap C)=B\cap C$. Queda entonces $(B\cap C)\cup(B\cap C)$, que por
+idempotencia (P11) de la unión es $B\cap C$.
+
+\textbf{¿Qué tomamos?} $(B\cup C)\cap(B\cap C)=B\cap C$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Recomponer la cadena}
+\textbf{Qué hago:} sustituyo en la expresión del Paso~2 los dos sumandos ya simplificados y
+comparo con el lado izquierdo del enunciado.
+
+\textbf{¿De dónde sale?} Del Paso~3, $(B\cup C)\cap A=(A\cap B)\cup(A\cap C)$; del Paso~4,
+$(B\cup C)\cap(B\cap C)=B\cap C$.
+
+\textbf{¿Por qué?} Porque la igualdad es transitiva y cada renglón se obtuvo del anterior por una
+propiedad válida. La asociativa (P4) permite escribir la unión triple sin paréntesis.
+
+\textbf{¿Qué tomamos?} La cadena completa:
+\begin{align*}
+(A\cup B)\cap(A\cup C)\cap(B\cup C)
+&=\bigl(A\cup(B\cap C)\bigr)\cap(B\cup C) && \text{(P6) distributiva, factorizando}\\
+&=\bigl((B\cup C)\cap A\bigr)\cup\bigl((B\cup C)\cap(B\cap C)\bigr) && \text{(P3) y (P5)}\\
+&=\bigl((A\cap B)\cup(A\cap C)\bigr)\cup(B\cap C) && \text{(P5), (P4) y (P11)}\\
+&=(A\cap B)\cup(A\cap C)\cup(B\cap C) && \text{(P4) asociativa}
+\end{align*}
+\end{paso}
+
+\begin{resp}
+Queda verificado que $(A\cap B)\cup(A\cap C)\cup(B\cap C)=(A\cup B)\cap(A\cup C)\cap(B\cup C)$.
+Propiedades usadas: distributiva en los dos sentidos, conmutativa, asociativa e idempotencia.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(j) \ $\bigl(A\cup(B\cap C)\bigr)\cap(A^{c}\cup B)=(A\cap B)\cup(B\cap C)$}
+
+\begin{paso}{Paso 1 --- Distribuir el segundo factor sobre el primero}
+\textbf{Qué hago:} reparto el factor $(A^{c}\cup B)$ sobre los dos sumandos del primer factor.
+
+\textbf{¿De dónde sale?} Del lado izquierdo del inciso~(j),
+$\bigl(A\cup(B\cap C)\bigr)\cap(A^{c}\cup B)$.
+
+\textbf{¿Por qué?} Por (P3) reordeno la intersección para poner el factor que se reparte al
+frente, y por (P5), $X\cap(Y\cup Z)=(X\cap Y)\cup(X\cap Z)$, con $X=A^{c}\cup B$, $Y=A$ y
+$Z=B\cap C$. Distribuir es el movimiento correcto porque el lado derecho del enunciado es una
+unión, mientras que el izquierdo está escrito como producto.
+
+\textbf{¿Qué tomamos?}
+$\bigl(A\cup(B\cap C)\bigr)\cap(A^{c}\cup B)=\bigl((A^{c}\cup B)\cap A\bigr)\cup\bigl((A^{c}\cup B)\cap(B\cap C)\bigr)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Desarrollar el primer sumando}
+\textbf{Qué hago:} distribuyo dentro del bloque $(A^{c}\cup B)\cap A$.
+
+\textbf{¿De dónde sale?} Es el primer sumando producido en el Paso~1.
+
+\textbf{¿Por qué?} Por (P3), $(A^{c}\cup B)\cap A=A\cap(A^{c}\cup B)$, y por (P5) con $X=A$,
+$Y=A^{c}$, $Z=B$ queda $(A\cap A^{c})\cup(A\cap B)$. El objetivo del movimiento es hacer
+aparecer el par $A\cap A^{c}$, que es lo único que puede desaparecer de esta expresión.
+
+\textbf{¿Qué tomamos?} $(A^{c}\cup B)\cap A=(A\cap A^{c})\cup(A\cap B)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Anular y limpiar en el primer sumando}
+\textbf{Qué hago:} aplico complementación (P13) y a continuación elemento neutro (P9).
+
+\textbf{¿De dónde sale?} Del término $A\cap A^{c}$ producido en el Paso~2.
+
+\textbf{¿Por qué?} Por (P13), $A\cap A^{c}=\varnothing$, ya que ningún elemento está a la vez
+dentro y fuera de $A$; y por (P9), $\varnothing\cup X=X$, porque el vacío es el neutro de la
+unión. Con $X=A\cap B$ el primer sumando queda reducido a $A\cap B$, que es el primer bloque del
+lado derecho del enunciado.
+
+\textbf{¿Qué tomamos?} $(A^{c}\cup B)\cap A=A\cap B$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Desarrollar el segundo sumando}
+\textbf{Qué hago:} distribuyo dentro del bloque $(A^{c}\cup B)\cap(B\cap C)$.
+
+\textbf{¿De dónde sale?} Es el segundo sumando producido en el Paso~1.
+
+\textbf{¿Por qué?} Por (P3) lo escribo como $(B\cap C)\cap(A^{c}\cup B)$ y por (P5) con
+$X=B\cap C$, $Y=A^{c}$, $Z=B$ obtengo
+$\bigl((B\cap C)\cap A^{c}\bigr)\cup\bigl((B\cap C)\cap B\bigr)$. El segundo bloque se simplifica
+con (P3), (P4) y (P11): $(B\cap C)\cap B=(B\cap B)\cap C=B\cap C$.
+
+\textbf{¿Qué tomamos?}
+$(A^{c}\cup B)\cap(B\cap C)=\bigl((B\cap C)\cap A^{c}\bigr)\cup(B\cap C)$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Aplicar la absorción en el segundo sumando}
+\textbf{Qué hago:} elimino el término $(B\cap C)\cap A^{c}$ usando la ley de absorción (P12).
+
+\textbf{¿De dónde sale?} De la expresión obtenida en el Paso~4.
+
+\textbf{¿Por qué?} Por (P12), $X\cup(X\cap Y)=X$ para conjuntos cualesquiera $X$ e $Y$: el
+segundo término está construido intersecando $X$ con algo, de modo que no puede aportar nada que
+$X$ no tenga ya. Aquí, tras conmutar con (P3) para escribir la unión en el orden
+$(B\cap C)\cup\bigl((B\cap C)\cap A^{c}\bigr)$, instanciamos $X=B\cap C$ e $Y=A^{c}$. Si se
+prefiere evitar la absorción, el mismo resultado sale de (P5), (P9) y (P10):
+$(B\cap C)\cup\bigl((B\cap C)\cap A^{c}\bigr)=\bigl((B\cap C)\cap U\bigr)\cup\bigl((B\cap C)\cap A^{c}\bigr)
+=(B\cap C)\cap(U\cup A^{c})=(B\cap C)\cap U=B\cap C$.
+
+\textbf{¿Qué tomamos?} $(A^{c}\cup B)\cap(B\cap C)=B\cap C$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Recomponer la cadena}
+\textbf{Qué hago:} sustituyo los dos sumandos simplificados en la expresión del Paso~1 y comparo
+con el lado derecho.
+
+\textbf{¿De dónde sale?} Del Paso~3, primer sumando $=A\cap B$; del Paso~5, segundo sumando
+$=B\cap C$.
+
+\textbf{¿Por qué?} Porque la igualdad de conjuntos es transitiva y cada renglón se justificó con
+una propiedad concreta. El resultado coincide literalmente con el lado derecho del enunciado.
+
+\textbf{¿Qué tomamos?} La cadena completa:
+\begin{align*}
+\bigl(A\cup(B\cap C)\bigr)\cap(A^{c}\cup B)
+&=\bigl((A^{c}\cup B)\cap A\bigr)\cup\bigl((A^{c}\cup B)\cap(B\cap C)\bigr) && \text{(P3) y (P5)}\\
+&=\bigl((A\cap A^{c})\cup(A\cap B)\bigr)\cup\bigl(((B\cap C)\cap A^{c})\cup(B\cap C)\bigr) && \text{(P5), (P4), (P11)}\\
+&=\bigl(\varnothing\cup(A\cap B)\bigr)\cup\bigl(((B\cap C)\cap A^{c})\cup(B\cap C)\bigr) && \text{(P13) complementación}\\
+&=(A\cap B)\cup\bigl((B\cap C)\cup((B\cap C)\cap A^{c})\bigr) && \text{(P9) y (P3)}\\
+&=(A\cap B)\cup(B\cap C) && \text{(P12) absorción}
+\end{align*}
+\end{paso}
+
+\begin{resp}
+Queda verificado que $\bigl(A\cup(B\cap C)\bigr)\cap(A^{c}\cup B)=(A\cap B)\cup(B\cap C)$.
+Propiedades usadas: conmutativa, distributiva, asociativa, idempotencia, complementación,
+elemento neutro y absorción.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(k) \ $(A\cap B^{c})\cup(A^{c}\cap B)=A\triangle B$}
+
+\begin{paso}{Paso 1 --- Escribir la definición de diferencia simétrica}
+\textbf{Qué hago:} desarrollo el lado derecho aplicando la definición (P2).
+
+\textbf{¿De dónde sale?} El símbolo $A\triangle B$ del lado derecho del inciso~(k).
+
+\textbf{¿Por qué?} Por (P2), la diferencia simétrica se define como
+$A\triangle B=(A\setminus B)\cup(B\setminus A)$: son los elementos que pertenecen a exactamente
+uno de los dos conjuntos, obtenidos uniendo lo exclusivo de $A$ con lo exclusivo de $B$. Empezar
+por la derecha es lo natural, porque es el lado que contiene el símbolo que hay que traducir.
+
+\textbf{¿Qué tomamos?} $A\triangle B=(A\setminus B)\cup(B\setminus A)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Convertir las dos diferencias}
+\textbf{Qué hago:} aplico la definición de diferencia (P1) a cada uno de los dos sumandos.
+
+\textbf{¿De dónde sale?} De la expresión $(A\setminus B)\cup(B\setminus A)$ del Paso~1.
+
+\textbf{¿Por qué?} Por (P1), $X\setminus Y=X\cap Y^{c}$; con $X=A$, $Y=B$ da $A\cap B^{c}$, y con
+$X=B$, $Y=A$ da $B\cap A^{c}$. Después de este paso la expresión ya no contiene ni $\triangle$
+ni $\setminus$, solo $\cup$, $\cap$ y $^{c}$.
+
+\textbf{¿Qué tomamos?} $A\triangle B=(A\cap B^{c})\cup(B\cap A^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Reordenar el segundo bloque}
+\textbf{Qué hago:} aplico la conmutativa de la intersección (P3) al bloque $B\cap A^{c}$.
+
+\textbf{¿De dónde sale?} Del segundo sumando obtenido en el Paso~2.
+
+\textbf{¿Por qué?} Por (P3), $X\cap Y=Y\cap X$: la intersección no distingue el orden de sus
+argumentos. Con $X=B$, $Y=A^{c}$ queda $B\cap A^{c}=A^{c}\cap B$, que es literalmente el segundo
+bloque del lado izquierdo del enunciado.
+
+\textbf{¿Qué tomamos?} La cadena completa:
+\begin{align*}
+A\triangle B
+&=(A\setminus B)\cup(B\setminus A) && \text{(P2) definición de diferencia simétrica}\\
+&=(A\cap B^{c})\cup(B\cap A^{c}) && \text{(P1) definición de diferencia}\\
+&=(A\cap B^{c})\cup(A^{c}\cap B) && \text{(P3) conmutativa}
+\end{align*}
+\end{paso}
+
+\begin{resp}
+Queda verificado que $(A\cap B^{c})\cup(A^{c}\cap B)=A\triangle B$. Esta igualdad se usará como
+forma de trabajo en los incisos (l), (m), (n) y (ñ): siempre que aparezca un $\triangle$ se
+sustituirá por $(\ \cdot\ \cap\ \cdot^{c})\cup(\ \cdot^{c}\cap\ \cdot\ )$.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(l) \ $(A\triangle B)\cap C=(A\cap C)\triangle(B\cap C)$}
+
+\begin{paso}{Paso 1 --- Desarrollar el lado izquierdo}
+\textbf{Qué hago:} sustituyo $A\triangle B$ por su forma desarrollada y distribuyo el factor $C$.
+
+\textbf{¿De dónde sale?} Del lado izquierdo del inciso~(l), $(A\triangle B)\cap C$, y del
+resultado del inciso~(k), $A\triangle B=(A\cap B^{c})\cup(A^{c}\cap B)$.
+
+\textbf{¿Por qué?} Primero se elimina el $\triangle$ porque no tiene leyes propias. Después, por
+(P3) escribimos $\bigl((A\cap B^{c})\cup(A^{c}\cap B)\bigr)\cap C=C\cap\bigl((A\cap B^{c})\cup(A^{c}\cap B)\bigr)$
+y aplicamos (P5) con $X=C$, $Y=A\cap B^{c}$, $Z=A^{c}\cap B$. Con (P3) y (P4) reordenamos cada
+bloque para escribir las letras en el orden $A$, $B$, $C$.
+
+\textbf{¿Qué tomamos?}
+$(A\triangle B)\cap C=(A\cap B^{c}\cap C)\cup(A^{c}\cap B\cap C)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Desarrollar el lado derecho con la definición de diferencia simétrica}
+\textbf{Qué hago:} aplico (P2) y (P1) al lado derecho, tratando $A\cap C$ y $B\cap C$ como dos
+conjuntos cualesquiera.
+
+\textbf{¿De dónde sale?} Del lado derecho del inciso~(l), $(A\cap C)\triangle(B\cap C)$.
+
+\textbf{¿Por qué?} Por (P2) e (P1) aplicadas con $X=A\cap C$ e $Y=B\cap C$:
+$X\triangle Y=(X\cap Y^{c})\cup(X^{c}\cap Y)$. Las definiciones valen para conjuntos
+arbitrarios, y $A\cap C$ y $B\cap C$ lo son; no hace falta ninguna hipótesis adicional sobre
+ellos.
+
+\textbf{¿Qué tomamos?}
+$(A\cap C)\triangle(B\cap C)=\bigl((A\cap C)\cap(B\cap C)^{c}\bigr)\cup\bigl((A\cap C)^{c}\cap(B\cap C)\bigr)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Simplificar el primer bloque del lado derecho}
+\textbf{Qué hago:} desarrollo $(A\cap C)\cap(B\cap C)^{c}$ hasta dejarlo en forma de
+intersección simple.
+
+\textbf{¿De dónde sale?} Es el primer sumando obtenido en el Paso~2.
+
+\textbf{¿Por qué?} Por (P7), $(B\cap C)^{c}=B^{c}\cup C^{c}$. Por (P5) con $X=A\cap C$,
+$Y=B^{c}$, $Z=C^{c}$:
+\[
+(A\cap C)\cap(B^{c}\cup C^{c})=\bigl((A\cap C)\cap B^{c}\bigr)\cup\bigl((A\cap C)\cap C^{c}\bigr).
+\]
+El segundo bloque se anula: por (P3) y (P4), $(A\cap C)\cap C^{c}=A\cap(C\cap C^{c})$, y por
+(P13) $C\cap C^{c}=\varnothing$, con lo que por (P10) $A\cap\varnothing=\varnothing$. Finalmente
+(P9) elimina el $\varnothing$ de la unión, y (P3) con (P4) reordenan el bloque superviviente.
+
+\textbf{¿Qué tomamos?} $(A\cap C)\cap(B\cap C)^{c}=A\cap B^{c}\cap C$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Simplificar el segundo bloque del lado derecho}
+\textbf{Qué hago:} desarrollo $(A\cap C)^{c}\cap(B\cap C)$ del mismo modo.
+
+\textbf{¿De dónde sale?} Es el segundo sumando obtenido en el Paso~2.
+
+\textbf{¿Por qué?} Por (P7), $(A\cap C)^{c}=A^{c}\cup C^{c}$. Por (P3) y (P5),
+\[
+(A^{c}\cup C^{c})\cap(B\cap C)=\bigl((B\cap C)\cap A^{c}\bigr)\cup\bigl((B\cap C)\cap C^{c}\bigr),
+\]
+y el segundo bloque se anula igual que antes: $(B\cap C)\cap C^{c}=B\cap(C\cap C^{c})
+=B\cap\varnothing=\varnothing$ por (P4), (P13) y (P10). El (P9) borra el vacío y (P3) con (P4)
+reordenan.
+
+\textbf{¿Qué tomamos?} $(A\cap C)^{c}\cap(B\cap C)=A^{c}\cap B\cap C$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Comparar los dos desarrollos}
+\textbf{Qué hago:} pongo lado a lado el resultado del Paso~1 y el de los Pasos~3 y~4.
+
+\textbf{¿De dónde sale?} Del Paso~1: el lado izquierdo vale
+$(A\cap B^{c}\cap C)\cup(A^{c}\cap B\cap C)$. De los Pasos~3 y~4: el lado derecho vale
+$(A\cap B^{c}\cap C)\cup(A^{c}\cap B\cap C)$.
+
+\textbf{¿Por qué?} Porque ambos lados se redujeron, mediante propiedades, a la misma forma
+normal de unión de intersecciones, y dos conjuntos iguales a un mismo tercero son iguales entre
+sí.
+
+\textbf{¿Qué tomamos?} La igualdad queda verificada:
+\[
+(A\triangle B)\cap C=(A\cap B^{c}\cap C)\cup(A^{c}\cap B\cap C)=(A\cap C)\triangle(B\cap C).
+\]
+\end{paso}
+
+\begin{resp}
+Queda verificado que $(A\triangle B)\cap C=(A\cap C)\triangle(B\cap C)$: la intersección
+distribuye sobre la diferencia simétrica. Propiedades usadas: definiciones de $\triangle$ y de
+$\setminus$, De Morgan, distributiva, asociativa, conmutativa, complementación, dominación y
+elemento neutro.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(m) \ $(A\triangle B)^{c}=(A\cap B)\cup(A^{c}\cap B^{c})$}
+
+\begin{paso}{Paso 1 --- Desarrollar la diferencia simétrica que está dentro del complemento}
+\textbf{Qué hago:} sustituyo $A\triangle B$ por su forma con $\cup$, $\cap$ y $^{c}$, sin tocar
+todavía el complemento exterior.
+
+\textbf{¿De dónde sale?} Del lado izquierdo del inciso~(m) y del resultado del inciso~(k).
+
+\textbf{¿Por qué?} Por (P2) y (P1), $A\triangle B=(A\cap B^{c})\cup(A^{c}\cap B)$. Hay que hacer
+esto primero porque De Morgan solo sabe actuar sobre uniones e intersecciones, no sobre el
+símbolo $\triangle$.
+
+\textbf{¿Qué tomamos?}
+$(A\triangle B)^{c}=\bigl((A\cap B^{c})\cup(A^{c}\cap B)\bigr)^{c}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Aplicar De Morgan al complemento de la unión}
+\textbf{Qué hago:} empujo el complemento exterior hacia dentro, convirtiendo la unión en
+intersección.
+
+\textbf{¿De dónde sale?} De la expresión obtenida en el Paso~1.
+
+\textbf{¿Por qué?} Por (P7), $(X\cup Y)^{c}=X^{c}\cap Y^{c}$, con $X=A\cap B^{c}$ e
+$Y=A^{c}\cap B$: estar fuera de una unión equivale a estar fuera de los dos sumandos a la vez.
+
+\textbf{¿Qué tomamos?}
+$\bigl((A\cap B^{c})\cup(A^{c}\cap B)\bigr)^{c}=(A\cap B^{c})^{c}\cap(A^{c}\cap B)^{c}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Aplicar De Morgan a cada factor y cancelar los complementos dobles}
+\textbf{Qué hago:} vuelvo a usar (P7) dentro de cada uno de los dos factores y limpio con (P8)
+los complementos que quedan anidados.
+
+\textbf{¿De dónde sale?} De los factores $(A\cap B^{c})^{c}$ y $(A^{c}\cap B)^{c}$ del Paso~2.
+
+\textbf{¿Por qué?} Por (P7), $(X\cap Y)^{c}=X^{c}\cup Y^{c}$: el primer factor da
+$A^{c}\cup(B^{c})^{c}$ y el segundo da $(A^{c})^{c}\cup B^{c}$. Por (P8), $(X^{c})^{c}=X$, de
+donde $(B^{c})^{c}=B$ y $(A^{c})^{c}=A$. Tras este paso todos los complementos están pegados a
+letras sueltas, que es la condición para poder distribuir.
+
+\textbf{¿Qué tomamos?}
+$(A\cap B^{c})^{c}\cap(A^{c}\cap B)^{c}=(A^{c}\cup B)\cap(A\cup B^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Distribuir el producto de los dos factores}
+\textbf{Qué hago:} reparto el factor $(A^{c}\cup B)$ sobre los dos sumandos de $A\cup B^{c}$.
+
+\textbf{¿De dónde sale?} De la expresión $(A^{c}\cup B)\cap(A\cup B^{c})$ del Paso~3.
+
+\textbf{¿Por qué?} Por (P5), $X\cap(Y\cup Z)=(X\cap Y)\cup(X\cap Z)$, con $X=A^{c}\cup B$,
+$Y=A$, $Z=B^{c}$. Distribuir convierte el producto en una unión, que es la forma del lado
+derecho del enunciado.
+
+\textbf{¿Qué tomamos?}
+$(A^{c}\cup B)\cap(A\cup B^{c})=\bigl((A^{c}\cup B)\cap A\bigr)\cup\bigl((A^{c}\cup B)\cap B^{c}\bigr)$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Simplificar el primer sumando}
+\textbf{Qué hago:} desarrollo $(A^{c}\cup B)\cap A$ y elimino el término que se anula.
+
+\textbf{¿De dónde sale?} Es el primer sumando producido en el Paso~4.
+
+\textbf{¿Por qué?} Por (P3) y (P5), $(A^{c}\cup B)\cap A=A\cap(A^{c}\cup B)=(A\cap A^{c})\cup(A\cap B)$.
+Por (P13), $A\cap A^{c}=\varnothing$, porque ningún elemento está dentro y fuera de $A$ a la vez;
+y por (P9), $\varnothing\cup(A\cap B)=A\cap B$.
+
+\textbf{¿Qué tomamos?} $(A^{c}\cup B)\cap A=A\cap B$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Simplificar el segundo sumando}
+\textbf{Qué hago:} desarrollo $(A^{c}\cup B)\cap B^{c}$ del mismo modo.
+
+\textbf{¿De dónde sale?} Es el segundo sumando producido en el Paso~4.
+
+\textbf{¿Por qué?} Por (P3) y (P5), $(A^{c}\cup B)\cap B^{c}=B^{c}\cap(A^{c}\cup B)
+=(B^{c}\cap A^{c})\cup(B^{c}\cap B)$. Por (P3), $B^{c}\cap B=B\cap B^{c}$, y por (P13) eso es
+$\varnothing$; por (P9) el vacío desaparece de la unión. Finalmente (P3) reordena
+$B^{c}\cap A^{c}$ como $A^{c}\cap B^{c}$.
+
+\textbf{¿Qué tomamos?} $(A^{c}\cup B)\cap B^{c}=A^{c}\cap B^{c}$.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Recomponer la cadena}
+\textbf{Qué hago:} sustituyo los dos sumandos simplificados y comparo con el lado derecho del
+enunciado.
+
+\textbf{¿De dónde sale?} Del Paso~5, primer sumando $=A\cap B$; del Paso~6, segundo sumando
+$=A^{c}\cap B^{c}$.
+
+\textbf{¿Por qué?} Por transitividad de la igualdad, encadenando los siete renglones, cada uno
+justificado por una propiedad concreta.
+
+\textbf{¿Qué tomamos?} La cadena completa:
+\begin{align*}
+(A\triangle B)^{c}
+&=\bigl((A\cap B^{c})\cup(A^{c}\cap B)\bigr)^{c} && \text{(P2) y (P1)}\\
+&=(A\cap B^{c})^{c}\cap(A^{c}\cap B)^{c} && \text{(P7) De Morgan}\\
+&=(A^{c}\cup B)\cap(A\cup B^{c}) && \text{(P7) y (P8)}\\
+&=\bigl((A^{c}\cup B)\cap A\bigr)\cup\bigl((A^{c}\cup B)\cap B^{c}\bigr) && \text{(P5) distributiva}\\
+&=(A\cap B)\cup(A^{c}\cap B^{c}) && \text{(P3), (P5), (P13) y (P9)}
+\end{align*}
+\end{paso}
+
+\begin{resp}
+Queda verificado que $(A\triangle B)^{c}=(A\cap B)\cup(A^{c}\cap B^{c})$: el complemento de la
+diferencia simétrica está formado por lo que pertenece a los dos conjuntos junto con lo que no
+pertenece a ninguno, es decir, por los elementos en los que $A$ y $B$ ``coinciden''.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(n) \ $A\cap(B\triangle C)=(A\cap B)\triangle(A\cap C)$}
+
+\begin{paso}{Paso 1 --- Desarrollar el lado izquierdo}
+\textbf{Qué hago:} sustituyo $B\triangle C$ por su forma desarrollada y distribuyo el factor $A$.
+
+\textbf{¿De dónde sale?} Del lado izquierdo del inciso~(n) y del resultado del inciso~(k),
+aplicado ahora al par $B$, $C$: $B\triangle C=(B\cap C^{c})\cup(B^{c}\cap C)$.
+
+\textbf{¿Por qué?} Por (P2) y (P1) se elimina el $\triangle$, y por (P5) con $X=A$,
+$Y=B\cap C^{c}$, $Z=B^{c}\cap C$ el factor $A$ se reparte entre los dos sumandos. Con (P4) se
+reagrupan las intersecciones triples sin paréntesis.
+
+\textbf{¿Qué tomamos?}
+$A\cap(B\triangle C)=(A\cap B\cap C^{c})\cup(A\cap B^{c}\cap C)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Desarrollar el lado derecho}
+\textbf{Qué hago:} aplico (P2) y (P1) al lado derecho, tomando $A\cap B$ y $A\cap C$ como los dos
+conjuntos que participan en la diferencia simétrica.
+
+\textbf{¿De dónde sale?} Del lado derecho del inciso~(n), $(A\cap B)\triangle(A\cap C)$.
+
+\textbf{¿Por qué?} Porque (P2) y (P1) valen para conjuntos arbitrarios, y $A\cap B$ y $A\cap C$
+lo son. Instanciando $X=A\cap B$, $Y=A\cap C$ queda
+$X\triangle Y=(X\cap Y^{c})\cup(X^{c}\cap Y)$.
+
+\textbf{¿Qué tomamos?}
+$(A\cap B)\triangle(A\cap C)=\bigl((A\cap B)\cap(A\cap C)^{c}\bigr)\cup\bigl((A\cap B)^{c}\cap(A\cap C)\bigr)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Simplificar el primer bloque del lado derecho}
+\textbf{Qué hago:} desarrollo $(A\cap B)\cap(A\cap C)^{c}$ hasta dejarlo como intersección
+simple.
+
+\textbf{¿De dónde sale?} Es el primer sumando obtenido en el Paso~2.
+
+\textbf{¿Por qué?} Por (P7), $(A\cap C)^{c}=A^{c}\cup C^{c}$. Por (P5) con $X=A\cap B$,
+$Y=A^{c}$, $Z=C^{c}$:
+\[
+(A\cap B)\cap(A^{c}\cup C^{c})=\bigl((A\cap B)\cap A^{c}\bigr)\cup\bigl((A\cap B)\cap C^{c}\bigr).
+\]
+El primer bloque se anula: por (P3) y (P4), $(A\cap B)\cap A^{c}=(A\cap A^{c})\cap B$, y por
+(P13) y (P10) eso es $\varnothing\cap B=\varnothing$. Por (P9) el vacío desaparece de la unión.
+
+\textbf{¿Qué tomamos?} $(A\cap B)\cap(A\cap C)^{c}=A\cap B\cap C^{c}$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Simplificar el segundo bloque del lado derecho}
+\textbf{Qué hago:} desarrollo $(A\cap B)^{c}\cap(A\cap C)$ del mismo modo.
+
+\textbf{¿De dónde sale?} Es el segundo sumando obtenido en el Paso~2.
+
+\textbf{¿Por qué?} Por (P7), $(A\cap B)^{c}=A^{c}\cup B^{c}$. Por (P3) y (P5),
+\[
+(A^{c}\cup B^{c})\cap(A\cap C)=\bigl((A\cap C)\cap A^{c}\bigr)\cup\bigl((A\cap C)\cap B^{c}\bigr),
+\]
+y el primer bloque se anula por (P3), (P4), (P13) y (P10), igual que antes:
+$(A\cap C)\cap A^{c}=(A\cap A^{c})\cap C=\varnothing\cap C=\varnothing$. Por (P9) desaparece, y
+por (P3) y (P4) el bloque restante se escribe $A\cap B^{c}\cap C$.
+
+\textbf{¿Qué tomamos?} $(A\cap B)^{c}\cap(A\cap C)=A\cap B^{c}\cap C$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Comparar los dos desarrollos}
+\textbf{Qué hago:} confronto el resultado del Paso~1 con la unión de los Pasos~3 y~4.
+
+\textbf{¿De dónde sale?} Del Paso~1: el lado izquierdo vale
+$(A\cap B\cap C^{c})\cup(A\cap B^{c}\cap C)$. De los Pasos~3 y~4: el lado derecho vale
+$(A\cap B\cap C^{c})\cup(A\cap B^{c}\cap C)$.
+
+\textbf{¿Por qué?} Porque ambos lados se redujeron con propiedades a la misma unión de
+intersecciones, y la igualdad de conjuntos es transitiva y simétrica.
+
+\textbf{¿Qué tomamos?} La igualdad queda verificada:
+\[
+A\cap(B\triangle C)=(A\cap B\cap C^{c})\cup(A\cap B^{c}\cap C)=(A\cap B)\triangle(A\cap C).
+\]
+\end{paso}
+
+\begin{resp}
+Queda verificado que $A\cap(B\triangle C)=(A\cap B)\triangle(A\cap C)$. Junto con el inciso~(l),
+esto dice que la intersección distribuye sobre la diferencia simétrica por los dos lados; de
+hecho (n) se obtiene de (l) aplicando la conmutativa (P3), ya que
+$A\cap(B\triangle C)=(B\triangle C)\cap A$.
+\end{resp}
+
+%---------------------------------------------------------------------
+\subsection*{(ñ) \ $(A\triangle B)\setminus C=(A\setminus C)\triangle(B\setminus C)$}
+
+\begin{paso}{Paso 1 --- Convertir las diferencias de los dos lados}
+\textbf{Qué hago:} aplico la definición de diferencia (P1) al lado izquierdo y también a las dos
+diferencias que aparecen dentro del lado derecho.
+
+\textbf{¿De dónde sale?} Del enunciado del inciso~(ñ): a la izquierda $(A\triangle B)\setminus C$
+y a la derecha $(A\setminus C)\triangle(B\setminus C)$.
+
+\textbf{¿Por qué?} Por (P1), $X\setminus Y=X\cap Y^{c}$. Con $X=A\triangle B$ e $Y=C$ el lado
+izquierdo se vuelve $(A\triangle B)\cap C^{c}$. Con $X=A$, $Y=C$ y con $X=B$, $Y=C$ el lado
+derecho se vuelve $(A\cap C^{c})\triangle(B\cap C^{c})$. Este paso es el que revela la estructura
+del inciso: los dos lados son ahora del mismo tipo que los del inciso~(l), pero con $C^{c}$ en el
+lugar de $C$.
+
+\textbf{¿Qué tomamos?} Hay que verificar que
+$(A\triangle B)\cap C^{c}=(A\cap C^{c})\triangle(B\cap C^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Desarrollar el lado izquierdo}
+\textbf{Qué hago:} sustituyo $A\triangle B$ por su forma desarrollada y distribuyo el factor
+$C^{c}$.
+
+\textbf{¿De dónde sale?} De la expresión $(A\triangle B)\cap C^{c}$ obtenida en el Paso~1, junto
+con el resultado del inciso~(k), $A\triangle B=(A\cap B^{c})\cup(A^{c}\cap B)$.
+
+\textbf{¿Por qué?} Por (P2) y (P1) se elimina el $\triangle$; después, por (P3) y (P5) con
+$X=C^{c}$, $Y=A\cap B^{c}$, $Z=A^{c}\cap B$, el factor $C^{c}$ se reparte entre los dos
+sumandos; por último (P3) y (P4) ordenan las letras.
+
+\textbf{¿Qué tomamos?}
+$(A\triangle B)\cap C^{c}=(A\cap B^{c}\cap C^{c})\cup(A^{c}\cap B\cap C^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Desarrollar el lado derecho con la definición de diferencia simétrica}
+\textbf{Qué hago:} aplico (P2) y (P1) a $(A\cap C^{c})\triangle(B\cap C^{c})$.
+
+\textbf{¿De dónde sale?} De la expresión del lado derecho reescrita en el Paso~1.
+
+\textbf{¿Por qué?} Porque (P2) y (P1) se aplican a conjuntos arbitrarios; instanciamos
+$X=A\cap C^{c}$ e $Y=B\cap C^{c}$ en $X\triangle Y=(X\cap Y^{c})\cup(X^{c}\cap Y)$.
+
+\textbf{¿Qué tomamos?}
+\[
+(A\cap C^{c})\triangle(B\cap C^{c})=
+\bigl((A\cap C^{c})\cap(B\cap C^{c})^{c}\bigr)\cup\bigl((A\cap C^{c})^{c}\cap(B\cap C^{c})\bigr).
+\]
+\end{paso}
+
+\begin{paso}{Paso 4 --- Simplificar el primer bloque del lado derecho}
+\textbf{Qué hago:} desarrollo $(A\cap C^{c})\cap(B\cap C^{c})^{c}$.
+
+\textbf{¿De dónde sale?} Es el primer sumando obtenido en el Paso~3.
+
+\textbf{¿Por qué?} Por (P7), $(B\cap C^{c})^{c}=B^{c}\cup(C^{c})^{c}$, y por (P8),
+$(C^{c})^{c}=C$, de modo que $(B\cap C^{c})^{c}=B^{c}\cup C$. Por (P5) con $X=A\cap C^{c}$,
+$Y=B^{c}$, $Z=C$:
+\[
+(A\cap C^{c})\cap(B^{c}\cup C)=\bigl((A\cap C^{c})\cap B^{c}\bigr)\cup\bigl((A\cap C^{c})\cap C\bigr).
+\]
+El segundo bloque se anula: por (P3) y (P4), $(A\cap C^{c})\cap C=A\cap(C^{c}\cap C)$, y por (P3)
+y (P13), $C^{c}\cap C=C\cap C^{c}=\varnothing$, con lo que (P10) da $\varnothing$. Por (P9)
+desaparece de la unión y por (P3), (P4) el bloque restante se ordena.
+
+\textbf{¿Qué tomamos?} $(A\cap C^{c})\cap(B\cap C^{c})^{c}=A\cap B^{c}\cap C^{c}$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Simplificar el segundo bloque del lado derecho}
+\textbf{Qué hago:} desarrollo $(A\cap C^{c})^{c}\cap(B\cap C^{c})$.
+
+\textbf{¿De dónde sale?} Es el segundo sumando obtenido en el Paso~3.
+
+\textbf{¿Por qué?} Por (P7) y (P8), $(A\cap C^{c})^{c}=A^{c}\cup(C^{c})^{c}=A^{c}\cup C$. Por
+(P3) y (P5),
+\[
+(A^{c}\cup C)\cap(B\cap C^{c})=\bigl((B\cap C^{c})\cap A^{c}\bigr)\cup\bigl((B\cap C^{c})\cap C\bigr),
+\]
+y el segundo bloque vale $\varnothing$ por (P4), (P3), (P13) y (P10), exactamente como en el
+Paso~4. Por (P9) se borra, y (P3) con (P4) ordenan el bloque superviviente.
+
+\textbf{¿Qué tomamos?} $(A\cap C^{c})^{c}\cap(B\cap C^{c})=A^{c}\cap B\cap C^{c}$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Comparar los dos desarrollos}
+\textbf{Qué hago:} confronto el resultado del Paso~2 con la unión de los Pasos~4 y~5.
+
+\textbf{¿De dónde sale?} Del Paso~2: el lado izquierdo vale
+$(A\cap B^{c}\cap C^{c})\cup(A^{c}\cap B\cap C^{c})$. De los Pasos~4 y~5: el lado derecho vale
+$(A\cap B^{c}\cap C^{c})\cup(A^{c}\cap B\cap C^{c})$.
+
+\textbf{¿Por qué?} Porque ambos lados se redujeron con propiedades a la misma forma normal, y la
+igualdad de conjuntos es transitiva. Conviene observar que este inciso es exactamente el
+inciso~(l) con $C^{c}$ en lugar de $C$: como (l) se demostró para un conjunto arbitrario en esa
+posición, sustituirlo por $C^{c}$ es legítimo, y el desarrollo anterior no es más que esa
+sustitución hecha explícita.
+
+\textbf{¿Qué tomamos?} La igualdad queda verificada:
+\[
+(A\triangle B)\setminus C=(A\cap B^{c}\cap C^{c})\cup(A^{c}\cap B\cap C^{c})=(A\setminus C)\triangle(B\setminus C).
+\]
+\end{paso}
+
+\begin{resp}
+Queda verificado que $(A\triangle B)\setminus C=(A\setminus C)\triangle(B\setminus C)$: restar un
+mismo conjunto $C$ a los dos argumentos de una diferencia simétrica equivale a restárselo al
+resultado. Propiedades usadas: definiciones de $\setminus$ y de $\triangle$, De Morgan, doble
+complemento, distributiva, asociativa, conmutativa, complementación, dominación y elemento
+neutro.
+\end{resp}
+
+\begin{nota}
+\textbf{Sobre la validez de los quince incisos.}
+Los quince incisos del Ejercicio~8 resultaron ser igualdades verdaderas, y todos quedaron
+verificados sin recurrir a diagramas ni a elementos. El único que necesita una hipótesis extra
+es el (f), y el enunciado la proporciona explícitamente: sin suponer $A\cap B=\varnothing$ la
+igualdad de (f) es falsa, como se explicó en su momento. Los incisos (l), (n) y (ñ) son
+esencialmente el mismo resultado visto desde tres posiciones distintas: la intersección
+distribuye sobre la diferencia simétrica, y la diferencia con un conjunto fijo también.
+\end{nota}
+
+\end{document}

@@ -1,0 +1,634 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\begin{center}{\LARGE\bfseries Principios de probabilidad}\\[2pt]{\large Dependencia e independencia --- Ejercicios 1--3}\end{center}
+
+\vspace{4pt}
+
+\begin{teo}
+\textbf{1. Qué significa que dos eventos sean independientes.}
+
+Dos eventos $A$ y $B$ definidos sobre un mismo espacio muestral $\Omega$ se llaman
+\emph{independientes} cuando se cumple la igualdad
+\[
+P(A\cap B)=P(A)\cdot P(B).
+\]
+Esta igualdad es la \emph{definición}: no se demuestra, se verifica. Si la igualdad falla,
+los eventos se llaman \emph{dependientes}. No hay una tercera posibilidad: o el producto
+coincide con la probabilidad de la intersección, o no coincide.
+
+\medskip
+\textbf{2. Por qué esa definición captura la idea de ``no se influyen''.}
+
+La probabilidad condicional se define como
+\[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)},\qquad P(B)>0,
+\]
+y se lee ``la probabilidad de $A$ sabiendo que $B$ ya ocurrió''. Lo que hace esta fórmula es
+\emph{reducir el espacio muestral}: si sabemos que $B$ ocurrió, los únicos resultados que
+siguen siendo posibles son los de $B$, así que $B$ pasa a ser el nuevo ``todo'' y hay que
+volver a normalizar dividiendo entre $P(B)$; el numerador $P(A\cap B)$ es la parte de $A$
+que sobrevive dentro de ese nuevo todo.
+
+Ahora sustituimos ahí la definición de independencia. Si $P(A\cap B)=P(A)P(B)$, entonces
+\[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)}=\frac{P(A)\,P(B)}{P(B)}=P(A).
+\]
+Es decir: saber que $B$ ocurrió \emph{no cambia} la probabilidad de $A$. Y el recíproco
+también vale: si $P(A\mid B)=P(A)$, multiplicando ambos lados por $P(B)$ obtenemos
+$P(A\cap B)=P(A)P(B)$. Por eso ambas condiciones son equivalentes (siempre que $P(B)>0$), y
+por eso la definición con el producto es la ``buena'': dice exactamente que la información
+de un evento no altera la probabilidad del otro. Simétricamente, $P(B\mid A)=P(B)$ cuando
+$P(A)>0$.
+
+\medskip
+\textbf{3. Teorema: la independencia se hereda a los complementos.}
+
+\emph{Enunciado.} Si $A$ y $B$ son independientes, entonces también son independientes los
+pares $\overline{A}$ y $B$, $\;A$ y $\overline{B}$, $\;\overline{A}$ y $\overline{B}$.
+
+\emph{Demostración (caso $\overline{A}$ y $B$).} El evento $B$ se parte en dos pedazos
+disjuntos según si además ocurre $A$ o no ocurre $A$:
+\[
+B=(A\cap B)\cup(\overline{A}\cap B),\qquad (A\cap B)\cap(\overline{A}\cap B)=\varnothing .
+\]
+Como los dos pedazos son excluyentes, la regla de la suma da
+$P(B)=P(A\cap B)+P(\overline{A}\cap B)$, o sea
+\[
+P(\overline{A}\cap B)=P(B)-P(A\cap B).
+\]
+Usamos ahora la hipótesis $P(A\cap B)=P(A)P(B)$ y factorizamos $P(B)$:
+\[
+P(\overline{A}\cap B)=P(B)-P(A)P(B)=P(B)\bigl[1-P(A)\bigr]=P(B)\,P(\overline{A}),
+\]
+donde el último paso usa la regla del complemento $P(\overline{A})=1-P(A)$. Esa es
+justamente la definición de independencia para $\overline{A}$ y $B$.
+
+\emph{Caso $A$ y $\overline{B}$.} Es el mismo argumento intercambiando los papeles de $A$ y
+$B$: $P(A\cap\overline{B})=P(A)-P(A\cap B)=P(A)-P(A)P(B)=P(A)P(\overline{B})$.
+
+\emph{Caso $\overline{A}$ y $\overline{B}$.} Aplicamos el primer caso al par ya demostrado
+$A$ y $\overline{B}$ (que son independientes): reemplazando $B$ por $\overline{B}$ en la
+demostración anterior,
+\[
+P(\overline{A}\cap\overline{B})=P(\overline{B})-P(A\cap\overline{B})
+=P(\overline{B})-P(A)P(\overline{B})=P(\overline{B})\bigl[1-P(A)\bigr]
+=P(\overline{A})\,P(\overline{B}).
+\]
+\emph{Consecuencia práctica:} basta verificar la independencia en \emph{un} par para saber
+que los cuatro pares son independientes; y basta que \emph{un} par falle para que los cuatro
+fallen. Por eso más adelante podremos concluir ``dependientes'' aunque el dato venga dado
+sobre complementos.
+
+\medskip
+\textbf{4. Leyes de De Morgan en versión de probabilidades.}
+
+Las leyes de De Morgan para conjuntos dicen
+\[
+\overline{A}\cap\overline{B}=\overline{A\cup B},\qquad
+\overline{A}\cup\overline{B}=\overline{A\cap B}.
+\]
+La primera se lee: ``no ocurre $A$ y no ocurre $B$'' es lo mismo que ``no ocurre ninguno de
+los dos'', es decir, lo contrario de ``ocurre al menos uno''. Tomando probabilidad y usando
+la regla del complemento $P(\overline{E})=1-P(E)$:
+\[
+\boxed{\,P(\overline{A}\cap\overline{B})=1-P(A\cup B)\,},\qquad
+P(\overline{A}\cup\overline{B})=1-P(A\cap B).
+\]
+Combinada con la regla de la suma general
+$P(A\cup B)=P(A)+P(B)-P(A\cap B)$, la primera identidad se convierte en el puente que
+permite despejar $P(A\cap B)$ a partir de un dato sobre complementos:
+\[
+P(\overline{A}\cap\overline{B})=1-\bigl[P(A)+P(B)-P(A\cap B)\bigr].
+\]
+
+\medskip
+\textbf{5. Excluyentes NO es lo mismo que independientes.}
+
+Son ideas de naturaleza distinta. ``Excluyentes'' (o mutuamente excluyentes, o disjuntos) es
+una afirmación \emph{sobre los conjuntos}: $A\cap B=\varnothing$, no pueden ocurrir a la vez.
+``Independientes'' es una afirmación \emph{sobre las probabilidades}: $P(A\cap B)=P(A)P(B)$.
+
+De hecho, lejos de implicarse, casi se contradicen. Supongamos $A$ y $B$ excluyentes con
+$P(A)>0$ y $P(B)>0$. Entonces $A\cap B=\varnothing$ obliga a $P(A\cap B)=P(\varnothing)=0$,
+mientras que $P(A)P(B)>0$ por ser producto de dos números positivos. Como
+$0\neq P(A)P(B)$, la definición falla y los eventos son \emph{dependientes}. Y tiene sentido
+intuitivo: si $A$ y $B$ no pueden coexistir, saber que ocurrió $B$ te informa muchísimo sobre
+$A$ (te dice que $A$ no ocurrió, $P(A\mid B)=0$), que es lo opuesto a ``no se influyen''.
+
+Dos eventos no nulos excluyentes son, por lo tanto, siempre dependientes. El único caso en
+que excluyentes e independientes conviven es el degenerado en que alguno de los dos tiene
+probabilidad cero.
+\end{teo}
+
+\begin{tip}
+\textbf{Procedimiento de verificación (el mismo para todos los ejercicios).}
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Calcular $P(A\cap B)$.} Casi nunca lo dan directo. Se obtiene con una de
+        estas herramientas, según el dato disponible:
+        \[
+        P(A\cap B)=P(A)+P(B)-P(A\cup B),\qquad
+        P(A\cap B)=P(B)-P(\overline{A}\cap B),
+        \]
+        \[
+        P(A\cup B)=1-P(\overline{A}\cap\overline{B})\ \text{(De Morgan)},\qquad
+        P(B)=1-P(\overline{B})\ \text{(complemento)}.
+        \]
+  \item \textbf{Calcular el producto $P(A)\cdot P(B)$.} Ojo: hay que usar $P(A)$ y $P(B)$,
+        no sus complementos. Si el enunciado da $P(\overline{B})$, primero conviértalo.
+  \item \textbf{Comparar los dos números.}
+        \[
+        P(A\cap B)=P(A)P(B)\ \Rightarrow\ \text{independientes};\qquad
+        P(A\cap B)\neq P(A)P(B)\ \Rightarrow\ \text{dependientes}.
+        \]
+\end{enumerate}
+No hay que ``interpretar'' nada: la conclusión es puramente aritmética. Si los dos números
+coinciden, son independientes; si difieren aunque sea por una centésima, son dependientes.
+\end{tip}
+
+\section*{Ejercicio 1}
+
+\begin{quote}
+Sabiendo que $P(A)=0,5$, $P(\overline{B})=0,6$ y $P(\overline{A}\cap\overline{B})=0,25$, determine si $A$ y $B$ son eventos independientes.\\[2pt]
+\hspace*{\fill}R/ Dependientes
+\end{quote}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Inventario de datos y elección de la ruta}
+\textbf{Qué hago:} anoto los tres datos y decido con qué reglas llegar a $P(A\cap B)$, que es
+la única cantidad que me falta para poder aplicar la definición de independencia.
+\[
+P(A)=0{,}5,\qquad P(\overline{B})=0{,}6,\qquad P(\overline{A}\cap\overline{B})=0{,}25.
+\]
+\textbf{¿De dónde sale?} Los tres números son literales del enunciado; ninguno está
+calculado todavía.
+
+\textbf{¿Por qué?} El criterio de independencia exige comparar $P(A\cap B)$ contra
+$P(A)P(B)$. De esos cuatro ingredientes tengo uno solo ($P(A)$). Me falta $P(B)$ ---que sale
+del complemento--- y $P(A\cap B)$ ---que saldrá encadenando De Morgan con la regla de la
+suma---. Esa es la ruta: complemento $\to$ De Morgan $\to$ regla de la suma $\to$
+comparación.
+
+\textbf{¿Qué tomamos?} Todavía ningún valor nuevo; tomamos el plan de trabajo en tres
+conversiones.
+\end{paso}
+
+\begin{paso}{Paso 2 --- De $P(\overline{B})$ a $P(B)$ por la regla del complemento}
+\textbf{Qué hago:} aplico la \emph{regla del complemento}, $P(\overline{E})=1-P(E)$, despejada
+para $P(B)$:
+\[
+P(B)=1-P(\overline{B})=1-0{,}6=0{,}4.
+\]
+\textbf{¿De dónde sale?} El $1$ es la probabilidad del espacio muestral completo,
+$P(\Omega)=1$. El $0{,}6$ es $P(\overline{B})$, dato literal del enunciado. La resta
+$1-0{,}6=0{,}4$ es aritmética directa.
+
+\textbf{¿Por qué?} $B$ y $\overline{B}$ son excluyentes (o ocurre $B$ o no ocurre, nunca
+ambos) y entre los dos cubren todo $\Omega$ ($B\cup\overline{B}=\Omega$). Por la regla de la
+suma para eventos excluyentes, $P(B)+P(\overline{B})=P(\Omega)=1$, y de ahí se despeja la
+regla del complemento. No es un truco: nace del axioma de aditividad más la normalización
+$P(\Omega)=1$.
+
+\textbf{¿Qué tomamos?} Tomamos $P(B)=0{,}4$. Este número entrará tanto en la regla de la suma
+del Paso 4 como en el producto del Paso 5.
+\end{paso}
+
+\begin{paso}{Paso 3 --- De $P(\overline{A}\cap\overline{B})$ a $P(A\cup B)$ por De Morgan}
+\textbf{Qué hago:} uso la ley de De Morgan
+$\overline{A}\cap\overline{B}=\overline{A\cup B}$ junto con la regla del complemento, lo que
+da $P(\overline{A}\cap\overline{B})=1-P(A\cup B)$, y despejo la unión:
+\[
+P(A\cup B)=1-P(\overline{A}\cap\overline{B})=1-0{,}25=0{,}75.
+\]
+\textbf{¿De dónde sale?} El $0{,}25$ es el tercer dato del enunciado. El $1$ vuelve a ser
+$P(\Omega)$. La resta $1-0{,}25=0{,}75$ es aritmética directa.
+
+\textbf{¿Por qué?} ``No ocurre $A$ y tampoco ocurre $B$'' describe exactamente los resultados
+que quedan fuera de $A$ y fuera de $B$, es decir, el complemento de ``ocurre al menos uno de
+los dos'', que es $A\cup B$. Como los eventos $\overline{A}\cap\overline{B}$ y $A\cup B$ son
+complementarios entre sí, sus probabilidades suman $1$. Por eso el dato sobre la doble
+negación es, disfrazado, un dato sobre la unión.
+
+\textbf{¿Qué tomamos?} Tomamos $P(A\cup B)=0{,}75$, que es la pieza que le faltaba a la regla
+de la suma.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Despejar $P(A\cap B)$ con la regla de la suma}
+\textbf{Qué hago:} escribo la \emph{regla de la suma general} y la despejo para la
+intersección:
+\[
+P(A\cup B)=P(A)+P(B)-P(A\cap B)
+\quad\Longrightarrow\quad
+P(A\cap B)=P(A)+P(B)-P(A\cup B).
+\]
+Sustituyo y desgloso la aritmética:
+\[
+P(A\cap B)=0{,}5+0{,}4-0{,}75=0{,}9-0{,}75=0{,}15.
+\]
+\textbf{¿De dónde sale?} El $0{,}5$ es $P(A)$, dato del enunciado. El $0{,}4$ es $P(B)$,
+obtenido en el Paso 2 a partir de $P(\overline{B})=0{,}6$. El $0{,}75$ es $P(A\cup B)$,
+obtenido en el Paso 3 a partir de $P(\overline{A}\cap\overline{B})=0{,}25$. La suma parcial
+$0{,}5+0{,}4=0{,}9$ y luego $0{,}9-0{,}75=0{,}15$.
+
+\textbf{¿Por qué?} Al sumar $P(A)+P(B)$ los resultados que están en ambos eventos se cuentan
+dos veces (una al contar $A$ y otra al contar $B$); restar $P(A\cap B)$ corrige ese doble
+conteo y deja exactamente $P(A\cup B)$. Ese es el principio de inclusión--exclusión, que a su
+vez se deduce de partir $A\cup B$ en los tres pedazos disjuntos
+$A\cap\overline{B}$, $A\cap B$, $\overline{A}\cap B$ y aplicar aditividad.
+
+\textbf{¿Qué tomamos?} Tomamos $P(A\cap B)=0{,}15$. Este es el primer número de la
+comparación final.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Calcular el producto $P(A)\cdot P(B)$}
+\textbf{Qué hago:} calculo el segundo número de la comparación, el producto de las
+probabilidades individuales:
+\[
+P(A)\cdot P(B)=0{,}5\times 0{,}4=0{,}20.
+\]
+\textbf{¿De dónde sale?} El $0{,}5$ es $P(A)$ del enunciado; el $0{,}4$ es $P(B)$ del Paso 2.
+El producto: $5\times 4=20$, y como cada factor tiene un decimal, el resultado tiene dos,
+$0{,}20$.
+
+\textbf{¿Por qué?} Este producto es el valor que \emph{tendría} la intersección \emph{si} los
+eventos fueran independientes. Es la ``predicción'' del modelo de independencia; todavía no
+afirmamos que se cumpla, solo la construimos para contrastarla.
+
+\textbf{¿Qué tomamos?} Tomamos $P(A)P(B)=0{,}20$ como valor de referencia.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Comparar y concluir}
+\textbf{Qué hago:} enfrento los dos números obtenidos:
+\[
+P(A\cap B)=0{,}15
+\qquad\text{frente a}\qquad
+P(A)\,P(B)=0{,}20,
+\qquad 0{,}15\neq 0{,}20 .
+\]
+La diferencia es $0{,}20-0{,}15=0{,}05$, distinta de cero.
+
+\textbf{¿De dónde sale?} El $0{,}15$ viene del Paso 4 (regla de la suma alimentada por De
+Morgan y por el complemento); el $0{,}20$ viene del Paso 5 (producto de los datos
+individuales).
+
+\textbf{¿Por qué?} Porque la definición de independencia es una igualdad exacta. Al fallar la
+igualdad, la conclusión obligada es dependencia. Se puede ver también con la condicional:
+$P(A\mid B)=\dfrac{0{,}15}{0{,}4}=0{,}375\neq 0{,}5=P(A)$, o sea que enterarse de $B$ sí
+modifica la probabilidad de $A$ (la baja de $0{,}5$ a $0{,}375$), que es la traducción
+intuitiva de ``dependientes''.
+
+\textbf{¿Qué tomamos?} Tomamos la conclusión: $A$ y $B$ son \emph{dependientes}.
+\end{paso}
+\end{sol}
+
+\begin{resp}
+$P(B)=0{,}4$, $P(A\cup B)=0{,}75$ y $P(A\cap B)=0{,}15$, mientras que
+$P(A)\,P(B)=0{,}5\times0{,}4=0{,}20$. Como $0{,}15\neq 0{,}20$, la definición
+$P(A\cap B)=P(A)P(B)$ no se cumple: \textbf{$A$ y $B$ son eventos dependientes}.
+Coincide con la respuesta oficial \textbf{R/ Dependientes}.
+\end{resp}
+
+\section*{Ejercicio 2}
+
+\begin{quote}
+Suponga que en $\Omega$ se definen los eventos $C$ y $D$, tales que $P(C)=0{,}5$, $P(D)=0{,}4$ y $P(\overline{C}\cap D)=0{,}2$. Determine si los eventos $C$ y $D$ son independientes o no lo son.\\[2pt]
+\hspace*{\fill}R/ Independientes
+\end{quote}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Inventario de datos y elección de la ruta}
+\textbf{Qué hago:} anoto los datos y observo qué tipo de dato es el tercero, para elegir la
+regla adecuada.
+\[
+P(C)=0{,}5,\qquad P(D)=0{,}4,\qquad P(\overline{C}\cap D)=0{,}2.
+\]
+\textbf{¿De dónde sale?} Los tres son literales del enunciado.
+
+\textbf{¿Por qué?} A diferencia del ejercicio anterior, aquí ya me dan $P(C)$ y $P(D)$ sin
+complementos, así que el producto $P(C)P(D)$ es inmediato. Lo único que falta es
+$P(C\cap D)$, y el dato $P(\overline{C}\cap D)=0{,}2$ es precisamente ``la parte de $D$ que
+está fuera de $C$'', lo cual sugiere usar la partición de $D$ en dos trozos en lugar de dar
+el rodeo por De Morgan.
+
+\textbf{¿Qué tomamos?} Tomamos la ruta: partir $D$, despejar $P(C\cap D)$, comparar.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Partir el evento $D$ en dos pedazos excluyentes}
+\textbf{Qué hago:} descompongo $D$ según ocurra o no ocurra $C$ al mismo tiempo:
+\[
+D=(C\cap D)\;\cup\;(\overline{C}\cap D),
+\qquad (C\cap D)\cap(\overline{C}\cap D)=\varnothing .
+\]
+Como los dos pedazos son excluyentes, la regla de la suma para eventos disjuntos da
+\[
+P(D)=P(C\cap D)+P(\overline{C}\cap D).
+\]
+\textbf{¿De dónde sale?} No hay números aquí todavía: es una identidad de conjuntos. Cada
+resultado que está en $D$ o bien también está en $C$ (y entonces cae en $C\cap D$) o bien no
+está en $C$ (y entonces cae en $\overline{C}\cap D$). No hay tercera opción y no hay solape.
+
+\textbf{¿Por qué?} Porque $C$ y $\overline{C}$ forman una partición de $\Omega$; al
+intersecarlos con $D$ obtenemos una partición de $D$. La aditividad de la probabilidad
+(axioma) se aplica exactamente en ese caso: probabilidades de partes disjuntas se suman.
+
+\textbf{¿Qué tomamos?} Tomamos la relación $P(D)=P(C\cap D)+P(\overline{C}\cap D)$, lista
+para despejar.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Despejar $P(C\cap D)$}
+\textbf{Qué hago:} despejo la incógnita de la identidad anterior y sustituyo:
+\[
+P(C\cap D)=P(D)-P(\overline{C}\cap D)=0{,}4-0{,}2=0{,}2 .
+\]
+\textbf{¿De dónde sale?} El $0{,}4$ es $P(D)$, dato del enunciado. El $0{,}2$ que se resta es
+$P(\overline{C}\cap D)$, también dato del enunciado. La resta $0{,}4-0{,}2=0{,}2$ es
+aritmética directa.
+
+\textbf{¿Por qué?} Porque a la probabilidad total de $D$ le quito la porción de $D$ que queda
+fuera de $C$; lo que sobra es, por fuerza, la porción de $D$ que sí está dentro de $C$, es
+decir $C\cap D$. Nótese el control de consistencia: $0{,}2\le 0{,}4=P(D)$ y
+$0{,}2\le 0{,}5=P(C)$, como debe ser, pues una intersección nunca puede tener probabilidad
+mayor que la de cualquiera de los eventos que la forman.
+
+\textbf{¿Qué tomamos?} Tomamos $P(C\cap D)=0{,}2$, primer número de la comparación.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Calcular el producto $P(C)\cdot P(D)$}
+\textbf{Qué hago:} construyo el valor que predice el modelo de independencia:
+\[
+P(C)\cdot P(D)=0{,}5\times 0{,}4=0{,}20 .
+\]
+\textbf{¿De dónde sale?} Ambos factores son datos literales del enunciado, sin ninguna
+conversión previa. El producto: $5\times 4=20$ y dos decimales en total, $0{,}20$.
+
+\textbf{¿Por qué?} Porque la definición de independencia dice que, si los eventos no se
+influyen, la probabilidad de que ocurran los dos a la vez es el producto de sus
+probabilidades por separado. Ese producto es la referencia contra la cual se contrasta el
+valor real de la intersección.
+
+\textbf{¿Qué tomamos?} Tomamos $P(C)P(D)=0{,}20$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Comparar y concluir}
+\textbf{Qué hago:} enfrento los dos números:
+\[
+P(C\cap D)=0{,}2
+\qquad\text{frente a}\qquad
+P(C)\,P(D)=0{,}20,
+\qquad 0{,}2=0{,}20 .
+\]
+\textbf{¿De dónde sale?} El $0{,}2$ de la izquierda salió del Paso 3 (partición de $D$); el
+$0{,}20$ de la derecha salió del Paso 4 (producto de los datos). Son el mismo número escrito
+con distinta cantidad de decimales: $0{,}2=0{,}20$.
+
+\textbf{¿Por qué?} La igualdad $P(C\cap D)=P(C)P(D)$ es exactamente la definición de
+independencia, así que al verificarse la conclusión es inmediata. Se puede confirmar con la
+condicional: $P(C\mid D)=\dfrac{0{,}2}{0{,}4}=0{,}5=P(C)$, es decir, saber que $D$ ocurrió
+deja la probabilidad de $C$ intacta en $0{,}5$. Y por el teorema de los complementos, también
+son independientes $\overline{C}$ y $D$, $C$ y $\overline{D}$, y $\overline{C}$ y
+$\overline{D}$; en efecto,
+$P(\overline{C})P(D)=0{,}5\times0{,}4=0{,}2=P(\overline{C}\cap D)$, que es justamente el dato
+del enunciado.
+
+\textbf{¿Qué tomamos?} Tomamos la conclusión: $C$ y $D$ son \emph{independientes}.
+\end{paso}
+\end{sol}
+
+\begin{resp}
+$P(C\cap D)=P(D)-P(\overline{C}\cap D)=0{,}4-0{,}2=0{,}2$ y
+$P(C)\,P(D)=0{,}5\times0{,}4=0{,}2$. Como ambos valores coinciden, se cumple
+$P(C\cap D)=P(C)P(D)$: \textbf{$C$ y $D$ son eventos independientes}.
+Coincide con la respuesta oficial \textbf{R/ Independientes}.
+\end{resp}
+
+\section*{Ejercicio 3}
+
+\begin{quote}
+Considere los eventos:\\[4pt]
+$A$ : tener hijos de ambos sexos.\\
+$B$ : tener al menos un hijo (varón) después del primer varón.\\[4pt]
+Pruebe que si una familia tiene exactamente tres hijos (hombres o mujeres) entonces los eventos $A$ y $B$ son independientes.
+\end{quote}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Construir el espacio muestral de las familias con tres hijos}
+\textbf{Qué hago:} escribo el experimento como una \emph{secuencia ordenada de tres
+nacimientos}, anotando el sexo de cada hijo en orden de nacimiento, con $H$ = hombre (varón)
+y $M$ = mujer. Por el principio de multiplicación hay $2\times2\times2=2^{3}=8$ resultados, y
+los enumero todos:
+\[
+\Omega=\{\,HHH,\;HHM,\;HMH,\;HMM,\;MHH,\;MHM,\;MMH,\;MMM\,\},\qquad \#\Omega=8 .
+\]
+\textbf{¿De dónde sale?} El $2$ sale de que cada nacimiento tiene exactamente dos resultados
+posibles ($H$ o $M$); el exponente $3$ sale de que hay tres hijos. La enumeración se hace en
+orden sistemático (todas las que empiezan con $H$, luego todas las que empiezan con $M$) para
+garantizar que no falte ni se repita ninguna: $4+4=8$.
+
+\textbf{¿Por qué?} El orden de nacimiento \emph{debe} registrarse porque el evento $B$ habla
+de ``después del primer varón'', o sea de una relación temporal entre los nacimientos. Si
+solo contáramos cuántos varones hay, perderíamos la información necesaria para decidir $B$.
+Por eso el espacio muestral son secuencias, no combinaciones.
+
+\textbf{¿Qué tomamos?} Tomamos el espacio muestral con sus $8$ elementos listados.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Justificar que los ocho resultados son equiprobables}
+\textbf{Qué hago:} argumento que a cada una de las $8$ secuencias le corresponde la misma
+probabilidad y calculo cuál es:
+\[
+P(\text{cada secuencia})=\frac{1}{8}=0{,}125 .
+\]
+\textbf{¿De dónde sale?} El $1$ es la probabilidad total $P(\Omega)=1$; el $8$ es el número
+de resultados contado en el Paso 1. La división $1\div 8=0{,}125$.
+
+\textbf{¿Por qué?} Se asume, como es estándar en este tipo de problema, que en cada
+nacimiento hombre y mujer son igualmente probables ($1/2$ cada uno) y que el sexo de un hijo
+no influye en el de los otros (nacimientos independientes). Bajo esos dos supuestos, la
+probabilidad de cualquier secuencia concreta es el producto de tres factores $1/2$:
+\[
+\frac12\cdot\frac12\cdot\frac12=\frac{1}{8},
+\]
+y el resultado no depende de \emph{cuál} secuencia sea, porque siempre son tres factores
+iguales a $1/2$. Al ser todas iguales, tenemos un espacio equiprobable y podemos usar la
+definición clásica de Laplace,
+\[
+P(E)=\frac{\#E}{\#\Omega}=\frac{\text{casos favorables}}{\text{casos totales}} .
+\]
+Verificación: $8\times\frac18=1$, así que las probabilidades suman $1$ como deben.
+
+\textbf{¿Qué tomamos?} Tomamos que el modelo es equiprobable y que podemos calcular
+probabilidades contando elementos sobre $8$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Identificar qué secuencias pertenecen a $A$ y calcular $P(A)$}
+\textbf{Qué hago:} traduzco $A$ = ``tener hijos de ambos sexos'' a una condición sobre las
+secuencias: la secuencia debe contener al menos una $H$ \emph{y} al menos una $M$. Reviso una
+por una:
+\[
+\begin{array}{llc}
+HHH & \text{solo hombres} & \notin A\\
+HHM & \text{hay } H \text{ y } M & \in A\\
+HMH & \text{hay } H \text{ y } M & \in A\\
+HMM & \text{hay } H \text{ y } M & \in A\\
+MHH & \text{hay } H \text{ y } M & \in A\\
+MHM & \text{hay } H \text{ y } M & \in A\\
+MMH & \text{hay } H \text{ y } M & \in A\\
+MMM & \text{solo mujeres} & \notin A
+\end{array}
+\]
+\[
+A=\{HHM,\,HMH,\,HMM,\,MHH,\,MHM,\,MMH\},\qquad \#A=6,
+\]
+\[
+P(A)=\frac{6}{8}=\frac{3}{4}=0{,}75 .
+\]
+\textbf{¿De dónde sale?} El $6$ es el conteo de las secuencias marcadas $\in A$ en la tabla;
+el $8$ es $\#\Omega$ del Paso 1. La simplificación divide numerador y denominador entre $2$:
+$6\div2=3$ y $8\div2=4$, de donde $3/4=0{,}75$.
+
+\textbf{¿Por qué?} Usamos Laplace, que solo es válido gracias a la equiprobabilidad
+justificada en el Paso 2. Un atajo de control: el complemento $\overline{A}$ es ``todos del
+mismo sexo'' $=\{HHH,MMM\}$, con $\#\overline{A}=2$, y en efecto
+$P(A)=1-\frac{2}{8}=1-0{,}25=0{,}75$, lo que confirma el conteo.
+
+\textbf{¿Qué tomamos?} Tomamos $P(A)=\dfrac{3}{4}$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Identificar qué secuencias pertenecen a $B$ y calcular $P(B)$}
+\textbf{Qué hago:} traduzco $B$ = ``tener al menos un hijo varón después del primer varón''.
+Para cada secuencia localizo la posición del \emph{primer} varón y luego reviso si en alguna
+posición \emph{posterior} vuelve a aparecer una $H$:
+\[
+\begin{array}{lllc}
+HHH & \text{1er varón: pos. 1} & \text{después: } H,H \Rightarrow \text{sí} & \in B\\
+HHM & \text{1er varón: pos. 1} & \text{después: } H,M \Rightarrow \text{sí} & \in B\\
+HMH & \text{1er varón: pos. 1} & \text{después: } M,H \Rightarrow \text{sí} & \in B\\
+HMM & \text{1er varón: pos. 1} & \text{después: } M,M \Rightarrow \text{no} & \notin B\\
+MHH & \text{1er varón: pos. 2} & \text{después: } H \Rightarrow \text{sí} & \in B\\
+MHM & \text{1er varón: pos. 2} & \text{después: } M \Rightarrow \text{no} & \notin B\\
+MMH & \text{1er varón: pos. 3} & \text{después: nada} & \notin B\\
+MMM & \text{no hay varones} & \text{no existe ``primer varón''} & \notin B
+\end{array}
+\]
+(en la tercera columna, ``sí''/``no'' responde a: ¿aparece otro varón después del primero?)
+\[
+B=\{HHH,\,HHM,\,HMH,\,MHH\},\qquad \#B=4,
+\qquad
+P(B)=\frac{4}{8}=\frac{1}{2}=0{,}5 .
+\]
+\textbf{¿De dónde sale?} El $4$ es el conteo de las secuencias marcadas $\in B$; el $8$ es
+$\#\Omega$. Simplificando entre $4$: $4\div4=1$ y $8\div4=2$, de donde $1/2=0{,}5$.
+
+\textbf{¿Por qué?} Nótese que ``que haya un varón después del primer varón'' equivale a
+``que haya al menos dos varones en total'': si hay dos o más varones, el segundo de ellos
+aparece necesariamente después del primero; y si hay a lo sumo uno, no queda ningún varón
+posterior. Por eso $B=\{$al menos dos varones$\}$, y las secuencias con dos o más $H$ son
+justamente las cuatro listadas. Los casos $MMM$ y $MMH$ merecen atención especial: en $MMM$
+no existe siquiera un primer varón, así que la condición no puede cumplirse; en $MMH$ el
+primer varón nace de último y ya no hay nacimientos posteriores. Ambos quedan fuera de $B$.
+
+\textbf{¿Qué tomamos?} Tomamos $P(B)=\dfrac{1}{2}$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Determinar $A\cap B$ y calcular $P(A\cap B)$}
+\textbf{Qué hago:} intersecto las dos listas: busco las secuencias que aparecen
+simultáneamente en $A$ y en $B$.
+\begin{align*}
+A&=\{HHM,\,HMH,\,HMM,\,MHH,\,MHM,\,MMH\},\\
+B&=\{HHH,\,HHM,\,HMH,\,MHH\}.
+\end{align*}
+Reviso los cuatro elementos de $B$ uno por uno: $HHH$ no está en $A$ (son solo hombres);
+$HHM$ sí está en $A$; $HMH$ sí está en $A$; $MHH$ sí está en $A$. Por lo tanto
+\[
+A\cap B=\{HHM,\,HMH,\,MHH\},\qquad \#(A\cap B)=3,
+\qquad
+P(A\cap B)=\frac{3}{8}=0{,}375 .
+\]
+\textbf{¿De dónde sale?} El $3$ es el conteo de la lista de la intersección; el $8$ es
+$\#\Omega$. La división $3\div 8=0{,}375$.
+
+\textbf{¿Por qué?} $A\cap B$ significa ``ocurren los dos a la vez'', y en un espacio muestral
+enumerado eso es literalmente la intersección de los dos subconjuntos. Conviene describirla
+en palabras para verificar: $A\cap B$ = ``hay hijos de ambos sexos \emph{y} al menos dos
+varones'' = ``exactamente dos varones y una mujer'', que son las tres formas de colocar a la
+única mujer entre los tres nacimientos ($HHM$, $HMH$, $MHH$). El conteo $3$ coincide, lo que
+confirma la lista.
+
+\textbf{¿Qué tomamos?} Tomamos $P(A\cap B)=\dfrac{3}{8}$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Calcular el producto $P(A)\cdot P(B)$}
+\textbf{Qué hago:} multiplico las dos probabilidades individuales obtenidas en los Pasos 3 y
+4, desglosando la multiplicación de fracciones:
+\[
+P(A)\cdot P(B)=\frac{3}{4}\times\frac{1}{2}=\frac{3\times 1}{4\times 2}=\frac{3}{8}=0{,}375 .
+\]
+\textbf{¿De dónde sale?} El $3/4$ es $P(A)$ del Paso 3 (seis casos favorables de ocho); el
+$1/2$ es $P(B)$ del Paso 4 (cuatro casos favorables de ocho). Para multiplicar fracciones se
+multiplican numeradores entre sí ($3\times1=3$) y denominadores entre sí ($4\times2=8$).
+
+\textbf{¿Por qué?} Este producto es el valor que la intersección \emph{debería} tener si los
+eventos fueran independientes. Todavía no hemos probado nada; solo hemos fabricado el número
+de referencia.
+
+\textbf{¿Qué tomamos?} Tomamos $P(A)P(B)=\dfrac{3}{8}$.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Comparar y cerrar la demostración}
+\textbf{Qué hago:} enfrento el valor real de la intersección con el producto:
+\[
+P(A\cap B)=\frac{3}{8}
+\qquad\text{y}\qquad
+P(A)\cdot P(B)=\frac{3}{4}\times\frac{1}{2}=\frac{3}{8},
+\qquad\text{luego}\qquad
+P(A\cap B)=P(A)\,P(B).
+\]
+\textbf{¿De dónde sale?} El $3/8$ de la izquierda se obtuvo \emph{contando} los elementos de
+$A\cap B$ (Paso 5); el $3/8$ de la derecha se obtuvo \emph{multiplicando} $P(A)$ por $P(B)$
+(Paso 6). Que dos caminos independientes den el mismo número es exactamente lo que había que
+demostrar.
+
+\textbf{¿Por qué?} Porque la definición de independencia es la igualdad
+$P(A\cap B)=P(A)P(B)$; al verificarse, los eventos son independientes por definición y la
+prueba queda completa. La lectura con condicionales lo hace más vívido:
+\[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)}=\frac{3/8}{1/2}=\frac{3}{8}\times\frac{2}{1}=\frac{6}{8}=\frac{3}{4}=P(A),
+\]
+es decir, enterarse de que hay al menos dos varones no cambia en nada la probabilidad de que
+la familia tenga hijos de ambos sexos: sigue siendo $3/4$. Y por el teorema de los
+complementos demostrado en la Teoría, también son independientes $\overline{A}$ y $B$, $A$ y
+$\overline{B}$, y $\overline{A}$ y $\overline{B}$.
+
+Conviene subrayar que este resultado es una \emph{casualidad numérica} propia del caso de
+tres hijos: no hay ninguna razón intuitiva por la que ``tener hijos de ambos sexos'' y
+``tener un varón después del primer varón'' deban ser ajenos entre sí, y de hecho con dos o
+con cuatro hijos la igualdad ya no se cumple. Por eso el enunciado insiste en
+``exactamente tres hijos'': la independencia aquí se \emph{verifica}, no se intuye.
+
+\textbf{¿Qué tomamos?} Tomamos la conclusión: $A$ y $B$ son independientes. $\blacksquare$
+\end{paso}
+\end{sol}
+
+\begin{nota}
+El enunciado no trae respuesta oficial impresa para el ejercicio 3, porque no pide un valor
+sino una demostración. La conclusión obtenida ($A$ y $B$ independientes) es exactamente lo
+que el enunciado pedía probar, así que no hay discrepancia. El punto delicado de la prueba es
+la lectura del evento $B$: ``al menos un hijo varón después del primer varón'' equivale a
+``al menos dos varones en total'', lo que descarta $HMM$, $MHM$, $MMH$ y $MMM$ y deja los
+cuatro casos $HHH$, $HHM$, $HMH$, $MHH$.
+\end{nota}
+
+\begin{resp}
+Con $\Omega=\{HHH,HHM,HMH,HMM,MHH,MHM,MMH,MMM\}$ equiprobable ($\#\Omega=8$):
+\[
+P(A)=\frac{6}{8}=\frac{3}{4},\qquad
+P(B)=\frac{4}{8}=\frac{1}{2},\qquad
+P(A\cap B)=\frac{3}{8}.
+\]
+Como $P(A)\cdot P(B)=\dfrac{3}{4}\cdot\dfrac{1}{2}=\dfrac{3}{8}=P(A\cap B)$, se cumple la
+definición de independencia: \textbf{en una familia con exactamente tres hijos, los eventos
+$A$ y $B$ son independientes}, que era lo que se pedía probar.
+\end{resp}
+
+\end{document}

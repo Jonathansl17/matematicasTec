@@ -1,0 +1,1106 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+
+\begin{center}{\LARGE\bfseries Principios de conteo}\\[2pt]{\large Diagramas de Venn --- Ejercicios 1--7}\end{center}
+
+\vspace{4pt}
+
+\begin{teo}
+\textbf{Cómo se resuelve un problema con diagramas de Venn: el método por regiones.}
+
+Un diagrama de Venn no es un dibujo decorativo: es una \emph{partición} del universo. Cuando trazamos
+dos, tres o cuatro círculos dentro de un rectángulo, ese rectángulo queda cortado en pedazos que no se
+traslapan entre sí (las \emph{regiones básicas}), y cada elemento del universo cae en exactamente una de
+ellas. Esa es toda la fuerza del método: si cada elemento se cuenta una y solo una vez, entonces la suma
+de los valores de todas las regiones tiene que dar el total del universo.
+
+\medskip
+\textbf{(1) Identificar los conjuntos.} Lo primero es leer el enunciado y decidir cuántos conjuntos hay
+y cómo se llaman. Con tres conjuntos $A$, $B$, $C$ el rectángulo queda dividido en $2^3=8$ regiones:
+solo $A$, solo $B$, solo $C$, solo $A\cap B$, solo $A\cap C$, solo $B\cap C$, $A\cap B\cap C$, y el
+exterior (ninguno). Con cuatro conjuntos serían $2^4=16$ regiones, que ya no se dibujan cómodamente
+con círculos: ahí conviene trabajar con inclusión--exclusión en fórmula.
+
+\medskip
+\textbf{(2) SIEMPRE empezar por la región más interna.} La región $A\cap B\cap C$ es la única que no
+depende de ninguna otra: el dato ``$n$ están en los tres'' se refiere \emph{exactamente} a esa región y a
+nada más. Cualquier otro dato del tipo ``$A$ y $B$'' o ``$|A|=\dots$'' es una suma de varias regiones, y
+por lo tanto no se puede colocar hasta que sepamos qué parte de esa suma ya está ocupada. Por eso el
+centro se llena primero: es el único valor que se conoce sin restar nada.
+
+\medskip
+\textbf{(3) Restar hacia afuera.} Una vez fijado el centro, pasamos a las intersecciones dobles. El dato
+``$|A\cap B| = k$'' cuenta a \emph{todos} los que están simultáneamente en $A$ y en $B$, y entre ellos
+están también los que además están en $C$, es decir, los del centro. Como el centro ya fue colocado en el
+diagrama, volver a escribir $k$ en la lúnula de ``solo $A$ y $B$'' contaría dos veces a esa gente. Por eso
+\[
+\text{solo } A\cap B \;=\; |A\cap B| - |A\cap B\cap C|.
+\]
+Esa resta \emph{no} es un truco: es simplemente el hecho de que $A\cap B$ se parte en dos pedazos
+disjuntos, $(A\cap B\cap C^{c})$ y $(A\cap B\cap C)$, y si conozco el total y uno de los pedazos, el otro
+sale por diferencia. El mismo argumento se repite un nivel más afuera: el dato $|A|$ cuenta las cuatro
+regiones que viven dentro del círculo $A$, así que
+\[
+\text{solo } A \;=\; |A| - (\text{solo } A\cap B) - (\text{solo } A\cap C) - |A\cap B\cap C|.
+\]
+Se resta hacia afuera y nunca hacia adentro porque las regiones internas ya están determinadas cuando
+llegamos a las externas; si intentáramos empezar por ``solo $A$'' no tendríamos de dónde despejarlo.
+
+\medskip
+\textbf{(4) El complemento del universo cierra la cuenta.} Cuando las siete regiones interiores ya tienen
+número, su suma es $|A\cup B\cup C|$, porque son disjuntas y cubren exactamente la unión. Entonces
+\[
+|(A\cup B\cup C)^{c}| \;=\; |U| - |A\cup B\cup C|,
+\]
+y ese valor es el ``ninguno'' que casi siempre pide el enunciado. Esta última resta también funciona al
+revés: si el enunciado da el ``ninguno'' y falta una región interior, la ecuación
+$\text{suma de regiones} + \text{ninguno} = |U|$ nos permite despejarla.
+\end{teo}
+
+\begin{reg}
+\textbf{La distinción crítica: ``solamente $A$ y $B$'' no es lo mismo que ``$A$ y $B$''.}
+
+\begin{itemize}[leftmargin=1.4em]
+\item ``\textbf{$A$ y $B$}'' (sin la palabra \emph{solamente}) significa $|A\cap B|$: todos los que
+cumplen las dos condiciones, \emph{sin importar} si además cumplen la tercera. Es una región compuesta:
+incluye a los del centro.
+\item ``\textbf{Solamente $A$ y $B$}'' significa $|A\cap B\cap C^{c}|$: los que cumplen $A$ y $B$ pero
+\emph{no} $C$. Es una región básica del diagrama, y no incluye a los del centro.
+\end{itemize}
+La relación entre ambas es exactamente
+\[
+|A\cap B| \;=\; \underbrace{|A\cap B\cap C^{c}|}_{\text{solamente }A\text{ y }B} \;+\; |A\cap B\cap C|.
+\]
+Leer mal esta palabra es el error más frecuente de toda la sección: si el enunciado dice ``solamente''
+el número va \emph{directo} a la lúnula sin restar nada; si no lo dice, hay que restarle primero el centro.
+En los ejercicios que siguen aparecen mezclados los dos tipos de dato dentro del mismo problema, así que
+conviene subrayar la palabra ``solamente'' antes de empezar a dibujar.
+\end{reg}
+
+\begin{tip}
+Convención de dibujo que se usará en todo el documento: el rectángulo es el universo $U$, los números
+escritos dentro de cada pedazo son \emph{cardinalidades de esa región básica} (no del círculo completo),
+y el número de la esquina inferior derecha, fuera de los círculos, es el ``ninguno''. Así, el cardinal de
+un círculo nunca se lee directamente: se obtiene sumando los números que quedan dentro de él.
+\end{tip}
+
+% ============================================================
+\section*{Ejercicio 1}
+
+\begin{quote}
+En un colegio hay 300 estudiantes; de ellos, a 80 no les gusta la clase de deporte; a 95 no les gusta la
+clase de música, y a 25 no les gusta ninguna de las dos clases. ¿A cuántos estudiantes les gustan las
+clases de deporte y música? \hfill R/ 150
+\end{quote}
+
+\begin{paso}{Paso 1 --- Identificar los conjuntos (ojo: están definidos en negativo)}
+\textbf{Qué hago:} nombro los conjuntos tal y como los da el enunciado, es decir, en términos de
+\emph{disgusto}, no de gusto. Defino
+\[
+\begin{aligned}
+D&=\{\text{estudiantes a los que \textbf{no} les gusta deporte}\},\\
+M&=\{\text{estudiantes a los que \textbf{no} les gusta música}\},
+\end{aligned}
+\]
+con universo $U$ = los 300 estudiantes del colegio.
+
+\textbf{¿De dónde sale?} Del propio texto: ``a 80 no les gusta la clase de deporte'' da $|D|=80$; ``a 95
+no les gusta la clase de música'' da $|M|=95$; ``a 25 no les gusta ninguna de las dos clases'' significa
+que a esos 25 no les gusta deporte \emph{y} tampoco música, o sea que están en las dos listas de disgusto
+a la vez: $|D\cap M|=25$.
+
+\textbf{¿Por qué?} Es tentador definir los conjuntos como ``les gusta deporte'' y ``les gusta música'',
+pero entonces ninguno de los tres datos se podría colocar directamente en el diagrama: los tres hablan de
+quienes \emph{no} gustan. Trabajar con los conjuntos en la misma polaridad en que vienen los datos evita
+tener que traducir cada número, y solo al final hacemos una única traducción (el complemento).
+
+\textbf{¿Qué tomamos?} $|U|=300$, $|D|=80$, $|M|=95$, $|D\cap M|=25$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Llenar el diagrama empezando por la región más interna}
+\textbf{Qué hago:} coloco primero $|D\cap M|=25$ en la lúnula central (con dos conjuntos, la
+intersección es la región más interna) y de ahí resto hacia afuera:
+\[
+\text{solo }D \;=\; |D| - |D\cap M| \;=\; 80-25 \;=\; 55,
+\qquad
+\text{solo }M \;=\; |M| - |D\cap M| \;=\; 95-25 \;=\; 70.
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=0.95]
+\draw[rounded corners=2pt] (-3.6,-2.1) rectangle (3.6,2.1);
+\node at (-3.25,1.75) {$U=300$};
+\draw[thick] (-0.85,0) circle (1.7);
+\draw[thick] (0.85,0) circle (1.7);
+\node at (-2.0,1.25) {$D$};
+\node at (2.0,1.25) {$M$};
+\node at (-1.55,0) {$55$};
+\node at (0,0) {$25$};
+\node at (1.55,0) {$70$};
+\node at (2.9,-1.7) {$150$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{¿De dónde sale?} El $25$ sale del dato ``no les gusta ninguna de las dos''. El $55$ y el $70$
+salen de los datos $80$ y $95$, que son cardinales de círculo completo y por tanto ya incluyen al $25$.
+
+\textbf{¿Por qué?} El círculo $D$ se parte en dos pedazos disjuntos: los que solo detestan deporte y los
+que detestan ambas. Como $80$ cuenta a los dos pedazos y el segundo ya vale $25$, el primero solo puede
+valer $80-25=55$. Si escribiéramos $80$ en la parte exclusiva estaríamos contando dos veces a esos $25$.
+
+\textbf{¿Qué tomamos?} Las tres regiones interiores: $55$, $25$ y $70$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Unión y complemento: cerrar la cuenta con el universo}
+\textbf{Qué hago:} sumo las tres regiones interiores para obtener $|D\cup M|$ y luego resto del universo:
+\[
+|D\cup M| \;=\; 55+25+70 \;=\; 150,
+\qquad
+|(D\cup M)^{c}| \;=\; 300-150 \;=\; 150.
+\]
+Equivalentemente, por inclusión--exclusión: $|D\cup M|=80+95-25=175-25=150$.
+
+\textbf{¿De dónde sale?} La suma sale de las tres regiones del paso anterior; el $300$ es el total de
+estudiantes del colegio.
+
+\textbf{¿Por qué?} $D\cup M$ es el conjunto de estudiantes a los que \emph{le disgusta al menos una} de
+las dos clases. Su complemento dentro de $U$ es, por negación, el conjunto de estudiantes a los que
+\emph{no} le disgusta ninguna de las dos, es decir, a los que \textbf{les gustan las dos clases}. Eso es
+justo lo que pide la pregunta. La resta al universo es válida porque $D\cup M$ y su complemento son
+disjuntos y juntos agotan los 300 estudiantes.
+
+\textbf{¿Qué tomamos?} $150$ estudiantes a los que les gustan ambas clases.
+\end{paso}
+
+\begin{resp}
+A $\mathbf{150}$ estudiantes les gustan las clases de deporte y música. Coincide con la R/ oficial.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 2}
+
+\begin{quote}
+En la universidad Bienestar Seguro, en este año se matricularon 200 personas en la carrera de
+computación, de las cuales se tiene la siguiente información: hay 125 matrículas en el curso Matemática
+Discreta; 115 en una deportiva y 80 en el curso Programación I. Además, con respecto a la matrícula en
+estos tres cursos, se sabe que: 45 matricularon el curso Programación I y la deportiva; 15 solamente en
+el curso de programación; 50 matricularon solamente el curso de matemática y la deportiva, y 30
+matricularon los tres cursos.\\
+a) ¿Cuántos estudiantes no matricularon ninguno de los tres cursos? \hfill R/ 25\\
+b) ¿Cuántos estudiantes matricularon solamente el curso Matemática discreta? \hfill R/ 25
+\end{quote}
+
+\begin{paso}{Paso 1 --- Nombrar los conjuntos y clasificar cada dato según incluya o no el centro}
+\textbf{Qué hago:} defino
+\[
+\begin{aligned}
+M&=\{\text{matriculan Matemática Discreta}\},\\
+D&=\{\text{matriculan la deportiva}\},\\
+P&=\{\text{matriculan Programación I}\},
+\end{aligned}
+\]
+con $|U|=200$, y separo los datos en dos grupos según lleven o no la palabra ``solamente''.
+
+\textbf{¿De dónde sale?} Datos de círculo completo: $|M|=125$, $|D|=115$, $|P|=80$. Dato de
+intersección doble sin ``solamente'': $|P\cap D|=45$. Datos de región básica (con ``solamente''):
+$\text{solo }P=15$ y $\text{solo }M\cap D=50$. Dato del centro: $|M\cap D\cap P|=30$.
+
+\textbf{¿Por qué?} Esta clasificación decide el orden de trabajo. Los datos con ``solamente'' se escriben
+directamente en el diagrama porque ya son regiones básicas; el dato $|P\cap D|=45$ \emph{no} se puede
+escribir tal cual en la lúnula, porque incluye a los 30 del centro; y los cardinales $125$, $115$, $80$
+son sumas de cuatro regiones cada uno, así que solo sirven al final, para despejar lo que falte.
+
+\textbf{¿Qué tomamos?} La lista ordenada de datos y la advertencia de que $45$ es un total, no una región.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Región más interna y lúnulas que salen directo del enunciado}
+\textbf{Qué hago:} escribo el centro y luego las regiones que el enunciado ya da en forma exclusiva:
+\[
+M\cap D\cap P = 30,\qquad \text{solo }P = 15,\qquad \text{solo } M\cap D = 50 .
+\]
+
+\textbf{¿De dónde sale?} ``30 matricularon los tres cursos'' es literalmente el centro; ``15 solamente en
+el curso de programación'' es la parte de $P$ que no toca ni a $M$ ni a $D$; ``50 matricularon solamente
+el curso de matemática y la deportiva'' es la lúnula $M\cap D\cap P^{c}$.
+
+\textbf{¿Por qué?} El centro va primero porque es la única región que ningún otro dato puede alterar:
+todos los demás datos o lo contienen o lo excluyen explícitamente, pero él no depende de nadie. Y las dos
+regiones con ``solamente'' se colocan sin operar nada, precisamente porque la palabra ``solamente'' ya
+excluyó al centro y a las demás zonas de traslape.
+
+\textbf{¿Qué tomamos?} Tres de las siete regiones interiores ya fijadas: $30$, $15$ y $50$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Restar el centro para obtener la lúnula ``solo Programación y deportiva''}
+\textbf{Qué hago:} uso el dato $|P\cap D|=45$ y le quito el centro:
+\[
+\text{solo } P\cap D \;=\; |P\cap D| - |M\cap D\cap P| \;=\; 45-30 \;=\; 15 .
+\]
+
+\textbf{¿De dónde sale?} Del dato ``45 matricularon el curso Programación I y la deportiva'', que viene
+\emph{sin} la palabra ``solamente'', y del centro ya colocado en el paso anterior.
+
+\textbf{¿Por qué?} $P\cap D$ se parte en dos pedazos disjuntos: los que llevan programación y deportiva
+\emph{pero no} matemática, y los que llevan los tres. Los segundos ya están escritos como $30$. Si
+pusiéramos $45$ en la lúnula, esos $30$ quedarían contados dos veces y la suma total del diagrama se
+inflaría en $30$. La resta restablece el conteo único que exige la partición.
+
+\textbf{¿Qué tomamos?} $\text{solo } P\cap D = 15$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Despejar ``solo Matemática y Programación'' usando el cardinal de $P$}
+\textbf{Qué hago:} el círculo $P$ está formado por cuatro regiones; tres ya las conozco, así que despejo
+la cuarta. Llamando $x=\text{solo } M\cap P$:
+\[
+|P| = \text{solo }P + (\text{solo }M\cap P) + (\text{solo }P\cap D) + |M\cap D\cap P|
+\]
+\[
+80 = 15 + x + 15 + 30 \;\Longrightarrow\; 80 = 60 + x \;\Longrightarrow\; x = 20 .
+\]
+
+\textbf{¿De dónde sale?} El $80$ es ``80 en el curso Programación I''; el $15$ inicial es el dato
+``solamente programación''; el otro $15$ lo produjo el Paso 3; el $30$ es el centro.
+
+\textbf{¿Por qué?} Trabajar hacia afuera permite este despeje: cuando ya se conocen todas las regiones
+internas de un círculo salvo una, el cardinal total del círculo actúa como ecuación con una sola
+incógnita. Nótese que el enunciado nunca menciona ``matemática y programación'': ese dato faltante es
+justamente el que el cardinal $|P|=80$ nos regala.
+
+\textbf{¿Qué tomamos?} $\text{solo } M\cap P = 20$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Despejar las regiones exclusivas de $M$ y de $D$}
+\textbf{Qué hago:} repito el mismo despeje en los otros dos círculos.
+\[
+|M| = \text{solo }M + (\text{solo } M\cap D) + (\text{solo } M\cap P) + 30
+\;\Longrightarrow\; 125 = \text{solo }M + 50 + 20 + 30,
+\]
+\[
+\text{solo }M = 125 - 100 = 25 .
+\]
+\[
+|D| = \text{solo }D + (\text{solo } M\cap D) + (\text{solo } P\cap D) + 30
+\;\Longrightarrow\; 115 = \text{solo }D + 50 + 15 + 30,
+\]
+\[
+\text{solo }D = 115 - 95 = 20 .
+\]
+
+\textbf{¿De dónde sale?} $|M|=125$ y $|D|=115$ son los cardinales dados; las lúnulas que se restan
+provienen de los pasos 2, 3 y 4.
+
+\textbf{¿Por qué?} Otra vez el principio de que cada círculo es la unión disjunta de sus cuatro regiones.
+Este orden (centro $\to$ lúnulas $\to$ zonas exclusivas) es obligatorio: si hubiéramos intentado calcular
+``solo $M$'' al principio, nos habrían faltado las dos lúnulas que se le restan.
+
+\textbf{¿Qué tomamos?} $\text{solo }M = 25$ (respuesta del inciso b) y $\text{solo }D = 20$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Diagrama completo y complemento del universo}
+\textbf{Qué hago:} dibujo el diagrama con las siete regiones y cierro con el universo.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+\draw[rounded corners=2pt] (-3.9,-3.5) rectangle (3.9,2.7);
+\node at (-3.35,2.35) {$U=200$};
+\draw[thick] (-1,0.6) circle (1.75);
+\draw[thick] (1,0.6) circle (1.75);
+\draw[thick] (0,-1.1) circle (1.75);
+\node at (-2.5,2.0) {$M$};
+\node at (2.5,2.0) {$D$};
+\node at (0,-3.1) {$P$};
+\node at (-1.95,1.25) {$25$};
+\node at (1.95,1.25) {$20$};
+\node at (0,-2.25) {$15$};
+\node at (0,1.35) {$50$};
+\node at (-1.15,-0.75) {$20$};
+\node at (1.15,-0.75) {$15$};
+\node at (0,-0.1) {$30$};
+\node at (3.3,-3.1) {$25$};
+\end{tikzpicture}
+\end{center}
+
+Suma de las regiones interiores:
+\[
+|M\cup D\cup P| = 25+20+15+50+20+15+30 = 175,
+\]
+desglosando: $25+20=45$; $45+15=60$; $60+50=110$; $110+20=130$; $130+15=145$; $145+30=175$. Entonces
+\[
+|(M\cup D\cup P)^{c}| = 200-175 = 25 .
+\]
+
+\textbf{¿De dónde sale?} Los siete sumandos son las regiones calculadas en los pasos 2--5; el $200$ es el
+total de matriculados en la carrera.
+
+\textbf{¿Por qué?} Las siete regiones son disjuntas dos a dos y su unión es exactamente
+$M\cup D\cup P$, así que sumarlas no cuenta a nadie dos veces ni deja a nadie fuera. Lo que quede del
+universo después de quitar esa unión son, por definición de complemento, los que no matricularon ninguno
+de los tres cursos.
+
+\textbf{¿Qué tomamos?} $25$ estudiantes sin ninguno de los tres cursos.
+\end{paso}
+
+\begin{resp}
+a) $\mathbf{25}$ estudiantes no matricularon ninguno de los tres cursos.\\
+b) $\mathbf{25}$ estudiantes matricularon solamente el curso Matemática Discreta.\\
+Ambos coinciden con las R/ oficiales.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 3}
+
+\begin{quote}
+En una escuela se tiene un total de 2 300 estudiantes de los cuales 200 practican fútbol, atletismo y
+natación; 550 practican fútbol y atletismo; 400 practican atletismo y ciclismo; 300 practican únicamente
+ciclismo; 1 000 practican atletismo y 1 400 practican fútbol. Además, se sabe que los que no practican
+ningún deporte son una tercera parte de los que únicamente practican fútbol y ciclismo. Determine:\\
+a) El número de estudiantes que practican únicamente fútbol.\\
+b) El número de estudiantes que practican ciclismo.
+\end{quote}
+
+\begin{nota}
+El enunciado nombra cuatro deportes (fútbol, atletismo, natación y ciclismo), pero la natación aparece
+una sola vez y de ella no se da ningún otro dato, mientras que el ciclismo aparece en cuatro datos
+distintos. Con cuatro conjuntos y solo seis datos el sistema quedaría indeterminado. La lectura
+consistente --- y la única que produce un sistema con solución única --- es que los tres conjuntos del
+problema son \textbf{fútbol}, \textbf{atletismo} y \textbf{ciclismo}, de modo que el $200$ inicial es la
+intersección triple $F\cap A\cap C$. Bajo esa lectura todos los datos encajan y los resultados salen
+enteros. Este ejercicio no trae R/ oficial en el folleto, así que se marcan los valores obtenidos.
+\end{nota}
+
+\begin{paso}{Paso 1 --- Identificar conjuntos, incógnitas y traducir el dato de la ``tercera parte''}
+\textbf{Qué hago:} defino $F$ (fútbol), $A$ (atletismo), $C$ (ciclismo), con $|U|=2\,300$, y llamo
+$x$ a la región ``únicamente fútbol y ciclismo'' $=|F\cap C\cap A^{c}|$, que es la incógnita alrededor de
+la cual gira todo el problema. El dato final se traduce como
+\[
+\text{ninguno} \;=\; \tfrac{1}{3}\,x .
+\]
+
+\textbf{¿De dónde sale?} De la frase ``los que no practican ningún deporte son una tercera parte de los
+que únicamente practican fútbol y ciclismo''. La palabra ``únicamente'' indica que el referente es la
+lúnula $F\cap C$ sin el centro, no el total $|F\cap C|$.
+
+\textbf{¿Por qué?} Conviene poner nombre a la región que el enunciado usa como referencia de una
+proporción, porque esa región aparecerá dos veces en la ecuación final (una vez como región interior y
+otra dentro del ``ninguno''), y solo así se puede cerrar la cuenta con el universo.
+
+\textbf{¿Qué tomamos?} Incógnita $x=$ únicamente fútbol y ciclismo; ninguno $=x/3$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Centro y lúnulas: restar hacia afuera desde la región más interna}
+\textbf{Qué hago:} coloco el centro y de ahí obtengo las dos lúnulas que el enunciado da como totales:
+\[
+|F\cap A\cap C| = 200,
+\]
+\[
+\text{solo }F\cap A = |F\cap A| - 200 = 550-200 = 350,
+\qquad
+\text{solo }A\cap C = |A\cap C| - 200 = 400-200 = 200 .
+\]
+
+\textbf{¿De dónde sale?} El $200$ del centro viene de ``200 practican fútbol, atletismo y (el tercer
+deporte)''; el $550$ de ``practican fútbol y atletismo'' y el $400$ de ``practican atletismo y ciclismo'',
+ambos \emph{sin} la palabra ``únicamente''.
+
+\textbf{¿Por qué?} Igual que antes: ``fútbol y atletismo'' incluye a los que además hacen ciclismo. Como
+esos ya están anotados en el centro, la lúnula exclusiva debe quedarse solo con la diferencia. Esta región
+se llena antes que las zonas exclusivas porque depende únicamente del centro, que ya está fijo.
+
+\textbf{¿Qué tomamos?} Centro $200$, solo $F\cap A=350$, solo $A\cap C=200$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Zona exclusiva de atletismo con el cardinal $|A|=1000$}
+\textbf{Qué hago:} el círculo $A$ tiene cuatro regiones y ya conozco tres:
+\[
+1000 = \text{solo }A + 350 + 200 + 200 \;\Longrightarrow\; \text{solo }A = 1000-750 = 250 .
+\]
+
+\textbf{¿De dónde sale?} $|A|=1000$ es el dato ``1 000 practican atletismo''; $350$ y $200$ son las
+lúnulas del paso anterior y $200$ es el centro.
+
+\textbf{¿Por qué?} El atletismo es el único círculo cuyas tres regiones de traslape ya están todas
+determinadas ($F\cap A$, $A\cap C$ y el centro), así que es el primero que se puede cerrar por completo.
+En $F$ y en $C$ todavía queda la incógnita $x$, de modo que ahí no se puede despejar aún.
+
+\textbf{¿Qué tomamos?} solo $A = 250$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Expresar ``únicamente fútbol'' en función de $x$ con el cardinal $|F|=1400$}
+\textbf{Qué hago:} escribo el círculo $F$ como suma de sus cuatro regiones dejando $x$ como parámetro:
+\[
+1400 = \text{solo }F + 350 + x + 200 \;\Longrightarrow\; \text{solo }F = 1400-550-x = 850 - x .
+\]
+
+\textbf{¿De dónde sale?} $|F|=1400$ es ``1 400 practican fútbol''; $350$ es solo $F\cap A$; $x$ es solo
+$F\cap C$ y $200$ es el centro.
+
+\textbf{¿Por qué?} No se puede obtener un número todavía porque el enunciado no dio ningún dato directo
+sobre $F\cap C$. Pero dejarlo en función de $x$ es suficiente: el diagrama queda completamente descrito
+por una sola incógnita, y la ecuación del universo la determinará. Éste es el mismo despeje ``hacia
+afuera'' de siempre, solo que con un símbolo en lugar de un número.
+
+\textbf{¿Qué tomamos?} solo $F = 850-x$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Cerrar con el universo: ecuación en $x$}
+\textbf{Qué hago:} sumo las siete regiones interiores más el ``ninguno'' e igualo a $2\,300$:
+\[
+\underbrace{(850-x)}_{\text{solo }F}+\underbrace{250}_{\text{solo }A}+\underbrace{300}_{\text{solo }C}
++\underbrace{350}_{F\cap A}+\underbrace{x}_{F\cap C}+\underbrace{200}_{A\cap C}
++\underbrace{200}_{\text{centro}}+\underbrace{\tfrac{x}{3}}_{\text{ninguno}} \;=\; 2300 .
+\]
+Los términos $-x$ y $+x$ se cancelan, y las constantes suman
+$850+250=1100$; $1100+300=1400$; $1400+350=1750$; $1750+200=1950$; $1950+200=2150$. Queda
+\[
+2150+\frac{x}{3}=2300 \;\Longrightarrow\; \frac{x}{3}=150 \;\Longrightarrow\; x=450 .
+\]
+
+\textbf{¿De dónde sale?} El $300$ es ``300 practican únicamente ciclismo'' (ya es región básica, entra
+directo); el resto proviene de los pasos 2--4; el $2\,300$ es el total de estudiantes de la escuela.
+
+\textbf{¿Por qué?} Ésta es la etapa (4) del método: el universo obliga a que la suma de las ocho regiones
+disjuntas sea el total. Es la única ecuación que aún no habíamos usado, y es la que introduce el ``ninguno''
+$=x/3$, es decir, la que finalmente fija $x$. Obsérvese que la cancelación de $x$ con $-x$ es esperable:
+mover gente entre ``solo $F$'' y ``$F$ y $C$'' no cambia el total del diagrama, y por eso la información
+que determina $x$ tenía que venir del ``ninguno''.
+
+\textbf{¿Qué tomamos?} $x=450$ (únicamente fútbol y ciclismo) y ninguno $=450/3=150$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Diagrama completo y lectura de los dos incisos}
+\textbf{Qué hago:} sustituyo $x=450$ y leo lo que piden.
+\[
+\text{a)}\quad \text{solo }F = 850-450 = 400 .
+\]
+\[
+\text{b)}\quad |C| = \underbrace{300}_{\text{solo }C}+\underbrace{450}_{F\cap C}+\underbrace{200}_{A\cap C}
++\underbrace{200}_{\text{centro}} = 1150,
+\]
+desglosando: $300+450=750$; $750+200=950$; $950+200=1150$.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+\draw[rounded corners=2pt] (-4.0,-3.5) rectangle (4.0,2.7);
+\node at (-3.35,2.35) {$U=2300$};
+\draw[thick] (-1,0.6) circle (1.75);
+\draw[thick] (1,0.6) circle (1.75);
+\draw[thick] (0,-1.1) circle (1.75);
+\node at (-2.5,2.0) {$F$};
+\node at (2.5,2.0) {$A$};
+\node at (0,-3.1) {$C$};
+\node at (-1.95,1.25) {$400$};
+\node at (1.95,1.25) {$250$};
+\node at (0,-2.25) {$300$};
+\node at (0,1.35) {$350$};
+\node at (-1.2,-0.75) {$450$};
+\node at (1.2,-0.75) {$200$};
+\node at (0,-0.1) {$200$};
+\node at (3.4,-3.1) {$150$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{¿De dónde sale?} Todos los valores del dibujo se calcularon en los pasos 2--5; el $150$ del
+exterior es el ``ninguno''.
+
+\textbf{¿Por qué?} Para el inciso (b) hay que sumar las \emph{cuatro} regiones del círculo $C$ y no solo
+el $300$: la pregunta dice ``practican ciclismo'', sin la palabra ``únicamente'', así que incluye a quien
+además practica fútbol, atletismo o ambos. Es exactamente la distinción crítica del recuadro inicial.
+
+\textbf{¿Qué tomamos?} $400$ y $1150$.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Verificación con el total}
+\textbf{Qué hago:} compruebo que las ocho regiones suman el universo:
+\[
+400+250+300+350+450+200+200+150 = 2300 .
+\]
+Paso a paso: $400+250=650$; $650+300=950$; $950+350=1300$; $1300+450=1750$; $1750+200=1950$;
+$1950+200=2150$; $2150+150=2300$.
+
+\textbf{¿De dónde sale?} De los siete valores del diagrama más el ``ninguno''.
+
+\textbf{¿Por qué?} Si la suma no diera $2\,300$ habría un error de lectura o de resta en algún paso. Que
+cierre exactamente confirma tanto la aritmética como la interpretación de los tres conjuntos discutida en
+la nota inicial. Además, $|F|=400+350+450+200=1400$ y $|A|=250+350+200+200=1000$ reproducen los datos
+originales, que es la comprobación más exigente.
+
+\textbf{¿Qué tomamos?} El diagrama es consistente.
+\end{paso}
+
+\begin{resp}
+a) Practican \textbf{únicamente fútbol}: $\mathbf{400}$ estudiantes.\\
+b) Practican \textbf{ciclismo}: $\mathbf{1150}$ estudiantes.\\
+(Ejercicio sin R/ oficial en el folleto; se marcan los valores obtenidos.)
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 4}
+
+\begin{quote}
+En un estudio de 270 estudiantes, se halló que 90 sobresalían en matemática, 90 sobresalían en artes y 90
+en deportes. A su vez, se halló que 30 sobresalían en matemática y artes, 30 en deportes y artes, 10 en
+las tres disciplinas y 50 solamente en deportes. Justifique utilizando Diagramas de Venn lo siguiente:\\
+a) ¿Cuántos estudiantes sobresalen en matemática y deportes? \hfill R/ 20\\
+b) ¿Cuántos estudiantes no sobresalen en dichas disciplinas? \hfill R/ 70
+\end{quote}
+
+\begin{paso}{Paso 1 --- Conjuntos y lectura fina de cada dato}
+\textbf{Qué hago:} defino $M$ (matemática), $R$ (artes) y $D$ (deportes), con $|U|=270$, y anoto:
+\[
+|M|=|R|=|D|=90,\quad |M\cap R|=30,\quad |D\cap R|=30,\quad |M\cap R\cap D|=10,\quad \text{solo }D=50 .
+\]
+
+\textbf{¿De dónde sale?} Directamente del texto. Nótese que ``30 sobresalían en matemática y artes'' y
+``30 en deportes y artes'' vienen sin ``solamente'' (son intersecciones completas), mientras que ``50
+solamente en deportes'' sí lleva la palabra y por tanto es una región básica.
+
+\textbf{¿Por qué?} Distinguir esto es lo que decide si un número se escribe tal cual en el dibujo o si
+antes hay que restarle el centro. Los dos treintas contienen a los diez del centro; el cincuenta no
+contiene a nadie más.
+
+\textbf{¿Qué tomamos?} La lista de datos ya clasificada.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Centro primero y luego las dos lúnulas conocidas}
+\textbf{Qué hago:} escribo $10$ en el centro y resto hacia afuera:
+\[
+\text{solo }M\cap R = 30-10 = 20,
+\qquad
+\text{solo }D\cap R = 30-10 = 20 .
+\]
+
+\textbf{¿De dónde sale?} El $10$ de ``10 en las tres disciplinas''; los dos $30$ de las intersecciones
+dobles con artes.
+
+\textbf{¿Por qué?} Se llena el centro antes que las lúnulas porque el dato ``las tres'' es el único que
+describe una región sin mezclar; y se resta hacia afuera porque $M\cap R$ es la unión disjunta de
+``solo $M$ y $R$'' con el centro, de modo que la parte exclusiva es la diferencia. Poner $30$ en la lúnula
+duplicaría a los $10$ del centro.
+
+\textbf{¿Qué tomamos?} Centro $10$, solo $M\cap R=20$, solo $D\cap R=20$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Usar $|D|=90$ para despejar la lúnula ``solo matemática y deportes''}
+\textbf{Qué hago:} el círculo $D$ se descompone en cuatro regiones; tres son conocidas. Con
+$y=\text{solo } M\cap D$:
+\[
+|D| = \text{solo }D + (\text{solo }D\cap R) + y + |M\cap R\cap D|
+\]
+\[
+90 = 50 + 20 + y + 10 \;\Longrightarrow\; 90 = 80 + y \;\Longrightarrow\; y = 10 .
+\]
+
+\textbf{¿De dónde sale?} $|D|=90$ (``90 en deportes''), $\text{solo }D=50$ (dato con ``solamente''),
+$\text{solo }D\cap R=20$ (Paso 2) y el centro $10$.
+
+\textbf{¿Por qué?} Deportes es el único círculo del que conocemos su zona exclusiva de entrada, y por eso
+es el que permite despejar la única lúnula que faltaba. El orden centro $\to$ lúnulas $\to$ despeje es
+justamente lo que hace posible este paso: si el centro y la lúnula con artes no estuvieran ya fijos, la
+ecuación tendría tres incógnitas en lugar de una.
+
+\textbf{¿Qué tomamos?} $\text{solo } M\cap D = 10$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (a): ``matemática y deportes'' incluye a los del centro}
+\textbf{Qué hago:} respondo la pregunta sumando la lúnula y el centro:
+\[
+|M\cap D| = (\text{solo } M\cap D) + |M\cap R\cap D| = 10 + 10 = 20 .
+\]
+
+\textbf{¿De dónde sale?} Los dos sumandos son las únicas dos regiones básicas contenidas en $M\cap D$:
+la que excluye artes y la que la incluye.
+
+\textbf{¿Por qué?} La pregunta dice ``sobresalen en matemática y deportes'' \emph{sin} decir
+``solamente'', así que también cuenta a los diez que sobresalen además en artes. Responder $10$ sería
+confundir la región básica con la intersección completa: es exactamente el error que advierte la regla
+inicial. La suma es válida porque las dos regiones son disjuntas y su unión es $M\cap D$.
+
+\textbf{¿Qué tomamos?} $|M\cap D| = 20$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Zonas exclusivas de $M$ y de $R$, diagrama y complemento}
+\textbf{Qué hago:} cierro los otros dos círculos y sumo todo.
+\[
+90 = \text{solo }M + 20 + 10 + 10 \;\Longrightarrow\; \text{solo }M = 90-40 = 50,
+\]
+\[
+90 = \text{solo }R + 20 + 20 + 10 \;\Longrightarrow\; \text{solo }R = 90-50 = 40 .
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+\draw[rounded corners=2pt] (-4.0,-3.5) rectangle (4.0,2.7);
+\node at (-3.35,2.35) {$U=270$};
+\draw[thick] (-1,0.6) circle (1.75);
+\draw[thick] (1,0.6) circle (1.75);
+\draw[thick] (0,-1.1) circle (1.75);
+\node at (-2.5,2.0) {$M$};
+\node at (2.5,2.0) {$R$};
+\node at (0,-3.1) {$D$};
+\node at (-1.95,1.25) {$50$};
+\node at (1.95,1.25) {$40$};
+\node at (0,-2.25) {$50$};
+\node at (0,1.35) {$20$};
+\node at (-1.15,-0.75) {$10$};
+\node at (1.15,-0.75) {$20$};
+\node at (0,-0.1) {$10$};
+\node at (3.4,-3.1) {$70$};
+\end{tikzpicture}
+\end{center}
+
+\[
+|M\cup R\cup D| = 50+40+50+20+10+20+10 = 200,
+\]
+paso a paso: $50+40=90$; $90+50=140$; $140+20=160$; $160+10=170$; $170+20=190$; $190+10=200$. Por lo tanto
+\[
+|(M\cup R\cup D)^{c}| = 270-200 = 70 .
+\]
+
+\textbf{¿De dónde sale?} Los cardinales $|M|=|R|=90$ del enunciado y las lúnulas de los pasos 2 y 3; el
+$270$ es el total de estudiantes del estudio.
+
+\textbf{¿Por qué?} Las siete regiones son disjuntas, así que sumarlas da la unión sin repeticiones. La
+pregunta (b) ``no sobresalen en dichas disciplinas'' pide precisamente a los que quedan fuera de los tres
+círculos, es decir, el complemento de la unión dentro del universo; de ahí la resta final.
+
+\textbf{¿Qué tomamos?} $70$ estudiantes que no sobresalen en ninguna disciplina.
+\end{paso}
+
+\begin{resp}
+a) Sobresalen en matemática y deportes: $\mathbf{20}$ estudiantes.\\
+b) No sobresalen en ninguna de las tres disciplinas: $\mathbf{70}$ estudiantes.\\
+Ambos coinciden con las R/ oficiales.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 5}
+
+\begin{quote}
+De un total de 350 agricultores en cierta región, 260 cultivan remolachas; 100 cultivan ñames; 70
+cultivan rábanos; 40 cultivan remolachas y rábanos; 40 cultivan ñames y rábanos y 30 cultivan remolachas
+y ñames. Determine el número de agricultores que cultivan simultáneamente remolacha, ñame y rábano.
+\hfill R/ 30
+\end{quote}
+
+\begin{paso}{Paso 1 --- Conjuntos, datos y la hipótesis implícita del enunciado}
+\textbf{Qué hago:} defino $R$ (remolachas), $N$ (ñames), $B$ (rábanos), con $|U|=350$, y anoto
+\[
+|R|=260,\quad |N|=100,\quad |B|=70,\quad |R\cap B|=40,\quad |N\cap B|=40,\quad |R\cap N|=30 .
+\]
+La incógnita es $t=|R\cap N\cap B|$. Además supongo que \emph{todo} agricultor cultiva al menos uno de los
+tres productos, es decir $|R\cup N\cup B| = 350$.
+
+\textbf{¿De dónde sale?} Los seis cardinales están literales en el texto. La hipótesis extra sale de la
+redacción ``de un total de 350 agricultores'': el enunciado no menciona a nadie que no cultive ninguno de
+los tres, y sin esa hipótesis el problema tendría infinitas soluciones (una por cada valor del ``ninguno'').
+
+\textbf{¿Por qué?} Aquí la dirección del método se invierte respecto a los ejercicios anteriores: no
+conocemos el centro, lo conocemos todo menos el centro. Por eso en vez de llenar regiones una a una
+conviene usar la fórmula de inclusión--exclusión, que relaciona directamente la unión con los cardinales
+y la intersección triple.
+
+\textbf{¿Qué tomamos?} Los seis datos, $|U|=350$ y la ecuación $|R\cup N\cup B|=350$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Plantear inclusión--exclusión para tres conjuntos}
+\textbf{Qué hago:} escribo la fórmula y sustituyo:
+\[
+|R\cup N\cup B| = |R|+|N|+|B| - |R\cap N| - |R\cap B| - |N\cap B| + |R\cap N\cap B| .
+\]
+\[
+350 = 260+100+70 - 30 - 40 - 40 + t .
+\]
+
+\textbf{¿De dónde sale?} La fórmula es la traducción algebraica del diagrama: al sumar los tres círculos,
+cada zona de traslape doble se cuenta dos veces y el centro tres veces; restar las tres intersecciones
+dobles corrige las lúnulas pero le quita al centro tres unidades (lo deja en $3-3=0$), y por eso hay que
+volver a sumarlo una vez.
+
+\textbf{¿Por qué?} Es válido usarla porque los datos que da el enunciado son exactamente los que la
+fórmula pide: cardinales de círculo e intersecciones dobles \emph{completas} (ninguno lleva la palabra
+``solamente''). Si alguno hubiera venido en forma exclusiva habría que convertirlo antes.
+
+\textbf{¿Qué tomamos?} La ecuación con una sola incógnita $t$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Resolver la ecuación desglosando la aritmética}
+\textbf{Qué hago:} opero por partes.
+\[
+260+100+70 = 430,\qquad 30+40+40 = 110,\qquad 430-110 = 320 .
+\]
+\[
+350 = 320 + t \;\Longrightarrow\; t = 350-320 = 30 .
+\]
+
+\textbf{¿De dónde sale?} Los tres bloques son, respectivamente, la suma de cardinales simples, la suma de
+intersecciones dobles y su diferencia.
+
+\textbf{¿Por qué?} Es un despeje lineal directo. El resultado además es coherente: $t=30$ no puede exceder
+a ninguna intersección doble, y en efecto $30\le 30$, $30\le 40$ y $30\le 40$. Curiosamente $t=|R\cap N|=30$,
+lo que significa que \emph{todo} el que cultiva remolacha y ñame cultiva también rábano, es decir, la lúnula
+$R\cap N\cap B^{c}$ es vacía.
+
+\textbf{¿Qué tomamos?} $t=30$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Verificar reconstruyendo las siete regiones}
+\textbf{Qué hago:} reparto los datos en regiones básicas y compruebo el total.
+\[
+\text{solo }R\cap N = 30-30 = 0,\quad \text{solo }R\cap B = 40-30 = 10,\quad \text{solo }N\cap B = 40-30 = 10,
+\]
+\[
+\begin{aligned}
+\text{solo }R &= 260 - 0 - 10 - 30 = 220,\\
+\text{solo }N &= 100 - 0 - 10 - 30 = 60,\\
+\text{solo }B &= 70 - 10 - 10 - 30 = 20 .
+\end{aligned}
+\]
+Suma: $220+60+20+0+10+10+30$; paso a paso $220+60=280$; $280+20=300$; $300+0=300$; $300+10=310$;
+$310+10=320$; $320+30=350$.
+
+\textbf{¿De dónde sale?} Cada lúnula sale de restar el centro $t=30$ a su intersección doble; cada zona
+exclusiva sale de restar al cardinal del círculo sus dos lúnulas y el centro.
+
+\textbf{¿Por qué?} Esta verificación confirma la hipótesis del Paso 1: la suma da exactamente $350$, así
+que el ``ninguno'' vale $0$ y no queda ningún agricultor fuera de los tres cultivos, tal como habíamos
+supuesto. Que todas las regiones salgan no negativas es la señal de que la solución es admisible.
+
+\textbf{¿Qué tomamos?} Diagrama consistente con $t=30$.
+\end{paso}
+
+\begin{resp}
+Cultivan simultáneamente remolacha, ñame y rábano: $\mathbf{30}$ agricultores. Coincide con la R/ oficial.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 6}
+
+\begin{quote}
+En un departamento de matemáticas de 40 profesores, existen cuatro organizaciones profesionales
+diferentes: NCTM (N), MAA (M), AMS (A) y SSMA (S). Sabemos que 21 son miembros de NCTM, 26 son miembros
+de MAA, 19 pertenecen a AMS y 17 son miembros de SSMA. Además, 15 están en NCTM y MAA, 6 están en NCTM y
+AMA, 9 están en NCTM y SSMA, 14 en MAA y AMS, 10 están en MAA y SSMA, y 11 están en AMS y SSMA. También,
+se sabe que 6 están en NCTM, MAA y AMS, 5 están en NCTM, MAA y SSMA, 4 están en NCTM, AMS y SSMA y 9 están
+en MAA, AMS y SSMA. Finalmente, 4 personas pertenecen a las cuatro organizaciones ¿Cuántos miembros de la
+facultad pertenecen a ninguna de estas organizaciones? \hfill R/ 2
+\end{quote}
+
+\begin{nota}
+En el enunciado aparece ``6 están en NCTM y AMA''. En el departamento solo existen cuatro organizaciones
+(NCTM, MAA, AMS, SSMA), de modo que ``AMA'' es una errata por \textbf{AMS}: ese dato es $|N\cap A|=6$.
+Con esa lectura la lista de datos queda completa (los cuatro cardinales, las seis intersecciones dobles,
+las cuatro triples y la cuádruple), que es exactamente lo que exige la fórmula de inclusión--exclusión.
+\end{nota}
+
+\begin{paso}{Paso 1 --- Por qué aquí no se dibuja el diagrama y se usa la fórmula}
+\textbf{Qué hago:} organizo los datos por niveles.
+\begin{itemize}[leftmargin=1.4em,itemsep=1pt]
+\item Cardinales simples: $|N|=21$, $|M|=26$, $|A|=19$, $|S|=17$.
+\item Intersecciones dobles: $|N\cap M|=15$, $|N\cap A|=6$, $|N\cap S|=9$, $|M\cap A|=14$, $|M\cap S|=10$,
+$|A\cap S|=11$.
+\item Intersecciones triples: $|N\cap M\cap A|=6$, $|N\cap M\cap S|=5$, $|N\cap A\cap S|=4$,
+$|M\cap A\cap S|=9$.
+\item Intersección cuádruple: $|N\cap M\cap A\cap S|=4$. Universo: $|U|=40$.
+\end{itemize}
+
+\textbf{¿De dónde sale?} De la lectura literal del enunciado, en el mismo orden en que él los presenta:
+primero los cuatro totales, luego las seis parejas, luego las cuatro ternas y por último el cuarteto.
+
+\textbf{¿Por qué?} Con cuatro conjuntos el rectángulo se parte en $2^4=16$ regiones y ya no es posible
+dibujarlas con cuatro círculos (dos circunferencias solo pueden cortarse en dos puntos, y eso no alcanza
+para generar las 16 zonas). Sin embargo, la idea del método por regiones sigue intacta: la fórmula de
+inclusión--exclusión \emph{es} el conteo de esas 16 regiones hecho con álgebra en vez de con dibujo. Además,
+ningún dato viene con la palabra ``solamente'': todos son intersecciones completas, que es justo el
+formato que la fórmula consume.
+
+\textbf{¿Qué tomamos?} Los 15 datos ordenados por nivel y el universo $|U|=40$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Escribir la inclusión--exclusión de cuatro conjuntos término por término}
+\textbf{Qué hago:} planteo la fórmula completa, con sus cuatro bloques de signos alternados:
+\begin{align*}
+|N\cup M\cup A\cup S| \;=\;& |N|+|M|+|A|+|S| \\
+&- |N\cap M| - |N\cap A| - |N\cap S| - |M\cap A| - |M\cap S| - |A\cap S| \\
+&+ |N\cap M\cap A| + |N\cap M\cap S| + |N\cap A\cap S| + |M\cap A\cap S| \\
+&- |N\cap M\cap A\cap S| .
+\end{align*}
+
+\textbf{¿De dónde sale?} De extender el mismo razonamiento de tres conjuntos: se suman los cuatro
+círculos, se corrigen los traslapes de a dos, se vuelven a corregir los de a tres y finalmente el de a
+cuatro.
+
+\textbf{¿Por qué?} El signo alternado no es arbitrario. Tomemos a alguien que pertenece a exactamente $k$
+organizaciones. Aparece $\binom{k}{1}$ veces en el primer bloque, $\binom{k}{2}$ en el segundo,
+$\binom{k}{3}$ en el tercero y $\binom{k}{4}$ en el cuarto, de modo que su contribución neta es
+\[
+\binom{k}{1}-\binom{k}{2}+\binom{k}{3}-\binom{k}{4},
+\]
+que vale $1-0+0-0=1$ si $k=1$; $2-1=1$ si $k=2$; $3-3+1=1$ si $k=3$; y $4-6+4-1=1$ si $k=4$. Es decir,
+cada persona de la unión termina contada exactamente una vez, sin importar en cuántas organizaciones
+esté; ésa es la razón profunda por la que se resta y se suma alternadamente hacia afuera.
+
+\textbf{¿Qué tomamos?} La fórmula lista para sustituir.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Evaluar bloque por bloque}
+\textbf{Qué hago:} calculo cada uno de los cuatro bloques por separado.
+
+\emph{Bloque 1 (simples).}
+\[
+21+26+19+17: \quad 21+26=47;\quad 47+19=66;\quad 66+17=83 \;\Longrightarrow\; 83 .
+\]
+
+\emph{Bloque 2 (dobles).}
+\[
+\begin{aligned}
+&15+6+9+14+10+11:\\
+&\quad 15+6=21;\ 21+9=30;\ 30+14=44;\ 44+10=54;\ 54+11=65 \;\Longrightarrow\; 65 .
+\end{aligned}
+\]
+
+\emph{Bloque 3 (triples).}
+\[
+6+5+4+9: \quad 6+5=11;\ 11+4=15;\ 15+9=24 \;\Longrightarrow\; 24 .
+\]
+
+\emph{Bloque 4 (cuádruple).} $\;4$.
+
+\textbf{¿De dónde sale?} Cada bloque agrupa los datos del nivel correspondiente listados en el Paso 1;
+no se omite ni se repite ninguno (4 simples, 6 dobles, 4 triples, 1 cuádruple: en total
+$4+6+4+1=15$ datos, que son los $2^4-1=15$ posibles).
+
+\textbf{¿Por qué?} Conviene separar los bloques antes de combinarlos porque el error típico en cuatro
+conjuntos es dejarse un sumando: comprobar que hay $\binom{4}{2}=6$ intersecciones dobles y
+$\binom{4}{3}=4$ triples es la manera de garantizar que la fórmula está completa.
+
+\textbf{¿Qué tomamos?} $83$, $65$, $24$ y $4$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Combinar los bloques y obtener la unión}
+\textbf{Qué hago:} sustituyo con los signos alternados:
+\[
+|N\cup M\cup A\cup S| = 83 - 65 + 24 - 4 .
+\]
+Paso a paso: $83-65=18$; $18+24=42$; $42-4=38$.
+
+\textbf{¿De dónde sale?} Los cuatro números son los bloques del paso anterior; los signos, de la fórmula
+del Paso 2.
+
+\textbf{¿Por qué?} El orden de las operaciones no altera el resultado, pero hacerlo en el orden natural
+de la fórmula permite ver el efecto de cada corrección: al sumar los cuatro cardinales tenemos $83$, muy
+por encima de los $40$ profesores del departamento, precisamente porque los que están en varias
+organizaciones se contaron varias veces; las correcciones sucesivas devuelven ese exceso hasta llegar a
+$38$, que ya sí es un número admisible.
+
+\textbf{¿Qué tomamos?} $|N\cup M\cup A\cup S| = 38$ profesores en al menos una organización.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Complemento del universo}
+\textbf{Qué hago:} resto la unión al total del departamento:
+\[
+|(N\cup M\cup A\cup S)^{c}| = |U| - |N\cup M\cup A\cup S| = 40-38 = 2 .
+\]
+
+\textbf{¿De dónde sale?} El $40$ es ``un departamento de matemáticas de 40 profesores''; el $38$ viene del
+paso anterior.
+
+\textbf{¿Por qué?} Es la etapa (4) del método: la unión y su complemento son disjuntos y juntos forman el
+universo, así que lo que no está en ninguna organización es exactamente la diferencia. La pregunta
+``¿cuántos pertenecen a ninguna de estas organizaciones?'' es literalmente el cardinal de ese complemento.
+
+\textbf{¿Qué tomamos?} $2$ profesores.
+\end{paso}
+
+\begin{resp}
+$\mathbf{2}$ miembros de la facultad no pertenecen a ninguna de las cuatro organizaciones. Coincide con la
+R/ oficial.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 7}
+
+\begin{quote}
+Los tres eventos más populares para los compradores de un determinado modelo de automóvil nuevo son:\\
+$A$: el comprador elige transmisión automática.\\
+$B$: el comprador elige motor diésel.\\
+$C$: el comprador elige sistema de navegación integrado.\\
+Sabiendo que $P(A) = 0{,}70$, $P(B) = 0{,}75$, $P(C) = 0{,}80$, $P(A\cup B) = 0{,}80$,
+$P(A\cup C) = 0{,}85$; $P(B\cup C]) = 0{,}90$ y $P(A\cup B\cup C) = 0{,}95$, calcule la probabilidad de:\\
+a) El comprador elige al menos una de las tres opciones. \hfill R/ 0,95\\
+b) El comprador no elige ninguna de las tres opciones. \hfill R/ 0,05\\
+c) El comprador elige solamente la opción de transmisión automática. \hfill R/ 0,15\\
+d) El comprador elige exactamente exclusivamente una de las tres opciones. \hfill R/ 0,30
+\end{quote}
+
+\begin{paso}{Paso 1 --- El diagrama de Venn con medidas: mismas reglas, otra ``masa''}
+\textbf{Qué hago:} interpreto $P$ como el ``tamaño'' de cada región del diagrama, con universo de tamaño
+$P(U)=1$. Los datos son tres cardinales de círculo ($0{,}70$; $0{,}75$; $0{,}80$), tres uniones dobles
+($0{,}80$; $0{,}85$; $0{,}90$) y la unión triple ($0{,}95$).
+
+\textbf{¿De dónde sale?} De la lista del enunciado. Obsérvese que \emph{no} se dan intersecciones: todo lo
+que se da son uniones, que es lo contrario de los ejercicios anteriores.
+
+\textbf{¿Por qué?} Todo el método por regiones sigue funcionando palabra por palabra, porque la
+probabilidad es aditiva sobre conjuntos disjuntos igual que el conteo: si dos regiones no se traslapan,
+la probabilidad de su unión es la suma. Cambia la unidad (proporciones en lugar de personas), no las
+reglas. Antes de poder llenar el diagrama hay que convertir las uniones en intersecciones, porque son las
+intersecciones las que describen regiones internas.
+
+\textbf{¿Qué tomamos?} Los siete datos y $P(U)=1$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Incisos (a) y (b): unión y complemento}
+\textbf{Qué hago:} leo directamente el dato de la unión triple y tomo su complemento:
+\[
+P(\text{al menos una}) = P(A\cup B\cup C) = 0{,}95,
+\]
+\[
+P(\text{ninguna}) = P\big((A\cup B\cup C)^{c}\big) = 1 - 0{,}95 = 0{,}05 .
+\]
+
+\textbf{¿De dónde sale?} El $0{,}95$ es dato del enunciado; el $1$ es la probabilidad del universo.
+
+\textbf{¿Por qué?} ``Elegir al menos una'' es exactamente pertenecer a $A$, a $B$ o a $C$, o sea a la
+unión: no hay nada que calcular. Y ``no elegir ninguna'' es el exterior de los tres círculos, que es el
+complemento de la unión; la regla del complemento es la misma etapa (4) del método, con $|U|$ sustituido
+por $P(U)=1$.
+
+\textbf{¿Qué tomamos?} (a) $0{,}95$ y (b) $0{,}05$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Convertir las uniones dobles en intersecciones dobles}
+\textbf{Qué hago:} despejo cada intersección de la fórmula $P(X\cup Y)=P(X)+P(Y)-P(X\cap Y)$:
+\[
+P(A\cap B) = P(A)+P(B)-P(A\cup B) = 0{,}70+0{,}75-0{,}80 = 1{,}45-0{,}80 = 0{,}65,
+\]
+\[
+P(A\cap C) = 0{,}70+0{,}80-0{,}85 = 1{,}50-0{,}85 = 0{,}65,
+\]
+\[
+P(B\cap C) = 0{,}75+0{,}80-0{,}90 = 1{,}55-0{,}90 = 0{,}65 .
+\]
+
+\textbf{¿De dónde sale?} De los pares de cardinales y su unión correspondiente, todos dados en el
+enunciado.
+
+\textbf{¿Por qué?} Al sumar $P(A)+P(B)$ la lente $A\cap B$ queda contada dos veces; por eso la unión es
+esa suma menos el traslape, y despejar el traslape es solo pasar términos. Necesitamos las intersecciones
+porque el diagrama se llena de adentro hacia afuera, y las regiones internas se describen con
+intersecciones, no con uniones.
+
+\textbf{¿Qué tomamos?} Las tres intersecciones dobles valen $0{,}65$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Obtener la región más interna con inclusión--exclusión}
+\textbf{Qué hago:} despejo $P(A\cap B\cap C)$ de la fórmula de tres conjuntos:
+\[
+P(A\cup B\cup C) = \sum P - \sum P(\text{dobles}) + P(A\cap B\cap C).
+\]
+\[
+\sum P = 0{,}70+0{,}75+0{,}80 = 2{,}25,\qquad \sum P(\text{dobles}) = 0{,}65\cdot 3 = 1{,}95 .
+\]
+\[
+0{,}95 = 2{,}25 - 1{,}95 + P(A\cap B\cap C) = 0{,}30 + P(A\cap B\cap C),
+\]
+\[
+P(A\cap B\cap C) = 0{,}95-0{,}30 = 0{,}65 .
+\]
+
+\textbf{¿De dónde sale?} Las tres probabilidades simples son datos; las dobles salen del Paso 3; la unión
+triple es dato.
+
+\textbf{¿Por qué?} El centro es la única región que no se puede leer de ningún dato directo, pero la
+fórmula de inclusión--exclusión lo deja despejado en un solo paso. Y es imprescindible calcularlo primero:
+todas las demás regiones se obtienen restando hacia afuera a partir de él. Nótese que
+$P(A\cap B)=P(A\cap C)=P(B\cap C)=P(A\cap B\cap C)=0{,}65$, lo que significa que las tres lúnulas dobles
+tienen probabilidad $0$: quien elige dos opciones cualesquiera, con probabilidad total, elige también la
+tercera.
+
+\textbf{¿Qué tomamos?} $P(A\cap B\cap C)=0{,}65$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (c): la región ``solamente $A$''}
+\textbf{Qué hago:} resto hacia afuera desde el centro dentro del círculo $A$:
+\[
+P(\text{solo }A) = P(A) - P(A\cap B) - P(A\cap C) + P(A\cap B\cap C)
+= 0{,}70-0{,}65-0{,}65+0{,}65 .
+\]
+Paso a paso: $0{,}70-0{,}65=0{,}05$; $0{,}05-0{,}65=-0{,}60$; $-0{,}60+0{,}65=0{,}05$. Es decir,
+$P(\text{solo }A)=0{,}05$.
+
+\textbf{¿De dónde sale?} $P(A)$ es dato; las dos intersecciones dobles salen del Paso 3; el centro, del
+Paso 4.
+
+\textbf{¿Por qué?} Al quitarle a $A$ sus dos traslapes, el centro se resta dos veces (una dentro de
+$A\cap B$ y otra dentro de $A\cap C$), cuando solo debía salir una; por eso hay que devolverlo sumándolo
+una vez. Es la misma corrección de inclusión--exclusión, ahora aplicada dentro de un círculo. Equivalente:
+$P(\text{solo }A)=P(A)-P(A\cap(B\cup C))$ con $P(A\cap(B\cup C))=0{,}65+0{,}65-0{,}65=0{,}65$, y
+$0{,}70-0{,}65=0{,}05$.
+
+\textbf{¿Qué tomamos?} $P(\text{solo }A)=0{,}05$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso (d): las otras dos zonas exclusivas y su suma}
+\textbf{Qué hago:} repito el cálculo para $B$ y $C$ y sumo las tres.
+\[
+P(\text{solo }B) = 0{,}75-0{,}65-0{,}65+0{,}65 = 0{,}75-0{,}65 = 0{,}10,
+\]
+\[
+P(\text{solo }C) = 0{,}80-0{,}65-0{,}65+0{,}65 = 0{,}80-0{,}65 = 0{,}15,
+\]
+\[
+P(\text{exactamente una}) = 0{,}05+0{,}10+0{,}15 = 0{,}30 .
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+\draw[rounded corners=2pt] (-4.2,-3.5) rectangle (4.2,2.7);
+\node at (-3.4,2.35) {$P(U)=1$};
+\draw[thick] (-1,0.6) circle (1.75);
+\draw[thick] (1,0.6) circle (1.75);
+\draw[thick] (0,-1.1) circle (1.75);
+\node at (-2.5,2.0) {$A$};
+\node at (2.5,2.0) {$B$};
+\node at (0,-3.1) {$C$};
+\node at (-2.0,1.25) {$0{,}05$};
+\node at (2.0,1.25) {$0{,}10$};
+\node at (0,-2.25) {$0{,}15$};
+\node at (0,1.35) {$0$};
+\node at (-1.15,-0.75) {$0$};
+\node at (1.15,-0.75) {$0$};
+\node at (0,-0.1) {$0{,}65$};
+\node at (3.5,-3.1) {$0{,}05$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{¿De dónde sale?} Los cardinales $P(B)$ y $P(C)$ son datos; las intersecciones y el centro vienen
+de los pasos 3 y 4; las lúnulas del dibujo valen $0{,}65-0{,}65=0$.
+
+\textbf{¿Por qué?} ``Exactamente una'' significa estar en un círculo y en ninguno de los otros dos, o sea
+pertenecer a una de las tres zonas exclusivas. Como esas tres regiones son disjuntas, la probabilidad de
+su unión es la suma, sin corrección alguna. Verificación con el universo:
+$0{,}05+0{,}10+0{,}15+0+0+0+0{,}65 = 0{,}95$, que es exactamente $P(A\cup B\cup C)$, y $1-0{,}95=0{,}05$
+reproduce el inciso (b).
+
+\textbf{¿Qué tomamos?} $P(\text{exactamente una})=0{,}30$.
+\end{paso}
+
+\begin{nota}
+\textbf{Discrepancia en el inciso (c).} La R/ oficial del folleto es $0{,}15$, pero el cálculo da
+$P(\text{solo }A)=0{,}05$. El valor $0{,}15$ corresponde a $P(\text{solo }C)$, la zona exclusiva del
+sistema de navegación, no a la de la transmisión automática. La comprobación viene del propio inciso (d):
+la R/ oficial ahí es $0{,}30$, y $0{,}30$ solo se obtiene sumando $0{,}05+0{,}10+0{,}15$, es decir,
+tomando $0{,}05$ como zona exclusiva de $A$. Si ``solo $A$'' valiera $0{,}15$ la suma de las tres zonas
+exclusivas no podría dar $0{,}30$ con los datos del enunciado. Se conserva la R/ oficial $0{,}15$ como
+referencia, pero el valor consistente con los datos es $\mathbf{0{,}05}$.
+\end{nota}
+
+\begin{resp}
+a) $P(\text{al menos una}) = \mathbf{0{,}95}$ (coincide con la R/ oficial).\\
+b) $P(\text{ninguna}) = \mathbf{0{,}05}$ (coincide con la R/ oficial).\\
+c) $P(\text{solamente transmisión automática}) = \mathbf{0{,}05}$ (R/ oficial: $0{,}15$; véase la nota).\\
+d) $P(\text{exactamente una de las tres}) = \mathbf{0{,}30}$ (coincide con la R/ oficial).
+\end{resp}
+
+\end{document}

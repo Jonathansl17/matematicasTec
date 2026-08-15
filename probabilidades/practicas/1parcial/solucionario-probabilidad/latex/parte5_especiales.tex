@@ -1,0 +1,2378 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\begin{center}{\LARGE\bfseries Principios de probabilidad}\\[2pt]{\large Ejercicios especiales --- Ejercicios 1--10}\end{center}
+
+\vspace{4pt}
+
+\begin{teo}
+\textbf{1. Los axiomas de probabilidad (Kolmogórov).}
+
+Sobre un espacio muestral $\Omega$ (el conjunto de todos los resultados posibles del
+experimento) una \emph{probabilidad} es una función $P$ que asigna a cada evento
+$E\subseteq\Omega$ un número $P(E)$ y que cumple tres exigencias:
+\[
+\textbf{(A1)}\ \ P(E)\ge 0,\qquad
+\textbf{(A2)}\ \ P(\Omega)=1,\qquad
+\textbf{(A3)}\ \ E\cap F=\varnothing\ \Longrightarrow\ P(E\cup F)=P(E)+P(F).
+\]
+El axioma (A1) dice que una probabilidad nunca es negativa: mide ``cuánta parte'' de $\Omega$
+ocupa el evento, y una parte no puede tener tamaño negativo. El (A2) fija la escala: al todo
+le corresponde el número $1$, de modo que todas las probabilidades quedan entre $0$ y $1$. El
+(A3), llamado \emph{aditividad}, es el que hace todo el trabajo: si dos eventos no pueden
+ocurrir a la vez, sus ``pedazos'' de $\Omega$ no se solapan y por eso el tamaño de la unión es
+la suma de los tamaños. Aplicando (A3) repetidamente se obtiene la \emph{aditividad finita}:
+si $E_1,E_2,\dots,E_m$ son excluyentes dos a dos, entonces
+$P(E_1\cup\cdots\cup E_m)=P(E_1)+\cdots+P(E_m)$.
+
+\medskip
+\textbf{2. Propiedades derivadas (todas se deducen, ninguna es un axioma nuevo).}
+
+\emph{(a) Probabilidad del vacío.} Como $\varnothing\cap\varnothing=\varnothing$, el axioma
+(A3) da $P(\varnothing)=P(\varnothing\cup\varnothing)=P(\varnothing)+P(\varnothing)$, de donde
+$P(\varnothing)=0$.
+
+\emph{(b) Regla del complemento.} El evento $E$ y su complemento $\overline{E}$ son
+excluyentes ($E\cap\overline{E}=\varnothing$) y juntos cubren todo
+($E\cup\overline{E}=\Omega$). Por (A3) y (A2),
+\[
+P(E)+P(\overline{E})=P(\Omega)=1
+\qquad\Longrightarrow\qquad
+\boxed{\,P(\overline{E})=1-P(E)\,}.
+\]
+
+\emph{(c) Partición por un evento.} Para eventos cualesquiera $E$ y $F$,
+\[
+F=(E\cap F)\cup(\overline{E}\cap F),\qquad (E\cap F)\cap(\overline{E}\cap F)=\varnothing,
+\]
+porque todo resultado de $F$ o bien está también en $E$ o bien no lo está, sin tercera opción
+y sin solape. Por (A3),
+\[
+\boxed{\,P(F)=P(E\cap F)+P(\overline{E}\cap F)\,}.
+\]
+
+\emph{(d) Inclusión--exclusión (regla de la suma general).} Partimos la unión en tres pedazos
+disjuntos,
+\[
+E\cup F=(E\cap\overline{F})\;\cup\;(E\cap F)\;\cup\;(\overline{E}\cap F),
+\]
+y aplicamos aditividad finita:
+$P(E\cup F)=P(E\cap\overline{F})+P(E\cap F)+P(\overline{E}\cap F)$. Usando (c) dos veces,
+$P(E\cap\overline{F})=P(E)-P(E\cap F)$ y $P(\overline{E}\cap F)=P(F)-P(E\cap F)$, y
+sustituyendo se obtiene
+\[
+\boxed{\,P(E\cup F)=P(E)+P(F)-P(E\cap F)\,}.
+\]
+La resta corrige el doble conteo: al sumar $P(E)+P(F)$ los resultados comunes se cuentan dos
+veces.
+
+\emph{(e) Leyes de De Morgan.} $\overline{E}\cap\overline{F}=\overline{E\cup F}$ y
+$\overline{E}\cup\overline{F}=\overline{E\cap F}$; tomando probabilidades y usando (b),
+\[
+P(\overline{E}\cap\overline{F})=1-P(E\cup F),\qquad
+P(\overline{E}\cup\overline{F})=1-P(E\cap F).
+\]
+
+\emph{(f) Monotonía.} Si $E\subseteq F$ entonces $F=E\cup(F\cap\overline{E})$ con los dos
+pedazos disjuntos, así que $P(F)=P(E)+P(F\cap\overline{E})\ge P(E)$ por (A1). En particular
+$E\subseteq F\Rightarrow E\cap F=E$.
+
+\medskip
+\textbf{3. Probabilidad condicionada.}
+
+Si $P(F)>0$ se define
+\[
+P(E\mid F)=\frac{P(E\cap F)}{P(F)} .
+\]
+La idea es \emph{reducir el espacio muestral}: si se sabe que $F$ ocurrió, los únicos
+resultados todavía posibles son los de $F$, de modo que $F$ pasa a ser el nuevo ``todo''. El
+numerador $P(E\cap F)$ es la parte de $E$ que sobrevive dentro de ese nuevo todo, y la
+división entre $P(F)$ vuelve a normalizar para que el nuevo todo tenga probabilidad $1$; en
+efecto, $P(F\mid F)=P(F\cap F)/P(F)=P(F)/P(F)=1$. Despejando se obtiene la \emph{regla del
+producto} $P(E\cap F)=P(F)\,P(E\mid F)$.
+
+Fijado $F$, la función $E\mapsto P(E\mid F)$ vuelve a cumplir los tres axiomas, y por eso
+todas las propiedades del punto 2 valen también para ella: en particular
+$P(\overline{E}\mid F)=1-P(E\mid F)$, que es exactamente el ejercicio 4a.
+
+\emph{Ley de probabilidad total.} Si $E_1,\dots,E_m$ son excluyentes dos a dos, no nulos y
+cubren $\Omega$, entonces por (c) generalizado y la regla del producto
+\[
+P(F)=\sum_{i=1}^{m}P(F\cap E_i)=\sum_{i=1}^{m}P(E_i)\,P(F\mid E_i).
+\]
+
+\medskip
+\textbf{4. Independencia.}
+
+Dos eventos son \emph{independientes} cuando $P(E\cap F)=P(E)\,P(F)$. Es una definición, no un
+teorema: se verifica, no se demuestra. Si $P(F)>0$, esta igualdad equivale a
+$P(E\mid F)=P(E)$, es decir, a que saber que $F$ ocurrió no altera la probabilidad de $E$.
+Además la independencia se hereda a los complementos: usando (c),
+\[
+P(\overline{E}\cap F)=P(F)-P(E\cap F)=P(F)-P(E)P(F)=P(F)\bigl[1-P(E)\bigr]=P(\overline{E})P(F),
+\]
+y repitiendo el argumento salen también los pares $(E,\overline{F})$ y
+$(\overline{E},\overline{F})$.
+
+\emph{Tres eventos.} Se dice que $A$, $B$ y $C$ son independientes (independencia
+\emph{mutua}) cuando se cumplen \emph{las cuatro} igualdades
+\[
+P(A\cap B)=P(A)P(B),\quad
+P(A\cap C)=P(A)P(C),\quad
+P(B\cap C)=P(B)P(C),\quad
+P(A\cap B\cap C)=P(A)P(B)P(C).
+\]
+Las tres primeras son la independencia \emph{por pares}; la cuarta no se deduce de ellas y por
+eso hay que exigirla aparte. Cuando un enunciado dice ``$A$, $B$ y $C$ son eventos
+independientes'' se entiende esta independencia mutua, y en el ejercicio 3 se usarán las
+cuatro igualdades.
+
+\medskip
+\textbf{5. Probabilidad clásica de Laplace y conteo.}
+
+Cuando $\Omega$ es finito y todos sus resultados son igualmente probables, cada uno tiene
+probabilidad $1/\#\Omega$ y por aditividad finita
+\[
+P(E)=\frac{\#E}{\#\Omega}=\frac{\text{casos favorables}}{\text{casos totales}} .
+\]
+Calcular probabilidades se reduce entonces a contar. Las herramientas de conteo que se usan
+aquí son:
+\[
+\text{principio de multiplicación},\qquad
+P(n,r)=\frac{n!}{(n-r)!},\qquad
+\binom{n}{r}=C(n,r)=\frac{n!}{r!\,(n-r)!},
+\]
+donde $n!=n(n-1)(n-2)\cdots 2\cdot 1$ y $0!=1$ por convenio.
+
+\emph{Por qué $\binom{n}{r}$ vale eso.} Para formar una lista ordenada de $r$ objetos
+distintos tomados de $n$ hay $n(n-1)\cdots(n-r+1)=\dfrac{n!}{(n-r)!}$ maneras (principio de
+multiplicación: $n$ opciones para el primer lugar, $n-1$ para el segundo, y así). Pero cada
+\emph{subconjunto} de $r$ objetos aparece en esa cuenta tantas veces como maneras haya de
+ordenar sus $r$ elementos, es decir $r!$ veces. Dividiendo entre $r!$ se elimina el orden:
+\[
+\binom{n}{r}=\frac{1}{r!}\cdot\frac{n!}{(n-r)!}=\frac{n!}{r!\,(n-r)!},
+\]
+que es el número de subconjuntos de tamaño $r$ de un conjunto de $n$ elementos. Esta doble
+lectura ---fórmula con factoriales por un lado, ``número de subconjuntos'' por el otro--- es
+la que permite demostrar las identidades combinatorias de dos maneras: algebraicamente y por
+doble conteo.
+\end{teo}
+
+\begin{tip}
+\textbf{Formulario de la sección.}
+\[
+P(\overline{E})=1-P(E),\qquad
+P(F)=P(E\cap F)+P(\overline{E}\cap F),\qquad
+P(E\cup F)=P(E)+P(F)-P(E\cap F),
+\]
+\[
+\overline{E\cup F}=\overline{E}\cap\overline{F},\qquad
+\overline{E\cap F}=\overline{E}\cup\overline{F},\qquad
+E\subseteq F\ \Rightarrow\ E\cap F=E,
+\]
+\[
+P(E\mid F)=\frac{P(E\cap F)}{P(F)},\qquad
+P(E\cap F)=P(F)P(E\mid F),\qquad
+P(\overline{E}\mid F)=1-P(E\mid F),
+\]
+\[
+E,F\ \text{independientes}\iff P(E\cap F)=P(E)P(F)
+\iff P(E\mid F)=P(E)\ \ (P(F)>0),
+\]
+\[
+A,B,C\ \text{independientes}\iff
+\begin{cases}
+P(A\cap B)=P(A)P(B),\\
+P(A\cap C)=P(A)P(C),\\
+P(B\cap C)=P(B)P(C),\\
+P(A\cap B\cap C)=P(A)P(B)P(C),
+\end{cases}
+\qquad
+\binom{n}{r}=\frac{n!}{r!\,(n-r)!},\qquad
+P(E)=\frac{\#E}{\#\Omega}.
+\]
+\end{tip}
+
+%======================================================================
+\section*{Ejercicio 1}
+
+\begin{quote}
+Muestre que $C(n+1,2)=C(n,2)+n$
+\end{quote}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Qué se sabe y qué hay que probar}
+\textbf{Qué hago:} escribo explícitamente el punto de partida y el punto de llegada antes de
+manipular nada. Lo único que se sabe es la \emph{definición} del símbolo combinatorio,
+\[
+\binom{m}{k}=C(m,k)=\frac{m!}{k!\,(m-k)!},\qquad 0\le k\le m,
+\]
+junto con la lectura combinatoria de ese mismo símbolo: $C(m,k)$ es el número de subconjuntos
+de tamaño $k$ que se pueden extraer de un conjunto de $m$ elementos. Lo que hay que probar es
+la igualdad
+\[
+C(n+1,2)=C(n,2)+n,
+\]
+válida para todo entero $n\ge 2$ (para que $C(n,2)$ esté definido).
+
+\textbf{¿De dónde sale?} La definición con factoriales es la que se justificó en la Teoría
+dividiendo las listas ordenadas $m!/(m-k)!$ entre los $k!$ reordenamientos internos. La
+igualdad por probar es literalmente el enunciado.
+
+\textbf{¿Por qué?} Una identidad combinatoria admite dos demostraciones de naturaleza
+distinta: una \emph{algebraica}, que desarrolla los factoriales de ambos lados hasta ver que
+coinciden, y una \emph{combinatoria}, que exhibe un conjunto y lo cuenta de dos formas. Haré
+las dos, porque cada una explica algo diferente: la primera comprueba, la segunda explica.
+
+\textbf{¿Qué tomamos?} Tomamos como herramientas la fórmula factorial y la lectura ``número
+de subconjuntos''.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Demostración algebraica: desarrollar el lado izquierdo}
+\textbf{Qué hago:} aplico la definición con $m=n+1$ y $k=2$ y simplifico el cociente de
+factoriales paso a paso:
+\[
+C(n+1,2)=\frac{(n+1)!}{2!\,\bigl[(n+1)-2\bigr]!}=\frac{(n+1)!}{2!\,(n-1)!} .
+\]
+Ahora desarrollo $(n+1)!$ lo justo para que aparezca $(n-1)!$ y poder cancelar:
+\[
+(n+1)!=(n+1)\cdot n\cdot (n-1)!,
+\]
+de modo que
+\[
+C(n+1,2)=\frac{(n+1)\,n\,(n-1)!}{2\cdot (n-1)!}
+=\frac{(n+1)\,n}{2}
+=\frac{n^{2}+n}{2}.
+\]
+\textbf{¿De dónde sale?} El $(n+1)-2=n-1$ del denominador sale de sustituir $m-k$ con
+$m=n+1$, $k=2$. El $2!=2\cdot 1=2$ es aritmética de factoriales. La igualdad
+$(n+1)!=(n+1)n(n-1)!$ es la definición recursiva del factorial: $m!=m\cdot(m-1)!$ aplicada dos
+veces. La cancelación de $(n-1)!$ es lícita porque $(n-1)!\ge 1>0$, nunca es cero.
+
+\textbf{¿Por qué?} Conviene desarrollar solo dos factores y dejar el resto empaquetado como
+$(n-1)!$: así el factorial del denominador se cancela exactamente y queda un polinomio, que
+es una expresión con la que sí se puede comparar.
+
+\textbf{¿Qué tomamos?} Tomamos $C(n+1,2)=\dfrac{n^{2}+n}{2}$ como forma cerrada del lado
+izquierdo.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Demostración algebraica: desarrollar el lado derecho}
+\textbf{Qué hago:} hago lo mismo con $C(n,2)$ y después le sumo $n$ poniendo denominador
+común:
+\[
+C(n,2)=\frac{n!}{2!\,(n-2)!}=\frac{n\,(n-1)\,(n-2)!}{2\cdot (n-2)!}=\frac{n(n-1)}{2}
+=\frac{n^{2}-n}{2}.
+\]
+Para sumar $n$ lo escribo con denominador $2$:
+\[
+n=\frac{2n}{2},
+\qquad\text{luego}\qquad
+C(n,2)+n=\frac{n^{2}-n}{2}+\frac{2n}{2}=\frac{n^{2}-n+2n}{2}=\frac{n^{2}+n}{2}.
+\]
+\textbf{¿De dónde sale?} El desarrollo $n!=n(n-1)(n-2)!$ es otra vez la recursión del
+factorial usada dos veces, elegida para que aparezca el $(n-2)!$ del denominador y se cancele.
+El producto $n(n-1)=n^{2}-n$ es distributividad. El paso $n=2n/2$ es multiplicar y dividir por
+$2$, que es lo que exige el denominador común. La suma de los numeradores da
+$-n+2n=+n$.
+
+\textbf{¿Por qué?} Las fracciones solo se suman con el mismo denominador; como una ya tiene
+denominador $2$ y el término $n$ es entero, basta reescribir $n$ con denominador $2$. No hay
+ninguna cancelación oculta: todo es álgebra elemental.
+
+\textbf{¿Qué tomamos?} Tomamos $C(n,2)+n=\dfrac{n^{2}+n}{2}$ como forma cerrada del lado
+derecho.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Comparar ambos lados y cerrar la vía algebraica}
+\textbf{Qué hago:} enfrento las dos formas cerradas obtenidas:
+\[
+C(n+1,2)=\frac{n^{2}+n}{2}
+\qquad\text{y}\qquad
+C(n,2)+n=\frac{n^{2}+n}{2},
+\]
+luego $C(n+1,2)=C(n,2)+n$.
+
+\textbf{¿De dónde sale?} La expresión de la izquierda viene del Paso 2 (desarrollo de
+$(n+1)!$); la de la derecha viene del Paso 3 (desarrollo de $n!$ más el común denominador).
+Son literalmente el mismo polinomio, coeficiente por coeficiente.
+
+\textbf{¿Por qué?} Dos números escritos con la misma expresión algebraica son iguales para
+todo valor admisible de $n$; no hace falta verificar casos particulares. Aun así, una
+comprobación numérica tranquiliza: con $n=4$, $C(5,2)=10$ y $C(4,2)+4=6+4=10$.
+
+\textbf{¿Qué tomamos?} Tomamos la identidad probada por vía algebraica. $\blacksquare$
+\end{paso}
+
+\begin{paso}{Paso 5 --- Demostración combinatoria: el conjunto que se cuenta dos veces}
+\textbf{Qué hago:} construyo un conjunto concreto y lo cuento de dos maneras distintas. Tomo
+el conjunto
+\[
+S=\{1,2,3,\dots,n,\;n+1\},\qquad \#S=n+1,
+\]
+y llamo $\mathcal{F}$ a la familia de todos los subconjuntos de $S$ que tienen exactamente
+$2$ elementos (es decir, todas las parejas no ordenadas de elementos de $S$).
+
+\emph{Primer conteo (directo).} Por la definición combinatoria del símbolo,
+\[
+\#\mathcal{F}=C(n+1,2).
+\]
+
+\emph{Segundo conteo (clasificando).} Clasifico las parejas según contengan o no al elemento
+distinguido $n+1$:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Parejas que no contienen a $n+1$.} Sus dos elementos salen de
+        $\{1,\dots,n\}$, que tiene $n$ elementos; hay $C(n,2)$ de estas.
+  \item \textbf{Parejas que sí contienen a $n+1$.} Un elemento ya está fijado ($n+1$) y el
+        otro se elige libremente entre los $n$ restantes; hay $n$ de estas.
+\end{itemize}
+Las dos clases son excluyentes (una pareja contiene a $n+1$ o no lo contiene, nunca las dos
+cosas) y entre las dos agotan $\mathcal{F}$. Por el principio de la suma,
+\[
+\#\mathcal{F}=C(n,2)+n .
+\]
+Igualando los dos conteos del mismo conjunto:
+\[
+C(n+1,2)=C(n,2)+n .
+\]
+\textbf{¿De dónde sale?} El $C(n+1,2)$ del primer conteo sale de que $\#S=n+1$ y las parejas
+tienen tamaño $2$. El $C(n,2)$ sale de contar parejas dentro de $\{1,\dots,n\}$, conjunto de
+tamaño $n$. El $n$ suelto sale de que, fijado $n+1$ como uno de los dos elementos, el
+compañero admite exactamente $n$ elecciones.
+
+\textbf{¿Por qué?} El argumento de doble conteo es válido porque las dos clases forman una
+\emph{partición} de $\mathcal{F}$: ninguna pareja se cuenta dos veces y ninguna se queda sin
+contar. Cuando un mismo conjunto finito se cuenta de dos formas correctas, los dos resultados
+tienen que coincidir, y esa coincidencia \emph{es} la identidad. Esta versión explica además
+\emph{por qué} aparece el sumando $n$: es el número de parejas que usan el elemento nuevo.
+
+\textbf{¿Qué tomamos?} Tomamos la identidad probada también por doble conteo, con lo que la
+demostración queda completa por dos vías independientes. $\blacksquare$
+\end{paso}
+\end{sol}
+
+\begin{resp}
+Queda demostrado que $C(n+1,2)=C(n,2)+n$. Algebraicamente, ambos lados se reducen al mismo
+polinomio:
+\[
+C(n+1,2)=\frac{(n+1)n}{2}=\frac{n^{2}+n}{2},
+\qquad
+C(n,2)+n=\frac{n(n-1)}{2}+n=\frac{n^{2}+n}{2}.
+\]
+Combinatoriamente, las parejas de $\{1,\dots,n+1\}$ se cuentan de dos formas: en total hay
+$C(n+1,2)$, y clasificándolas según usen o no el elemento $n+1$ hay $C(n,2)+n$. $\blacksquare$
+\end{resp}
+
+%======================================================================
+\section*{Ejercicio 2}
+
+\begin{quote}
+Muestre que $C(n,n-k)=C(n,k)$
+\end{quote}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Qué se sabe y qué hay que probar}
+\textbf{Qué hago:} fijo hipótesis y tesis. Lo que se sabe es, otra vez, la definición
+\[
+C(n,k)=\frac{n!}{k!\,(n-k)!},\qquad 0\le k\le n,
+\]
+y su lectura como ``número de subconjuntos de tamaño $k$ de un conjunto de $n$ elementos''. Lo
+que hay que probar es la igualdad de simetría
+\[
+C(n,n-k)=C(n,k).
+\]
+Obsérvese que el índice $n-k$ también cumple $0\le n-k\le n$, así que el símbolo de la
+izquierda está bien definido siempre que lo esté el de la derecha.
+
+\textbf{¿De dónde sale?} Ambas cosas son datos previos: la fórmula de la Teoría y el
+enunciado.
+
+\textbf{¿Por qué?} Antes de operar conviene comprobar que las dos expresiones tienen sentido;
+si $n-k$ se saliera del rango, la identidad no podría siquiera escribirse.
+
+\textbf{¿Qué tomamos?} Tomamos el plan: primero desarrollo algebraico, después doble conteo.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Demostración algebraica: sustituir $k$ por $n-k$ en la definición}
+\textbf{Qué hago:} aplico la definición al símbolo de la izquierda, con cuidado especial en el
+segundo factorial del denominador:
+\[
+C(n,n-k)=\frac{n!}{(n-k)!\;\bigl[n-(n-k)\bigr]!}.
+\]
+Simplifico el corchete del exponente restando dentro:
+\[
+n-(n-k)=n-n+k=k,
+\]
+de modo que
+\[
+C(n,n-k)=\frac{n!}{(n-k)!\,k!}.
+\]
+\textbf{¿De dónde sale?} La fórmula general es $C(n,j)=n!/\bigl[j!\,(n-j)!\bigr]$; aquí
+$j=n-k$, así que el primer factorial es $(n-k)!$ y el segundo es $(n-j)!=(n-(n-k))!$. La
+simplificación $n-(n-k)=k$ es la regla de signos al quitar el paréntesis.
+
+\textbf{¿Por qué?} Todo el contenido de la demostración algebraica está en esa cancelación:
+al reemplazar $k$ por $n-k$, los dos factoriales del denominador \emph{se intercambian} entre
+sí y el numerador $n!$ no se toca.
+
+\textbf{¿Qué tomamos?} Tomamos $C(n,n-k)=\dfrac{n!}{(n-k)!\,k!}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Comparar con $C(n,k)$ y cerrar la vía algebraica}
+\textbf{Qué hago:} escribo el lado derecho y comparo los dos cocientes:
+\[
+C(n,k)=\frac{n!}{k!\,(n-k)!},
+\qquad
+C(n,n-k)=\frac{n!}{(n-k)!\,k!} .
+\]
+Los numeradores son idénticos ($n!$) y los denominadores son el mismo producto escrito en otro
+orden, pues la multiplicación es conmutativa: $k!\,(n-k)!=(n-k)!\,k!$. Por lo tanto
+\[
+C(n,n-k)=C(n,k).
+\]
+\textbf{¿De dónde sale?} El cociente de la izquierda viene del Paso 2; el de la derecha es la
+definición aplicada tal cual. La igualdad de los denominadores es la conmutatividad del
+producto de números, no una manipulación combinatoria.
+
+\textbf{¿Por qué?} Dos fracciones con el mismo numerador y el mismo denominador son el mismo
+número. Comprobación numérica: con $n=7$ y $k=2$,
+$C(7,5)=\frac{7!}{5!\,2!}=\frac{5040}{120\cdot 2}=21$ y
+$C(7,2)=\frac{7!}{2!\,5!}=21$.
+
+\textbf{¿Qué tomamos?} Tomamos la identidad probada algebraicamente. $\blacksquare$
+\end{paso}
+
+\begin{paso}{Paso 4 --- Demostración combinatoria: elegir es lo mismo que descartar}
+\textbf{Qué hago:} cuento un mismo conjunto de dos maneras. Sea
+$S=\{1,2,\dots,n\}$ y sea $\mathcal{G}$ la familia de subconjuntos de $S$ de tamaño $k$.
+
+\emph{Primer conteo.} Por definición, $\#\mathcal{G}=C(n,k)$.
+
+\emph{Segundo conteo.} A cada subconjunto $T\in\mathcal{G}$ le asocio su complemento dentro de
+$S$,
+\[
+T\ \longmapsto\ \overline{T}=S\setminus T,\qquad
+\#\overline{T}=n-\#T=n-k .
+\]
+Esta correspondencia transforma subconjuntos de tamaño $k$ en subconjuntos de tamaño $n-k$, y
+es una \emph{biyección}: es inyectiva porque de $\overline{T_1}=\overline{T_2}$ se recupera
+$T_1=S\setminus\overline{T_1}=S\setminus\overline{T_2}=T_2$; y es sobreyectiva porque
+cualquier subconjunto $U$ de tamaño $n-k$ es la imagen de $T=S\setminus U$, que tiene tamaño
+$n-(n-k)=k$. Como hay una biyección entre la familia de subconjuntos de tamaño $k$ y la de
+tamaño $n-k$, ambas familias tienen la misma cantidad de elementos:
+\[
+C(n,k)=C(n,n-k).
+\]
+\textbf{¿De dónde sale?} El tamaño $n-k$ del complemento sale de que $T$ y $\overline{T}$ son
+disjuntos y su unión es $S$, de donde $\#T+\#\overline{T}=n$. La inversa de la
+correspondencia es ella misma (tomar complemento dos veces devuelve el conjunto original),
+que es la forma más rápida de ver que es biyectiva.
+
+\textbf{¿Por qué?} Porque escoger los $k$ elementos que \emph{entran} equivale exactamente a
+escoger los $n-k$ elementos que \emph{quedan fuera}: cada decisión determina la otra sin
+ambigüedad. Contar las elecciones o contar los descartes son dos descripciones del mismo acto,
+y por eso los dos números coinciden. Esta lectura explica la simetría del triángulo de
+Pascal, mientras que la vía algebraica solo la verifica.
+
+\textbf{¿Qué tomamos?} Tomamos la identidad probada también por biyección, con lo que la
+demostración queda completa por dos vías. $\blacksquare$
+\end{paso}
+\end{sol}
+
+\begin{resp}
+Queda demostrado que $C(n,n-k)=C(n,k)$. Algebraicamente,
+\[
+C(n,n-k)=\frac{n!}{(n-k)!\,\bigl[n-(n-k)\bigr]!}=\frac{n!}{(n-k)!\,k!}=\frac{n!}{k!\,(n-k)!}=C(n,k),
+\]
+ya que $n-(n-k)=k$ y el producto es conmutativo. Combinatoriamente, tomar complemento es una
+biyección entre los subconjuntos de tamaño $k$ y los de tamaño $n-k$ de un conjunto de $n$
+elementos: elegir $k$ elementos equivale a descartar $n-k$. $\blacksquare$
+\end{resp}
+
+%======================================================================
+\section*{Ejercicio 3}
+
+\begin{quote}
+Sean $A$, $B$ y $C$ tres eventos independientes. Demuestre que $A\cap(B\cup C)$ son independientes.
+\end{quote}
+
+\begin{nota}
+El enunciado está mal redactado: la expresión $A\cap(B\cup C)$ es \emph{un solo evento}, y un
+evento aislado no puede ser ``independiente'' de nada, porque la independencia es una
+propiedad de un \emph{par} de eventos. Lo que se pide demostrar, y así se interpreta aquí de
+forma explícita, es que
+\[
+\textbf{$A$ y $B\cup C$ son eventos independientes,\quad es decir,\quad}
+P\bigl(A\cap(B\cup C)\bigr)=P(A)\,P(B\cup C).
+\]
+El símbolo $A\cap(B\cup C)$ que aparece en el enunciado es justamente el miembro izquierdo de
+esa igualdad, de modo que la lectura corregida respeta lo escrito. El enunciado no trae
+respuesta oficial impresa porque pide una demostración.
+\end{nota}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Qué se sabe y qué hay que probar}
+\textbf{Qué hago:} traduzco la hipótesis ``$A$, $B$ y $C$ son tres eventos independientes'' a
+fórmulas. Como se explicó en la Teoría, la independencia de tres eventos (independencia mutua)
+significa \emph{las cuatro} igualdades siguientes:
+\[
+\text{(H1)}\ P(A\cap B)=P(A)P(B),\qquad
+\text{(H2)}\ P(A\cap C)=P(A)P(C),
+\]
+\[
+\text{(H3)}\ P(B\cap C)=P(B)P(C),\qquad
+\text{(H4)}\ P(A\cap B\cap C)=P(A)P(B)P(C).
+\]
+Y lo que hay que probar es
+\[
+\text{(T)}\qquad P\bigl(A\cap(B\cup C)\bigr)=P(A)\,P(B\cup C).
+\]
+\textbf{¿De dónde sale?} Las cuatro hipótesis salen de la definición de independencia mutua
+aplicada a la frase del enunciado; la tesis sale de la lectura corregida explicada en la caja
+anterior.
+
+\textbf{¿Por qué?} Es importante listarlas todas desde el principio porque en la demostración
+se usarán las cuatro, cada una en un lugar distinto: (H1) y (H2) al repartir la intersección,
+(H4) al tratar el término triple y (H3) al reconstruir $P(B\cup C)$ al final. Si solo se
+supusiera independencia por pares, faltaría (H4) y la demostración no cerraría.
+
+\textbf{¿Qué tomamos?} Tomamos las cuatro igualdades (H1)--(H4) como material disponible y la
+igualdad (T) como meta.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Distribuir la intersección sobre la unión}
+\textbf{Qué hago:} aplico la ley distributiva de conjuntos para reescribir el evento del que
+quiero la probabilidad:
+\[
+A\cap(B\cup C)=(A\cap B)\cup(A\cap C).
+\]
+\textbf{¿De dónde sale?} Es una identidad puramente conjuntista, no probabilística. Un
+resultado $\omega$ está en $A\cap(B\cup C)$ si y solo si está en $A$ y además está en $B$ o en
+$C$; eso ocurre exactamente cuando está en $A\cap B$ o en $A\cap C$. La doble implicación se
+verifica elemento a elemento.
+
+\textbf{¿Por qué?} Este cambio de forma es el que permite entrar la probabilidad: del lado
+derecho aparecen las intersecciones $A\cap B$ y $A\cap C$, que son precisamente las que las
+hipótesis (H1) y (H2) saben evaluar. Del lado izquierdo, en cambio, no hay nada que aplicar.
+
+\textbf{¿Qué tomamos?} Tomamos la reescritura
+$A\cap(B\cup C)=(A\cap B)\cup(A\cap C)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Aplicar inclusión--exclusión a esa unión}
+\textbf{Qué hago:} tomo probabilidad en la igualdad del Paso 2 y aplico la regla de la suma
+general a la unión de los eventos $E=A\cap B$ y $F=A\cap C$:
+\[
+P\bigl(A\cap(B\cup C)\bigr)=P\bigl((A\cap B)\cup(A\cap C)\bigr)
+=P(A\cap B)+P(A\cap C)-P\bigl((A\cap B)\cap(A\cap C)\bigr).
+\]
+Simplifico el último término observando que
+\[
+(A\cap B)\cap(A\cap C)=A\cap A\cap B\cap C=A\cap B\cap C,
+\]
+porque $A\cap A=A$. Queda
+\[
+P\bigl(A\cap(B\cup C)\bigr)=P(A\cap B)+P(A\cap C)-P(A\cap B\cap C).
+\]
+\textbf{¿De dónde sale?} La regla $P(E\cup F)=P(E)+P(F)-P(E\cap F)$ se demostró en la Teoría
+partiendo $E\cup F$ en tres pedazos disjuntos y aplicando el axioma de aditividad. Los
+eventos $E$ y $F$ son aquí $A\cap B$ y $A\cap C$, que provienen del Paso 2. La igualdad
+$A\cap A=A$ es idempotencia de la intersección.
+
+\textbf{¿Por qué?} No se puede escribir $P(E\cup F)=P(E)+P(F)$ a secas, porque $A\cap B$ y
+$A\cap C$ no son disjuntos en general: comparten $A\cap B\cap C$. Restar ese solape es
+justamente lo que corrige el doble conteo, y es la razón por la que la hipótesis (H4) va a
+hacer falta.
+
+\textbf{¿Qué tomamos?} Tomamos la expresión con tres términos
+$P(A\cap B)+P(A\cap C)-P(A\cap B\cap C)$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Sustituir las hipótesis de independencia en cada término}
+\textbf{Qué hago:} reemplazo los tres sumandos usando las hipótesis correspondientes:
+\[
+\underbrace{P(A\cap B)}_{\text{(H1)}}=P(A)P(B),\qquad
+\underbrace{P(A\cap C)}_{\text{(H2)}}=P(A)P(C),\qquad
+\underbrace{P(A\cap B\cap C)}_{\text{(H4)}}=P(A)P(B)P(C),
+\]
+de modo que
+\[
+P\bigl(A\cap(B\cup C)\bigr)=P(A)P(B)+P(A)P(C)-P(A)P(B)P(C).
+\]
+\textbf{¿De dónde sale?} Cada sustitución es exactamente una de las cuatro igualdades
+listadas en el Paso 1: la primera es (H1), la segunda (H2) y la tercera (H4). Ninguna se
+inventa: todas vienen de la hipótesis ``$A$, $B$ y $C$ independientes''.
+
+\textbf{¿Por qué?} Aquí se ve por qué la independencia por pares no bastaría: el término
+$P(A\cap B\cap C)$ no se puede evaluar con (H1), (H2) y (H3), y es (H4) quien lo hace. Es el
+paso en el que la hipótesis se convierte de verdad en información utilizable.
+
+\textbf{¿Qué tomamos?} Tomamos la expresión enteramente en términos de $P(A)$, $P(B)$ y
+$P(C)$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Factorizar $P(A)$ y reconstruir $P(B\cup C)$}
+\textbf{Qué hago:} saco $P(A)$ como factor común de los tres sumandos y después reconozco lo
+que queda dentro del corchete:
+\[
+P\bigl(A\cap(B\cup C)\bigr)=P(A)\Bigl[P(B)+P(C)-P(B)P(C)\Bigr].
+\]
+Ahora uso la hipótesis (H3), $P(B)P(C)=P(B\cap C)$, en sentido inverso:
+\[
+P(B)+P(C)-P(B)P(C)=P(B)+P(C)-P(B\cap C)=P(B\cup C),
+\]
+donde la última igualdad es de nuevo la regla de la suma general, ahora aplicada a $B$ y $C$.
+Por lo tanto
+\[
+P\bigl(A\cap(B\cup C)\bigr)=P(A)\,P(B\cup C).
+\]
+\textbf{¿De dónde sale?} La factorización es distributividad numérica:
+$P(A)P(B)+P(A)P(C)-P(A)P(B)P(C)=P(A)\bigl[P(B)+P(C)-P(B)P(C)\bigr]$. El reemplazo
+$P(B)P(C)\to P(B\cap C)$ es la hipótesis (H3) leída de derecha a izquierda. La identificación
+final con $P(B\cup C)$ es inclusión--exclusión aplicada al par $(B,C)$.
+
+\textbf{¿Por qué?} Es válido usar una igualdad en cualquiera de sus dos direcciones: (H3)
+afirma que los dos números son el mismo, así que sustituir uno por otro nunca altera el valor
+de la expresión. Esta es la única forma de hacer aparecer $P(B\cup C)$, que es lo que exige la
+tesis.
+
+\textbf{¿Qué tomamos?} Tomamos exactamente la igualdad (T) que había que probar.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Conclusión}
+\textbf{Qué hago:} comparo lo obtenido con la definición de independencia. Se ha llegado a
+\[
+P\bigl(A\cap(B\cup C)\bigr)=P(A)\,P(B\cup C),
+\]
+que es literalmente la definición de ``$A$ y $B\cup C$ son independientes'' con el papel de
+$E$ jugado por $A$ y el de $F$ jugado por $B\cup C$.
+
+\textbf{¿De dónde sale?} La igualdad viene del encadenamiento: distributividad (Paso 2),
+inclusión--exclusión (Paso 3), hipótesis (H1), (H2), (H4) (Paso 4), factorización más (H3) e
+inclusión--exclusión (Paso 5).
+
+\textbf{¿Por qué?} Porque la independencia es una definición, no un teorema: al comprobar la
+igualdad del producto no queda nada más por hacer. Si además $P(B\cup C)>0$, la conclusión se
+puede leer con condicionales: $P\bigl(A\mid B\cup C\bigr)=P(A)$, es decir, enterarse de que
+ocurrió al menos uno de $B$ o $C$ no cambia la probabilidad de $A$. Y por el resultado de
+herencia a complementos, también son independientes $\overline{A}$ y $B\cup C$, $A$ y
+$\overline{B\cup C}=\overline{B}\cap\overline{C}$, y el par de ambos complementos.
+
+\textbf{¿Qué tomamos?} Tomamos la conclusión: $A$ y $B\cup C$ son independientes.
+$\blacksquare$
+\end{paso}
+\end{sol}
+
+\begin{resp}
+Interpretando el enunciado como ``$A$ y $B\cup C$ son independientes'', queda demostrado que
+\[
+P\bigl(A\cap(B\cup C)\bigr)
+=P(A\cap B)+P(A\cap C)-P(A\cap B\cap C)
+=P(A)P(B)+P(A)P(C)-P(A)P(B)P(C)
+\]
+\[
+=P(A)\bigl[P(B)+P(C)-P(B\cap C)\bigr]=P(A)\,P(B\cup C).
+\]
+Se usaron las cuatro igualdades de la independencia mutua de $A$, $B$ y $C$ (en particular
+$P(A\cap B\cap C)=P(A)P(B)P(C)$, que no se deduce de la independencia por pares), la ley
+distributiva y la regla de la suma general. Por lo tanto \textbf{$A$ y $B\cup C$ son eventos
+independientes}. $\blacksquare$
+\end{resp}
+
+%======================================================================
+\section*{Ejercicio 4}
+
+\begin{quote}
+Sean $A$ y $B$ dos eventos, con $B$ un evento no nulo.\\[4pt]
+a) Pruebe que $P(A|B)+P(\overline{A}|B)=1$\\
+b) Si $P(A|B)>P(A)$, pruebe que $P(\overline{A}|B)<P(\overline{A})$\\
+\hspace*{1.5em}\textbf{Sugerencia:} use el resultado del inciso anterior.
+\end{quote}
+
+\subsection*{Inciso a)}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Qué se sabe y qué hay que probar}
+\textbf{Qué hago:} traduzco la hipótesis y fijo la tesis. La hipótesis ``$B$ es un evento no
+nulo'' significa
+\[
+\text{(H)}\qquad P(B)>0,
+\]
+que es exactamente la condición que permite escribir probabilidades condicionadas a $B$, pues
+la definición
+\[
+P(E\mid B)=\frac{P(E\cap B)}{P(B)}
+\]
+tiene a $P(B)$ en el denominador. Lo que hay que probar es
+\[
+\text{(T)}\qquad P(A\mid B)+P(\overline{A}\mid B)=1 .
+\]
+\textbf{¿De dónde sale?} La condición $P(B)>0$ es la lectura de ``evento no nulo'' del
+enunciado; la definición de probabilidad condicionada es la de la Teoría.
+
+\textbf{¿Por qué?} Sin la hipótesis (H) el enunciado ni siquiera tendría sentido: los dos
+símbolos del lado izquierdo serían divisiones entre cero. Por eso el enunciado se molesta en
+exigir que $B$ no sea nulo.
+
+\textbf{¿Qué tomamos?} Tomamos (H) como hipótesis y (T) como meta.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Partir $B$ según ocurra o no ocurra $A$}
+\textbf{Qué hago:} descompongo el evento $B$ en dos pedazos excluyentes usando la propiedad de
+partición de la Teoría, con el papel de ``evento que parte'' jugado por $A$:
+\[
+B=(A\cap B)\;\cup\;(\overline{A}\cap B),
+\qquad
+(A\cap B)\cap(\overline{A}\cap B)=\varnothing .
+\]
+Aplicando el axioma de aditividad (A3),
+\[
+P(B)=P(A\cap B)+P(\overline{A}\cap B).
+\]
+\textbf{¿De dónde sale?} La descomposición no usa ningún dato numérico: todo resultado de $B$
+o bien pertenece además a $A$, y entonces cae en $A\cap B$, o bien no pertenece a $A$, y
+entonces cae en $\overline{A}\cap B$. No hay tercera posibilidad y no hay solape, porque un
+resultado no puede estar simultáneamente en $A$ y en $\overline{A}$.
+
+\textbf{¿Por qué?} Porque $\{A,\overline{A}\}$ es una partición de $\Omega$; al intersecarla
+con $B$ se obtiene una partición de $B$, que es exactamente el escenario en el que el axioma
+de aditividad se puede aplicar.
+
+\textbf{¿Qué tomamos?} Tomamos la identidad $P(B)=P(A\cap B)+P(\overline{A}\cap B)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Dividir entre $P(B)$ y reconocer las condicionales}
+\textbf{Qué hago:} divido los dos miembros de la igualdad anterior entre $P(B)$, que es
+distinto de cero por la hipótesis (H):
+\[
+\frac{P(B)}{P(B)}=\frac{P(A\cap B)}{P(B)}+\frac{P(\overline{A}\cap B)}{P(B)} .
+\]
+El lado izquierdo vale $1$. Los dos cocientes del lado derecho son, por definición,
+$P(A\mid B)$ y $P(\overline{A}\mid B)$. Por lo tanto
+\[
+1=P(A\mid B)+P(\overline{A}\mid B),
+\]
+que es la tesis (T).
+
+\textbf{¿De dónde sale?} La igualdad de partida es la del Paso 2. El $1$ del lado izquierdo
+sale de $P(B)/P(B)=1$. La identificación de los cocientes con las condicionales es literal:
+$P(E\mid B)=P(E\cap B)/P(B)$ con $E=A$ en el primero y $E=\overline{A}$ en el segundo.
+
+\textbf{¿Por qué?} Dividir ambos miembros de una igualdad entre un mismo número no nulo
+preserva la igualdad; la hipótesis (H) es exactamente lo que garantiza que ese número no sea
+cero. Y la división es lícita término a término porque la suma se reparte:
+$(x+y)/z=x/z+y/z$.
+
+\textbf{¿Qué tomamos?} Tomamos $P(A\mid B)+P(\overline{A}\mid B)=1$, es decir, la regla del
+complemento \emph{dentro} del espacio reducido a $B$. $\blacksquare$
+\end{paso}
+
+\begin{paso}{Paso 4 --- Lectura del resultado}
+\textbf{Qué hago:} escribo la forma en la que se usará en el inciso b):
+\[
+P(\overline{A}\mid B)=1-P(A\mid B).
+\]
+\textbf{¿De dónde sale?} Es la tesis del Paso 3 con el término $P(A\mid B)$ pasado al otro
+miembro restando.
+
+\textbf{¿Por qué?} Lo que dice el resultado es que, una vez que se sabe que $B$ ocurrió, el
+espacio muestral se reduce a $B$ y dentro de ese nuevo espacio la probabilidad condicionada
+vuelve a cumplir todos los axiomas: en particular la regla del complemento
+$P(\overline{E})=1-P(E)$. No es una fórmula nueva, es la de siempre aplicada a la nueva
+probabilidad. Nótese que \emph{no} vale $P(A\mid B)+P(A\mid\overline{B})=1$: lo que se
+complementa es el evento de arriba, no la condición.
+
+\textbf{¿Qué tomamos?} Tomamos $P(\overline{A}\mid B)=1-P(A\mid B)$ como herramienta para el
+inciso b).
+\end{paso}
+\end{sol}
+
+\begin{resp}
+Como $B=(A\cap B)\cup(\overline{A}\cap B)$ con los dos pedazos disjuntos, el axioma de
+aditividad da $P(B)=P(A\cap B)+P(\overline{A}\cap B)$. Dividiendo entre $P(B)>0$:
+\[
+1=\frac{P(A\cap B)}{P(B)}+\frac{P(\overline{A}\cap B)}{P(B)}=P(A\mid B)+P(\overline{A}\mid B).
+\]
+Queda probado que $P(A\mid B)+P(\overline{A}\mid B)=1$, o equivalentemente
+$P(\overline{A}\mid B)=1-P(A\mid B)$. $\blacksquare$
+\end{resp}
+
+\subsection*{Inciso b)}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Qué se sabe y qué hay que probar}
+\textbf{Qué hago:} enumero el material disponible. Se sabe:
+\[
+\text{(H1)}\ P(B)>0\ \ (\text{$B$ no nulo}),\qquad
+\text{(H2)}\ P(A\mid B)>P(A)\ \ (\text{hipótesis del inciso}),
+\]
+\[
+\text{(H3)}\ P(\overline{A}\mid B)=1-P(A\mid B)\ \ (\text{inciso a), como indica la
+Sugerencia}),\qquad
+\text{(H4)}\ P(\overline{A})=1-P(A)\ \ (\text{regla del complemento}).
+\]
+Y hay que probar
+\[
+\text{(T)}\qquad P(\overline{A}\mid B)<P(\overline{A}).
+\]
+\textbf{¿De dónde sale?} (H1) y (H2) son literales del enunciado; (H3) es el resultado ya
+demostrado en el inciso a), que la propia Sugerencia manda usar; (H4) es la regla del
+complemento deducida en la Teoría a partir de los axiomas (A2) y (A3).
+
+\textbf{¿Por qué?} Conviene notar que la tesis y la hipótesis tienen desigualdades de sentido
+\emph{opuesto}: la hipótesis dice ``mayor'' y la tesis dice ``menor''. Eso anticipa que el
+argumento consistirá en restar de $1$, operación que invierte el sentido de las
+desigualdades.
+
+\textbf{¿Qué tomamos?} Tomamos (H1)--(H4) y la meta (T).
+\end{paso}
+
+\begin{paso}{Paso 2 --- Invertir la desigualdad restando de $1$}
+\textbf{Qué hago:} parto de la hipótesis (H2) y le aplico la operación ``restar de $1$'' a
+ambos miembros:
+\[
+P(A\mid B)>P(A)
+\qquad\Longrightarrow\qquad
+-P(A\mid B)<-P(A)
+\qquad\Longrightarrow\qquad
+1-P(A\mid B)<1-P(A).
+\]
+\textbf{¿De dónde sale?} La primera desigualdad es (H2). El primer paso multiplica ambos
+miembros por $-1$; el segundo suma $1$ a ambos miembros.
+
+\textbf{¿Por qué?} Multiplicar una desigualdad por un número negativo invierte su sentido
+(propiedad de orden de los números reales), mientras que sumar una misma constante a ambos
+miembros lo conserva. Ambas operaciones son reversibles, de modo que la implicación es de
+hecho una equivalencia. Este es el único movimiento de fondo del inciso: la desigualdad se da
+vuelta porque se está mirando ``lo que falta para llegar a $1$''.
+
+\textbf{¿Qué tomamos?} Tomamos la desigualdad $1-P(A\mid B)<1-P(A)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Reemplazar cada lado por su significado probabilístico}
+\textbf{Qué hago:} identifico los dos miembros de la desigualdad del Paso 2 usando (H3) y
+(H4):
+\[
+\underbrace{1-P(A\mid B)}_{\text{(H3)}\;=\;P(\overline{A}\mid B)}
+\;<\;
+\underbrace{1-P(A)}_{\text{(H4)}\;=\;P(\overline{A})},
+\qquad\text{es decir}\qquad
+P(\overline{A}\mid B)<P(\overline{A}),
+\]
+que es exactamente la tesis (T).
+
+\textbf{¿De dónde sale?} La sustitución de la izquierda es el resultado del inciso a) (la
+regla del complemento dentro del espacio reducido a $B$, válida gracias a $P(B)>0$). La
+sustitución de la derecha es la regla del complemento ordinaria, válida sin ninguna
+condición extra.
+
+\textbf{¿Por qué?} Sustituir una cantidad por otra que se ha demostrado igual no altera el
+sentido ni la validez de una desigualdad. Aquí se ve por qué la Sugerencia pedía usar el
+inciso a): sin él no habría manera de convertir $1-P(A\mid B)$ en una probabilidad
+condicionada, y la desigualdad obtenida en el Paso 2 se quedaría sin lectura.
+
+\textbf{¿Qué tomamos?} Tomamos la conclusión $P(\overline{A}\mid B)<P(\overline{A})$.
+$\blacksquare$
+\end{paso}
+
+\begin{paso}{Paso 4 --- Lectura del resultado y coherencia con la independencia}
+\textbf{Qué hago:} explico qué afirma lo demostrado y compruebo que encaja con lo ya conocido.
+La hipótesis $P(A\mid B)>P(A)$ dice que enterarse de $B$ \emph{aumenta} la probabilidad de
+$A$; la conclusión $P(\overline{A}\mid B)<P(\overline{A})$ dice que, en ese mismo escenario,
+enterarse de $B$ necesariamente \emph{disminuye} la probabilidad de $\overline{A}$.
+
+\textbf{¿De dónde sale?} Ambas lecturas son las de la definición de probabilidad
+condicionada: comparar $P(E\mid B)$ con $P(E)$ es preguntarse si la información aportada por
+$B$ sube o baja la probabilidad de $E$.
+
+\textbf{¿Por qué?} Porque $A$ y $\overline{A}$ se reparten la probabilidad total, tanto antes
+como después de conocer $B$: en ambos casos las dos probabilidades suman $1$. Si una sube, la
+otra tiene que bajar exactamente lo mismo. De hecho, la cantidad en la que suben y bajan
+coincide:
+\[
+P(A\mid B)-P(A)=\bigl[1-P(\overline{A}\mid B)\bigr]-\bigl[1-P(\overline{A})\bigr]
+=P(\overline{A})-P(\overline{A}\mid B).
+\]
+Nótese también que el mismo argumento, aplicado con igualdad en lugar de desigualdad estricta,
+reproduce el resultado conocido: si $P(A\mid B)=P(A)$ (independencia de $A$ y $B$), entonces
+$P(\overline{A}\mid B)=P(\overline{A})$, es decir, $\overline{A}$ y $B$ también son
+independientes.
+
+\textbf{¿Qué tomamos?} Tomamos la demostración cerrada y la observación de que el desbalance
+es simétrico.
+\end{paso}
+\end{sol}
+
+\begin{resp}
+\textbf{a)} $P(A\mid B)+P(\overline{A}\mid B)=1$, porque
+$P(B)=P(A\cap B)+P(\overline{A}\cap B)$ (partición de $B$ más aditividad) y al dividir entre
+$P(B)>0$ aparecen las dos condicionales sumando $1$.
+
+\textbf{b)} Partiendo de $P(A\mid B)>P(A)$ y restando ambos miembros de $1$ (lo que invierte
+la desigualdad):
+\[
+1-P(A\mid B)<1-P(A)
+\quad\Longrightarrow\quad
+P(\overline{A}\mid B)<P(\overline{A}),
+\]
+usando el inciso a) a la izquierda y la regla del complemento a la derecha. $\blacksquare$
+\end{resp}
+
+%======================================================================
+\section*{Ejercicio 5}
+
+\begin{quote}
+Sean $A$, $B$ y $C$ eventos no nulos, tales que $A$ y $C$ son disjuntos, $A$ y $B$ son independientes y además, se sabe que:
+\[
+P(B\cup C)=\frac{P(A)}{5}
+\]
+Pruebe que $P(A\cup B\cup C)=P(A)\left(\dfrac{1}{5}+P(\overline{B})\right)$
+\end{quote}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Qué se sabe y qué hay que probar}
+\textbf{Qué hago:} traduzco cada frase del enunciado a una fórmula utilizable:
+\[
+\text{(H1)}\ \ P(A)>0,\ P(B)>0,\ P(C)>0 \qquad(\text{eventos no nulos}),
+\]
+\[
+\text{(H2)}\ \ A\cap C=\varnothing\ \Longrightarrow\ P(A\cap C)=0
+\qquad(\text{$A$ y $C$ disjuntos}),
+\]
+\[
+\text{(H3)}\ \ P(A\cap B)=P(A)\,P(B)
+\qquad(\text{$A$ y $B$ independientes}),
+\]
+\[
+\text{(H4)}\ \ P(B\cup C)=\frac{P(A)}{5}
+\qquad(\text{dato explícito}).
+\]
+Hay que probar
+\[
+\text{(T)}\qquad
+P(A\cup B\cup C)=P(A)\left(\frac{1}{5}+P(\overline{B})\right).
+\]
+\textbf{¿De dónde sale?} (H2) traduce ``disjuntos'' usando que $P(\varnothing)=0$, propiedad
+deducida en la Teoría. (H3) es la definición de independencia. (H4) y (H1) son literales.
+
+\textbf{¿Por qué?} Fijarse en la forma del lado derecho de (T) orienta toda la demostración:
+aparece un $1/5$, que solo puede venir de (H4), y aparece $P(\overline{B})$, que solo puede
+venir de combinar la regla del complemento con (H3). Además, el hecho de que la unión que se
+pide sea de tres eventos pero el dato (H4) venga empaquetado como $P(B\cup C)$ sugiere tratar
+$B\cup C$ como \emph{un solo bloque}.
+
+\textbf{¿Qué tomamos?} Tomamos la estrategia: agrupar $A\cup B\cup C=A\cup(B\cup C)$ y aplicar
+inclusión--exclusión a esos dos bloques.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Agrupar la triple unión en dos bloques}
+\textbf{Qué hago:} uso la asociatividad de la unión para escribir
+\[
+A\cup B\cup C=A\;\cup\;(B\cup C),
+\]
+y aplico la regla de la suma general con $E=A$ y $F=B\cup C$:
+\[
+P(A\cup B\cup C)=P(A)+P(B\cup C)-P\bigl(A\cap(B\cup C)\bigr).
+\]
+\textbf{¿De dónde sale?} La agrupación es asociatividad de conjuntos, que no cambia el
+conjunto. La fórmula $P(E\cup F)=P(E)+P(F)-P(E\cap F)$ se demostró en la Teoría por
+inclusión--exclusión.
+
+\textbf{¿Por qué?} Porque así el término $P(B\cup C)$ aparece intacto y se puede reemplazar de
+inmediato por el dato (H4), sin necesidad de desarmar $B\cup C$ en $P(B)+P(C)-P(B\cap C)$
+---desarrollo que sería inútil, ya que del enunciado no se conocen ni $P(C)$ ni $P(B\cap C)$
+por separado.
+
+\textbf{¿Qué tomamos?} Tomamos la descomposición en tres términos, de los cuales solo el
+último requiere trabajo.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Simplificar $A\cap(B\cup C)$ usando que $A$ y $C$ son disjuntos}
+\textbf{Qué hago:} distribuyo la intersección sobre la unión y aprovecho la hipótesis (H2):
+\[
+A\cap(B\cup C)=(A\cap B)\cup(A\cap C)=(A\cap B)\cup\varnothing=A\cap B,
+\]
+porque $A\cap C=\varnothing$ y unir el conjunto vacío no agrega nada. Por lo tanto
+\[
+P\bigl(A\cap(B\cup C)\bigr)=P(A\cap B).
+\]
+\textbf{¿De dónde sale?} La distributividad $E\cap(F\cup G)=(E\cap F)\cup(E\cap G)$ es una
+identidad de conjuntos. El reemplazo $A\cap C=\varnothing$ es la hipótesis (H2) del enunciado.
+La igualdad $X\cup\varnothing=X$ es inmediata.
+
+\textbf{¿Por qué?} Aquí se ve exactamente para qué sirve la hipótesis ``$A$ y $C$ son
+disjuntos'': elimina de un plumazo el término cruzado con $C$, que es el único sobre el que no
+se tiene información. Sin esa hipótesis quedaría $P(A\cap B)+P(A\cap C)-P(A\cap B\cap C)$, con
+dos cantidades desconocidas, y la demostración no podría cerrarse.
+
+\textbf{¿Qué tomamos?} Tomamos $P\bigl(A\cap(B\cup C)\bigr)=P(A\cap B)$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Sustituir el dato (H4) y la independencia (H3)}
+\textbf{Qué hago:} llevo a la expresión del Paso 2 el resultado del Paso 3, el dato (H4) y la
+independencia (H3):
+\[
+P(A\cup B\cup C)=P(A)+\underbrace{P(B\cup C)}_{\text{(H4)}}-\underbrace{P(A\cap B)}_{\text{(H3)}}
+=P(A)+\frac{P(A)}{5}-P(A)\,P(B).
+\]
+\textbf{¿De dónde sale?} El término $P(A)/5$ es exactamente el dato (H4). El término
+$P(A)P(B)$ es la definición de independencia (H3) aplicada al par $(A,B)$, que sustituye a
+$P(A\cap B)$ tras la simplificación del Paso 3.
+
+\textbf{¿Por qué?} Las dos sustituciones son reemplazos de una cantidad por otra que se ha
+declarado igual, de modo que el valor de la expresión no cambia. Obsérvese que los tres
+sumandos ya contienen el factor $P(A)$, lo que anuncia la factorización del paso siguiente.
+
+\textbf{¿Qué tomamos?} Tomamos $P(A\cup B\cup C)=P(A)+\dfrac{P(A)}{5}-P(A)P(B)$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Factorizar $P(A)$ y usar la regla del complemento}
+\textbf{Qué hago:} saco $P(A)$ como factor común de los tres sumandos:
+\[
+P(A\cup B\cup C)=P(A)\left[1+\frac{1}{5}-P(B)\right],
+\]
+y reordeno el corchete agrupando $1-P(B)$:
+\[
+1+\frac{1}{5}-P(B)=\frac{1}{5}+\bigl[1-P(B)\bigr]=\frac{1}{5}+P(\overline{B}),
+\]
+donde la última igualdad es la regla del complemento $P(\overline{B})=1-P(B)$. Por lo tanto
+\[
+P(A\cup B\cup C)=P(A)\left(\frac{1}{5}+P(\overline{B})\right),
+\]
+que es exactamente la tesis (T).
+
+\textbf{¿De dónde sale?} La factorización es distributividad numérica: cada uno de los tres
+sumandos $P(A)$, $P(A)/5$ y $P(A)P(B)$ contiene el factor $P(A)$, con coeficientes $1$, $1/5$
+y $-P(B)$ respectivamente. El reagrupamiento $1+\frac15-P(B)=\frac15+(1-P(B))$ es solo
+conmutatividad y asociatividad de la suma. La regla del complemento se dedujo en la Teoría de
+los axiomas (A2) y (A3).
+
+\textbf{¿Por qué?} Reconocer $1-P(B)$ como $P(\overline{B})$ es el movimiento que da a la
+respuesta la forma pedida por el enunciado. Es importante agrupar así y no de otro modo: el
+$1/5$ debe quedar suelto porque en la tesis aparece suelto.
+
+\textbf{¿Qué tomamos?} Tomamos la igualdad demostrada. $\blacksquare$
+\end{paso}
+
+\begin{paso}{Paso 6 --- Verificación de consistencia}
+\textbf{Qué hago:} compruebo que la fórmula demostrada no contradice ninguna restricción
+básica. Como toda probabilidad está entre $0$ y $1$, en particular $P(A\cup B\cup C)\le 1$, la
+identidad obliga a
+\[
+P(A)\left(\frac{1}{5}+P(\overline{B})\right)\le 1 .
+\]
+Además, de (H4) y de la monotonía se deduce $P(B)\le P(B\cup C)=P(A)/5\le 1/5$, así que
+$P(\overline{B})=1-P(B)\ge 4/5$ y el paréntesis vale al menos $1/5+4/5=1$.
+
+\textbf{¿De dónde sale?} La desigualdad $P(B)\le P(B\cup C)$ es la monotonía demostrada en la
+Teoría, pues $B\subseteq B\cup C$. El valor $P(A)/5$ es (H4). La cota $P(A)\le 1$ es el
+axioma de normalización más la regla del complemento.
+
+\textbf{¿Por qué?} Esta verificación no forma parte de la demostración, pero confirma que las
+hipótesis son compatibles entre sí y que la fórmula obtenida produce números admisibles: el
+paréntesis es $\ge 1$ y $P(A)\le 1$, con el producto acotado por $1$.
+
+\textbf{¿Qué tomamos?} Tomamos la demostración como cerrada y consistente.
+\end{paso}
+\end{sol}
+
+\begin{resp}
+Agrupando $A\cup B\cup C=A\cup(B\cup C)$ y aplicando inclusión--exclusión,
+\[
+P(A\cup B\cup C)=P(A)+P(B\cup C)-P\bigl(A\cap(B\cup C)\bigr).
+\]
+Como $A$ y $C$ son disjuntos, $A\cap(B\cup C)=(A\cap B)\cup(A\cap C)=A\cap B$; como $A$ y $B$
+son independientes, $P(A\cap B)=P(A)P(B)$; y por el dato, $P(B\cup C)=P(A)/5$. Entonces
+\[
+P(A\cup B\cup C)=P(A)+\frac{P(A)}{5}-P(A)P(B)
+=P(A)\left[\frac{1}{5}+1-P(B)\right]
+=P(A)\left(\frac{1}{5}+P(\overline{B})\right).
+\]
+$\blacksquare$
+\end{resp}
+
+%======================================================================
+\section*{Ejercicio 6}
+
+\begin{quote}
+Sean $A$, $B$ y $C$ eventos no nulos tales que $A\cup B=\Omega$, $A$ y $C$ son independientes.\\[4pt]
+a) Demuestre que $\overline{A}$ y $\overline{B}$ son disjuntos.\\
+b) Pruebe que $P(A\cap B\cap C)=1-P(\overline{A})\,P(C)-P(\overline{B}\cup\overline{C})$
+\end{quote}
+
+\subsection*{Inciso a)}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Qué se sabe y qué hay que probar}
+\textbf{Qué hago:} traduzco las hipótesis a fórmulas:
+\[
+\text{(H1)}\ \ P(A)>0,\ P(B)>0,\ P(C)>0,\qquad
+\text{(H2)}\ \ A\cup B=\Omega,\qquad
+\text{(H3)}\ \ P(A\cap C)=P(A)\,P(C).
+\]
+Lo que hay que probar en este inciso es
+\[
+\text{(T)}\qquad \overline{A}\cap\overline{B}=\varnothing .
+\]
+\textbf{¿De dónde sale?} (H2) es la frase ``$A\cup B=\Omega$'' del enunciado, que dice que
+entre los dos eventos cubren todo el espacio muestral: siempre ocurre al menos uno de los dos.
+(H3) es la definición de independencia aplicada al par $(A,C)$. (H1) es ``eventos no nulos''.
+
+\textbf{¿Por qué?} La tesis es una afirmación puramente conjuntista (``son disjuntos''), de
+modo que en este inciso no hará falta ninguna probabilidad: bastará con De Morgan. La
+hipótesis (H3) queda reservada para el inciso b).
+
+\textbf{¿Qué tomamos?} Tomamos (H2) como única hipótesis necesaria aquí.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Aplicar De Morgan a la hipótesis}
+\textbf{Qué hago:} tomo complemento en los dos miembros de la igualdad (H2) y uso la ley de De
+Morgan:
+\[
+\overline{A}\cap\overline{B}=\overline{A\cup B}=\overline{\Omega}=\varnothing .
+\]
+\textbf{¿De dónde sale?} La primera igualdad es la ley de De Morgan
+$\overline{E}\cap\overline{F}=\overline{E\cup F}$, enunciada en la Teoría. La segunda es la
+hipótesis (H2), que permite reemplazar $A\cup B$ por $\Omega$. La tercera es la definición de
+complemento: el complemento del espacio muestral completo es el conjunto vacío, pues no queda
+ningún resultado fuera de $\Omega$.
+
+\textbf{¿Por qué?} El razonamiento en palabras es directo: ``no ocurre $A$ y tampoco ocurre
+$B$'' es lo mismo que ``no ocurre ninguno de los dos''; pero la hipótesis dice que siempre
+ocurre al menos uno, así que la situación ``ninguno de los dos'' es imposible. Un evento
+imposible es, por definición, el conjunto vacío.
+
+\textbf{¿Qué tomamos?} Tomamos $\overline{A}\cap\overline{B}=\varnothing$, es decir,
+$\overline{A}$ y $\overline{B}$ son disjuntos. $\blacksquare$
+\end{paso}
+
+\begin{paso}{Paso 3 --- Consecuencias que se usarán en el inciso b)}
+\textbf{Qué hago:} extraigo del resultado anterior dos consecuencias, una probabilística y una
+de inclusión de conjuntos:
+\[
+P(\overline{A}\cap\overline{B})=P(\varnothing)=0,
+\qquad\text{y}\qquad
+\overline{A}\subseteq B .
+\]
+La inclusión se justifica así: si $\omega\in\overline{A}$, entonces $\omega\notin A$; pero por
+(H2) todo resultado está en $A$ o en $B$, así que necesariamente $\omega\in B$.
+
+\textbf{¿De dónde sale?} La igualdad $P(\varnothing)=0$ se dedujo en la Teoría del axioma de
+aditividad. La inclusión $\overline{A}\subseteq B$ es una relectura de $A\cup B=\Omega$: no
+quedan resultados fuera de $A$ que estén también fuera de $B$.
+
+\textbf{¿Por qué?} Porque esa inclusión es la pieza clave del inciso b): al intersecar con
+cualquier evento $E$ se obtiene $\overline{A}\cap E\subseteq B$, y por lo tanto
+$\overline{A}\cap B\cap E=\overline{A}\cap E$. La condición $A\cup B=\Omega$ es, en el fondo,
+la afirmación de que $B$ ``contiene todo lo que $A$ deja fuera''.
+
+\textbf{¿Qué tomamos?} Tomamos $\overline{A}\subseteq B$ como herramienta para el inciso b).
+\end{paso}
+\end{sol}
+
+\begin{resp}
+Por la ley de De Morgan y la hipótesis $A\cup B=\Omega$:
+\[
+\overline{A}\cap\overline{B}=\overline{A\cup B}=\overline{\Omega}=\varnothing,
+\]
+es decir, \textbf{$\overline{A}$ y $\overline{B}$ son disjuntos} (y en consecuencia
+$P(\overline{A}\cap\overline{B})=0$). Como subproducto queda $\overline{A}\subseteq B$.
+$\blacksquare$
+\end{resp}
+
+\subsection*{Inciso b)}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Qué se sabe, qué hay que probar y por dónde empezar}
+\textbf{Qué hago:} recojo el material y miro la forma de la tesis. Se dispone de
+\[
+\text{(H2)}\ A\cup B=\Omega,\qquad
+\text{(H3)}\ P(A\cap C)=P(A)P(C),\qquad
+\text{(H5)}\ \overline{A}\subseteq B\ \ (\text{inciso a}),
+\]
+y hay que probar
+\[
+\text{(T)}\qquad
+P(A\cap B\cap C)=1-P(\overline{A})\,P(C)-P(\overline{B}\cup\overline{C}).
+\]
+Observo que en el lado derecho aparece el bloque $P(\overline{B}\cup\overline{C})$, que por De
+Morgan es $1-P(B\cap C)$. Sustituyendo esa lectura, la tesis (T) equivale a
+\[
+P(A\cap B\cap C)=1-P(\overline{A})P(C)-\bigl[1-P(B\cap C)\bigr]
+=P(B\cap C)-P(\overline{A})\,P(C).
+\]
+\textbf{¿De dónde sale?} La equivalencia usa
+$\overline{B}\cup\overline{C}=\overline{B\cap C}$ (De Morgan) y la regla del complemento
+$P(\overline{B\cap C})=1-P(B\cap C)$. Los dos unos se cancelan: $1-\cdots-1+P(B\cap C)$.
+
+\textbf{¿Por qué?} Trabajar con la forma equivalente es más cómodo porque ya no hay unos
+sueltos y todo queda expresado con intersecciones, que son los objetos que las hipótesis saben
+manejar. La demostración consistirá entonces en probar
+$P(B\cap C)=P(A\cap B\cap C)+P(\overline{A})P(C)$ y deshacer al final la traducción.
+
+\textbf{¿Qué tomamos?} Tomamos como meta intermedia
+$P(A\cap B\cap C)=P(B\cap C)-P(\overline{A})P(C)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Partir $B\cap C$ según ocurra o no ocurra $A$}
+\textbf{Qué hago:} aplico la propiedad de partición de la Teoría al evento $F=B\cap C$,
+usando $A$ como evento que parte:
+\[
+B\cap C=(A\cap B\cap C)\;\cup\;(\overline{A}\cap B\cap C),
+\qquad
+(A\cap B\cap C)\cap(\overline{A}\cap B\cap C)=\varnothing,
+\]
+y por el axioma de aditividad
+\[
+P(B\cap C)=P(A\cap B\cap C)+P(\overline{A}\cap B\cap C).
+\]
+\textbf{¿De dónde sale?} Es la identidad $F=(A\cap F)\cup(\overline{A}\cap F)$ con
+$F=B\cap C$. Los dos pedazos son disjuntos porque uno exige que $A$ ocurra y el otro que no
+ocurra.
+
+\textbf{¿Por qué?} Porque la tesis intermedia del Paso 1 es exactamente una resta de
+$P(B\cap C)$, así que hay que fabricar $P(B\cap C)$ como suma de dos cosas, una de las cuales
+sea $P(A\cap B\cap C)$. Partir por $A$ y $\overline{A}$ es la única forma natural de lograrlo.
+
+\textbf{¿Qué tomamos?} Tomamos $P(B\cap C)=P(A\cap B\cap C)+P(\overline{A}\cap B\cap C)$, con
+el segundo término todavía por identificar.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Eliminar $B$ del segundo término usando $\overline{A}\subseteq B$}
+\textbf{Qué hago:} simplifico $\overline{A}\cap B\cap C$ aprovechando la inclusión (H5)
+obtenida en el inciso a). Como $\overline{A}\subseteq B$, se tiene $\overline{A}\cap B=
+\overline{A}$, y por lo tanto
+\[
+\overline{A}\cap B\cap C=(\overline{A}\cap B)\cap C=\overline{A}\cap C,
+\qquad\text{luego}\qquad
+P(\overline{A}\cap B\cap C)=P(\overline{A}\cap C).
+\]
+\textbf{¿De dónde sale?} La inclusión $\overline{A}\subseteq B$ se probó en el Paso 3 del
+inciso a) a partir de $A\cup B=\Omega$. La regla ``$E\subseteq F\Rightarrow E\cap F=E$'' se
+enunció en la Teoría: intersecar un conjunto con otro que lo contiene no le quita nada.
+
+\textbf{¿Por qué?} Este es el corazón del inciso: la condición $A\cup B=\Omega$ sirve
+exactamente para que la letra $B$ desaparezca cuando va acompañada de $\overline{A}$. Sin
+ella, el término $P(\overline{A}\cap B\cap C)$ sería una cantidad desconocida y la identidad
+del enunciado sería falsa.
+
+\textbf{¿Qué tomamos?} Tomamos $P(\overline{A}\cap B\cap C)=P(\overline{A}\cap C)$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Usar la independencia de $A$ y $C$, heredada al complemento}
+\textbf{Qué hago:} evalúo $P(\overline{A}\cap C)$ usando la hipótesis (H3). Como $A$ y $C$ son
+independientes, también lo son $\overline{A}$ y $C$; lo verifico de nuevo aquí para dejar la
+cadena completa. Partiendo $C$ por $A$ y $\overline{A}$:
+\[
+P(C)=P(A\cap C)+P(\overline{A}\cap C)
+\quad\Longrightarrow\quad
+P(\overline{A}\cap C)=P(C)-P(A\cap C).
+\]
+Sustituyendo (H3) y factorizando $P(C)$:
+\[
+P(\overline{A}\cap C)=P(C)-P(A)P(C)=P(C)\bigl[1-P(A)\bigr]=P(\overline{A})\,P(C).
+\]
+\textbf{¿De dónde sale?} La partición de $C$ es de nuevo la propiedad (c) de la Teoría. El
+reemplazo $P(A\cap C)=P(A)P(C)$ es la hipótesis (H3). La igualdad $1-P(A)=P(\overline{A})$ es
+la regla del complemento.
+
+\textbf{¿Por qué?} Porque la tesis pide el producto $P(\overline{A})P(C)$, con el complemento
+puesto sobre $A$; la hipótesis, en cambio, habla de $A$ sin complementar. El teorema de
+herencia de la independencia a los complementos es el puente entre ambas formas, y su
+demostración cabe en las tres líneas anteriores.
+
+\textbf{¿Qué tomamos?} Tomamos $P(\overline{A}\cap C)=P(\overline{A})\,P(C)$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Reunir y despejar $P(A\cap B\cap C)$}
+\textbf{Qué hago:} encadeno los Pasos 2, 3 y 4:
+\[
+P(B\cap C)=P(A\cap B\cap C)+\underbrace{P(\overline{A}\cap B\cap C)}_{\text{Paso 3}=P(\overline{A}\cap C)}
+=P(A\cap B\cap C)+\underbrace{P(\overline{A}\cap C)}_{\text{Paso 4}=P(\overline{A})P(C)},
+\]
+es decir
+\[
+P(B\cap C)=P(A\cap B\cap C)+P(\overline{A})\,P(C),
+\]
+y despejo la incógnita:
+\[
+P(A\cap B\cap C)=P(B\cap C)-P(\overline{A})\,P(C).
+\]
+\textbf{¿De dónde sale?} El primer término viene de la partición del Paso 2; la primera
+sustitución es el Paso 3 (que usa $A\cup B=\Omega$); la segunda es el Paso 4 (que usa la
+independencia de $A$ y $C$). El despeje es pasar un sumando restando.
+
+\textbf{¿Por qué?} Porque esta es exactamente la meta intermedia fijada en el Paso 1. Solo
+falta traducir $P(B\cap C)$ a la forma que pide el enunciado.
+
+\textbf{¿Qué tomamos?} Tomamos $P(A\cap B\cap C)=P(B\cap C)-P(\overline{A})P(C)$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Traducir $P(B\cap C)$ con De Morgan y concluir}
+\textbf{Qué hago:} convierto $P(B\cap C)$ en la expresión con complementos que aparece en el
+enunciado. Por De Morgan,
+\[
+\overline{B}\cup\overline{C}=\overline{B\cap C}
+\qquad\Longrightarrow\qquad
+P(\overline{B}\cup\overline{C})=1-P(B\cap C)
+\qquad\Longrightarrow\qquad
+P(B\cap C)=1-P(\overline{B}\cup\overline{C}).
+\]
+Sustituyendo en el resultado del Paso 5:
+\[
+P(A\cap B\cap C)=\bigl[1-P(\overline{B}\cup\overline{C})\bigr]-P(\overline{A})\,P(C)
+=1-P(\overline{A})\,P(C)-P(\overline{B}\cup\overline{C}),
+\]
+que es exactamente la tesis (T).
+
+\textbf{¿De dónde sale?} La ley de De Morgan
+$\overline{E}\cup\overline{F}=\overline{E\cap F}$ y la regla del complemento
+$P(\overline{E})=1-P(E)$ son las de la Teoría, aplicadas con $E=B$ y $F=C$. El reordenamiento
+final de los tres términos es conmutatividad de la suma.
+
+\textbf{¿Por qué?} El enunciado prefiere escribir el resultado en términos de
+$P(\overline{B}\cup\overline{C})$ en lugar de $P(B\cap C)$, y De Morgan es precisamente la
+identidad que conecta ambas formas. En palabras: ``no ocurre $B$ o no ocurre $C$'' es lo
+contrario de ``ocurren los dos''.
+
+\textbf{¿Qué tomamos?} Tomamos la identidad demostrada. $\blacksquare$
+\end{paso}
+\end{sol}
+
+\begin{resp}
+\textbf{a)} $\overline{A}\cap\overline{B}=\overline{A\cup B}=\overline{\Omega}=\varnothing$:
+$\overline{A}$ y $\overline{B}$ son disjuntos, y además $\overline{A}\subseteq B$.
+
+\textbf{b)} Partiendo $B\cap C$ por $A$ y $\overline{A}$, usando $\overline{A}\subseteq B$ y
+la independencia de $A$ y $C$ (heredada a $\overline{A}$ y $C$):
+\[
+P(B\cap C)=P(A\cap B\cap C)+P(\overline{A}\cap B\cap C)
+=P(A\cap B\cap C)+P(\overline{A}\cap C)
+=P(A\cap B\cap C)+P(\overline{A})P(C).
+\]
+Despejando y aplicando De Morgan, $P(B\cap C)=1-P(\overline{B}\cup\overline{C})$:
+\[
+P(A\cap B\cap C)=P(B\cap C)-P(\overline{A})P(C)
+=1-P(\overline{A})\,P(C)-P(\overline{B}\cup\overline{C}).
+\]
+$\blacksquare$
+\end{resp}
+
+%======================================================================
+\section*{Ejercicio 7}
+
+\begin{quote}
+Demuestre que $\dbinom{n-1}{r-1}+\dbinom{n-1}{r}=\dbinom{n}{r}$
+\end{quote}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Qué se sabe, qué hay que probar y en qué rango}
+\textbf{Qué hago:} fijo el material y el rango de validez. Se sabe la definición
+\[
+\binom{m}{k}=\frac{m!}{k!\,(m-k)!},\qquad 0\le k\le m,
+\]
+y su lectura como número de subconjuntos de tamaño $k$. Hay que probar la identidad de Pascal
+\[
+\binom{n-1}{r-1}+\binom{n-1}{r}=\binom{n}{r},
+\]
+para enteros con $1\le r\le n-1$, que es el rango en el que los tres símbolos están definidos
+a la vez (se necesita $r-1\ge 0$ para el primero y $r\le n-1$ para el segundo).
+
+\textbf{¿De dónde sale?} La fórmula factorial es la de la Teoría; el rango sale de exigir que
+cada índice inferior esté entre $0$ y el índice superior correspondiente.
+
+\textbf{¿Por qué?} Como en los ejercicios 1 y 2, la identidad admite dos demostraciones: una
+algebraica, con común denominador de factoriales, y una combinatoria, por doble conteo. Haré
+las dos.
+
+\textbf{¿Qué tomamos?} Tomamos el plan de doble demostración.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Demostración algebraica: escribir los dos sumandos con factoriales}
+\textbf{Qué hago:} aplico la definición a cada sumando del lado izquierdo, con cuidado en los
+segundos factoriales:
+\[
+\binom{n-1}{r-1}=\frac{(n-1)!}{(r-1)!\;\bigl[(n-1)-(r-1)\bigr]!}
+=\frac{(n-1)!}{(r-1)!\,(n-r)!},
+\]
+\[
+\binom{n-1}{r}=\frac{(n-1)!}{r!\;\bigl[(n-1)-r\bigr]!}=\frac{(n-1)!}{r!\,(n-r-1)!}.
+\]
+\textbf{¿De dónde sale?} En el primero, $(n-1)-(r-1)=n-1-r+1=n-r$. En el segundo,
+$(n-1)-r=n-r-1$. Ambas simplificaciones son aritmética de enteros al quitar paréntesis.
+
+\textbf{¿Por qué?} Escribir explícitamente los dos denominadores es imprescindible antes de
+buscar el común denominador: hay que ver cuáles factoriales están ``incompletos'' respecto del
+objetivo $r!\,(n-r)!$.
+
+\textbf{¿Qué tomamos?} Tomamos las dos fracciones, con denominadores $(r-1)!\,(n-r)!$ y
+$r!\,(n-r-1)!$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Demostración algebraica: llevar ambas fracciones al denominador común $r!\,(n-r)!$}
+\textbf{Qué hago:} elijo como denominador común $r!\,(n-r)!$, que es el que tiene el lado
+derecho, y ajusto cada fracción.
+
+\emph{Primera fracción.} Le falta pasar de $(r-1)!$ a $r!$. Como $r!=r\cdot(r-1)!$, multiplico
+numerador y denominador por $r$:
+\[
+\frac{(n-1)!}{(r-1)!\,(n-r)!}
+=\frac{(n-1)!\cdot r}{r\cdot (r-1)!\,(n-r)!}
+=\frac{r\,(n-1)!}{r!\,(n-r)!}.
+\]
+
+\emph{Segunda fracción.} Le falta pasar de $(n-r-1)!$ a $(n-r)!$. Como
+$(n-r)!=(n-r)\cdot(n-r-1)!$, multiplico numerador y denominador por $(n-r)$:
+\[
+\frac{(n-1)!}{r!\,(n-r-1)!}
+=\frac{(n-1)!\,(n-r)}{r!\,(n-r)\,(n-r-1)!}
+=\frac{(n-r)\,(n-1)!}{r!\,(n-r)!}.
+\]
+\textbf{¿De dónde sale?} Las dos igualdades $r!=r\,(r-1)!$ y $(n-r)!=(n-r)(n-r-1)!$ son la
+recursión del factorial $m!=m\,(m-1)!$. Multiplicar arriba y abajo por el mismo número no nulo
+no cambia el valor de una fracción (aquí $r\ge 1$ y $n-r\ge 1$ por el rango del Paso 1, así
+que ninguno de los dos factores es cero).
+
+\textbf{¿Por qué?} Este es el único paso técnico de la vía algebraica: en lugar de multiplicar
+cruzado los denominadores completos, se observa que cada uno es ``casi'' el común denominador
+y le falta un solo factor. Eso mantiene la aritmética corta y evita factoriales enormes.
+
+\textbf{¿Qué tomamos?} Tomamos las dos fracciones con el mismo denominador $r!\,(n-r)!$ y
+numeradores $r\,(n-1)!$ y $(n-r)\,(n-1)!$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Demostración algebraica: sumar y reconocer $\binom{n}{r}$}
+\textbf{Qué hago:} sumo las dos fracciones del Paso 3, factorizo $(n-1)!$ en el numerador y
+simplifico:
+\[
+\binom{n-1}{r-1}+\binom{n-1}{r}
+=\frac{r\,(n-1)!+(n-r)\,(n-1)!}{r!\,(n-r)!}
+=\frac{(n-1)!\;\bigl[r+(n-r)\bigr]}{r!\,(n-r)!}.
+\]
+El corchete se simplifica: $r+n-r=n$. Por lo tanto
+\[
+=\frac{n\,(n-1)!}{r!\,(n-r)!}=\frac{n!}{r!\,(n-r)!}=\binom{n}{r}.
+\]
+\textbf{¿De dónde sale?} La suma de fracciones con igual denominador suma los numeradores. La
+factorización de $(n-1)!$ es distributividad. La cancelación $r-r=0$ deja $n$. La última
+igualdad usa otra vez la recursión del factorial, ahora en sentido de armar:
+$n\cdot(n-1)!=n!$.
+
+\textbf{¿Por qué?} La aparición de $r+(n-r)=n$ es el motivo profundo de que la identidad
+funcione: los dos sumandos aportan justo las dos partes complementarias de $n$. Comprobación
+numérica con $n=5$, $r=2$: $\binom{4}{1}+\binom{4}{2}=4+6=10=\binom{5}{2}$.
+
+\textbf{¿Qué tomamos?} Tomamos la identidad probada algebraicamente. $\blacksquare$
+\end{paso}
+
+\begin{paso}{Paso 5 --- Demostración combinatoria: contar los subconjuntos según usen o no el último elemento}
+\textbf{Qué hago:} construyo el conjunto que voy a contar dos veces. Sea
+\[
+S=\{1,2,\dots,n-1,\;n\},\qquad \#S=n,
+\]
+y sea $\mathcal{H}$ la familia de todos los subconjuntos de $S$ de tamaño $r$.
+
+\emph{Primer conteo (directo).} Por definición del símbolo combinatorio,
+\[
+\#\mathcal{H}=\binom{n}{r}.
+\]
+
+\emph{Segundo conteo (clasificando por el elemento $n$).} Distingo dos clases:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Subconjuntos que sí contienen a $n$.} El elemento $n$ ya está puesto, así que
+        quedan $r-1$ lugares por llenar, y los candidatos son los $n-1$ elementos de
+        $\{1,\dots,n-1\}$. Hay $\dbinom{n-1}{r-1}$ de estos.
+  \item \textbf{Subconjuntos que no contienen a $n$.} Los $r$ elementos deben salir todos de
+        $\{1,\dots,n-1\}$, que tiene $n-1$ elementos. Hay $\dbinom{n-1}{r}$ de estos.
+\end{itemize}
+Las dos clases son excluyentes y cubren toda la familia, así que por el principio de la suma
+\[
+\#\mathcal{H}=\binom{n-1}{r-1}+\binom{n-1}{r}.
+\]
+Igualando los dos conteos del mismo conjunto:
+\[
+\binom{n-1}{r-1}+\binom{n-1}{r}=\binom{n}{r}.
+\]
+\textbf{¿De dónde sale?} El $r-1$ del primer sumando sale de descontar el lugar que ya ocupa
+el elemento $n$; el $n-1$ de ambos índices superiores sale de que, en las dos clases, los
+elementos libres se escogen del conjunto $\{1,\dots,n-1\}$, del que se ha apartado el elemento
+$n$.
+
+\textbf{¿Por qué?} El argumento es válido porque las dos clases forman una partición de
+$\mathcal{H}$: un subconjunto contiene a $n$ o no lo contiene, nunca ambas cosas y nunca
+ninguna. Al contar un mismo conjunto finito de dos maneras correctas, los resultados deben
+coincidir. Esta versión explica \emph{por qué} la identidad tiene esa forma, y es exactamente
+la regla de construcción del triángulo de Pascal: cada entrada es la suma de las dos que tiene
+encima.
+
+\textbf{¿Qué tomamos?} Tomamos la identidad probada también por doble conteo. $\blacksquare$
+\end{paso}
+\end{sol}
+
+\begin{resp}
+Queda demostrada la identidad de Pascal
+$\dbinom{n-1}{r-1}+\dbinom{n-1}{r}=\dbinom{n}{r}$. Algebraicamente, llevando ambos sumandos al
+denominador común $r!\,(n-r)!$:
+\[
+\frac{(n-1)!}{(r-1)!\,(n-r)!}+\frac{(n-1)!}{r!\,(n-r-1)!}
+=\frac{r\,(n-1)!+(n-r)\,(n-1)!}{r!\,(n-r)!}
+=\frac{n\,(n-1)!}{r!\,(n-r)!}=\frac{n!}{r!\,(n-r)!}=\binom{n}{r}.
+\]
+Combinatoriamente, los subconjuntos de tamaño $r$ de $\{1,\dots,n\}$ se cuentan de dos formas:
+en total hay $\binom{n}{r}$, y clasificándolos según contengan o no al elemento $n$ hay
+$\binom{n-1}{r-1}+\binom{n-1}{r}$. $\blacksquare$
+\end{resp}
+
+%======================================================================
+\section*{Ejercicio 8}
+
+\begin{quote}
+Hay $n$ bolas rojas y 2 azules, todas indistinguibles (salvo por el color). Bryan las coloca en una hilera. Determine la probabilidad de que haya exactamente $r$ bolas rojas entre las dos azules, $0\le r\le n$. ¿Cambiarían las probabilidades si se tratara de bolas distinguibles?\\[2pt]
+\hspace*{\fill}R/ $\dfrac{2(n-r+1)}{(n+1)(n+2)}$, No
+\end{quote}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Modelar el experimento y elegir el espacio muestral}
+\textbf{Qué hago:} describo con precisión qué se coloca y qué se observa. Hay
+\[
+n\ \text{bolas rojas}\ +\ 2\ \text{bolas azules}\ =\ n+2\ \text{bolas en total},
+\]
+que se ordenan en una hilera, es decir, en $n+2$ posiciones numeradas
+$1,2,\dots,n+2$. Como las bolas del mismo color son indistinguibles, una colocación queda
+completamente determinada por el conjunto de las \emph{dos posiciones ocupadas por las bolas
+azules}: todo lo demás son rojas. Tomo entonces como espacio muestral
+\[
+\Omega=\bigl\{\,\{i,j\}\ :\ 1\le i<j\le n+2\,\bigr\},
+\]
+el conjunto de todas las parejas de posiciones para las azules.
+
+\textbf{¿De dónde sale?} El total $n+2$ sale de sumar las $n$ rojas y las $2$ azules. La
+descripción por parejas de posiciones sale de la indistinguibilidad: intercambiar dos rojas
+entre sí, o las dos azules entre sí, produce exactamente la misma hilera observable.
+
+\textbf{¿Por qué?} Elegir bien el espacio muestral es la mitad del problema. Si se tomaran
+como resultados las $(n+2)!$ permutaciones de bolas etiquetadas, habría que arrastrar factores
+$n!$ y $2!$ que al final se cancelan; describir la hilera por las dos posiciones azules es la
+descripción mínima que conserva toda la información relevante.
+
+\textbf{¿Qué tomamos?} Tomamos $\Omega$ como el conjunto de parejas de posiciones azules.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar los casos totales y justificar la equiprobabilidad}
+\textbf{Qué hago:} cuento $\#\Omega$ con la definición combinatoria de $\binom{m}{k}$ y
+desarrollo los factoriales:
+\[
+\#\Omega=\binom{n+2}{2}=\frac{(n+2)!}{2!\,\bigl[(n+2)-2\bigr]!}=\frac{(n+2)!}{2!\;n!}
+=\frac{(n+2)(n+1)\,n!}{2\cdot n!}=\frac{(n+2)(n+1)}{2}.
+\]
+Además, como Bryan coloca las bolas al azar, ninguna pareja de posiciones tiene preferencia
+sobre otra, de modo que las $\binom{n+2}{2}$ parejas son igualmente probables y se puede usar
+la regla de Laplace.
+
+\textbf{¿De dónde sale?} El $n+2$ es el número de posiciones y el $2$ es el número de azules.
+El desarrollo $(n+2)!=(n+2)(n+1)\,n!$ es la recursión del factorial usada dos veces, elegida
+para que el $n!$ del denominador se cancele. El $2!=2$.
+
+\textbf{¿Por qué?} Se usa $\binom{n+2}{2}$ y no una permutación porque las dos azules son
+indistinguibles: la pareja de posiciones $\{i,j\}$ no distingue cuál azul está en $i$. Y la
+equiprobabilidad es lo que autoriza a calcular la probabilidad como cociente de conteos:
+\[
+P(E)=\frac{\#E}{\#\Omega}.
+\]
+
+\textbf{¿Qué tomamos?} Tomamos $\#\Omega=\dfrac{(n+1)(n+2)}{2}$ como número de casos totales.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Traducir el evento a una condición sobre las posiciones}
+\textbf{Qué hago:} llamo $E_r$ al evento ``hay exactamente $r$ bolas rojas entre las dos
+azules'' y lo traduzco. Si las azules ocupan las posiciones $i<j$, las bolas situadas
+\emph{estrictamente entre} ellas ocupan las posiciones $i+1,i+2,\dots,j-1$, y todas son rojas
+(porque solo hay dos azules y ya están en $i$ y $j$). La cantidad de esas posiciones es
+\[
+(j-1)-(i+1)+1=j-i-1 .
+\]
+Por lo tanto
+\[
+E_r=\bigl\{\,\{i,j\}\ :\ i<j,\ \ j-i-1=r\,\bigr\}
+=\bigl\{\,\{i,j\}\ :\ j=i+r+1\,\bigr\}.
+\]
+\textbf{¿De dónde sale?} La cuenta $(j-1)-(i+1)+1=j-i-1$ es el número de enteros del intervalo
+$[i+1,\,j-1]$: para contar enteros consecutivos se resta el menor del mayor y se suma uno. El
+despeje $j-i-1=r\Rightarrow j=i+r+1$ es álgebra.
+
+\textbf{¿Por qué?} La traducción convierte una condición sobre colores en una condición
+puramente aritmética sobre la \emph{separación} entre las dos posiciones azules. Ese es el
+paso que hace contable el evento: basta contar cuántas parejas tienen separación fija.
+
+\textbf{¿Qué tomamos?} Tomamos la caracterización $j=i+r+1$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Contar los casos favorables}
+\textbf{Qué hago:} cuento cuántas parejas $\{i,\,i+r+1\}$ caben dentro de las $n+2$
+posiciones. La única restricción es que la posición mayor no se salga de la hilera:
+\[
+i\ge 1
+\qquad\text{y}\qquad
+i+r+1\le n+2
+\quad\Longleftrightarrow\quad
+i\le n+2-r-1=n+1-r .
+\]
+Entonces $i$ recorre los enteros $1,2,\dots,n+1-r$, y cada valor de $i$ produce exactamente
+una pareja. El número de valores es
+\[
+\#E_r=(n+1-r)-1+1=n+1-r=n-r+1 .
+\]
+\textbf{¿De dónde sale?} La cota $i+r+1\le n+2$ dice que la segunda azul debe caber en la
+hilera; despejando $i$ se obtiene $i\le n+1-r$. El conteo de enteros de $1$ a $n+1-r$ es
+$n+1-r$.
+
+\textbf{¿Por qué?} Cada valor admisible de $i$ determina $j$ sin ambigüedad (porque
+$j=i+r+1$), de modo que la correspondencia $i\leftrightarrow\{i,j\}$ es biyectiva y contar
+valores de $i$ es contar parejas favorables. Control de casos extremos: si $r=n$, sale
+$\#E_n=1$, que es correcto (las azules deben estar en los extremos, posiciones $1$ y $n+2$);
+si $r=0$, sale $\#E_0=n+1$, que también es correcto (las dos azules pegadas, y hay $n+1$
+lugares para ese bloque doble dentro de la hilera).
+
+\textbf{¿Qué tomamos?} Tomamos $\#E_r=n-r+1$ como número de casos favorables.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Aplicar Laplace y simplificar}
+\textbf{Qué hago:} divido favorables entre totales y simplifico la fracción de fracciones:
+\[
+P(E_r)=\frac{\#E_r}{\#\Omega}
+=\frac{n-r+1}{\dfrac{(n+1)(n+2)}{2}}
+=(n-r+1)\cdot\frac{2}{(n+1)(n+2)}
+=\frac{2(n-r+1)}{(n+1)(n+2)} .
+\]
+\textbf{¿De dónde sale?} El numerador $n-r+1$ viene del Paso 4; el denominador
+$(n+1)(n+2)/2$ viene del Paso 2. Dividir entre una fracción es multiplicar por su recíproco,
+lo que sube el $2$ al numerador.
+
+\textbf{¿Por qué?} La regla de Laplace es aplicable porque en el Paso 2 se justificó que las
+$\binom{n+2}{2}$ parejas son equiprobables. Verificación de que el resultado es una
+probabilidad legítima: sumando sobre todos los valores posibles de $r$,
+\[
+\sum_{r=0}^{n}\frac{2(n-r+1)}{(n+1)(n+2)}
+=\frac{2}{(n+1)(n+2)}\sum_{r=0}^{n}(n+1-r)
+=\frac{2}{(n+1)(n+2)}\bigl[(n+1)+n+\cdots+1\bigr]
+=\frac{2}{(n+1)(n+2)}\cdot\frac{(n+1)(n+2)}{2}=1,
+\]
+donde se usó que la suma de los primeros $n+1$ enteros positivos es $(n+1)(n+2)/2$. Las
+probabilidades suman $1$, como debe ser.
+
+\textbf{¿Qué tomamos?} Tomamos $P(E_r)=\dfrac{2(n-r+1)}{(n+1)(n+2)}$, que coincide con la
+respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Segunda pregunta: rehacer el conteo con bolas distinguibles}
+\textbf{Qué hago:} cambio de modelo. Ahora supongo que las $n+2$ bolas están etiquetadas y son
+todas distintas entre sí (las rojas se distinguen entre rojas, y las dos azules se distinguen
+entre sí). El espacio muestral pasa a ser el de las \emph{permutaciones} de $n+2$ objetos
+distintos en $n+2$ posiciones:
+\[
+\#\Omega'=(n+2)! .
+\]
+Cuento ahora los casos favorables a $E_r$ descomponiendo la construcción de una hilera
+favorable en tres decisiones sucesivas, por el principio de multiplicación:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Elegir el par de posiciones azules con separación $r$.} Ya se contó en el
+        Paso 4: hay $n-r+1$ pares $\{i,i+r+1\}$ admisibles.
+  \item \textbf{Colocar las dos azules distinguibles en esas dos posiciones.} Como ahora sí se
+        distinguen, hay $2!=2$ maneras.
+  \item \textbf{Colocar las $n$ rojas distinguibles en las $n$ posiciones restantes.} Hay
+        $n!$ maneras.
+\end{enumerate}
+Por lo tanto
+\[
+\#E_r'=(n-r+1)\cdot 2!\cdot n!=2\,(n-r+1)\,n! .
+\]
+\textbf{¿De dónde sale?} El factor $n-r+1$ es el mismo conteo de separaciones del Paso 4, que
+no depende de si las bolas se distinguen o no, porque solo habla de posiciones. Los factores
+$2!$ y $n!$ son permutaciones de objetos distintos dentro de posiciones ya fijadas.
+
+\textbf{¿Por qué?} El principio de multiplicación se aplica porque las tres decisiones son
+sucesivas e independientes entre sí: el número de opciones de cada etapa no depende de lo
+elegido en las anteriores.
+
+\textbf{¿Qué tomamos?} Tomamos $\#\Omega'=(n+2)!$ y $\#E_r'=2(n-r+1)\,n!$.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Comparar los dos modelos y responder la segunda pregunta}
+\textbf{Qué hago:} calculo la probabilidad en el modelo con bolas distinguibles y la comparo
+con la del modelo original:
+\[
+P'(E_r)=\frac{\#E_r'}{\#\Omega'}=\frac{2\,(n-r+1)\,n!}{(n+2)!} .
+\]
+Desarrollo el denominador para cancelar el $n!$:
+\[
+(n+2)!=(n+2)(n+1)\,n!
+\qquad\Longrightarrow\qquad
+P'(E_r)=\frac{2\,(n-r+1)\,n!}{(n+2)(n+1)\,n!}=\frac{2(n-r+1)}{(n+1)(n+2)} .
+\]
+Es exactamente la misma expresión obtenida en el Paso 5. Por lo tanto la respuesta a la
+segunda pregunta es \textbf{No}: las probabilidades no cambiarían.
+
+\textbf{¿De dónde sale?} El desarrollo $(n+2)!=(n+2)(n+1)n!$ es la recursión del factorial
+aplicada dos veces; la cancelación de $n!$ es lícita porque $n!\ge 1>0$.
+
+\textbf{¿Por qué?} La igualdad no es una casualidad aritmética, y conviene explicarla. Al
+pasar del modelo indistinguible al distinguible, cada hilera observable ``se abre'' en
+$2!\cdot n!$ hileras etiquetadas distintas: $2!$ por las formas de intercambiar las azules y
+$n!$ por las formas de permutar las rojas. Ese factor multiplica \emph{por igual} al número de
+casos favorables y al número de casos totales,
+\[
+\#\Omega'=2!\;n!\;\#\Omega,\qquad \#E_r'=2!\;n!\;\#E_r,
+\]
+y por eso desaparece al formar el cociente de Laplace:
+\[
+P'(E_r)=\frac{2!\,n!\,\#E_r}{2!\,n!\,\#\Omega}=\frac{\#E_r}{\#\Omega}=P(E_r).
+\]
+En efecto, con los números obtenidos: $2!\,n!\,\#\Omega=2\,n!\cdot\frac{(n+1)(n+2)}{2}=(n+2)!$
+y $2!\,n!\,\#E_r=2\,n!\,(n-r+1)=\#E_r'$. La razón de fondo es que el evento $E_r$ solo depende
+del color de las bolas y de sus posiciones, nunca de las etiquetas: etiquetar bolas agrega
+detalle que el evento no mira, y agregar detalle irrelevante de manera uniforme no altera las
+probabilidades.
+
+\textbf{¿Qué tomamos?} Tomamos $P(E_r)=P'(E_r)=\dfrac{2(n-r+1)}{(n+1)(n+2)}$ y la respuesta
+\textbf{No} a la segunda pregunta, en coincidencia con la respuesta oficial.
+\end{paso}
+\end{sol}
+
+\begin{resp}
+Describiendo la hilera por las dos posiciones azules, hay
+$\#\Omega=\dbinom{n+2}{2}=\dfrac{(n+1)(n+2)}{2}$ casos equiprobables. El evento ``exactamente
+$r$ rojas entre las azules'' equivale a que las posiciones azules sean $i$ y $i+r+1$, con
+$1\le i\le n+1-r$, es decir $n-r+1$ casos favorables. Por Laplace,
+\[
+P(E_r)=\frac{n-r+1}{\dfrac{(n+1)(n+2)}{2}}=\boxed{\ \frac{2(n-r+1)}{(n+1)(n+2)}\ }.
+\]
+Con bolas distinguibles, $\#\Omega'=(n+2)!$ y $\#E_r'=(n-r+1)\cdot 2!\cdot n!$, de donde
+\[
+P'(E_r)=\frac{2(n-r+1)\,n!}{(n+2)!}=\frac{2(n-r+1)}{(n+1)(n+2)}=P(E_r),
+\]
+porque el factor $2!\,n!$ multiplica por igual a favorables y totales y se cancela. Las
+probabilidades \textbf{No} cambiarían. Coincide con la respuesta oficial
+\textbf{R/ $\dfrac{2(n-r+1)}{(n+1)(n+2)}$, No}.
+\end{resp}
+
+%======================================================================
+\section*{Ejercicio 9}
+
+\begin{quote}
+Tres bolas se colocan aleatoriamente en tres cajas, determine la probabilidad de tener exactamente una caja vacía.\\[2pt]
+\hspace*{\fill}R/ $\dfrac{2}{3}$
+\end{quote}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Modelar el experimento y contar los casos totales}
+\textbf{Qué hago:} describo el experimento como tres decisiones sucesivas: cada bola elige una
+de las tres cajas. Registro el resultado como la terna ordenada
+\[
+(c_1,c_2,c_3),\qquad c_k\in\{1,2,3\},
+\]
+donde $c_k$ es la caja en la que cae la bola $k$. Por el principio de multiplicación,
+\[
+\#\Omega=3\times 3\times 3=3^{3}=27 .
+\]
+Como la colocación es aleatoria, cada bola elige su caja sin preferencia y sin influir en las
+otras, de modo que las $27$ ternas son equiprobables, con probabilidad $1/27$ cada una.
+
+\textbf{¿De dónde sale?} Cada factor $3$ es el número de cajas disponibles para una bola; hay
+tres factores porque hay tres bolas. Ninguna caja tiene capacidad limitada, así que las
+opciones de una bola no dependen de dónde cayeron las anteriores.
+
+\textbf{¿Por qué?} Se toman ternas \emph{ordenadas}, es decir, se tratan las bolas como
+distinguibles. Esto es lo correcto aunque las bolas fueran físicamente idénticas: el modelo de
+``cada bola escoge caja al azar'' produce ternas equiprobables, mientras que si se contaran
+solo las configuraciones por cantidades ($3+0+0$, $2+1+0$, etc.) esas configuraciones
+\emph{no} serían equiprobables y Laplace no se podría aplicar. La equiprobabilidad es lo que
+justifica el conteo, y solo se tiene a nivel de ternas.
+
+\textbf{¿Qué tomamos?} Tomamos $\#\Omega=27$ casos totales equiprobables.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Traducir el evento a un patrón de ocupación}
+\textbf{Qué hago:} llamo $V$ al evento ``exactamente una caja queda vacía'' y determino qué
+repartos lo cumplen. Con tres bolas en tres cajas, los patrones posibles de cantidades (sin
+importar qué caja es cuál) son:
+\[
+\begin{array}{lll}
+(3,0,0) & \text{una caja con las tres bolas} & \text{quedan \emph{dos} cajas vacías}\\
+(2,1,0) & \text{una caja con dos y otra con una} & \text{queda \emph{una} caja vacía}\\
+(1,1,1) & \text{una bola en cada caja} & \text{no queda \emph{ninguna} caja vacía}
+\end{array}
+\]
+Por lo tanto $V$ corresponde exactamente al patrón $(2,1,0)$.
+
+\textbf{¿De dónde sale?} Los tres patrones son todas las formas de escribir $3$ como suma de
+tres enteros no negativos sin importar el orden: $3=3+0+0=2+1+0=1+1+1$. El número de ceros de
+cada patrón es el número de cajas vacías.
+
+\textbf{¿Por qué?} Traducir ``exactamente una caja vacía'' a un patrón de cantidades es lo que
+permite contar de forma organizada. Nótese que ``exactamente una vacía'' obliga a que las
+otras dos cajas tengan al menos una bola cada una, y como en total hay tres bolas, el único
+reparto posible es $2+1$.
+
+\textbf{¿Qué tomamos?} Tomamos que $V$ = ``el reparto es del tipo $(2,1,0)$''.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar los casos favorables por multiplicación}
+\textbf{Qué hago:} construyo una terna favorable mediante tres decisiones sucesivas y
+multiplico las opciones de cada etapa:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Elegir cuál caja queda vacía:} $3$ opciones (caja $1$, $2$ o $3$).
+  \item \textbf{Elegir, entre las dos cajas restantes, cuál recibe las dos bolas:} $2$
+        opciones; la otra recibirá una sola.
+  \item \textbf{Elegir cuáles dos de las tres bolas van a la caja doble:}
+        $\dbinom{3}{2}=\dfrac{3!}{2!\,1!}=\dfrac{6}{2}=3$ opciones; la bola sobrante queda
+        determinada y va a la caja simple.
+\end{enumerate}
+Por el principio de multiplicación,
+\[
+\#V=3\times 2\times 3=18 .
+\]
+\textbf{¿De dónde sale?} El $3$ de la primera etapa es el número de cajas. El $2$ de la
+segunda es el número de cajas que quedan tras apartar la vacía. El $3$ de la tercera es
+$\binom{3}{2}$, el número de subconjuntos de dos bolas tomados de las tres; se usa una
+combinación y no una permutación porque las dos bolas que comparten caja no llevan orden
+dentro de ella.
+
+\textbf{¿Por qué?} Las tres decisiones determinan por completo la terna $(c_1,c_2,c_3)$ y cada
+terna favorable se obtiene de una única manera con este procedimiento, así que no hay
+repeticiones ni omisiones. Control alternativo: $\binom{3}{2}=\binom{3}{1}=3$, que es también
+el número de formas de escoger la bola que va sola, y se llega al mismo $3$.
+
+\textbf{¿Qué tomamos?} Tomamos $\#V=18$ casos favorables.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Aplicar Laplace y simplificar}
+\textbf{Qué hago:} divido favorables entre totales y simplifico la fracción:
+\[
+P(V)=\frac{\#V}{\#\Omega}=\frac{18}{27}=\frac{18\div 9}{27\div 9}=\frac{2}{3}\approx 0{,}667 .
+\]
+\textbf{¿De dónde sale?} El $18$ viene del Paso 3 y el $27$ del Paso 1. La simplificación
+divide numerador y denominador entre $9$, que es el máximo común divisor de $18$ y $27$
+($18=2\cdot 3^2$, $27=3^3$).
+
+\textbf{¿Por qué?} La regla de Laplace es aplicable porque en el Paso 1 se justificó que las
+$27$ ternas son equiprobables.
+
+\textbf{¿Qué tomamos?} Tomamos $P(V)=\dfrac{2}{3}$, que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Verificación por complemento}
+\textbf{Qué hago:} compruebo el resultado contando también los otros dos patrones y viendo que
+las tres probabilidades sumen $1$.
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Patrón $(3,0,0)$, dos cajas vacías:} basta elegir la caja que se lleva todo,
+        $3$ ternas ($111$, $222$, $333$). Probabilidad $3/27=1/9$.
+  \item \textbf{Patrón $(1,1,1)$, ninguna caja vacía:} es una asignación biyectiva de tres
+        bolas a tres cajas, $3!=6$ ternas. Probabilidad $6/27=2/9$.
+  \item \textbf{Patrón $(2,1,0)$, exactamente una vacía:} las $18$ ternas del Paso 3.
+        Probabilidad $18/27=6/9$.
+\end{itemize}
+Suma de casos: $3+6+18=27=\#\Omega$. Suma de probabilidades:
+\[
+\frac{1}{9}+\frac{2}{9}+\frac{6}{9}=\frac{9}{9}=1 .
+\]
+\textbf{¿De dónde sale?} El $3$ del primer patrón es el número de cajas; el $3!=6$ del tercero
+es el número de permutaciones de tres objetos distintos; el $18$ ya estaba calculado.
+
+\textbf{¿Por qué?} Los tres patrones son excluyentes (el número de cajas vacías es $0$, $1$ o
+$2$, y solo uno de esos valores ocurre) y cubren todas las posibilidades, así que por el
+axioma de aditividad sus probabilidades deben sumar $P(\Omega)=1$. Que la suma cierre confirma
+que ningún caso se contó de más ni de menos, y en particular valida el $18$.
+
+\textbf{¿Qué tomamos?} Tomamos el resultado como verificado: $P(V)=\dfrac{2}{3}$.
+\end{paso}
+\end{sol}
+
+\begin{resp}
+Modelando el experimento como una terna ordenada de cajas, una por bola, hay
+$\#\Omega=3^{3}=27$ resultados equiprobables. ``Exactamente una caja vacía'' equivale al
+reparto $(2,1,0)$, y se cuenta eligiendo la caja vacía ($3$), la caja que recibe dos bolas
+($2$) y cuáles dos bolas van juntas ($\binom{3}{2}=3$):
+\[
+\#V=3\cdot 2\cdot 3=18,
+\qquad
+P(V)=\frac{18}{27}=\boxed{\ \frac{2}{3}\ }.
+\]
+La verificación por patrones confirma el conteo: $3+6+18=27$ y
+$\frac19+\frac29+\frac69=1$. Coincide con la respuesta oficial \textbf{R/ $\dfrac{2}{3}$}.
+\end{resp}
+
+%======================================================================
+\section*{Ejercicio 10}
+
+\begin{quote}
+José y María juegan con mazos de naipes numerados, cada uno tiene cartas numeradas con los números $\{2,3,4,5\}$. Un juego consiste en que cada uno de ellos saca una carta al azar de su mazo y la muestra con el número hacia arriba. Si la suma de ambos números es un número primo, María gana el juego. Si la suma es un número múltiplo de 3, José gana. En cualquier otro caso, el juego termina empatado.\\[4pt]
+a) Calcule la probabilidad que tiene cada jugador de ganar la partida. \hfill R/ $P(J)=\dfrac{5}{16}$ y $P(M)=\dfrac{3}{8}$\\[2pt]
+b) Calcule la probabilidad de que María gane, dado que José sacó un 5 \hfill R/ $\dfrac{1}{4}$\\[2pt]
+c) Considere los eventos José gana, María sacó una carta inferior a 3, determine si estos eventos son o no independientes. \hfill R/ Independientes
+\end{quote}
+
+\subsection*{Inciso a)}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Construir el espacio muestral}
+\textbf{Qué hago:} describo un resultado del experimento como una pareja ordenada
+\[
+(j,m),\qquad j\in\{2,3,4,5\}\ \text{(carta de José)},\qquad m\in\{2,3,4,5\}\ \text{(carta de
+María)} .
+\]
+Por el principio de multiplicación, el número de parejas es
+\[
+\#\Omega=4\times 4=16 .
+\]
+Cada jugador saca su carta al azar de su \emph{propio} mazo, así que las cuatro cartas de
+José son equiprobables ($1/4$ cada una), las cuatro de María también, y la extracción de uno
+no afecta a la del otro. Por lo tanto cada pareja tiene probabilidad
+\[
+\frac14\cdot\frac14=\frac{1}{16},
+\]
+y las $16$ parejas son equiprobables.
+
+\textbf{¿De dónde sale?} Cada factor $4$ es el número de cartas de un mazo,
+$\#\{2,3,4,5\}=4$. El producto $\frac14\cdot\frac14$ usa la independencia entre las dos
+extracciones, que proviene de que son mazos distintos y separados.
+
+\textbf{¿Por qué?} El orden importa en el sentido de que hay que registrar de quién es cada
+carta: la pareja $(2,5)$ (José saca $2$, María saca $5$) es un resultado distinto de $(5,2)$.
+Ambos dan la misma suma, pero son resultados diferentes del experimento y hay que contarlos
+por separado. Nótese también que los dos mazos son independientes, de modo que repetir número
+está permitido: $(3,3)$ es un resultado posible.
+
+\textbf{¿Qué tomamos?} Tomamos $\#\Omega=16$ resultados equiprobables, cada uno con
+probabilidad $1/16$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Tabular todas las sumas}
+\textbf{Qué hago:} construyo la tabla de la suma $s=j+m$ para las $16$ parejas, con las cartas
+de José en las filas y las de María en las columnas:
+\[
+\begin{array}{c|cccc}
+ j\backslash m & 2 & 3 & 4 & 5\\\hline
+ 2 & 4 & 5 & 6 & 7\\
+ 3 & 5 & 6 & 7 & 8\\
+ 4 & 6 & 7 & 8 & 9\\
+ 5 & 7 & 8 & 9 & 10
+\end{array}
+\]
+Las sumas posibles van de $2+2=4$ hasta $5+5=10$.
+
+\textbf{¿De dónde sale?} Cada entrada es la suma del número de fila y el de columna. Por
+ejemplo, la fila $j=4$ y la columna $m=5$ dan $4+5=9$.
+
+\textbf{¿Por qué?} Tener la tabla completa evita omisiones y permite clasificar los $16$
+resultados de una sola pasada. Como el espacio es pequeño, la enumeración exhaustiva es el
+método más seguro y no requiere ninguna fórmula.
+
+\textbf{¿Qué tomamos?} Tomamos la tabla de sumas como base de todos los conteos.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Clasificar cada suma según la regla del juego}
+\textbf{Qué hago:} decido, para cada valor posible de la suma, quién gana. Un número primo es
+el que solo admite como divisores positivos a $1$ y a sí mismo; un múltiplo de $3$ es el que
+al dividirse entre $3$ da resto cero.
+\[
+\begin{array}{c|l|l}
+s & \text{¿primo? (gana María)} & \text{¿múltiplo de 3? (gana José)}\\\hline
+4 & \text{no}\ (4=2\cdot 2) & \text{no}\ (4=3\cdot1+1)\\
+5 & \text{sí} & \text{no}\\
+6 & \text{no}\ (6=2\cdot 3) & \text{sí}\ (6=3\cdot 2)\\
+7 & \text{sí} & \text{no}\\
+8 & \text{no}\ (8=2\cdot 4) & \text{no}\ (8=3\cdot2+2)\\
+9 & \text{no}\ (9=3\cdot 3) & \text{sí}\ (9=3\cdot 3)\\
+10 & \text{no}\ (10=2\cdot 5) & \text{no}\ (10=3\cdot3+1)
+\end{array}
+\]
+Es decir: María gana si $s\in\{5,7\}$; José gana si $s\in\{6,9\}$; se empata si
+$s\in\{4,8,10\}$.
+
+\textbf{¿De dónde sale?} Cada clasificación se justifica con una factorización o una división
+concreta, anotadas en la tabla.
+
+\textbf{¿Por qué?} Es importante notar que ningún valor de $s$ cae en las dos categorías a la
+vez: los únicos primos del rango son $5$ y $7$, y ninguno es múltiplo de $3$ (el único primo
+múltiplo de $3$ es el propio $3$, que aquí no aparece porque la suma mínima es $4$). Por eso
+los eventos ``gana José'' y ``gana María'' son \emph{excluyentes} y la regla del juego está
+bien definida: nunca hay dos ganadores.
+
+\textbf{¿Qué tomamos?} Tomamos las tres categorías de sumas: $\{5,7\}$ para María, $\{6,9\}$
+para José, $\{4,8,10\}$ empate.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Contar los casos en que gana María y calcular $P(M)$}
+\textbf{Qué hago:} localizo en la tabla del Paso 2 las entradas con suma $5$ o $7$ y las
+enumero:
+\[
+\begin{array}{ll}
+s=5: & (2,3),\;(3,2)\ \Rightarrow\ 2\ \text{casos}\\
+s=7: & (2,5),\;(3,4),\;(4,3),\;(5,2)\ \Rightarrow\ 4\ \text{casos}
+\end{array}
+\]
+Como las sumas $5$ y $7$ son valores distintos, los dos grupos son disjuntos y por aditividad
+\[
+\#M=2+4=6,
+\qquad
+P(M)=\frac{6}{16}=\frac{6\div 2}{16\div 2}=\frac{3}{8}=0{,}375 .
+\]
+\textbf{¿De dónde sale?} Las parejas se leen directamente de la tabla: en la antidiagonal
+correspondiente a cada suma. Para $s=5$: fila $2$ columna $3$, y fila $3$ columna $2$. Para
+$s=7$: filas $2,3,4,5$ con columnas $5,4,3,2$ respectivamente. La simplificación divide
+numerador y denominador entre $2$.
+
+\textbf{¿Por qué?} Se aplica Laplace porque los $16$ resultados son equiprobables (Paso 1), y
+se suman los conteos de $s=5$ y $s=7$ porque son eventos excluyentes (una suma no puede valer
+$5$ y $7$ a la vez).
+
+\textbf{¿Qué tomamos?} Tomamos $P(M)=\dfrac{3}{8}$, que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Contar los casos en que gana José y calcular $P(J)$}
+\textbf{Qué hago:} localizo las entradas con suma $6$ o $9$:
+\[
+\begin{array}{ll}
+s=6: & (2,4),\;(3,3),\;(4,2)\ \Rightarrow\ 3\ \text{casos}\\
+s=9: & (4,5),\;(5,4)\ \Rightarrow\ 2\ \text{casos}
+\end{array}
+\]
+Por aditividad,
+\[
+\#J=3+2=5,
+\qquad
+P(J)=\frac{5}{16}=0{,}3125 .
+\]
+\textbf{¿De dónde sale?} Igual que antes, las parejas se leen de la tabla del Paso 2. La
+fracción $5/16$ ya es irreducible, pues $5$ es primo y no divide a $16$.
+
+\textbf{¿Por qué?} Se aplica Laplace por la equiprobabilidad, y se suman los dos grupos porque
+son excluyentes.
+
+\textbf{¿Qué tomamos?} Tomamos $P(J)=\dfrac{5}{16}$, que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Verificación con el empate}
+\textbf{Qué hago:} cuento también los empates y compruebo que todo cierre. Las sumas de empate
+son $4$, $8$ y $10$:
+\[
+\begin{array}{ll}
+s=4: & (2,2)\ \Rightarrow\ 1\\
+s=8: & (3,5),\;(4,4),\;(5,3)\ \Rightarrow\ 3\\
+s=10: & (5,5)\ \Rightarrow\ 1
+\end{array}
+\qquad\Rightarrow\qquad \#\text{Empate}=1+3+1=5 .
+\]
+Total de casos: $\#M+\#J+\#\text{Empate}=6+5+5=16=\#\Omega$. En probabilidades,
+\[
+P(M)+P(J)+P(\text{Empate})=\frac{6}{16}+\frac{5}{16}+\frac{5}{16}=\frac{16}{16}=1 .
+\]
+\textbf{¿De dónde sale?} Los conteos salen de la tabla del Paso 2; los tres eventos se
+identificaron en el Paso 3.
+
+\textbf{¿Por qué?} Los tres resultados del juego (gana María, gana José, empate) son
+excluyentes y cubren todas las posibilidades, así que por el axioma de aditividad y la
+normalización $P(\Omega)=1$ sus probabilidades deben sumar exactamente $1$. Que la suma cierre
+confirma que los conteos $6$ y $5$ son correctos.
+
+\textbf{¿Qué tomamos?} Tomamos los resultados como verificados: $P(J)=5/16$, $P(M)=3/8$ y
+$P(\text{Empate})=5/16$.
+\end{paso}
+\end{sol}
+
+\begin{resp}
+Con $\#\Omega=4\times4=16$ parejas $(j,m)$ equiprobables: María gana cuando la suma es prima
+($s\in\{5,7\}$), lo que ocurre en $6$ casos, y José gana cuando la suma es múltiplo de $3$
+($s\in\{6,9\}$), lo que ocurre en $5$ casos. Por lo tanto
+\[
+P(M)=\frac{6}{16}=\frac{3}{8},\qquad
+P(J)=\frac{5}{16},\qquad
+P(\text{Empate})=\frac{5}{16},
+\]
+y las tres suman $1$. Coincide con la respuesta oficial \textbf{R/ $P(J)=\frac{5}{16}$ y
+$P(M)=\frac{3}{8}$}.
+\end{resp}
+
+\subsection*{Inciso b)}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Identificar los eventos y la fórmula por aplicar}
+\textbf{Qué hago:} nombro los eventos involucrados:
+\[
+M=\text{``María gana''}\ (s\ \text{primo}),\qquad
+J_5=\text{``José sacó un 5''}=\{(5,2),(5,3),(5,4),(5,5)\}.
+\]
+Lo que se pide es $P(M\mid J_5)$, que por definición de probabilidad condicionada vale
+\[
+P(M\mid J_5)=\frac{P(M\cap J_5)}{P(J_5)},\qquad P(J_5)>0 .
+\]
+\textbf{¿De dónde sale?} La descripción de $J_5$ sale de fijar $j=5$ y dejar libre la carta de
+María, que puede ser cualquiera de las cuatro. La fórmula es la definición de la Teoría.
+
+\textbf{¿Por qué?} Ojo con la lectura: se condiciona sobre la carta \emph{de José}, no sobre
+quién gana. La condición reduce el espacio muestral de $16$ parejas a las $4$ parejas de la
+última fila de la tabla.
+
+\textbf{¿Qué tomamos?} Tomamos la ruta: contar $J_5$, contar $M\cap J_5$ y dividir.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Calcular $P(J_5)$}
+\textbf{Qué hago:} cuento los casos de $J_5$ y aplico Laplace:
+\[
+\#J_5=4,
+\qquad
+P(J_5)=\frac{4}{16}=\frac{1}{4}=0{,}25 .
+\]
+\textbf{¿De dónde sale?} El $4$ es el número de cartas que puede sacar María mientras José
+tiene fijo su $5$; el $16$ es $\#\Omega$ del inciso a). La simplificación divide entre $4$.
+
+\textbf{¿Por qué?} El valor $1/4$ era previsible sin contar: José escoge una de sus cuatro
+cartas al azar, así que la probabilidad de que sea el $5$ es $1/4$. Que el conteo coincida
+confirma el modelo.
+
+\textbf{¿Qué tomamos?} Tomamos $P(J_5)=\dfrac{1}{4}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Determinar $M\cap J_5$}
+\textbf{Qué hago:} reviso las cuatro parejas de $J_5$ una por una y marco en cuáles la suma es
+prima:
+\[
+\begin{array}{lll}
+(5,2): & s=7 & \text{primo}\ \Rightarrow\ \text{María gana}\\
+(5,3): & s=8 & 8=2\cdot4,\ \text{no primo}\ \Rightarrow\ \text{no}\\
+(5,4): & s=9 & 9=3\cdot3,\ \text{no primo}\ \Rightarrow\ \text{no}\\
+(5,5): & s=10 & 10=2\cdot5,\ \text{no primo}\ \Rightarrow\ \text{no}
+\end{array}
+\]
+Por lo tanto
+\[
+M\cap J_5=\{(5,2)\},\qquad \#(M\cap J_5)=1,\qquad P(M\cap J_5)=\frac{1}{16}.
+\]
+\textbf{¿De dónde sale?} Las sumas son las de la última fila de la tabla del Paso 2 del inciso
+a): $7,8,9,10$. La clasificación en primo o no primo es la del Paso 3 de ese mismo inciso.
+
+\textbf{¿Por qué?} Con José en $5$, la suma mínima es $7$ y la máxima $10$; en ese rango el
+único primo es $7$, que se obtiene únicamente con $m=2$. Por eso queda un solo caso favorable.
+
+\textbf{¿Qué tomamos?} Tomamos $P(M\cap J_5)=\dfrac{1}{16}$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Aplicar la definición de probabilidad condicionada}
+\textbf{Qué hago:} divido los dos valores obtenidos, desglosando la división de fracciones:
+\[
+P(M\mid J_5)=\frac{P(M\cap J_5)}{P(J_5)}
+=\frac{\ \dfrac{1}{16}\ }{\ \dfrac{1}{4}\ }
+=\frac{1}{16}\times\frac{4}{1}
+=\frac{4}{16}
+=\frac{1}{4}=0{,}25 .
+\]
+\textbf{¿De dónde sale?} El $1/16$ viene del Paso 3 y el $1/4$ del Paso 2. Dividir entre una
+fracción es multiplicar por su recíproco.
+
+\textbf{¿Por qué?} El mismo resultado se obtiene directamente con la lectura de espacio
+reducido: sabiendo que José sacó un $5$, los únicos resultados posibles son las cuatro parejas
+de $J_5$, todas igualmente probables, y en una sola de ellas gana María; por Laplace dentro
+del espacio reducido, $1/4$. Los dos caminos coinciden, como debe ser, porque la definición de
+probabilidad condicionada es precisamente la formalización de ese ``reducir y renormalizar''.
+
+\textbf{¿Qué tomamos?} Tomamos $P(M\mid J_5)=\dfrac{1}{4}$, que coincide con la respuesta
+oficial.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Comparación con la probabilidad no condicionada}
+\textbf{Qué hago:} contrasto el resultado con $P(M)$ del inciso a):
+\[
+P(M\mid J_5)=\frac{1}{4}=\frac{2}{8}
+\qquad\text{frente a}\qquad
+P(M)=\frac{3}{8},
+\qquad \frac{2}{8}<\frac{3}{8}.
+\]
+\textbf{¿De dónde sale?} El $1/4=2/8$ es el resultado del Paso 4 escrito con denominador $8$
+para poder comparar; el $3/8$ es $P(M)$ del inciso a).
+
+\textbf{¿Por qué?} La desigualdad muestra que enterarse de que José sacó un $5$ \emph{baja} la
+probabilidad de que María gane, de $3/8$ a $2/8$. En consecuencia, $M$ y $J_5$ no son
+independientes. Aplicando el ejercicio 4b con las desigualdades invertidas, la probabilidad
+del complemento (``María no gana'') sube al condicionar: pasa de $5/8$ a $3/4=6/8$.
+
+\textbf{¿Qué tomamos?} Tomamos la observación de que la carta de José sí informa sobre el
+resultado del juego.
+\end{paso}
+\end{sol}
+
+\begin{resp}
+Con $J_5=$ ``José sacó un $5$'' se tiene $P(J_5)=\dfrac{4}{16}=\dfrac14$, y la única pareja de
+$J_5$ con suma prima es $(5,2)$ (suma $7$), de modo que $P(M\cap J_5)=\dfrac{1}{16}$. Entonces
+\[
+P(M\mid J_5)=\frac{1/16}{1/4}=\frac{1}{16}\cdot\frac{4}{1}=\boxed{\ \frac{1}{4}\ }.
+\]
+Coincide con la respuesta oficial \textbf{R/ $\dfrac14$}.
+\end{resp}
+
+\subsection*{Inciso c)}
+
+\begin{sol}
+\begin{paso}{Paso 1 --- Definir con precisión los dos eventos}
+\textbf{Qué hago:} nombro los eventos que hay que comparar:
+\[
+J=\text{``José gana''}\ (\text{suma múltiplo de }3),
+\qquad
+N=\text{``María sacó una carta inferior a 3''}.
+\]
+Como el mazo es $\{2,3,4,5\}$, ``inferior a $3$'' significa estrictamente menor que $3$, y la
+única carta que cumple eso es el $2$. Por lo tanto
+\[
+N=\{(j,m)\in\Omega:\ m=2\}=\{(2,2),\;(3,2),\;(4,2),\;(5,2)\}.
+\]
+\textbf{¿De dónde sale?} El conjunto $J$ se determinó en el inciso a): las parejas con suma
+$6$ o $9$. El conjunto $N$ sale de fijar $m=2$ y dejar libre la carta de José, que admite
+cuatro valores.
+
+\textbf{¿Por qué?} Es importante fijar la lectura de ``inferior a $3$'': se trata de una
+desigualdad estricta, así que el $3$ no cuenta y solo queda el $2$. También hay que notar que
+$N$ es una condición sobre la carta de María, no sobre quién gana.
+
+\textbf{¿Qué tomamos?} Tomamos $J$ (del inciso a) y $N=\{(2,2),(3,2),(4,2),(5,2)\}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Calcular $P(J)$ y $P(N)$}
+\textbf{Qué hago:} aplico Laplace a cada evento por separado:
+\[
+\#J=5\ \ (\text{del inciso a: } (2,4),(3,3),(4,2),(4,5),(5,4)),
+\qquad
+P(J)=\frac{5}{16},
+\]
+\[
+\#N=4,
+\qquad
+P(N)=\frac{4}{16}=\frac{1}{4}.
+\]
+\textbf{¿De dónde sale?} La lista de $J$ es la del Paso 5 del inciso a): las tres parejas con
+suma $6$ y las dos con suma $9$. El $4$ de $N$ es el número de cartas posibles para José
+cuando la de María está fijada en $2$.
+
+\textbf{¿Por qué?} Se usa el mismo espacio muestral equiprobable de $16$ parejas construido en
+el inciso a), de modo que ambas probabilidades son cocientes de conteos sobre $16$.
+
+\textbf{¿Qué tomamos?} Tomamos $P(J)=\dfrac{5}{16}$ y $P(N)=\dfrac{1}{4}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Determinar $J\cap N$ y calcular su probabilidad}
+\textbf{Qué hago:} busco las parejas que están simultáneamente en $J$ y en $N$, es decir, las
+que tienen $m=2$ y suma múltiplo de $3$. Reviso los cuatro elementos de $N$:
+\[
+\begin{array}{lll}
+(2,2): & s=4 & \text{no es múltiplo de }3\ (4=3\cdot1+1)\\
+(3,2): & s=5 & \text{no es múltiplo de }3\ (5=3\cdot1+2)\\
+(4,2): & s=6 & \text{sí es múltiplo de }3\ (6=3\cdot2)\\
+(5,2): & s=7 & \text{no es múltiplo de }3\ (7=3\cdot2+1)
+\end{array}
+\]
+Por lo tanto
+\[
+J\cap N=\{(4,2)\},\qquad \#(J\cap N)=1,\qquad P(J\cap N)=\frac{1}{16}=0{,}0625 .
+\]
+\textbf{¿De dónde sale?} Las sumas son las de la columna $m=2$ de la tabla del inciso a):
+$4,5,6,7$. Cada clasificación se justifica con la división entre $3$ anotada al lado.
+
+\textbf{¿Por qué?} Con María en $2$, la suma va de $4$ a $7$ y el único múltiplo de $3$ en ese
+rango es $6$, que se obtiene únicamente con $j=4$. Por eso queda un solo caso.
+
+\textbf{¿Qué tomamos?} Tomamos $P(J\cap N)=\dfrac{1}{16}$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Calcular el producto $P(J)\cdot P(N)$}
+\textbf{Qué hago:} construyo el valor que predice el modelo de independencia:
+\[
+P(J)\cdot P(N)=\frac{5}{16}\times\frac{1}{4}=\frac{5\times 1}{16\times 4}=\frac{5}{64}
+=0{,}078125 .
+\]
+\textbf{¿De dónde sale?} El $5/16$ es $P(J)$ y el $1/4$ es $P(N)$, ambos del Paso 2. Para
+multiplicar fracciones se multiplican numeradores entre sí y denominadores entre sí.
+
+\textbf{¿Por qué?} Este producto es el valor que \emph{tendría} $P(J\cap N)$ si los eventos
+fueran independientes; todavía no se afirma nada, solo se fabrica el número de referencia.
+
+\textbf{¿Qué tomamos?} Tomamos $P(J)P(N)=\dfrac{5}{64}$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Comparar y concluir}
+\textbf{Qué hago:} enfrento los dos números poniéndolos con el mismo denominador:
+\[
+P(J\cap N)=\frac{1}{16}=\frac{4}{64}
+\qquad\text{frente a}\qquad
+P(J)\,P(N)=\frac{5}{64},
+\qquad \frac{4}{64}\neq\frac{5}{64}.
+\]
+\textbf{¿De dónde sale?} El $1/16$ viene del Paso 3 (conteo directo de la intersección) y se
+amplifica multiplicando numerador y denominador por $4$ para comparar. El $5/64$ viene del
+Paso 4.
+
+\textbf{¿Por qué?} La definición de independencia es una igualdad exacta; al fallar, la
+conclusión obligada es dependencia. La confirmación con condicionales:
+\[
+P(J\mid N)=\frac{P(J\cap N)}{P(N)}=\frac{1/16}{1/4}=\frac{1}{4}=0{,}25
+\qquad\text{frente a}\qquad
+P(J)=\frac{5}{16}=0{,}3125,
+\]
+es decir, saber que María sacó el $2$ \emph{baja} la probabilidad de que José gane, de
+$0{,}3125$ a $0{,}25$. Hay además un argumento estructural definitivo: como los $16$
+resultados son equiprobables, la probabilidad de \emph{cualquier} evento es un múltiplo entero
+de $\frac{1}{16}=\frac{4}{64}$; pero $\frac{5}{64}$ no es múltiplo entero de $\frac{4}{64}$,
+así que ningún evento de este espacio puede tener probabilidad $\frac{5}{64}$. En particular
+la igualdad $P(J\cap N)=P(J)P(N)$ es imposible aquí, cualquiera que sea la lista de casos
+favorables.
+
+\textbf{¿Qué tomamos?} Tomamos la conclusión: $J$ y $N$ son eventos \emph{dependientes}.
+\end{paso}
+\end{sol}
+
+\begin{nota}
+\textbf{Discrepancia con la respuesta oficial.} El enunciado indica \textbf{R/
+Independientes}, pero el cálculo detallado arriba da
+\[
+P(J\cap N)=\frac{1}{16}=\frac{4}{64}
+\qquad\text{y}\qquad
+P(J)\,P(N)=\frac{5}{16}\cdot\frac14=\frac{5}{64},
+\]
+que son distintos, de modo que los eventos resultan \emph{dependientes}. La respuesta oficial
+se conserva tal como aparece impresa y no se altera.
+
+Conviene señalar por qué la discrepancia no puede deberse a un descuido de conteo. La
+respuesta oficial del inciso a) fija $P(J)=\frac{5}{16}$, y el mazo de María hace que
+$P(N)$ sea $\frac{4}{16}=\frac14$ si ``inferior a 3'' se lee de forma estricta (solo el $2$).
+Con esos dos valores, la independencia exigiría $P(J\cap N)=\frac{5}{64}$; pero en un espacio
+de $16$ resultados equiprobables toda probabilidad es de la forma $\frac{k}{16}=\frac{4k}{64}$
+con $k$ entero, y $\frac{5}{64}$ no tiene esa forma. Por lo tanto, aceptando la respuesta
+oficial del inciso a), la independencia es aritméticamente imposible.
+
+Se ensayaron también lecturas alternativas del enunciado, y ninguna produce independencia:
+\begin{itemize}[leftmargin=*]
+  \item Si ``inferior a 3'' se leyera como ``menor o igual que 3'' ($m\in\{2,3\}$), entonces
+        $P(N)=\frac{8}{16}=\frac12$ y $J\cap N=\{(4,2),(3,3)\}$, de donde
+        $P(J\cap N)=\frac{2}{16}=\frac18=\frac{4}{32}$, mientras que
+        $P(J)P(N)=\frac{5}{16}\cdot\frac12=\frac{5}{32}$: siguen siendo distintos.
+  \item Si la carta inferior a $3$ fuese la de José ($j=2$), entonces $P=\frac14$ y la
+        intersección con $J$ sería $\{(2,4)\}$, con probabilidad $\frac{1}{16}=\frac{4}{64}$
+        frente a $\frac{5}{64}$: tampoco coinciden.
+\end{itemize}
+La conclusión matemática, con los datos tal como están impresos, es \textbf{dependientes}.
+\end{nota}
+
+\begin{resp}
+\textbf{c)} Con $J=$ ``José gana'' y $N=$ ``María sacó una carta inferior a 3'' $=\{m=2\}$:
+\[
+P(J)=\frac{5}{16},\qquad
+P(N)=\frac{4}{16}=\frac14,\qquad
+J\cap N=\{(4,2)\}\ \Rightarrow\ P(J\cap N)=\frac{1}{16}=\frac{4}{64},
+\]
+\[
+P(J)\,P(N)=\frac{5}{16}\cdot\frac14=\frac{5}{64}\neq\frac{4}{64}=P(J\cap N).
+\]
+La definición $P(J\cap N)=P(J)P(N)$ no se cumple, de modo que el cálculo da \textbf{eventos
+dependientes} (en efecto, $P(J\mid N)=\frac14\neq\frac{5}{16}=P(J)$). La respuesta oficial
+impresa es \textbf{R/ Independientes} y se conserva como tal; la discrepancia queda registrada
+en la caja anterior.
+\end{resp}
+
+\end{document}

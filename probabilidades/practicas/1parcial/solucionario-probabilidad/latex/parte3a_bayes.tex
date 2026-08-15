@@ -1,0 +1,670 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+
+\begin{center}{\LARGE\bfseries Principios de probabilidad}\\[2pt]{\large Regla de Bayes --- Ejercicios 1--7}\end{center}
+
+\vspace{4pt}
+
+\begin{teo}
+\textbf{Regla de Bayes.}
+
+Sea $\{B_1,B_2,\dots,B_n\}$ una \emph{partición} del espacio muestral $S$. Que sea partición significa dos cosas:
+\begin{itemize}[nosep,leftmargin=*]
+  \item \textbf{Son disjuntos (mutuamente excluyentes):} $B_i\cap B_j=\varnothing$ si $i\neq j$. Ninguna repetición: un resultado no puede caer en dos cajas a la vez.
+  \item \textbf{Son exhaustivos:} $B_1\cup B_2\cup\cdots\cup B_n=S$. No falta ninguna caja: todo resultado cae en alguna.
+\end{itemize}
+Además pedimos $P(B_i)>0$ para todo $i$. Sea $A$ un evento cualquiera con $P(A)>0$. Entonces
+\[
+P(B_i\mid A)=\frac{P(B_i)\,P(A\mid B_i)}{\displaystyle\sum_{j=1}^{n}P(B_j)\,P(A\mid B_j)}.
+\]
+
+\medskip
+\textbf{Demostración.} Partimos de la definición de probabilidad condicional, que es lo único que se necesita:
+\[
+P(B_i\mid A)=\frac{P(B_i\cap A)}{P(A)}.
+\]
+Esta igualdad ya es la fórmula; lo que hacemos ahora es reescribir el numerador y el denominador con cosas que sí conocemos del enunciado de un problema típico.
+
+\emph{Numerador (regla del producto).} De nuevo por definición de probabilidad condicional, pero condicionando al revés,
+\[
+P(A\mid B_i)=\frac{P(A\cap B_i)}{P(B_i)}\ \Longrightarrow\ P(B_i\cap A)=P(B_i)\,P(A\mid B_i).
+\]
+Es decir, la probabilidad de que ocurran las dos cosas es la probabilidad de la primera por la probabilidad de la segunda \emph{dado} que ya pasó la primera.
+
+\emph{Denominador (teorema de probabilidad total).} Como los $B_j$ son disjuntos y cubren todo $S$, los pedazos $A\cap B_j$ son disjuntos entre sí y su unión es exactamente $A$:
+\[
+A=A\cap S=A\cap\Big(\bigcup_{j=1}^{n}B_j\Big)=\bigcup_{j=1}^{n}\,(A\cap B_j).
+\]
+Por el axioma de aditividad sobre eventos disjuntos,
+\[
+P(A)=\sum_{j=1}^{n}P(A\cap B_j)=\sum_{j=1}^{n}P(B_j)\,P(A\mid B_j),
+\]
+donde en el último paso se volvió a usar la regla del producto en cada sumando. Sustituyendo numerador y denominador en $P(B_i\mid A)=P(B_i\cap A)/P(A)$ se obtiene la fórmula anunciada. $\blacksquare$
+
+\medskip
+\textbf{A priori y a posteriori.} La probabilidad $P(B_i)$ se llama \emph{a priori}: es lo que uno cree \emph{antes} de observar nada, y sale directamente de los porcentajes de reparto del enunciado (cuánto produce cada máquina, cuántos alumnos hay de cada año). La probabilidad $P(B_i\mid A)$ se llama \emph{a posteriori}: es la creencia \emph{después} de enterarse de que ocurrió $A$. La evidencia $A$ mueve la creencia: las causas que explican bien lo observado suben y las que lo explican mal bajan.
+
+\medskip
+\textbf{Por qué $P(A\mid B)$ y $P(B\mid A)$ NO son lo mismo.} Cambian el conjunto sobre el que se mide. En $P(A\mid B)$ el universo reducido es $B$ y se pregunta qué fracción de $B$ está en $A$; en $P(B\mid A)$ el universo reducido es $A$ y se pregunta qué fracción de $A$ está en $B$. El numerador es el mismo, $P(A\cap B)$, pero el denominador cambia:
+\[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)},\qquad P(B\mid A)=\frac{P(A\cap B)}{P(A)} .
+\]
+Solo coinciden en el caso excepcional $P(A)=P(B)$. La relación correcta entre ambas es justamente la regla de Bayes: $P(B\mid A)=P(B)P(A\mid B)/P(A)$. Confundirlas es el error clásico: que el $20\%$ de los fumadores tenga molestias no significa que el $20\%$ de los que tienen molestias sean fumadores.
+\end{teo}
+
+\begin{tip}
+\textbf{Receta de cinco pasos para todo problema de Bayes.}
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Identificar la partición.} Buscar la pregunta ¿de qué grupo viene? Los grupos (máquinas, urnas, empleados, años de carrera) son los $B_i$. Hay que verificar que sean disjuntos y que sus probabilidades sumen $1$.
+  \item \textbf{Escribir las a prioris} $P(B_1),\dots,P(B_n)$: son los porcentajes \emph{del total}.
+  \item \textbf{Escribir las verosimilitudes} $P(A\mid B_i)$: son los porcentajes \emph{dentro de cada grupo} (el $5\%$ \emph{de los de} $A$, no el $5\%$ del total).
+  \item \textbf{Calcular el total} $P(A)=\sum_j P(B_j)P(A\mid B_j)$, sumando las conjuntas rama por rama.
+  \item \textbf{Dividir:} $P(B_i\mid A)=\dfrac{P(B_i)P(A\mid B_i)}{P(A)}$, es decir, la rama que interesa entre la suma de todas las ramas.
+\end{enumerate}
+\end{tip}
+
+\begin{reg}
+\textbf{Las tres herramientas que se usan en toda esta sección.}
+\[
+P(B\mid A)=\frac{P(A\cap B)}{P(A)},\qquad
+P(A\cap B)=P(B)\,P(A\mid B),\qquad
+P(A)=\sum_{j}P(B_j)P(A\mid B_j).
+\]
+Además, el complemento dentro de cada rama: $P(A^{c}\mid B_i)=1-P(A\mid B_i)$, y el complemento global $P(A^{c})=1-P(A)$.
+\end{reg}
+
+\newpage
+\section*{Ejercicio 1}
+
+\begin{quote}
+María y Jorge son graduados del \textbf{TEC} y tienen una pequeña empresa que produce conservas. En la empresa tienen tres procesadoras de alimentos: $A$, $B$ y $C$. La procesadora $A$ produce $35\%$ del total, la $B$ produce $45\%$ del total y la $C$ produce el resto. Por problemas técnicos, la procesadora $A$ y la $B$ dan un $5\%$ del producto con defectos, mientras que la procesadora $C$ da un $3\%$ del producto con defectos.\\
+\emph{a)} Si se elige una conserva al azar, calcule la probabilidad que esta conserva se encuentre defectuosa \hfill R/ $0,046$\\
+\emph{b)} Si se elige una conserva al azar y resulta defectuosa, ¿cuál es la probabilidad que provenga de la procesadora $A$? \hfill R/ $0,3804$\\
+\emph{c)} Si se elige una conserva al azar y no resulta defectuosa, ¿cuál es la probabilidad que provenga de la procesadora $B$? \hfill R/ $0,4481$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducción: nombrar eventos y verificar la partición}
+\textbf{Qué hago:} traduzco el texto a símbolos antes de calcular nada. Defino los eventos
+\[
+A=\{\text{la conserva viene de la procesadora }A\},\quad
+B=\{\text{viene de }B\},\quad
+C=\{\text{viene de }C\},
+\]
+\[
+D=\{\text{la conserva está defectuosa}\},\qquad D^{c}=\{\text{no está defectuosa}\}.
+\]
+\textbf{¿De dónde sale?} De la frase \emph{En la empresa tienen tres procesadoras de alimentos: $A$, $B$ y $C$}: cada conserva sale de una y solo una procesadora, así que $\{A,B,C\}$ son disjuntos y cubren toda la producción. Las a prioris salen de \emph{la procesadora $A$ produce $35\%$ del total}, \emph{la $B$ produce $45\%$ del total} y \emph{la $C$ produce el resto}:
+\[
+P(A)=0,35,\qquad P(B)=0,45,\qquad P(C)=1-0,35-0,45=0,20.
+\]
+\textbf{¿Por qué?} Porque para usar Bayes necesito una partición; si las probabilidades no sumaran $1$ estaría dejando producción fuera del conteo o contándola dos veces.
+\textbf{¿Qué tomamos?} Verifico la suma: $0,35+0,45+0,20=1,00$. La partición es válida. Las verosimilitudes salen de \emph{la procesadora $A$ y la $B$ dan un $5\%$ del producto con defectos} y \emph{la procesadora $C$ da un $3\%$}: son porcentajes calculados \emph{dentro} de lo que produce cada máquina, no sobre el total, así que son condicionales:
+\[
+P(D\mid A)=0,05,\qquad P(D\mid B)=0,05,\qquad P(D\mid C)=0,03.
+\]
+Las incógnitas son: (a) $P(D)$, (b) $P(A\mid D)$, (c) $P(B\mid D^{c})$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- El árbol de probabilidad}
+\textbf{Qué hago:} dibujo el árbol para ver de un vistazo las seis ramas posibles. En el primer nivel va la partición (qué máquina) con sus a prioris; en el segundo nivel va la condición defectuosa o no, con las verosimilitudes.
+
+\begin{center}
+\shorthandoff{<>}
+\begin{tikzpicture}[scale=1.0,every node/.style={font=\small}]
+  \node (raiz) at (0,0) {$S$};
+  \node (A) at (3.2,2.6) {$A$};
+  \node (B) at (3.2,0) {$B$};
+  \node (C) at (3.2,-2.6) {$C$};
+  \node (AD) at (7.0,3.5) {$D$};
+  \node (AN) at (7.0,1.9) {$D^{c}$};
+  \node (BD) at (7.0,0.9) {$D$};
+  \node (BN) at (7.0,-0.7) {$D^{c}$};
+  \node (CD) at (7.0,-1.7) {$D$};
+  \node (CN) at (7.0,-3.3) {$D^{c}$};
+
+  \draw[->] (raiz) -- node[above,sloped]{$0,35$} (A);
+  \draw[->] (raiz) -- node[above]{$0,45$} (B);
+  \draw[->] (raiz) -- node[below,sloped]{$0,20$} (C);
+
+  \draw[->] (A) -- node[above,sloped]{$0,05$} (AD);
+  \draw[->] (A) -- node[below,sloped]{$0,95$} (AN);
+  \draw[->] (B) -- node[above,sloped]{$0,05$} (BD);
+  \draw[->] (B) -- node[below,sloped]{$0,95$} (BN);
+  \draw[->] (C) -- node[above,sloped]{$0,03$} (CD);
+  \draw[->] (C) -- node[below,sloped]{$0,97$} (CN);
+
+  \node[right=2pt] at (AD.east) {$0,35\cdot 0,05=0,0175$};
+  \node[right=2pt] at (AN.east) {$0,35\cdot 0,95=0,3325$};
+  \node[right=2pt] at (BD.east) {$0,45\cdot 0,05=0,0225$};
+  \node[right=2pt] at (BN.east) {$0,45\cdot 0,95=0,4275$};
+  \node[right=2pt] at (CD.east) {$0,20\cdot 0,03=0,0060$};
+  \node[right=2pt] at (CN.east) {$0,20\cdot 0,97=0,1940$};
+\end{tikzpicture}
+\shorthandon{<>}
+\end{center}
+
+\textbf{¿De dónde sale?} Los números del primer nivel son los porcentajes \emph{del total} y los del segundo nivel son los porcentajes de defectuosas \emph{dentro} de cada máquina; los $0,95$ y $0,97$ salen del complemento dentro de cada rama, porque si el $5\%$ es defectuoso el otro $95\%$ no lo es.
+\textbf{¿Por qué?} Porque multiplicar a lo largo de una rama es exactamente la regla del producto $P(B_i\cap D)=P(B_i)P(D\mid B_i)$, y las seis puntas del árbol son eventos disjuntos que cubren todo.
+\textbf{¿Qué tomamos?} Las seis probabilidades conjuntas de la derecha. Como control, $0,0175+0,3325+0,0225+0,4275+0,0060+0,1940=1,0000$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso a): probabilidad total de que sea defectuosa}
+\textbf{Qué hago:} aplico el \emph{teorema de probabilidad total}, sumando las tres ramas que terminan en $D$:
+\[
+P(D)=P(A)P(D\mid A)+P(B)P(D\mid B)+P(C)P(D\mid C).
+\]
+Cada multiplicación por separado:
+\[
+0,35\cdot 0,05=0,0175,\qquad 0,45\cdot 0,05=0,0225,\qquad 0,20\cdot 0,03=0,0060.
+\]
+Y la suma:
+\[
+P(D)=0,0175+0,0225+0,0060=0,0460.
+\]
+\textbf{¿De dónde sale?} El $0,35$ y el $0,45$ salen de los porcentajes de producción del total; el $0,05$ y el $0,03$ salen de los porcentajes de defectos \emph{de cada máquina}. Nótese la diferencia: el $5\%$ no es el $5\%$ del total, es el $5\%$ de lo que produce $A$, y por eso aporta apenas $0,0175$ al total y no $0,05$.
+\textbf{¿Por qué?} Porque una conserva defectuosa tiene que venir de $A$, de $B$ o de $C$, y esos tres caminos son incompatibles entre sí; por eso se suman las probabilidades sin restar intersecciones.
+\textbf{¿Qué tomamos?} $P(D)=0,046$, que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso b): a posteriori de la procesadora $A$ dado defectuosa}
+\textbf{Qué hago:} aplico la \emph{regla de Bayes}. Ahora el universo se reduce a las conservas defectuosas y pregunto qué fracción de ellas vino de $A$:
+\[
+P(A\mid D)=\frac{P(A)P(D\mid A)}{P(D)}=\frac{0,0175}{0,0460}.
+\]
+La división paso a paso: $0,0175/0,0460=175/460=35/92=0,380434\ldots$
+\textbf{¿De dónde sale?} El numerador $0,0175$ es la rama $A\to D$ del árbol, ya calculada; el denominador $0,0460$ es la suma de las tres ramas defectuosas del paso anterior.
+\textbf{¿Por qué?} Porque la pregunta invierte el condicionamiento: el enunciado da $P(D\mid A)$ y piden $P(A\mid D)$, que no es lo mismo. De hecho $P(D\mid A)=0,05$ mientras que $P(A\mid D)\approx 0,38$: son números completamente distintos porque el denominador cambia de $P(A)=0,35$ a $P(D)=0,046$.
+\textbf{¿Qué tomamos?} Redondeando a cuatro decimales, $P(A\mid D)\approx 0,3804$, igual que la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso c): a posteriori de la procesadora $B$ dado NO defectuosa}
+\textbf{Qué hago:} primero necesito la verosimilitud complementaria y la probabilidad total del evento no defectuosa:
+\[
+P(D^{c}\mid B)=1-P(D\mid B)=1-0,05=0,95,\qquad P(D^{c})=1-P(D)=1-0,046=0,954.
+\]
+Luego aplico Bayes sobre el evento $D^{c}$:
+\[
+P(B\mid D^{c})=\frac{P(B)P(D^{c}\mid B)}{P(D^{c})}=\frac{0,45\cdot 0,95}{0,954}=\frac{0,4275}{0,954}.
+\]
+La multiplicación del numerador: $0,45\cdot 0,95=0,4275$. La división: $0,4275/0,954=0,448113\ldots$
+\textbf{¿De dónde sale?} El $0,45$ es el porcentaje de producción de $B$ \emph{del total}; el $0,95$ sale de que si el $5\%$ de lo de $B$ es defectuoso, el resto de lo de $B$ no lo es. El $0,954$ podría también obtenerse sumando las tres ramas buenas del árbol: $0,3325+0,4275+0,1940=0,9540$, lo que confirma el complemento.
+\textbf{¿Por qué?} Porque $D$ y $D^{c}$ forman a su vez una partición de dos casillas, así que todo lo que vale para $D$ vale igual para $D^{c}$ cambiando las verosimilitudes por sus complementos.
+\textbf{¿Qué tomamos?} Redondeando a cuatro decimales, $P(B\mid D^{c})\approx 0,4481$, igual que la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+\textbf{a)} $P(D)=0,046$\\
+\textbf{b)} $P(A\mid D)=\dfrac{0,0175}{0,046}\approx 0,3804$\\
+\textbf{c)} $P(B\mid D^{c})=\dfrac{0,4275}{0,954}\approx 0,4481$
+\end{resp}
+
+\end{sol}
+
+\newpage
+\section*{Ejercicio 2}
+
+\begin{quote}
+Se dispone de tres urnas: una urna $A$ con 3 bolas blancas y 2 negras, una urna $B$ con 4 bolas blancas y 5 negras y una urna $C$ con 2 bolas blancas y 3 negras. Si se elige una urna al azar y se extrae una bola, determine la probabilidad que la bola elegida al azar sea negra. \hfill R/ $0,518$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducción: nombrar eventos y verificar la partición}
+\textbf{Qué hago:} defino
+\[
+A=\{\text{se elige la urna }A\},\quad B=\{\text{se elige la urna }B\},\quad C=\{\text{se elige la urna }C\},\quad N=\{\text{la bola extraída es negra}\}.
+\]
+\textbf{¿De dónde sale?} De \emph{Se dispone de tres urnas} y \emph{se elige una urna al azar}: se elige exactamente una urna, así que $\{A,B,C\}$ es una partición, y \emph{al azar} sin más información significa que las tres son igual de probables:
+\[
+P(A)=P(B)=P(C)=\tfrac{1}{3}.
+\]
+\textbf{¿Por qué?} Porque cuando el enunciado no privilegia ninguna urna, el modelo equiprobable reparte la probabilidad en partes iguales entre los tres casos.
+\textbf{¿Qué tomamos?} Verifico la suma: $\tfrac13+\tfrac13+\tfrac13=1$. Partición válida. La incógnita es $P(N)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Verosimilitudes: probabilidad de negra dentro de cada urna}
+\textbf{Qué hago:} cuento bolas dentro de cada urna por separado, usando el modelo clásico casos favorables sobre casos totales:
+\[
+P(N\mid A)=\frac{2}{3+2}=\frac{2}{5},\qquad
+P(N\mid B)=\frac{5}{4+5}=\frac{5}{9},\qquad
+P(N\mid C)=\frac{3}{2+3}=\frac{3}{5}.
+\]
+\textbf{¿De dónde sale?} De \emph{una urna $A$ con 3 bolas blancas y 2 negras} (total $5$, negras $2$), \emph{una urna $B$ con 4 bolas blancas y 5 negras} (total $9$, negras $5$) y \emph{una urna $C$ con 2 bolas blancas y 3 negras} (total $5$, negras $3$).
+\textbf{¿Por qué?} Porque estas son probabilidades \emph{condicionales}: una vez que ya se sabe de qué urna se está extrayendo, el universo se reduce al contenido de esa urna y las bolas de las otras dos dejan de contar. Es un error frecuente juntar todas las bolas en un solo saco: eso daría $10/19$, que responde a un experimento distinto.
+\textbf{¿Qué tomamos?} En decimales, $2/5=0,4$, $5/9=0,555556\ldots$ y $3/5=0,6$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Probabilidad total}
+\textbf{Qué hago:} aplico el \emph{teorema de probabilidad total} sumando las tres ramas que terminan en negra:
+\[
+P(N)=P(A)P(N\mid A)+P(B)P(N\mid B)+P(C)P(N\mid C)
+=\frac{1}{3}\cdot\frac{2}{5}+\frac{1}{3}\cdot\frac{5}{9}+\frac{1}{3}\cdot\frac{3}{5}.
+\]
+Cada producto por separado:
+\[
+\frac13\cdot\frac25=\frac{2}{15},\qquad \frac13\cdot\frac59=\frac{5}{27},\qquad \frac13\cdot\frac35=\frac{3}{15}=\frac15 .
+\]
+Como el factor $\tfrac13$ es común, conviene sacarlo:
+\[
+P(N)=\frac13\left(\frac25+\frac59+\frac35\right)=\frac13\cdot\frac{2\cdot 9+5\cdot 5+3\cdot 9}{45}=\frac13\cdot\frac{18+25+27}{45}=\frac13\cdot\frac{70}{45}=\frac{70}{135}=\frac{14}{27}.
+\]
+\textbf{¿De dónde sale?} Los $\tfrac13$ son las a prioris de elegir cada urna; las fracciones entre paréntesis son las verosimilitudes contadas en el paso anterior.
+\textbf{¿Por qué?} Porque sacar una bola negra exige primero haber caído en alguna urna, y esas tres posibilidades son excluyentes entre sí, de modo que las contribuciones se suman.
+\textbf{¿Qué tomamos?} $14/27=0,518518\ldots$, que redondeado a tres decimales da $0,518$, igual que la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+$P(N)=\dfrac{14}{27}=0,5185\ldots\approx 0,518$
+\end{resp}
+
+\end{sol}
+
+\newpage
+\section*{Ejercicio 3}
+
+\begin{quote}
+Un taller mecánico es atendido por Juan, Mary y Carlos. Se sabe que el $20\%$ es atendido por Juan, el $40\%$ es atendido por Mary y el $40\%$ es atendido por Carlos. El $10\%$ no queda satisfecho del trabajo de Juan, el $8\%$ no queda satisfecho del trabajo de Mary y el $15\%$ no queda satisfecho de la labor de Carlos. Se sabe que un cliente queda satisfecho, entonces ¿cuál es la probabilidad que lo haya atendido Carlos? \hfill R/ $0,3828$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducción: nombrar eventos y verificar la partición}
+\textbf{Qué hago:} defino
+\[
+J=\{\text{lo atendió Juan}\},\quad M=\{\text{lo atendió Mary}\},\quad C=\{\text{lo atendió Carlos}\},\quad S=\{\text{el cliente queda satisfecho}\}.
+\]
+\textbf{¿De dónde sale?} De \emph{Un taller mecánico es atendido por Juan, Mary y Carlos}: cada cliente es atendido por exactamente uno de los tres. Las a prioris salen de \emph{el $20\%$ es atendido por Juan, el $40\%$ es atendido por Mary y el $40\%$ es atendido por Carlos}:
+\[
+P(J)=0,20,\qquad P(M)=0,40,\qquad P(C)=0,40.
+\]
+\textbf{¿Por qué?} Porque estos porcentajes están medidos sobre \emph{todos} los clientes del taller, que es justo lo que necesita una a priori.
+\textbf{¿Qué tomamos?} Verifico: $0,20+0,40+0,40=1,00$. Partición válida. La incógnita es $P(C\mid S)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Verosimilitudes: pasar de insatisfacción a satisfacción}
+\textbf{Qué hago:} el enunciado da los porcentajes de \emph{no} satisfacción, así que uso el complemento dentro de cada rama, $P(S\mid X)=1-P(S^{c}\mid X)$:
+\[
+P(S^{c}\mid J)=0,10\ \Rightarrow\ P(S\mid J)=1-0,10=0,90,
+\]
+\[
+P(S^{c}\mid M)=0,08\ \Rightarrow\ P(S\mid M)=1-0,08=0,92,
+\]
+\[
+P(S^{c}\mid C)=0,15\ \Rightarrow\ P(S\mid C)=1-0,15=0,85.
+\]
+\textbf{¿De dónde sale?} De \emph{el $10\%$ no queda satisfecho del trabajo de Juan}, \emph{el $8\%$ no queda satisfecho del trabajo de Mary} y \emph{el $15\%$ no queda satisfecho de la labor de Carlos}. Ese $10\%$ es el $10\%$ \emph{de los clientes de Juan}, no el $10\%$ del taller: por eso son condicionales y no conjuntas.
+\textbf{¿Por qué?} Porque dentro de la rama de Juan, satisfecho e insatisfecho son los dos únicos resultados y son excluyentes, así que sus probabilidades condicionales suman $1$.
+\textbf{¿Qué tomamos?} Las tres verosimilitudes $0,90$, $0,92$ y $0,85$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Probabilidad total de quedar satisfecho}
+\textbf{Qué hago:} aplico el \emph{teorema de probabilidad total}:
+\[
+P(S)=P(J)P(S\mid J)+P(M)P(S\mid M)+P(C)P(S\mid C).
+\]
+Cada multiplicación por separado:
+\[
+0,20\cdot 0,90=0,180,\qquad 0,40\cdot 0,92=0,368,\qquad 0,40\cdot 0,85=0,340.
+\]
+Suma:
+\[
+P(S)=0,180+0,368+0,340=0,888.
+\]
+\textbf{¿De dónde sale?} Los primeros factores son los repartos de clientes y los segundos las tasas de satisfacción de cada mecánico.
+\textbf{¿Por qué?} Porque un cliente satisfecho tuvo que ser atendido por alguno de los tres, y esos tres casos no se solapan.
+\textbf{¿Qué tomamos?} $P(S)=0,888$, es decir, casi el $89\%$ de los clientes del taller queda satisfecho.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Regla de Bayes para Carlos}
+\textbf{Qué hago:} aplico la \emph{regla de Bayes} con la evidencia satisfecho:
+\[
+P(C\mid S)=\frac{P(C)P(S\mid C)}{P(S)}=\frac{0,340}{0,888}.
+\]
+La división: $0,340/0,888=340/888=85/222=0,382882\ldots$
+\textbf{¿De dónde sale?} El numerador $0,340$ es la rama de Carlos satisfecho, calculada arriba; el denominador $0,888$ es la suma de las tres ramas satisfechas.
+\textbf{¿Por qué?} Porque el condicionamiento reduce el universo a los clientes satisfechos y hay que ver qué fracción de ellos pasó por Carlos. Obsérvese que Carlos atiende al $40\%$ de los clientes pero solo representa el $38,3\%$ de los satisfechos: la evidencia baja un poco su peso, porque es el mecánico con más insatisfacción.
+\textbf{¿Qué tomamos?} Redondeando a cuatro decimales, $P(C\mid S)\approx 0,3828$, igual que la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+$P(C\mid S)=\dfrac{0,340}{0,888}\approx 0,3828$
+\end{resp}
+
+\end{sol}
+
+\newpage
+\section*{Ejercicio 4}
+
+\begin{quote}
+Estudios realizados indican que hay un $10\%$ de fumadores y un $90\%$ de no fumadores, estos mismos estudios revelan que el $20\%$ de los fumadores desarrollan molestias respiratorias por inhalación de humo, mientras que entre los no fumadores este porcentaje es de $85\%$. Determine la probabilidad de que una persona que presente molestias sea realmente un fumador. \hfill R/ $0,0254$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducción: nombrar eventos y verificar la partición}
+\textbf{Qué hago:} defino
+\[
+F=\{\text{la persona es fumadora}\},\qquad F^{c}=\{\text{la persona no es fumadora}\},\qquad M=\{\text{presenta molestias respiratorias}\}.
+\]
+\textbf{¿De dónde sale?} De \emph{hay un $10\%$ de fumadores y un $90\%$ de no fumadores}, porcentajes medidos sobre toda la población:
+\[
+P(F)=0,10,\qquad P(F^{c})=0,90.
+\]
+\textbf{¿Por qué?} Porque fumador y no fumador son excluyentes y no hay tercera categoría, así que $\{F,F^{c}\}$ es la partición más simple posible: dos casillas.
+\textbf{¿Qué tomamos?} Verifico: $0,10+0,90=1,00$. Partición válida. La incógnita es $P(F\mid M)$, la probabilidad de ser fumador \emph{dado} que ya se observó molestias.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Verosimilitudes}
+\textbf{Qué hago:} escribo los porcentajes de molestias medidos dentro de cada grupo:
+\[
+P(M\mid F)=0,20,\qquad P(M\mid F^{c})=0,85.
+\]
+\textbf{¿De dónde sale?} De \emph{el $20\%$ de los fumadores desarrollan molestias respiratorias} (el $20\%$ \emph{de los fumadores}, no el $20\%$ de la población) y de \emph{entre los no fumadores este porcentaje es de $85\%$}, donde la frase \emph{entre los no fumadores} vuelve a marcar que el universo de referencia es el grupo de no fumadores.
+\textbf{¿Por qué?} Porque son exactamente las dos verosimilitudes que pide la fórmula: una por cada casilla de la partición.
+\textbf{¿Qué tomamos?} Los valores $0,20$ y $0,85$ tal cual los da el enunciado, aunque resulten llamativos: dicen que las molestias son mucho más frecuentes entre no fumadores que entre fumadores. Se trabaja con los datos dados, no con lo que uno esperaría.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Probabilidad total de presentar molestias}
+\textbf{Qué hago:} aplico el \emph{teorema de probabilidad total} con dos ramas:
+\[
+P(M)=P(F)P(M\mid F)+P(F^{c})P(M\mid F^{c}).
+\]
+Cada multiplicación por separado:
+\[
+0,10\cdot 0,20=0,020,\qquad 0,90\cdot 0,85=0,765.
+\]
+Suma:
+\[
+P(M)=0,020+0,765=0,785.
+\]
+\textbf{¿De dónde sale?} $0,10$ y $0,90$ son las a prioris de fumar o no; $0,20$ y $0,85$ son las tasas de molestias dentro de cada grupo.
+\textbf{¿Por qué?} Porque quien presenta molestias es fumador o no lo es, sin más opciones ni solapamiento.
+\textbf{¿Qué tomamos?} $P(M)=0,785$. Se ve ya que la rama de los no fumadores ($0,765$) domina abrumadoramente a la de los fumadores ($0,020$), porque los no fumadores son nueve veces más numerosos y además tienen una tasa mucho más alta.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Regla de Bayes}
+\textbf{Qué hago:} aplico la \emph{regla de Bayes} invirtiendo el condicionamiento:
+\[
+P(F\mid M)=\frac{P(F)P(M\mid F)}{P(M)}=\frac{0,10\cdot 0,20}{0,10\cdot 0,20+0,90\cdot 0,85}=\frac{0,020}{0,785}.
+\]
+La división: $0,020/0,785=20/785=4/157=0,0254777\ldots$
+\textbf{¿De dónde sale?} El numerador es la rama fumador con molestias; el denominador es la suma de las dos ramas con molestias del paso anterior.
+\textbf{¿Por qué?} Porque el enunciado da $P(M\mid F)=0,20$ y pregunta por $P(F\mid M)$, que es la condicional al revés. Aquí se ve con toda claridad que no son lo mismo: $0,20$ frente a $0,025$, una diferencia de casi un factor $8$, provocada por lo poco frecuentes que son los fumadores en la población.
+\textbf{¿Qué tomamos?} $4/157=0,0254777\ldots$; redondeando a cuatro decimales, $P(F\mid M)\approx 0,0255$.
+\end{paso}
+
+\begin{nota}
+\textbf{Discrepancia con la respuesta oficial.} El folleto reporta \textbf{R/ $0,0254$}. El valor exacto es
+\[
+P(F\mid M)=\frac{0,020}{0,785}=\frac{4}{157}=0,02547770700\ldots
+\]
+Como el quinto decimal es $7$, el redondeo correcto a cuatro decimales es $0,0255$; el $0,0254$ del folleto corresponde a \emph{truncar} (cortar) en el cuarto decimal en vez de redondear. Es decir, no hay diferencia de planteamiento ni de datos: los dos resultados son el mismo número $4/157$, y la única diferencia está en cómo se recorta el decimal. Se conserva la respuesta oficial $0,0254$ tal como aparece en el folleto, y se deja constancia de que el redondeo estándar da $0,0255$.
+\end{nota}
+
+\begin{resp}
+$P(F\mid M)=\dfrac{0,020}{0,785}=\dfrac{4}{157}=0,025477\ldots\approx 0,0255$ \quad (respuesta oficial del folleto: $0,0254$)
+\end{resp}
+
+\end{sol}
+
+\newpage
+\section*{Ejercicio 5}
+
+\begin{quote}
+En la Universidad \textbf{TECNO}, se tiene que el $30\%$ de los alumnos es de primer año de ingreso, de los cuales, el $10\%$ tiene automóvil. El $40\%$ de los alumnos es de segundo año, de los cuales, el $20\%$ tiene automóvil. El $20\%$ de los alumnos es de tercer año, de los cuales, el $40\%$ tiene automóvil. Y el resto es de cuarto año o más, de los cuales, el $60\%$ tiene automóvil. Se elige un estudiante al azar.\\
+\emph{a)} Halle la probabilidad que el estudiante elegido tenga automóvil \hfill R/ $\dfrac14$\\
+\emph{b)} Si el estudiante elegido tiene automóvil ¿Cuál es la probabilidad que sea de tercer año? \hfill R/ $\dfrac{8}{25}$\\
+\emph{c)} Si el estudiante elegido tiene automóvil ¿Cuál es la probabilidad que sea de primer año? \hfill R/ $\dfrac{3}{25}$\\
+\emph{d)} Si el estudiante elegido tiene automóvil ¿Cuál es la probabilidad que sea de segundo año? \hfill R/ $\dfrac{8}{25}$\\
+\emph{e)} Si el estudiante elegido tiene automóvil ¿Cuál es la probabilidad que sea de cuarto año o más? \hfill R/ $\dfrac{6}{25}$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducción: nombrar eventos y verificar la partición}
+\textbf{Qué hago:} defino
+\[
+A_1=\{\text{primer año}\},\quad A_2=\{\text{segundo año}\},\quad A_3=\{\text{tercer año}\},\quad A_4=\{\text{cuarto año o más}\},\quad V=\{\text{tiene automóvil}\}.
+\]
+\textbf{¿De dónde sale?} De \emph{el $30\%$ de los alumnos es de primer año de ingreso}, \emph{el $40\%$ de los alumnos es de segundo año}, \emph{el $20\%$ de los alumnos es de tercer año} y \emph{el resto es de cuarto año o más}:
+\[
+P(A_1)=0,30,\quad P(A_2)=0,40,\quad P(A_3)=0,20,\quad P(A_4)=1-0,30-0,40-0,20=0,10.
+\]
+\textbf{¿Por qué?} Porque cada estudiante está en exactamente un nivel: los cuatro eventos son disjuntos y, al incluir la categoría \emph{el resto}, son exhaustivos.
+\textbf{¿Qué tomamos?} Verifico: $0,30+0,40+0,20+0,10=1,00$. Partición válida de cuatro casillas. Las verosimilitudes salen de las frases \emph{de los cuales, el $\ldots\%$ tiene automóvil}, donde \emph{de los cuales} indica que el porcentaje se mide dentro del nivel:
+\[
+P(V\mid A_1)=0,10,\quad P(V\mid A_2)=0,20,\quad P(V\mid A_3)=0,40,\quad P(V\mid A_4)=0,60.
+\]
+Las incógnitas son $P(V)$ y luego $P(A_3\mid V)$, $P(A_1\mid V)$, $P(A_2\mid V)$ y $P(A_4\mid V)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Tabla de la partición: a priori $\times$ verosimilitud $=$ conjunta}
+\textbf{Qué hago:} organizo las cuatro ramas en una tabla, porque con cuatro casillas el árbol se vuelve grande y la tabla dice lo mismo:
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Nivel }$A_i$ & \textbf{A priori }$P(A_i)$ & \textbf{Verosimilitud }$P(V\mid A_i)$ & \textbf{Conjunta }$P(A_i\cap V)$\\
+\hline
+Primer año $A_1$        & $0,30$ & $0,10$ & $0,30\cdot 0,10=0,03$\\
+Segundo año $A_2$       & $0,40$ & $0,20$ & $0,40\cdot 0,20=0,08$\\
+Tercer año $A_3$        & $0,20$ & $0,40$ & $0,20\cdot 0,40=0,08$\\
+Cuarto año o más $A_4$  & $0,10$ & $0,60$ & $0,10\cdot 0,60=0,06$\\
+\hline
+\textbf{Total}          & $1,00$ & --- & $P(V)=0,25$\\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{¿De dónde sale?} La segunda columna son los repartos de alumnos por nivel (porcentajes \emph{del total} de la universidad); la tercera son los porcentajes de \emph{los de ese nivel} que tienen automóvil. La cuarta columna es la regla del producto $P(A_i\cap V)=P(A_i)P(V\mid A_i)$ aplicada fila por fila.
+\textbf{¿Por qué?} Porque cada fila es un camino distinto y excluyente para llegar a tener automóvil, y así queda a la vista qué fila pesa más.
+\textbf{¿Qué tomamos?} Las cuatro conjuntas $0,03$, $0,08$, $0,08$ y $0,06$, y su suma $0,25$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso a): probabilidad total de tener automóvil}
+\textbf{Qué hago:} aplico el \emph{teorema de probabilidad total} sumando la última columna:
+\[
+P(V)=0,30\cdot 0,10+0,40\cdot 0,20+0,20\cdot 0,40+0,10\cdot 0,60.
+\]
+Cada multiplicación por separado:
+\[
+0,30\cdot 0,10=0,03,\quad 0,40\cdot 0,20=0,08,\quad 0,20\cdot 0,40=0,08,\quad 0,10\cdot 0,60=0,06.
+\]
+Suma:
+\[
+P(V)=0,03+0,08+0,08+0,06=0,25=\frac{25}{100}=\frac14 .
+\]
+\textbf{¿De dónde sale?} De combinar los repartos por nivel con las tasas de automóvil de cada nivel.
+\textbf{¿Por qué?} Porque un estudiante con automóvil pertenece a exactamente uno de los cuatro niveles, de modo que las cuatro contribuciones se suman sin traslape.
+\textbf{¿Qué tomamos?} $P(V)=\tfrac14$, exacto (no hace falta redondear), coincidente con la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Incisos b) a e): las cuatro a posteriori}
+\textbf{Qué hago:} aplico la \emph{regla de Bayes} cuatro veces, siempre con el mismo denominador $P(V)=0,25$ y cambiando solo el numerador según el nivel que se pregunta:
+\[
+P(A_3\mid V)=\frac{0,08}{0,25}=\frac{8}{25}=0,32,
+\qquad
+P(A_1\mid V)=\frac{0,03}{0,25}=\frac{3}{25}=0,12,
+\]
+\[
+P(A_2\mid V)=\frac{0,08}{0,25}=\frac{8}{25}=0,32,
+\qquad
+P(A_4\mid V)=\frac{0,06}{0,25}=\frac{6}{25}=0,24 .
+\]
+Para pasar cada división a fracción basta multiplicar arriba y abajo por $100$: por ejemplo $\dfrac{0,08}{0,25}=\dfrac{8}{25}$ y $\dfrac{0,03}{0,25}=\dfrac{3}{25}$.
+\textbf{¿De dónde sale?} Cada numerador es la conjunta de su fila en la tabla; el denominador común es el total de la columna.
+\textbf{¿Por qué?} Porque al saber que el estudiante tiene automóvil el universo se reduce a esa cuarta columna, y cada nivel se lleva la fracción que le corresponde de ese total. Nótese cómo la evidencia cambia las creencias: primer año pasa de $0,30$ a $0,12$ (porque casi no tienen carro) y cuarto año pasa de $0,10$ a $0,24$ (porque la mayoría sí tiene).
+\textbf{¿Qué tomamos?} Los cuatro valores exactos en fracción. Control: $\tfrac{3}{25}+\tfrac{8}{25}+\tfrac{8}{25}+\tfrac{6}{25}=\tfrac{25}{25}=1$, como debe ser, ya que las cuatro a posteriori vuelven a formar una partición.
+\end{paso}
+
+\begin{resp}
+\textbf{a)} $P(V)=\dfrac14=0,25$\\
+\textbf{b)} $P(A_3\mid V)=\dfrac{8}{25}=0,32$\\
+\textbf{c)} $P(A_1\mid V)=\dfrac{3}{25}=0,12$\\
+\textbf{d)} $P(A_2\mid V)=\dfrac{8}{25}=0,32$\\
+\textbf{e)} $P(A_4\mid V)=\dfrac{6}{25}=0,24$
+\end{resp}
+
+\end{sol}
+
+\newpage
+\section*{Ejercicio 6}
+
+\begin{quote}
+El $20\%$ de los empleados de una empresa son arquitectos y otro $20\%$ de los empleados son ingenieros. El $75\%$ de los arquitectos son directivos, mientras que, el $50\%$ de los ingenieros son directivos. De los que no son arquitectos ni ingenieros, el $20\%$ ocupa un puesto directivo ¿Cuál es la probabilidad que un empleado directivo elegido al azar sea arquitecto? \hfill R/ $0,405$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducción: nombrar eventos y verificar la partición}
+\textbf{Qué hago:} defino
+\[
+A=\{\text{arquitecto}\},\quad I=\{\text{ingeniero}\},\quad O=\{\text{ni arquitecto ni ingeniero}\},\quad D=\{\text{ocupa un puesto directivo}\}.
+\]
+\textbf{¿De dónde sale?} De \emph{El $20\%$ de los empleados de una empresa son arquitectos y otro $20\%$ de los empleados son ingenieros}, ambos porcentajes sobre el total de empleados, y de \emph{De los que no son arquitectos ni ingenieros}, frase que crea explícitamente la tercera categoría:
+\[
+P(A)=0,20,\qquad P(I)=0,20,\qquad P(O)=1-0,20-0,20=0,60.
+\]
+\textbf{¿Por qué?} Porque sin la casilla $O$ la partición no sería exhaustiva: los porcentajes dados solo cubren el $40\%$ de la empresa, y el $60\%$ restante también puede tener directivos. La palabra \emph{otro} confirma además que arquitectos e ingenieros son grupos separados, sin nadie contado dos veces.
+\textbf{¿Qué tomamos?} Verifico: $0,20+0,20+0,60=1,00$. Partición válida. La incógnita es $P(A\mid D)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Verosimilitudes}
+\textbf{Qué hago:} escribo las tasas de directivos dentro de cada grupo:
+\[
+P(D\mid A)=0,75,\qquad P(D\mid I)=0,50,\qquad P(D\mid O)=0,20.
+\]
+\textbf{¿De dónde sale?} De \emph{el $75\%$ de los arquitectos son directivos} (el $75\%$ \emph{de los arquitectos}, que son el $20\%$ de la empresa, no el $75\%$ de la empresa), \emph{el $50\%$ de los ingenieros son directivos} y \emph{De los que no son arquitectos ni ingenieros, el $20\%$ ocupa un puesto directivo}.
+\textbf{¿Por qué?} Porque en las tres frases el porcentaje viene precedido por un grupo de referencia (\emph{de los arquitectos}, \emph{de los ingenieros}, \emph{de los que no son\ldots}), lo que las identifica como probabilidades condicionales y no como porcentajes del total.
+\textbf{¿Qué tomamos?} Cuidado con el último $20\%$: coincide numéricamente con las a prioris de $A$ e $I$, pero significa algo totalmente distinto; es una verosimilitud dentro del grupo $O$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Probabilidad total de ser directivo}
+\textbf{Qué hago:} aplico el \emph{teorema de probabilidad total}:
+\[
+P(D)=P(A)P(D\mid A)+P(I)P(D\mid I)+P(O)P(D\mid O).
+\]
+Cada multiplicación por separado:
+\[
+0,20\cdot 0,75=0,15,\qquad 0,20\cdot 0,50=0,10,\qquad 0,60\cdot 0,20=0,12.
+\]
+Suma:
+\[
+P(D)=0,15+0,10+0,12=0,37.
+\]
+\textbf{¿De dónde sale?} Los primeros factores son los repartos de la plantilla y los segundos las tasas de mando dentro de cada grupo.
+\textbf{¿Por qué?} Porque todo directivo cae en exactamente una de las tres categorías profesionales.
+\textbf{¿Qué tomamos?} $P(D)=0,37$: el $37\%$ de la empresa ocupa puestos directivos. Obsérvese que el grupo $O$, pese a tener la tasa más baja, aporta $0,12$ por ser el más numeroso.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Regla de Bayes para arquitecto}
+\textbf{Qué hago:} aplico la \emph{regla de Bayes}:
+\[
+P(A\mid D)=\frac{P(A)P(D\mid A)}{P(D)}=\frac{0,15}{0,37}.
+\]
+La división: $0,15/0,37=15/37=0,405405\ldots$
+\textbf{¿De dónde sale?} El numerador $0,15$ es la conjunta arquitecto y directivo; el denominador $0,37$ es el total de directivos.
+\textbf{¿Por qué?} Porque el enunciado condiciona a \emph{un empleado directivo elegido al azar}: el universo ya no es la empresa entera sino solo los directivos, y hay que ver qué fracción de ellos son arquitectos. Los arquitectos son apenas el $20\%$ de la empresa pero el $40,5\%$ de los directivos, porque su tasa de mando es la más alta.
+\textbf{¿Qué tomamos?} Redondeando a tres decimales, $P(A\mid D)\approx 0,405$, igual que la respuesta oficial (a cuatro decimales sería $0,4054$).
+\end{paso}
+
+\begin{resp}
+$P(A\mid D)=\dfrac{0,15}{0,37}=\dfrac{15}{37}\approx 0,405$
+\end{resp}
+
+\end{sol}
+
+\newpage
+\section*{Ejercicio 7}
+
+\begin{quote}
+En una determinada ciudad, se tiene que el $40\%$ de los trabajadores laboran en el sector de servicios, un $35\%$ lo hace en sanidad y el resto en otros sectores. El $30\%$ de los trabajadores en el sector de servicios son mujeres, el $60\%$ del sector de sanidad y el $45\%$ de otros sectores. Si se elige al azar una persona y resulta que es hombre ¿Cuál es la probabilidad que trabaje en el sector de sanidad? \hfill R/ $0,2511$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducción: nombrar eventos y verificar la partición}
+\textbf{Qué hago:} defino
+\[
+S=\{\text{trabaja en servicios}\},\quad N=\{\text{trabaja en sanidad}\},\quad T=\{\text{trabaja en otros sectores}\},
+\]
+\[
+M=\{\text{es mujer}\},\qquad H=M^{c}=\{\text{es hombre}\}.
+\]
+\textbf{¿De dónde sale?} De \emph{el $40\%$ de los trabajadores laboran en el sector de servicios, un $35\%$ lo hace en sanidad y el resto en otros sectores}:
+\[
+P(S)=0,40,\qquad P(N)=0,35,\qquad P(T)=1-0,40-0,35=0,25.
+\]
+\textbf{¿Por qué?} Porque cada trabajador está en un solo sector y la categoría \emph{el resto} garantiza que no falte nadie; así $\{S,N,T\}$ es disjunta y exhaustiva.
+\textbf{¿Qué tomamos?} Verifico: $0,40+0,35+0,25=1,00$. Partición válida. La incógnita es $P(N\mid H)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Verosimilitudes: pasar de mujeres a hombres}
+\textbf{Qué hago:} el enunciado da porcentajes de mujeres por sector, pero la evidencia es \emph{hombre}, así que uso el complemento dentro de cada rama, $P(H\mid X)=1-P(M\mid X)$:
+\[
+P(M\mid S)=0,30\ \Rightarrow\ P(H\mid S)=1-0,30=0,70,
+\]
+\[
+P(M\mid N)=0,60\ \Rightarrow\ P(H\mid N)=1-0,60=0,40,
+\]
+\[
+P(M\mid T)=0,45\ \Rightarrow\ P(H\mid T)=1-0,45=0,55.
+\]
+\textbf{¿De dónde sale?} De \emph{El $30\%$ de los trabajadores en el sector de servicios son mujeres, el $60\%$ del sector de sanidad y el $45\%$ de otros sectores}, donde la frase elíptica del final se lee como \emph{el $60\%$ de los trabajadores del sector de sanidad son mujeres} y \emph{el $45\%$ de los trabajadores de otros sectores son mujeres}: son porcentajes \emph{dentro} de cada sector.
+\textbf{¿Por qué?} Porque dentro de cada sector solo hay hombres y mujeres, categorías excluyentes cuyas probabilidades condicionales suman $1$.
+\textbf{¿Qué tomamos?} Las tres verosimilitudes de hombre: $0,70$, $0,40$ y $0,55$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Tabla de la partición: a priori $\times$ verosimilitud $=$ conjunta}
+\textbf{Qué hago:} organizo las tres ramas en una tabla aplicando la regla del producto fila por fila:
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Sector} & \textbf{A priori} & \textbf{Verosimilitud }$P(H\mid \cdot)$ & \textbf{Conjunta con }$H$\\
+\hline
+Servicios $S$ & $0,40$ & $0,70$ & $0,40\cdot 0,70=0,2800$\\
+Sanidad $N$   & $0,35$ & $0,40$ & $0,35\cdot 0,40=0,1400$\\
+Otros $T$     & $0,25$ & $0,55$ & $0,25\cdot 0,55=0,1375$\\
+\hline
+\textbf{Total} & $1,00$ & --- & $P(H)=0,5575$\\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{¿De dónde sale?} La columna de a prioris son los repartos de trabajadores por sector; la de verosimilitudes son las proporciones de hombres calculadas en el paso anterior.
+\textbf{¿Por qué?} Porque cada fila representa un camino excluyente para que la persona elegida resulte hombre, y sumando la última columna se obtiene el total.
+\textbf{¿Qué tomamos?} Las conjuntas $0,2800$, $0,1400$ y $0,1375$; detallando la última multiplicación, $0,25\cdot 0,55=0,1375$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Probabilidad total de que sea hombre}
+\textbf{Qué hago:} aplico el \emph{teorema de probabilidad total} sumando la última columna:
+\[
+P(H)=0,2800+0,1400+0,1375=0,5575.
+\]
+\textbf{¿De dónde sale?} De las tres conjuntas de la tabla.
+\textbf{¿Por qué?} Porque un hombre de esa ciudad trabaja en servicios, en sanidad o en otros sectores, y esas tres opciones no se solapan.
+\textbf{¿Qué tomamos?} $P(H)=0,5575$. Control de coherencia: la proporción de mujeres sería $0,40\cdot 0,30+0,35\cdot 0,60+0,25\cdot 0,45=0,12+0,21+0,1125=0,4425$, y en efecto $0,5575+0,4425=1,0000$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Regla de Bayes para sanidad}
+\textbf{Qué hago:} aplico la \emph{regla de Bayes} con la evidencia hombre:
+\[
+P(N\mid H)=\frac{P(N)P(H\mid N)}{P(H)}=\frac{0,1400}{0,5575}.
+\]
+La división: $0,1400/0,5575=1400/5575=56/223=0,2511210\ldots$
+\textbf{¿De dónde sale?} El numerador es la fila de sanidad de la tabla; el denominador es el total de esa columna.
+\textbf{¿Por qué?} Porque al saber que la persona es hombre el universo se reduce a los hombres. Sanidad emplea al $35\%$ de los trabajadores pero solo aporta el $25,1\%$ de los hombres, precisamente porque es el sector con mayor proporción de mujeres.
+\textbf{¿Qué tomamos?} Redondeando a cuatro decimales, $P(N\mid H)\approx 0,2511$, igual que la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+$P(N\mid H)=\dfrac{0,1400}{0,5575}=\dfrac{56}{223}\approx 0,2511$
+\end{resp}
+
+\end{sol}
+
+\end{document}

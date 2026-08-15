@@ -1,0 +1,435 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+
+\title{Solucionario --- Cap\'itulo 1, Secci\'on 1.2\\ Ejercicios 27 a 32: principio de la suma y principio del palomar}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{teo}
+\textbf{Principio de la suma (o de adici\'on).} Si una tarea puede realizarse de $n_1$ maneras \emph{o bien} de $n_2$ maneras, y ninguna de las maneras del primer tipo coincide con alguna del segundo tipo (es decir, los dos conjuntos de opciones son \emph{disjuntos}), entonces el n\'umero total de maneras de realizar la tarea es $n_1+n_2$. En lenguaje de conjuntos: si $A\cap B=\varnothing$, entonces
+\[
+|A\cup B| \;=\; |A|+|B|.
+\]
+De manera general, si $A_1,A_2,\dots,A_k$ son conjuntos dos a dos disjuntos, entonces
+\[
+\Big|\,\bigcup_{i=1}^{k}A_i\,\Big| \;=\; \sum_{i=1}^{k}|A_i|.
+\]
+
+\medskip
+\textbf{Principio del palomar (versi\'on simple).} Si se distribuyen $n$ objetos (\emph{palomas}) en $k$ cajas (\emph{casillas} o \emph{palomares}) y $n>k$, entonces alguna caja contiene \emph{al menos $2$} objetos.
+
+\medskip
+\textbf{Principio del palomar (versi\'on generalizada).} Si se distribuyen $n$ objetos en $k$ cajas, entonces alguna caja contiene al menos
+\[
+\left\lceil \frac{n}{k} \right\rceil
+\]
+objetos, donde $\lceil x\rceil$ denota el menor entero mayor o igual que $x$.
+
+\medskip
+\textbf{Demostraci\'on (por contradicci\'on).} Sean $c_1,c_2,\dots,c_k$ las cantidades de objetos que quedan en cada una de las $k$ cajas, de modo que
+\[
+c_1+c_2+\cdots+c_k \;=\; n .
+\]
+Supongamos, para llegar a una contradicci\'on, que \emph{ninguna} caja contiene al menos $\left\lceil n/k \right\rceil$ objetos. Entonces, para todo $i$,
+\[
+c_i \;\le\; \left\lceil \frac{n}{k} \right\rceil - 1 ,
+\]
+puesto que las $c_i$ son enteros y ``no ser $\ge m$'' equivale a ``ser $\le m-1$'' cuando $m$ es entero. Sumando estas $k$ desigualdades:
+\[
+n \;=\; \sum_{i=1}^{k} c_i \;\le\; k\left(\left\lceil \frac{n}{k}\right\rceil-1\right).
+\]
+Ahora bien, por definici\'on del techo se cumple $\left\lceil n/k\right\rceil < \dfrac{n}{k}+1$, es decir $\left\lceil n/k\right\rceil-1 < \dfrac{n}{k}$. Por lo tanto
+\[
+n \;\le\; k\left(\left\lceil \frac{n}{k}\right\rceil-1\right) \;<\; k\cdot\frac{n}{k} \;=\; n,
+\]
+o sea $n<n$, lo cual es absurdo. La contradicci\'on proviene de haber supuesto que todas las cajas ten\'ian a lo sumo $\left\lceil n/k\right\rceil-1$ objetos; en consecuencia, al menos una caja contiene al menos $\left\lceil n/k\right\rceil$ objetos. $\blacksquare$
+
+\medskip
+La versi\'on simple es el caso particular $n>k$: entonces $n/k>1$, de donde $\left\lceil n/k\right\rceil\ge 2$ y alguna caja tiene al menos $2$ objetos.
+\end{teo}
+
+\begin{tip}
+\textbf{C\'omo identificar las ``palomas'' y las ``casillas'' en un enunciado.}
+\begin{itemize}[leftmargin=*]
+  \item Las \textbf{palomas} son los objetos que se \emph{reparten} o que se \emph{cuentan uno por uno}: personas, estudiantes, n\'umeros escogidos, libros prestados. Casi siempre son el dato ``grande'' del enunciado y son los que \emph{deben} recibir una etiqueta.
+  \item Las \textbf{casillas} son las \emph{etiquetas} o \emph{categor\'ias} posibles que puede recibir cada paloma: meses del a\~no, d\'ias h\'abiles, residuos m\'odulo $10$, \'areas de la biblioteca, asignaturas. Suelen ser el dato ``peque\~no'' y forman una lista \emph{completa} (toda paloma cae en alguna) y \emph{excluyente} (ninguna paloma cae en dos a la vez).
+  \item Una prueba r\'apida: escriba la frase ``cada \underline{\hspace{2.2cm}} tiene exactamente un(a) \underline{\hspace{2.2cm}}''. Lo que va en el primer espacio es la paloma; lo que va en el segundo, la casilla. Por ejemplo: ``cada \emph{persona} tiene exactamente un \emph{mes de cumplea\~nos}''.
+  \item Si la conclusi\'on pedida dice ``al menos $m$ en una misma categor\'ia'', hay que verificar $\left\lceil n/k\right\rceil \ge m$ con $n=$ palomas y $k=$ casillas.
+\end{itemize}
+\end{tip}
+
+\section*{Ejercicio 27}
+
+\textbf{Enunciado.} \emph{Un grupo en una escuela formada por 17 ni\~nas y 13 ni\~nos. ¿De cu\'antas maneras se puede escoger un estudiante que represente al grupo en el acto c\'ivico? R: 30}
+
+\begin{sol}
+
+\begin{paso}{Paso 1: identificar los conjuntos de opciones}
+\textbf{Qu\'e hago:} nombro $N$ al conjunto de las ni\~nas del grupo y $V$ al conjunto de los ni\~nos, de modo que $|N|=17$ y $|V|=13$. La tarea consiste en escoger \emph{un} estudiante representante, y ese estudiante o bien es una ni\~na, o bien es un ni\~no.
+\textbf{¿De d\'onde sale?} Directamente del enunciado: el grupo est\'a ``formado por 17 ni\~nas y 13 ni\~nos'', as\'i que esos dos subgrupos agotan todo el grupo.
+\textbf{¿Por qu\'e?} Porque para poder contar necesito describir el conjunto total de elecciones posibles como una uni\'on de casos, y aqu\'i los casos naturales son el sexo del representante.
+\textbf{¿Qu\'e tomamos?} Tomamos $N$ con $|N|=17$ y $V$ con $|V|=13$, y el conjunto de elecciones posibles es $N\cup V$.
+\end{paso}
+
+\begin{paso}{Paso 2: verificar que los casos son disjuntos}
+\textbf{Qu\'e hago:} compruebo que $N\cap V=\varnothing$, es decir, que ning\'un estudiante es simult\'aneamente ni\~na y ni\~no.
+\textbf{¿De d\'onde sale?} De la propia clasificaci\'on del enunciado, que separa a los 30 integrantes en dos categor\'ias mutuamente excluyentes.
+\textbf{¿Por qu\'e?} Porque el principio de la suma \emph{solo} vale si los conjuntos no se traslapan: si hubiera elementos comunes, al sumar $|N|+|V|$ los estar\'iamos contando dos veces y habr\'ia que restar $|N\cap V|$.
+\textbf{¿Qu\'e tomamos?} Tomamos como v\'alida la hip\'otesis de disyunci\'on $N\cap V=\varnothing$, que es justo la condici\'on que habilita el principio de la suma.
+\end{paso}
+
+\begin{paso}{Paso 3: aplicar el principio de la suma y hacer la aritm\'etica}
+\textbf{Qu\'e hago:} aplico $|N\cup V|=|N|+|V|$ y sustituyo los valores num\'ericos.
+\textbf{¿De d\'onde sale?} Del principio de la suma enunciado en la caja de Teor\'ia, en su versi\'on para dos conjuntos disjuntos.
+\textbf{¿Por qu\'e?} Porque cada manera de escoger al representante es exactamente un elemento de $N\cup V$, y distintas elecciones corresponden a distintos elementos; contar maneras es entonces lo mismo que contar el cardinal de $N\cup V$.
+\textbf{¿Qu\'e tomamos?} Tomamos el c\'alculo
+\[
+|N\cup V| \;=\; |N|+|V| \;=\; 17+13 \;=\; 30 .
+\]
+Desglosando la suma: $17+13 = 17+10+3 = 27+3 = 30$.
+\end{paso}
+
+\begin{paso}{Paso 4: conclusi\'on formal}
+\textbf{Qu\'e hago:} traduzco el n\'umero obtenido de vuelta al lenguaje del problema.
+\textbf{¿De d\'onde sale?} Del Paso 3, donde obtuve $|N\cup V|=30$.
+\textbf{¿Por qu\'e?} Porque el enunciado pregunta por el n\'umero de maneras de escoger \emph{un} estudiante, y cada estudiante del grupo determina una y solo una manera de hacerlo.
+\textbf{¿Qu\'e tomamos?} Tomamos como respuesta que hay $30$ maneras distintas de escoger al representante, que coincide con el total de integrantes del grupo.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Hay $\;17+13=\mathbf{30}\;$ maneras de escoger al estudiante representante.
+\end{resp}
+
+\section*{Ejercicio 28}
+
+\textbf{Enunciado.} \emph{En un grupo de 25 personas, demuestre que al menos 3 personas cumplen a\~nos en el mismo mes. R: 3}
+
+\begin{sol}
+
+\begin{paso}{Paso 1: identificar las palomas}
+\textbf{Qu\'e hago:} declaro que las palomas son las $25$ personas del grupo, de modo que $n=25$.
+\textbf{¿De d\'onde sale?} Del enunciado: ``en un grupo de 25 personas''. Son los objetos que se van a repartir entre categor\'ias.
+\textbf{¿Por qu\'e?} Porque son los elementos que reciben una etiqueta: a cada persona le corresponde su mes de cumplea\~nos, y la afirmaci\'on que hay que probar habla de cu\'antas personas comparten una misma etiqueta.
+\textbf{¿Qu\'e tomamos?} Tomamos $n=25$ palomas, una por cada persona del grupo.
+\end{paso}
+
+\begin{paso}{Paso 2: identificar las casillas}
+\textbf{Qu\'e hago:} declaro que las casillas son los meses del a\~no: enero, febrero, \dots, diciembre, de modo que $k=12$.
+\textbf{¿De d\'onde sale?} Es un hecho del calendario, no del texto: el a\~no tiene exactamente $12$ meses.
+\textbf{¿Por qu\'e?} Porque la lista de meses es \emph{completa} (toda persona cumple a\~nos en alg\'un mes) y \emph{excluyente} (nadie cumple a\~nos en dos meses distintos); esas dos propiedades son exactamente lo que se necesita para que la asignaci\'on ``persona $\mapsto$ mes'' sea una funci\'on bien definida del conjunto de palomas al conjunto de casillas.
+\textbf{¿Qu\'e tomamos?} Tomamos $k=12$ casillas y la funci\'on $f$ que a cada persona le asigna su mes de cumplea\~nos.
+\end{paso}
+
+\begin{paso}{Paso 3: aplicar la cota del palomar generalizado}
+\textbf{Qu\'e hago:} aplico el principio del palomar generalizado, que garantiza la existencia de un mes con al menos $\left\lceil n/k\right\rceil = \left\lceil 25/12\right\rceil$ personas.
+\textbf{¿De d\'onde sale?} Del teorema demostrado al inicio, con $n=25$ y $k=12$.
+\textbf{¿Por qu\'e?} Justifico de nuevo la cota en este caso concreto, por contradicci\'on: si cada uno de los $12$ meses tuviera a lo sumo $2$ personas, el total de personas ser\'ia a lo sumo $12\cdot 2 = 24$, y $24 < 25$, lo cual contradice que el grupo tiene $25$ personas. Luego alg\'un mes tiene al menos $3$.
+\textbf{¿Qu\'e tomamos?} Tomamos la cota $\left\lceil 25/12\right\rceil$ como el m\'inimo garantizado de personas en un mismo mes.
+\end{paso}
+
+\begin{paso}{Paso 4: hacer la aritm\'etica del techo}
+\textbf{Qu\'e hago:} calculo expl\'icitamente $\left\lceil 25/12\right\rceil$ usando la divisi\'on entera.
+\textbf{¿De d\'onde sale?} De la definici\'on de techo: $\lceil x\rceil$ es el menor entero $\ge x$.
+\textbf{¿Por qu\'e?} Porque escribir $25$ como $\text{cociente}\times 12 + \text{residuo}$ deja ver de inmediato entre qu\'e enteros consecutivos cae la fracci\'on.
+\textbf{¿Qu\'e tomamos?} Tomamos la divisi\'on
+\[
+25 \;=\; 2\cdot 12 + 1 ,
+\qquad\text{de donde}\qquad
+\frac{25}{12} \;=\; 2 + \frac{1}{12},
+\]
+y como $2 < 2+\tfrac{1}{12} \le 3$, el menor entero mayor o igual que $\tfrac{25}{12}$ es $3$:
+\[
+\left\lceil \frac{25}{12} \right\rceil \;=\; 3 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 5: conclusi\'on formal (demostraci\'on cerrada)}
+\textbf{Qu\'e hago:} redacto la demostraci\'on completa con los elementos ya establecidos.
+\textbf{¿De d\'onde sale?} De los Pasos 1 a 4.
+\textbf{¿Por qu\'e?} Porque el enunciado pide \emph{demostrar}, no solo dar un n\'umero: hay que exhibir el argumento que fuerza la conclusi\'on.
+\textbf{¿Qu\'e tomamos?} Tomamos la siguiente redacci\'on:
+
+\medskip
+\emph{Demostraci\'on.} Sea $P$ el conjunto de las $25$ personas y $M=\{\text{enero},\dots,\text{diciembre}\}$ el conjunto de los $12$ meses. Defina $f:P\to M$ que asigna a cada persona el mes de su cumplea\~nos; $f$ est\'a bien definida porque toda persona cumple a\~nos en exactamente un mes. Para cada mes $m\in M$ sea $c_m=|f^{-1}(m)|$; entonces $\sum_{m\in M}c_m = |P| = 25$. Si se tuviera $c_m\le 2$ para todo $m$, se seguir\'ia $25=\sum_{m\in M}c_m \le 12\cdot 2 = 24$, es decir $25\le 24$, absurdo. Por lo tanto existe un mes $m_0$ con $c_{m_0}\ge 3$, o sea, al menos $3$ personas del grupo cumplen a\~nos en el mismo mes. $\blacksquare$
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Como $\left\lceil \frac{25}{12}\right\rceil = 3$, queda demostrado que \textbf{al menos $3$ personas} del grupo cumplen a\~nos en el mismo mes.
+\end{resp}
+
+\section*{Ejercicio 29}
+
+\textbf{Enunciado.} \emph{En un sal\'on hay 28 estudiantes y solo 5 d\'ias h\'abiles de la semana. Demuestre que al menos uno de esos d\'ias asisten 6 o m\'as estudiantes. R: 6}
+
+\begin{sol}
+
+\begin{paso}{Paso 1: identificar las palomas}
+\textbf{Qu\'e hago:} tomo como palomas a los $28$ estudiantes del sal\'on, de modo que $n=28$.
+\textbf{¿De d\'onde sale?} Del enunciado: ``en un sal\'on hay 28 estudiantes''.
+\textbf{¿Por qu\'e?} Porque son los objetos que se reparten: cada estudiante asiste en alguno de los d\'ias, y la conclusi\'on cuenta estudiantes por d\'ia.
+\textbf{¿Qu\'e tomamos?} Tomamos $n=28$ palomas.
+\end{paso}
+
+\begin{paso}{Paso 2: identificar las casillas}
+\textbf{Qu\'e hago:} tomo como casillas los $5$ d\'ias h\'abiles de la semana, de modo que $k=5$.
+\textbf{¿De d\'onde sale?} Del enunciado: ``solo 5 d\'ias h\'abiles de la semana''.
+\textbf{¿Por qu\'e?} Porque bajo el supuesto natural del problema cada estudiante asiste exactamente un d\'ia (la lista de d\'ias es completa y excluyente para \'el), lo que define una funci\'on del conjunto de estudiantes al conjunto de d\'ias.
+\textbf{¿Qu\'e tomamos?} Tomamos $k=5$ casillas y la asignaci\'on ``estudiante $\mapsto$ d\'ia en que asiste''.
+\end{paso}
+
+\begin{paso}{Paso 3: aplicar la cota del palomar generalizado}
+\textbf{Qu\'e hago:} afirmo que alg\'un d\'ia recibe al menos $\left\lceil 28/5\right\rceil$ estudiantes.
+\textbf{¿De d\'onde sale?} Del teorema del palomar generalizado con $n=28$ y $k=5$.
+\textbf{¿Por qu\'e?} Argumento por contradicci\'on adaptado a estos n\'umeros: si cada uno de los $5$ d\'ias recibiera a lo sumo $5$ estudiantes, el total ser\'ia a lo sumo $5\cdot 5 = 25$, y $25<28$, lo que contradice que hay $28$ estudiantes. Por lo tanto alg\'un d\'ia recibe al menos $6$.
+\textbf{¿Qu\'e tomamos?} Tomamos la cota $\left\lceil 28/5\right\rceil$ como m\'inimo garantizado.
+\end{paso}
+
+\begin{paso}{Paso 4: hacer la aritm\'etica del techo}
+\textbf{Qu\'e hago:} calculo el techo mediante la divisi\'on entera de $28$ entre $5$.
+\textbf{¿De d\'onde sale?} De la definici\'on $\lceil x\rceil = $ menor entero $\ge x$.
+\textbf{¿Por qu\'e?} Porque al escribir $28=5\cdot 5+3$ se ve que $28/5$ est\'a estrictamente entre $5$ y $6$.
+\textbf{¿Qu\'e tomamos?} Tomamos
+\[
+28 \;=\; 5\cdot 5 + 3
+\qquad\Longrightarrow\qquad
+\frac{28}{5} \;=\; 5 + \frac{3}{5} \;=\; 5{,}6 ,
+\]
+y como $5 < 5{,}6 \le 6$, se concluye
+\[
+\left\lceil \frac{28}{5} \right\rceil \;=\; 6 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 5: conclusi\'on formal (demostraci\'on cerrada)}
+\textbf{Qu\'e hago:} redacto la demostraci\'on completa.
+\textbf{¿De d\'onde sale?} De los Pasos 1 a 4.
+\textbf{¿Por qu\'e?} Porque se pide demostrar la existencia de un d\'ia con $6$ o m\'as estudiantes, y la existencia se obtiene del argumento por contradicci\'on, no de un ejemplo.
+\textbf{¿Qu\'e tomamos?} Tomamos la siguiente redacci\'on:
+
+\medskip
+\emph{Demostraci\'on.} Sea $E$ el conjunto de los $28$ estudiantes y $D=\{d_1,d_2,d_3,d_4,d_5\}$ el conjunto de los $5$ d\'ias h\'abiles. Sea $f:E\to D$ la funci\'on que asigna a cada estudiante el d\'ia en que asiste, y sea $c_j=|f^{-1}(d_j)|$ la cantidad de estudiantes que asisten el d\'ia $d_j$. Entonces $c_1+c_2+c_3+c_4+c_5 = 28$. Supongamos que ning\'un d\'ia tiene $6$ o m\'as estudiantes; como los $c_j$ son enteros, esto significa $c_j\le 5$ para todo $j$, y sumando: $28 = \sum_{j=1}^{5}c_j \le 5\cdot 5 = 25$, es decir $28\le 25$, contradicci\'on. Por lo tanto existe $j_0$ con $c_{j_0}\ge 6$: al menos uno de los d\'ias h\'abiles recibe $6$ o m\'as estudiantes. $\blacksquare$
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Como $\left\lceil \frac{28}{5}\right\rceil = 6$, queda demostrado que \textbf{al menos un d\'ia h\'abil recibe $6$ o m\'as estudiantes}.
+\end{resp}
+
+\section*{Ejercicio 30}
+
+\textbf{Enunciado.} \emph{Se seleccionan 11 n\'umeros enteros del conjunto $\{1,2,3,\dots,20\}$. Demuestre que al menos dos de los n\'umeros seleccionados tienen el mismo residuo m\'odulo 10. R: 2}
+
+\begin{sol}
+
+\begin{paso}{Paso 1: identificar las palomas}
+\textbf{Qu\'e hago:} tomo como palomas los $11$ n\'umeros seleccionados, de modo que $n=11$.
+\textbf{¿De d\'onde sale?} Del enunciado: ``se seleccionan 11 n\'umeros enteros''. Obs\'ervese que la selecci\'on es de $11$ n\'umeros \emph{distintos} del conjunto $\{1,\dots,20\}$, lo cual es posible porque $11\le 20$.
+\textbf{¿Por qu\'e?} Porque a cada n\'umero seleccionado se le va a asignar una etiqueta (su residuo), y la conclusi\'on habla de dos n\'umeros que comparten etiqueta.
+\textbf{¿Qu\'e tomamos?} Tomamos $n=11$ palomas: los elementos del conjunto seleccionado $S\subseteq\{1,\dots,20\}$ con $|S|=11$.
+\end{paso}
+
+\begin{paso}{Paso 2: identificar las casillas}
+\textbf{Qu\'e hago:} tomo como casillas los posibles residuos al dividir entre $10$, es decir el conjunto $\{0,1,2,3,4,5,6,7,8,9\}$, de modo que $k=10$.
+\textbf{¿De d\'onde sale?} Del algoritmo de la divisi\'on: para todo entero $a$ existen enteros \'unicos $q$ y $r$ con $a = 10q+r$ y $0\le r<10$. Los valores posibles de $r$ son exactamente $0,1,\dots,9$, que son $10$ valores.
+\textbf{¿Por qu\'e?} Porque la unicidad de $r$ garantiza que cada n\'umero cae en \emph{exactamente} una casilla, y el rango $0\le r\le 9$ garantiza que la lista de casillas es completa; ambas cosas son necesarias para aplicar el palomar.
+\textbf{¿Qu\'e tomamos?} Tomamos $k=10$ casillas y la funci\'on $f(a)=a \bmod 10$ definida sobre $S$.
+\end{paso}
+
+\begin{paso}{Paso 3: aplicar la cota del palomar}
+\textbf{Qu\'e hago:} comparo $n=11$ con $k=10$ y aplico la versi\'on simple del principio del palomar.
+\textbf{¿De d\'onde sale?} Del teorema: si $n>k$, alguna casilla contiene al menos $2$ palomas.
+\textbf{¿Por qu\'e?} Argumento por contradicci\'on en este caso concreto: si cada uno de los $10$ residuos posibles fuera alcanzado por a lo sumo $1$ de los n\'umeros seleccionados, entonces la cantidad total de n\'umeros seleccionados ser\'ia a lo sumo $10\cdot 1 = 10$, y $10 < 11$, lo cual contradice que se seleccionaron $11$ n\'umeros.
+\textbf{¿Qu\'e tomamos?} Tomamos la conclusi\'on de que alg\'un residuo es compartido por al menos dos de los n\'umeros seleccionados.
+\end{paso}
+
+\begin{paso}{Paso 4: hacer la aritm\'etica del techo}
+\textbf{Qu\'e hago:} verifico la cota con la versi\'on generalizada, calculando $\left\lceil 11/10\right\rceil$.
+\textbf{¿De d\'onde sale?} De la divisi\'on entera de $11$ entre $10$.
+\textbf{¿Por qu\'e?} Porque conviene comprobar que la cota generalizada coincide con la respuesta oficial $2$ y no da algo mayor.
+\textbf{¿Qu\'e tomamos?} Tomamos
+\[
+11 \;=\; 1\cdot 10 + 1
+\qquad\Longrightarrow\qquad
+\frac{11}{10} \;=\; 1+\frac{1}{10} \;=\; 1{,}1 ,
+\]
+y como $1 < 1{,}1 \le 2$, resulta
+\[
+\left\lceil \frac{11}{10} \right\rceil \;=\; 2 .
+\]
+La cota garantizada es entonces exactamente $2$, en concordancia con lo pedido.
+\end{paso}
+
+\begin{paso}{Paso 5: conclusi\'on formal (demostraci\'on cerrada)}
+\textbf{Qu\'e hago:} redacto la demostraci\'on completa.
+\textbf{¿De d\'onde sale?} De los Pasos 1 a 4.
+\textbf{¿Por qu\'e?} Porque el enunciado pide demostrar la existencia de dos n\'umeros con el mismo residuo.
+\textbf{¿Qu\'e tomamos?} Tomamos la siguiente redacci\'on:
+
+\medskip
+\emph{Demostraci\'on.} Sea $S\subseteq\{1,2,\dots,20\}$ con $|S|=11$ el conjunto de n\'umeros seleccionados, y sea $R=\{0,1,\dots,9\}$ el conjunto de los residuos m\'odulo $10$, con $|R|=10$. Defina $f:S\to R$ por $f(a)=a\bmod 10$; por el algoritmo de la divisi\'on, $f$ est\'a bien definida y es \'unica para cada $a$. Si $f$ fuese inyectiva, se tendr\'ia $|S|\le |R|$, es decir $11\le 10$, lo cual es falso. (Equivalentemente: si cada residuo $r\in R$ fuera imagen de a lo sumo un elemento de $S$, entonces $11=|S|=\sum_{r\in R}|f^{-1}(r)| \le 10\cdot 1 = 10$, absurdo.) Por lo tanto $f$ no es inyectiva: existen $a,b\in S$ con $a\ne b$ y $f(a)=f(b)$, es decir, dos de los n\'umeros seleccionados tienen el mismo residuo m\'odulo $10$. $\blacksquare$
+\end{paso}
+
+\begin{nota}
+La cota es \'optima: con $10$ n\'umeros s\'i es posible que todos tengan residuos distintos, por ejemplo $S=\{1,2,\dots,10\}$, cuyos residuos m\'odulo $10$ son $1,2,\dots,9,0$, todos diferentes. Es al agregar el und\'ecimo n\'umero cuando la repetici\'on se vuelve inevitable.
+\end{nota}
+
+\end{sol}
+
+\begin{resp}
+Como se seleccionan $11$ n\'umeros y solo hay $10$ residuos posibles m\'odulo $10$, con $\left\lceil \frac{11}{10}\right\rceil = 2$, queda demostrado que \textbf{al menos dos} de los n\'umeros seleccionados tienen el mismo residuo m\'odulo $10$.
+\end{resp}
+
+\section*{Ejercicio 31}
+
+\textbf{Enunciado.} \emph{En una biblioteca hay 40 libros de matem\'aticas, 35 de f\'isica y 25 de qu\'imica. Se prestan 61 libros en total. Demuestre que al menos 21 de los libros prestados pertenecen a una misma \'area. R: Al menos 21 libros de una misma \'area}
+
+\begin{sol}
+
+\begin{paso}{Paso 1: identificar las palomas}
+\textbf{Qu\'e hago:} tomo como palomas los $61$ libros prestados, de modo que $n=61$.
+\textbf{¿De d\'onde sale?} Del enunciado: ``se prestan 61 libros en total''. Ojo: las palomas \emph{no} son los $40+35+25=100$ libros de la biblioteca, sino \'unicamente los que efectivamente se prestaron.
+\textbf{¿Por qu\'e?} Porque la afirmaci\'on que se quiere probar habla de ``los libros prestados'': son esos los objetos que hay que clasificar por \'area.
+\textbf{¿Qu\'e tomamos?} Tomamos $n=61$ palomas.
+\end{paso}
+
+\begin{paso}{Paso 2: identificar las casillas}
+\textbf{Qu\'e hago:} tomo como casillas las tres \'areas: matem\'aticas, f\'isica y qu\'imica, de modo que $k=3$.
+\textbf{¿De d\'onde sale?} Del enunciado, que clasifica todo el acervo en exactamente esas tres \'areas.
+\textbf{¿Por qu\'e?} Porque cada libro prestado pertenece a una y solo una de las tres \'areas: la lista es completa (no hay libros de otra \'area) y excluyente (ning\'un libro es de dos \'areas). Los n\'umeros $40$, $35$ y $25$ funcionan aqu\'i como \emph{capacidades m\'aximas} de cada casilla, no como el n\'umero de palomas.
+\textbf{¿Qu\'e tomamos?} Tomamos $k=3$ casillas, con capacidades $40$, $35$ y $25$ respectivamente.
+\end{paso}
+
+\begin{paso}{Paso 3: aplicar la cota del palomar generalizado}
+\textbf{Qu\'e hago:} afirmo que alguna \'area aporta al menos $\left\lceil 61/3\right\rceil$ de los libros prestados.
+\textbf{¿De d\'onde sale?} Del teorema del palomar generalizado con $n=61$ y $k=3$.
+\textbf{¿Por qu\'e?} Argumento por contradicci\'on con estos n\'umeros: si de cada una de las tres \'areas se hubieran prestado a lo sumo $20$ libros, el total de libros prestados ser\'ia a lo sumo $3\cdot 20 = 60$, y $60<61$, lo que contradice que se prestaron $61$ libros. Luego de alguna \'area se prestaron al menos $21$.
+\textbf{¿Qu\'e tomamos?} Tomamos la cota $\left\lceil 61/3\right\rceil$ como m\'inimo garantizado por \'area.
+\end{paso}
+
+\begin{paso}{Paso 4: hacer la aritm\'etica del techo}
+\textbf{Qu\'e hago:} calculo el techo mediante la divisi\'on entera de $61$ entre $3$.
+\textbf{¿De d\'onde sale?} De la definici\'on de techo.
+\textbf{¿Por qu\'e?} Porque $61$ no es m\'ultiplo de $3$ y hay que ubicar la fracci\'on entre dos enteros consecutivos.
+\textbf{¿Qu\'e tomamos?} Tomamos
+\[
+61 \;=\; 20\cdot 3 + 1
+\qquad\Longrightarrow\qquad
+\frac{61}{3} \;=\; 20 + \frac{1}{3} ,
+\]
+y como $20 < 20+\tfrac{1}{3} \le 21$, resulta
+\[
+\left\lceil \frac{61}{3} \right\rceil \;=\; 21 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 5: verificar la compatibilidad con las capacidades}
+\textbf{Qu\'e hago:} compruebo que la conclusi\'on no choca con la cantidad de libros disponibles por \'area.
+\textbf{¿De d\'onde sale?} De los datos $40$, $35$ y $25$ libros por \'area.
+\textbf{¿Por qu\'e?} Porque una cota del palomar afirma que \emph{alguna} casilla tiene al menos $21$; conviene constatar que ese valor es realizable, es decir, que ninguna \'area tiene menos de $21$ libros en total (si alguna tuviera, digamos, $12$ libros, la conclusi\'on seguir\'ia siendo v\'alida, pero el \'area con la sobrecarga tendr\'ia que ser otra).
+\textbf{¿Qu\'e tomamos?} Tomamos la verificaci\'on $40\ge 21$, $35\ge 21$ y $25\ge 21$: las tres \'areas admiten $21$ o m\'as pr\'estamos, de modo que la cota es coherente. Adem\'as $40+35+25=100\ge 61$, as\'i que prestar $61$ libros es efectivamente posible.
+\end{paso}
+
+\begin{paso}{Paso 6: conclusi\'on formal (demostraci\'on cerrada)}
+\textbf{Qu\'e hago:} redacto la demostraci\'on completa.
+\textbf{¿De d\'onde sale?} De los Pasos 1 a 5.
+\textbf{¿Por qu\'e?} Porque el enunciado pide demostrar la existencia de un \'area con al menos $21$ libros prestados.
+\textbf{¿Qu\'e tomamos?} Tomamos la siguiente redacci\'on:
+
+\medskip
+\emph{Demostraci\'on.} Sean $m$, $f$ y $q$ las cantidades de libros prestados de matem\'aticas, f\'isica y qu\'imica, respectivamente. Como cada libro prestado pertenece a exactamente una de las tres \'areas, se tiene
+\[
+m+f+q \;=\; 61 .
+\]
+Supongamos, por contradicci\'on, que ninguna \'area aporta $21$ libros o m\'as. Al ser $m,f,q$ enteros, esto equivale a $m\le 20$, $f\le 20$ y $q\le 20$. Sumando las tres desigualdades:
+\[
+61 \;=\; m+f+q \;\le\; 20+20+20 \;=\; 60 ,
+\]
+es decir $61\le 60$, lo cual es absurdo. Por lo tanto al menos una de las tres cantidades satisface $m\ge 21$, $f\ge 21$ o $q\ge 21$; esto es, al menos $21$ de los libros prestados pertenecen a una misma \'area. $\blacksquare$
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Como $\left\lceil \frac{61}{3}\right\rceil = 21$, queda demostrado que \textbf{al menos $21$ libros prestados pertenecen a una misma \'area}.
+\end{resp}
+
+\section*{Ejercicio 32}
+
+\textbf{Enunciado.} \emph{En un grupo de 50 estudiantes, 18 cursan \'Algebra, 20 cursan C\'alculo y 15 cursan Estad\'istica. Demuestre que al menos dos estudiantes cursan la misma asignatura. R: Al menos dos estudiantes cursan la misma asignatura}
+
+\begin{nota}
+\textbf{Sobre la consistencia del enunciado.} Los datos presentan dos particularidades que conviene se\~nalar antes de resolver, sin modificar la respuesta oficial:
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Las cantidades no suman el total del grupo:} $18+20+15 = 53 \ne 50$. Como $53>50$, las tres asignaturas \emph{no} pueden formar una partici\'on del grupo de $50$ estudiantes: necesariamente hay traslape, es decir, al menos un estudiante est\'a matriculado en m\'as de una asignatura. De hecho, el propio principio del palomar aplicado a las $53$ matr\'iculas repartidas entre $50$ estudiantes garantiza que alg\'un estudiante lleva al menos $\left\lceil 53/50\right\rceil = 2$ asignaturas.
+  \item \textbf{La conclusi\'on pedida es much\'isimo m\'as d\'ebil que lo que los datos permiten:} con $50$ estudiantes repartidos en $3$ asignaturas, el palomar generalizado da $\left\lceil 50/3\right\rceil = 17$, y con los datos expl\'icitos se ve directamente que $20$ estudiantes comparten C\'alculo. Pedir ``al menos dos'' es correcto, pero es una cota muy holgada; incluso el solo dato ``$18$ cursan \'Algebra'' ya la implica, pues $18\ge 2$.
+\end{enumerate}
+
+\textbf{Supuesto declarado para resolver:} se resuelve bajo el supuesto de que \emph{todo estudiante del grupo cursa al menos una de las tres asignaturas}, de modo que las asignaturas act\'uan como casillas que cubren a los $50$ estudiantes. Bajo ese supuesto se prueba la afirmaci\'on pedida y, adem\'as, se indica la cota m\'as fuerte que se obtiene. La respuesta oficial se conserva tal cual.
+\end{nota}
+
+\begin{sol}
+
+\begin{paso}{Paso 1: identificar las palomas}
+\textbf{Qu\'e hago:} tomo como palomas los $50$ estudiantes del grupo, de modo que $n=50$.
+\textbf{¿De d\'onde sale?} Del enunciado: ``en un grupo de 50 estudiantes''.
+\textbf{¿Por qu\'e?} Porque la conclusi\'on que se pide (``al menos dos estudiantes cursan la misma asignatura'') cuenta \emph{estudiantes} dentro de una misma categor\'ia; luego los estudiantes son los objetos repartidos.
+\textbf{¿Qu\'e tomamos?} Tomamos $n=50$ palomas, bajo el supuesto declarado de que cada una cursa al menos una asignatura.
+\end{paso}
+
+\begin{paso}{Paso 2: identificar las casillas}
+\textbf{Qu\'e hago:} tomo como casillas las tres asignaturas: \'Algebra, C\'alculo y Estad\'istica, de modo que $k=3$.
+\textbf{¿De d\'onde sale?} Del enunciado, que menciona exactamente esas tres asignaturas.
+\textbf{¿Por qu\'e?} Porque son las categor\'ias disponibles para clasificar a los estudiantes. Como el total $18+20+15=53$ excede a $50$, la asignaci\'on ``estudiante $\mapsto$ asignatura'' no es \'unica para todos; para tener una funci\'on bien definida basta fijar, para cada estudiante, \emph{una} de las asignaturas que cursa (por ejemplo, la primera en el orden \'Algebra, C\'alculo, Estad\'istica). Esta elecci\'on no debilita la conclusi\'on: si dos estudiantes coinciden bajo esa asignaci\'on, coinciden en una asignatura real.
+\textbf{¿Qu\'e tomamos?} Tomamos $k=3$ casillas y la funci\'on $f$ descrita, que a cada estudiante le asigna una asignatura que efectivamente cursa.
+\end{paso}
+
+\begin{paso}{Paso 3: aplicar la cota del palomar}
+\textbf{Qu\'e hago:} comparo $n=50$ con $k=3$; como $50>3$, la versi\'on simple del palomar ya garantiza que alguna asignatura tiene al menos $2$ estudiantes, que es exactamente lo pedido.
+\textbf{¿De d\'onde sale?} Del teorema del palomar, versi\'on simple ($n>k \Rightarrow$ alguna casilla con $\ge 2$).
+\textbf{¿Por qu\'e?} Argumento por contradicci\'on con estos n\'umeros: si cada una de las $3$ asignaturas tuviera a lo sumo $1$ estudiante asignado, el total de estudiantes ser\'ia a lo sumo $3\cdot 1 = 3$, y $3<50$, lo que contradice que el grupo tiene $50$ estudiantes.
+\textbf{¿Qu\'e tomamos?} Tomamos la conclusi\'on: existe una asignatura cursada por al menos dos estudiantes.
+\end{paso}
+
+\begin{paso}{Paso 4: hacer la aritm\'etica del techo (cota fuerte)}
+\textbf{Qu\'e hago:} calculo $\left\lceil 50/3\right\rceil$ para exhibir la cota m\'as fuerte que el palomar generalizado permite.
+\textbf{¿De d\'onde sale?} De la divisi\'on entera de $50$ entre $3$.
+\textbf{¿Por qu\'e?} Porque conviene documentar que la afirmaci\'on pedida (``al menos $2$'') es correcta pero muy holgada, y cu\'anto m\'as se puede afirmar.
+\textbf{¿Qu\'e tomamos?} Tomamos
+\[
+50 \;=\; 16\cdot 3 + 2
+\qquad\Longrightarrow\qquad
+\frac{50}{3} \;=\; 16 + \frac{2}{3},
+\]
+y como $16 < 16+\tfrac{2}{3} \le 17$, resulta
+\[
+\left\lceil \frac{50}{3} \right\rceil \;=\; 17 \;\ge\; 2 .
+\]
+Es decir, alguna asignatura re\'une al menos $17$ estudiantes; en particular re\'une al menos $2$, que es lo que se ped\'ia. Con los datos expl\'icitos la observaci\'on es a\'un m\'as directa: C\'alculo tiene $20\ge 2$ estudiantes.
+\end{paso}
+
+\begin{paso}{Paso 5: conclusi\'on formal (demostraci\'on cerrada)}
+\textbf{Qu\'e hago:} redacto la demostraci\'on completa bajo el supuesto declarado.
+\textbf{¿De d\'onde sale?} De los Pasos 1 a 4.
+\textbf{¿Por qu\'e?} Porque el enunciado pide demostrar, y la demostraci\'on debe explicitar tanto el supuesto usado como el argumento por contradicci\'on.
+\textbf{¿Qu\'e tomamos?} Tomamos la siguiente redacci\'on:
+
+\medskip
+\emph{Demostraci\'on.} Sea $E$ el conjunto de los $50$ estudiantes y $A=\{\text{\'Algebra},\text{C\'alculo},\text{Estad\'istica}\}$, con $|A|=3$. Bajo el supuesto de que todo estudiante cursa al menos una de las tres asignaturas, defina $f:E\to A$ eligiendo para cada estudiante una asignatura que curse (por ejemplo, la primera en el orden dado). Para cada $a\in A$ sea $c_a=|f^{-1}(a)|$; entonces $\sum_{a\in A}c_a = |E| = 50$. Supongamos que ninguna asignatura es cursada por dos o m\'as estudiantes, es decir $c_a\le 1$ para todo $a\in A$. Sumando: $50 = \sum_{a\in A}c_a \le 3\cdot 1 = 3$, o sea $50\le 3$, absurdo. Por lo tanto existe $a_0\in A$ con $c_{a_0}\ge 2$: al menos dos estudiantes cursan la misma asignatura. M\'as a\'un, el palomar generalizado da $c_{a_0}\ge \left\lceil 50/3\right\rceil = 17$. $\blacksquare$
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Queda demostrado que \textbf{al menos dos estudiantes cursan la misma asignatura}. (Cota m\'as fuerte disponible: $\left\lceil \frac{50}{3}\right\rceil = 17$ estudiantes en una misma asignatura; y de los datos expl\'icitos, C\'alculo re\'une $20$.)
+\end{resp}
+
+\end{document}

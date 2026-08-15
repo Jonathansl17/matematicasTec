@@ -1,0 +1,1196 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+
+\title{Solucionario ultra-detallado\\[2mm] \large Cap\'itulo 1 --- Secci\'on 1.2 ``Principio de Conteo''\\ Ejercicios 15 al 26: m\'ultiplos y principio de inclusi\'on--exclusi\'on}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{teo}
+\textbf{Herramientas que se usan en todos los ejercicios de esta parte.}
+
+\medskip
+\textbf{(1) Cardinalidad y conjuntos finitos.} Si $X$ es un conjunto finito, $|X|$ denota su n\'umero de elementos. Si $U$ es el universo y $X\subseteq U$, el complemento es $X^{c}=U\setminus X$ y siempre vale la \emph{regla del complemento}:
+\[
+|X| + |X^{c}| = |U| \qquad\Longleftrightarrow\qquad |X^{c}| = |U| - |X| \qquad\Longleftrightarrow\qquad |X| = |U| - |X^{c}| .
+\]
+Esto es cierto porque cada elemento del universo est\'a en $X$ o est\'a fuera de $X$, nunca en ambos y nunca en ninguno.
+
+\medskip
+\textbf{(2) Principio de inclusi\'on--exclusi\'on para DOS conjuntos.}
+\[
+|A\cup B| \;=\; |A| + |B| \;-\; |A\cap B|.
+\]
+\emph{De d\'onde sale:} al sumar $|A|+|B|$, cada elemento que est\'a s\'olo en $A$ se cuenta una vez, cada elemento que est\'a s\'olo en $B$ se cuenta una vez, pero cada elemento que est\'a en $A$ \emph{y} en $B$ se cuenta dos veces (una dentro de $|A|$ y otra dentro de $|B|$). Para que cada elemento quede contado exactamente una vez hay que descontar una copia de cada elemento repetido, es decir restar $|A\cap B|$.
+
+\medskip
+\textbf{(3) Principio de inclusi\'on--exclusi\'on para TRES conjuntos.}
+\[
+|A\cup B\cup C| \;=\; |A|+|B|+|C| \;-\; |A\cap B| - |A\cap C| - |B\cap C| \;+\; |A\cap B\cap C|.
+\]
+\emph{De d\'onde sale:} contamos cu\'antas veces aparece un elemento seg\'un en cu\'antos conjuntos est\'a.
+\begin{itemize}[leftmargin=*]
+  \item Si est\'a en exactamente $1$ conjunto: se cuenta $1$ vez en las simples, $0$ en las dobles, $0$ en la triple. Total $1$. Correcto.
+  \item Si est\'a en exactamente $2$ conjuntos: se cuenta $2$ veces en las simples, aparece en $1$ intersecci\'on doble, en $0$ triples. Total $2-1=1$. Correcto.
+  \item Si est\'a en los $3$ conjuntos: se cuenta $3$ veces en las simples, aparece en $3$ intersecciones dobles ($A\cap B$, $A\cap C$, $B\cap C$) y en $1$ triple. Total $3-3+1=1$. Correcto.
+\end{itemize}
+Por eso se restan las dobles y se \emph{vuelve a sumar} la triple: al restar las tres dobles se elimin\'o de m\'as a los elementos que estaban en los tres.
+
+\medskip
+\textbf{(4) Principio de inclusi\'on--exclusi\'on para CUATRO conjuntos.}
+\begin{align*}
+|A\cup B\cup C\cup D| \;=\;& |A|+|B|+|C|+|D|\\
+&-\;\big(|A\cap B|+|A\cap C|+|A\cap D|+|B\cap C|+|B\cap D|+|C\cap D|\big)\\
+&+\;\big(|A\cap B\cap C|+|A\cap B\cap D|+|A\cap C\cap D|+|B\cap C\cap D|\big)\\
+&-\;|A\cap B\cap C\cap D|.
+\end{align*}
+\emph{De d\'onde sale:} mismo argumento. Un elemento que est\'a en exactamente $k$ de los cuatro conjuntos se cuenta
+\[
+\binom{k}{1}-\binom{k}{2}+\binom{k}{3}-\binom{k}{4}
+\]
+veces, y esa alternancia vale exactamente $1$ para todo $k\ge 1$. Por ejemplo, para $k=4$: $4-6+4-1=1$. Los signos alternan: $+$ para bloques impares (simples, triples) y $-$ para bloques pares (dobles, cu\'adruple).
+
+\medskip
+\textbf{(5) Conteo de m\'ultiplos.} La cantidad de m\'ultiplos de $k$ que hay entre $1$ y $n$ (ambos incluidos) es
+\[
+\Big\lfloor \tfrac{n}{k} \Big\rfloor .
+\]
+\emph{De d\'onde sale:} los m\'ultiplos de $k$ en ese rango son exactamente $k,\,2k,\,3k,\dots,\,mk$ donde $m$ es el mayor entero con $mk\le n$; despejando, $m\le n/k$, y el mayor entero que cumple eso es $\lfloor n/k\rfloor$. Contarlos es contar $1,2,\dots,m$, o sea $m$ n\'umeros.
+
+\medskip
+\textbf{(6) M\'ultiplos simult\'aneos y m\'inimo com\'un m\'ultiplo.} Un n\'umero es m\'ultiplo de $a$ \emph{y} m\'ultiplo de $b$ si y s\'olo si es m\'ultiplo de $\operatorname{mcm}(a,b)$. Por lo tanto, si $M_a$ y $M_b$ son los conjuntos de m\'ultiplos,
+\[
+M_a\cap M_b \;=\; M_{\operatorname{mcm}(a,b)} \qquad\Longrightarrow\qquad |M_a\cap M_b| = \Big\lfloor \tfrac{n}{\operatorname{mcm}(a,b)} \Big\rfloor .
+\]
+En particular, si $a$ y $b$ son primos entre s\'i, $\operatorname{mcm}(a,b)=ab$.
+
+\medskip
+\textbf{(7) Leyes de De Morgan.} Para pasar de datos del tipo ``no le gusta'' (complementos) a datos del tipo ``le gusta'':
+\[
+(A\cap B)^{c} = A^{c}\cup B^{c}, \qquad (A\cup B)^{c} = A^{c}\cap B^{c},
+\]
+\[
+(A\cap B\cap C)^{c} = A^{c}\cup B^{c}\cup C^{c}, \qquad (A\cup B\cup C)^{c} = A^{c}\cap B^{c}\cap C^{c}.
+\]
+La primera de cada l\'inea es la que m\'as usaremos: \emph{no est\'a en los dos a la vez} equivale a \emph{falta en al menos uno}. Combinada con la regla del complemento da la identidad clave de los ejercicios 19--23:
+\[
+|A\cap B| = |U| - |(A\cap B)^{c}| = |U| - |A^{c}\cup B^{c}|.
+\]
+
+\medskip
+\textbf{(8) Regiones ``\'unicamente''.} La cantidad de elementos que est\'an en $A$ y en $B$ \emph{y en ning\'un otro} de los conjuntos considerados se obtiene quitando de $|A\cap B|$ los que adem\'as caen en un tercero o en un cuarto, con inclusi\'on--exclusi\'on aplicada dentro de $A\cap B$:
+\[
+|\text{s\'olo }A\cap B| \;=\; |A\cap B| - |A\cap B\cap C| - |A\cap B\cap D| + |A\cap B\cap C\cap D| \quad (\text{caso de 4 conjuntos}),
+\]
+\[
+|\text{s\'olo }A\cap B| \;=\; |A\cap B| - |A\cap B\cap C| \quad (\text{caso de 3 conjuntos}).
+\]
+\end{teo}
+
+\begin{tip}
+\textbf{Estrategia general para todos estos problemas.}
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Nombrar los conjuntos y el universo.} Escribe una letra para cada categor\'ia (``los que hacen tal cosa'') y una letra para el universo $U$ con su cardinal. Nunca empieces a sumar antes de tener nombres.
+  \item \textbf{Traducir cada dato a una cardinalidad.} Cada frase del enunciado debe convertirse en una igualdad del tipo $|{\cdot}|=$ n\'umero. Un dato que no se tradujo es un dato que se va a olvidar.
+  \item \textbf{Decidir si el dato habla del conjunto o de su complemento.} Esta es la decisi\'on que m\'as errores causa. Si la frase dice ``le gusta'', ``sobresale'', ``particip\'o'', el dato es del conjunto. Si dice ``no le gusta'', ``no consume'', el dato es del complemento y hay que aplicar De Morgan antes de usar inclusi\'on--exclusi\'on.
+  \item \textbf{Elegir la f\'ormula por el n\'umero de conjuntos.} Dos, tres o cuatro conjuntos usan versiones distintas del principio; c\'uentalos antes de escribir nada.
+  \item \textbf{Despejar lo que se pide y hacer la aritm\'etica por bloques.} Primero suma las simples, luego suma las dobles, luego las triples, y despu\'es combina. Sumar todo de un tir\'on es donde se pierden los signos.
+\end{enumerate}
+\end{tip}
+
+\newpage
+
+%=====================================================================
+\section*{Ejercicio 15}
+
+\textbf{Enunciado.} Del 1 al 100, cu\'antos son los n\'umeros pares que son m\'ultiplos de tres o multiplos de cinco?
+
+\begin{sol}
+
+\begin{paso}{Paso 1: nombrar el universo y los conjuntos}
+\textbf{Qu\'e hago:} fijo como universo de trabajo los n\'umeros que el enunciado permite y defino los conjuntos que aparecen en la pregunta. Tomo
+\[
+U=\{1,2,3,\dots,100\},\qquad
+P=\{x\in U: x \text{ es par}\},\qquad
+T=\{x\in U: 3\mid x\},\qquad
+C=\{x\in U: 5\mid x\}.
+\]
+\textbf{¿De d\'onde sale?} De leer literalmente el enunciado: ``del 1 al 100'' da $U$; ``pares'' da $P$; ``m\'ultiplos de tres'' da $T$; ``m\'ultiplos de cinco'' da $C$.\\
+\textbf{¿Por qu\'e?} Porque la pregunta no pide $|T\cup C|$ a secas, sino los que adem\'as son pares; separar la condici\'on ``par'' en su propio conjunto deja ver que lo pedido es una intersecci\'on con una uni\'on.\\
+\textbf{¿Qu\'e tomamos?} La cantidad buscada es $\big|P\cap (T\cup C)\big|$.
+\end{paso}
+
+\begin{paso}{Paso 2: distribuir la intersecci\'on sobre la uni\'on}
+\textbf{Qu\'e hago:} uso la propiedad distributiva de conjuntos
+\[
+P\cap (T\cup C) \;=\; (P\cap T)\;\cup\;(P\cap C).
+\]
+\textbf{¿De d\'onde sale?} Es la ley distributiva $X\cap(Y\cup Z)=(X\cap Y)\cup(X\cap Z)$, v\'alida para conjuntos cualesquiera.\\
+\textbf{¿Por qu\'e?} Porque as\'i cada pieza queda descrita por una sola condici\'on de divisibilidad combinada, y esas s\'i las s\'e contar con la f\'ormula del piso.\\
+\textbf{¿Qu\'e tomamos?} Debo calcular $|(P\cap T)\cup(P\cap C)|$, una uni\'on de dos conjuntos.
+\end{paso}
+
+\begin{paso}{Paso 3: traducir cada pieza a un solo m\'odulo usando el m\'inimo com\'un m\'ultiplo}
+\textbf{Qu\'e hago:} convierto las condiciones dobles en una sola:
+\[
+P\cap T = \{x\le 100:\; 2\mid x \text{ y } 3\mid x\} = \{x\le 100:\; \operatorname{mcm}(2,3)=6 \mid x\},
+\]
+\[
+P\cap C = \{x\le 100:\; 2\mid x \text{ y } 5\mid x\} = \{x\le 100:\; \operatorname{mcm}(2,5)=10 \mid x\}.
+\]
+\textbf{¿De d\'onde sale?} Del hecho (6) de la Teor\'ia: ser m\'ultiplo de $a$ y de $b$ equivale a ser m\'ultiplo de $\operatorname{mcm}(a,b)$.\\
+\textbf{¿Por qu\'e?} Porque $2$ y $3$ no comparten factores primos, as\'i que $\operatorname{mcm}(2,3)=2\cdot 3=6$; igual $\operatorname{mcm}(2,5)=2\cdot 5=10$.\\
+\textbf{¿Qu\'e tomamos?} Los pares m\'ultiplos de tres son los m\'ultiplos de $6$, y los pares m\'ultiplos de cinco son los m\'ultiplos de $10$.
+\end{paso}
+
+\begin{paso}{Paso 4: contar cada pieza con la f\'ormula del piso}
+\textbf{Qu\'e hago:} aplico $\lfloor n/k\rfloor$ con $n=100$:
+\[
+|P\cap T| = \Big\lfloor \tfrac{100}{6}\Big\rfloor = \lfloor 16.666\ldots\rfloor = 16,
+\qquad
+|P\cap C| = \Big\lfloor \tfrac{100}{10}\Big\rfloor = \lfloor 10 \rfloor = 10.
+\]
+\textbf{¿De d\'onde sale?} Del hecho (5): los m\'ultiplos de $6$ hasta $100$ son $6,12,\dots,96$, y $96=6\cdot 16$, por eso son $16$.\\
+\textbf{¿Por qu\'e?} Porque $6\cdot 16 = 96 \le 100$ pero $6\cdot 17 = 102 > 100$, as\'i que el \'ultimo m\'ultiplo v\'alido es el n\'umero $16$ de la lista. An\'alogamente $10\cdot 10=100\le 100$.\\
+\textbf{¿Qu\'e tomamos?} $|P\cap T| = 16$ y $|P\cap C| = 10$.
+\end{paso}
+
+\begin{paso}{Paso 5: contar la intersecci\'on de las dos piezas}
+\textbf{Qu\'e hago:} identifico qu\'e n\'umeros est\'an en ambas piezas a la vez:
+\[
+(P\cap T)\cap(P\cap C) = \{x\le 100:\; 6\mid x \text{ y } 10\mid x\} = \{x\le 100:\; \operatorname{mcm}(6,10)\mid x\}.
+\]
+Calculo el m\'inimo com\'un m\'ultiplo por factorizaci\'on: $6=2\cdot 3$, $10=2\cdot 5$, luego $\operatorname{mcm}(6,10)=2\cdot 3\cdot 5=30$. Entonces
+\[
+\Big\lfloor \tfrac{100}{30}\Big\rfloor = \lfloor 3.333\ldots\rfloor = 3.
+\]
+\textbf{¿De d\'onde sale?} Otra vez del hecho (6), ahora con $a=6$ y $b=10$.\\
+\textbf{¿Por qu\'e?} Porque no basta multiplicar $6\cdot 10=60$: como $6$ y $10$ comparten el factor $2$, ese factor no debe repetirse; el m\'inimo com\'un m\'ultiplo toma cada primo con su exponente m\'aximo.\\
+\textbf{¿Qu\'e tomamos?} Hay $3$ n\'umeros comunes, que son $30$, $60$ y $90$.
+\end{paso}
+
+\begin{paso}{Paso 6: aplicar inclusi\'on--exclusi\'on para dos conjuntos}
+\textbf{Qu\'e hago:} sustituyo en $|X\cup Y| = |X|+|Y|-|X\cap Y|$ con $X=P\cap T$ y $Y=P\cap C$:
+\[
+\big|P\cap(T\cup C)\big| = 16 + 10 - 3.
+\]
+Desgloso la aritm\'etica:
+\[
+16 + 10 = 26, \qquad 26 - 3 = 23.
+\]
+\textbf{¿De d\'onde sale?} Del principio (2) de la Teor\'ia.\\
+\textbf{¿Por qu\'e?} Porque los tres n\'umeros $30,60,90$ son a la vez m\'ultiplos de $6$ y de $10$, as\'i que al sumar $16+10$ quedaron contados dos veces; hay que devolver una de las dos copias.\\
+\textbf{¿Qu\'e tomamos?} El total es $23$.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Del $1$ al $100$ hay $\boxed{23}$ n\'umeros pares que son m\'ultiplos de tres o de cinco.
+(Son los $16$ m\'ultiplos de $6$ m\'as los $10$ m\'ultiplos de $10$, menos los $3$ m\'ultiplos de $30$ contados dos veces.)
+\end{resp}
+
+\newpage
+
+%=====================================================================
+\section*{Ejercicio 16}
+
+\textbf{Enunciado.} Cu\'antos n\'umeros naturales entre el 1 a 400 hay que son m\'ultiplos de:
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item siete?
+\item once?
+\item siete y once?
+\item siete u once?
+\item siete, de once o de trece?
+\item seis y de tres?
+\end{enumerate}
+
+\begin{sol}
+
+\begin{paso}{Paso 0: universo y notaci\'on com\'un a todos los incisos}
+\textbf{Qu\'e hago:} fijo $U=\{1,2,\dots,400\}$ y escribo $M_k=\{x\in U:\ k\mid x\}$ para el conjunto de m\'ultiplos de $k$ dentro de $U$.\\
+\textbf{¿De d\'onde sale?} De la frase ``n\'umeros naturales entre el 1 a 400'', que interpretamos con ambos extremos incluidos.\\
+\textbf{¿Por qu\'e?} Porque con una sola notaci\'on $M_k$ y una sola f\'ormula $|M_k|=\lfloor 400/k\rfloor$ resuelvo los seis incisos sin volver a razonar desde cero.\\
+\textbf{¿Qu\'e tomamos?} $|M_k| = \big\lfloor 400/k \big\rfloor$ para cada $k$ que necesite.
+\end{paso}
+
+\begin{paso}{Paso 1: inciso (a), m\'ultiplos de siete}
+\textbf{Qu\'e hago:} calculo $|M_7| = \big\lfloor 400/7 \big\rfloor$. Divido: $7\cdot 50 = 350$, y $400-350 = 50$; luego $7\cdot 7 = 49 \le 50$, as\'i que $7\cdot 57 = 399 \le 400$ y $7\cdot 58 = 406 > 400$. Por lo tanto
+\[
+\Big\lfloor \tfrac{400}{7}\Big\rfloor = 57.
+\]
+\textbf{¿De d\'onde sale?} Del hecho (5): el conteo es el mayor $m$ con $7m\le 400$.\\
+\textbf{¿Por qu\'e?} Porque la lista completa es $7,14,\dots,399$, y $399 = 7\cdot 57$, de modo que hay tantos m\'ultiplos como enteros de $1$ a $57$.\\
+\textbf{¿Qu\'e tomamos?} $|M_7| = 57$.
+\end{paso}
+
+\begin{paso}{Paso 2: inciso (b), m\'ultiplos de once}
+\textbf{Qu\'e hago:} calculo $|M_{11}| = \big\lfloor 400/11 \big\rfloor$. Como $11\cdot 36 = 396 \le 400$ y $11\cdot 37 = 407 > 400$,
+\[
+\Big\lfloor \tfrac{400}{11}\Big\rfloor = 36.
+\]
+\textbf{¿De d\'onde sale?} Misma f\'ormula del piso, ahora con $k=11$.\\
+\textbf{¿Por qu\'e?} Porque el \'ultimo m\'ultiplo de $11$ que no pasa de $400$ es $396$, y $396/11=36$.\\
+\textbf{¿Qu\'e tomamos?} $|M_{11}| = 36$.
+\end{paso}
+
+\begin{paso}{Paso 3: inciso (c), m\'ultiplos de siete \emph{y} de once}
+\textbf{Qu\'e hago:} la condici\'on ``de siete y de once'' significa cumplir ambas divisibilidades a la vez, es decir $M_7\cap M_{11}$. Uso el m\'inimo com\'un m\'ultiplo: como $7$ y $11$ son primos distintos, $\operatorname{mcm}(7,11)=7\cdot 11=77$. Entonces
+\[
+|M_7\cap M_{11}| = |M_{77}| = \Big\lfloor \tfrac{400}{77}\Big\rfloor .
+\]
+Como $77\cdot 5 = 385 \le 400$ y $77\cdot 6 = 462 > 400$, resulta $\big\lfloor 400/77 \big\rfloor = 5$.\\
+\textbf{¿De d\'onde sale?} Del hecho (6) de la Teor\'ia.\\
+\textbf{¿Por qu\'e?} Porque la ``y'' del lenguaje corriente es la intersecci\'on de conjuntos, y la intersecci\'on de dos conjuntos de m\'ultiplos es el conjunto de m\'ultiplos del m\'inimo com\'un m\'ultiplo.\\
+\textbf{¿Qu\'e tomamos?} $|M_7\cap M_{11}| = 5$ (los n\'umeros $77,154,231,308,385$).
+\end{paso}
+
+\begin{paso}{Paso 4: inciso (d), m\'ultiplos de siete \emph{o} de once}
+\textbf{Qu\'e hago:} la ``o'' es la uni\'on, as\'i que aplico inclusi\'on--exclusi\'on para dos conjuntos con los valores ya obtenidos:
+\[
+|M_7\cup M_{11}| = |M_7| + |M_{11}| - |M_7\cap M_{11}| = 57 + 36 - 5.
+\]
+Aritm\'etica desglosada: $57+36 = 93$, y $93 - 5 = 88$.\\
+\textbf{¿De d\'onde sale?} Del principio (2), reutilizando los incisos (a), (b) y (c).\\
+\textbf{¿Por qu\'e?} Porque los $5$ m\'ultiplos de $77$ aparecen tanto en la lista de m\'ultiplos de $7$ como en la de m\'ultiplos de $11$; sin la resta se contar\'ian dos veces.\\
+\textbf{¿Qu\'e tomamos?} $|M_7\cup M_{11}| = 88$.
+\end{paso}
+
+\begin{paso}{Paso 5: inciso (e), preparar los seis ingredientes para tres conjuntos}
+\textbf{Qu\'e hago:} necesito $|M_7\cup M_{11}\cup M_{13}|$, as\'i que calculo todos los cardinales que entran en la f\'ormula de tres conjuntos.
+
+\emph{Simples:}
+\[
+|M_7| = 57, \qquad |M_{11}| = 36, \qquad |M_{13}| = \Big\lfloor \tfrac{400}{13}\Big\rfloor = 30 \quad (13\cdot 30 = 390 \le 400 < 403 = 13\cdot 31).
+\]
+\emph{Dobles} (los tres n\'umeros $7,11,13$ son primos distintos, as\'i que cada m\'inimo com\'un m\'ultiplo es el producto):
+\[
+|M_7\cap M_{11}| = |M_{77}| = \Big\lfloor \tfrac{400}{77}\Big\rfloor = 5,
+\]
+\[
+|M_7\cap M_{13}| = |M_{91}| = \Big\lfloor \tfrac{400}{91}\Big\rfloor = 4 \quad (91\cdot 4 = 364 \le 400 < 455 = 91\cdot 5),
+\]
+\[
+|M_{11}\cap M_{13}| = |M_{143}| = \Big\lfloor \tfrac{400}{143}\Big\rfloor = 2 \quad (143\cdot 2 = 286 \le 400 < 429 = 143\cdot 3).
+\]
+\emph{Triple:}
+\[
+|M_7\cap M_{11}\cap M_{13}| = |M_{1001}| = \Big\lfloor \tfrac{400}{1001}\Big\rfloor = 0 \quad (1001 > 400).
+\]
+\textbf{¿De d\'onde sale?} De aplicar seis veces el hecho (5) y cuatro veces el hecho (6).\\
+\textbf{¿Por qu\'e?} Porque la f\'ormula de tres conjuntos exige exactamente estos siete n\'umeros; calcularlos todos antes de sustituir evita perder t\'erminos.\\
+\textbf{¿Qu\'e tomamos?} Simples $57,36,30$; dobles $5,4,2$; triple $0$.
+\end{paso}
+
+\begin{paso}{Paso 6: inciso (e), aplicar inclusi\'on--exclusi\'on para tres conjuntos}
+\textbf{Qu\'e hago:} sustituyo en el principio (3):
+\[
+|M_7\cup M_{11}\cup M_{13}| = (57+36+30) - (5+4+2) + 0 .
+\]
+Aritm\'etica desglosada por bloques:
+\[
+57+36 = 93, \qquad 93+30 = 123 \quad\Longrightarrow\quad \text{suma de simples} = 123,
+\]
+\[
+5+4 = 9, \qquad 9+2 = 11 \quad\Longrightarrow\quad \text{suma de dobles} = 11,
+\]
+\[
+123 - 11 = 112, \qquad 112 + 0 = 112.
+\]
+\textbf{¿De d\'onde sale?} Del principio (3), con la triple igual a cero.\\
+\textbf{¿Por qu\'e?} Porque un n\'umero menor o igual a $400$ no puede ser m\'ultiplo de $7$, de $11$ y de $13$ al mismo tiempo: tendr\'ia que ser m\'ultiplo de $1001$, que ya excede el rango. El t\'ermino correctivo triple simplemente no aporta nada aqu\'i.\\
+\textbf{¿Qu\'e tomamos?} $|M_7\cup M_{11}\cup M_{13}| = 112$.
+\end{paso}
+
+\begin{paso}{Paso 7: inciso (f), m\'ultiplos de seis \emph{y} de tres}
+\textbf{Qu\'e hago:} otra vez es una intersecci\'on, $M_6\cap M_3 = M_{\operatorname{mcm}(6,3)}$. Factorizo: $6=2\cdot 3$ y $3=3$, luego $\operatorname{mcm}(6,3)=6$. Entonces
+\[
+|M_6\cap M_3| = |M_6| = \Big\lfloor \tfrac{400}{6}\Big\rfloor = 66 \quad (6\cdot 66 = 396 \le 400 < 402 = 6\cdot 67).
+\]
+\textbf{¿De d\'onde sale?} Del hecho (6), notando adem\'as que $M_6\subseteq M_3$.\\
+\textbf{¿Por qu\'e?} Porque todo m\'ultiplo de $6$ ya es autom\'aticamente m\'ultiplo de $3$ (si $x=6m$ entonces $x=3\cdot 2m$); la condici\'on ``y de tres'' no agrega ninguna restricci\'on nueva, y por eso la intersecci\'on coincide con $M_6$.\\
+\textbf{¿Qu\'e tomamos?} $|M_6\cap M_3| = 66$.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Entre $1$ y $400$:
+\[
+\text{(a) } 57, \qquad \text{(b) } 36, \qquad \text{(c) } 5, \qquad \text{(d) } 88, \qquad \text{(e) } 112, \qquad \text{(f) } 66 .
+\]
+\end{resp}
+
+\newpage
+
+%=====================================================================
+\section*{Ejercicio 17}
+
+\textbf{Enunciado.} Del 1 al 500, cu\'antos son los n\'umeros naturales que no son m\'ultiplos de seis ni once?
+
+\begin{sol}
+
+\begin{paso}{Paso 1: universo, conjuntos y qu\'e pide la pregunta}
+\textbf{Qu\'e hago:} tomo $U=\{1,2,\dots,500\}$, con $|U|=500$, y defino
+\[
+A=\{x\in U:\ 6\mid x\},\qquad B=\{x\in U:\ 11\mid x\}.
+\]
+Lo que se pide es la cantidad de $x$ que no est\'an en $A$ y tampoco en $B$, es decir $|A^{c}\cap B^{c}|$.\\
+\textbf{¿De d\'onde sale?} De la frase ``no son m\'ultiplos de seis \emph{ni} once'': el ``ni'' niega las dos condiciones simult\'aneamente.\\
+\textbf{¿Por qu\'e?} Porque ``no es m\'ultiplo de seis'' es $x\in A^{c}$ y ``no es m\'ultiplo de once'' es $x\in B^{c}$; exigir ambas es la intersecci\'on de los complementos.\\
+\textbf{¿Qu\'e tomamos?} La inc\'ognita es $|A^{c}\cap B^{c}|$.
+\end{paso}
+
+\begin{paso}{Paso 2: aplicar De Morgan para volver a los conjuntos originales}
+\textbf{Qu\'e hago:} uso la ley de De Morgan $A^{c}\cap B^{c} = (A\cup B)^{c}$ y luego la regla del complemento:
+\[
+|A^{c}\cap B^{c}| = |(A\cup B)^{c}| = |U| - |A\cup B| = 500 - |A\cup B| .
+\]
+\textbf{¿De d\'onde sale?} Del hecho (7) y del hecho (1) de la Teor\'ia.\\
+\textbf{¿Por qu\'e?} Porque contar directamente los ``no m\'ultiplos'' es incomodo, mientras que contar los ``m\'ultiplos de al menos uno'' es exactamente lo que sabe hacer inclusi\'on--exclusi\'on; restar del total invierte el problema a nuestro favor.\\
+\textbf{¿Qu\'e tomamos?} Basta calcular $|A\cup B|$ y restarlo de $500$.
+\end{paso}
+
+\begin{paso}{Paso 3: contar cada conjunto y su intersecci\'on}
+\textbf{Qu\'e hago:} aplico la f\'ormula del piso tres veces.
+\[
+|A| = \Big\lfloor \tfrac{500}{6}\Big\rfloor = 83 \quad (6\cdot 83 = 498 \le 500 < 504 = 6\cdot 84),
+\]
+\[
+|B| = \Big\lfloor \tfrac{500}{11}\Big\rfloor = 45 \quad (11\cdot 45 = 495 \le 500 < 506 = 11\cdot 46),
+\]
+\[
+|A\cap B| = |M_{\operatorname{mcm}(6,11)}| = |M_{66}| = \Big\lfloor \tfrac{500}{66}\Big\rfloor = 7 \quad (66\cdot 7 = 462 \le 500 < 528 = 66\cdot 8).
+\]
+\textbf{¿De d\'onde sale?} De los hechos (5) y (6).\\
+\textbf{¿Por qu\'e?} Porque $6=2\cdot 3$ y $11$ es primo que no divide a $6$, as\'i que $\operatorname{mcm}(6,11)=6\cdot 11=66$; ser m\'ultiplo de $6$ y de $11$ equivale a ser m\'ultiplo de $66$.\\
+\textbf{¿Qu\'e tomamos?} $|A|=83$, $|B|=45$, $|A\cap B|=7$.
+\end{paso}
+
+\begin{paso}{Paso 4: inclusi\'on--exclusi\'on y resta final}
+\textbf{Qu\'e hago:} primero la uni\'on,
+\[
+|A\cup B| = 83 + 45 - 7, \qquad 83+45 = 128, \qquad 128 - 7 = 121 .
+\]
+Luego el complemento,
+\[
+|A^{c}\cap B^{c}| = 500 - 121 = 379 .
+\]
+\textbf{¿De d\'onde sale?} Del principio (2) seguido de la regla del complemento.\\
+\textbf{¿Por qu\'e?} Se resta $7$ porque los m\'ultiplos de $66$ fueron contados una vez dentro de los $83$ y otra vez dentro de los $45$; y se resta $121$ de $500$ porque los que ``no son m\'ultiplos de ninguno'' son todos los del universo salvo los $121$ que s\'i lo son de al menos uno.\\
+\textbf{¿Qu\'e tomamos?} $379$ n\'umeros.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Del $1$ al $500$ hay $\boxed{379}$ n\'umeros naturales que no son m\'ultiplos de seis ni de once.
+\end{resp}
+
+\newpage
+
+%=====================================================================
+\section*{Ejercicio 18}
+
+\textbf{Enunciado.} Del 1 al 600, cu\'antos son los n\'umeros naturales que no son m\'ultiplos de seis, once ni 17?
+
+\begin{sol}
+
+\begin{paso}{Paso 1: universo, conjuntos y traducci\'on de la pregunta}
+\textbf{Qu\'e hago:} tomo $U=\{1,2,\dots,600\}$, con $|U|=600$, y defino
+\[
+A=\{x\in U: 6\mid x\},\qquad B=\{x\in U: 11\mid x\},\qquad C=\{x\in U: 17\mid x\}.
+\]
+Se pide $|A^{c}\cap B^{c}\cap C^{c}|$.\\
+\textbf{¿De d\'onde sale?} Del ``no \dots\ ni \dots\ ni \dots'' del enunciado, que niega las tres condiciones a la vez.\\
+\textbf{¿Por qu\'e?} Porque el n\'umero buscado debe fallar simult\'aneamente las tres divisibilidades, y ``fallar las tres'' es estar en los tres complementos.\\
+\textbf{¿Qu\'e tomamos?} La inc\'ognita es $|A^{c}\cap B^{c}\cap C^{c}|$.
+\end{paso}
+
+\begin{paso}{Paso 2: De Morgan con tres conjuntos}
+\textbf{Qu\'e hago:} aplico $A^{c}\cap B^{c}\cap C^{c} = (A\cup B\cup C)^{c}$ y la regla del complemento:
+\[
+|A^{c}\cap B^{c}\cap C^{c}| = 600 - |A\cup B\cup C| .
+\]
+\textbf{¿De d\'onde sale?} Del hecho (7), versi\'on de tres conjuntos.\\
+\textbf{¿Por qu\'e?} Porque el complemento convierte ``ninguna de las tres condiciones'' en ``al menos una de las tres condiciones'', y esta \'ultima es justamente la uni\'on.\\
+\textbf{¿Qu\'e tomamos?} Debemos calcular la uni\'on triple y restarla de $600$.
+\end{paso}
+
+\begin{paso}{Paso 3: los tres cardinales simples}
+\textbf{Qu\'e hago:}
+\[
+|A| = \Big\lfloor \tfrac{600}{6}\Big\rfloor = 100 \quad (6\cdot 100 = 600),
+\]
+\[
+|B| = \Big\lfloor \tfrac{600}{11}\Big\rfloor = 54 \quad (11\cdot 54 = 594 \le 600 < 605 = 11\cdot 55),
+\]
+\[
+|C| = \Big\lfloor \tfrac{600}{17}\Big\rfloor = 35 \quad (17\cdot 35 = 595 \le 600 < 612 = 17\cdot 36).
+\]
+\textbf{¿De d\'onde sale?} Del hecho (5) aplicado con $n=600$.\\
+\textbf{¿Por qu\'e?} Porque en cada caso busco el mayor m\'ultiplo que no pasa de $600$ y lo divido entre el m\'odulo.\\
+\textbf{¿Qu\'e tomamos?} $100$, $54$ y $35$.
+\end{paso}
+
+\begin{paso}{Paso 4: los tres cardinales dobles}
+\textbf{Qu\'e hago:} calculo primero los m\'inimos comunes m\'ultiplos. Como $6=2\cdot 3$, y $11$ y $17$ son primos que no dividen a $6$ ni entre s\'i:
+\[
+\operatorname{mcm}(6,11)=66,\qquad \operatorname{mcm}(6,17)=102,\qquad \operatorname{mcm}(11,17)=187 .
+\]
+Y luego cuento:
+\[
+|A\cap B| = \Big\lfloor \tfrac{600}{66}\Big\rfloor = 9 \quad (66\cdot 9 = 594 \le 600 < 660 = 66\cdot 10),
+\]
+\[
+|A\cap C| = \Big\lfloor \tfrac{600}{102}\Big\rfloor = 5 \quad (102\cdot 5 = 510 \le 600 < 612 = 102\cdot 6),
+\]
+\[
+|B\cap C| = \Big\lfloor \tfrac{600}{187}\Big\rfloor = 3 \quad (187\cdot 3 = 561 \le 600 < 748 = 187\cdot 4).
+\]
+\textbf{¿De d\'onde sale?} Del hecho (6) aplicado a cada par.\\
+\textbf{¿Por qu\'e?} Porque cada intersecci\'on de dos conjuntos de m\'ultiplos vuelve a ser un conjunto de m\'ultiplos, con m\'odulo el m\'inimo com\'un m\'ultiplo; as\'i cada doble se cuenta con la misma f\'ormula del piso.\\
+\textbf{¿Qu\'e tomamos?} $9$, $5$ y $3$.
+\end{paso}
+
+\begin{paso}{Paso 5: el cardinal triple}
+\textbf{Qu\'e hago:} $\operatorname{mcm}(6,11,17) = 6\cdot 11\cdot 17$. Desglosando: $6\cdot 11 = 66$ y $66\cdot 17 = 1122$. Entonces
+\[
+|A\cap B\cap C| = \Big\lfloor \tfrac{600}{1122}\Big\rfloor = 0 .
+\]
+\textbf{¿De d\'onde sale?} Del hecho (6) extendido a tres m\'odulos.\\
+\textbf{¿Por qu\'e?} Porque $1122 > 600$, as\'i que ning\'un n\'umero del universo puede ser m\'ultiplo de los tres a la vez; el primer candidato ser\'ia $1122$, que ya se sali\'o del rango.\\
+\textbf{¿Qu\'e tomamos?} $|A\cap B\cap C| = 0$.
+\end{paso}
+
+\begin{paso}{Paso 6: inclusi\'on--exclusi\'on para tres conjuntos}
+\textbf{Qu\'e hago:} sustituyo en el principio (3):
+\[
+|A\cup B\cup C| = (100+54+35) - (9+5+3) + 0 .
+\]
+Aritm\'etica por bloques:
+\[
+100+54 = 154,\qquad 154+35 = 189 \quad\Longrightarrow\quad \text{simples} = 189,
+\]
+\[
+9+5 = 14,\qquad 14+3 = 17 \quad\Longrightarrow\quad \text{dobles} = 17,
+\]
+\[
+189 - 17 = 172,\qquad 172 + 0 = 172 .
+\]
+\textbf{¿De d\'onde sale?} Del principio (3).\\
+\textbf{¿Por qu\'e?} Se restan las dobles porque un n\'umero que es, por ejemplo, m\'ultiplo de $6$ y de $11$ ya fue contado dos veces en la suma de simples; y se suma la triple porque un n\'umero que estuviera en los tres habr\'ia sido restado de m\'as (aqu\'i ese ajuste vale $0$).\\
+\textbf{¿Qu\'e tomamos?} $|A\cup B\cup C| = 172$.
+\end{paso}
+
+\begin{paso}{Paso 7: pasar al complemento}
+\textbf{Qu\'e hago:}
+\[
+|A^{c}\cap B^{c}\cap C^{c}| = 600 - 172 = 428 .
+\]
+\textbf{¿De d\'onde sale?} Del Paso 2, ya preparado.\\
+\textbf{¿Por qu\'e?} Porque de los $600$ n\'umeros, exactamente $172$ son m\'ultiplos de al menos uno de $6$, $11$ o $17$; los restantes no son m\'ultiplos de ninguno.\\
+\textbf{¿Qu\'e tomamos?} $428$ n\'umeros.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Del $1$ al $600$ hay $\boxed{428}$ n\'umeros naturales que no son m\'ultiplos de seis, ni de once, ni de $17$.
+\end{resp}
+
+\newpage
+
+%=====================================================================
+\section*{Ejercicio 19}
+
+\textbf{Enunciado.} En un colegio hay 300 estudiantes los cuales 80 no les gusta el deporte, 95 no les gusta m\'usica y 25 no les gusta ni deporte ni m\'usica. Calcule cu\'antas personas s\'i les gusta el deporte y m\'usica. R:150
+
+\begin{sol}
+
+\begin{paso}{Paso 1: nombrar el universo y los conjuntos}
+\textbf{Qu\'e hago:} llamo $U$ al conjunto de los $300$ estudiantes, y defino
+\[
+D=\{\text{estudiantes a los que S\'I les gusta el deporte}\},\qquad
+M=\{\text{estudiantes a los que S\'I les gusta la m\'usica}\}.
+\]
+As\'i $D^{c}$ es ``no le gusta el deporte'' y $M^{c}$ es ``no le gusta la m\'usica''. Se tiene $|U|=300$.\\
+\textbf{¿De d\'onde sale?} De la primera frase del enunciado (el total) y de las dos categor\'ias mencionadas.\\
+\textbf{¿Por qu\'e?} Defino los conjuntos en positivo (``s\'i le gusta'') porque la pregunta final est\'a en positivo; los datos negativos se manejan como complementos.\\
+\textbf{¿Qu\'e tomamos?} La inc\'ognita es $|D\cap M|$.
+\end{paso}
+
+\begin{paso}{Paso 2: traducir cada dato}
+\textbf{Qu\'e hago:} convierto las tres frases num\'ericas en cardinalidades.
+\begin{itemize}[leftmargin=*]
+  \item ``80 no les gusta el deporte'' $\Longrightarrow\ |D^{c}| = 80$.
+  \item ``95 no les gusta m\'usica'' $\Longrightarrow\ |M^{c}| = 95$.
+  \item ``25 no les gusta ni deporte ni m\'usica'' $\Longrightarrow\ |D^{c}\cap M^{c}| = 25$.
+\end{itemize}
+\textbf{¿De d\'onde sale?} De leer literalmente cada frase y preguntarse si habla del conjunto o de su complemento.\\
+\textbf{¿Por qu\'e?} Las tres frases empiezan con ``no'', luego los tres datos son de complementos. El ``ni \dots\ ni'' del tercer dato niega ambas cosas al mismo tiempo, o sea es la intersecci\'on de los dos complementos.\\
+\textbf{¿Qu\'e tomamos?} $|D^{c}|=80$, $|M^{c}|=95$, $|D^{c}\cap M^{c}|=25$.
+\end{paso}
+
+\begin{paso}{Paso 3: relacionar la inc\'ognita con los datos usando De Morgan}
+\textbf{Qu\'e hago:} escribo el complemento de lo que busco:
+\[
+(D\cap M)^{c} = D^{c}\cup M^{c}.
+\]
+Combinado con la regla del complemento,
+\[
+|D\cap M| = |U| - |(D\cap M)^{c}| = 300 - |D^{c}\cup M^{c}| .
+\]
+\textbf{¿De d\'onde sale?} Del hecho (7) (De Morgan) y del hecho (1).\\
+\textbf{¿Por qu\'e?} Porque los datos son todos sobre $D^{c}$ y $M^{c}$; la \'unica manera de usarlos es armar una expresi\'on cuyos ingredientes sean esos conjuntos. ``No le gustan ambos'' equivale a ``le falta al menos uno de los dos gustos'', que es la uni\'on de los complementos.\\
+\textbf{¿Qu\'e tomamos?} Basta calcular $|D^{c}\cup M^{c}|$.
+\end{paso}
+
+\begin{paso}{Paso 4: inclusi\'on--exclusi\'on sobre los complementos}
+\textbf{Qu\'e hago:} aplico el principio (2) a los conjuntos $D^{c}$ y $M^{c}$:
+\[
+|D^{c}\cup M^{c}| = |D^{c}| + |M^{c}| - |D^{c}\cap M^{c}| = 80 + 95 - 25 .
+\]
+Aritm\'etica desglosada: $80 + 95 = 175$, y $175 - 25 = 150$.\\
+\textbf{¿De d\'onde sale?} Del principio (2), aplicado esta vez a los complementos, que tambi\'en son conjuntos.\\
+\textbf{¿Por qu\'e?} Porque los $25$ que no gustan de nada aparecen dentro de los $80$ y tambi\'en dentro de los $95$; sin restarlos, esas $25$ personas se contar\'ian dos veces.\\
+\textbf{¿Qu\'e tomamos?} $|D^{c}\cup M^{c}| = 150$: hay $150$ estudiantes a los que les falta al menos uno de los dos gustos.
+\end{paso}
+
+\begin{paso}{Paso 5: despejar la inc\'ognita}
+\textbf{Qu\'e hago:}
+\[
+|D\cap M| = 300 - 150 = 150 .
+\]
+\textbf{¿De d\'onde sale?} De la relaci\'on montada en el Paso 3.\\
+\textbf{¿Por qu\'e?} Porque cada estudiante o bien le gustan las dos cosas (est\'a en $D\cap M$) o bien le falta alguna (est\'a en $D^{c}\cup M^{c}$), sin traslape ni omisi\'on; quitando del total los $150$ del segundo grupo quedan los del primero.\\
+\textbf{¿Qu\'e tomamos?} $150$ estudiantes.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+A $\boxed{150}$ estudiantes s\'i les gusta el deporte y la m\'usica. Coincide con la respuesta oficial \textbf{R: 150}.
+\end{resp}
+
+\newpage
+
+%=====================================================================
+\section*{Ejercicio 20}
+
+\textbf{Enunciado.} En una universidad hay 420 estudiantes. A 110 no les gusta el f\'utbol, a 150 no les gusta el cine y 40 no les gusta ni el f\'utbol ni el cine. Calcule cu\'antos estudiantes s\'i les gusta el f\'utbol y el cine. R:200
+
+\begin{sol}
+
+\begin{paso}{Paso 1: universo y conjuntos}
+\textbf{Qu\'e hago:} sea $U$ el conjunto de los $420$ estudiantes, $|U|=420$, y sean
+\[
+F=\{\text{les gusta el f\'utbol}\},\qquad C=\{\text{les gusta el cine}\}.
+\]
+\textbf{¿De d\'onde sale?} De las dos categor\'ias del enunciado y del total declarado.\\
+\textbf{¿Por qu\'e?} Es la misma estructura del ejercicio anterior: dos gustos, datos en negativo, pregunta en positivo.\\
+\textbf{¿Qu\'e tomamos?} Buscamos $|F\cap C|$.
+\end{paso}
+
+\begin{paso}{Paso 2: traducir cada dato}
+\textbf{Qu\'e hago:}
+\[
+|F^{c}| = 110,\qquad |C^{c}| = 150,\qquad |F^{c}\cap C^{c}| = 40 .
+\]
+\textbf{¿De d\'onde sale?} De las frases ``a 110 no les gusta el f\'utbol'', ``a 150 no les gusta el cine'' y ``40 no les gusta ni el f\'utbol ni el cine''.\\
+\textbf{¿Por qu\'e?} Cada frase comienza en negativo, por lo tanto describe complementos; la tercera niega las dos cosas simult\'aneamente y por eso es una intersecci\'on de complementos, no una uni\'on.\\
+\textbf{¿Qu\'e tomamos?} Los tres datos quedan expresados en t\'erminos de $F^{c}$ y $C^{c}$.
+\end{paso}
+
+\begin{paso}{Paso 3: De Morgan}
+\textbf{Qu\'e hago:} $(F\cap C)^{c} = F^{c}\cup C^{c}$, y por la regla del complemento
+\[
+|F\cap C| = 420 - |F^{c}\cup C^{c}| .
+\]
+\textbf{¿De d\'onde sale?} Del hecho (7) junto con el hecho (1).\\
+\textbf{¿Por qu\'e?} Porque no hay ning\'un dato directo sobre $F$ ni sobre $C$; toda la informaci\'on vive en los complementos, as\'i que hay que trabajar all\'i y devolverse al final.\\
+\textbf{¿Qu\'e tomamos?} La cuenta se reduce a $|F^{c}\cup C^{c}|$.
+\end{paso}
+
+\begin{paso}{Paso 4: inclusi\'on--exclusi\'on y despeje}
+\textbf{Qu\'e hago:}
+\[
+|F^{c}\cup C^{c}| = 110 + 150 - 40, \qquad 110 + 150 = 260, \qquad 260 - 40 = 220 .
+\]
+Y entonces
+\[
+|F\cap C| = 420 - 220 = 200 .
+\]
+\textbf{¿De d\'onde sale?} Del principio (2) aplicado a $F^{c}$ y $C^{c}$, seguido del despeje del Paso 3.\\
+\textbf{¿Por qu\'e?} Se resta $40$ porque esas personas est\'an incluidas tanto en los $110$ como en los $150$; y se resta $220$ de $420$ porque los $220$ son exactamente quienes tienen alguna carencia, de modo que el resto disfruta de ambas cosas.\\
+\textbf{¿Qu\'e tomamos?} $200$ estudiantes.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+A $\boxed{200}$ estudiantes s\'i les gusta el f\'utbol y el cine. Coincide con la respuesta oficial \textbf{R: 200}.
+\end{resp}
+
+\newpage
+
+%=====================================================================
+\section*{Ejercicio 21}
+
+\textbf{Enunciado.} En una empresa hay 250 empleados. A 70 no les gusta trabajar en equipo, a 90 no les gusta trabajar de forma remota y 20 no les gusta ninguna de las dos opciones. Determine cu\'antos empleados s\'i les gusta trabajar en equipo y de forma remota. R:110
+
+\begin{sol}
+
+\begin{paso}{Paso 1: universo y conjuntos}
+\textbf{Qu\'e hago:} sea $U$ el conjunto de los $250$ empleados, $|U|=250$, y sean
+\[
+E=\{\text{les gusta trabajar en equipo}\},\qquad R=\{\text{les gusta trabajar de forma remota}\}.
+\]
+\textbf{¿De d\'onde sale?} De las dos modalidades de trabajo que menciona el enunciado.\\
+\textbf{¿Por qu\'e?} Porque la pregunta pide una intersecci\'on de gustos, as\'i que conviene tener ambos conjuntos definidos en positivo.\\
+\textbf{¿Qu\'e tomamos?} Buscamos $|E\cap R|$.
+\end{paso}
+
+\begin{paso}{Paso 2: traducir cada dato}
+\textbf{Qu\'e hago:}
+\[
+|E^{c}| = 70,\qquad |R^{c}| = 90,\qquad |E^{c}\cap R^{c}| = 20 .
+\]
+\textbf{¿De d\'onde sale?} De las tres frases del enunciado, todas redactadas en negativo.\\
+\textbf{¿Por qu\'e?} ``No les gusta ninguna de las dos opciones'' es la manera coloquial de decir ``no les gusta el equipo y tampoco lo remoto'', es decir la intersecci\'on $E^{c}\cap R^{c}$.\\
+\textbf{¿Qu\'e tomamos?} Tres cardinales de complementos.
+\end{paso}
+
+\begin{paso}{Paso 3: De Morgan, inclusi\'on--exclusi\'on y despeje}
+\textbf{Qu\'e hago:} por De Morgan $(E\cap R)^{c}=E^{c}\cup R^{c}$, luego
+\[
+|E^{c}\cup R^{c}| = 70 + 90 - 20, \qquad 70+90 = 160, \qquad 160-20 = 140 ,
+\]
+\[
+|E\cap R| = |U| - |E^{c}\cup R^{c}| = 250 - 140 = 110 .
+\]
+\textbf{¿De d\'onde sale?} Del hecho (7), del principio (2) y del hecho (1), en ese orden.\\
+\textbf{¿Por qu\'e?} Los $20$ empleados sin ning\'un gusto est\'an contados dentro de los $70$ y dentro de los $90$, por eso se descuenta una copia; y los $140$ resultantes son todos los que tienen al menos un disgusto, as\'i que el complemento son los que aceptan ambas modalidades.\\
+\textbf{¿Qu\'e tomamos?} $110$ empleados.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+A $\boxed{110}$ empleados s\'i les gusta trabajar en equipo y de forma remota. Coincide con la respuesta oficial \textbf{R: 110}.
+\end{resp}
+
+\newpage
+
+%=====================================================================
+\section*{Ejercicio 22}
+
+\textbf{Enunciado.} En un grupo de 180 personas, 60 no consumen caf\'e, 75 no consumen t\'e y 30 no consumen ni caf\'e ni t\'e. ¿Cu\'antas personas consumen tanto caf\'e como t\'e? R:75
+
+\begin{sol}
+
+\begin{paso}{Paso 1: universo y conjuntos}
+\textbf{Qu\'e hago:} sea $U$ el grupo de $180$ personas, $|U|=180$, y sean
+\[
+K=\{\text{personas que consumen caf\'e}\},\qquad T=\{\text{personas que consumen t\'e}\}.
+\]
+\textbf{¿De d\'onde sale?} De las dos bebidas mencionadas.\\
+\textbf{¿Por qu\'e?} Uso $K$ para caf\'e para no chocar con la letra $C$ si m\'as adelante aparecen otras bebidas; nombrar con cuidado evita confusiones en el ejercicio siguiente.\\
+\textbf{¿Qu\'e tomamos?} Buscamos $|K\cap T|$, que es ``consumen tanto caf\'e como t\'e''.
+\end{paso}
+
+\begin{paso}{Paso 2: traducir cada dato}
+\textbf{Qu\'e hago:}
+\[
+|K^{c}| = 60,\qquad |T^{c}| = 75,\qquad |K^{c}\cap T^{c}| = 30 .
+\]
+\textbf{¿De d\'onde sale?} De las tres cifras del enunciado, las tres en negativo.\\
+\textbf{¿Por qu\'e?} Porque el enunciado nunca dice cu\'antos S\'I consumen algo; todo el dato disponible es de no consumo, es decir de complementos.\\
+\textbf{¿Qu\'e tomamos?} Tres cardinales de complementos.
+\end{paso}
+
+\begin{paso}{Paso 3: De Morgan e inclusi\'on--exclusi\'on}
+\textbf{Qu\'e hago:} $(K\cap T)^{c} = K^{c}\cup T^{c}$, y
+\[
+|K^{c}\cup T^{c}| = 60 + 75 - 30, \qquad 60+75 = 135, \qquad 135 - 30 = 105 .
+\]
+\textbf{¿De d\'onde sale?} Del hecho (7) y del principio (2).\\
+\textbf{¿Por qu\'e?} Se resta $30$ una sola vez porque esas personas fueron contadas dos veces (una en los $60$ y otra en los $75$), y el principio exige devolver exactamente una copia por elemento repetido.\\
+\textbf{¿Qu\'e tomamos?} $105$ personas dejan de consumir al menos una de las dos bebidas.
+\end{paso}
+
+\begin{paso}{Paso 4: despejar}
+\textbf{Qu\'e hago:}
+\[
+|K\cap T| = 180 - 105 = 75 .
+\]
+\textbf{¿De d\'onde sale?} De la regla del complemento, hecho (1).\\
+\textbf{¿Por qu\'e?} Porque el universo se parte en dos bloques sin traslape: quienes consumen ambas bebidas y quienes no consumen alguna de las dos.\\
+\textbf{¿Qu\'e tomamos?} $75$ personas.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+$\boxed{75}$ personas consumen tanto caf\'e como t\'e. Coincide con la respuesta oficial \textbf{R: 75}.
+\end{resp}
+
+\newpage
+
+%=====================================================================
+\section*{Ejercicio 23}
+
+\textbf{Enunciado.} En un grupo de 300 personas, 120 no consumen caf\'e, 140 no consumen t\'e, 100 no consumen refrescos, 60 no consumen ni caf\'e ni t\'e, 50 no consumen ni caf\'e ni refrescos, 70 no consumen ni t\'e ni refrescos y 30 no consumen ninguna de las tres bebidas. ¿Cu\'antas personas consumen caf\'e, t\'e y refrescos? R:90
+
+\begin{sol}
+
+\begin{paso}{Paso 1: universo y conjuntos}
+\textbf{Qu\'e hago:} sea $U$ el grupo de $300$ personas, $|U|=300$, y sean
+\[
+K=\{\text{consumen caf\'e}\},\qquad T=\{\text{consumen t\'e}\},\qquad R=\{\text{consumen refrescos}\}.
+\]
+\textbf{¿De d\'onde sale?} De las tres bebidas del enunciado.\\
+\textbf{¿Por qu\'e?} Ahora son tres conjuntos, as\'i que la f\'ormula que se necesitar\'a es la de inclusi\'on--exclusi\'on para tres, no la de dos.\\
+\textbf{¿Qu\'e tomamos?} Buscamos $|K\cap T\cap R|$.
+\end{paso}
+
+\begin{paso}{Paso 2: traducir los siete datos}
+\textbf{Qu\'e hago:} paso cada frase a una cardinalidad de complementos.
+\begin{itemize}[leftmargin=*]
+  \item ``120 no consumen caf\'e'' $\Longrightarrow\ |K^{c}| = 120$.
+  \item ``140 no consumen t\'e'' $\Longrightarrow\ |T^{c}| = 140$.
+  \item ``100 no consumen refrescos'' $\Longrightarrow\ |R^{c}| = 100$.
+  \item ``60 no consumen ni caf\'e ni t\'e'' $\Longrightarrow\ |K^{c}\cap T^{c}| = 60$.
+  \item ``50 no consumen ni caf\'e ni refrescos'' $\Longrightarrow\ |K^{c}\cap R^{c}| = 50$.
+  \item ``70 no consumen ni t\'e ni refrescos'' $\Longrightarrow\ |T^{c}\cap R^{c}| = 70$.
+  \item ``30 no consumen ninguna de las tres bebidas'' $\Longrightarrow\ |K^{c}\cap T^{c}\cap R^{c}| = 30$.
+\end{itemize}
+\textbf{¿De d\'onde sale?} De leer una por una las siete cifras del enunciado.\\
+\textbf{¿Por qu\'e?} Cada ``ni \dots\ ni'' niega dos cosas a la vez y por eso produce una intersecci\'on de dos complementos; ``ninguna de las tres'' niega las tres y produce la intersecci\'on triple de complementos.\\
+\textbf{¿Qu\'e tomamos?} Tenemos exactamente los siete ingredientes que pide la f\'ormula de tres conjuntos, pero referidos a $K^{c}$, $T^{c}$, $R^{c}$.
+\end{paso}
+
+\begin{paso}{Paso 3: De Morgan con tres conjuntos}
+\textbf{Qu\'e hago:} escribo
+\[
+(K\cap T\cap R)^{c} = K^{c}\cup T^{c}\cup R^{c},
+\]
+de donde
+\[
+|K\cap T\cap R| = 300 - |K^{c}\cup T^{c}\cup R^{c}| .
+\]
+\textbf{¿De d\'onde sale?} Del hecho (7), versi\'on triple, y del hecho (1).\\
+\textbf{¿Por qu\'e?} Porque ``no consume las tres bebidas'' significa ``le falta al menos una'', que es exactamente la uni\'on de los tres complementos. Y esa uni\'on s\'i se calcula con los datos disponibles.\\
+\textbf{¿Qu\'e tomamos?} Falta calcular $|K^{c}\cup T^{c}\cup R^{c}|$.
+\end{paso}
+
+\begin{paso}{Paso 4: aplicar inclusi\'on--exclusi\'on para tres conjuntos sobre los complementos}
+\textbf{Qu\'e hago:} sustituyo en el principio (3) usando $K^{c},T^{c},R^{c}$:
+\[
+|K^{c}\cup T^{c}\cup R^{c}| = (120+140+100) - (60+50+70) + 30 .
+\]
+Aritm\'etica por bloques:
+\[
+120+140 = 260, \qquad 260+100 = 360 \quad\Longrightarrow\quad \text{simples} = 360,
+\]
+\[
+60+50 = 110, \qquad 110+70 = 180 \quad\Longrightarrow\quad \text{dobles} = 180,
+\]
+\[
+360 - 180 = 180, \qquad 180 + 30 = 210 .
+\]
+\textbf{¿De d\'onde sale?} Del principio (3).\\
+\textbf{¿Por qu\'e?} Las personas que fallan en dos bebidas fueron contadas dos veces al sumar las simples, por eso se restan las dobles; pero las $30$ que fallan en las tres fueron contadas tres veces y luego restadas tres veces (aparecen en las tres dobles), quedando en cero, as\'i que hay que volver a sumarlas una vez para que cuenten exactamente $1$: $3-3+1=1$.\\
+\textbf{¿Qu\'e tomamos?} $|K^{c}\cup T^{c}\cup R^{c}| = 210$.
+\end{paso}
+
+\begin{paso}{Paso 5: despejar la inc\'ognita}
+\textbf{Qu\'e hago:}
+\[
+|K\cap T\cap R| = 300 - 210 = 90 .
+\]
+\textbf{¿De d\'onde sale?} De la relaci\'on establecida en el Paso 3.\\
+\textbf{¿Por qu\'e?} Porque $210$ personas dejan de consumir al menos una bebida; las restantes consumen las tres.\\
+\textbf{¿Qu\'e tomamos?} $90$ personas.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+$\boxed{90}$ personas consumen caf\'e, t\'e y refrescos. Coincide con la respuesta oficial \textbf{R: 90}.
+\end{resp}
+
+\newpage
+
+%=====================================================================
+\section*{Ejercicio 24}
+
+\textbf{Enunciado.} En un estudio de 270 estudiantes, se hall\'o que 90 sobresal\'ian en matem\'aticas, 90 en m\'usica y 90 en deportes. A su vez, 30 sobresal\'ian en matem\'atica y m\'usica, 30 deportes y m\'usica, 10 en las tres disciplinas y solamente 50 en deportes.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item Cu\'antos estudiantes sobresalen en matem\'atica y deportes? R: 20
+\item Cu\'antos estudiantes no sobresalen en dichas disciplinas al mismo tiempo? R: 70
+\end{enumerate}
+
+\begin{sol}
+
+\begin{paso}{Paso 1: universo y conjuntos}
+\textbf{Qu\'e hago:} sea $U$ el conjunto de los $270$ estudiantes, $|U|=270$, y sean
+\[
+M=\{\text{sobresalen en matem\'aticas}\},\quad
+S=\{\text{sobresalen en m\'usica}\},\quad
+D=\{\text{sobresalen en deportes}\}.
+\]
+\textbf{¿De d\'onde sale?} De las tres disciplinas del enunciado.\\
+\textbf{¿Por qu\'e?} Uso $S$ para m\'usica (de ``sonido'') para no repetir la $M$ de matem\'aticas y evitar ambig\"uedad al escribir las intersecciones.\\
+\textbf{¿Qu\'e tomamos?} Tres conjuntos, luego se usar\'a la f\'ormula de inclusi\'on--exclusi\'on para tres.
+\end{paso}
+
+\begin{paso}{Paso 2: traducir los datos, distinguiendo ``en'' de ``solamente en''}
+\textbf{Qu\'e hago:}
+\[
+|M| = 90,\qquad |S| = 90,\qquad |D| = 90,
+\]
+\[
+|M\cap S| = 30,\qquad |D\cap S| = 30,\qquad |M\cap S\cap D| = 10,
+\]
+\[
+|\text{s\'olo }D| = 50 .
+\]
+\textbf{¿De d\'onde sale?} De las frases ``90 sobresal\'ian en matem\'aticas / en m\'usica / en deportes'', ``30 en matem\'atica y m\'usica'', ``30 deportes y m\'usica'', ``10 en las tres disciplinas'' y ``solamente 50 en deportes''.\\
+\textbf{¿Por qu\'e?} Los datos ``$90$ en deportes'' y ``solamente $50$ en deportes'' no se contradicen: el primero cuenta a todos los de $D$, incluyendo a quienes tambi\'en destacan en otra cosa; el segundo cuenta s\'olo a los que est\'an en $D$ y en ning\'un otro conjunto, es decir en la regi\'on $D\cap M^{c}\cap S^{c}$. La palabra ``solamente'' cambia por completo la regi\'on del diagrama a la que se refiere el n\'umero.\\
+\textbf{¿Qu\'e tomamos?} Falta un solo dato para completar la f\'ormula de tres: $|M\cap D|$, que es justamente lo que pide el inciso (a).
+\end{paso}
+
+\begin{paso}{Paso 3: (a) expresar ``solamente deportes'' en t\'erminos de intersecciones}
+\textbf{Qu\'e hago:} escribo la regi\'on ``s\'olo deportes'' quitando de $D$ lo que se traslapa con los otros dos:
+\[
+|\text{s\'olo }D| = |D| - |D\cap M| - |D\cap S| + |D\cap M\cap S| .
+\]
+\textbf{¿De d\'onde sale?} Es inclusi\'on--exclusi\'on aplicada dentro de $D$: los estudiantes de $D$ que est\'an ``acompa\~nados'' son los de $D\cap(M\cup S)$, y
+\[
+|D\cap(M\cup S)| = |(D\cap M)\cup(D\cap S)| = |D\cap M| + |D\cap S| - |D\cap M\cap S| .
+\]
+Restando esto de $|D|$ se obtiene la f\'ormula anterior.\\
+\textbf{¿Por qu\'e?} Se vuelve a sumar la triple porque los $10$ que est\'an en las tres disciplinas fueron descontados dos veces, una dentro de $|D\cap M|$ y otra dentro de $|D\cap S|$; hay que devolver una copia para que salgan restados exactamente una vez.\\
+\textbf{¿Qu\'e tomamos?} Una ecuaci\'on con una sola inc\'ognita, $|D\cap M|$.
+\end{paso}
+
+\begin{paso}{Paso 4: (a) sustituir y despejar}
+\textbf{Qu\'e hago:} llamo $x = |M\cap D|$ y sustituyo los valores conocidos:
+\[
+50 = 90 - x - 30 + 10 .
+\]
+Simplifico el lado derecho paso a paso:
+\[
+90 - 30 = 60, \qquad 60 + 10 = 70 \quad\Longrightarrow\quad 50 = 70 - x .
+\]
+Despejo:
+\[
+x = 70 - 50 = 20 .
+\]
+\textbf{¿De d\'onde sale?} De sustituir en la identidad del Paso 3 los datos $|D|=90$, $|D\cap S|=30$, $|D\cap M\cap S|=10$ y $|\text{s\'olo }D|=50$.\\
+\textbf{¿Por qu\'e?} Porque la identidad es una igualdad num\'erica exacta entre regiones del diagrama; teniendo cuatro de sus cinco cantidades, la quinta queda determinada.\\
+\textbf{¿Qu\'e tomamos?} $|M\cap D| = 20$, que coincide con \textbf{R: 20}.
+\end{paso}
+
+\begin{paso}{Paso 5: (b) calcular la uni\'on de las tres disciplinas}
+\textbf{Qu\'e hago:} ya tengo los siete ingredientes; aplico el principio (3):
+\[
+|M\cup S\cup D| = (90+90+90) - (30+30+20) + 10 .
+\]
+Aritm\'etica por bloques:
+\[
+90+90 = 180,\qquad 180+90 = 270 \quad\Longrightarrow\quad \text{simples} = 270,
+\]
+\[
+30+30 = 60,\qquad 60+20 = 80 \quad\Longrightarrow\quad \text{dobles} = 80,
+\]
+\[
+270 - 80 = 190, \qquad 190 + 10 = 200 .
+\]
+\textbf{¿De d\'onde sale?} Del principio (3), con $|M\cap S|=30$, $|D\cap S|=30$ y $|M\cap D|=20$ (obtenido en el inciso anterior).\\
+\textbf{¿Por qu\'e?} Se restan las tres dobles porque quien destaca en dos disciplinas fue contado dos veces; se suma la triple porque los $10$ que destacan en las tres quedaron con conteo $3-3=0$ y hay que subirlos a $1$.\\
+\textbf{¿Qu\'e tomamos?} $|M\cup S\cup D| = 200$ estudiantes destacan en al menos una disciplina.
+\end{paso}
+
+\begin{paso}{Paso 6: (b) pasar al complemento}
+\textbf{Qu\'e hago:} los que no destacan en ninguna son
+\[
+|(M\cup S\cup D)^{c}| = |U| - |M\cup S\cup D| = 270 - 200 = 70 .
+\]
+\textbf{¿De d\'onde sale?} De la regla del complemento, hecho (1).\\
+\textbf{¿Por qu\'e?} Porque el universo se parte en ``destaca en al menos una'' y ``no destaca en ninguna''; conocido el primero, el segundo es la resta contra el total.\\
+\textbf{¿Qu\'e tomamos?} $70$ estudiantes.
+\end{paso}
+
+\end{sol}
+
+\begin{nota}
+El inciso (b) est\'a redactado como ``no sobresalen en dichas disciplinas al mismo tiempo''. Le\'ido al pie de la letra, eso ser\'ia $|(M\cap S\cap D)^{c}| = 270-10 = 260$. Sin embargo, la respuesta oficial es \textbf{R: 70}, que corresponde a ``no sobresalen en ninguna de las tres disciplinas'', es decir $|(M\cup S\cup D)^{c}| = 70$. Nuestro desarrollo reproduce el valor oficial $70$ y se limita a se\~nalar que la redacci\'on del enunciado admite la otra lectura; \textbf{se conserva la respuesta oficial}.
+\end{nota}
+
+\begin{resp}
+(a) $|M\cap D| = \boxed{20}$ estudiantes sobresalen en matem\'atica y deportes. Coincide con \textbf{R: 20}.\\
+(b) $\boxed{70}$ estudiantes no sobresalen en ninguna de las tres disciplinas. Coincide con \textbf{R: 70}.
+\end{resp}
+
+\newpage
+
+%=====================================================================
+\section*{Ejercicio 25}
+
+\textbf{Enunciado.} En un estudio de 360 estudiantes, se hall\'o que 140 sobresal\'ian en matem\'aticas, 130 en f\'isica, 120 en m\'usica y 150 en deportes. Adem\'as, 60 sobresal\'ian en matem\'aticas y f\'isica, 50 en matem\'aticas y m\'usica, 70 en matem\'aticas y deportes, 40 en f\'isica y m\'usica, 60 en f\'isica y deportes, 50 en m\'usica y deportes. Asimismo, 30 sobresal\'ian en matem\'aticas, f\'isica y m\'usica, 25 en matem\'aticas, f\'isica y deportes, 20 en matem\'aticas, m\'usica y deportes, 15 en f\'isica, m\'usica y deportes, y 10 sobresal\'ian en las cuatro disciplinas.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item ¿Cu\'antos estudiantes sobresalen \'unicamente en matem\'aticas y deportes? R: 35
+\item ¿Cu\'antos estudiantes no sobresalen en ninguna de las cuatro disciplinas? R: 70
+\end{enumerate}
+
+\begin{sol}
+
+\begin{paso}{Paso 1: universo y los cuatro conjuntos}
+\textbf{Qu\'e hago:} sea $U$ el conjunto de los $360$ estudiantes, $|U|=360$, y
+\[
+M=\{\text{matem\'aticas}\},\quad F=\{\text{f\'isica}\},\quad S=\{\text{m\'usica}\},\quad D=\{\text{deportes}\}.
+\]
+\textbf{¿De d\'onde sale?} De las cuatro disciplinas del enunciado.\\
+\textbf{¿Por qu\'e?} Con cuatro conjuntos habr\'a $4$ simples, $6$ dobles, $4$ triples y $1$ cu\'adruple: en total $15$ cantidades, y el enunciado da exactamente esas $15$. Conviene tabularlas antes de operar.\\
+\textbf{¿Qu\'e tomamos?} Se usar\'a el principio (4) de la Teor\'ia.
+\end{paso}
+
+\begin{paso}{Paso 2: traducir todos los datos}
+\textbf{Qu\'e hago:} organizo los quince datos por bloques.
+
+\emph{Simples:}
+\[
+|M| = 140,\qquad |F| = 130,\qquad |S| = 120,\qquad |D| = 150 .
+\]
+\emph{Dobles:}
+\[
+|M\cap F| = 60,\quad |M\cap S| = 50,\quad |M\cap D| = 70,\quad |F\cap S| = 40,\quad |F\cap D| = 60,\quad |S\cap D| = 50 .
+\]
+\emph{Triples:}
+\[
+|M\cap F\cap S| = 30,\quad |M\cap F\cap D| = 25,\quad |M\cap S\cap D| = 20,\quad |F\cap S\cap D| = 15 .
+\]
+\emph{Cu\'adruple:}
+\[
+|M\cap F\cap S\cap D| = 10 .
+\]
+\textbf{¿De d\'onde sale?} De leer el enunciado frase por frase, respetando el orden en que nombra las disciplinas.\\
+\textbf{¿Por qu\'e?} Ninguna frase lleva la palabra ``\'unicamente'', as\'i que todos estos n\'umeros son cardinales de intersecciones completas (incluyen a quienes adem\'as destacan en otras disciplinas). El \'unico lugar donde aparece ``\'unicamente'' es en la pregunta (a), y por eso all\'i habr\'a que hacer una correcci\'on.\\
+\textbf{¿Qu\'e tomamos?} Los $15$ ingredientes est\'an completos.
+\end{paso}
+
+\begin{paso}{Paso 3: (a) f\'ormula de la regi\'on ``\'unicamente $M$ y $D$''}
+\textbf{Qu\'e hago:} la regi\'on pedida es $M\cap D\cap F^{c}\cap S^{c}$. La obtengo quitando de $M\cap D$ a quienes adem\'as est\'an en $F$ o en $S$:
+\[
+|M\cap D\cap F^{c}\cap S^{c}| = |M\cap D| - |M\cap D\cap F| - |M\cap D\cap S| + |M\cap D\cap F\cap S| .
+\]
+\textbf{¿De d\'onde sale?} Es inclusi\'on--exclusi\'on para dos conjuntos aplicada \emph{dentro} del conjunto $M\cap D$: los ``acompa\~nados'' son
+\[
+(M\cap D)\cap(F\cup S) = (M\cap D\cap F)\cup(M\cap D\cap S),
+\]
+cuyo cardinal es $|M\cap D\cap F| + |M\cap D\cap S| - |M\cap D\cap F\cap S|$.\\
+\textbf{¿Por qu\'e?} Se vuelve a sumar la cu\'adruple porque los $10$ estudiantes de las cuatro disciplinas fueron descontados dos veces, una en la triple con $F$ y otra en la triple con $S$; hay que devolverles una copia.\\
+\textbf{¿Qu\'e tomamos?} Una expresi\'on con cuatro datos ya conocidos.
+\end{paso}
+
+\begin{paso}{Paso 4: (a) sustituir y calcular}
+\textbf{Qu\'e hago:} sustituyo $|M\cap D| = 70$, $|M\cap F\cap D| = 25$, $|M\cap S\cap D| = 20$ y $|M\cap F\cap S\cap D| = 10$:
+\[
+|M\cap D\cap F^{c}\cap S^{c}| = 70 - 25 - 20 + 10 .
+\]
+Aritm\'etica desglosada:
+\[
+70 - 25 = 45, \qquad 45 - 20 = 25, \qquad 25 + 10 = 35 .
+\]
+\textbf{¿De d\'onde sale?} Del Paso 3 con los datos del Paso 2.\\
+\textbf{¿Por qu\'e?} De los $70$ que destacan en matem\'aticas y deportes, hay $25$ que adem\'as destacan en f\'isica y $20$ que adem\'as destacan en m\'usica; pero $10$ fueron incluidos en ambos grupos, as\'i que la cantidad real de ``acompa\~nados'' es $25+20-10=35$, y $70-35=35$ quedan solos con matem\'aticas y deportes.\\
+\textbf{¿Qu\'e tomamos?} $35$ estudiantes.
+\end{paso}
+
+\begin{paso}{Paso 5: (b) sumar los cuatro bloques del principio de inclusi\'on--exclusi\'on}
+\textbf{Qu\'e hago:} calculo por separado la suma de cada bloque.
+
+\emph{Bloque de simples:}
+\[
+140+130 = 270,\qquad 270+120 = 390,\qquad 390+150 = 540 .
+\]
+\emph{Bloque de dobles:}
+\[
+60+50 = 110,\quad 110+70 = 180,\quad 180+40 = 220,\quad 220+60 = 280,\quad 280+50 = 330 .
+\]
+\emph{Bloque de triples:}
+\[
+30+25 = 55,\qquad 55+20 = 75,\qquad 75+15 = 90 .
+\]
+\emph{Bloque cu\'adruple:} $10$.\\
+\textbf{¿De d\'onde sale?} De agrupar los $15$ datos seg\'un su n\'umero de conjuntos.\\
+\textbf{¿Por qu\'e?} Porque en el principio (4) todos los t\'erminos de un mismo bloque llevan el mismo signo; sumarlos primero y aplicar el signo despu\'es reduce dr\'asticamente los errores.\\
+\textbf{¿Qu\'e tomamos?} Simples $=540$, dobles $=330$, triples $=90$, cu\'adruple $=10$.
+\end{paso}
+
+\begin{paso}{Paso 6: (b) aplicar el principio para cuatro conjuntos}
+\textbf{Qu\'e hago:} sustituyo con los signos $+,-,+,-$:
+\[
+|M\cup F\cup S\cup D| = 540 - 330 + 90 - 10 .
+\]
+Aritm\'etica desglosada:
+\[
+540 - 330 = 210,\qquad 210 + 90 = 300,\qquad 300 - 10 = 290 .
+\]
+\textbf{¿De d\'onde sale?} Del principio (4) de la Teor\'ia.\\
+\textbf{¿Por qu\'e?} Los signos alternan porque un elemento que pertenece a exactamente $k$ conjuntos se cuenta $\binom{k}{1}-\binom{k}{2}+\binom{k}{3}-\binom{k}{4}$ veces, y esa suma vale $1$ para todo $k\ge 1$. Por ejemplo, para $k=4$: $4-6+4-1=1$; para $k=3$: $3-3+1-0=1$.\\
+\textbf{¿Qu\'e tomamos?} $290$ estudiantes destacan en al menos una disciplina.
+\end{paso}
+
+\begin{paso}{Paso 7: (b) pasar al complemento}
+\textbf{Qu\'e hago:}
+\[
+|(M\cup F\cup S\cup D)^{c}| = 360 - 290 = 70 .
+\]
+\textbf{¿De d\'onde sale?} De la regla del complemento, hecho (1).\\
+\textbf{¿Por qu\'e?} Porque ``no destacar en ninguna de las cuatro'' es exactamente el complemento de ``destacar en al menos una''.\\
+\textbf{¿Qu\'e tomamos?} $70$ estudiantes.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+(a) $\boxed{35}$ estudiantes sobresalen \'unicamente en matem\'aticas y deportes. Coincide con \textbf{R: 35}.\\
+(b) $\boxed{70}$ estudiantes no sobresalen en ninguna de las cuatro disciplinas. Coincide con \textbf{R: 70}.
+\end{resp}
+
+\newpage
+
+%=====================================================================
+\section*{Ejercicio 26}
+
+\textbf{Enunciado.} Durante la campa\~na asi\'atica de Alejandro Magno, se registr\'o la participaci\'on de 550 soldados macedonios en distintas operaciones militares. Se determin\'o que 260 participaron en batallas campales, 230 en asedios de ciudades, 210 en misiones de exploraci\'on y 240 en labores log\'isticas. Adem\'as, 120 participaron tanto en batallas como en asedios, 110 en batallas y exploraci\'on, 100 en batallas y log\'istica, 90 en asedios y exploraci\'on, 95 en asedios y log\'istica, y 85 en exploraci\'on y log\'istica. Asimismo, 60 participaron en batallas, asedios y exploraci\'on, 55 en batallas, asedios y log\'istica, 50 en batallas, exploraci\'on y log\'istica, 45 en asedios, exploraci\'on y log\'istica, y 30 soldados participaron en las cuatro operaciones.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item ¿Cu\'antos soldados participaron \'unicamente en batallas campales y labores log\'isticas? R: 25
+\item ¿Cu\'antos soldados no participaron en ninguna de las cuatro operaciones mencionadas? R: 30
+\end{enumerate}
+
+\begin{sol}
+
+\begin{paso}{Paso 1: universo y los cuatro conjuntos}
+\textbf{Qu\'e hago:} sea $U$ el conjunto de los $550$ soldados, $|U| = 550$, y
+\[
+B=\{\text{batallas campales}\},\quad
+A=\{\text{asedios de ciudades}\},\quad
+E=\{\text{misiones de exploraci\'on}\},\quad
+L=\{\text{labores log\'isticas}\}.
+\]
+\textbf{¿De d\'onde sale?} De las cuatro operaciones militares que nombra el enunciado.\\
+\textbf{¿Por qu\'e?} Elijo iniciales distintas para las cuatro operaciones de modo que cada intersecci\'on se lea sin ambig\"uedad; con cuatro conjuntos el riesgo principal es confundir un t\'ermino con otro.\\
+\textbf{¿Qu\'e tomamos?} Se usar\'a otra vez el principio (4).
+\end{paso}
+
+\begin{paso}{Paso 2: traducir los quince datos}
+\textbf{Qu\'e hago:} los ordeno por bloques.
+
+\emph{Simples:}
+\[
+|B| = 260,\qquad |A| = 230,\qquad |E| = 210,\qquad |L| = 240 .
+\]
+\emph{Dobles:}
+\[
+|B\cap A| = 120,\quad |B\cap E| = 110,\quad |B\cap L| = 100,\quad |A\cap E| = 90,\quad |A\cap L| = 95,\quad |E\cap L| = 85 .
+\]
+\emph{Triples:}
+\[
+|B\cap A\cap E| = 60,\quad |B\cap A\cap L| = 55,\quad |B\cap E\cap L| = 50,\quad |A\cap E\cap L| = 45 .
+\]
+\emph{Cu\'adruple:}
+\[
+|B\cap A\cap E\cap L| = 30 .
+\]
+\textbf{¿De d\'onde sale?} De cada cifra del enunciado, respetando el orden en que se nombran las operaciones.\\
+\textbf{¿Por qu\'e?} Todas las frases dicen ``participaron en \dots\ y \dots'' sin la palabra ``\'unicamente'', as\'i que describen intersecciones completas, no regiones exclusivas del diagrama.\\
+\textbf{¿Qu\'e tomamos?} Los quince ingredientes est\'an disponibles.
+\end{paso}
+
+\begin{paso}{Paso 3: (a) f\'ormula de la regi\'on ``\'unicamente $B$ y $L$''}
+\textbf{Qu\'e hago:} la regi\'on pedida es $B\cap L\cap A^{c}\cap E^{c}$, y
+\[
+|B\cap L\cap A^{c}\cap E^{c}| = |B\cap L| - |B\cap L\cap A| - |B\cap L\cap E| + |B\cap L\cap A\cap E| .
+\]
+\textbf{¿De d\'onde sale?} De inclusi\'on--exclusi\'on para dos conjuntos aplicada dentro de $B\cap L$: los soldados de $B\cap L$ que adem\'as est\'an en $A$ o en $E$ son
+\[
+(B\cap L\cap A)\cup(B\cap L\cap E),
+\]
+con cardinal $|B\cap L\cap A| + |B\cap L\cap E| - |B\cap L\cap A\cap E|$.\\
+\textbf{¿Por qu\'e?} Se vuelve a sumar la cu\'adruple porque los $30$ soldados de las cuatro operaciones se descontaron dos veces, una en $B\cap A\cap L$ y otra en $B\cap E\cap L$; se les devuelve una copia para que el descuento sea exactamente de una.\\
+\textbf{¿Qu\'e tomamos?} Los cuatro n\'umeros necesarios son $100$, $55$, $50$ y $30$.
+\end{paso}
+
+\begin{paso}{Paso 4: (a) sustituir y calcular}
+\textbf{Qu\'e hago:}
+\[
+|B\cap L\cap A^{c}\cap E^{c}| = 100 - 55 - 50 + 30 .
+\]
+Aritm\'etica desglosada:
+\[
+100 - 55 = 45,\qquad 45 - 50 = -5,\qquad -5 + 30 = 25 .
+\]
+\textbf{¿De d\'onde sale?} Del Paso 3 con los datos del Paso 2.\\
+\textbf{¿Por qu\'e?} Aparece un valor intermedio negativo ($-5$) simplemente porque restamos las dos triples antes de reponer la cu\'adruple; eso no es un error, es el orden en que est\'an escritos los t\'erminos. Visto de otro modo, los ``acompa\~nados'' dentro de $B\cap L$ son $55+50-30 = 75$, y $100-75 = 25$.\\
+\textbf{¿Qu\'e tomamos?} $25$ soldados.
+\end{paso}
+
+\begin{paso}{Paso 5: (b) sumar los cuatro bloques}
+\textbf{Qu\'e hago:}
+
+\emph{Simples:}
+\[
+260+230 = 490,\qquad 490+210 = 700,\qquad 700+240 = 940 .
+\]
+\emph{Dobles:}
+\[
+120+110 = 230,\quad 230+100 = 330,\quad 330+90 = 420,\quad 420+95 = 515,\quad 515+85 = 600 .
+\]
+\emph{Triples:}
+\[
+60+55 = 115,\qquad 115+50 = 165,\qquad 165+45 = 210 .
+\]
+\emph{Cu\'adruple:} $30$.\\
+\textbf{¿De d\'onde sale?} De agrupar los datos del Paso 2 por n\'umero de conjuntos involucrados.\\
+\textbf{¿Por qu\'e?} Porque el principio (4) asigna un mismo signo a todo el bloque; totalizar bloque por bloque hace la cuenta verificable.\\
+\textbf{¿Qu\'e tomamos?} Simples $=940$, dobles $=600$, triples $=210$, cu\'adruple $=30$.
+\end{paso}
+
+\begin{paso}{Paso 6: (b) aplicar el principio para cuatro conjuntos}
+\textbf{Qu\'e hago:}
+\[
+|B\cup A\cup E\cup L| = 940 - 600 + 210 - 30 .
+\]
+Aritm\'etica desglosada:
+\[
+940 - 600 = 340,\qquad 340 + 210 = 550,\qquad 550 - 30 = 520 .
+\]
+\textbf{¿De d\'onde sale?} Del principio (4).\\
+\textbf{¿Por qu\'e?} Se restan las dobles para corregir los soldados contados de m\'as, se suman las triples porque esa resta se pas\'o con quienes est\'an en tres operaciones, y se resta la cu\'adruple porque el ajuste anterior volvi\'o a excederse con quienes est\'an en las cuatro. El balance final para cada soldado con $k$ operaciones es $\binom{k}{1}-\binom{k}{2}+\binom{k}{3}-\binom{k}{4}=1$.\\
+\textbf{¿Qu\'e tomamos?} $520$ soldados participaron en al menos una operaci\'on.
+\end{paso}
+
+\begin{paso}{Paso 7: (b) pasar al complemento}
+\textbf{Qu\'e hago:}
+\[
+|(B\cup A\cup E\cup L)^{c}| = 550 - 520 = 30 .
+\]
+\textbf{¿De d\'onde sale?} De la regla del complemento, hecho (1).\\
+\textbf{¿Por qu\'e?} Porque de los $550$ soldados registrados, $520$ aparecen en alguna de las cuatro operaciones; los dem\'as no figuran en ninguna.\\
+\textbf{¿Qu\'e tomamos?} $30$ soldados.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+(a) $\boxed{25}$ soldados participaron \'unicamente en batallas campales y labores log\'isticas. Coincide con \textbf{R: 25}.\\
+(b) $\boxed{30}$ soldados no participaron en ninguna de las cuatro operaciones. Coincide con \textbf{R: 30}.
+\end{resp}
+
+\end{document}

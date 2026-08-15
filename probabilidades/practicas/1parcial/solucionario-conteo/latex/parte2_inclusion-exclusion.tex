@@ -1,0 +1,2075 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+
+\begin{center}{\LARGE\bfseries Principios de conteo}\\[2pt]{\large Principio de inclusión-exclusión --- Ejercicios 1--15}\end{center}
+
+\vspace{4pt}
+
+\begin{teo}
+\textbf{Principio de inclusión-exclusión para dos conjuntos.} Si $A$ y $B$ son conjuntos finitos, entonces
+\[
+|A\cup B| = |A| + |B| - |A\cap B| .
+\]
+
+\smallskip
+\textbf{Demostración.} Partimos la unión en tres pedazos que no se traslapan:
+\[
+A\cup B = (A\setminus B)\ \dot\cup\ (A\cap B)\ \dot\cup\ (B\setminus A),
+\]
+donde $\dot\cup$ indica unión disjunta. En efecto, todo elemento de $A\cup B$ está en $A$, en $B$ o en ambos, y esos tres casos son mutuamente excluyentes y cubren todo. Como los pedazos son disjuntos, el \emph{principio de la suma} permite sumar sus tamaños:
+\[
+|A\cup B| = |A\setminus B| + |A\cap B| + |B\setminus A| .
+\]
+Por otro lado, $A$ se parte como $A=(A\setminus B)\,\dot\cup\,(A\cap B)$, de donde $|A\setminus B| = |A|-|A\cap B|$; análogamente $|B\setminus A| = |B|-|A\cap B|$. Sustituyendo:
+\[
+|A\cup B| = \bigl(|A|-|A\cap B|\bigr) + |A\cap B| + \bigl(|B|-|A\cap B|\bigr) = |A|+|B|-|A\cap B| . \qquad \blacksquare
+\]
+
+\smallskip
+\textbf{De dónde sale la fórmula.} Al escribir $|A|+|B|$ cada elemento que vive en $A$ y en $B$ a la vez se cuenta \emph{dos} veces (una como elemento de $A$ y otra como elemento de $B$), mientras que los demás se cuentan una sola vez. Restar $|A\cap B|$ le quita exactamente una de esas dos apariciones a los elementos repetidos y deja a los demás intactos. Ése es todo el contenido del principio: sumar de más y corregir.
+
+\smallskip
+\textbf{Principio de inclusión-exclusión para tres conjuntos.} Si $A$, $B$, $C$ son conjuntos finitos,
+\[
+|A\cup B\cup C| = |A|+|B|+|C| - |A\cap B| - |A\cap C| - |B\cap C| + |A\cap B\cap C| .
+\]
+
+\smallskip
+\textbf{Demostración.} Aplicamos dos veces el caso de dos conjuntos. Primero, viendo $A\cup B\cup C$ como $(A\cup B)\cup C$:
+\[
+|A\cup B\cup C| = |A\cup B| + |C| - |(A\cup B)\cap C| .
+\]
+La ley distributiva de conjuntos da $(A\cup B)\cap C = (A\cap C)\cup(B\cap C)$, y aplicando de nuevo el caso de dos conjuntos a esa unión:
+\[
+|(A\cup B)\cap C| = |A\cap C| + |B\cap C| - |(A\cap C)\cap(B\cap C)| = |A\cap C|+|B\cap C|-|A\cap B\cap C| ,
+\]
+pues $(A\cap C)\cap(B\cap C) = A\cap B\cap C$. Sustituyendo esto y $|A\cup B|=|A|+|B|-|A\cap B|$:
+\[
+|A\cup B\cup C| = |A|+|B|-|A\cap B| + |C| - |A\cap C| - |B\cap C| + |A\cap B\cap C| ,
+\]
+que es lo afirmado. $\blacksquare$
+
+\smallskip
+\textbf{Forma general.} Para conjuntos finitos $A_1,A_2,\dots,A_m$,
+\[
+\Bigl|\bigcup_{i=1}^{m} A_i\Bigr|
+= \sum_{i} |A_i| - \sum_{i<j} |A_i\cap A_j| + \sum_{i<j<l} |A_i\cap A_j\cap A_l| - \cdots + (-1)^{m+1}\,|A_1\cap\cdots\cap A_m| ,
+\]
+es decir: se suman los tamaños de las intersecciones de una cantidad impar de conjuntos y se restan los de una cantidad par.
+
+\smallskip
+\textbf{Demostración (por doble conteo de cada elemento).} Basta comprobar que cada elemento del lado izquierdo aporta $1$ al lado derecho. Tomemos $x\in A_1\cup\cdots\cup A_m$ y sea $k\ge 1$ la cantidad de conjuntos $A_i$ que contienen a $x$. En la suma simple $\sum_i |A_i|$ ese $x$ se cuenta $k=\binom{k}{1}$ veces; en la suma de intersecciones dobles se cuenta una vez por cada pareja de conjuntos que lo contienen, o sea $\binom{k}{2}$ veces; en general, en la suma de intersecciones de $j$ conjuntos aporta $\binom{k}{j}$. Con los signos alternados, el aporte total de $x$ es
+\[
+\sum_{j=1}^{k}(-1)^{j+1}\binom{k}{j}
+= -\sum_{j=1}^{k}(-1)^{j}\binom{k}{j}
+= -\left[\sum_{j=0}^{k}(-1)^{j}\binom{k}{j} - \binom{k}{0}\right]
+= -\bigl[(1-1)^k - 1\bigr] = 1 ,
+\]
+donde se usó el teorema del binomio $\sum_{j=0}^k \binom{k}{j}(-1)^j 1^{\,k-j} = (1-1)^k = 0$ (válido porque $k\ge 1$). Un elemento que no está en ninguna $A_i$ aporta $0$ a ambos lados. Como cada elemento de la unión aporta exactamente $1$ a ambos lados, los dos números coinciden. $\blacksquare$
+
+\smallskip
+\textbf{Regla del complemento.} Si $U$ es el conjunto universo (finito) y $A\subseteq U$, entonces
+\[
+|A^{c}| = |U| - |A| ,
+\]
+porque $U = A\,\dot\cup\,A^{c}$ es una partición en dos pedazos disjuntos y el principio de la suma da $|U|=|A|+|A^c|$. Combinada con inclusión-exclusión resuelve todos los enunciados del tipo ``\emph{cuántos no son múltiplos de\ldots}'':
+\[
+\#\{\text{ninguna propiedad}\} = |U| - |A_1\cup A_2\cup\cdots\cup A_m| .
+\]
+
+\smallskip
+\textbf{Conteo de múltiplos con la función piso.} Para enteros $n\ge 1$ y $k\ge 1$, la cantidad de múltiplos de $k$ dentro de $\{1,2,\dots,n\}$ es
+\[
+\left\lfloor \frac{n}{k} \right\rfloor ,
+\]
+donde $\lfloor x\rfloor$ es el mayor entero menor o igual que $x$.
+
+\smallskip
+\textbf{Demostración.} Los múltiplos positivos de $k$ son $k\cdot 1, k\cdot 2, k\cdot 3,\dots$, y el múltiplo $k\cdot q$ pertenece a $\{1,\dots,n\}$ exactamente cuando $k q\le n$, es decir cuando $q\le n/k$. Por lo tanto los múltiplos de $k$ que caben son los que corresponden a $q\in\{1,2,\dots,q_{\max}\}$, donde $q_{\max}$ es el mayor entero que cumple $q\le n/k$; por definición ese mayor entero es $\lfloor n/k\rfloor$. Como la correspondencia $q\mapsto kq$ es biyectiva entre $\{1,\dots,q_{\max}\}$ y el conjunto de esos múltiplos, ambos conjuntos tienen el mismo tamaño: $\lfloor n/k\rfloor$. $\blacksquare$
+
+\smallskip
+\textbf{¿Por qué piso y no techo?} Porque se cuentan los múltiplos que \emph{caben} dentro de $\{1,\dots,n\}$: si $n/k$ no es entero, el siguiente múltiplo $k(\lfloor n/k\rfloor+1)$ ya se pasa de $n$ y no debe contarse. Redondear hacia arriba incluiría un múltiplo inexistente. Concretamente, si $n = kq+r$ con $0\le r<k$ (algoritmo de la división), entonces $\lfloor n/k\rfloor = q$: el residuo $r$ representa los números finales que no alcanzan a formar otro múltiplo.
+
+\smallskip
+\textbf{Intersección de múltiplos.} Un número es múltiplo de $a$ y de $b$ a la vez si y sólo si es múltiplo de $\operatorname{mcm}(a,b)$. Por lo tanto
+\[
+|A_a\cap A_b| = \left\lfloor \frac{n}{\operatorname{mcm}(a,b)} \right\rfloor .
+\]
+En particular, si $a$ y $b$ no tienen factores primos comunes, $\operatorname{mcm}(a,b)=ab$; y si $a\mid b$, entonces $\operatorname{mcm}(a,b)=b$.
+\end{teo}
+
+\begin{tip}
+Fórmulas que se repiten en toda la sección:
+\begin{itemize}[leftmargin=1.3em,itemsep=1pt]
+\item Dos conjuntos: $|A\cup B| = |A|+|B|-|A\cap B|$.
+\item Tres conjuntos: $|A\cup B\cup C| = |A|+|B|+|C|-|A\cap B|-|A\cap C|-|B\cap C|+|A\cap B\cap C|$.
+\item Complemento: $|A^c| = |U|-|A|$; ``ninguno cumple'' $=|U|-|A_1\cup\cdots\cup A_m|$.
+\item Múltiplos de $k$ en $\{1,\dots,n\}$: $\lfloor n/k\rfloor$; múltiplos de $a$ \emph{y} de $b$: $\lfloor n/\operatorname{mcm}(a,b)\rfloor$.
+\item Principio del producto: decisiones sucesivas con $n_1,n_2,\dots,n_r$ opciones dan $n_1 n_2\cdots n_r$ resultados.
+\item Permutaciones (orden importa, sin repetir): $P(n,r)=\dfrac{n!}{(n-r)!}=n(n-1)\cdots(n-r+1)$.
+\item Combinaciones (orden no importa): $\binom{n}{r}=\dfrac{n!}{r!\,(n-r)!}$.
+\item ``Al menos uno'' casi siempre conviene por complemento: total $-$ ``ninguno''.
+\end{itemize}
+\end{tip}
+
+% ============================================================
+\section*{Ejercicio 1}
+
+\begin{quote}
+Una banca tiene 6 lugares enumerados desocupados ¿De cuántas maneras se puede sentar Karla, Anthony y Jorge en la banca? \hfill R/ 210
+\end{quote}
+
+\begin{paso}{Paso 1 --- Decidir qué se está contando}
+\textbf{Qué hago:} identifico el conjunto de objetos a contar antes de escoger regla alguna. Aquí un ``resultado'' es una asignación que le da a cada una de las tres personas un lugar de la banca, sin que dos personas compartan lugar.
+
+\textbf{¿De dónde sale?} Del enunciado: los lugares están \emph{enumerados} (numerados del $1$ al $6$), así que son distinguibles entre sí; y hay tres personas con nombre propio (Karla, Anthony, Jorge), así que también son distinguibles. Los $6$ lugares están desocupados, de modo que los tres pueden elegir libremente.
+
+\textbf{¿Por qué?} Porque el hecho de que los lugares estén numerados es lo que hace que ``Karla en el lugar 1'' y ``Karla en el lugar 2'' cuenten como resultados distintos; si la banca fuese un objeto sin posiciones distinguibles, no habría nada que contar. Además, dos personas no pueden ocupar el mismo lugar, lo cual introduce la restricción de no repetición.
+
+\textbf{¿Qué tomamos?} Contamos las maneras de asignar lugares distintos a $3$ personas distinguibles entre $6$ lugares distinguibles.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Aplicar el principio del producto}
+\textbf{Qué hago:} descompongo la construcción de un resultado en decisiones sucesivas y aplico el principio del producto.
+
+Sentamos a las personas en un orden fijo cualquiera, digamos Karla, luego Anthony y luego Jorge:
+\begin{itemize}[leftmargin=1.3em,itemsep=1pt]
+\item Karla puede escoger cualquiera de los $6$ lugares: $6$ opciones.
+\item Anthony ya no puede usar el lugar de Karla: quedan $6-1=5$ opciones.
+\item Jorge no puede usar ninguno de los dos ya ocupados: quedan $6-2=4$ opciones.
+\end{itemize}
+
+\textbf{¿De dónde sale?} El $6$ es la cantidad de lugares del enunciado; los descuentos $-1$ y $-2$ salen de que los lugares ya ocupados dejan de estar disponibles.
+
+\textbf{¿Por qué?} Porque el principio del producto exige que la cantidad de opciones de cada etapa \emph{no dependa} de cuál opción se tomó en las etapas anteriores, y aquí eso se cumple: sin importar dónde se haya sentado Karla, a Anthony siempre le quedan exactamente $5$ lugares libres, y a Jorge siempre $4$. Además, cada asignación se construye de una única forma con este procedimiento, así que no hay repeticiones ni omisiones.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Desarrollar la aritmética}
+\textbf{Qué hago:} multiplico paso por paso y reconozco el resultado como una permutación.
+
+\[
+6\cdot 5\cdot 4 = 30\cdot 4 = 120 .
+\]
+En notación de permutaciones, esto es
+\[
+P(6,3)=\frac{6!}{(6-3)!}=\frac{720}{6}=120 .
+\]
+Desglose: $6!=720$ y $3!=6$, luego $720/6=120$.
+
+\textbf{¿De dónde sale?} De las tres etapas del Paso 2.
+
+\textbf{¿Por qué coincide con $P(6,3)$?} Porque $P(n,r)$ cuenta precisamente las maneras de colocar $r$ objetos distinguibles en $r$ de $n$ posiciones distinguibles sin repetir, y su fórmula $n(n-1)\cdots(n-r+1)$ es literalmente el producto de las etapas.
+
+\textbf{¿Qué tomamos?} $120$ maneras.
+\end{paso}
+
+\begin{nota}
+Discrepancia con la respuesta oficial. El conteo correcto para $6$ lugares y $3$ personas es $P(6,3)=6\cdot5\cdot4=120$. La respuesta oficial registrada es $210$, que es exactamente $P(7,3)=7\cdot 6\cdot 5=210$; es decir, corresponde a una banca de \emph{siete} lugares y no de seis. Se conserva la respuesta oficial tal como aparece en la práctica, pero con los datos escritos en el enunciado el valor que se obtiene es $120$.
+\end{nota}
+
+\begin{resp}
+Con los $6$ lugares numerados del enunciado, las maneras de sentar a Karla, Anthony y Jorge son $P(6,3)=6\cdot 5\cdot 4=\mathbf{120}$. La respuesta oficial de la práctica es \textbf{R/ 210}, valor que corresponde a $P(7,3)$, o sea a una banca de $7$ lugares.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 2}
+
+\begin{quote}
+Se tiene una canasta con 50 bolas numeradas del 1 al 50. Las bolas del 1 al 30 son verdes y las demás rojas ¿De cuántas maneras se puede elegir una bola que sea verde, con número par o con número múltiplo de 3? \hfill R/ 43
+\end{quote}
+
+\begin{paso}{Paso 1 --- Fijar el universo y los tres conjuntos}
+\textbf{Qué hago:} traduzco las tres condiciones del enunciado a tres subconjuntos del mismo universo, que es el paso obligatorio antes de usar inclusión-exclusión.
+
+El universo es $U=\{1,2,\dots,50\}$, las bolas de la canasta, y $|U|=50$. Definimos
+\[
+V=\{\text{bolas verdes}\}=\{1,\dots,30\},\qquad
+P=\{\text{bolas con número par}\},\qquad
+T=\{\text{bolas con número múltiplo de }3\}.
+\]
+Se pide $|V\cup P\cup T|$.
+
+\textbf{¿De dónde sale?} $V$ sale de ``las bolas del 1 al 30 son verdes''; $P$ y $T$ salen de ``con número par'' y ``con número múltiplo de 3''. La unión sale de la conjunción ``o'' del enunciado: basta que la bola cumpla \emph{alguna} de las tres condiciones.
+
+\textbf{¿Por qué unión y no suma directa?} Porque las tres condiciones no son excluyentes: la bola $6$, por ejemplo, es verde, par y múltiplo de $3$ a la vez. Sumar $|V|+|P|+|T|$ contaría esa bola tres veces. El principio de la suma sólo se aplica a conjuntos disjuntos; cuando hay traslape, la herramienta correcta es inclusión-exclusión.
+
+\textbf{¿Qué tomamos?} $U=\{1,\dots,50\}$ y los conjuntos $V$, $P$, $T$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar los tres conjuntos por separado}
+\textbf{Qué hago:} calculo $|V|$, $|P|$ y $|T|$ usando el conteo de múltiplos con la función piso.
+
+\[
+|V| = 30 ,
+\]
+porque $V=\{1,2,\dots,30\}$ tiene $30$ elementos.
+\[
+|P| = \left\lfloor \frac{50}{2} \right\rfloor = 25 ,
+\]
+ya que $2\cdot 25=50\le 50 < 52 = 2\cdot 26$.
+\[
+|T| = \left\lfloor \frac{50}{3} \right\rfloor = 16 ,
+\]
+ya que $3\cdot 16 = 48 \le 50 < 51 = 3\cdot 17$.
+
+\textbf{¿De dónde sale?} De los datos del Paso 1 y del teorema del piso: los pares son los múltiplos de $2$ y los múltiplos de tres son los múltiplos de $3$, ambos dentro de $\{1,\dots,50\}$.
+
+\textbf{¿Por qué el piso?} Porque el múltiplo siguiente ya se sale del rango: el número $51=3\cdot 17$ es mayor que $50$, así que sólo caben $16$ múltiplos de $3$. Escribiendo $50 = 3\cdot 16 + 2$, el residuo $2$ son los números $49$ y $50$, que no alcanzan a formar un decimoséptimo múltiplo.
+
+\textbf{¿Qué tomamos?} $|V|=30$, $|P|=25$, $|T|=16$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar las intersecciones dobles}
+\textbf{Qué hago:} calculo los tres traslapes, describiendo cada uno como un conteo de múltiplos dentro del rango adecuado.
+
+\emph{Verdes y pares:} son los pares dentro de $\{1,\dots,30\}$,
+\[
+|V\cap P| = \left\lfloor \frac{30}{2} \right\rfloor = 15 \qquad (2\cdot 15 = 30 \le 30 < 32).
+\]
+\emph{Verdes y múltiplos de 3:} son los múltiplos de $3$ dentro de $\{1,\dots,30\}$,
+\[
+|V\cap T| = \left\lfloor \frac{30}{3} \right\rfloor = 10 \qquad (3\cdot 10 = 30 \le 30 < 33).
+\]
+\emph{Pares y múltiplos de 3:} un número es par y múltiplo de $3$ si y sólo si es múltiplo de $\operatorname{mcm}(2,3)=6$, luego
+\[
+|P\cap T| = \left\lfloor \frac{50}{6} \right\rfloor = 8 \qquad (6\cdot 8 = 48 \le 50 < 54 = 6\cdot 9).
+\]
+
+\textbf{¿De dónde sale?} $V\cap P$ y $V\cap T$ salen de restringir el rango a $\{1,\dots,30\}$, que es lo que significa ser verde. $P\cap T$ sale de la regla del mínimo común múltiplo.
+
+\textbf{¿Por qué $\operatorname{mcm}$?} Porque si $x$ es múltiplo de $2$ y de $3$, entonces $x$ es múltiplo común de ambos, y todo múltiplo común es múltiplo del mínimo común múltiplo; recíprocamente todo múltiplo de $6$ es par y múltiplo de $3$. Las dos condiciones juntas equivalen a una sola condición de divisibilidad por $6$.
+
+\textbf{¿Qué tomamos?} $|V\cap P|=15$, $|V\cap T|=10$, $|P\cap T|=8$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Contar la intersección triple}
+\textbf{Qué hago:} determino cuántas bolas cumplen las tres condiciones al mismo tiempo.
+
+Ser verde, par y múltiplo de $3$ significa: estar en $\{1,\dots,30\}$ y ser múltiplo de $6$. Entonces
+\[
+|V\cap P\cap T| = \left\lfloor \frac{30}{6} \right\rfloor = 5 \qquad (6\cdot 5 = 30 \le 30 < 36),
+\]
+es decir las bolas $6,12,18,24,30$.
+
+\textbf{¿De dónde sale?} De combinar el rango verde ($\le 30$) del Paso 1 con la equivalencia ``par y múltiplo de $3$'' $\Leftrightarrow$ ``múltiplo de $6$'' del Paso 3.
+
+\textbf{¿Por qué hace falta?} Porque en la fórmula de tres conjuntos las bolas que cumplen las tres condiciones se suman tres veces y luego se restan tres veces (una en cada intersección doble), quedando con aporte $0$; hay que devolverlas con un $+|V\cap P\cap T|$ para que aporten $1$ cada una.
+
+\textbf{¿Qué tomamos?} $|V\cap P\cap T| = 5$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Aplicar inclusión-exclusión para tres conjuntos}
+\textbf{Qué hago:} sustituyo los siete números obtenidos en la fórmula demostrada en la Teoría.
+
+\[
+|V\cup P\cup T| = |V|+|P|+|T| - |V\cap P| - |V\cap T| - |P\cap T| + |V\cap P\cap T| .
+\]
+\[
+|V\cup P\cup T| = 30+25+16 - 15 - 10 - 8 + 5 .
+\]
+Desglose de la aritmética:
+\[
+30+25+16 = 71,\qquad 15+10+8 = 33,\qquad 71-33 = 38,\qquad 38+5 = 43 .
+\]
+
+\textbf{¿De dónde sale?} Los tres primeros números vienen del Paso 2, los tres siguientes del Paso 3 y el último del Paso 4.
+
+\textbf{¿Por qué el resultado es correcto?} Porque cada bola que cumple exactamente una condición aporta $1$; una que cumple exactamente dos aporta $1+1-1=1$; y una que cumple las tres aporta $3-3+1=1$. Toda bola de la unión aporta exactamente $1$, que es justamente lo que demuestra el teorema.
+
+\textbf{¿Qué tomamos?} $43$ maneras.
+\end{paso}
+
+\begin{resp}
+Hay $\mathbf{43}$ maneras de elegir una bola verde, con número par o con número múltiplo de $3$:
+\[
+|V\cup P\cup T| = 30+25+16-15-10-8+5 = 43 .
+\]
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 3}
+
+\begin{quote}
+Se tiene una canasta con 30 bolas numeradas del 1 al 30. Determine el número de maneras de elegir 5 bolas, de forma que:\\
+a) Exactamente tres bolas tengan múltiplos de tres. \hfill R/ 22 800\\
+b) Al menos una bola tenga un número múltiplo de cinco. \hfill R/ 100 002\\
+c) Al menos cuatro múltiplos de cinco y a lo sumo un múltiplo de tres. \hfill R/ 156
+\end{quote}
+
+\begin{paso}{Paso 0 --- Inventario común a los tres incisos}
+\textbf{Qué hago:} preparo de una vez los conjuntos de bolas que se usan en los tres incisos, contando con la función piso.
+
+El universo es $U=\{1,2,\dots,30\}$ con $|U|=30$. Definimos
+\[
+M_3 = \{\text{múltiplos de }3\},\qquad M_5=\{\text{múltiplos de }5\} .
+\]
+\[
+|M_3| = \left\lfloor \frac{30}{3}\right\rfloor = 10 \quad (3\cdot 10 = 30\le 30 < 33), \qquad
+|M_5| = \left\lfloor \frac{30}{5}\right\rfloor = 6 \quad (5\cdot 6 = 30\le 30 < 35).
+\]
+Explícitamente $M_3=\{3,6,9,12,15,18,21,24,27,30\}$ y $M_5=\{5,10,15,20,25,30\}$. Además
+\[
+|M_3\cap M_5| = \left\lfloor \frac{30}{\operatorname{mcm}(3,5)}\right\rfloor = \left\lfloor \frac{30}{15}\right\rfloor = 2 ,
+\]
+es decir $M_3\cap M_5=\{15,30\}$. Los que no son múltiplos de $3$: $30-10=20$; los que no son múltiplos de $5$: $30-6=24$.
+
+\textbf{¿De dónde sale?} De la numeración $1$ a $30$ de las bolas y del teorema del piso.
+
+\textbf{¿Por qué conviene tenerlo aparte?} Porque las bolas se eligen \emph{sin orden} (una elección de 5 bolas es un subconjunto, no una fila), así que todo se reducirá a combinaciones $\binom{n}{r}$ sobre estos bloques; y porque el traslape $\{15,30\}$ es lo que hace no trivial el inciso c).
+
+\textbf{¿Qué tomamos?} $|M_3|=10$, $|M_5|=6$, $|M_3\cap M_5|=2$, y los complementos $20$ y $24$.
+\end{paso}
+
+\subsection*{Inciso a)}
+
+\begin{paso}{Paso 1 --- Partir la elección en dos bloques disjuntos}
+\textbf{Qué hago:} traduzco ``exactamente tres bolas múltiplos de tres'' a una elección hecha en dos etapas independientes.
+
+Si de las $5$ bolas exactamente $3$ son múltiplos de tres, entonces las otras $5-3=2$ bolas \emph{no} son múltiplos de tres. Es decir, hay que elegir $3$ bolas dentro de $M_3$ (que tiene $10$ elementos) y $2$ bolas dentro de $U\setminus M_3$ (que tiene $20$ elementos).
+
+\textbf{¿De dónde sale?} El $10$ y el $20$ salen del Paso 0; el $3$ y el $2$ salen de la palabra ``exactamente tres'' aplicada a una elección de $5$ bolas.
+
+\textbf{¿Por qué es válida la partición?} Porque cada bola de $U$ está en $M_3$ o en su complemento, nunca en ambos, así que una selección de $5$ bolas queda determinada por el par (subconjunto de $M_3$ elegido, subconjunto del complemento elegido). La correspondencia es biyectiva: de cada par sale una y sólo una selección, y toda selección con exactamente tres múltiplos de tres se obtiene así.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar cada bloque con combinaciones}
+\textbf{Qué hago:} uso combinaciones porque dentro de cada bloque el orden de elección no importa.
+
+\[
+\binom{10}{3} = \frac{10\cdot 9\cdot 8}{3\cdot 2\cdot 1} = \frac{720}{6} = 120,
+\qquad
+\binom{20}{2} = \frac{20\cdot 19}{2\cdot 1} = \frac{380}{2} = 190 .
+\]
+
+\textbf{¿De dónde sale?} De la fórmula $\binom{n}{r}=\frac{n(n-1)\cdots(n-r+1)}{r!}$ con $(n,r)=(10,3)$ y $(20,2)$.
+
+\textbf{¿Por qué combinaciones y no permutaciones?} Porque el enunciado sólo pide \emph{elegir} bolas: la canasta no impone un orden y la selección $\{3,6,9\}$ es la misma que $\{9,3,6\}$. La fórmula $\binom{n}{r}$ es $P(n,r)$ dividido entre $r!$, precisamente para borrar los $r!$ órdenes que producen la misma selección.
+
+\textbf{¿Qué tomamos?} $120$ formas para los múltiplos de tres y $190$ para las otras dos bolas.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Aplicar el principio del producto}
+\textbf{Qué hago:} combino las dos etapas con el principio del producto y desarrollo la multiplicación.
+
+\[
+\binom{10}{3}\binom{20}{2} = 120\cdot 190 .
+\]
+Desglose: $120\cdot 190 = 12\cdot 19\cdot 100 = 228\cdot 100 = 22\,800$.
+
+\textbf{¿De dónde sale?} De las dos cantidades del Paso 2.
+
+\textbf{¿Por qué se multiplican?} Porque las dos decisiones son independientes: cualquiera de las $120$ elecciones de múltiplos de tres puede acompañarse con cualquiera de las $190$ elecciones de no múltiplos, y todas esas parejas dan selecciones distintas.
+
+\textbf{¿Qué tomamos?} $22\,800$.
+\end{paso}
+
+\begin{resp}
+\textbf{a)} $\displaystyle \binom{10}{3}\binom{20}{2} = 120\cdot 190 = \mathbf{22\,800}$ maneras.
+\end{resp}
+
+\subsection*{Inciso b)}
+
+\begin{paso}{Paso 1 --- Reconocer que conviene el complemento}
+\textbf{Qué hago:} decido la estrategia antes de calcular, comparando el trabajo de los dos caminos.
+
+Sea $X$ el conjunto de todas las selecciones de $5$ bolas y sea $A\subseteq X$ el conjunto de las selecciones que tienen \emph{al menos una} bola múltiplo de cinco. La negación de ``al menos una es múltiplo de cinco'' es ``\emph{ninguna} es múltiplo de cinco''. Por la regla del complemento,
+\[
+|A| = |X| - |A^{c}| .
+\]
+
+\textbf{¿De dónde sale?} De la regla del complemento demostrada en la Teoría, con universo $X$ (todas las selecciones posibles de $5$ bolas).
+
+\textbf{¿Por qué es preferible?} Porque el camino directo obligaría a sumar los casos ``exactamente una'', ``exactamente dos'', \ldots, ``exactamente cinco'' múltiplos de cinco, o sea cinco términos; mientras que la condición contraria (\emph{ninguna}) es un único conteo. El complemento es la forma más económica y menos propensa a errores de traslape.
+
+\textbf{¿Qué tomamos?} La identidad $|A| = |X| - |A^c|$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar el total de selecciones}
+\textbf{Qué hago:} calculo $|X|$, la cantidad de maneras de elegir $5$ bolas entre las $30$, sin restricción alguna.
+
+\[
+|X| = \binom{30}{5} = \frac{30\cdot 29\cdot 28\cdot 27\cdot 26}{5\cdot 4\cdot 3\cdot 2\cdot 1} .
+\]
+Desglose del numerador y el denominador:
+\[
+5! = 120,\qquad 30\cdot 29 = 870,\quad 870\cdot 28 = 24\,360,\quad 24\,360\cdot 27 = 657\,720,\quad 657\,720\cdot 26 = 17\,100\,720 .
+\]
+\[
+\binom{30}{5} = \frac{17\,100\,720}{120} = 142\,506 .
+\]
+
+\textbf{¿De dónde sale?} Del dato ``canasta con 30 bolas'' y de ``elegir 5 bolas''.
+
+\textbf{¿Por qué combinaciones?} Porque nuevamente el orden de extracción no interviene: lo que se cuenta son subconjuntos de tamaño $5$ del conjunto de $30$ bolas.
+
+\textbf{¿Qué tomamos?} $|X| = 142\,506$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar las selecciones sin ningún múltiplo de cinco}
+\textbf{Qué hago:} cuento el caso contrario, que es una simple elección restringida a un subconjunto más pequeño.
+
+Si ninguna de las $5$ bolas es múltiplo de cinco, todas provienen de $U\setminus M_5$, que tiene $30-6=24$ bolas. Entonces
+\[
+|A^{c}| = \binom{24}{5} = \frac{24\cdot 23\cdot 22\cdot 21\cdot 20}{120} .
+\]
+Desglose: $24\cdot 23 = 552$; $552\cdot 22 = 12\,144$; $12\,144\cdot 21 = 255\,024$; $255\,024\cdot 20 = 5\,100\,480$; y
+\[
+\frac{5\,100\,480}{120} = 42\,504 .
+\]
+
+\textbf{¿De dónde sale?} El $24$ sale del Paso 0: $|M_5|=6$ y $30-6=24$.
+
+\textbf{¿Por qué basta con cambiar el conjunto de donde se elige?} Porque prohibir los múltiplos de cinco equivale exactamente a borrarlos de la canasta; el resto del problema (elegir $5$ bolas sin orden) no cambia.
+
+\textbf{¿Qué tomamos?} $|A^c| = 42\,504$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Restar}
+\textbf{Qué hago:} aplico la regla del complemento con los dos números calculados.
+
+\[
+|A| = 142\,506 - 42\,504 = 100\,002 .
+\]
+Desglose: $142\,506-42\,504 = (142\,506-42\,000)-504 = 100\,506-504 = 100\,002$.
+
+\textbf{¿De dónde sale?} $142\,506$ del Paso 2 y $42\,504$ del Paso 3.
+
+\textbf{¿Por qué la resta responde la pregunta?} Porque toda selección de $5$ bolas cae en exactamente uno de dos casos: o tiene algún múltiplo de cinco, o no tiene ninguno. Al quitarle al total las que no tienen ninguno, quedan justamente las que tienen al menos uno.
+
+\textbf{¿Qué tomamos?} $100\,002$.
+\end{paso}
+
+\begin{resp}
+\textbf{b)} $\displaystyle \binom{30}{5}-\binom{24}{5} = 142\,506-42\,504 = \mathbf{100\,002}$ maneras.
+\end{resp}
+
+\subsection*{Inciso c)}
+
+\begin{paso}{Paso 1 --- Traducir las dos condiciones y clasificar las bolas}
+\textbf{Qué hago:} escribo con precisión las dos restricciones y clasifico las $30$ bolas según cómo afectan a ambas.
+
+Se eligen $5$ bolas con: (i) al menos $4$ múltiplos de cinco, y (ii) a lo sumo $1$ múltiplo de tres. Clasificamos $U$ en cuatro clases disjuntas:
+\[
+\begin{array}{ll}
+\text{Clase } A = M_5\setminus M_3 = \{5,10,20,25\}: & 4 \text{ bolas (múltiplo de 5, no de 3)},\\
+\text{Clase } B = M_5\cap M_3 = \{15,30\}: & 2 \text{ bolas (múltiplo de 5 y de 3)},\\
+\text{Clase } C = M_3\setminus M_5 = \{3,6,9,12,18,21,24,27\}: & 10-2 = 8 \text{ bolas (múltiplo de 3, no de 5)},\\
+\text{Clase } D = \text{resto}: & 30-4-2-8 = 16 \text{ bolas (ni una cosa ni la otra)} .
+\end{array}
+\]
+
+\textbf{¿De dónde sale?} Del Paso 0: $|M_5|=6$, $|M_3|=10$, $|M_5\cap M_3|=2$; de ahí $|A|=6-2=4$ y $|C|=10-2=8$, y $|D|=30-(4+2+8)=16$.
+
+\textbf{¿Por qué hace falta esta clasificación?} Porque las dos condiciones no son independientes: las bolas $15$ y $30$ cuentan a la vez como múltiplo de cinco (ayudan a la condición (i)) y como múltiplo de tres (gastan la cuota de la condición (ii)). Sin separar la clase $B$ es imposible controlar ambas restricciones a la vez.
+
+\textbf{¿Qué tomamos?} $|A|=4$, $|B|=2$, $|C|=8$, $|D|=16$, con $4+2+8+16=30$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Separar en los dos casos que permite la condición (i)}
+\textbf{Qué hago:} descompongo el conteo según la cantidad exacta de múltiplos de cinco elegidos, que sólo puede ser $4$ o $5$.
+
+Como se eligen $5$ bolas y hay $6$ múltiplos de cinco disponibles, ``al menos cuatro múltiplos de cinco'' deja únicamente dos casos:
+\[
+\textbf{Caso I: } 5 \text{ múltiplos de cinco};\qquad \textbf{Caso II: } 4 \text{ múltiplos de cinco y } 1 \text{ bola que no lo es}.
+\]
+
+\textbf{¿De dónde sale?} De que la selección tiene tamaño $5$: no puede haber $6$ múltiplos de cinco porque no caben, y la condición prohíbe $3$ o menos.
+
+\textbf{¿Por qué se pueden sumar los casos al final?} Porque los dos casos son mutuamente excluyentes (una selección no puede tener a la vez exactamente $4$ y exactamente $5$ múltiplos de cinco) y juntos agotan la condición (i); el principio de la suma se aplica a conjuntos disjuntos.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Caso I: las cinco bolas son múltiplos de cinco}
+\textbf{Qué hago:} cuento las selecciones del Caso I imponiendo también la condición (ii).
+
+Elegir $5$ de los $6$ múltiplos de cinco equivale a decidir cuál de los $6$ se \emph{deja fuera}: hay $\binom{6}{5}=6$ selecciones. Ahora hay que ver cuántas cumplen ``a lo sumo un múltiplo de tres''. Los múltiplos de tres dentro de $M_5$ son los de la clase $B=\{15,30\}$.
+\begin{itemize}[leftmargin=1.3em,itemsep=1pt]
+\item Si la bola excluida es $15$ o $30$, la selección contiene el otro elemento de $B$: exactamente $1$ múltiplo de tres. Cumple. Son $2$ selecciones.
+\item Si la bola excluida está en $A=\{5,10,20,25\}$, la selección contiene $15$ y $30$: $2$ múltiplos de tres. No cumple. Son $4$ selecciones descartadas.
+\end{itemize}
+Caso I aporta $2$ selecciones.
+
+\textbf{¿De dónde sale?} De $|M_5|=6$ y de la clase $B$ del Paso 1.
+
+\textbf{¿Por qué se revisa una por una?} Porque en este caso la condición (ii) no es automática: la selección ya está casi forzada y hay que verificar si el traslape $B$ la arruina. La revisión es exhaustiva porque las $6$ posibilidades se agotan según dónde caiga la bola excluida.
+
+\textbf{¿Qué tomamos?} Caso I: $2$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Caso II: cuatro múltiplos de cinco y una bola más}
+\textbf{Qué hago:} cuento el Caso II subdividiendo según cuántos elementos de la clase $B$ entran, porque de eso depende cuánta cuota de múltiplos de tres queda libre para la quinta bola.
+
+Se eligen $4$ bolas de $M_5=A\cup B$ (con $|A|=4$, $|B|=2$) y $1$ bola de $U\setminus M_5$ (que tiene $8+16=24$ bolas: las de clase $C$ y las de clase $D$).
+\begin{itemize}[leftmargin=1.3em,itemsep=2pt]
+\item \emph{Sub-caso II.0: los $4$ salen todos de $A$.} Hay $\binom{4}{4}=1$ forma. La selección lleva $0$ múltiplos de tres, así que la quinta bola puede ser cualquiera de las $24$ (sea o no múltiplo de tres, el total no pasa de $1$). Aporte: $1\cdot 24 = 24$.
+\item \emph{Sub-caso II.1: exactamente $1$ de los $4$ sale de $B$.} Hay $\binom{2}{1}\binom{4}{3}=2\cdot 4 = 8$ formas. La selección ya lleva $1$ múltiplo de tres, de modo que la quinta bola \emph{no} puede serlo: debe ser de la clase $D$, con $16$ opciones. Aporte: $8\cdot 16 = 128$.
+\item \emph{Sub-caso II.2: los $2$ elementos de $B$ están entre los $4$.} Hay $\binom{2}{2}\binom{4}{2}=1\cdot 6 = 6$ formas, pero la selección ya lleva $2$ múltiplos de tres y viola la condición (ii). Aporte: $0$.
+\end{itemize}
+Desglose de las multiplicaciones: $\binom{4}{3}=4$; $\binom{4}{2}=\frac{4\cdot 3}{2}=6$; $8\cdot 16 = 128$; $24+128 = 152$.
+
+\textbf{¿De dónde sale?} Los tamaños $4$, $2$, $8$ y $16$ de las clases vienen del Paso 1; la partición en sub-casos viene de que $|B|=2$ y por tanto sólo hay tres posibilidades ($0$, $1$ o $2$ elementos de $B$).
+
+\textbf{¿Por qué se subdivide así?} Porque la cantidad de opciones para la quinta bola \emph{depende} de cuántos múltiplos de tres ya se hayan gastado; el principio del producto exige que ese número sea constante dentro de cada bloque, y por eso hay que separar en sub-casos donde sí lo sea.
+
+\textbf{¿Qué tomamos?} Caso II: $24+128+0 = 152$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Sumar los casos}
+\textbf{Qué hago:} aplico el principio de la suma a los dos casos disjuntos.
+
+\[
+2 + 152 = 154 .
+\]
+
+\textbf{¿De dónde sale?} Del Paso 3 (Caso I) y el Paso 4 (Caso II).
+
+\textbf{¿Por qué se suman?} Porque ninguna selección pertenece a los dos casos y todas las selecciones válidas pertenecen a alguno.
+
+\textbf{¿Qué tomamos?} $154$ selecciones válidas.
+\end{paso}
+
+\begin{nota}
+Discrepancia con la respuesta oficial. El conteo exhaustivo por clases da $154$; la respuesta oficial es $156$. La diferencia se explica así: $156 = \binom{6}{4}\binom{10}{1} + \binom{6}{5} = 15\cdot 10 + 6$, es decir, un conteo que toma ``$4$ múltiplos de cinco y $1$ múltiplo de tres'' más ``$5$ múltiplos de cinco''. Ese planteo tiene tres desajustes: (i) deja fuera las selecciones en que la quinta bola no es múltiplo de tres ni de cinco, que sí son válidas porque ``a lo sumo uno'' incluye ``ninguno''; (ii) al tomar la quinta bola entre los $10$ múltiplos de tres admite $15$ y $30$, que ya podrían estar elegidos como múltiplos de cinco; y (iii) no descarta las selecciones de $4$ múltiplos de cinco que ya contienen a $15$ y $30$ (dos múltiplos de tres). Se conserva la respuesta oficial \textbf{R/ 156}, pero el valor que se obtiene revisando clase por clase es $154$.
+\end{nota}
+
+\begin{resp}
+\textbf{c)} Separando las bolas en las clases $A=\{5,10,20,25\}$, $B=\{15,30\}$, $C$ ($8$ múltiplos de tres no de cinco) y $D$ ($16$ restantes):
+\[
+\underbrace{2}_{\text{5 múltiplos de cinco}}+\underbrace{1\cdot 24 + 8\cdot 16}_{\text{4 múltiplos de cinco}} = 2+24+128 = \mathbf{154} .
+\]
+La respuesta oficial de la práctica es \textbf{R/ 156}.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 4}
+
+\begin{quote}
+¿Cuántos números de 4 dígitos se pueden formar con los dígitos 1, 2, 3, 4, 5, 6, 7? si:\\
+a) No hay restricciones. \hfill R/ 2 401\\
+b) No se pueden repetir los números. \hfill R/ 840\\
+c) No se pueden repetir los números y el dígito de las centenas es impar \hfill R/ 480
+\end{quote}
+
+\begin{paso}{Paso 0 --- Fijar el modelo de conteo}
+\textbf{Qué hago:} preciso qué es un resultado y cuántas opciones hay por posición, antes de los incisos.
+
+Un número de $4$ dígitos formado con $\{1,2,3,4,5,6,7\}$ es una fila de cuatro casillas
+\[
+\underbrace{\square}_{\text{millares}}\ \underbrace{\square}_{\text{centenas}}\ \underbrace{\square}_{\text{decenas}}\ \underbrace{\square}_{\text{unidades}}
+\]
+donde cada casilla se llena con uno de los $7$ dígitos permitidos.
+
+\textbf{¿De dónde sale?} Del enunciado: ``números de 4 dígitos'' fija cuatro posiciones y ``con los dígitos 1,\dots,7'' fija el alfabeto de tamaño $7$.
+
+\textbf{¿Por qué las posiciones son distinguibles?} Porque el valor posicional las distingue: $1234$ y $4321$ usan los mismos dígitos pero son números distintos. Por eso todo el ejercicio se trabaja con el principio del producto y permutaciones, no con combinaciones. Nótese además que el $0$ no está entre los dígitos permitidos, así que no hay que preocuparse por ceros a la izquierda.
+
+\textbf{¿Qué tomamos?} $4$ posiciones ordenadas y $7$ dígitos disponibles.
+\end{paso}
+
+\subsection*{Inciso a)}
+
+\begin{paso}{Paso 1 --- Aplicar el principio del producto sin restricciones}
+\textbf{Qué hago:} cuento las opciones de cada casilla sabiendo que se permite repetir.
+
+Cada una de las $4$ casillas admite cualquiera de los $7$ dígitos, independientemente de lo escrito en las demás:
+\[
+7\cdot 7\cdot 7\cdot 7 = 7^{4} .
+\]
+
+\textbf{¿De dónde sale?} De ``no hay restricciones'': ningún dígito queda prohibido por lo elegido antes.
+
+\textbf{¿Por qué se multiplica?} Porque el principio del producto se aplica cuando una construcción se hace por etapas y la cantidad de opciones de cada etapa no depende de las anteriores; aquí cada casilla siempre tiene $7$ opciones. Cada número se produce por exactamente una sucesión de elecciones, así que no hay duplicados.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Desarrollar la potencia}
+\textbf{Qué hago:} calculo $7^4$ paso por paso.
+
+\[
+7^2 = 49,\qquad 7^3 = 49\cdot 7 = 343,\qquad 7^4 = 343\cdot 7 = 2\,401 .
+\]
+Desglose del último producto: $343\cdot 7 = 300\cdot 7 + 43\cdot 7 = 2\,100+301 = 2\,401$.
+
+\textbf{¿Qué tomamos?} $2\,401$.
+\end{paso}
+
+\begin{resp}
+\textbf{a)} $7^4 = \mathbf{2\,401}$ números.
+\end{resp}
+
+\subsection*{Inciso b)}
+
+\begin{paso}{Paso 1 --- Incorporar la prohibición de repetir}
+\textbf{Qué hago:} recalculo las opciones de cada casilla sabiendo que un dígito ya usado no puede volver a aparecer.
+
+\[
+\underbrace{7}_{\text{millares}}\cdot \underbrace{6}_{\text{centenas}}\cdot \underbrace{5}_{\text{decenas}}\cdot \underbrace{4}_{\text{unidades}} .
+\]
+
+\textbf{¿De dónde sale?} Del $7$ inicial de dígitos disponibles y del enunciado ``no se pueden repetir''; cada casilla llenada elimina un dígito del inventario.
+
+\textbf{¿Por qué sigue valiendo el principio del producto?} Porque, aunque el \emph{conjunto} de dígitos disponibles cambia según lo elegido, la \emph{cantidad} de opciones no: después de llenar la primera casilla siempre quedan $6$ dígitos, sea cual sea el elegido; después de dos casillas siempre quedan $5$, etc. Esa constancia es la única hipótesis que exige el principio.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Desarrollar el producto y reconocer la permutación}
+\textbf{Qué hago:} multiplico y reescribo el resultado como $P(7,4)$.
+
+\[
+7\cdot 6 = 42,\qquad 42\cdot 5 = 210,\qquad 210\cdot 4 = 840 .
+\]
+\[
+P(7,4) = \frac{7!}{(7-4)!} = \frac{5\,040}{6} = 840 .
+\]
+Desglose: $7! = 5\,040$ y $3! = 6$, luego $5\,040/6 = 840$.
+
+\textbf{¿Por qué es una permutación?} Porque se están ordenando $4$ objetos distintos escogidos de $7$, que es exactamente lo que cuenta $P(n,r)$.
+
+\textbf{¿Qué tomamos?} $840$.
+\end{paso}
+
+\begin{resp}
+\textbf{b)} $P(7,4) = 7\cdot 6\cdot 5\cdot 4 = \mathbf{840}$ números.
+\end{resp}
+
+\subsection*{Inciso c)}
+
+\begin{paso}{Paso 1 --- Atender primero la casilla restringida}
+\textbf{Qué hago:} decido el orden en que lleno las casillas, empezando por la que tiene la restricción más fuerte.
+
+Los dígitos impares disponibles son $\{1,3,5,7\}$, o sea $4$ opciones para la casilla de las \emph{centenas}.
+
+\textbf{¿De dónde sale?} De la lista $\{1,2,3,4,5,6,7\}$: los impares son $1,3,5,7$ y los pares $2,4,6$; hay $4$ impares.
+
+\textbf{¿Por qué se empieza por ahí?} Porque si se llenaran primero las otras casillas, la cantidad de impares que quedarían disponibles para las centenas dependería de lo elegido antes ($4$, $3$, $2$\dots), y el principio del producto dejaría de aplicarse directamente. Al fijar primero la casilla restringida, las demás quedan libres y su conteo sí es uniforme.
+
+\textbf{¿Qué tomamos?} $4$ opciones para las centenas.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Llenar las tres casillas restantes}
+\textbf{Qué hago:} cuento las tres posiciones libres con la prohibición de repetir ya vigente.
+
+Tras usar un dígito en las centenas quedan $7-1=6$ dígitos disponibles, y las tres casillas restantes (millares, decenas, unidades) se llenan sin repetir:
+\[
+6\cdot 5\cdot 4 = 120 .
+\]
+Desglose: $6\cdot 5 = 30$ y $30\cdot 4 = 120$; equivalentemente $P(6,3)=\frac{6!}{3!}=\frac{720}{6}=120$.
+
+\textbf{¿De dónde sale?} Del inventario de $7$ dígitos menos el usado en el Paso 1.
+
+\textbf{¿Por qué son $6,5,4$ y no $7,6,5$?} Porque el dígito impar colocado en las centenas ya no está disponible, y cada casilla adicional consume otro dígito.
+
+\textbf{¿Qué tomamos?} $120$ maneras de completar el número.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Multiplicar las dos etapas}
+\textbf{Qué hago:} aplico el principio del producto entre la elección restringida y la libre.
+
+\[
+4\cdot 120 = 480 .
+\]
+Desglose: $4\cdot 120 = 4\cdot 100 + 4\cdot 20 = 400+80 = 480$.
+
+\textbf{¿Por qué se multiplica?} Porque para cada uno de los $4$ impares posibles en las centenas hay las mismas $120$ maneras de llenar el resto, y todas las combinaciones producen números distintos.
+
+\textbf{¿Qué tomamos?} $480$.
+\end{paso}
+
+\begin{resp}
+\textbf{c)} $4\cdot P(6,3) = 4\cdot 120 = \mathbf{480}$ números.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 5}
+
+\begin{quote}
+Entre el 20 y el 50 ¿Cuántos números naturales hay que no son múltiplos de 6? \hfill R/ 26
+\end{quote}
+
+\begin{paso}{Paso 1 --- Fijar el universo}
+\textbf{Qué hago:} determino con exactitud cuántos números hay en el rango, que es el paso donde suele perderse una unidad.
+
+Tomamos el rango con extremos incluidos, $U=\{20,21,\dots,50\}$. Su tamaño es
+\[
+|U| = 50-20+1 = 31 .
+\]
+
+\textbf{¿De dónde sale?} De ``entre el 20 y el 50''.
+
+\textbf{¿Por qué $+1$?} Porque la cantidad de enteros de $a$ hasta $b$ (ambos incluidos) es $b-a+1$: la resta $b-a$ cuenta los \emph{pasos} de $a$ a $b$ y hay un número más que pasos. Comprobación con un caso pequeño: de $20$ a $22$ hay $22-20+1=3$ números ($20,21,22$), y en efecto son tres.
+
+\textbf{¿Qué tomamos?} $|U| = 31$. (Con extremos excluidos serían $29$ números; más adelante se ve que la respuesta oficial corresponde a la versión inclusiva.)
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar los múltiplos de 6 del rango}
+\textbf{Qué hago:} cuento el conjunto ``malo'' $A=\{x\in U: 6\mid x\}$ restando conteos de pisos.
+
+Los múltiplos de $6$ hasta $50$ son $\lfloor 50/6\rfloor$ y los múltiplos de $6$ hasta $19$ son $\lfloor 19/6\rfloor$; la diferencia deja los que caen en $\{20,\dots,50\}$:
+\[
+\left\lfloor \frac{50}{6} \right\rfloor = 8 \quad (6\cdot 8 = 48\le 50 < 54 = 6\cdot 9), \qquad
+\left\lfloor \frac{19}{6} \right\rfloor = 3 \quad (6\cdot 3 = 18\le 19 < 24 = 6\cdot 4).
+\]
+\[
+|A| = 8-3 = 5 .
+\]
+Verificación directa: los múltiplos de $6$ entre $20$ y $50$ son $24,30,36,42,48$, en efecto $5$.
+
+\textbf{¿De dónde sale?} Del teorema del piso aplicado dos veces, y del hecho de que $\{20,\dots,50\} = \{1,\dots,50\}\setminus\{1,\dots,19\}$.
+
+\textbf{¿Por qué se restan los pisos?} Porque los múltiplos de $6$ menores o iguales que $50$ se parten en dos grupos disjuntos: los que son $\le 19$ y los que están entre $20$ y $50$. Por el principio de la suma, el segundo grupo tiene $\lfloor 50/6\rfloor - \lfloor 19/6\rfloor$ elementos.
+
+\textbf{¿Qué tomamos?} $|A| = 5$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Aplicar el complemento}
+\textbf{Qué hago:} paso de ``cuántos son múltiplos'' a ``cuántos no lo son'' con la regla del complemento.
+
+\[
+|A^{c}| = |U| - |A| = 31 - 5 = 26 .
+\]
+
+\textbf{¿De dónde sale?} $|U|=31$ del Paso 1 y $|A|=5$ del Paso 2.
+
+\textbf{¿Por qué es válido?} Porque todo número del rango o es múltiplo de $6$ o no lo es, nunca ambas cosas: $U = A\,\dot\cup\,A^c$ y por el principio de la suma $|U|=|A|+|A^c|$.
+
+\textbf{¿Qué tomamos?} $26$.
+\end{paso}
+
+\begin{nota}
+El resultado depende de si los extremos $20$ y $50$ se incluyen. Con extremos incluidos: $31-5=26$, que coincide con la respuesta oficial. Con extremos excluidos ($21$ a $49$, o sea $29$ números) se obtendría $29-5=24$. Como la respuesta oficial es $26$, la lectura correcta del enunciado es la inclusiva.
+\end{nota}
+
+\begin{resp}
+Del $20$ al $50$ hay $31$ números naturales, de los cuales $5$ son múltiplos de $6$ ($24,30,36,42,48$); por lo tanto hay $31-5=\mathbf{26}$ que no son múltiplos de $6$.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 6}
+
+\begin{quote}
+¿Cuántos números enteros, entre 1 y 100, no son divisibles por 2, por 3 y por 5? \hfill R/ 26
+\end{quote}
+
+\begin{paso}{Paso 1 --- Fijar universo, conjuntos y estrategia}
+\textbf{Qué hago:} defino los conjuntos ``malos'' y explico por qué se cuenta por complemento.
+
+Universo: $U=\{1,2,\dots,100\}$, con $|U|=100$. Sean
+\[
+A_2=\{x\in U: 2\mid x\},\qquad A_3=\{x\in U: 3\mid x\},\qquad A_5=\{x\in U: 5\mid x\} .
+\]
+Se pide la cantidad de números que no están en ninguno de los tres, es decir
+\[
+\bigl|A_2^{c}\cap A_3^{c}\cap A_5^{c}\bigr| = |U| - |A_2\cup A_3\cup A_5| .
+\]
+
+\textbf{¿De dónde sale?} De ``no son divisibles por 2, por 3 y por 5'', que significa que ninguna de las tres divisibilidades ocurre.
+
+\textbf{¿Por qué la identidad?} Porque ``no pertenecer a ninguno'' es exactamente ``no pertenecer a la unión''; y el complemento de la unión se cuenta restando su tamaño al total. Es la ley de De Morgan $A_2^c\cap A_3^c\cap A_5^c = (A_2\cup A_3\cup A_5)^c$ combinada con la regla del complemento.
+
+\textbf{¿Qué tomamos?} $|U|=100$ y el objetivo $100-|A_2\cup A_3\cup A_5|$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar los tres conjuntos individuales}
+\textbf{Qué hago:} aplico el conteo de múltiplos con piso a cada divisor.
+
+\[
+|A_2| = \left\lfloor \frac{100}{2}\right\rfloor = 50 \quad (2\cdot 50 = 100\le 100 < 102),
+\]
+\[
+|A_3| = \left\lfloor \frac{100}{3}\right\rfloor = 33 \quad (3\cdot 33 = 99\le 100 < 102 = 3\cdot 34),
+\]
+\[
+|A_5| = \left\lfloor \frac{100}{5}\right\rfloor = 20 \quad (5\cdot 20 = 100\le 100 < 105).
+\]
+
+\textbf{¿De dónde sale?} Del rango $1$ a $100$ y de los divisores $2,3,5$ del enunciado.
+
+\textbf{¿Por qué piso?} Porque en $|A_3|$, por ejemplo, $100/3$ no es entero: $100 = 3\cdot 33 + 1$, y ese residuo $1$ (el número $100$) no completa un múltiplo más de $3$. Contar $34$ sería contar el número $102$, que no está en el universo.
+
+\textbf{¿Qué tomamos?} $50$, $33$ y $20$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar las intersecciones dobles y la triple}
+\textbf{Qué hago:} traduzco cada intersección a un único divisor mediante el mínimo común múltiplo, y aplico piso.
+
+\[
+\operatorname{mcm}(2,3)=6:\quad |A_2\cap A_3| = \left\lfloor \frac{100}{6}\right\rfloor = 16 \quad (6\cdot 16 = 96\le 100 < 102 = 6\cdot 17),
+\]
+\[
+\operatorname{mcm}(2,5)=10:\quad |A_2\cap A_5| = \left\lfloor \frac{100}{10}\right\rfloor = 10 \quad (10\cdot 10 = 100 \le 100 < 110),
+\]
+\[
+\operatorname{mcm}(3,5)=15:\quad |A_3\cap A_5| = \left\lfloor \frac{100}{15}\right\rfloor = 6 \quad (15\cdot 6 = 90\le 100 < 105 = 15\cdot 7),
+\]
+\[
+\operatorname{mcm}(2,3,5)=30:\quad |A_2\cap A_3\cap A_5| = \left\lfloor \frac{100}{30}\right\rfloor = 3 \quad (30\cdot 3 = 90\le 100 < 120 = 30\cdot 4).
+\]
+
+\textbf{¿De dónde sale?} De que $2$, $3$ y $5$ son primos distintos, así que sus mínimos comunes múltiplos son simplemente los productos: $2\cdot3=6$, $2\cdot5=10$, $3\cdot5=15$, $2\cdot3\cdot5=30$.
+
+\textbf{¿Por qué el mcm?} Porque un número divisible por $2$ y por $3$ es un múltiplo común de ambos, y todo múltiplo común es múltiplo del mínimo común múltiplo; el recíproco también vale. Las dos condiciones se funden en una sola divisibilidad, que ya sabemos contar con el piso.
+
+\textbf{¿Qué tomamos?} $16$, $10$, $6$ y $3$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inclusión-exclusión y complemento}
+\textbf{Qué hago:} sustituyo en la fórmula de tres conjuntos y luego resto al total.
+
+\[
+|A_2\cup A_3\cup A_5| = 50+33+20 - 16 - 10 - 6 + 3 .
+\]
+Desglose: $50+33+20 = 103$; $16+10+6 = 32$; $103-32 = 71$; $71+3 = 74$.
+\[
+|A_2\cup A_3\cup A_5| = 74 \quad\Longrightarrow\quad 100 - 74 = 26 .
+\]
+
+\textbf{¿De dónde sale?} Los sumandos vienen de los Pasos 2 y 3; la resta final, de la identidad del Paso 1.
+
+\textbf{¿Por qué funciona?} Porque un número como $30$ (divisible por $2$, $3$ y $5$) se cuenta $3$ veces en la primera suma, se descuenta $3$ veces en las dobles y se vuelve a sumar $1$ vez en la triple: aporte neto $3-3+1=1$, exactamente una vez, como debe ser.
+
+\textbf{¿Qué tomamos?} $26$ números sin ninguna de las tres divisibilidades.
+\end{paso}
+
+\begin{resp}
+\[
+100 - \bigl(50+33+20-16-10-6+3\bigr) = 100-74 = \mathbf{26}
+\]
+números entre $1$ y $100$ no son divisibles por $2$, ni por $3$, ni por $5$.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 7}
+
+\begin{quote}
+Del 1 al 500 ¿Cuántos números no son múltiplos de 6 ni de 11? \hfill R/ 379
+\end{quote}
+
+\begin{paso}{Paso 1 --- Plantear con complemento y dos conjuntos}
+\textbf{Qué hago:} identifico el universo, los conjuntos y la estrategia.
+
+Universo $U=\{1,2,\dots,500\}$, $|U|=500$. Sean $A=\{x\in U: 6\mid x\}$ y $B=\{x\in U:11\mid x\}$. Se pide
+\[
+|A^{c}\cap B^{c}| = |U| - |A\cup B| .
+\]
+
+\textbf{¿De dónde sale?} De ``no son múltiplos de 6 ni de 11'': se excluyen ambos tipos a la vez.
+
+\textbf{¿Por qué complemento?} Porque contar directamente los números que no son múltiplos de $6$ ni de $11$ exigiría recorrer el rango; en cambio los conjuntos ``malos'' se cuentan de inmediato con la función piso, y De Morgan garantiza $A^c\cap B^c = (A\cup B)^c$.
+
+\textbf{¿Qué tomamos?} $|U|=500$ y el objetivo $500-|A\cup B|$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar cada conjunto y su intersección}
+\textbf{Qué hago:} aplico el piso tres veces, la última con el mínimo común múltiplo.
+
+\[
+|A| = \left\lfloor \frac{500}{6}\right\rfloor = 83 \quad (6\cdot 83 = 498\le 500 < 504 = 6\cdot 84),
+\]
+\[
+|B| = \left\lfloor \frac{500}{11}\right\rfloor = 45 \quad (11\cdot 45 = 495\le 500 < 506 = 11\cdot 46),
+\]
+\[
+\operatorname{mcm}(6,11) = 66 \ \Longrightarrow\ |A\cap B| = \left\lfloor \frac{500}{66}\right\rfloor = 7 \quad (66\cdot 7 = 462\le 500 < 528 = 66\cdot 8).
+\]
+
+\textbf{¿De dónde sale?} De los divisores $6$ y $11$ del enunciado y del rango $1$ a $500$.
+
+\textbf{¿Por qué $\operatorname{mcm}(6,11)=66$?} Porque $11$ es primo y no divide a $6$, de modo que $6$ y $11$ no comparten factores primos y su mínimo común múltiplo es el producto $6\cdot 11 = 66$.
+
+\textbf{¿Qué tomamos?} $|A|=83$, $|B|=45$, $|A\cap B|=7$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Unión y resta final}
+\textbf{Qué hago:} aplico inclusión-exclusión para dos conjuntos y luego el complemento.
+
+\[
+|A\cup B| = 83+45-7 = 128-7 = 121 .
+\]
+\[
+|A^c\cap B^c| = 500-121 = 379 .
+\]
+
+\textbf{¿De dónde sale?} De los tres valores del Paso 2 y del total $500$.
+
+\textbf{¿Por qué se resta $7$?} Porque los $7$ múltiplos de $66$ (que son $66,132,198,264,330,396,462$) son múltiplos de $6$ \emph{y} de $11$, así que aparecen tanto en los $83$ como en los $45$; sin la resta se contarían dos veces.
+
+\textbf{¿Qué tomamos?} $379$.
+\end{paso}
+
+\begin{resp}
+\[
+500-\bigl(83+45-7\bigr) = 500-121 = \mathbf{379}
+\]
+números del $1$ al $500$ no son múltiplos de $6$ ni de $11$.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 8}
+
+\begin{quote}
+Del 1 al 600 ¿Cuántos son los números naturales que no son múltiplos de 6, ni de 11 ni de 17? \hfill R/ 428
+\end{quote}
+
+\begin{paso}{Paso 1 --- Planteamiento}
+\textbf{Qué hago:} defino universo, conjuntos y la estrategia de complemento, ahora con tres conjuntos.
+
+$U=\{1,\dots,600\}$, $|U|=600$; $A=\{6\mid x\}$, $B=\{11\mid x\}$, $C=\{17\mid x\}$ dentro de $U$. Se pide
+\[
+|A^{c}\cap B^{c}\cap C^{c}| = 600 - |A\cup B\cup C| .
+\]
+
+\textbf{¿De dónde sale?} De la triple negación del enunciado (``ni\dots ni\dots ni'').
+
+\textbf{¿Por qué la fórmula de tres conjuntos?} Porque los tres conjuntos se traslapan entre sí (hay números divisibles por $6$ y por $11$ simultáneamente, por ejemplo $66$), así que sumar $|A|+|B|+|C|$ contaría de más; hay que corregir con las intersecciones dobles y devolver la triple.
+
+\textbf{¿Qué tomamos?} El objetivo $600-|A\cup B\cup C|$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Los tres conjuntos individuales}
+\textbf{Qué hago:} cuento múltiplos con la función piso, justificando cada división.
+
+\[
+|A| = \left\lfloor \frac{600}{6}\right\rfloor = 100 \quad (6\cdot 100 = 600 \le 600 < 606),
+\]
+\[
+|B| = \left\lfloor \frac{600}{11}\right\rfloor = 54 \quad (11\cdot 54 = 594\le 600 < 605 = 11\cdot 55),
+\]
+\[
+|C| = \left\lfloor \frac{600}{17}\right\rfloor = 35 \quad (17\cdot 35 = 595\le 600 < 612 = 17\cdot 36).
+\]
+
+\textbf{¿De dónde sale?} Del rango $1$--$600$ y de los divisores $6$, $11$, $17$.
+
+\textbf{¿Por qué piso en $|C|$?} Porque $600 = 17\cdot 35 + 5$: los últimos $5$ números ($596$ a $600$) no alcanzan a formar un múltiplo más de $17$, y el siguiente múltiplo, $612$, se sale del universo.
+
+\textbf{¿Qué tomamos?} $100$, $54$ y $35$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Las intersecciones}
+\textbf{Qué hago:} calculo los mínimos comunes múltiplos y aplico el piso a cada uno.
+
+\[
+\operatorname{mcm}(6,11) = 66:\quad |A\cap B| = \left\lfloor \frac{600}{66}\right\rfloor = 9 \quad (66\cdot 9 = 594\le 600 < 660 = 66\cdot 10),
+\]
+\[
+\operatorname{mcm}(6,17) = 102:\quad |A\cap C| = \left\lfloor \frac{600}{102}\right\rfloor = 5 \quad (102\cdot 5 = 510\le 600 < 612 = 102\cdot 6),
+\]
+\[
+\operatorname{mcm}(11,17) = 187:\quad |B\cap C| = \left\lfloor \frac{600}{187}\right\rfloor = 3 \quad (187\cdot 3 = 561\le 600 < 748 = 187\cdot 4),
+\]
+\[
+\operatorname{mcm}(6,11,17) = 1\,122:\quad |A\cap B\cap C| = \left\lfloor \frac{600}{1\,122}\right\rfloor = 0 \quad (1\,122 > 600).
+\]
+
+\textbf{¿De dónde sale?} $11$ y $17$ son primos y ninguno divide a $6$, así que los mcm son los productos: $6\cdot 11 = 66$, $6\cdot 17 = 102$, $11\cdot 17 = 187$ y $6\cdot 11\cdot 17 = 1\,122$. Desglose: $6\cdot 17 = 102$; $11\cdot 17 = 187$; $66\cdot 17 = 1\,122$.
+
+\textbf{¿Por qué la triple da $0$?} Porque el menor número divisible a la vez por $6$, $11$ y $17$ es $1\,122$, que ya supera el tope $600$; por lo tanto no hay ningún elemento en la intersección triple dentro del universo.
+
+\textbf{¿Qué tomamos?} $9$, $5$, $3$ y $0$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Unión y complemento}
+\textbf{Qué hago:} sustituyo en la fórmula de tres conjuntos y resto al total.
+
+\[
+|A\cup B\cup C| = 100+54+35 - 9 - 5 - 3 + 0 .
+\]
+Desglose: $100+54+35 = 189$; $9+5+3 = 17$; $189-17 = 172$.
+\[
+600 - 172 = 428 .
+\]
+
+\textbf{¿De dónde sale?} De los Pasos 2 y 3.
+
+\textbf{¿Por qué el resultado cuenta bien?} Porque los números divisibles por exactamente uno de los tres aportan $1$; los divisibles por exactamente dos aportan $1+1-1=1$; y no hay divisibles por los tres. Todo elemento de la unión aporta exactamente $1$.
+
+\textbf{¿Qué tomamos?} $428$.
+\end{paso}
+
+\begin{resp}
+\[
+600 - \bigl(100+54+35-9-5-3+0\bigr) = 600-172 = \mathbf{428}
+\]
+números del $1$ al $600$ no son múltiplos de $6$, ni de $11$, ni de $17$.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 9}
+
+\begin{quote}
+Del 1 al 100 ¿Cuántos son los números pares que no son múltiplos de tres o múltiplos de cinco? \hfill R/ 74
+\end{quote}
+
+\begin{paso}{Paso 1 --- Fijar el universo correcto}
+\textbf{Qué hago:} leo el enunciado y reconozco que el conjunto de partida no es todo $\{1,\dots,100\}$ sino sólo los pares.
+
+El enunciado pregunta por \emph{números pares}, así que el universo de trabajo es
+\[
+U_{\text{par}} = \{2,4,6,\dots,100\},\qquad |U_{\text{par}}| = \left\lfloor \frac{100}{2}\right\rfloor = 50 \quad (2\cdot 50 = 100\le 100 < 102).
+\]
+Dentro de ese universo se piden los que no son múltiplos de tres ni múltiplos de cinco.
+
+\textbf{¿De dónde sale?} De ``los números pares que no son\dots'': la palabra ``pares'' restringe de entrada la población; el resto de la frase filtra dentro de ella.
+
+\textbf{¿Por qué importa fijarlo bien?} Porque el total del que se resta cambia por completo el resultado: restar de $100$ en lugar de $50$ daría un número mayor que la cantidad de pares que existen, lo cual sería imposible.
+
+\textbf{¿Qué tomamos?} $|U_{\text{par}}| = 50$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Traducir las condiciones prohibidas}
+\textbf{Qué hago:} escribo los conjuntos ``malos'' dentro del universo de los pares y los convierto en divisibilidades simples.
+
+Dentro de $U_{\text{par}}$ definimos
+\[
+T=\{x \text{ par}: 3\mid x\} = \{x: 6\mid x\},\qquad
+Q=\{x \text{ par}: 5\mid x\} = \{x: 10\mid x\} .
+\]
+Se pide $|U_{\text{par}}| - |T\cup Q|$.
+
+\textbf{¿De dónde sale?} De que ser par y múltiplo de $3$ equivale a ser múltiplo de $\operatorname{mcm}(2,3)=6$, y ser par y múltiplo de $5$ equivale a ser múltiplo de $\operatorname{mcm}(2,5)=10$.
+
+\textbf{¿Por qué la unión?} Porque la frase ``que no son múltiplos de tres o múltiplos de cinco'' niega la disyunción: se descartan los pares que caen en $T$ \emph{o} en $Q$, es decir los de $T\cup Q$; y por De Morgan lo que queda es la intersección de los dos complementos.
+
+\textbf{¿Qué tomamos?} $T$ = múltiplos de $6$, $Q$ = múltiplos de $10$, ambos dentro de $\{1,\dots,100\}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar $T$, $Q$ y su intersección}
+\textbf{Qué hago:} aplico piso a los tres conteos, usando de nuevo el mínimo común múltiplo para el traslape.
+
+\[
+|T| = \left\lfloor \frac{100}{6}\right\rfloor = 16 \quad (6\cdot 16 = 96\le 100 < 102 = 6\cdot 17),
+\]
+\[
+|Q| = \left\lfloor \frac{100}{10}\right\rfloor = 10 \quad (10\cdot 10 = 100\le 100 < 110),
+\]
+\[
+\operatorname{mcm}(6,10) = 30:\quad |T\cap Q| = \left\lfloor \frac{100}{30}\right\rfloor = 3 \quad (30\cdot 3 = 90\le 100 < 120 = 30\cdot 4).
+\]
+
+\textbf{¿De dónde sale?} De los divisores $6$ y $10$ del Paso 2.
+
+\textbf{¿Por qué $\operatorname{mcm}(6,10)=30$ y no $60$?} Porque $6=2\cdot 3$ y $10=2\cdot 5$ comparten el factor $2$; el mínimo común múltiplo toma cada primo con su mayor exponente: $2\cdot 3\cdot 5 = 30$. Multiplicar $6\cdot 10=60$ contaría el factor $2$ dos veces y dejaría fuera múltiplos legítimos como $30$ y $90$.
+
+\textbf{¿Qué tomamos?} $|T|=16$, $|Q|=10$, $|T\cap Q|=3$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Unión y complemento dentro de los pares}
+\textbf{Qué hago:} aplico inclusión-exclusión para dos conjuntos y luego resto del total de pares.
+
+\[
+|T\cup Q| = 16+10-3 = 23 .
+\]
+\[
+50 - 23 = 27 .
+\]
+
+\textbf{¿De dónde sale?} De $|U_{\text{par}}|=50$ (Paso 1) y de los conteos del Paso 3.
+
+\textbf{¿Por qué se resta el $3$?} Porque los múltiplos de $30$ ($30,60,90$) son a la vez múltiplos de $6$ y de $10$, y ya estaban contados en ambos grupos.
+
+\textbf{¿Qué tomamos?} $27$ números pares que no son múltiplos de tres ni de cinco.
+\end{paso}
+
+\begin{nota}
+Discrepancia con la respuesta oficial. El conteo dentro del universo de los pares da $27$; la respuesta oficial es $74$. Obsérvese que $74$ es exactamente $|A_2\cup A_3\cup A_5| = 50+33+20-16-10-6+3 = 74$ del Ejercicio 6, es decir la cantidad de números del $1$ al $100$ que \emph{son} múltiplos de dos, de tres o de cinco. Dicho de otro modo, $74$ responde a la pregunta complementaria del Ejercicio 6 y no a la que aquí se plantea sobre los pares. Se conserva la respuesta oficial \textbf{R/ 74}, pero con la lectura literal del enunciado el valor obtenido es $27$; nótese además que ninguna respuesta mayor que $50$ es posible, pues sólo hay $50$ números pares entre $1$ y $100$.
+\end{nota}
+
+\begin{resp}
+De los $50$ números pares del $1$ al $100$, hay $|T\cup Q| = 16+10-3 = 23$ que son múltiplos de tres o de cinco; por lo tanto quedan $50-23=\mathbf{27}$ pares que no lo son. La respuesta oficial de la práctica es \textbf{R/ 74}.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 10}
+
+\begin{quote}
+¿Cuántos números naturales hay del 1 al 400 que son múltiplos de?:\\
+a) Siete \hfill R/ 57\\
+b) Once \hfill R/ 36\\
+c) Siete y Once \hfill R/ 5\\
+d) Siete o Once \hfill R/ 88\\
+e) Siete, Once o Trece \hfill R/ 112\\
+f) Seis o Tres \hfill R/ 133\\
+g) Seis y Tres \hfill R/ 66
+\end{quote}
+
+\begin{paso}{Paso 0 --- Universo y herramienta única}
+\textbf{Qué hago:} fijo el universo y anuncio que todos los incisos se resuelven con la misma pareja de reglas.
+
+$U=\{1,2,\dots,400\}$, $|U|=400$. Para cada divisor $k$ escribimos $A_k=\{x\in U: k\mid x\}$ y usamos
+\[
+|A_k| = \left\lfloor \frac{400}{k}\right\rfloor,\qquad A_a\cap A_b = A_{\operatorname{mcm}(a,b)} .
+\]
+
+\textbf{¿De dónde sale?} Del rango ``del 1 al 400'' y de los dos teoremas de la sección de Teoría.
+
+\textbf{¿Por qué basta con eso?} Porque los incisos con ``y'' son intersecciones (se resuelven con el mcm) y los incisos con ``o'' son uniones (se resuelven con inclusión-exclusión sobre los conteos de piso). No hace falta ninguna herramienta adicional.
+\end{paso}
+
+\subsection*{Inciso a) Siete}
+
+\begin{paso}{Paso 1 --- Contar múltiplos de 7 con piso}
+\textbf{Qué hago:} aplico el teorema del piso y justifico el cociente con la división entera.
+
+\[
+|A_7| = \left\lfloor \frac{400}{7}\right\rfloor .
+\]
+Desglose: $7\cdot 57 = 399 \le 400 < 406 = 7\cdot 58$, luego $\left\lfloor 400/7\right\rfloor = 57$.
+
+\textbf{¿De dónde sale?} De $400 = 7\cdot 57 + 1$: cociente $57$, residuo $1$.
+
+\textbf{¿Por qué piso?} Porque el múltiplo número $58$ sería $406$, que se sale del universo; el residuo $1$ (el número $400$) no alcanza para completar otro múltiplo de $7$.
+
+\textbf{¿Qué tomamos?} $|A_7|=57$.
+\end{paso}
+
+\begin{resp}
+\textbf{a)} $\left\lfloor 400/7\right\rfloor = \mathbf{57}$ múltiplos de siete.
+\end{resp}
+
+\subsection*{Inciso b) Once}
+
+\begin{paso}{Paso 1 --- Contar múltiplos de 11 con piso}
+\textbf{Qué hago:} repito el procedimiento del inciso a) con $k=11$.
+
+\[
+|A_{11}| = \left\lfloor \frac{400}{11}\right\rfloor .
+\]
+Desglose: $11\cdot 36 = 396\le 400 < 407 = 11\cdot 37$, luego $\left\lfloor 400/11\right\rfloor = 36$.
+
+\textbf{¿De dónde sale?} De $400 = 11\cdot 36 + 4$: cociente $36$, residuo $4$.
+
+\textbf{¿Por qué piso?} Porque los cuatro números finales ($397,398,399,400$) no completan otro múltiplo de $11$; el siguiente sería $407>400$.
+
+\textbf{¿Qué tomamos?} $|A_{11}|=36$.
+\end{paso}
+
+\begin{resp}
+\textbf{b)} $\left\lfloor 400/11\right\rfloor = \mathbf{36}$ múltiplos de once.
+\end{resp}
+
+\subsection*{Inciso c) Siete y Once}
+
+\begin{paso}{Paso 1 --- Convertir la ``y'' en una sola divisibilidad}
+\textbf{Qué hago:} traduzco la intersección a un único divisor con el mínimo común múltiplo.
+
+Ser múltiplo de $7$ \emph{y} de $11$ equivale a ser múltiplo de $\operatorname{mcm}(7,11) = 7\cdot 11 = 77$, pues $7$ y $11$ son primos distintos.
+
+\textbf{¿De dónde sale?} De la regla de intersección de múltiplos demostrada en la Teoría.
+
+\textbf{¿Por qué el producto?} Porque al no compartir factores primos, el menor múltiplo común de $7$ y $11$ es su producto: cualquier múltiplo común debe contener el factor $7$ y el factor $11$, o sea al menos $77$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar los múltiplos de 77}
+\textbf{Qué hago:} aplico el piso al nuevo divisor.
+
+\[
+|A_7\cap A_{11}| = \left\lfloor \frac{400}{77}\right\rfloor .
+\]
+Desglose: $77\cdot 5 = 385 \le 400 < 462 = 77\cdot 6$, luego el valor es $5$. Los números son $77,154,231,308,385$.
+
+\textbf{¿De dónde sale?} De $400 = 77\cdot 5 + 15$.
+
+\textbf{¿Qué tomamos?} $5$.
+\end{paso}
+
+\begin{resp}
+\textbf{c)} $\left\lfloor 400/77\right\rfloor = \mathbf{5}$ números son múltiplos de siete y de once ($77,154,231,308,385$).
+\end{resp}
+
+\subsection*{Inciso d) Siete o Once}
+
+\begin{paso}{Paso 1 --- Aplicar inclusión-exclusión para dos conjuntos}
+\textbf{Qué hago:} uso la fórmula de dos conjuntos con los tres valores ya calculados.
+
+\[
+|A_7\cup A_{11}| = |A_7|+|A_{11}|-|A_7\cap A_{11}| = 57+36-5 .
+\]
+Desglose: $57+36 = 93$ y $93-5 = 88$.
+
+\textbf{¿De dónde sale?} $57$ del inciso a), $36$ del b) y $5$ del c).
+
+\textbf{¿Por qué se resta?} Porque los $5$ múltiplos de $77$ son múltiplos de $7$ y también de $11$: aparecen en los $57$ y otra vez en los $36$. Sin la corrección estarían contados dos veces, y la respuesta $93$ sería falsa.
+
+\textbf{¿Qué tomamos?} $88$.
+\end{paso}
+
+\begin{resp}
+\textbf{d)} $57+36-5 = \mathbf{88}$ múltiplos de siete o de once.
+\end{resp}
+
+\subsection*{Inciso e) Siete, Once o Trece}
+
+\begin{paso}{Paso 1 --- Contar el tercer conjunto}
+\textbf{Qué hago:} agrego los múltiplos de $13$, que aún no se habían calculado.
+
+\[
+|A_{13}| = \left\lfloor \frac{400}{13}\right\rfloor .
+\]
+Desglose: $13\cdot 30 = 390\le 400 < 403 = 13\cdot 31$, luego $|A_{13}|=30$.
+
+\textbf{¿De dónde sale?} De $400 = 13\cdot 30 + 10$.
+
+\textbf{¿Qué tomamos?} $|A_{13}|=30$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Calcular las intersecciones que faltan}
+\textbf{Qué hago:} obtengo las tres intersecciones dobles y la triple con mínimos comunes múltiplos.
+
+\[
+\operatorname{mcm}(7,11) = 77:\quad \left\lfloor \frac{400}{77}\right\rfloor = 5 \quad (77\cdot 5 = 385\le 400<462),
+\]
+\[
+\operatorname{mcm}(7,13) = 91:\quad \left\lfloor \frac{400}{91}\right\rfloor = 4 \quad (91\cdot 4 = 364\le 400 < 455 = 91\cdot 5),
+\]
+\[
+\operatorname{mcm}(11,13) = 143:\quad \left\lfloor \frac{400}{143}\right\rfloor = 2 \quad (143\cdot 2 = 286\le 400 < 429 = 143\cdot 3),
+\]
+\[
+\operatorname{mcm}(7,11,13) = 1\,001:\quad \left\lfloor \frac{400}{1\,001}\right\rfloor = 0 \quad (1\,001 > 400).
+\]
+Desglose de los productos: $7\cdot 13 = 91$; $11\cdot 13 = 143$; $77\cdot 13 = 1\,001$.
+
+\textbf{¿De dónde sale?} De que $7$, $11$ y $13$ son primos distintos, así que cada mcm es el producto de los divisores implicados.
+
+\textbf{¿Por qué la triple es cero?} Porque el menor múltiplo común de los tres es $1\,001$, mayor que el tope $400$: ningún número del universo es divisible por $7$, $11$ y $13$ a la vez.
+
+\textbf{¿Qué tomamos?} $5$, $4$, $2$ y $0$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Aplicar inclusión-exclusión para tres conjuntos}
+\textbf{Qué hago:} sustituyo los siete valores en la fórmula.
+
+\[
+|A_7\cup A_{11}\cup A_{13}| = 57+36+30 - 5 - 4 - 2 + 0 .
+\]
+Desglose: $57+36+30 = 123$; $5+4+2 = 11$; $123-11 = 112$.
+
+\textbf{¿De dónde sale?} De los incisos a), b) y del Paso 1 para los individuales; del Paso 2 para las intersecciones.
+
+\textbf{¿Por qué queda bien contado?} Porque un múltiplo de $77$ (como $385$) se suma dos veces en los individuales y se resta una vez en $|A_7\cap A_{11}|$, quedando con aporte $1$; y no hay números en la intersección triple que requieran corrección adicional.
+
+\textbf{¿Qué tomamos?} $112$.
+\end{paso}
+
+\begin{resp}
+\textbf{e)} $57+36+30-5-4-2+0 = \mathbf{112}$ múltiplos de siete, once o trece.
+\end{resp}
+
+\subsection*{Inciso f) Seis o Tres}
+
+\begin{paso}{Paso 1 --- Contar cada conjunto}
+\textbf{Qué hago:} aplico el piso a los divisores $6$ y $3$.
+
+\[
+|A_6| = \left\lfloor \frac{400}{6}\right\rfloor = 66 \quad (6\cdot 66 = 396\le 400 < 402 = 6\cdot 67),
+\]
+\[
+|A_3| = \left\lfloor \frac{400}{3}\right\rfloor = 133 \quad (3\cdot 133 = 399\le 400 < 402 = 3\cdot 134).
+\]
+
+\textbf{¿De dónde sale?} De $400 = 6\cdot 66+4$ y $400 = 3\cdot 133+1$.
+
+\textbf{¿Qué tomamos?} $|A_6| = 66$ y $|A_3|=133$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Observar la contención y aplicar inclusión-exclusión}
+\textbf{Qué hago:} calculo la intersección notando que aquí un divisor es múltiplo del otro.
+
+Como $3\mid 6$, todo múltiplo de $6$ es múltiplo de $3$; por lo tanto $A_6\subseteq A_3$ y $\operatorname{mcm}(6,3)=6$:
+\[
+|A_6\cap A_3| = \left\lfloor \frac{400}{6}\right\rfloor = 66 .
+\]
+Con la fórmula de dos conjuntos:
+\[
+|A_6\cup A_3| = 66+133-66 = 133 .
+\]
+
+\textbf{¿De dónde sale?} De la relación de divisibilidad entre $3$ y $6$, y de los conteos del Paso 1.
+
+\textbf{¿Por qué el resultado es simplemente $|A_3|$?} Porque si $A_6\subseteq A_3$ entonces $A_6\cup A_3 = A_3$: el conjunto pequeño no aporta elementos nuevos. La fórmula lo confirma: $|A_6|$ se suma y se vuelve a restar en la intersección, cancelándose.
+
+\textbf{¿Qué tomamos?} $133$.
+\end{paso}
+
+\begin{resp}
+\textbf{f)} $66+133-66 = \mathbf{133}$ múltiplos de seis o de tres (que son precisamente todos los múltiplos de tres).
+\end{resp}
+
+\subsection*{Inciso g) Seis y Tres}
+
+\begin{paso}{Paso 1 --- Traducir la intersección}
+\textbf{Qué hago:} uso otra vez que $3$ divide a $6$, ahora para la intersección.
+
+\[
+A_6\cap A_3 = A_{\operatorname{mcm}(6,3)} = A_6,\qquad
+|A_6| = \left\lfloor \frac{400}{6}\right\rfloor = 66 \quad (6\cdot 66 = 396 \le 400 < 402).
+\]
+
+\textbf{¿De dónde sale?} De $\operatorname{mcm}(6,3)=6$, ya que $6$ es él mismo múltiplo de $3$.
+
+\textbf{¿Por qué la condición ``y tres'' no agrega nada?} Porque ser múltiplo de $6$ ya implica ser múltiplo de $3$: si $x=6q$ entonces $x = 3(2q)$. La segunda condición es automática y la intersección se reduce al conjunto más pequeño.
+
+\textbf{¿Qué tomamos?} $66$.
+\end{paso}
+
+\begin{resp}
+\textbf{g)} $\left\lfloor 400/6\right\rfloor = \mathbf{66}$ números son múltiplos de seis y de tres a la vez.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 11}
+
+\begin{quote}
+¿Cuántos números de nueve cifras tienen al menos una vez cada uno de los dígitos 1, 3 y 7? \hfill R/ 200 038 110
+\end{quote}
+
+\begin{paso}{Paso 1 --- Fijar el universo de trabajo}
+\textbf{Qué hago:} defino qué se entiende por ``número de nueve cifras'' en el conteo que reproduce la respuesta oficial.
+
+Tomamos como universo las $9$ casillas
+\[
+\underbrace{\square\ \square\ \square\ \square\ \square\ \square\ \square\ \square\ \square}_{9 \text{ posiciones}}
+\]
+donde cada casilla admite cualquiera de los $10$ dígitos $\{0,1,\dots,9\}$. Por el principio del producto,
+\[
+|U| = 10^{9} = 1\,000\,000\,000 .
+\]
+
+\textbf{¿De dónde sale?} De ``nueve cifras'' (nueve posiciones) y del sistema decimal (diez dígitos por posición).
+
+\textbf{¿Por qué se multiplican las posiciones?} Porque llenar cada casilla es una decisión con $10$ opciones que no depende de las demás; nueve decisiones sucesivas dan $10\cdot 10\cdots 10 = 10^9$ resultados, todos distintos.
+
+\textbf{¿Qué tomamos?} $|U| = 10^9$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Pasar al complemento}
+\textbf{Qué hago:} niego la condición ``aparecen los tres dígitos'' para convertirla en una unión manejable.
+
+Sean
+\[
+A = \{\text{no aparece el }1\},\quad B=\{\text{no aparece el }3\},\quad C=\{\text{no aparece el }7\} .
+\]
+Un número cumple lo pedido si y sólo si no está en $A$, ni en $B$, ni en $C$. Por De Morgan y la regla del complemento,
+\[
+\#\{\text{pedidos}\} = |U| - |A\cup B\cup C| .
+\]
+
+\textbf{¿De dónde sale?} De ``al menos una vez cada uno de los dígitos 1, 3 y 7'': fallar la condición significa que \emph{falta} alguno de los tres.
+
+\textbf{¿Por qué el complemento?} Porque contar directamente los números que contienen los tres dígitos exigiría controlar cuántas veces aparece cada uno, con muchísimos casos; en cambio ``no aparece el $1$'' es una restricción uniforme por casilla ($9$ dígitos permitidos en cada una) y se cuenta de inmediato con el principio del producto.
+
+\textbf{¿Qué tomamos?} El objetivo $10^9 - |A\cup B\cup C|$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar los conjuntos individuales}
+\textbf{Qué hago:} cuento cuántos números de nueve casillas evitan un dígito fijo.
+
+Si se prohíbe el $1$, cada casilla admite $10-1=9$ dígitos, luego
+\[
+|A| = 9^{9} = 387\,420\,489 .
+\]
+Desglose de la potencia: $9^2=81$, $9^3=729$, $9^4=6\,561$, $9^5=59\,049$, $9^6=531\,441$, $9^7=4\,782\,969$, $9^8=43\,046\,721$, $9^9=387\,420\,489$.
+Por simetría (el argumento no usa cuál dígito es), $|A|=|B|=|C| = 9^9$.
+
+\textbf{¿De dónde sale?} De quitar un dígito del alfabeto de $10$ y repetir el principio del producto en $9$ casillas.
+
+\textbf{¿Por qué la simetría es legítima?} Porque prohibir el $1$, el $3$ o el $7$ produce exactamente la misma estructura de conteo: en los tres casos quedan $9$ dígitos permitidos por casilla. Ningún dígito juega un papel especial en este universo.
+
+\textbf{¿Qué tomamos?} $|A|=|B|=|C|=387\,420\,489$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Contar las intersecciones}
+\textbf{Qué hago:} cuento los números que evitan dos dígitos a la vez, y luego los tres.
+
+Prohibir dos dígitos deja $10-2=8$ opciones por casilla:
+\[
+|A\cap B| = |A\cap C| = |B\cap C| = 8^{9} = 134\,217\,728 .
+\]
+Desglose: $8^3 = 512$, $8^6 = 512^2 = 262\,144$, $8^9 = 8^6\cdot 8^3 = 262\,144\cdot 512 = 134\,217\,728$.
+Prohibir los tres deja $10-3=7$ opciones por casilla:
+\[
+|A\cap B\cap C| = 7^{9} = 40\,353\,607 .
+\]
+Desglose: $7^3=343$, $7^6=343^2=117\,649$, $7^9 = 117\,649\cdot 343 = 40\,353\,607$.
+
+\textbf{¿De dónde sale?} De la misma cuenta del Paso 3, restando del alfabeto tantos dígitos como condiciones se impongan.
+
+\textbf{¿Por qué basta con reducir el alfabeto?} Porque las condiciones ``no aparece el $1$'' y ``no aparece el $3$'' actúan casilla por casilla y de forma independiente entre casillas: cumplir ambas equivale a escribir las nueve casillas usando sólo los ocho dígitos restantes.
+
+\textbf{¿Qué tomamos?} $8^9 = 134\,217\,728$ para cada par y $7^9 = 40\,353\,607$ para la triple.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inclusión-exclusión}
+\textbf{Qué hago:} armo la unión con la fórmula de tres conjuntos, aprovechando la simetría para agrupar.
+
+\[
+|A\cup B\cup C| = 3\cdot 9^{9} - 3\cdot 8^{9} + 7^{9} .
+\]
+Desglose:
+\[
+3\cdot 387\,420\,489 = 1\,162\,261\,467,\qquad
+3\cdot 134\,217\,728 = 402\,653\,184,
+\]
+\[
+1\,162\,261\,467 - 402\,653\,184 = 759\,608\,283,\qquad
+759\,608\,283 + 40\,353\,607 = 799\,961\,890 .
+\]
+
+\textbf{¿De dónde sale?} De los Pasos 3 y 4: hay tres conjuntos individuales iguales y tres intersecciones dobles iguales.
+
+\textbf{¿Por qué los coeficientes $3$?} Porque hay $\binom{3}{1}=3$ conjuntos individuales y $\binom{3}{2}=3$ parejas de conjuntos; los tamaños coinciden por simetría, así que se agrupan como múltiplos.
+
+\textbf{¿Qué tomamos?} $|A\cup B\cup C| = 799\,961\,890$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Restar del total}
+\textbf{Qué hago:} completo la regla del complemento.
+
+\[
+10^{9} - 799\,961\,890 = 1\,000\,000\,000 - 799\,961\,890 = 200\,038\,110 .
+\]
+Desglose: $1\,000\,000\,000 - 800\,000\,000 = 200\,000\,000$ y $800\,000\,000-799\,961\,890 = 38\,110$, luego el resultado es $200\,000\,000+38\,110 = 200\,038\,110$.
+
+\textbf{¿De dónde sale?} Del Paso 1 (total) y del Paso 5 (unión).
+
+\textbf{¿Por qué responde la pregunta?} Porque a la totalidad de escrituras de nueve cifras se le quitaron exactamente aquellas a las que les falta al menos uno de los dígitos $1$, $3$ o $7$; lo que queda contiene los tres al menos una vez.
+
+\textbf{¿Qué tomamos?} $200\,038\,110$.
+\end{paso}
+
+\begin{nota}
+Sobre el universo elegido. La respuesta oficial $200\,038\,110$ corresponde a admitir las $10^9$ escrituras de nueve casillas, incluidas las que empiezan en $0$. Si se exigiera que la primera cifra sea distinta de cero (es decir, números de nueve cifras en sentido estricto, de $100\,000\,000$ a $999\,999\,999$), el total sería $9\cdot 10^8 = 900\,000\,000$ y los conteos cambiarían a $|A|=8\cdot 9^8$, $|A\cap B| = 7\cdot 8^8$, $|A\cap B\cap C| = 6\cdot 7^8$, dando
+\[
+900\,000\,000 - \bigl(3\cdot 8\cdot 9^{8} - 3\cdot 7\cdot 8^{8} + 6\cdot 7^{8}\bigr) = 900\,000\,000 - 715\,388\,574 = 184\,611\,426 .
+\]
+Se conserva la respuesta oficial, que es la del primer universo.
+\end{nota}
+
+\begin{resp}
+\[
+10^{9} - \bigl(3\cdot 9^{9} - 3\cdot 8^{9} + 7^{9}\bigr) = 1\,000\,000\,000 - 799\,961\,890 = \mathbf{200\,038\,110}
+\]
+escrituras de nueve cifras contienen al menos una vez cada uno de los dígitos $1$, $3$ y $7$.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 12}
+
+\begin{quote}
+Se tiene una partida de póker, en la cual María se encuentra jugando. Mientras avanza el juego, María observa su mano de póker y se hace la siguiente pregunta: ¿De cuántas maneras se me puede dar una mano de póker, de tal forma que al menos tenga una carta de cada palo? \hfill R/ 685 464
+\end{quote}
+
+\begin{paso}{Paso 1 --- Fijar los datos de la baraja y el universo}
+\textbf{Qué hago:} escribo la estructura de la baraja y cuento el total de manos posibles.
+
+Una baraja de póker tiene $52$ cartas repartidas en $4$ palos de $13$ cartas cada uno ($4\cdot 13 = 52$), y una mano de póker consta de $5$ cartas. El universo es el conjunto de todas las manos:
+\[
+|U| = \binom{52}{5} = \frac{52\cdot 51\cdot 50\cdot 49\cdot 48}{5!} .
+\]
+Desglose: $5! = 120$; $52\cdot 51 = 2\,652$; $2\,652\cdot 50 = 132\,600$; $132\,600\cdot 49 = 6\,497\,400$; $6\,497\,400\cdot 48 = 311\,875\,200$; y $311\,875\,200/120 = 2\,598\,960$.
+
+\textbf{¿De dónde sale?} De la composición estándar de la baraja de póker y del tamaño de la mano.
+
+\textbf{¿Por qué combinaciones?} Porque una mano es un conjunto de cartas: el orden en que se reparten no cambia la mano. Por eso se usa $\binom{52}{5}$ y no $P(52,5)$.
+
+\textbf{¿Qué tomamos?} $|U| = 2\,598\,960$ manos posibles.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Plantear el complemento por palos}
+\textbf{Qué hago:} niego la condición para transformarla en una unión de sucesos simples.
+
+Sean $F_1,F_2,F_3,F_4$ los cuatro palos y sea
+\[
+A_i = \{\text{manos que no contienen ninguna carta del palo } F_i\},\qquad i=1,2,3,4 .
+\]
+Una mano tiene al menos una carta de cada palo si y sólo si no está en ninguna $A_i$, de modo que
+\[
+\#\{\text{pedidas}\} = |U| - \Bigl|\bigcup_{i=1}^{4} A_i\Bigr| .
+\]
+
+\textbf{¿De dónde sale?} De ``al menos una carta de cada palo'': la condición falla exactamente cuando algún palo está ausente.
+
+\textbf{¿Por qué inclusión-exclusión con cuatro conjuntos?} Porque los sucesos ``falta el palo $i$'' se traslapan (una mano puede carecer de dos palos a la vez) y hay cuatro de ellos; se usa la forma general del principio con $m=4$.
+
+\textbf{¿Qué tomamos?} El objetivo $\binom{52}{5} - |A_1\cup A_2\cup A_3\cup A_4|$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar las intersecciones de cada nivel}
+\textbf{Qué hago:} cuento cuántas manos evitan uno, dos o tres palos fijos, y observo que evitar los cuatro es imposible.
+
+Evitar un palo deja $52-13 = 39$ cartas:
+\[
+|A_i| = \binom{39}{5} = \frac{39\cdot 38\cdot 37\cdot 36\cdot 35}{120} = 575\,757 .
+\]
+Desglose: $39\cdot 38 = 1\,482$; $1\,482\cdot 37 = 54\,834$; $54\,834\cdot 36 = 1\,974\,024$; $1\,974\,024\cdot 35 = 69\,090\,840$; $69\,090\,840/120 = 575\,757$.
+
+Evitar dos palos deja $52-26 = 26$ cartas:
+\[
+|A_i\cap A_j| = \binom{26}{5} = \frac{26\cdot 25\cdot 24\cdot 23\cdot 22}{120} = 65\,780 .
+\]
+Desglose: $26\cdot 25 = 650$; $650\cdot 24 = 15\,600$; $15\,600\cdot 23 = 358\,800$; $358\,800\cdot 22 = 7\,893\,600$; $7\,893\,600/120 = 65\,780$.
+
+Evitar tres palos deja $13$ cartas:
+\[
+|A_i\cap A_j\cap A_l| = \binom{13}{5} = \frac{13\cdot 12\cdot 11\cdot 10\cdot 9}{120} = 1\,287 .
+\]
+Desglose: $13\cdot 12 = 156$; $156\cdot 11 = 1\,716$; $1\,716\cdot 10 = 17\,160$; $17\,160\cdot 9 = 154\,440$; $154\,440/120 = 1\,287$.
+
+Evitar los cuatro palos es imposible: no quedarían cartas, y $\binom{0}{5}=0$.
+
+\textbf{¿De dónde sale?} De que cada palo aporta $13$ cartas, así que prohibir $r$ palos deja $52-13r$ cartas disponibles.
+
+\textbf{¿Por qué todas las intersecciones de un mismo nivel valen igual?} Porque todos los palos tienen el mismo tamaño ($13$); el conteo sólo depende de \emph{cuántos} palos se prohíben, no de cuáles.
+
+\textbf{¿Qué tomamos?} $575\,757$, $65\,780$, $1\,287$ y $0$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Armar la unión con la forma general}
+\textbf{Qué hago:} cuento cuántos términos hay en cada nivel con combinaciones y aplico la fórmula general.
+
+Hay $\binom{4}{1}=4$ conjuntos individuales, $\binom{4}{2}=6$ parejas, $\binom{4}{3}=4$ ternas y $\binom{4}{4}=1$ cuaterna:
+\[
+\Bigl|\bigcup_{i=1}^{4}A_i\Bigr| = 4\binom{39}{5} - 6\binom{26}{5} + 4\binom{13}{5} - 1\cdot 0 .
+\]
+Desglose:
+\[
+4\cdot 575\,757 = 2\,303\,028,\qquad 6\cdot 65\,780 = 394\,680,\qquad 4\cdot 1\,287 = 5\,148 ,
+\]
+\[
+2\,303\,028 - 394\,680 = 1\,908\,348,\qquad 1\,908\,348 + 5\,148 = 1\,913\,496 .
+\]
+
+\textbf{¿De dónde sale?} Los coeficientes salen de contar cuántas maneras hay de escoger qué palos se prohíben; los tamaños, del Paso 3.
+
+\textbf{¿Por qué los signos alternan?} Porque una mano a la que le faltan, digamos, dos palos se cuenta dos veces en la suma simple; restar las intersecciones dobles le quita una aparición; y así sucesivamente. La demostración de la forma general muestra que con esos signos cada mano de la unión aporta exactamente $1$.
+
+\textbf{¿Qué tomamos?} $1\,913\,496$ manos a las que les falta algún palo.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Restar y verificar por conteo directo}
+\textbf{Qué hago:} obtengo la respuesta y la compruebo con un segundo camino independiente.
+
+\[
+2\,598\,960 - 1\,913\,496 = 685\,464 .
+\]
+Desglose: $2\,598\,960 - 1\,900\,000 = 698\,960$ y $698\,960 - 13\,496 = 685\,464$.
+
+\emph{Verificación directa.} Con $5$ cartas y $4$ palos, tener al menos una carta de cada palo obliga a que la distribución sea $2+1+1+1$: un palo aporta dos cartas y los otros tres aportan una cada uno. Entonces
+\[
+\underbrace{4}_{\text{cuál palo aporta 2}}\cdot \underbrace{\binom{13}{2}}_{\text{las 2 cartas de ese palo}}\cdot \underbrace{13\cdot 13\cdot 13}_{\text{una carta de cada uno de los otros}} = 4\cdot 78\cdot 2\,197 .
+\]
+Desglose: $\binom{13}{2}=\frac{13\cdot 12}{2}=78$; $13^3 = 2\,197$; $78\cdot 2\,197 = 171\,366$; $4\cdot 171\,366 = 685\,464$. Coincide.
+
+\textbf{¿De dónde sale?} De los Pasos 1 y 4 para la resta; la verificación sale de analizar las particiones posibles de $5$ cartas en $4$ palos no vacíos.
+
+\textbf{¿Por qué la distribución debe ser $2+1+1+1$?} Porque cada palo debe aportar al menos $1$ carta, lo que ya consume $4$ cartas; queda una sola carta libre, que debe ir a alguno de los cuatro palos, elevándolo a $2$.
+
+\textbf{¿Qué tomamos?} $685\,464$.
+\end{paso}
+
+\begin{resp}
+\[
+\binom{52}{5} - \left[4\binom{39}{5} - 6\binom{26}{5} + 4\binom{13}{5}\right] = 2\,598\,960 - 1\,913\,496 = \mathbf{685\,464}
+\]
+manos de póker tienen al menos una carta de cada palo (verificado también como $4\binom{13}{2}13^{3} = 685\,464$).
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 13}
+
+\begin{quote}
+El alfabeto español consta de 27 letras diferentes. ¿De cuántas maneras se pueden ordenar las 27 letras del alfabeto, de manera que no se presenten las palabras \textbf{DOS}, \textbf{PAR}, \textbf{VEN}, \textbf{QUIZ}? \hfill R/ $27! - (3\cdot 25! + 24!) + (3\cdot 23! + 3\cdot 22!) - (21! + 3\cdot 20!) + 18!$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Universo y planteamiento por complemento}
+\textbf{Qué hago:} cuento todos los ordenamientos y defino los sucesos que hay que evitar.
+
+Un ordenamiento de las $27$ letras distintas es una permutación de $27$ objetos distinguibles, luego
+\[
+|U| = 27! .
+\]
+Definimos
+\[
+D=\{\text{aparece el bloque DOS}\},\quad P=\{\text{aparece PAR}\},\quad V=\{\text{aparece VEN}\},\quad Q=\{\text{aparece QUIZ}\},
+\]
+donde ``aparece'' significa que esas letras figuran consecutivas y en ese orden. Se pide
+\[
+|U| - |D\cup P\cup V\cup Q| .
+\]
+
+\textbf{¿De dónde sale?} De ``ordenar las 27 letras'' (permutaciones de $27$ elementos) y de la prohibición de las cuatro palabras.
+
+\textbf{¿Por qué complemento e inclusión-exclusión?} Porque prohibir simultáneamente cuatro patrones es difícil de contar de frente, mientras que contar los ordenamientos que \emph{sí} contienen un patrón fijo es sencillo con la idea de bloque; y como los cuatro sucesos se traslapan, la unión requiere la forma general del principio con $m=4$.
+
+\textbf{¿Qué tomamos?} El objetivo $27!-|D\cup P\cup V\cup Q|$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- La técnica del bloque}
+\textbf{Qué hago:} establezco la regla que se usará en todos los términos: pegar las letras de una palabra y tratarlas como un solo objeto.
+
+Si se exige que las letras D, O, S aparezcan juntas y en ese orden, se las puede pegar en una sola pieza [DOS]. Entonces hay que ordenar esa pieza junto con las $27-3 = 24$ letras restantes, o sea $24+1 = 25$ objetos:
+\[
+|D| = 25! .
+\]
+En general, imponer un bloque de $\ell$ letras deja $27-\ell+1$ objetos por ordenar.
+
+\textbf{¿De dónde sale?} De que DOS tiene $\ell=3$ letras y el alfabeto tiene $27$.
+
+\textbf{¿Por qué no se multiplica por $3!$?} Porque el orden interno del bloque está fijo: debe leerse exactamente D, O, S. Si sólo se pidiera que las tres letras estuvieran juntas en cualquier orden habría que multiplicar por $3!$, pero aquí la palabra es una sucesión concreta.
+
+\textbf{¿Por qué la correspondencia es biyectiva?} Porque a cada ordenamiento de los $25$ objetos le corresponde un único ordenamiento de las $27$ letras (desplegando el bloque) y viceversa: dado un ordenamiento de las $27$ letras que contiene DOS de forma consecutiva, se recupera el ordenamiento de los $25$ objetos contrayendo esas tres letras.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Verificar que las cuatro palabras no comparten letras}
+\textbf{Qué hago:} reviso si los bloques pueden imponerse simultáneamente, condición necesaria para que las intersecciones se cuenten como bloques independientes.
+
+Las letras usadas son
+\[
+\text{DOS}: \{D,O,S\},\quad \text{PAR}: \{P,A,R\},\quad \text{VEN}: \{V,E,N\},\quad \text{QUIZ}: \{Q,U,I,Z\} .
+\]
+Reuniendo: $D,O,S,P,A,R,V,E,N,Q,U,I,Z$ son $3+3+3+4 = 13$ letras, y \emph{todas son distintas}.
+
+\textbf{¿De dónde sale?} De inspeccionar directamente las cuatro palabras del enunciado.
+
+\textbf{¿Por qué es indispensable comprobarlo?} Porque si dos palabras compartieran una letra, no podrían formarse ambos bloques a la vez con esa letra repetida (cada letra aparece una sola vez en el ordenamiento) y la intersección correspondiente podría ser vacía o requerir un tratamiento especial. Al ser disjuntas, imponer varios bloques a la vez es simplemente contraer varios grupos de letras independientes.
+
+\textbf{¿Qué tomamos?} Los cuatro bloques son compatibles y se pueden imponer en cualquier combinación.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Términos de un solo conjunto}
+\textbf{Qué hago:} aplico la técnica del bloque a cada una de las cuatro palabras.
+
+\[
+|D| = |P| = |V| = 25! \quad (\text{bloques de }3\text{ letras}: 27-3+1 = 25),
+\]
+\[
+|Q| = 24! \quad (\text{bloque de }4\text{ letras}: 27-4+1 = 24).
+\]
+Suma del primer nivel:
+\[
+|D|+|P|+|V|+|Q| = 3\cdot 25! + 24! .
+\]
+
+\textbf{¿De dónde sale?} De la regla $27-\ell+1$ del Paso 2 con $\ell=3$ (tres veces) y $\ell=4$ (una vez).
+
+\textbf{¿Por qué el coeficiente $3$?} Porque DOS, PAR y VEN tienen la misma longitud y por tanto el mismo conteo; se agrupan como $3\cdot 25!$. QUIZ, al tener cuatro letras, contrae más y deja menos objetos.
+
+\textbf{¿Qué tomamos?} Primer nivel $= 3\cdot 25! + 24!$, que es exactamente el primer paréntesis de la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Términos de dos conjuntos}
+\textbf{Qué hago:} impongo dos bloques a la vez, separando según si QUIZ participa o no.
+
+\emph{Dos palabras de tres letras} (parejas dentro de $\{$DOS, PAR, VEN$\}$): se contraen $6$ letras en $2$ bloques, quedando $27-6+2 = 23$ objetos, luego cada intersección vale $23!$. Hay $\binom{3}{2}=3$ parejas:
+\[
+3\cdot 23! .
+\]
+\emph{QUIZ con una palabra de tres letras:} se contraen $3+4 = 7$ letras en $2$ bloques, quedando $27-7+2 = 22$ objetos, es decir $22!$ cada una. Hay $\binom{3}{1}=3$ parejas de este tipo:
+\[
+3\cdot 22! .
+\]
+Suma del segundo nivel: $3\cdot 23! + 3\cdot 22!$.
+
+\textbf{¿De dónde sale?} De aplicar dos veces la contracción de bloques, válida por el Paso 3 (letras disjuntas), y de contar las parejas con combinaciones.
+
+\textbf{¿Por qué $27-7+2$?} Porque desaparecen las $7$ letras involucradas y aparecen $2$ objetos nuevos (los dos bloques); el resto de las letras sigue suelto.
+
+\textbf{¿Qué tomamos?} Segundo nivel $= 3\cdot 23! + 3\cdot 22!$, el segundo paréntesis de la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Términos de tres conjuntos y el de cuatro}
+\textbf{Qué hago:} continúo con las ternas y la cuaterna, con la misma contracción.
+
+\emph{Las tres palabras de tres letras} (DOS, PAR, VEN): se contraen $9$ letras en $3$ bloques, quedando $27-9+3 = 21$ objetos; hay $\binom{3}{3}=1$ terna de este tipo:
+\[
+1\cdot 21! .
+\]
+\emph{QUIZ con dos palabras de tres letras:} se contraen $6+4 = 10$ letras en $3$ bloques, quedando $27-10+3 = 20$ objetos; hay $\binom{3}{2}=3$ ternas de este tipo:
+\[
+3\cdot 20! .
+\]
+\emph{Las cuatro palabras:} se contraen $9+4 = 13$ letras en $4$ bloques, quedando $27-13+4 = 18$ objetos:
+\[
+|D\cap P\cap V\cap Q| = 18! .
+\]
+
+\textbf{¿De dónde sale?} De la misma regla de contracción, ahora con tres y cuatro bloques.
+
+\textbf{¿Por qué $18!$ en el último?} Porque las $13$ letras del Paso 3 se agrupan en $4$ piezas y quedan sueltas $27-13 = 14$ letras; en total $14+4 = 18$ objetos por ordenar.
+
+\textbf{¿Qué tomamos?} Tercer nivel $= 21! + 3\cdot 20!$ y cuarto nivel $= 18!$.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Ensamblar con la forma general}
+\textbf{Qué hago:} combino los cuatro niveles con signos alternados y aplico el complemento.
+
+\[
+|D\cup P\cup V\cup Q| = \bigl(3\cdot 25!+24!\bigr) - \bigl(3\cdot 23!+3\cdot 22!\bigr) + \bigl(21!+3\cdot 20!\bigr) - 18! .
+\]
+Por lo tanto la cantidad de ordenamientos que no contienen ninguna de las cuatro palabras es
+\[
+27! - \bigl(3\cdot 25!+24!\bigr) + \bigl(3\cdot 23!+3\cdot 22!\bigr) - \bigl(21!+3\cdot 20!\bigr) + 18! .
+\]
+
+\textbf{¿De dónde sale?} De los Pasos 4, 5 y 6, y de la regla del complemento del Paso 1.
+
+\textbf{¿Por qué los signos del resultado final quedan así?} Porque al restar la unión del total, cada signo de la fórmula de inclusión-exclusión se invierte: el nivel de un conjunto entra restando, el de dos sumando, el de tres restando y el de cuatro sumando.
+
+\textbf{¿Qué tomamos?} La expresión completa, que coincide letra por letra con la respuesta oficial.
+\end{paso}
+
+\begin{nota}
+La respuesta oficial se da como expresión sin evaluar y así se conserva. La razón es práctica: $27!$ tiene $29$ cifras y las restas involucran factoriales de tamaños muy distintos, de modo que la forma factorizada comunica mejor la estructura del conteo (qué se resta y por qué) que un número gigante. Cada sumando es legible: $3\cdot 25!$ son las tres palabras de tres letras, $24!$ es QUIZ, $3\cdot 23!$ las parejas de palabras cortas, $3\cdot 22!$ las parejas con QUIZ, y así sucesivamente.
+\end{nota}
+
+\begin{resp}
+\[
+\mathbf{27! - (3\cdot 25! + 24!) + (3\cdot 23! + 3\cdot 22!) - (21! + 3\cdot 20!) + 18!}
+\]
+ordenamientos del alfabeto español no contienen ninguna de las palabras DOS, PAR, VEN, QUIZ.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 14}
+
+\begin{quote}
+Se van a colocar 15 fichas numeradas del 1 al 15 en seis celdas identificadas del 1 al 6. Determine el total de maneras en que pueden colocarse si:\\
+a) Cada celda contiene al menos la ficha con su número.\\
+b) Ninguna celda contiene una ficha con número inferior a su número.\\
+c) Ninguna celda queda con menos de dos o con más de tres fichas.
+\end{quote}
+
+\begin{paso}{Paso 0 --- Fijar el modelo de colocación}
+\textbf{Qué hago:} preciso qué es una colocación antes de imponer restricciones, porque los tres incisos usan el mismo modelo.
+
+Las $15$ fichas están numeradas, así que son distinguibles; las $6$ celdas están identificadas del $1$ al $6$, así que también lo son. Una colocación es una asignación que a cada ficha le da una celda:
+\[
+\text{ficha } j \ \longmapsto\ \text{celda } c(j)\in\{1,2,\dots,6\},\qquad j=1,\dots,15 .
+\]
+Sin restricciones habría $6^{15}$ colocaciones, por el principio del producto ($6$ opciones para cada una de las $15$ fichas).
+
+\textbf{¿De dónde sale?} De ``fichas numeradas del 1 al 15'' y ``celdas identificadas del 1 al 6''.
+
+\textbf{¿Por qué se asignan celdas a fichas y no al revés?} Porque cada ficha va a parar a exactamente una celda, mientras que una celda puede recibir varias fichas o ninguna. La función bien definida es la que va de fichas a celdas, y es la que permite aplicar el principio del producto ficha por ficha.
+
+\textbf{¿Qué tomamos?} $15$ fichas distinguibles, $6$ celdas distinguibles, sin límite de capacidad salvo el que imponga cada inciso.
+\end{paso}
+
+\subsection*{Inciso a)}
+
+\begin{paso}{Paso 1 --- Traducir la condición}
+\textbf{Qué hago:} interpreto ``cada celda contiene al menos la ficha con su número'' como una lista de posiciones forzadas.
+
+La celda $1$ debe contener la ficha $1$; la celda $2$, la ficha $2$; \ldots; la celda $6$, la ficha $6$. Es decir, las fichas $1,2,3,4,5,6$ tienen su destino \emph{obligado}:
+\[
+c(1)=1,\quad c(2)=2,\quad \dots,\quad c(6)=6 .
+\]
+
+\textbf{¿De dónde sale?} De la frase ``al menos la ficha con su número'': la celda puede tener más fichas, pero la que lleva su número no puede faltar.
+
+\textbf{¿Por qué las seis condiciones son compatibles?} Porque afectan a fichas distintas ($1$ a $6$) y cada una fija una sola celda; no hay conflicto entre ellas. Además las fichas $7$ a $15$ no aparecen en ninguna condición y quedan libres.
+
+\textbf{¿Qué tomamos?} $6$ fichas fijadas y $15-6 = 9$ fichas libres.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar con el principio del producto}
+\textbf{Qué hago:} multiplico las opciones de las fichas libres, sabiendo que las fijas aportan una sola posibilidad cada una.
+
+Las fichas $1$ a $6$ aportan $1$ opción cada una ($1^6 = 1$); cada una de las fichas $7$ a $15$ puede ir a cualquiera de las $6$ celdas:
+\[
+1^{6}\cdot 6^{9} = 6^{9} .
+\]
+Desglose de la potencia: $6^2 = 36$, $6^3 = 216$, $6^4 = 1\,296$, $6^5 = 7\,776$, $6^6 = 46\,656$, $6^7 = 279\,936$, $6^8 = 1\,679\,616$, $6^9 = 10\,077\,696$.
+
+\textbf{¿De dónde sale?} Del Paso 1: seis destinos forzados y nueve fichas con libertad total.
+
+\textbf{¿Por qué las fichas libres no tienen restricción?} Porque la condición del inciso sólo exige la \emph{presencia} de ciertas fichas en ciertas celdas; no limita cuántas fichas más puede recibir cada celda ni prohíbe ninguna celda a las fichas $7$ a $15$.
+
+\textbf{¿Qué tomamos?} $6^9 = 10\,077\,696$.
+\end{paso}
+
+\begin{resp}
+\textbf{a)} $6^{9} = \mathbf{10\,077\,696}$ maneras.
+\end{resp}
+
+\subsection*{Inciso b)}
+
+\begin{paso}{Paso 1 --- Traducir la condición a una restricción por ficha}
+\textbf{Qué hago:} paso de una condición formulada sobre celdas a una condición sobre cada ficha, que es lo que necesita el principio del producto.
+
+``Ninguna celda contiene una ficha con número inferior a su número'' significa: si la ficha $j$ está en la celda $i$, entonces $j\ge i$. Visto desde la ficha: la ficha $j$ sólo puede colocarse en las celdas $1,2,\dots,\min(j,6)$.
+
+\textbf{¿De dónde sale?} De la prohibición literal: la celda $i$ no admite fichas con número menor que $i$; equivalentemente, la ficha $j$ no puede estar en celdas con número mayor que $j$.
+
+\textbf{¿Por qué aparece el $\min$?} Porque sólo existen $6$ celdas: para $j\ge 6$ la condición $i\le j$ no elimina ninguna celda, y quedan las $6$ disponibles; para $j<6$ sí recorta.
+
+\textbf{¿Qué tomamos?} La ficha $j$ tiene $\min(j,6)$ celdas permitidas.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar las opciones ficha por ficha}
+\textbf{Qué hago:} listo las opciones de cada una de las $15$ fichas.
+
+\[
+\begin{array}{c|ccccccccc}
+\text{ficha } j & 1 & 2 & 3 & 4 & 5 & 6 & 7 & \cdots & 15\\ \hline
+\text{opciones} & 1 & 2 & 3 & 4 & 5 & 6 & 6 & \cdots & 6
+\end{array}
+\]
+Las fichas $7,8,\dots,15$ son $15-7+1 = 9$ fichas, cada una con $6$ opciones.
+
+\textbf{¿De dónde sale?} De la regla $\min(j,6)$ del Paso 1 evaluada en cada $j$.
+
+\textbf{¿Por qué se puede multiplicar aunque las opciones cambien?} Porque el principio del producto exige que la cantidad de opciones de cada etapa sea la misma independientemente de lo elegido en las otras etapas, y aquí las restricciones de cada ficha no dependen de dónde fueron las demás fichas: no hay límite de capacidad en las celdas.
+
+\textbf{¿Qué tomamos?} Las opciones $1,2,3,4,5,6$ para las primeras seis fichas y $6$ para cada una de las nueve restantes.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Multiplicar}
+\textbf{Qué hago:} desarrollo el producto y lo dejo en forma compacta.
+
+\[
+1\cdot 2\cdot 3\cdot 4\cdot 5\cdot 6 \cdot 6^{9} = 6!\cdot 6^{9} = 720\cdot 10\,077\,696 .
+\]
+Desglose: $720\cdot 10\,077\,696 = 10\,077\,696\cdot 700 + 10\,077\,696\cdot 20 = 7\,054\,387\,200 + 201\,553\,920 = 7\,255\,941\,120$.
+
+\textbf{¿De dónde sale?} De la tabla del Paso 2: el producto $1\cdot2\cdots6$ es $6!=720$ y las nueve fichas libres dan $6^9 = 10\,077\,696$ (calculado en el inciso a).
+
+\textbf{¿Por qué aparece $6!$?} Porque las fichas $1$ a $6$ tienen respectivamente $1,2,3,4,5,6$ opciones, y ese producto escalonado es la definición de $6!$; no es una permutación de las fichas, sino una coincidencia aritmética del patrón escalonado.
+
+\textbf{¿Qué tomamos?} $7\,255\,941\,120$.
+\end{paso}
+
+\begin{resp}
+\textbf{b)} $6!\cdot 6^{9} = 720\cdot 10\,077\,696 = \mathbf{7\,255\,941\,120}$ maneras.
+\end{resp}
+
+\subsection*{Inciso c)}
+
+\begin{paso}{Paso 1 --- Traducir la condición a una cota por celda}
+\textbf{Qué hago:} convierto la doble negación del enunciado en un rango permitido de fichas por celda.
+
+``Ninguna celda queda con menos de dos o con más de tres fichas'' significa que ninguna celda tiene $0$ o $1$ ficha, y ninguna tiene $4$ o más. Por lo tanto cada celda contiene exactamente $2$ o $3$ fichas.
+
+\textbf{¿De dónde sale?} De negar las dos situaciones prohibidas: ``menos de dos'' ($0$ o $1$) y ``más de tres'' ($\ge 4$).
+
+\textbf{¿Por qué queda un rango tan estrecho?} Porque los enteros que no son menores que $2$ ni mayores que $3$ son exactamente $2$ y $3$.
+
+\textbf{¿Qué tomamos?} Cada una de las $6$ celdas recibe $2$ o $3$ fichas.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Determinar el reparto de tamaños}
+\textbf{Qué hago:} uso el total de fichas para descubrir cuántas celdas llevan $3$ y cuántas llevan $2$; resulta forzado.
+
+Si $x$ celdas tienen $3$ fichas y las otras $6-x$ tienen $2$, el total colocado es
+\[
+3x + 2(6-x) = 3x + 12 - 2x = x + 12 .
+\]
+Como hay que colocar las $15$ fichas,
+\[
+x+12 = 15 \quad\Longrightarrow\quad x = 3 .
+\]
+Es decir, exactamente $3$ celdas con $3$ fichas y $3$ celdas con $2$ fichas. Comprobación: $3\cdot 3 + 3\cdot 2 = 9+6 = 15$.
+
+\textbf{¿De dónde sale?} Del dato ``15 fichas'' y ``seis celdas'', junto con la cota $\{2,3\}$ del Paso 1.
+
+\textbf{¿Por qué la solución es única?} Porque la ecuación $x+12=15$ es lineal con una sola incógnita; no hay libertad. El mínimo posible sería $6\cdot 2 = 12$ fichas y el máximo $6\cdot 3 = 18$; el valor $15$ obliga a $x=3$.
+
+\textbf{¿Qué tomamos?} El patrón $(3,3,3,2,2,2)$ de tamaños, repartido entre celdas concretas.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Elegir cuáles celdas llevan tres fichas}
+\textbf{Qué hago:} cuento las maneras de asignar el patrón de tamaños a las celdas identificadas.
+
+\[
+\binom{6}{3} = \frac{6\cdot 5\cdot 4}{3\cdot 2\cdot 1} = \frac{120}{6} = 20 .
+\]
+
+\textbf{¿De dónde sale?} De escoger, entre las $6$ celdas, las $3$ que recibirán tres fichas; las otras tres quedan automáticamente con dos.
+
+\textbf{¿Por qué combinaciones?} Porque sólo importa \emph{cuáles} celdas llevan tres fichas, no en qué orden se eligen; las celdas están identificadas, así que las elecciones $\{1,2,3\}$ y $\{4,5,6\}$ dan configuraciones distintas, pero $\{1,2,3\}$ y $\{3,1,2\}$ son la misma.
+
+\textbf{¿Qué tomamos?} $20$ maneras de decidir los tamaños celda por celda.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Repartir las 15 fichas en los tamaños fijados}
+\textbf{Qué hago:} cuento las formas de distribuir fichas distinguibles en grupos de tamaños ya determinados, usando combinaciones sucesivas.
+
+Fijado qué celda lleva cuántas fichas, se eligen las fichas de cada celda una tras otra:
+\[
+\binom{15}{3}\binom{12}{3}\binom{9}{3}\binom{6}{2}\binom{4}{2}\binom{2}{2}
+= \frac{15!}{3!\,3!\,3!\,2!\,2!\,2!} .
+\]
+Desglose del denominador: $3!=6$ y $2!=2$, luego $3!^3\cdot 2!^3 = 6^3\cdot 2^3 = 216\cdot 8 = 1\,728$. Con $15! = 1\,307\,674\,368\,000$:
+\[
+\frac{1\,307\,674\,368\,000}{1\,728} = 756\,756\,000 .
+\]
+Comprobación de la división: $756\,756\,000\cdot 1\,728 = 756\,756\,000\cdot 1\,700 + 756\,756\,000\cdot 28 = 1\,286\,485\,200\,000 + 21\,189\,168\,000 = 1\,307\,674\,368\,000$.
+
+\textbf{¿De dónde sale?} De aplicar el principio del producto a seis elecciones sucesivas: primero las $3$ fichas de la primera celda grande (entre $15$), luego $3$ de las $12$ restantes, y así hasta agotar las fichas.
+
+\textbf{¿Por qué el producto de combinaciones se convierte en ese cociente de factoriales?} Porque al escribir cada $\binom{n}{r}$ como cociente de factoriales, los numeradores y denominadores intermedios se cancelan en cadena:
+\[
+\frac{15!}{3!\,12!}\cdot\frac{12!}{3!\,9!}\cdot\frac{9!}{3!\,6!}\cdot\frac{6!}{2!\,4!}\cdot\frac{4!}{2!\,2!}\cdot\frac{2!}{2!\,0!} = \frac{15!}{3!\,3!\,3!\,2!\,2!\,2!} .
+\]
+
+\textbf{¿Qué tomamos?} $756\,756\,000$ repartos para cada asignación de tamaños.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Multiplicar las dos etapas}
+\textbf{Qué hago:} combino la elección de tamaños con el reparto de fichas.
+
+\[
+20 \cdot 756\,756\,000 = 15\,135\,120\,000 .
+\]
+Desglose: $756\,756\,000\cdot 2 = 1\,513\,512\,000$ y luego $\times 10$ da $15\,135\,120\,000$.
+
+\textbf{¿De dónde sale?} Del Paso 3 ($20$) y del Paso 4 ($756\,756\,000$).
+
+\textbf{¿Por qué se multiplica?} Porque para cada una de las $20$ maneras de decidir qué celdas llevan tres fichas hay exactamente las mismas $756\,756\,000$ maneras de repartir las fichas, y configuraciones con distinta asignación de tamaños son necesariamente distintas.
+
+\textbf{¿Qué tomamos?} $15\,135\,120\,000$.
+\end{paso}
+
+\begin{nota}
+Los tres incisos no traen respuesta oficial en la práctica. Los valores obtenidos aquí son: a) $6^9 = 10\,077\,696$; b) $6!\cdot 6^9 = 7\,255\,941\,120$; c) $\binom{6}{3}\dfrac{15!}{3!^3 2!^3} = 15\,135\,120\,000$. Todos suponen el modelo del Paso 0: fichas distinguibles, celdas distinguibles y celdas sin límite de capacidad salvo el que impone cada inciso.
+\end{nota}
+
+\begin{resp}
+\textbf{a)} $6^{9} = \mathbf{10\,077\,696}$.\quad
+\textbf{b)} $6!\cdot 6^{9} = \mathbf{7\,255\,941\,120}$.\quad
+\textbf{c)} $\displaystyle \binom{6}{3}\cdot\frac{15!}{3!\,3!\,3!\,2!\,2!\,2!} = 20\cdot 756\,756\,000 = \mathbf{15\,135\,120\,000}$.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 15}
+
+\begin{quote}
+Hay $n$ ladrillos rojos y 3 ladrillos azules, todos indistinguibles (salvo por el color). Bryan los coloca en una hilera. Determine el total de formas de colocarlos si entre dos ladrillos azules siempre debe haber la misma cantidad de ladrillos rojos.
+\end{quote}
+
+\begin{paso}{Paso 1 --- Describir una hilera mediante los huecos}
+\textbf{Qué hago:} elijo una manera de codificar cada hilera que haga visible la condición del enunciado.
+
+La hilera tiene $n+3$ ladrillos. Como los rojos son indistinguibles entre sí y los azules también, una hilera queda completamente determinada por las posiciones de los tres azules. Escribamos la hilera como
+\[
+\underbrace{R\cdots R}_{a}\ A\ \underbrace{R\cdots R}_{b_1}\ A\ \underbrace{R\cdots R}_{b_2}\ A\ \underbrace{R\cdots R}_{c},
+\]
+donde $a\ge 0$ es la cantidad de rojos antes del primer azul, $b_1\ge 0$ la que hay entre el primero y el segundo azul, $b_2\ge 0$ la que hay entre el segundo y el tercero, y $c\ge 0$ la que hay después del último. Como todos los rojos están en alguno de esos cuatro tramos,
+\[
+a+b_1+b_2+c = n .
+\]
+
+\textbf{¿De dónde sale?} De que hay exactamente $3$ ladrillos azules, lo cual parte la hilera en $4$ tramos de rojos (dos extremos y dos internos), y de que hay $n$ rojos en total.
+
+\textbf{¿Por qué esta codificación cuenta bien?} Porque la correspondencia entre hileras y cuádruplas $(a,b_1,b_2,c)$ de enteros no negativos con suma $n$ es biyectiva: cada hilera produce una sola cuádrupla (leyendo de izquierda a derecha) y cada cuádrupla reconstruye una sola hilera. La indistinguibilidad de los ladrillos del mismo color es lo que permite reducir la hilera a esos cuatro números.
+
+\textbf{¿Qué tomamos?} La descripción $(a,b_1,b_2,c)$ con $a+b_1+b_2+c=n$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Imponer la condición del enunciado}
+\textbf{Qué hago:} traduzco ``entre dos ladrillos azules siempre debe haber la misma cantidad de ladrillos rojos'' a una ecuación entre los huecos internos.
+
+Los tramos que están \emph{entre} azules consecutivos son $b_1$ y $b_2$. Que la cantidad de rojos sea siempre la misma significa
+\[
+b_1 = b_2 =: k,\qquad k\ge 0 .
+\]
+Sustituyendo en la relación del Paso 1:
+\[
+a + 2k + c = n .
+\]
+
+\textbf{¿De dónde sale?} De la palabra ``siempre'': la condición debe cumplirse para cada par de azules consecutivos, y hay dos de esos pares (primero-segundo y segundo-tercero).
+
+\textbf{¿Por qué no se exige también algo entre el primer y el tercer azul?} Porque los rojos que hay entre ellos son $b_1+b_2 = 2k$ y ese tramo no es un espacio ``entre dos azules consecutivos'': contiene un azul en medio. Si se exigiera además $2k = k$ la única solución sería $k=0$ y el problema se volvería trivial; la lectura estándar es la de azules consecutivos.
+
+\textbf{¿Qué tomamos?} La ecuación $a+2k+c=n$ con $a,c,k\ge 0$ enteros.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar las soluciones fijando primero $k$}
+\textbf{Qué hago:} organizo el conteo por casos según el valor del hueco común $k$, y cuento las opciones de $a$ y $c$ en cada caso.
+
+Para $k$ fijo, la ecuación pasa a ser $a+c = n-2k$, y necesita $n-2k\ge 0$, es decir
+\[
+0\le k\le \left\lfloor \frac{n}{2} \right\rfloor =: m .
+\]
+Para cada uno de esos $k$, las parejas $(a,c)$ de enteros no negativos con $a+c=n-2k$ son
+\[
+(0,\,n-2k),\ (1,\,n-2k-1),\ \dots,\ (n-2k,\,0),
+\]
+o sea $n-2k+1$ parejas (una por cada valor posible de $a$).
+
+\textbf{¿De dónde sale?} De despejar $a+c$ en la ecuación del Paso 2 y de recorrer los valores admisibles de $a$.
+
+\textbf{¿Por qué el tope es $\lfloor n/2\rfloor$?} Porque los dos huecos internos consumen $2k$ ladrillos rojos y no puede gastarse más de lo que hay: $2k\le n$ equivale a $k\le n/2$, y como $k$ es entero, el mayor admisible es el piso $\lfloor n/2\rfloor$. Si se tomara un $k$ mayor, faltarían ladrillos rojos.
+
+\textbf{¿Qué tomamos?} Total $=\displaystyle\sum_{k=0}^{m}(n-2k+1)$ con $m=\lfloor n/2\rfloor$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Sumar la serie}
+\textbf{Qué hago:} desarrollo la suma con la fórmula de la suma de los primeros enteros.
+
+\[
+\sum_{k=0}^{m}(n+1-2k) = (m+1)(n+1) - 2\sum_{k=0}^{m}k = (m+1)(n+1) - 2\cdot\frac{m(m+1)}{2} = (m+1)(n+1-m).
+\]
+
+\textbf{¿De dónde sale?} De separar la suma en la parte constante ($n+1$ repetida $m+1$ veces, pues $k$ va de $0$ a $m$) y la parte lineal $2\sum k$, usando $\sum_{k=0}^{m}k = \frac{m(m+1)}{2}$.
+
+\textbf{¿Por qué se puede sumar así?} Porque los casos $k=0,1,\dots,m$ son disjuntos (una hilera tiene un único valor de $k$) y cubren todas las hileras válidas; el principio de la suma autoriza sumar sus conteos.
+
+\textbf{¿Qué tomamos?} Total $=(m+1)(n+1-m)$ con $m=\lfloor n/2\rfloor$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Separar según la paridad de $n$}
+\textbf{Qué hago:} evalúo el piso en los dos casos posibles para obtener una expresión explícita.
+
+\emph{Caso $n$ par}, $n=2t$: entonces $m=t$ y
+\[
+(m+1)(n+1-m) = (t+1)(2t+1-t) = (t+1)^{2} = \left(\frac{n}{2}+1\right)^{2} = \frac{(n+2)^2}{4}.
+\]
+\emph{Caso $n$ impar}, $n=2t+1$: entonces $m=t$ y
+\[
+(m+1)(n+1-m) = (t+1)(2t+2-t) = (t+1)(t+2) = \frac{n+1}{2}\cdot\frac{n+3}{2}.
+\]
+Ambos casos se resumen en una sola expresión:
+\[
+\boxed{\ \left\lfloor \frac{(n+2)^{2}}{4} \right\rfloor\ }
+\]
+En efecto, si $n=2t$ entonces $(n+2)^2/4=(t+1)^2$ ya es entero; y si $n=2t+1$ entonces $\frac{(2t+3)^2}{4} = \frac{4t^2+12t+9}{4} = t^2+3t+2+\frac{1}{4}$, cuyo piso es $t^2+3t+2 = (t+1)(t+2)$.
+
+\textbf{¿De dónde sale?} De sustituir $m=\lfloor n/2\rfloor$ en la fórmula del Paso 4, distinguiendo si $n$ es par o impar.
+
+\textbf{¿Por qué hay que separar los casos?} Porque el piso $\lfloor n/2\rfloor$ vale $n/2$ cuando $n$ es par y $(n-1)/2$ cuando es impar; sin distinguir, la expresión no puede simplificarse.
+
+\textbf{¿Qué tomamos?} Total $=\left(\frac{n}{2}+1\right)^2$ si $n$ es par y $\frac{(n+1)(n+3)}{4}$ si $n$ es impar; en forma unificada, $\left\lfloor (n+2)^2/4\right\rfloor$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Verificar con valores pequeños de $n$}
+\textbf{Qué hago:} compruebo la fórmula enumerando a mano los casos chicos, que es la manera de detectar un error de $\pm 1$.
+
+\begin{itemize}[leftmargin=1.3em,itemsep=2pt]
+\item $n=0$: la fórmula da $\lfloor 4/4\rfloor = 1$. En efecto, la única hilera es $AAA$ (con $k=0$).
+\item $n=1$: da $\lfloor 9/4\rfloor = 2$. Las hileras son $RAAA$ y $AAAR$ (con $k=0$, $a+c=1$). Correcto.
+\item $n=2$: da $\lfloor 16/4\rfloor = 4$. Con $k=0$: $RRAAA$, $RAAAR$, $AAARR$ ($3$ hileras); con $k=1$: $ARARA$ ($1$ hilera). Total $4$. Correcto.
+\item $n=3$: da $\lfloor 25/4\rfloor = 6$. Con $k=0$: $4$ hileras ($a+c=3$); con $k=1$: $a+c=1$, o sea $RARARA$ y $ARARAR$, $2$ hileras. Total $6$. Correcto.
+\item $n=4$: da $\lfloor 36/4\rfloor = 9$. Con $k=0$: $5$; con $k=1$: $a+c=2$, $3$ hileras; con $k=2$: $a+c=0$, $1$ hilera ($ARRARRA$). Total $5+3+1 = 9$. Correcto.
+\end{itemize}
+
+\textbf{¿De dónde sale?} De enumerar directamente las cuádruplas $(a,k,k,c)$ para cada $n$ pequeño.
+
+\textbf{¿Por qué sirve la verificación?} Porque los conteos con parámetro suelen fallar en los extremos (si el rango de $k$ está mal, o si se olvida el caso $k=0$); comprobar cinco valores consecutivos, incluyendo los degenerados $n=0$ y $n=1$, confirma tanto la fórmula como el rango del Paso 3.
+
+\textbf{¿Qué tomamos?} La fórmula queda validada.
+\end{paso}
+
+\begin{nota}
+Este ejercicio no trae respuesta oficial. Dos observaciones sobre la lectura del enunciado: (i) se permite $k=0$, es decir azules pegados, porque ``la misma cantidad de rojos'' incluye la cantidad cero; si se exigiera que entre dos azules haya \emph{al menos} un rojo, habría que descartar el caso $k=0$, que aporta $n+1$ hileras, y el total sería $\left\lfloor (n+2)^2/4\right\rfloor - (n+1)$. (ii) Se interpreta ``entre dos ladrillos azules'' como ``entre dos azules \emph{consecutivos}''; con la lectura de todos los pares de azules, el tramo entre el primero y el tercero tendría $2k$ rojos y la igualdad $2k=k$ forzaría $k=0$, dejando sólo $n+1$ hileras (las que tienen los tres azules pegados).
+\end{nota}
+
+\begin{resp}
+Escribiendo la hilera como $R^{a}\,A\,R^{k}\,A\,R^{k}\,A\,R^{c}$ con $a+2k+c=n$, el total de formas es
+\[
+\sum_{k=0}^{\lfloor n/2\rfloor}(n-2k+1) = \left(\left\lfloor \tfrac{n}{2}\right\rfloor+1\right)\left(n+1-\left\lfloor \tfrac{n}{2}\right\rfloor\right)
+= \left\lfloor \frac{(n+2)^{2}}{4} \right\rfloor ,
+\]
+es decir $\left(\dfrac{n}{2}+1\right)^{2}$ si $n$ es par y $\dfrac{(n+1)(n+3)}{4}$ si $n$ es impar.
+\end{resp}
+
+\end{document}

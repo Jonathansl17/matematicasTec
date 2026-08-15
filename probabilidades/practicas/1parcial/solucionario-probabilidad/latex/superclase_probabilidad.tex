@@ -1,0 +1,22 @@
+% Master — une todos los PDFs de las partes en un solo documento
+\documentclass[11pt]{article}
+\input{preamble}
+\usepackage{pdfpages}
+
+\title{Solucionario\\\large Práctica de Principios de Probabilidad\\[4pt]\normalsize Probabilidades (P) --- I Parcial}
+\author{Resuelto paso a paso}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Probabilidad condicionada,p1}]{../pdf/parte1_condicionada.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Probabilidad total,p2}]{../pdf/parte2_total.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Regla de Bayes (1--7),p3a}]{../pdf/parte3a_bayes.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Regla de Bayes (8--17),p3b}]{../pdf/parte3b_bayes.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Dependencia e independencia,p4}]{../pdf/parte4_independencia.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Ejercicios especiales,p5}]{../pdf/parte5_especiales.pdf}
+
+\end{document}

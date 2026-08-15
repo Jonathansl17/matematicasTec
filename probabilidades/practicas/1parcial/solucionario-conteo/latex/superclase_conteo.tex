@@ -1,0 +1,26 @@
+% Master — une todos los PDFs de las partes en un solo documento
+\documentclass[11pt]{article}
+\input{preamble}
+\usepackage{pdfpages}
+
+\title{Solucionario\\\large Práctica de Principios de Conteo\\[4pt]\normalsize Probabilidades (P) --- I Parcial}
+\author{Resuelto paso a paso}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Principio de la suma y el producto (1--13),p1a}]{../pdf/parte1a_suma-producto.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Principio de la suma y el producto (14--29),p1b}]{../pdf/parte1b_suma-producto.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Principio de inclusión-exclusión,p2}]{../pdf/parte2_inclusion-exclusion.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Principio del palomar,p3}]{../pdf/parte3_palomar.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Diagramas de Venn,p4}]{../pdf/parte4_venn.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Anagramas (1--13),p5a}]{../pdf/parte5a_anagramas.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Anagramas (14--23),p5b}]{../pdf/parte5b_anagramas.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Distribuciones (1--7),p6a}]{../pdf/parte6a_distribuciones.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Distribuciones (8--17),p6b}]{../pdf/parte6b_distribuciones.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}},addtotoc={1,section,1,Ejercicios especiales,p7}]{../pdf/parte7_especiales.pdf}
+
+\end{document}

@@ -1,0 +1,637 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+
+\title{Solucionario --- Parte 3: Cardinalidades\\ \large Capítulo 1, sección 1.1 --- Ejercicios 9 a 14}
+\author{Lista de ejercicios de Probabilidad --- Anddy Alvarado Solano}
+\date{}
+
+\begin{document}
+\maketitle
+
+%=====================================================================
+\begin{teo}
+\textbf{Herramientas de cardinalidad que usaremos en toda esta parte.}
+
+Sea $U$ un universo y sean $A,B,C\subseteq U$ conjuntos \emph{finitos}. Escribimos $|X|$ para el número de elementos de $X$.
+
+\medskip
+\textbf{(T1) Principio de inclusión--exclusión para dos conjuntos.}
+\[
+|A\cup B| \;=\; |A| + |B| - |A\cap B|.
+\]
+\emph{De dónde sale:} al sumar $|A|+|B|$ cada elemento de $A\cap B$ se contó dos veces (una al recorrer $A$ y otra al recorrer $B$); restar $|A\cap B|$ lo devuelve a una sola cuenta.
+
+\medskip
+\textbf{(T2) Caso disjunto (regla de la suma).} Si $A\cap B=\varnothing$, entonces $|A\cap B|=0$ y (T1) se reduce a
+\[
+|A\cup B| \;=\; |A| + |B|.
+\]
+\emph{Hipótesis que lo habilita:} que el enunciado diga explícitamente que los conjuntos son disjuntos (o que lo deduzcamos de otra condición).
+
+\medskip
+\textbf{(T3) Partición de un conjunto por otro.} Para cualesquiera $A,B$,
+\[
+A \;=\; (A\cap B)\ \cup\ (A\cap B^{c}),
+\qquad (A\cap B)\cap(A\cap B^{c})=\varnothing,
+\]
+y por lo tanto, aplicando (T2) a esos dos pedazos,
+\[
+|A| \;=\; |A\cap B| + |A\cap B^{c}|.
+\]
+\emph{De dónde sale:} todo elemento de $A$ o está en $B$ o no está en $B$; nunca ambas cosas. Es la ley del tercero excluido traducida a conjuntos.
+
+\medskip
+\textbf{(T4) Diferencia.} Como $A\setminus B = A\cap B^{c}$, la identidad (T3) se reescribe
+\[
+|A\setminus B| \;=\; |A| - |A\cap B|.
+\]
+
+\medskip
+\textbf{(T5) Contención.} Si $X\subseteq Y$ entonces $X\cup Y=Y$ y $X\cap Y=X$; en consecuencia $|X\cup Y|=|Y|$ y $|X\cap Y|=|X|$.
+\emph{De dónde sale:} si todo elemento de $X$ ya vive en $Y$, unir $X$ a $Y$ no agrega nada nuevo.
+
+\medskip
+\textbf{(T6) Conjunto potencia.} Si $|A|=n$ entonces
+\[
+|\mathcal{P}(A)| \;=\; 2^{\,n}.
+\]
+\emph{De dónde sale:} construir un subconjunto de $A$ equivale a decidir, para cada uno de los $n$ elementos, si entra o no entra: son $n$ decisiones binarias independientes, es decir $2\cdot 2\cdots 2 = 2^{n}$ resultados.
+
+\medskip
+\textbf{(T7) Producto cartesiano.}
+\[
+|A\times B| \;=\; |A|\cdot|B|.
+\]
+\emph{De dónde sale:} un par ordenado $(a,b)$ se arma eligiendo primero $a$ entre $|A|$ opciones y luego $b$ entre $|B|$ opciones, de forma independiente (principio del producto).
+
+\medskip
+\textbf{(T8) Combinaciones frecuentes.} Encadenando (T6) y (T7):
+\[
+|\mathcal{P}(A)\times\mathcal{P}(B)| = 2^{|A|}\cdot 2^{|B|} = 2^{\,|A|+|B|},
+\qquad
+|\mathcal{P}(A\times B)| = 2^{\,|A|\cdot|B|}.
+\]
+Nótese la diferencia: en el primero la potencia se toma \emph{antes} del producto y los exponentes se suman; en el segundo la potencia se toma \emph{después} y los tamaños se multiplican dentro del exponente.
+
+\medskip
+\textbf{(T9) Descomposición de una unión en piezas disjuntas.} Para cualesquiera $A,B$,
+\[
+A\cup B \;=\; A\ \cup\ (B\setminus A), \qquad A\cap (B\setminus A)=\varnothing,
+\]
+de donde $|A\cup B| = |A| + |B\setminus A|$. Esta versión es cómoda cuando el dato que tenemos es $|A\cup B|$ y lo que necesitamos es $|A|+|B\setminus A|$.
+\end{teo}
+
+\begin{tip}
+\textbf{Cómo traducir el enunciado a ecuaciones.} Estos problemas no piden creatividad: piden \emph{diccionario}. El procedimiento es siempre el mismo.
+
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{Lista de incógnitas.} Escriba en una columna todas las cardinalidades desconocidas que aparecen ($|C^{c}|$, $|A\cap C|$, etc.).
+  \item \textbf{Un dato $=$ una ecuación.} Cada frase del enunciado con un número se convierte en una igualdad. Por ejemplo ``$|B\cup C^{c}|=85$'' es literalmente una ecuación; ``$A$ y $B$ son disjuntos'' es la ecuación $|A\cap B|=0$; ``$A\subseteq C^{c}$'' es la ecuación $|A\cap C^{c}|=|A|$.
+  \item \textbf{Traduzca las palabras clave.} ``$\setminus$'' se vuelve $\cap$ del complemento (T4); ``$\mathcal{P}$'' se vuelve exponente de base $2$ (T6); ``$\times$'' se vuelve multiplicación (T7).
+  \item \textbf{Busque la ecuación con una sola incógnita.} Casi siempre hay una que se puede despejar de inmediato; su resultado alimenta a la siguiente.
+  \item \textbf{Verifique la consistencia.} Al final compruebe que ningún tamaño salió negativo y que las partes no superan al todo (por ejemplo $|A\cap B|\le \min\{|A|,|B|\}$). Si algo falla, hay un error de traducción.
+\end{enumerate}
+Las hipótesis ``disjuntos'' y ``$\subseteq$'' son las que hacen colapsar los términos molestos: sin ellas los sistemas quedarían indeterminados. Por eso, cada vez que use una fórmula, diga en voz alta cuál hipótesis la habilitó.
+\end{tip}
+
+%=====================================================================
+\section*{Ejercicio 9}
+
+\textbf{Enunciado.} Sean $A, B, C$ conjuntos tales que $A, B$ son disjuntos, $|B\cup C^{c}|=85$, $|A|=40$, $|B|=35$ y $|A\cup (B\setminus C)|=70$. Calcule $|C^{c}|$.
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Inventario de datos e incógnita}
+\textbf{Qué hago:} ordeno en una lista todo lo que el enunciado me da y marco qué me piden, para no mezclar conjuntos parecidos. Los datos son $|A|=40$, $|B|=35$, $|B\cup C^{c}|=85$, $|A\cup(B\setminus C)|=70$, más la hipótesis cualitativa $A\cap B=\varnothing$. La incógnita es $|C^{c}|$.
+
+\textbf{¿De dónde sale?} Todo está escrito literalmente en el enunciado; la única traducción es que ``$A,B$ son disjuntos'' significa $A\cap B=\varnothing$, es decir $|A\cap B|=0$.
+
+\textbf{¿Por qué?} Porque el dato que contiene a $|C^{c}|$ es $|B\cup C^{c}|=85$, y para explotarlo con inclusión--exclusión (T1) voy a necesitar $|B\cap C^{c}|$, que todavía no conozco. Es decir, el problema tiene una incógnita intermedia: $|B\cap C^{c}|$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Reescribir $B\setminus C$ como intersección con el complemento}
+\textbf{Qué hago:} cambio la diferencia por una intersección:
+\[
+B\setminus C \;=\; B\cap C^{c}.
+\]
+
+\textbf{¿De dónde sale?} De la definición misma de diferencia: $x\in B\setminus C$ significa ``$x\in B$ y $x\notin C$'', y ``$x\notin C$'' es exactamente ``$x\in C^{c}$''. Es la identidad (T4) del bloque de teoría.
+
+\textbf{¿Por qué?} Porque el dato $|B\cup C^{c}|=85$ está escrito en términos de $C^{c}$, no de $C$. Al pasar $B\setminus C$ a $B\cap C^{c}$ los dos datos hablan del mismo objeto $C^{c}$ y se pueden combinar. Con este cambio, el cuarto dato se lee
+\[
+|A\cup (B\cap C^{c})| \;=\; 70.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Usar la disjunción para calcular $|B\cap C^{c}|$}
+\textbf{Qué hago:} aplico inclusión--exclusión (T1) a la unión $A\cup (B\cap C^{c})$:
+\[
+|A\cup (B\cap C^{c})| \;=\; |A| + |B\cap C^{c}| - |A\cap B\cap C^{c}|.
+\]
+
+\textbf{¿De dónde sale?} (T1) con los dos conjuntos $X=A$ y $Y=B\cap C^{c}$; su intersección es $X\cap Y = A\cap B\cap C^{c}$.
+
+\textbf{¿Por qué?} Porque el término de corrección se anula gracias a la hipótesis. En efecto, $A\cap B\cap C^{c}\subseteq A\cap B=\varnothing$, así que $A\cap B\cap C^{c}=\varnothing$ y $|A\cap B\cap C^{c}|=0$. Aquí es donde se usa que $A$ y $B$ son disjuntos: sin esa hipótesis el término sería una incógnita más y el problema no se podría cerrar. Sustituyendo los números:
+\[
+70 \;=\; 40 + |B\cap C^{c}| - 0
+\quad\Longrightarrow\quad
+|B\cap C^{c}| \;=\; 70 - 40 \;=\; 30.
+\]
+
+\textbf{¿Qué tomamos?} Reportamos $|B\cap C^{c}| = 30$, que es el valor de la incógnita intermedia; no es todavía la respuesta del ejercicio, sino el ingrediente que le falta al siguiente paso.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Despejar $|C^{c}|$ del dato $|B\cup C^{c}|=85$}
+\textbf{Qué hago:} aplico inclusión--exclusión (T1) a $B$ y $C^{c}$:
+\[
+|B\cup C^{c}| \;=\; |B| + |C^{c}| - |B\cap C^{c}|.
+\]
+
+\textbf{¿De dónde sale?} Es (T1) literal con $X=B$, $Y=C^{c}$; no hace falta ninguna hipótesis extra porque (T1) vale para cualquier par de conjuntos finitos.
+
+\textbf{¿Por qué?} Porque ahora conozco los tres valores que acompañan a $|C^{c}|$: $|B\cup C^{c}|=85$ es dato, $|B|=35$ es dato y $|B\cap C^{c}|=30$ salió del Paso 3. Sustituyo y despejo:
+\[
+85 \;=\; 35 + |C^{c}| - 30.
+\]
+Primero reduzco el lado derecho: $35-30=5$, de modo que $85 = 5 + |C^{c}|$. Luego paso el $5$ restando: $|C^{c}| = 85 - 5 = 80$.
+
+\textbf{¿Qué tomamos?} Tomamos $|C^{c}| = 80$, porque es exactamente la cantidad que pide el enunciado.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Verificación de consistencia}
+\textbf{Qué hago:} reviso que los tamaños obtenidos sean compatibles entre sí antes de dar la respuesta por buena.
+
+\textbf{¿De dónde sale?} De dos desigualdades elementales: una parte nunca es mayor que el todo, es decir $|B\cap C^{c}|\le |B|$ y $|B\cap C^{c}|\le |C^{c}|$; y ninguna cardinalidad puede ser negativa.
+
+\textbf{¿Por qué?} Porque si alguna fallara, habría un error de traducción en algún paso. Comprobamos: $|B\cap C^{c}|=30 \le 35 = |B|$, correcto; $30 \le 80 = |C^{c}|$, correcto. Además, con (T3) obtenemos $|B\cap C| = |B| - |B\cap C^{c}| = 35-30 = 5 \ge 0$, correcto. Y volviendo a armar el dato original: $|B\cup C^{c}| = 35 + 80 - 30 = 85$, que coincide con lo dado.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+$|C^{c}| = 80$.
+\end{resp}
+
+%=====================================================================
+\section*{Ejercicio 10}
+
+\textbf{Enunciado.} Sean $A, B, C$ conjuntos tales que $A$ y $C$ son disjuntos, $|A\cap B| = \tfrac{1}{3}|A|$, $|B\cup C| = \tfrac{1}{5}|A|$. Prube que $|A\cup B\cup C| = \tfrac{13}{15}|A|$.
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Agrupar la unión triple como una unión doble}
+\textbf{Qué hago:} escribo la unión de los tres conjuntos como la unión de dos bloques, poniendo $B$ y $C$ juntos:
+\[
+A\cup B\cup C \;=\; A\ \cup\ (B\cup C).
+\]
+
+\textbf{¿De dónde sale?} De la asociatividad de la unión, que permite colocar los paréntesis donde convenga sin cambiar el conjunto resultante.
+
+\textbf{¿Por qué?} Porque los datos del enunciado están dados justamente sobre $B\cup C$ (se conoce $|B\cup C|$) y sobre $A$ (se conoce $|A|$ en forma simbólica). Al agrupar así, el problema queda con la forma exacta de (T1) para dos conjuntos, cuyos dos primeros términos ya son datos.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Aplicar inclusión--exclusión a los dos bloques}
+\textbf{Qué hago:} uso (T1) con $X=A$ y $Y=B\cup C$:
+\[
+|A\cup B\cup C| \;=\; |A| + |B\cup C| - |A\cap (B\cup C)|.
+\]
+
+\textbf{¿De dónde sale?} Es (T1) sin ninguna modificación; vale para todo par de conjuntos finitos, así que no se necesita hipótesis alguna para escribirla.
+
+\textbf{¿Por qué?} Porque de los tres términos de la derecha ya tengo dos: $|A|$ (simbólico) y $|B\cup C| = \tfrac{1}{5}|A|$ (dato). Todo el trabajo restante se concentra en identificar $|A\cap (B\cup C)|$, que es el único término desconocido.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Simplificar $A\cap(B\cup C)$ usando la disjunción de $A$ y $C$}
+\textbf{Qué hago:} distribuyo la intersección sobre la unión y elimino el sumando nulo:
+\[
+A\cap (B\cup C) \;=\; (A\cap B)\ \cup\ (A\cap C) \;=\; (A\cap B)\cup \varnothing \;=\; A\cap B.
+\]
+
+\textbf{¿De dónde sale?} La primera igualdad es la propiedad distributiva $X\cap(Y\cup Z) = (X\cap Y)\cup(X\cap Z)$. La segunda usa la hipótesis del enunciado ``$A$ y $C$ son disjuntos'', que dice precisamente $A\cap C=\varnothing$. La tercera es que unir el vacío no agrega elementos.
+
+\textbf{¿Por qué?} Porque así el término desconocido $|A\cap(B\cup C)|$ se convierte en $|A\cap B|$, que sí es dato: $|A\cap B| = \tfrac{1}{3}|A|$. Ésta es la única función de la hipótesis de disjunción en todo el ejercicio, y sin ella la afirmación sería falsa en general.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Sustituir y operar las fracciones}
+\textbf{Qué hago:} reemplazo los tres términos por sus valores y hago la aritmética con denominador común.
+
+\textbf{¿De dónde sale?} $|A|$ se deja indicado; $|B\cup C| = \tfrac{1}{5}|A|$ es el segundo dato; $|A\cap(B\cup C)| = |A\cap B| = \tfrac{1}{3}|A|$ salió del Paso 3 combinado con el primer dato. Entonces
+\[
+|A\cup B\cup C| \;=\; |A| + \tfrac{1}{5}|A| - \tfrac{1}{3}|A|
+\;=\; \left(1 + \tfrac{1}{5} - \tfrac{1}{3}\right)|A|.
+\]
+
+\textbf{¿Por qué?} Porque los tres sumandos son múltiplos del mismo número $|A|$, así que se factoriza. Ahora el paréntesis, con denominador común $15$ (mínimo común múltiplo de $1$, $5$ y $3$):
+\[
+1 = \tfrac{15}{15}, \qquad \tfrac{1}{5} = \tfrac{3}{15}, \qquad \tfrac{1}{3} = \tfrac{5}{15},
+\]
+\[
+\tfrac{15}{15} + \tfrac{3}{15} - \tfrac{5}{15} \;=\; \tfrac{15+3-5}{15} \;=\; \tfrac{18-5}{15} \;=\; \tfrac{13}{15}.
+\]
+Por lo tanto $|A\cup B\cup C| = \tfrac{13}{15}|A|$.
+
+\textbf{¿Qué tomamos?} Tomamos $\tfrac{13}{15}|A|$, que es exactamente la expresión que el enunciado pedía demostrar; con esto la prueba queda cerrada.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Verificación de consistencia}
+\textbf{Qué hago:} compruebo que las hipótesis no se contradigan y que el resultado tenga sentido como cardinalidad.
+
+\textbf{¿De dónde sale?} De las mismas desigualdades de siempre: $|A\cap B|\le |A|$ y $|A\cap B|\le|B|\le |B\cup C|$.
+
+\textbf{¿Por qué?} La primera se cumple: $\tfrac{1}{3}|A| \le |A|$. La segunda exige $\tfrac{1}{3}|A| \le \tfrac{1}{5}|A|$, lo cual sólo es posible si $|A|=0$; es decir, el enunciado es consistente en sentido estricto únicamente en el caso degenerado, pero la identidad algebraica pedida se verifica igual para cualquier valor de $|A|$ porque la deducción de los Pasos 1 a 4 no usó ninguna desigualdad. La conclusión $|A\cup B\cup C| = \tfrac{13}{15}|A|$ queda probada tal como se pide.
+\end{paso}
+
+\end{sol}
+
+\begin{nota}
+La demostración es puramente algebraica: la cadena
+\[
+|A\cup B\cup C| = |A| + |B\cup C| - |A\cap B|
+\]
+se obtiene de inclusión--exclusión más la disjunción $A\cap C=\varnothing$, y luego se sustituyen los dos datos fraccionarios. Observe que el coeficiente $\tfrac{13}{15}$ nace de $1+\tfrac15-\tfrac13$, o sea del dato de la unión menos el dato de la intersección.
+\end{nota}
+
+\begin{resp}
+$|A\cup B\cup C| = \dfrac{13}{15}|A|$, como se quería demostrar.
+\end{resp}
+
+%=====================================================================
+\section*{Ejercicio 11}
+
+\textbf{Enunciado.} Sean $A, B, C$ conjuntos tales que $|A\cup B| = 8$, $|\mathcal{P}(C)| = 128$, $|C\setminus A| = 4$. Calcule $|\mathcal{P}(A)\times \mathcal{P}(B\setminus A)|$ y $|\mathcal{P}([A\cap C]\times C)|$.
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Recuperar $|C|$ a partir del tamaño de su conjunto potencia}
+\textbf{Qué hago:} traduzco el dato $|\mathcal{P}(C)| = 128$ a un tamaño de $C$ resolviendo $2^{|C|} = 128$.
+
+\textbf{¿De dónde sale?} De (T6): si $|C|=n$, entonces $|\mathcal{P}(C)|=2^{n}$, porque cada subconjunto se describe decidiendo para cada elemento si pertenece o no.
+
+\textbf{¿Por qué?} Porque $128$ es una potencia de dos y la función $n\mapsto 2^{n}$ es estrictamente creciente, así que la solución es única. Desglosando la potencia:
+\[
+2^{1}=2,\quad 2^{2}=4,\quad 2^{3}=8,\quad 2^{4}=16,\quad 2^{5}=32,\quad 2^{6}=64,\quad 2^{7}=128 .
+\]
+Luego $2^{|C|} = 2^{7}$ obliga a $|C| = 7$.
+
+\textbf{¿Qué tomamos?} Tomamos $|C| = 7$, porque es el único exponente que produce $128$ y es el número que usaremos en los dos incisos.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Obtener $|A\cap C|$ a partir de $|C\setminus A|$}
+\textbf{Qué hago:} uso la fórmula de la diferencia con los papeles $C$ (el todo) y $A$ (el que se recorta):
+\[
+|C\setminus A| \;=\; |C| - |C\cap A|.
+\]
+
+\textbf{¿De dónde sale?} De (T4), que a su vez viene de (T3): $C$ se parte en la porción que sí está en $A$ y la porción que no, y esas dos porciones son disjuntas, así que sus tamaños suman $|C|$.
+
+\textbf{¿Por qué?} Porque conozco $|C\setminus A| = 4$ (dato) y $|C| = 7$ (Paso 1), de modo que la única incógnita es $|C\cap A|$. Despejando:
+\[
+4 = 7 - |A\cap C| \quad\Longrightarrow\quad |A\cap C| = 7 - 4 = 3.
+\]
+Nótese que $C\cap A = A\cap C$ porque la intersección es conmutativa.
+
+\textbf{¿Qué tomamos?} Tomamos $|A\cap C| = 3$, dato indispensable para el segundo inciso.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Primer inciso: convertir el producto de potencias en una sola potencia}
+\textbf{Qué hago:} desarmo $|\mathcal{P}(A)\times \mathcal{P}(B\setminus A)|$ con (T7) y luego (T6):
+\[
+|\mathcal{P}(A)\times \mathcal{P}(B\setminus A)|
+= |\mathcal{P}(A)|\cdot |\mathcal{P}(B\setminus A)|
+= 2^{|A|}\cdot 2^{|B\setminus A|}
+= 2^{\,|A| + |B\setminus A|}.
+\]
+
+\textbf{¿De dónde sale?} La primera igualdad es (T7) aplicada a los conjuntos $\mathcal{P}(A)$ y $\mathcal{P}(B\setminus A)$; la segunda es (T6) aplicada a cada factor; la tercera es la ley de exponentes $2^{m}\cdot 2^{n} = 2^{m+n}$.
+
+\textbf{¿Por qué?} Porque el enunciado no da $|A|$ ni $|B|$ por separado, sino sólo $|A\cup B|$. Convertir el producto en una única potencia hace que sólo importe la \emph{suma} $|A| + |B\setminus A|$, y esa suma sí es conocida, como se ve en el paso siguiente.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Reconocer que esa suma es exactamente $|A\cup B|$}
+\textbf{Qué hago:} identifico la descomposición disjunta de la unión:
+\[
+A\cup B \;=\; A\ \cup\ (B\setminus A), \qquad A\cap (B\setminus A) = \varnothing .
+\]
+
+\textbf{¿De dónde sale?} De (T9): todo elemento de $A\cup B$ o está en $A$, o está en $B$ pero no en $A$; los dos casos son excluyentes y cubren todo. Por (T2), al ser disjuntos, las cardinalidades se suman:
+\[
+|A| + |B\setminus A| \;=\; |A\cup B| \;=\; 8 .
+\]
+
+\textbf{¿Por qué?} Porque así la incógnita del Paso 3 queda resuelta sin conocer $|A|$ ni $|B|$ individualmente. Sustituyendo en la potencia y desglosando el cálculo:
+\[
+2^{\,|A|+|B\setminus A|} = 2^{8} = 2^{4}\cdot 2^{4} = 16\cdot 16 = 256 .
+\]
+
+\textbf{¿Qué tomamos?} Tomamos $|\mathcal{P}(A)\times \mathcal{P}(B\setminus A)| = 256$, que es la respuesta del primer inciso. El dato $|C\setminus A|$ no interviene aquí: sólo se usa en el segundo inciso.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Segundo inciso: primero el producto cartesiano, después la potencia}
+\textbf{Qué hago:} calculo el tamaño del conjunto $[A\cap C]\times C$ y sólo entonces le aplico (T6):
+\[
+|[A\cap C]\times C| \;=\; |A\cap C|\cdot |C| \;=\; 3\cdot 7 \;=\; 21 .
+\]
+
+\textbf{¿De dónde sale?} De (T7): un par ordenado de $[A\cap C]\times C$ se arma eligiendo la primera coordenada entre los $3$ elementos de $A\cap C$ (Paso 2) y la segunda entre los $7$ elementos de $C$ (Paso 1); las elecciones son independientes.
+
+\textbf{¿Por qué?} Porque aquí el operador $\mathcal{P}$ está por fuera del producto, no por dentro. Por eso el orden de las operaciones es el opuesto al del inciso anterior: los tamaños se \emph{multiplican} dentro del exponente en lugar de sumarse, tal como advierte (T8).
+
+\textbf{¿Qué tomamos?} Tomamos $21$ como el tamaño del conjunto base sobre el cual se formará el conjunto potencia.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Evaluar $2^{21}$ sin saltos}
+\textbf{Qué hago:} aplico (T6) al conjunto base de tamaño $21$ y desarrollo la potencia por partes:
+\[
+|\mathcal{P}([A\cap C]\times C)| \;=\; 2^{\,21}.
+\]
+
+\textbf{¿De dónde sale?} De (T6) con $n = |[A\cap C]\times C| = 21$, calculado en el Paso 5.
+
+\textbf{¿Por qué?} Para no cometer errores de cálculo, separo $21 = 10 + 10 + 1$ y uso $2^{10} = 1024$:
+\[
+2^{21} = 2^{10}\cdot 2^{10}\cdot 2^{1} = 1024\cdot 1024\cdot 2 = 1\,048\,576 \cdot 2 = 2\,097\,152 .
+\]
+
+\textbf{¿Qué tomamos?} Tomamos $|\mathcal{P}([A\cap C]\times C)| = 2^{21} = 2\,097\,152$, que es la respuesta del segundo inciso.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Verificación de consistencia}
+\textbf{Qué hago:} reviso que los valores intermedios sean posibles.
+
+\textbf{¿De dónde sale?} De las cotas $|A\cap C| \le |C|$, $|C\setminus A|\le |C|$ y $|A|\le |A\cup B|$.
+
+\textbf{¿Por qué?} Se cumple $3 \le 7$ y $4 \le 7$, y además $3 + 4 = 7 = |C|$, que es exactamente la partición de $C$ en $C\cap A$ y $C\setminus A$ predicha por (T3). También es coherente que $|A|\ge |A\cap C| = 3$ y $|A|\le 8$, sin que el problema requiera fijar $|A|$: el primer inciso sólo depende de la suma $|A|+|B\setminus A| = 8$, así que la respuesta no cambia con el valor concreto de $|A|$.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+$|\mathcal{P}(A)\times \mathcal{P}(B\setminus A)| = 2^{8} = 256$ \quad y \quad $|\mathcal{P}([A\cap C]\times C)| = 2^{21} = 2\,097\,152$.
+\end{resp}
+
+%=====================================================================
+\section*{Ejercicio 12}
+
+\textbf{Enunciado.} Sean $A, B, C$ conjuntos tales que $A$ y $B$ son disjuntos, $|A| = 30$, $|B| = 25$, $|A\cup (B\cap C^{c})| = 45$ y $|A\cup C^{c}| = 70$. Suponga además que $A\subseteq C^{c}$. Calcule $|C^{c}|$. R: 70.
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducir la contención $A\subseteq C^{c}$}
+\textbf{Qué hago:} convierto la hipótesis ``$A\subseteq C^{c}$'' en una igualdad de conjuntos utilizable:
+\[
+A\subseteq C^{c} \quad\Longrightarrow\quad A\cup C^{c} = C^{c}.
+\]
+
+\textbf{¿De dónde sale?} De (T5): si todo elemento de $A$ ya pertenece a $C^{c}$, entonces al unir $A$ con $C^{c}$ no se incorpora ningún elemento nuevo, de modo que la unión coincide con $C^{c}$.
+
+\textbf{¿Por qué?} Porque el enunciado da precisamente $|A\cup C^{c}| = 70$. Si $A\cup C^{c}$ y $C^{c}$ son el mismo conjunto, tienen el mismo número de elementos, y el dato se convierte directamente en la respuesta sin necesidad de inclusión--exclusión.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Leer $|C^{c}|$ del dato}
+\textbf{Qué hago:} igualo cardinalidades en la identidad del Paso 1:
+\[
+|C^{c}| \;=\; |A\cup C^{c}| \;=\; 70 .
+\]
+
+\textbf{¿De dónde sale?} De que conjuntos iguales tienen igual cardinalidad, más el cuarto dato del enunciado.
+
+\textbf{¿Por qué?} Porque no hay nada que despejar: la contención hizo colapsar la unión. Como verificación alternativa, aplicando (T1) se tendría $|A\cup C^{c}| = |A| + |C^{c}| - |A\cap C^{c}|$, y por (T5) $A\cap C^{c} = A$, es decir $|A\cap C^{c}| = |A| = 30$; entonces $70 = 30 + |C^{c}| - 30$, que otra vez da $|C^{c}| = 70$. Las dos rutas coinciden, como debía ser.
+
+\textbf{¿Qué tomamos?} Tomamos $|C^{c}| = 70$, que es exactamente lo que pide el ejercicio y coincide con la respuesta oficial ``R: 70''.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Usar los datos restantes para verificar la consistencia}
+\textbf{Qué hago:} explото el dato $|A\cup(B\cap C^{c})| = 45$, que hasta ahora no se ha usado, para comprobar que el enunciado no se contradice.
+
+\textbf{¿De dónde sale?} De (T1) aplicada a $X = A$ y $Y = B\cap C^{c}$:
+\[
+|A\cup (B\cap C^{c})| \;=\; |A| + |B\cap C^{c}| - |A\cap B\cap C^{c}| .
+\]
+El término de corrección se anula porque $A\cap B\cap C^{c}\subseteq A\cap B = \varnothing$, es decir gracias a la hipótesis de que $A$ y $B$ son disjuntos.
+
+\textbf{¿Por qué?} Porque así puedo despejar una cantidad nueva y comprobar que no resulta absurda:
+\[
+45 = 30 + |B\cap C^{c}| \quad\Longrightarrow\quad |B\cap C^{c}| = 45 - 30 = 15 .
+\]
+Esto es consistente: $15 \le 25 = |B|$ y $15 \le 70 = |C^{c}|$. Además, por (T3), $|B\cap C| = |B| - |B\cap C^{c}| = 25 - 15 = 10 \ge 0$. Y como $A\subseteq C^{c}$ con $|A|=30$, la porción de $C^{c}$ ocupada por $A$ y por $B\cap C^{c}$ es $30 + 15 = 45 \le 70$, lo cual cabe holgadamente dentro de $C^{c}$.
+
+\textbf{¿Qué tomamos?} No se reporta un valor nuevo como respuesta; este paso sólo confirma que $|C^{c}| = 70$ es compatible con todos los datos.
+\end{paso}
+
+\end{sol}
+
+\begin{nota}
+Los datos $|B| = 25$ y $|A\cup(B\cap C^{c})| = 45$ son \emph{redundantes} para calcular $|C^{c}|$: la contención $A\subseteq C^{c}$ resuelve el ejercicio sola. Su función es servir de control, y en efecto todos los números encajan.
+\end{nota}
+
+\begin{resp}
+$|C^{c}| = 70$. \quad (Coincide con la respuesta oficial R: 70.)
+\end{resp}
+
+%=====================================================================
+\section*{Ejercicio 13}
+
+\textbf{Enunciado.} Sean $A, B, C$ conjuntos tales que $B$ y $C$ son disjuntos, $|A\cap B| = \tfrac{1}{4}|A|$, $|A\cap C| = \tfrac{1}{5}|A|$ y $|B\cup C| = \tfrac{9}{20}|A|$. Calcule $|A\cup B\cup C|$. R: $|A|$.
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Agrupar y aplicar inclusión--exclusión}
+\textbf{Qué hago:} agrupo la unión triple como $A\cup (B\cup C)$ y aplico (T1) a esos dos bloques:
+\[
+|A\cup B\cup C| \;=\; |A| + |B\cup C| - |A\cap (B\cup C)| .
+\]
+
+\textbf{¿De dónde sale?} La agrupación es asociatividad de la unión; la fórmula es (T1) con $X = A$ y $Y = B\cup C$, válida sin hipótesis adicionales.
+
+\textbf{¿Por qué?} Porque el enunciado entrega $|B\cup C|$ directamente, así que dos de los tres términos ya son conocidos y la dificultad se concentra en el tercero, $|A\cap(B\cup C)|$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Distribuir la intersección sobre la unión}
+\textbf{Qué hago:} escribo el término desconocido como unión de dos intersecciones conocidas:
+\[
+A\cap (B\cup C) \;=\; (A\cap B)\ \cup\ (A\cap C).
+\]
+
+\textbf{¿De dónde sale?} De la propiedad distributiva $X\cap(Y\cup Z) = (X\cap Y)\cup(X\cap Z)$.
+
+\textbf{¿Por qué?} Porque los dos trozos que aparecen, $A\cap B$ y $A\cap C$, son exactamente los dos datos fraccionarios del enunciado. Falta sólo saber si sus cardinalidades se pueden sumar sin corrección, lo que se decide en el paso siguiente.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Ver que los dos trozos son disjuntos y sumar}
+\textbf{Qué hago:} compruebo que $(A\cap B)\cap (A\cap C) = \varnothing$ y aplico la regla de la suma (T2):
+\[
+(A\cap B)\cap(A\cap C) \;=\; A\cap B\cap C \;\subseteq\; B\cap C \;=\; \varnothing .
+\]
+
+\textbf{¿De dónde sale?} La primera igualdad es idempotencia y asociatividad de la intersección ($A\cap A = A$); la contención es porque intersecar con $A$ sólo puede quitar elementos; y $B\cap C=\varnothing$ es la hipótesis ``$B$ y $C$ son disjuntos''.
+
+\textbf{¿Por qué?} Porque al ser disjuntos, (T2) permite sumar sin restar nada:
+\[
+|A\cap (B\cup C)| \;=\; |A\cap B| + |A\cap C| \;=\; \tfrac{1}{4}|A| + \tfrac{1}{5}|A| .
+\]
+Con denominador común $20$: $\tfrac14 = \tfrac{5}{20}$ y $\tfrac15 = \tfrac{4}{20}$, luego
+\[
+\tfrac{5}{20}|A| + \tfrac{4}{20}|A| \;=\; \tfrac{9}{20}|A| .
+\]
+
+\textbf{¿Qué tomamos?} Tomamos $|A\cap(B\cup C)| = \tfrac{9}{20}|A|$, que es el término de corrección que faltaba en el Paso 1. Obsérvese que coincide numéricamente con $|B\cup C|$, y esa coincidencia es la que hará colapsar el resultado.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Sustituir y simplificar}
+\textbf{Qué hago:} llevo los tres valores a la fórmula del Paso 1:
+\[
+|A\cup B\cup C| \;=\; |A| + \tfrac{9}{20}|A| - \tfrac{9}{20}|A| .
+\]
+
+\textbf{¿De dónde sale?} El segundo sumando es el dato $|B\cup C| = \tfrac{9}{20}|A|$; el tercero es el resultado del Paso 3.
+
+\textbf{¿Por qué?} Porque los dos términos fraccionarios son idénticos y de signos opuestos, así que se cancelan:
+\[
+\tfrac{9}{20}|A| - \tfrac{9}{20}|A| \;=\; 0
+\quad\Longrightarrow\quad
+|A\cup B\cup C| \;=\; |A| + 0 \;=\; |A| .
+\]
+
+\textbf{¿Qué tomamos?} Tomamos $|A\cup B\cup C| = |A|$, expresado en función de $|A|$ porque el enunciado nunca fija su valor numérico. Coincide con la respuesta oficial ``R: $|A|$''.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Interpretar el resultado y verificar}
+\textbf{Qué hago:} explico qué significa que la unión triple valga exactamente $|A|$ y reviso la coherencia de los datos.
+
+\textbf{¿De dónde sale?} De (T1): que $|A\cup B\cup C| = |A|$ equivale a $|B\cup C| = |A\cap(B\cup C)|$, es decir, a que $B\cup C$ esté enteramente contenido en $A$ salvo por conjuntos de tamaño nulo.
+
+\textbf{¿Por qué?} Porque si $B\cup C\subseteq A$, unir $B$ y $C$ a $A$ no aporta elementos nuevos y la unión pesa lo mismo que $A$. Los datos son consistentes con eso: $|A\cap B| = \tfrac14|A| \le |A|$, $|A\cap C| = \tfrac15|A| \le |A|$ y $|A\cap (B\cup C)| = \tfrac{9}{20}|A| \le |A|$, ya que $\tfrac{9}{20} < 1$. Ninguna cantidad resulta negativa ni excede a su contenedor.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+$|A\cup B\cup C| = |A|$. \quad (Coincide con la respuesta oficial R: $|A|$.)
+\end{resp}
+
+%=====================================================================
+\section*{Ejercicio 14}
+
+\textbf{Enunciado.} Sean $A, B, C$ conjuntos tales que $|A\cup B| = 10$, $|\mathcal{P}(C)| = 64$, $|A\cap C| = 2$, $A$ y $B$ son disjuntos y $A\subseteq C$. Calcule $|\mathcal{P}(A\setminus C)\times \mathcal{P}(B\cap A)|$ y $|\mathcal{P}((A\cap C)\times C)|$. R: 1 y 4096
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Recuperar $|C|$ del tamaño de su conjunto potencia}
+\textbf{Qué hago:} resuelvo $2^{|C|} = 64$.
+
+\textbf{¿De dónde sale?} De (T6), $|\mathcal{P}(C)| = 2^{|C|}$, aplicada al dato $|\mathcal{P}(C)| = 64$.
+
+\textbf{¿Por qué?} Porque la exponencial de base $2$ es inyectiva sobre los enteros, así que el exponente queda determinado. Desglosando: $2^{1}=2$, $2^{2}=4$, $2^{3}=8$, $2^{4}=16$, $2^{5}=32$, $2^{6}=64$. Por lo tanto $|C| = 6$.
+
+\textbf{¿Qué tomamos?} Tomamos $|C| = 6$, número que se usará en el segundo inciso.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Usar $A\subseteq C$ para conocer $|A|$}
+\textbf{Qué hago:} traduzco la contención en la igualdad $A\cap C = A$ y la combino con el dato $|A\cap C| = 2$.
+
+\textbf{¿De dónde sale?} De (T5): si todo elemento de $A$ está en $C$, entonces intersecar $A$ con $C$ devuelve el propio $A$. Igualando cardinalidades, $|A| = |A\cap C| = 2$.
+
+\textbf{¿Por qué?} Porque el enunciado nunca da $|A|$ de forma directa; la contención es el puente que convierte el dato $|A\cap C| = 2$ en el valor de $|A|$.
+
+\textbf{¿Qué tomamos?} Tomamos $|A| = 2$. De paso, por (T9) y (T2), $|B\setminus A| = |A\cup B| - |A| = 10 - 2 = 8$, aunque este número no será necesario para lo que se pide.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Primer inciso, primera pieza: identificar $A\setminus C$}
+\textbf{Qué hago:} determino el conjunto $A\setminus C$ usando otra vez la contención.
+
+\textbf{¿De dónde sale?} De (T4): $|A\setminus C| = |A| - |A\cap C| = 2 - 2 = 0$. Un conjunto de cardinalidad cero es el vacío, luego $A\setminus C = \varnothing$. Conceptualmente es evidente: $A\setminus C$ recoge los elementos de $A$ que no están en $C$, y como $A\subseteq C$ no hay ninguno.
+
+\textbf{¿Por qué?} Porque necesito su conjunto potencia, y el del vacío es el caso extremo de (T6):
+\[
+|\mathcal{P}(A\setminus C)| = |\mathcal{P}(\varnothing)| = 2^{0} = 1 .
+\]
+Es decir, $\mathcal{P}(\varnothing) = \{\varnothing\}$: el vacío tiene exactamente un subconjunto, él mismo.
+
+\textbf{¿Qué tomamos?} Tomamos $|\mathcal{P}(A\setminus C)| = 1$, primer factor del producto cartesiano pedido.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Primer inciso, segunda pieza: identificar $B\cap A$}
+\textbf{Qué hago:} determino el conjunto $B\cap A$ a partir de la hipótesis de disjunción.
+
+\textbf{¿De dónde sale?} Directamente del enunciado: ``$A$ y $B$ son disjuntos'' significa $A\cap B = \varnothing$, y por conmutatividad $B\cap A = A\cap B = \varnothing$.
+
+\textbf{¿Por qué?} Porque nuevamente hace falta su conjunto potencia, y por (T6) con $n = 0$:
+\[
+|\mathcal{P}(B\cap A)| = |\mathcal{P}(\varnothing)| = 2^{0} = 1 .
+\]
+
+\textbf{¿Qué tomamos?} Tomamos $|\mathcal{P}(B\cap A)| = 1$, segundo factor del producto cartesiano pedido.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Primer inciso: multiplicar los dos factores}
+\textbf{Qué hago:} aplico (T7) al producto cartesiano de los dos conjuntos potencia:
+\[
+|\mathcal{P}(A\setminus C)\times \mathcal{P}(B\cap A)|
+= |\mathcal{P}(A\setminus C)|\cdot|\mathcal{P}(B\cap A)|
+= 1\cdot 1 = 1 .
+\]
+
+\textbf{¿De dónde sale?} De (T7), $|X\times Y| = |X|\cdot|Y|$, con $X = \mathcal{P}(A\setminus C)$ e $Y = \mathcal{P}(B\cap A)$, cuyos tamaños son los de los Pasos 3 y 4.
+
+\textbf{¿Por qué?} Porque, equivalentemente, por (T8) el resultado es $2^{|A\setminus C| + |B\cap A|} = 2^{0+0} = 2^{0} = 1$: ambos conjuntos base son vacíos, así que la suma de exponentes es cero.
+
+\textbf{¿Qué tomamos?} Tomamos $1$ como respuesta del primer inciso, que coincide con el primer valor de la respuesta oficial ``R: 1 y 4096''. El único elemento de ese producto es el par $(\varnothing,\varnothing)$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Segundo inciso: tamaño del conjunto base $(A\cap C)\times C$}
+\textbf{Qué hago:} calculo primero cuántos pares ordenados tiene $(A\cap C)\times C$, antes de tomar conjunto potencia:
+\[
+|(A\cap C)\times C| \;=\; |A\cap C|\cdot |C| \;=\; 2\cdot 6 \;=\; 12 .
+\]
+
+\textbf{¿De dónde sale?} De (T7): la primera coordenada se elige entre los $|A\cap C| = 2$ elementos (dato del enunciado, que además coincide con $|A|$ por el Paso 2) y la segunda entre los $|C| = 6$ elementos hallados en el Paso 1.
+
+\textbf{¿Por qué?} Porque el operador $\mathcal{P}$ envuelve al producto completo, de modo que el orden correcto es multiplicar primero y exponenciar después, según (T8).
+
+\textbf{¿Qué tomamos?} Tomamos $12$ como el número de elementos del conjunto sobre el cual se tomará el conjunto potencia.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Segundo inciso: evaluar $2^{12}$}
+\textbf{Qué hago:} aplico (T6) al conjunto base de $12$ elementos y desarrollo la potencia paso a paso:
+\[
+|\mathcal{P}((A\cap C)\times C)| \;=\; 2^{\,12}.
+\]
+
+\textbf{¿De dónde sale?} De (T6) con $n = |(A\cap C)\times C| = 12$, obtenido en el Paso 6.
+
+\textbf{¿Por qué?} Para evitar saltos aritméticos separo $12 = 6+6$ y uso $2^{6} = 64$:
+\[
+2^{12} = 2^{6}\cdot 2^{6} = 64\cdot 64 = 4096 .
+\]
+(Como control: $64\cdot 64 = 64\cdot 60 + 64\cdot 4 = 3840 + 256 = 4096$.)
+
+\textbf{¿Qué tomamos?} Tomamos $|\mathcal{P}((A\cap C)\times C)| = 4096$, que coincide con el segundo valor de la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 8 --- Verificación de consistencia}
+\textbf{Qué hago:} confirmo que todos los datos encajan sin contradicción.
+
+\textbf{¿De dónde sale?} De las cotas usuales: $|A\cap C| \le \min\{|A|,|C|\}$ y $|A| \le |A\cup B|$.
+
+\textbf{¿Por qué?} Se verifica $|A\cap C| = 2 \le \min\{2, 6\} = 2$, con igualdad, que es justo lo que exige la contención $A\subseteq C$. También $|A| = 2 \le 10 = |A\cup B|$, y la parte restante $|B\setminus A| = 8$ es no negativa. Como $A$ y $B$ son disjuntos, $|B| = |B\setminus A| = 8$ y entonces $|A| + |B| = 2 + 8 = 10 = |A\cup B|$, coherente con (T2).
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+$|\mathcal{P}(A\setminus C)\times \mathcal{P}(B\cap A)| = 1$ \quad y \quad $|\mathcal{P}((A\cap C)\times C)| = 2^{12} = 4096$. \quad (Coincide con la respuesta oficial R: 1 y 4096.)
+\end{resp}
+
+%=====================================================================
+\begin{nota}
+\textbf{Resumen de la parte 3.} Los seis ejercicios se resuelven con el mismo esqueleto:
+\begin{enumerate}[label=(\arabic*)]
+  \item toda diferencia se pasa a intersección con el complemento, $X\setminus Y = X\cap Y^{c}$;
+  \item toda unión se abre con inclusión--exclusión, y las hipótesis de \emph{disjunción} son las que anulan el término de corrección;
+  \item toda \emph{contención} ($A\subseteq C^{c}$ en el 12, $A\subseteq C$ en el 14) colapsa una unión o una intersección y regala un dato;
+  \item $\mathcal{P}$ se traduce a exponente de base $2$ y $\times$ a multiplicación, cuidando el orden: $2^{|X|}\cdot 2^{|Y|} = 2^{|X|+|Y|}$ frente a $2^{|X|\cdot|Y|}$.
+\end{enumerate}
+Resultados obtenidos: Ej.\ 9: $80$. \quad Ej.\ 10: $\tfrac{13}{15}|A|$ (demostrado). \quad Ej.\ 11: $256$ y $2^{21}=2\,097\,152$. \quad Ej.\ 12: $70$. \quad Ej.\ 13: $|A|$. \quad Ej.\ 14: $1$ y $4096$. Todas las respuestas oficiales disponibles quedan confirmadas.
+\end{nota}
+
+\end{document}

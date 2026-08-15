@@ -1,0 +1,11 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}\ignorespaces Principio de la suma y el producto (1--13)}{2}{section.1}%
+\contentsline {section}{\numberline {2}\ignorespaces Principio de la suma y el producto (14--29)}{22}{section.2}%
+\contentsline {section}{\numberline {3}\ignorespaces Principio de inclusión-exclusión}{59}{section.3}%
+\contentsline {section}{\numberline {4}\ignorespaces Principio del palomar}{102}{section.4}%
+\contentsline {section}{\numberline {5}\ignorespaces Diagramas de Venn}{112}{section.5}%
+\contentsline {section}{\numberline {6}\ignorespaces Anagramas (1--13)}{131}{section.6}%
+\contentsline {section}{\numberline {7}\ignorespaces Anagramas (14--23)}{161}{section.7}%
+\contentsline {section}{\numberline {8}\ignorespaces Distribuciones (1--7)}{192}{section.8}%
+\contentsline {section}{\numberline {9}\ignorespaces Distribuciones (8--17)}{209}{section.9}%
+\contentsline {section}{\numberline {10}\ignorespaces Ejercicios especiales}{233}{section.10}%

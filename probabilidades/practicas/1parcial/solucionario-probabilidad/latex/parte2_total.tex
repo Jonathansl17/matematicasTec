@@ -1,0 +1,1782 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+
+\begin{center}{\LARGE\bfseries Principios de probabilidad}\\[2pt]{\large Probabilidad total --- Ejercicios 1--11}\end{center}
+
+\vspace{1em}
+
+\begin{teo}
+\textbf{1. Partición del espacio muestral: la hipótesis que todo lo sostiene.}
+Una familia de eventos $A_1,A_2,\dots,A_n$ es una \emph{partición} del espacio muestral $S$ cuando cumple dos condiciones a la vez:
+\[
+A_i\cap A_j=\varnothing \ \text{ si } i\neq j
+\qquad\text{(mutuamente excluyentes)},
+\]
+\[
+A_1\cup A_2\cup\cdots\cup A_n=S
+\qquad\text{(exhaustivos)}.
+\]
+La primera dice que dos de esos eventos nunca ocurren juntos; la segunda dice que siempre ocurre alguno. Juntas afirman que, pase lo que pase en el experimento, ocurre \emph{exactamente uno} de los $A_i$. Esa es la imagen mental correcta: la partición es un juego de casillas que cubre toda la mesa sin dejar huecos y sin traslaparse. Como consecuencia inmediata de la aditividad y de $P(S)=1$,
+\[
+P(A_1)+P(A_2)+\cdots+P(A_n)=P(S)=1,
+\]
+igualdad que usaremos siempre como control: si las probabilidades de los casos no suman $1$, la familia no es partición y algo se nos escapó.
+
+\medskip
+\textbf{2. Regla de la multiplicación (y su versión encadenada).}
+De la definición de probabilidad condicionada $P(B\mid A)=\dfrac{P(A\cap B)}{P(A)}$, válida cuando $P(A)>0$, se despeja multiplicando por $P(A)$:
+\[
+P(A\cap B)=P(A)\,P(B\mid A).
+\]
+No es una fórmula nueva: es la misma definición escrita al revés. Su lectura es la de un experimento en dos etapas: primero ocurre $A$, con probabilidad $P(A)$; después, \emph{ya sabiendo} que $A$ ocurrió, ocurre $B$ con probabilidad $P(B\mid A)$. La probabilidad del camino completo es el producto de los dos tramos.
+
+Si el experimento tiene más etapas, se aplica la misma idea repetidamente. Para tres eventos:
+\[
+P(A\cap B\cap C)=P\bigl((A\cap B)\cap C\bigr)=P(A\cap B)\,P(C\mid A\cap B)=P(A)\,P(B\mid A)\,P(C\mid A\cap B).
+\]
+Y en general, para $n$ etapas,
+\[
+P(A_1\cap A_2\cap\cdots\cap A_n)=P(A_1)\,P(A_2\mid A_1)\,P(A_3\mid A_1\cap A_2)\cdots P(A_n\mid A_1\cap\cdots\cap A_{n-1}).
+\]
+Esta es exactamente la regla que justifica los \emph{árboles de probabilidad}: cada arista lleva la probabilidad condicionada de dar ese paso sabiendo todo lo que ya pasó en la rama, y la probabilidad de la rama completa es el producto de sus aristas.
+
+\medskip
+\textbf{3. Ley de probabilidad total: enunciado y demostración.}
+Sea $A_1,\dots,A_n$ una partición de $S$ con $P(A_i)>0$ para todo $i$, y sea $B$ un evento cualquiera. Entonces
+\[
+P(B)=\sum_{i=1}^{n}P(A_i)\,P(B\mid A_i)=P(A_1)P(B\mid A_1)+\cdots+P(A_n)P(B\mid A_n).
+\]
+
+\emph{Demostración.} Como los $A_i$ cubren todo $S$, se tiene $B=B\cap S=B\cap(A_1\cup\cdots\cup A_n)$, y distribuyendo la intersección sobre la unión,
+\[
+B=(B\cap A_1)\cup(B\cap A_2)\cup\cdots\cup(B\cap A_n).
+\]
+Los pedazos $B\cap A_i$ son disjuntos dos a dos, porque si $i\neq j$ entonces
+\[
+(B\cap A_i)\cap(B\cap A_j)=B\cap(A_i\cap A_j)=B\cap\varnothing=\varnothing .
+\]
+Es decir, hemos partido el evento $B$ en trozos que no se traslapan y que juntos lo reconstruyen. Por la aditividad de la probabilidad sobre eventos disjuntos,
+\[
+P(B)=P(B\cap A_1)+P(B\cap A_2)+\cdots+P(B\cap A_n).
+\]
+Finalmente, cada sumando se reescribe con la regla de la multiplicación, $P(B\cap A_i)=P(A_i)P(B\mid A_i)$, lo cual es lícito porque $P(A_i)>0$. Sustituyendo se obtiene la fórmula anunciada. $\blacksquare$
+
+La utilidad práctica es enorme: casi nunca sabemos calcular $P(B)$ de golpe, pero casi siempre sabemos calcularla \emph{si supiéramos} en cuál caso $A_i$ estamos. La ley dice que basta con eso: se calcula $B$ dentro de cada casilla y se hace un promedio ponderado, donde el peso de cada casilla es su propia probabilidad. Obsérvese que las dos condiciones de partición son indispensables: si los $A_i$ se traslaparan, algunos resultados de $B$ se contarían dos veces; si no cubrieran $S$, se perderían resultados de $B$ que caen fuera de todas las casillas.
+
+\medskip
+\textbf{4. Complemento y definición clásica.}
+Como $A$ y $\overline{A}$ forman la partición más simple posible ($A\cup\overline{A}=S$, $A\cap\overline{A}=\varnothing$), la suma de sus probabilidades es $1$ y por tanto
+\[
+P(\overline{A})=1-P(A).
+\]
+Esta es la herramienta estándar para los enunciados del tipo ``al menos uno'': el complemento de ``al menos uno'' es ``ninguno'', que suele ser una sola rama del árbol. Por último, en un experimento con un número finito de resultados igualmente probables (sacar una bola al azar de una bolsa, elegir una persona al azar) vale la definición clásica
+\[
+P(E)=\frac{\text{casos favorables a } E}{\text{casos posibles}} .
+\]
+Es de aquí de donde salen todas las fracciones ``bolas de tal color entre bolas totales'' que aparecerán en los árboles.
+\end{teo}
+
+\begin{tip}
+Fórmulas de trabajo de toda esta sección:
+\[
+A_1,\dots,A_n \text{ partición}\iff A_i\cap A_j=\varnothing\ (i\neq j)\ \text{ y }\ \bigcup_{i=1}^{n}A_i=S
+\qquad\Longrightarrow\qquad \sum_{i=1}^{n}P(A_i)=1
+\]
+\[
+P(A\cap B)=P(A)\,P(B\mid A)=P(B)\,P(A\mid B)
+\]
+\[
+P(A_1\cap\cdots\cap A_n)=P(A_1)P(A_2\mid A_1)P(A_3\mid A_1\cap A_2)\cdots P(A_n\mid A_1\cap\cdots\cap A_{n-1})
+\]
+\[
+P(B)=\sum_{i=1}^{n}P(A_i)\,P(B\mid A_i)
+\qquad\qquad
+P(\overline{A})=1-P(A)
+\]
+\[
+P(E)=\frac{\#\text{casos favorables}}{\#\text{casos posibles}}
+\qquad\qquad
+\sum_{k=1}^{m}r^{k}=r\,\frac{1-r^{m}}{1-r}
+\]
+En un árbol: la probabilidad de una rama completa es el producto de las probabilidades de sus aristas; la probabilidad de un evento es la suma de las ramas (disjuntas) que lo producen.
+\end{tip}
+
+% ==================================================================
+\section*{Ejercicio 1}
+
+\begin{quote}
+Una bolsa tiene 4 bolas azules y 3 bolas rojas. Juan saca 4 bolas al azar de una urna sin reposición. Determine la probabilidad de que la cuarta bola sea roja.\hfill R/ $\dfrac{3}{7}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Eventos, partición y verificación de las hipótesis}
+\textbf{Qué hago:} bautizo el evento que me piden y construyo una partición del espacio muestral que me permita aplicar la ley de probabilidad total.
+
+El experimento consiste en extraer cuatro bolas, una tras otra y sin devolverlas, de una bolsa con $4$ azules y $3$ rojas, es decir $7$ bolas en total. Sea
+\[
+B=\text{``la cuarta bola extraída es roja''}.
+\]
+No podemos calcular $P(B)$ directamente porque la composición de la bolsa en el momento de la cuarta extracción depende de lo que haya salido antes. Lo que sí controlamos es \emph{cuántas} rojas salieron en las tres primeras extracciones. Definimos entonces, para $k=0,1,2,3$,
+\[
+A_k=\text{``entre las tres primeras bolas salieron exactamente $k$ rojas''}.
+\]
+La familia $\{A_0,A_1,A_2,A_3\}$ es una partición del espacio muestral:
+\begin{itemize}[leftmargin=1.4em]
+\item \emph{Mutuamente excluyentes:} el número de rojas en las tres primeras extracciones es un número concreto; no puede ser $1$ y $2$ a la vez, así que $A_i\cap A_j=\varnothing$ si $i\neq j$.
+\item \emph{Exhaustivos:} ese número siempre existe y solo puede valer $0$, $1$, $2$ o $3$, porque se extraen tres bolas y solo hay tres rojas disponibles. Luego $A_0\cup A_1\cup A_2\cup A_3=S$.
+\end{itemize}
+
+\textbf{¿De dónde sale?} Los números $4$ y $3$ son los del enunciado (``4 bolas azules y 3 bolas rojas''), y el total $7=4+3$. La frase ``sin reposición'' es la que nos obliga a llevar la cuenta de lo ya extraído: sin ella, la bolsa nunca cambiaría y el problema sería inmediato.
+
+\textbf{¿Por qué?} Porque la ley de probabilidad total exige exactamente esas dos condiciones sobre la familia $\{A_k\}$: si las casillas se traslaparan, contaríamos resultados dos veces, y si dejaran huecos, perderíamos resultados. Además, elegimos como partición justamente aquello que necesitamos saber para poder responder por la cuarta bola: conocido $k$, la bolsa en el cuarto turno queda completamente determinada.
+
+\textbf{¿Qué tomamos?} Todavía no se produce ningún valor numérico; queda fijado el evento $B$ y la partición $\{A_0,A_1,A_2,A_3\}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Árbol de probabilidad reducido}
+\textbf{Qué hago:} dibujo el árbol que resume el experimento en dos etapas: primero ``qué pasó en las tres primeras extracciones'' (medido solo por el número de rojas) y después ``de qué color es la cuarta''.
+
+\begin{center}
+\begin{tikzpicture}[
+  grow=right,
+  level 1/.style={sibling distance=17mm, level distance=30mm},
+  level 2/.style={sibling distance=17mm, level distance=32mm},
+  every node/.style={font=\small}
+]
+\node {Inicio}
+  child {node {$A_3$} child {node {$\overline{B}$} edge from parent node[above,sloped,font=\scriptsize]{$0/4$}}}
+  child {node {$A_2$} child {node {$B$} edge from parent node[above,sloped,font=\scriptsize]{$1/4$}}}
+  child {node {$A_1$} child {node {$B$} edge from parent node[above,sloped,font=\scriptsize]{$2/4$}}}
+  child {node {$A_0$} child {node {$B$} edge from parent node[above,sloped,font=\scriptsize]{$3/4$}}};
+\end{tikzpicture}
+\end{center}
+
+Cada rama del árbol corresponde a un camino completo ``primero $A_k$, después la cuarta bola roja''. La probabilidad de una rama es el producto de sus aristas, por la regla de la multiplicación $P(A_k\cap B)=P(A_k)P(B\mid A_k)$, y la probabilidad de $B$ es la suma de las ramas que terminan en $B$, porque esas ramas son disjuntas entre sí.
+
+\textbf{¿De dónde sale?} Las etiquetas de la segunda etapa se leen así: tras tres extracciones sin reposición quedan $7-3=4$ bolas en la bolsa, y si salieron $k$ rojas todavía quedan $3-k$ rojas dentro. Por la definición clásica, $P(B\mid A_k)=\dfrac{3-k}{4}$.
+
+\textbf{¿Por qué?} Porque una vez fijado el número de rojas ya extraídas, la cuarta extracción es una elección al azar entre las $4$ bolas restantes, todas igualmente probables; no importa el orden en que salieron las tres primeras, solo cuántas rojas eran.
+
+\textbf{¿Qué tomamos?} Anotamos las cuatro probabilidades condicionadas $P(B\mid A_0)=\tfrac34$, $P(B\mid A_1)=\tfrac24$, $P(B\mid A_2)=\tfrac14$, $P(B\mid A_3)=0$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Probabilidad de cada casilla de la partición}
+\textbf{Qué hago:} calculo $P(A_k)$ contando con combinatoria elemental, tratando las tres primeras extracciones como la elección de un subconjunto de $3$ bolas de las $7$.
+
+El número total de formas de escoger cuáles $3$ bolas salen primero es
+\[
+\binom{7}{3}=\frac{7\cdot 6\cdot 5}{3\cdot 2\cdot 1}=\frac{210}{6}=35 .
+\]
+Para que salgan exactamente $k$ rojas hay que escoger $k$ rojas de las $3$ y $3-k$ azules de las $4$:
+\[
+P(A_k)=\frac{\dbinom{3}{k}\dbinom{4}{3-k}}{35}.
+\]
+Caso por caso:
+\[
+P(A_0)=\frac{\binom{3}{0}\binom{4}{3}}{35}=\frac{1\cdot 4}{35}=\frac{4}{35},
+\qquad
+P(A_1)=\frac{\binom{3}{1}\binom{4}{2}}{35}=\frac{3\cdot 6}{35}=\frac{18}{35},
+\]
+\[
+P(A_2)=\frac{\binom{3}{2}\binom{4}{1}}{35}=\frac{3\cdot 4}{35}=\frac{12}{35},
+\qquad
+P(A_3)=\frac{\binom{3}{3}\binom{4}{0}}{35}=\frac{1\cdot 1}{35}=\frac{1}{35}.
+\]
+Control de partición:
+\[
+\frac{4}{35}+\frac{18}{35}+\frac{12}{35}+\frac{1}{35}=\frac{4+18+12+1}{35}=\frac{35}{35}=1 .
+\]
+
+\textbf{¿De dónde sale?} El $7$ es el total de bolas y el $3$ es la cantidad de extracciones previas a la que nos interesa; el $\binom{3}{k}$ escoge rojas entre las $3$ rojas del enunciado y el $\binom{4}{3-k}$ escoge azules entre las $4$ azules.
+
+\textbf{¿Por qué?} Porque al extraer sin reposición todos los conjuntos de tres bolas son igualmente probables, así que la definición clásica se aplica contando conjuntos. Además la suma dio exactamente $1$, lo que confirma que $\{A_0,A_1,A_2,A_3\}$ es realmente una partición y que no olvidamos ningún caso.
+
+\textbf{¿Qué tomamos?} Anotamos las cuatro fracciones con denominador común $35$, sin simplificarlas, porque así la suma final será inmediata.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Aplicación de la ley de probabilidad total}
+\textbf{Qué hago:} multiplico cada peso por su condicional y sumo, que es exactamente lo que dice la ley de probabilidad total.
+
+\[
+P(B)=P(A_0)P(B\mid A_0)+P(A_1)P(B\mid A_1)+P(A_2)P(B\mid A_2)+P(A_3)P(B\mid A_3)
+\]
+\[
+=\frac{4}{35}\cdot\frac{3}{4}+\frac{18}{35}\cdot\frac{2}{4}+\frac{12}{35}\cdot\frac{1}{4}+\frac{1}{35}\cdot 0 .
+\]
+Desarrollamos producto por producto:
+\[
+\frac{4}{35}\cdot\frac{3}{4}=\frac{12}{140}=\frac{3}{35},
+\qquad
+\frac{18}{35}\cdot\frac{2}{4}=\frac{36}{140}=\frac{9}{35},
+\qquad
+\frac{12}{35}\cdot\frac{1}{4}=\frac{12}{140}=\frac{3}{35},
+\qquad
+\frac{1}{35}\cdot 0=0 .
+\]
+Sumamos, ya con denominador común $35$:
+\[
+P(B)=\frac{3}{35}+\frac{9}{35}+\frac{3}{35}+0=\frac{3+9+3}{35}=\frac{15}{35}.
+\]
+Simplificamos dividiendo numerador y denominador entre $5$:
+\[
+\frac{15}{35}=\frac{15\div 5}{35\div 5}=\frac{3}{7}.
+\]
+
+\textbf{¿De dónde sale?} Los pesos $\tfrac{4}{35},\tfrac{18}{35},\tfrac{12}{35},\tfrac{1}{35}$ salen del Paso 3; las condicionales $\tfrac34,\tfrac24,\tfrac14,0$ salen del Paso 2. El $0$ del último término corresponde al caso en que las tres rojas ya salieron, de modo que en la cuarta extracción solo quedan azules.
+
+\textbf{¿Por qué?} Porque los caminos ``$A_k$ y luego roja'' son disjuntos (no se puede tener a la vez $k$ y $k'$ rojas en las tres primeras) y su unión es exactamente $B$; sumar sus probabilidades es la aditividad, y escribir cada una como producto es la regla de la multiplicación. Eso es, literalmente, la demostración de la ley de probabilidad total aplicada a este caso.
+
+\textbf{¿Qué tomamos?} Tomamos $P(B)=\dfrac{3}{7}$, fracción exacta ya simplificada.
+\end{paso}
+
+\begin{nota}
+El resultado $\tfrac37$ es precisamente la proporción inicial de bolas rojas, $\tfrac{3}{7}$. No es casualidad: al extraer sin reposición y al azar, todas las posiciones de la secuencia son equivalentes, de modo que la cuarta bola tiene la misma probabilidad de ser roja que la primera. El cálculo largo confirma esa simetría, y sirve de comprobación: si la ley de probabilidad total hubiera dado otra cosa, habría un error aritmético.
+\end{nota}
+
+\begin{resp}
+$P(\text{la cuarta bola es roja})=\dfrac{3}{7}$.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 2}
+
+\begin{quote}
+En una bolsa se tienen 10 bolas blancas, 6 bolas verdes y 4 bolas rojas. Considere el experimento en que se extrae una bola al azar, se anota su color y se devuelve la bola extraída con dos bolas del mismo color al de la bola extraída. Suponga que el experimento se repite hasta obtener dos bolas verdes consecutivas. Determine la probabilidad de que se realicen exactamente 3 extracciones.\hfill R/ $\dfrac{7}{110}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Eventos, dinámica de la urna y partición}
+\textbf{Qué hago:} nombro los eventos de cada extracción, describo cómo cambia la bolsa y verifico que en cada etapa la familia de colores es una partición.
+
+Al inicio la bolsa tiene $10$ blancas, $6$ verdes y $4$ rojas, es decir
+\[
+N_1=10+6+4=20 \text{ bolas.}
+\]
+Para la extracción número $i$ definimos
+\[
+V_i=\text{``la $i$-ésima bola extraída es verde''},
+\qquad
+\overline{V_i}=\text{``la $i$-ésima bola extraída no es verde''}.
+\]
+En cada extracción, $\{V_i,\overline{V_i}\}$ es una partición del espacio muestral: la bola extraída o es verde o no lo es, nunca ambas cosas ($V_i\cap\overline{V_i}=\varnothing$) y siempre una de las dos ($V_i\cup\overline{V_i}=S$).
+
+La dinámica de la bolsa es la siguiente: se extrae una bola (con lo que momentáneamente quedan $19$) y luego se devuelve esa misma bola \emph{acompañada de dos bolas más de su mismo color}. El balance por extracción es
+\[
+-1\ \text{(la bola sale)}\;+\;1\ \text{(la misma bola regresa)}\;+\;2\ \text{(las dos nuevas)}\;=\;+2 ,
+\]
+es decir, el total crece en $2$ y el color que salió gana $2$ unidades, mientras los otros dos colores quedan igual. Los totales serán entonces
+\[
+N_1=20,\qquad N_2=22,\qquad N_3=24,\ \dots
+\]
+
+\textbf{¿De dónde sale?} Los conteos $10$, $6$ y $4$ son literales del enunciado. El crecimiento de $2$ en $2$ sale de la frase ``se devuelve la bola extraída con dos bolas del mismo color al de la bola extraída'': la bola sacada regresa a la bolsa y con ella entran dos bolas nuevas de ese mismo color.
+
+\textbf{¿Por qué?} Porque para poder aplicar la definición clásica en cada extracción necesitamos saber exactamente cuántas bolas de cada color hay \emph{en ese momento}; la regla del enunciado nos dice cómo actualizar esos conteos después de cada paso.
+
+\textbf{¿Qué tomamos?} Anotamos la composición inicial $(10,6,4)$ con total $20$ y la regla de actualización ``$+2$ al color que salió''.
+\end{paso}
+
+\begin{nota}
+Un detalle numérico importante: cada extracción se calcula con el total \emph{anterior} al refuerzo, porque la bola se saca de la bolsa tal como está en ese instante y solo después se hace la devolución con las dos bolas extra. Por eso la primera extracción usa denominador $20$ y no $22$.
+\end{nota}
+
+\begin{paso}{Paso 2 --- Traducción de ``exactamente 3 extracciones''}
+\textbf{Qué hago:} traduzco la condición de parada a un enunciado sobre los colores de las tres primeras extracciones.
+
+El experimento se detiene en cuanto aparecen dos verdes \emph{consecutivas}. Que se realicen exactamente $3$ extracciones significa dos cosas simultáneamente:
+\begin{itemize}[leftmargin=1.4em]
+\item que el proceso \emph{no} terminó en la segunda extracción, es decir, que las extracciones $1$ y $2$ no fueron ambas verdes;
+\item que el proceso \emph{sí} terminó en la tercera, es decir, que las extracciones $2$ y $3$ fueron ambas verdes.
+\end{itemize}
+Si la $2$ es verde y la $1$ y la $2$ no son ambas verdes, entonces forzosamente la $1$ no es verde. Por tanto el evento pedido es exactamente
+\[
+E=\overline{V_1}\cap V_2\cap V_3 ,
+\]
+y es un único camino del árbol, no una unión de varios.
+
+\textbf{¿De dónde sale?} De las frases ``se repite hasta obtener dos bolas verdes consecutivas'' (condición de parada) y ``exactamente 3 extracciones'' (número total de pasos). La palabra \emph{consecutivas} es la que obliga a que sean la segunda y la tercera.
+
+\textbf{¿Por qué?} Porque ``exactamente $3$'' no es lo mismo que ``las dos últimas son verdes'': hay que impedir además que el juego hubiera acabado antes. Si $V_1$ y $V_2$ hubieran ocurrido, el experimento se habría detenido en la segunda extracción y nunca habría habido una tercera. Por eso la primera bola tiene que ser de otro color.
+
+\textbf{¿Qué tomamos?} Fijamos el evento $E=\overline{V_1}\cap V_2\cap V_3$ como objeto de cálculo.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Árbol de probabilidad y probabilidades de cada arista}
+\textbf{Qué hago:} construyo el árbol siguiendo la evolución de la bolsa y etiqueto cada arista con su probabilidad condicionada.
+
+\emph{Primera extracción.} Hay $20$ bolas, de las cuales $6$ son verdes y $10+4=14$ no lo son:
+\[
+P(\overline{V_1})=\frac{14}{20},\qquad P(V_1)=\frac{6}{20},
+\qquad\text{control: }\frac{14}{20}+\frac{6}{20}=\frac{20}{20}=1 .
+\]
+
+\emph{Actualización tras $\overline{V_1}$.} Salió una bola no verde y se devuelve acompañada de dos más de ese mismo color: el total pasa a $20+2=22$ y las verdes siguen siendo $6$, porque el refuerzo fue de un color no verde.
+
+\emph{Segunda extracción, dado $\overline{V_1}$.}
+\[
+P(V_2\mid \overline{V_1})=\frac{6}{22}.
+\]
+
+\emph{Actualización tras $V_2$.} Salió verde, así que las verdes pasan a $6+2=8$ y el total a $22+2=24$.
+
+\emph{Tercera extracción, dado $\overline{V_1}\cap V_2$.}
+\[
+P(V_3\mid \overline{V_1}\cap V_2)=\frac{8}{24}.
+\]
+
+\begin{center}
+\begin{tikzpicture}[
+  grow=right,
+  level 1/.style={sibling distance=26mm, level distance=30mm},
+  level 2/.style={sibling distance=16mm, level distance=30mm},
+  level 3/.style={sibling distance=12mm, level distance=30mm},
+  every node/.style={font=\small}
+]
+\node {$20$ bolas}
+  child {node {$V_1$ (para en 2 si $V_2$)} edge from parent node[below,sloped,font=\scriptsize]{$6/20$}}
+  child {node {$\overline{V_1}$}
+    child {node {$\overline{V_2}$} edge from parent node[below,sloped,font=\scriptsize]{$16/22$}}
+    child {node {$V_2$}
+      child {node {$\overline{V_3}$} edge from parent node[below,sloped,font=\scriptsize]{$16/24$}}
+      child {node {$V_3$ \ (parada)} edge from parent node[above,sloped,font=\scriptsize]{$8/24$}}
+      edge from parent node[above,sloped,font=\scriptsize]{$6/22$}}
+    edge from parent node[above,sloped,font=\scriptsize]{$14/20$}};
+\end{tikzpicture}
+\end{center}
+
+\textbf{¿De dónde sale?} El $14$ es $10$ blancas $+\,4$ rojas del enunciado; el $6$ son las verdes iniciales. El $22$ sale de $20+2$ tras la primera devolución y el $24$ de $22+2$ tras la segunda. El $8$ del numerador final es $6+2$: las verdes originales más las dos que entraron al haber salido verde en la segunda extracción.
+
+\textbf{¿Por qué?} Porque cada arista de un árbol representa la probabilidad de dar ese paso \emph{sabiendo} todo lo ocurrido antes en la rama, y esa información se resume en la composición actual de la bolsa. Nótese que, tras $\overline{V_1}$, no importa si la bola no verde era blanca o roja: en ambos casos las verdes siguen siendo $6$ y el total $22$, así que la rama se puede tratar en bloque.
+
+\textbf{¿Qué tomamos?} Anotamos las tres probabilidades de las aristas del camino de interés: $\tfrac{14}{20}$, $\tfrac{6}{22}$ y $\tfrac{8}{24}$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Regla de la multiplicación encadenada y aritmética}
+\textbf{Qué hago:} multiplico las tres aristas del camino, aplicando la regla de la multiplicación para tres etapas.
+
+\[
+P(E)=P(\overline{V_1})\cdot P(V_2\mid \overline{V_1})\cdot P(V_3\mid \overline{V_1}\cap V_2)
+=\frac{14}{20}\cdot\frac{6}{22}\cdot\frac{8}{24}.
+\]
+Simplificamos fracción por fracción antes de multiplicar. En la primera, $14$ y $20$ se dividen entre $2$:
+\[
+\frac{14}{20}=\frac{7}{10}.
+\]
+En la segunda, $6$ y $22$ se dividen entre $2$:
+\[
+\frac{6}{22}=\frac{3}{11}.
+\]
+En la tercera, $8$ y $24$ se dividen entre $8$:
+\[
+\frac{8}{24}=\frac{1}{3}.
+\]
+Multiplicamos las tres fracciones simplificadas:
+\[
+P(E)=\frac{7}{10}\cdot\frac{3}{11}\cdot\frac{1}{3}
+=\frac{7\cdot 3\cdot 1}{10\cdot 11\cdot 3}
+=\frac{21}{330}.
+\]
+Finalmente dividimos numerador y denominador entre $3$:
+\[
+P(E)=\frac{21\div 3}{330\div 3}=\frac{7}{110}\approx 0{,}0636 .
+\]
+
+\textbf{¿De dónde sale?} Las tres fracciones son exactamente las aristas del Paso 3, y la autorización para multiplicarlas es la versión encadenada de la regla de la multiplicación,
+$P(A\cap B\cap C)=P(A)P(B\mid A)P(C\mid A\cap B)$, demostrada en la teoría.
+
+\textbf{¿Por qué?} Porque la probabilidad de recorrer un camino completo es la probabilidad del primer tramo, multiplicada por la del segundo dado el primero, multiplicada por la del tercero dados los dos anteriores. Cada condicionamiento es justamente lo que refleja el cambio de la bolsa.
+
+\textbf{¿Qué tomamos?} Tomamos $P(E)=\dfrac{7}{110}$, fracción exacta e irreducible ($7$ es primo y no divide a $110=2\cdot 5\cdot 11$), que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{nota}
+El evento pedido resultó ser un solo camino del árbol, así que aquí no hubo que sumar ramas. Compárese con el Ejercicio 3, donde la condición de parada no exige que las dos bolas del color buscado sean consecutivas y por eso aparecen dos caminos que sí hay que sumar.
+\end{nota}
+
+\begin{resp}
+$P(\text{exactamente 3 extracciones})=\dfrac{7}{110}\approx 0{,}0636$.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 3}
+
+\begin{quote}
+En una bolsa se tienen 10 bolas blancas, 6 bolas verdes y 4 bolas rojas. Considere el experimento en que se extrae una bola al azar, se anota su color y se devuelve la bola extraída con tres bolas del mismo color al de la bola extraída. Suponga que el experimento se repite hasta obtener dos bolas rojas. Determine la probabilidad de que se realicen exactamente 3 extracciones.\hfill R/ $\dfrac{112}{1\,495}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Eventos, partición y lectura de la condición de parada}
+\textbf{Qué hago:} nombro los eventos, describo la dinámica de la bolsa y traduzco la condición ``hasta obtener dos bolas rojas''.
+
+La bolsa arranca con $10$ blancas, $6$ verdes y $4$ rojas, o sea $N_1=20$ bolas. Para la extracción $i$ ponemos
+\[
+R_i=\text{``la $i$-ésima bola extraída es roja''},
+\qquad
+\overline{R_i}=\text{``la $i$-ésima bola extraída no es roja''}.
+\]
+En cada extracción $\{R_i,\overline{R_i}\}$ es una partición: la bola sacada es roja o no lo es, y no puede ser las dos cosas; por tanto $R_i\cap\overline{R_i}=\varnothing$ y $R_i\cup\overline{R_i}=S$.
+
+Aquí, a diferencia del ejercicio anterior, el enunciado dice ``hasta obtener dos bolas rojas'' \emph{sin} exigir que sean consecutivas. Así que el experimento termina en el momento en que se acumula la segunda roja, estén donde estén. Que haya exactamente $3$ extracciones significa entonces:
+\[
+\text{la segunda roja aparece justo en la tercera extracción,}
+\]
+es decir, entre las dos primeras extracciones hubo \emph{exactamente una} roja, y la tercera es roja.
+
+\textbf{¿De dónde sale?} De la comparación literal con el ejercicio 2: allí el enunciado escribe ``dos bolas verdes consecutivas'' y aquí escribe solamente ``dos bolas rojas''. La ausencia de la palabra \emph{consecutivas} cambia por completo la lista de caminos válidos.
+
+\textbf{¿Por qué?} Porque el proceso se detiene exactamente cuando el contador de rojas llega a $2$. Si las dos primeras extracciones hubieran sido rojas, el experimento habría acabado en la segunda; y si ninguna de las dos primeras hubiera sido roja, en la tercera el contador llegaría como mucho a $1$ y habría que seguir extrayendo.
+
+\textbf{¿Qué tomamos?} Fijamos que el evento pedido es la unión de dos caminos disjuntos:
+\[
+E=\bigl(R_1\cap \overline{R_2}\cap R_3\bigr)\;\cup\;\bigl(\overline{R_1}\cap R_2\cap R_3\bigr).
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Dinámica de la bolsa y árbol}
+\textbf{Qué hago:} calculo cómo cambia la bolsa tras cada extracción y etiqueto el árbol con las probabilidades condicionadas.
+
+Ahora se devuelve la bola extraída junto con \emph{tres} del mismo color, de modo que el incremento neto del total es $3$ por extracción y el color que salió gana $3$ unidades:
+\[
+N_1=20,\qquad N_2=20+3=23,\qquad N_3=23+3=26 .
+\]
+
+\emph{Rama superior $R_1\overline{R_2}R_3$.} En la primera extracción hay $4$ rojas de $20$. Tras salir roja, las rojas pasan a $4+3=7$ y el total a $23$; las no rojas siguen siendo $16$. En la segunda sale no roja, con lo que las rojas se quedan en $7$ y el total pasa a $26$. En la tercera hay $7$ rojas de $26$:
+\[
+\frac{4}{20},\qquad \frac{16}{23},\qquad \frac{7}{26}.
+\]
+
+\emph{Rama inferior $\overline{R_1}R_2R_3$.} En la primera hay $16$ no rojas de $20$. Tras salir no roja, las rojas siguen en $4$ y el total pasa a $23$. En la segunda sale roja, con probabilidad $\tfrac{4}{23}$; entonces las rojas pasan a $4+3=7$ y el total a $26$. En la tercera hay $7$ rojas de $26$:
+\[
+\frac{16}{20},\qquad \frac{4}{23},\qquad \frac{7}{26}.
+\]
+
+\begin{center}
+\begin{tikzpicture}[
+  grow=right,
+  level 1/.style={sibling distance=34mm, level distance=27mm},
+  level 2/.style={sibling distance=17mm, level distance=27mm},
+  level 3/.style={sibling distance=12mm, level distance=27mm},
+  every node/.style={font=\small}
+]
+\node {$20$ bolas}
+  child {node {$\overline{R_1}$}
+    child {node {$\overline{R_2}$} edge from parent node[below,sloped,font=\scriptsize]{$19/23$}}
+    child {node {$R_2$}
+      child {node {$\overline{R_3}$} edge from parent node[below,sloped,font=\scriptsize]{$19/26$}}
+      child {node {$R_3$ (parada)} edge from parent node[above,sloped,font=\scriptsize]{$7/26$}}
+      edge from parent node[above,sloped,font=\scriptsize]{$4/23$}}
+    edge from parent node[below,sloped,font=\scriptsize]{$16/20$}}
+  child {node {$R_1$}
+    child {node {$\overline{R_2}$}
+      child {node {$\overline{R_3}$} edge from parent node[below,sloped,font=\scriptsize]{$19/26$}}
+      child {node {$R_3$ (parada)} edge from parent node[above,sloped,font=\scriptsize]{$7/26$}}
+      edge from parent node[below,sloped,font=\scriptsize]{$16/23$}}
+    child {node {$R_2$ (parada en 2)} edge from parent node[above,sloped,font=\scriptsize]{$7/23$}}
+    edge from parent node[above,sloped,font=\scriptsize]{$4/20$}};
+\end{tikzpicture}
+\end{center}
+
+\textbf{¿De dónde sale?} El $4$ inicial son las rojas del enunciado y el $16=10+6$ las no rojas. Los $23$ y $26$ salen de sumar $3$ al total tras cada devolución. El $7$ es $4+3$, las rojas después de que salió una roja y entraron tres más.
+
+\textbf{¿Por qué?} Porque en un árbol cada arista lleva la probabilidad de ese paso dada la historia de la rama, y esa historia se resume en el estado actual de la bolsa. La rama que termina en ``parada en 2'' se descarta porque allí solo hubo dos extracciones, no tres.
+
+\textbf{¿Qué tomamos?} Anotamos las dos ternas de aristas: $\bigl(\tfrac{4}{20},\tfrac{16}{23},\tfrac{7}{26}\bigr)$ y $\bigl(\tfrac{16}{20},\tfrac{4}{23},\tfrac{7}{26}\bigr)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Probabilidad de cada rama}
+\textbf{Qué hago:} multiplico las aristas de cada rama con la regla de la multiplicación encadenada.
+
+\emph{Rama $R_1\overline{R_2}R_3$:}
+\[
+P(R_1\cap\overline{R_2}\cap R_3)=\frac{4}{20}\cdot\frac{16}{23}\cdot\frac{7}{26}.
+\]
+Simplificamos $\tfrac{4}{20}=\tfrac15$ y $\tfrac{16}{26}=\tfrac{8}{13}$, quedando
+\[
+=\frac{1}{5}\cdot\frac{8}{13}\cdot\frac{7}{23}
+=\frac{1\cdot 8\cdot 7}{5\cdot 13\cdot 23}
+=\frac{56}{1\,495}.
+\]
+(El denominador es $5\cdot 13=65$ y $65\cdot 23=1\,495$.)
+
+\emph{Rama $\overline{R_1}R_2R_3$:}
+\[
+P(\overline{R_1}\cap R_2\cap R_3)=\frac{16}{20}\cdot\frac{4}{23}\cdot\frac{7}{26}.
+\]
+Simplificamos $\tfrac{16}{20}=\tfrac45$ y multiplicamos:
+\[
+=\frac{4}{5}\cdot\frac{4}{23}\cdot\frac{7}{26}
+=\frac{4\cdot 4\cdot 7}{5\cdot 23\cdot 26}
+=\frac{112}{2\,990}
+=\frac{56}{1\,495},
+\]
+donde en el último paso dividimos numerador y denominador entre $2$.
+
+\textbf{¿De dónde sale?} Las fracciones son exactamente las aristas del Paso 2; los productos se reordenan libremente porque la multiplicación de números es conmutativa.
+
+\textbf{¿Por qué?} Porque cada rama es una intersección de tres eventos que ocurren en secuencia, y $P(A\cap B\cap C)=P(A)P(B\mid A)P(C\mid A\cap B)$. Es notable que las dos ramas den lo mismo: en ambas se multiplican los mismos factores $4$, $16$ y $7$, solo que colocados en distinto orden dentro de denominadores $20$, $23$ y $26$ que son los mismos en las dos ramas.
+
+\textbf{¿Qué tomamos?} Anotamos $\dfrac{56}{1\,495}$ para cada una de las dos ramas.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Suma de casos disjuntos}
+\textbf{Qué hago:} sumo las dos ramas, porque el evento pedido es su unión y las ramas son disjuntas.
+
+\[
+P(E)=\frac{56}{1\,495}+\frac{56}{1\,495}=\frac{56+56}{1\,495}=\frac{112}{1\,495}.
+\]
+La fracción no se simplifica: $112=2^4\cdot 7$ y $1\,495=5\cdot 13\cdot 23$, sin factores comunes.
+
+\textbf{¿De dónde sale?} Los dos sumandos son las dos ramas calculadas en el Paso 3, y la lista de ramas es la del Paso 1.
+
+\textbf{¿Por qué?} Porque las dos ramas se distinguen en el color de la primera extracción: en una es roja y en la otra no lo es. Al ser $R_1$ y $\overline{R_1}$ excluyentes, las dos ramas no pueden ocurrir a la vez, y la aditividad permite sumar sus probabilidades sin corrección alguna. Esto es la misma idea de la ley de probabilidad total: partimos según el resultado de la primera extracción y sumamos las contribuciones.
+
+\textbf{¿Qué tomamos?} Tomamos $P(E)=\dfrac{112}{1\,495}$, fracción exacta e irreducible, que coincide con la respuesta oficial y confirma que la lectura ``dos rojas, no necesariamente consecutivas'' es la correcta.
+\end{paso}
+
+\begin{resp}
+$P(\text{exactamente 3 extracciones})=\dfrac{112}{1\,495}$.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 4}
+
+\begin{quote}
+En una canasta se tienen 10 bolas rojas y 1 bola verde. Se comienza a sacar bolas al azar, sucesivamente bajo las siguientes reglas:
+\begin{itemize}[leftmargin=1.6em]
+\item \textbf{Regla 1:} si la bola extraída es roja, no se devuelve a la canasta y se agrega una bola verde a la canasta.
+\item \textbf{Regla 2:} si la bola es verde no se devuelve a la canasta.
+\end{itemize}
+El proceso termina hasta obtener 2 verdes extraídas ¿cuál es la probabilidad de sacar en total cuatro bolas?\hfill R/ $\dfrac{4419}{66550}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Eventos, estado de la canasta y partición}
+\textbf{Qué hago:} defino los eventos por extracción, describo el estado de la canasta como un par de conteos y verifico la partición.
+
+Escribimos el estado de la canasta como $(r,g)$, donde $r$ es el número de rojas y $g$ el de verdes; el total es $N=r+g$. El estado inicial es
+\[
+(r,g)=(10,1),\qquad N=11 .
+\]
+Para la extracción $i$ definimos
+\[
+R_i=\text{``la $i$-ésima bola es roja''},\qquad G_i=\text{``la $i$-ésima bola es verde''}.
+\]
+En cada extracción $\{R_i,G_i\}$ es una partición del espacio muestral: solo hay dos colores en la canasta, así que la bola extraída es roja o verde, nunca las dos, y siempre una de las dos; luego $R_i\cap G_i=\varnothing$ y $R_i\cup G_i=S$.
+
+Las reglas actualizan el estado así:
+\[
+\text{si sale roja: } (r,g)\longrightarrow (r-1,\,g+1),\quad N\ \text{no cambia};
+\]
+\[
+\text{si sale verde: } (r,g)\longrightarrow (r,\,g-1),\quad N\ \text{disminuye en }1 .
+\]
+
+\textbf{¿De dónde sale?} La \textbf{Regla 1} dice que la roja no vuelve (por eso $r-1$) y que se agrega una verde (por eso $g+1$); como se quita una y se pone otra, el total queda igual. La \textbf{Regla 2} dice que la verde no vuelve y no se agrega nada (por eso $g-1$ y $N-1$).
+
+\textbf{¿Por qué?} Porque la definición clásica de probabilidad exige conocer, en cada instante, cuántos casos favorables y cuántos posibles hay; el par $(r,g)$ es toda la información necesaria para responder por la siguiente extracción, sin importar cómo se llegó a él.
+
+\textbf{¿Qué tomamos?} Anotamos el estado inicial $(10,1)$ con $N=11$ y las dos reglas de actualización.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Traducción de ``sacar en total cuatro bolas''}
+\textbf{Qué hago:} traduzco la condición de parada a una descripción de las cuatro primeras extracciones.
+
+El proceso termina cuando se han extraído $2$ verdes. Sacar en total cuatro bolas significa que la segunda verde aparece exactamente en la cuarta extracción, es decir:
+\[
+\text{entre las extracciones 1, 2 y 3 hay exactamente una verde, y la cuarta es verde.}
+\]
+Según la posición de esa única verde entre las tres primeras, hay tres caminos posibles, mutuamente excluyentes:
+\[
+C_1: G\,R\,R\,G,
+\qquad
+C_2: R\,G\,R\,G,
+\qquad
+C_3: R\,R\,G\,G .
+\]
+
+\textbf{¿De dónde sale?} De la frase ``el proceso termina hasta obtener 2 verdes extraídas'' junto con ``sacar en total cuatro bolas''. Si en las tres primeras hubiera dos verdes, el juego habría acabado antes de la cuarta; si no hubiera ninguna, en la cuarta el contador llegaría a lo sumo a $1$ y habría que seguir.
+
+\textbf{¿Por qué?} Porque los tres caminos se distinguen por la posición de la primera verde ($1$, $2$ o $3$), y esa posición es un dato único de cada realización del experimento: los tres eventos no pueden ocurrir a la vez y agotan todas las maneras de tener exactamente cuatro extracciones.
+
+\textbf{¿Qué tomamos?} Fijamos la lista de caminos $\{C_1,C_2,C_3\}$ y el objetivo $P(C_1)+P(C_2)+P(C_3)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Árbol de probabilidad con los estados}
+\textbf{Qué hago:} dibujo el árbol de los tres caminos indicando en cada nodo el estado $(r,g)$ resultante, para poder leer las probabilidades de las aristas.
+
+\begin{center}
+\begin{tikzpicture}[
+  grow=right,
+  level 1/.style={sibling distance=42mm, level distance=25mm},
+  level 2/.style={sibling distance=21mm, level distance=27mm},
+  level 3/.style={sibling distance=13mm, level distance=27mm},
+  level 4/.style={sibling distance=13mm, level distance=25mm},
+  every node/.style={font=\scriptsize}
+]
+\node {$(10,1)$}
+  child {node {$R_1:(9,2)$}
+    child {node {$R_2:(8,3)$}
+      child {node {$G_3:(8,2)$}
+        child {node {$G_4$} edge from parent node[above,sloped]{$2/10$}}
+        edge from parent node[above,sloped]{$3/11$}}
+      edge from parent node[above,sloped]{$9/11$}}
+    child {node {$G_2:(9,1)$}
+      child {node {$R_3:(8,2)$}
+        child {node {$G_4$} edge from parent node[above,sloped]{$2/10$}}
+        edge from parent node[above,sloped]{$9/10$}}
+      edge from parent node[below,sloped]{$2/11$}}
+    edge from parent node[above,sloped]{$10/11$}}
+  child {node {$G_1:(10,0)$}
+    child {node {$R_2:(9,1)$}
+      child {node {$R_3:(8,2)$}
+        child {node {$G_4$} edge from parent node[above,sloped]{$2/10$}}
+        edge from parent node[above,sloped]{$9/10$}}
+      edge from parent node[below,sloped]{$10/10$}}
+    edge from parent node[below,sloped]{$1/11$}};
+\end{tikzpicture}
+\end{center}
+
+Leemos el árbol de izquierda a derecha. Cada nodo muestra el estado $(r,g)$ \emph{después} de aplicar la regla correspondiente, y cada arista lleva la probabilidad de esa extracción calculada con el estado \emph{anterior}.
+
+\textbf{¿De dónde sale?} Los estados salen de aplicar repetidamente las dos reglas del Paso 1 al estado inicial $(10,1)$. Por ejemplo, en el camino $C_3$: $(10,1)\to(9,2)\to(8,3)$ tras dos rojas, y luego $(8,3)\to(8,2)$ tras una verde. Las probabilidades son cocientes ``bolas del color buscado sobre total actual''.
+
+\textbf{¿Por qué?} Porque la extracción es al azar entre todas las bolas presentes en ese instante, todas igualmente probables, así que la definición clásica se aplica directamente. Obsérvese la arista $10/10=1$ en el camino $C_1$: después de sacar la única verde inicial la canasta queda con $(10,0)$, sin verdes, de modo que la segunda extracción es roja con certeza.
+
+\textbf{¿Qué tomamos?} Anotamos las tres ternas de aristas listas para multiplicar.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Probabilidad del camino $C_1: G\,R\,R\,G$}
+\textbf{Qué hago:} multiplico las cuatro aristas de la primera rama con la regla de la multiplicación encadenada.
+
+Estado inicial $(10,1)$, $N=11$: la verde es $1$ de $11$, luego $P(G_1)=\tfrac{1}{11}$ y el estado pasa a $(10,0)$ con $N=10$. La segunda extracción es roja con probabilidad $\tfrac{10}{10}=1$ y el estado pasa a $(9,1)$ con $N=10$. La tercera debe ser roja para que el juego no acabe: $\tfrac{9}{10}$, y el estado pasa a $(8,2)$ con $N=10$. La cuarta es verde: $\tfrac{2}{10}$.
+\[
+P(C_1)=\frac{1}{11}\cdot\frac{10}{10}\cdot\frac{9}{10}\cdot\frac{2}{10}
+=\frac{1}{11}\cdot 1\cdot\frac{9}{10}\cdot\frac{2}{10}
+=\frac{1\cdot 9\cdot 2}{11\cdot 10\cdot 10}
+=\frac{18}{1\,100}.
+\]
+Simplificamos dividiendo entre $2$:
+\[
+P(C_1)=\frac{9}{550}.
+\]
+
+\textbf{¿De dónde sale?} Los conteos vienen del árbol del Paso 3. El $2$ del último numerador es el número de verdes en $(8,2)$: la verde que entró al salir la primera roja y la que entró al salir la segunda roja.
+
+\textbf{¿Por qué?} Porque $P(G_1\cap R_2\cap R_3\cap G_4)$ se descompone como $P(G_1)P(R_2\mid G_1)P(R_3\mid G_1\cap R_2)P(G_4\mid G_1\cap R_2\cap R_3)$, y cada factor se evalúa con la canasta tal como está en ese momento.
+
+\textbf{¿Qué tomamos?} Anotamos $P(C_1)=\dfrac{9}{550}$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Probabilidad del camino $C_2: R\,G\,R\,G$}
+\textbf{Qué hago:} repito el procedimiento en la segunda rama.
+
+Desde $(10,1)$ con $N=11$: sale roja con probabilidad $\tfrac{10}{11}$, y el estado pasa a $(9,2)$, $N=11$. Sale verde con probabilidad $\tfrac{2}{11}$, y el estado pasa a $(9,1)$, $N=10$. Sale roja con probabilidad $\tfrac{9}{10}$, y el estado pasa a $(8,2)$, $N=10$. Sale verde con probabilidad $\tfrac{2}{10}$.
+\[
+P(C_2)=\frac{10}{11}\cdot\frac{2}{11}\cdot\frac{9}{10}\cdot\frac{2}{10}.
+\]
+Multiplicamos numeradores y denominadores por separado:
+\[
+10\cdot 2\cdot 9\cdot 2=360,
+\qquad
+11\cdot 11\cdot 10\cdot 10=12\,100,
+\]
+\[
+P(C_2)=\frac{360}{12\,100}.
+\]
+Dividimos numerador y denominador entre $20$:
+\[
+P(C_2)=\frac{18}{605}.
+\]
+
+\textbf{¿De dónde sale?} El $2$ del segundo factor son las verdes en $(9,2)$: la verde original más la que se agregó al salir la primera roja. El denominador $11$ se mantiene porque, al salir roja, se quita una y se agrega otra, dejando el total intacto.
+
+\textbf{¿Por qué?} Porque el total solo baja cuando sale una verde; esa asimetría entre las dos reglas es la que hace que los denominadores sean $11,11,10,10$ en esta rama y no todos iguales.
+
+\textbf{¿Qué tomamos?} Anotamos $P(C_2)=\dfrac{18}{605}$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Probabilidad del camino $C_3: R\,R\,G\,G$}
+\textbf{Qué hago:} calculo la tercera rama, la única en la que las dos verdes salen seguidas al final.
+
+Desde $(10,1)$, $N=11$: roja con $\tfrac{10}{11}$, estado $(9,2)$, $N=11$. Roja con $\tfrac{9}{11}$, estado $(8,3)$, $N=11$. Verde con $\tfrac{3}{11}$, estado $(8,2)$, $N=10$. Verde con $\tfrac{2}{10}$.
+\[
+P(C_3)=\frac{10}{11}\cdot\frac{9}{11}\cdot\frac{3}{11}\cdot\frac{2}{10}.
+\]
+Cancelamos el $10$ del primer numerador con el $10$ del último denominador:
+\[
+P(C_3)=\frac{9\cdot 3\cdot 2}{11\cdot 11\cdot 11}=\frac{54}{1\,331}.
+\]
+
+\textbf{¿De dónde sale?} El $3$ del tercer factor son las verdes en el estado $(8,3)$: la verde inicial más las dos que entraron al salir dos rojas. El $2$ del cuarto factor son las verdes que quedan tras haber sacado una de esas tres, y el $10$ es el total tras la única extracción que redujo la canasta.
+
+\textbf{¿Por qué?} Porque después de dos rojas la canasta ha ganado dos verdes sin cambiar de tamaño, así que en la tercera extracción hay $8+3=11$ bolas y $3$ son verdes; al sacar una verde quedan $8+2=10$ bolas y $2$ verdes.
+
+\textbf{¿Qué tomamos?} Anotamos $P(C_3)=\dfrac{54}{1\,331}$.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Suma de los tres caminos disjuntos}
+\textbf{Qué hago:} sumo las tres probabilidades con denominador común, que es la aditividad sobre eventos disjuntos.
+
+Factorizamos los denominadores:
+\[
+550=2\cdot 5^{2}\cdot 11,
+\qquad
+605=5\cdot 11^{2},
+\qquad
+1\,331=11^{3},
+\]
+de donde el mínimo común múltiplo es
+\[
+\operatorname{mcm}=2\cdot 5^{2}\cdot 11^{3}=2\cdot 25\cdot 1\,331=66\,550 .
+\]
+Convertimos cada fracción:
+\[
+\frac{9}{550}=\frac{9\cdot 121}{66\,550}=\frac{1\,089}{66\,550}
+\quad\text{(pues } 66\,550\div 550=121\text{)},
+\]
+\[
+\frac{18}{605}=\frac{18\cdot 110}{66\,550}=\frac{1\,980}{66\,550}
+\quad\text{(pues } 66\,550\div 605=110\text{)},
+\]
+\[
+\frac{54}{1\,331}=\frac{54\cdot 50}{66\,550}=\frac{2\,700}{66\,550}
+\quad\text{(pues } 66\,550\div 1\,331=50\text{)}.
+\]
+Sumamos los numeradores:
+\[
+1\,089+1\,980=3\,069,
+\qquad
+3\,069+2\,700=5\,769 .
+\]
+Por lo tanto
+\[
+P(\text{cuatro extracciones})=\frac{5\,769}{66\,550}\approx 0{,}0867 .
+\]
+
+\textbf{¿De dónde sale?} Los tres sumandos son los resultados de los Pasos 4, 5 y 6, y el denominador $66\,550$ es el mínimo común múltiplo, que coincide con el de la respuesta oficial.
+
+\textbf{¿Por qué?} Porque los tres caminos son mutuamente excluyentes (difieren en la posición de la primera verde) y su unión es exactamente el evento ``se extraen cuatro bolas en total''. La aditividad permite sumar sin restar nada.
+
+\textbf{¿Qué tomamos?} Tomamos $P=\dfrac{5\,769}{66\,550}$, fracción irreducible ($5\,769=3^{2}\cdot 641$ y $66\,550=2\cdot 5^{2}\cdot 11^{3}$ no comparten factores).
+\end{paso}
+
+\begin{nota}
+La respuesta oficial es $\dfrac{4419}{66\,550}$, mientras que nuestro cálculo da $\dfrac{5\,769}{66\,550}$. La diferencia es
+\[
+\frac{5\,769-4\,419}{66\,550}=\frac{1\,350}{66\,550}=\frac{27}{1\,331},
+\]
+que es exactamente la mitad de $P(C_3)=\tfrac{54}{1\,331}$. Es decir, la hoja de respuestas coincide con nosotros en los caminos $C_1$ y $C_2$ (aportan $1\,089$ y $1\,980$) y difiere solo en $C_3$, donde usa $\tfrac{10}{11}\cdot\tfrac{9}{11}\cdot\tfrac{3}{11}\cdot\tfrac{1}{10}=\tfrac{27}{1\,331}$ en lugar de $\tfrac{2}{10}$ en el último factor. Sin embargo, ese último factor debe ser $\tfrac{2}{10}$: la propia hoja usa $\tfrac{3}{11}$ en la tercera extracción, lo que reconoce que había $3$ verdes en el estado $(8,3)$; al sacar una quedan $2$ verdes de $10$ bolas, no $1$. Conservamos la respuesta oficial tal como aparece y dejamos señalada la discrepancia.
+\end{nota}
+
+\begin{resp}
+$P(\text{sacar en total cuatro bolas})=\dfrac{5\,769}{66\,550}\approx 0{,}0867$. \quad (Respuesta oficial de la práctica: $\dfrac{4419}{66550}$.)
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 5}
+
+\begin{quote}
+En una mesa se tienen un par de urnas, la primera urna (llamada $A$) tiene 4 bolitas rojas y 6 bolitas azules, mientras que, la segunda urna (llamada $B$) posee 16 bolitas rojas y una cantidad desconocida de bolitas azules. Un experimento consiste en sacar una bolita al azar de cada urna. Si se sabe que la probabilidad de que ambas bolitas sean del mismo color es de $0{,}44$ ¿cuántas bolitas azules hay en la urna $B$?\hfill R/ 4
+\end{quote}
+
+\begin{paso}{Paso 1 --- Eventos, incógnita y partición del espacio muestral}
+\textbf{Qué hago:} nombro los eventos, introduzco la incógnita y construyo la partición según el color de la bolita sacada de la urna $A$.
+
+Sea $x$ el número (desconocido, entero y no negativo) de bolitas azules en la urna $B$. Entonces
+\[
+\text{Urna } A:\ 4 \text{ rojas},\ 6 \text{ azules},\ \text{total } 10;
+\qquad
+\text{Urna } B:\ 16 \text{ rojas},\ x \text{ azules},\ \text{total } 16+x .
+\]
+Definimos
+\[
+R_A=\text{``la bolita de la urna $A$ es roja''},\qquad Z_A=\text{``la bolita de la urna $A$ es azul''},
+\]
+\[
+R_B=\text{``la bolita de la urna $B$ es roja''},\qquad Z_B=\text{``la bolita de la urna $B$ es azul''},
+\]
+y el evento de interés
+\[
+M=\text{``ambas bolitas son del mismo color''}.
+\]
+La familia $\{R_A,Z_A\}$ es una partición del espacio muestral: en la urna $A$ solo hay dos colores, así que la bolita extraída es roja o azul, nunca ambas ($R_A\cap Z_A=\varnothing$) y siempre una ($R_A\cup Z_A=S$). Lo mismo vale para $\{R_B,Z_B\}$.
+
+\textbf{¿De dónde sale?} Los números $4$, $6$, $16$ son literales del enunciado; la frase ``una cantidad desconocida de bolitas azules'' es la que obliga a introducir la incógnita $x$, y el total de $B$ es $16+x$ porque en esa urna solo hay bolitas rojas y azules.
+
+\textbf{¿Por qué?} Porque el dato que nos dan, $P(M)=0{,}44$, involucra las dos urnas a la vez; para poder escribir $P(M)$ necesitamos separar los casos según el color que salga, y esa separación debe ser una partición para que la ley de probabilidad total sea aplicable.
+
+\textbf{¿Qué tomamos?} Anotamos la incógnita $x$, los totales $10$ y $16+x$, y las particiones por color en cada urna.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Probabilidades simples e independencia entre urnas}
+\textbf{Qué hago:} calculo las probabilidades de cada color en cada urna con la definición clásica y justifico que las dos extracciones son independientes.
+
+En la urna $A$, con $10$ bolitas igualmente probables,
+\[
+P(R_A)=\frac{4}{10}=\frac{2}{5},
+\qquad
+P(Z_A)=\frac{6}{10}=\frac{3}{5},
+\qquad\text{control: }\frac{4}{10}+\frac{6}{10}=1 .
+\]
+En la urna $B$, con $16+x$ bolitas igualmente probables,
+\[
+P(R_B)=\frac{16}{16+x},
+\qquad
+P(Z_B)=\frac{x}{16+x},
+\qquad\text{control: }\frac{16}{16+x}+\frac{x}{16+x}=\frac{16+x}{16+x}=1 .
+\]
+Además, lo que salga de $A$ no altera la composición de $B$, ni al revés: son urnas distintas y se saca una bolita de cada una. Por lo tanto
+\[
+P(R_B\mid R_A)=P(R_B),\qquad P(Z_B\mid Z_A)=P(Z_B),
+\]
+es decir, las dos extracciones son independientes.
+
+\textbf{¿De dónde sale?} Los numeradores son los conteos del enunciado y los denominadores los totales del Paso 1. La independencia sale de la frase ``sacar una bolita al azar de cada urna'': son dos experimentos físicamente separados.
+
+\textbf{¿Por qué?} Porque la definición clásica pide contar casos favorables entre casos posibles, y aquí todos los resultados de una misma urna son igualmente probables. Y porque la independencia se traduce en que la condicional coincide con la probabilidad simple, lo que simplificará los productos de la ley de probabilidad total.
+
+\textbf{¿Qué tomamos?} Anotamos las cuatro probabilidades, dos numéricas y dos en función de $x$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Árbol de probabilidad y ley de probabilidad total}
+\textbf{Qué hago:} armo el árbol condicionando por el color que sale de la urna $A$ y aplico la ley de probabilidad total al evento $M$.
+
+\begin{center}
+\begin{tikzpicture}[
+  grow=right,
+  level 1/.style={sibling distance=30mm, level distance=30mm},
+  level 2/.style={sibling distance=15mm, level distance=38mm},
+  every node/.style={font=\small}
+]
+\node {Inicio}
+  child {node {$Z_A$}
+    child {node {$R_B$} edge from parent node[below,sloped,font=\scriptsize]{$\frac{16}{16+x}$}}
+    child {node {$Z_B$ \ ($M$)} edge from parent node[above,sloped,font=\scriptsize]{$\frac{x}{16+x}$}}
+    edge from parent node[below,sloped,font=\scriptsize]{$6/10$}}
+  child {node {$R_A$}
+    child {node {$Z_B$} edge from parent node[below,sloped,font=\scriptsize]{$\frac{x}{16+x}$}}
+    child {node {$R_B$ \ ($M$)} edge from parent node[above,sloped,font=\scriptsize]{$\frac{16}{16+x}$}}
+    edge from parent node[above,sloped,font=\scriptsize]{$4/10$}};
+\end{tikzpicture}
+\end{center}
+
+Las dos ramas marcadas con $M$ son las que producen ``mismo color''. Por la ley de probabilidad total aplicada a la partición $\{R_A,Z_A\}$,
+\[
+P(M)=P(R_A)\,P(M\mid R_A)+P(Z_A)\,P(M\mid Z_A).
+\]
+Ahora bien, si de $A$ salió roja, ``mismo color'' equivale a que de $B$ salga roja, y si de $A$ salió azul, equivale a que de $B$ salga azul:
+\[
+P(M\mid R_A)=P(R_B)=\frac{16}{16+x},
+\qquad
+P(M\mid Z_A)=P(Z_B)=\frac{x}{16+x},
+\]
+donde se usó la independencia del Paso 2. Sustituyendo,
+\[
+P(M)=\frac{4}{10}\cdot\frac{16}{16+x}+\frac{6}{10}\cdot\frac{x}{16+x}.
+\]
+
+\textbf{¿De dónde sale?} Las probabilidades de las aristas de la primera etapa salen de la urna $A$ y las de la segunda etapa de la urna $B$, ambas calculadas en el Paso 2.
+
+\textbf{¿Por qué?} Porque los eventos $R_A$ y $Z_A$ forman una partición y ``mismo color'' se realiza de dos maneras disjuntas: ambas rojas o ambas azules. Sumar las dos ramas es aditividad; escribir cada rama como producto es la regla de la multiplicación, que aquí se simplifica a un producto de probabilidades simples gracias a la independencia.
+
+\textbf{¿Qué tomamos?} Anotamos la expresión de $P(M)$ en función de $x$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Planteo y resolución de la ecuación en $x$}
+\textbf{Qué hago:} igualo la expresión anterior al dato $0{,}44$ y despejo $x$.
+
+\[
+\frac{4}{10}\cdot\frac{16}{16+x}+\frac{6}{10}\cdot\frac{x}{16+x}=0{,}44 .
+\]
+Efectuamos los productos del lado izquierdo:
+\[
+\frac{4\cdot 16}{10(16+x)}+\frac{6x}{10(16+x)}=\frac{64+6x}{10(16+x)} .
+\]
+Luego
+\[
+\frac{64+6x}{10(16+x)}=0{,}44 .
+\]
+Multiplicamos ambos lados por $10(16+x)$, que es un número positivo (hay al menos $16$ bolitas en $B$), de modo que la igualdad se conserva:
+\[
+64+6x=0{,}44\cdot 10\,(16+x)=4{,}4\,(16+x).
+\]
+Desarrollamos el lado derecho:
+\[
+4{,}4\cdot 16=70{,}4,
+\qquad
+4{,}4\cdot x=4{,}4x,
+\qquad\text{luego}\qquad
+64+6x=70{,}4+4{,}4x .
+\]
+Agrupamos las $x$ a la izquierda y los números a la derecha:
+\[
+6x-4{,}4x=70{,}4-64
+\quad\Longrightarrow\quad
+1{,}6x=6{,}4 .
+\]
+Dividimos entre $1{,}6$:
+\[
+x=\frac{6{,}4}{1{,}6}=4 .
+\]
+
+\textbf{¿De dónde sale?} El $0{,}44$ es el dato ``la probabilidad de que ambas bolitas sean del mismo color es de $0{,}44$''; la expresión de la izquierda es la del Paso 3.
+
+\textbf{¿Por qué?} Porque el enunciado nos da el valor de una cantidad que sabemos escribir en función de la incógnita; igualar ambas cosas produce una ecuación cuya única solución es el número buscado. La ecuación es de primer grado porque $x$ aparece linealmente en el numerador y en el denominador, y al quitar denominadores los términos cuadráticos no llegan a aparecer.
+
+\textbf{¿Qué tomamos?} Tomamos $x=4$, que además es un entero no negativo, como debe ser un número de bolitas.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Comprobación}
+\textbf{Qué hago:} sustituyo $x=4$ en la expresión de $P(M)$ para verificar que se recupera el dato.
+
+Con $x=4$ la urna $B$ tiene $16+4=20$ bolitas, de las cuales $16$ son rojas y $4$ azules:
+\[
+P(M)=\frac{4}{10}\cdot\frac{16}{20}+\frac{6}{10}\cdot\frac{4}{20}
+=\frac{64}{200}+\frac{24}{200}
+=\frac{88}{200}
+=0{,}44 .
+\]
+
+\textbf{¿De dónde sale?} Los factores son los del Paso 3 evaluados en $x=4$; los productos son $4\cdot 16=64$ y $6\cdot 4=24$, ambos sobre $10\cdot 20=200$.
+
+\textbf{¿Por qué?} Porque una ecuación se comprueba sustituyendo la solución en la ecuación original; al obtener exactamente $0{,}44$ confirmamos que no hubo error al quitar denominadores ni al agrupar términos.
+
+\textbf{¿Qué tomamos?} Confirmamos $x=4$ como respuesta definitiva.
+\end{paso}
+
+\begin{resp}
+En la urna $B$ hay $4$ bolitas azules.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 6}
+
+\begin{quote}
+Se tienen 15 artículos en un almacén, donde cuatro de ellos son defectuosos. Se toman tres artículos del almacén, uno a uno. Hallar la probabilidad de que los tres artículos estén buenos.\hfill R/ $\dfrac{33}{91}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Eventos, partición y conteo inicial}
+\textbf{Qué hago:} nombro los eventos de cada extracción y verifico que en cada etapa la clasificación en bueno/defectuoso es una partición.
+
+Del total de $15$ artículos, $4$ son defectuosos, luego los buenos son
+\[
+15-4=11 .
+\]
+Para la extracción $i$ definimos
+\[
+B_i=\text{``el $i$-ésimo artículo tomado está bueno''},
+\]
+\[
+D_i=\text{``el $i$-ésimo artículo tomado es defectuoso''}.
+\]
+En cada extracción $\{B_i,D_i\}$ es una partición: cada artículo es de uno de los dos tipos y de uno solo, así que $B_i\cap D_i=\varnothing$ y $B_i\cup D_i=S$. El evento pedido es la intersección
+\[
+B_1\cap B_2\cap B_3 .
+\]
+La frase ``uno a uno'' indica que las extracciones son sucesivas y que el artículo tomado no vuelve al almacén, por lo que el total disminuye en $1$ cada vez.
+
+\textbf{¿De dónde sale?} El $15$ y el $4$ son datos literales; el $11$ es la resta. La expresión ``uno a uno'' es la que fija el carácter secuencial y sin reposición del experimento.
+
+\textbf{¿Por qué?} Porque para aplicar la regla de la multiplicación encadenada necesitamos, en cada etapa, la probabilidad condicionada de sacar un artículo bueno sabiendo cuántos buenos y cuántos artículos quedan, y esa información se actualiza restando lo ya extraído.
+
+\textbf{¿Qué tomamos?} Anotamos la composición inicial: $11$ buenos y $4$ defectuosos sobre $15$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Árbol de probabilidad de la rama favorable}
+\textbf{Qué hago:} construyo el árbol y calculo las probabilidades condicionadas de cada arista actualizando los conteos.
+
+\emph{Primera extracción.} Hay $11$ buenos entre $15$:
+\[
+P(B_1)=\frac{11}{15}.
+\]
+Tras sacar un bueno quedan $10$ buenos y $14$ artículos.
+
+\emph{Segunda extracción, dado $B_1$.}
+\[
+P(B_2\mid B_1)=\frac{10}{14}.
+\]
+Tras sacar otro bueno quedan $9$ buenos y $13$ artículos.
+
+\emph{Tercera extracción, dado $B_1\cap B_2$.}
+\[
+P(B_3\mid B_1\cap B_2)=\frac{9}{13}.
+\]
+
+\begin{center}
+\begin{tikzpicture}[
+  grow=right,
+  level 1/.style={sibling distance=24mm, level distance=30mm},
+  level 2/.style={sibling distance=15mm, level distance=30mm},
+  level 3/.style={sibling distance=12mm, level distance=30mm},
+  every node/.style={font=\small}
+]
+\node {$15$ art.}
+  child {node {$D_1$} edge from parent node[below,sloped,font=\scriptsize]{$4/15$}}
+  child {node {$B_1$}
+    child {node {$D_2$} edge from parent node[below,sloped,font=\scriptsize]{$4/14$}}
+    child {node {$B_2$}
+      child {node {$D_3$} edge from parent node[below,sloped,font=\scriptsize]{$4/13$}}
+      child {node {$B_3$} edge from parent node[above,sloped,font=\scriptsize]{$9/13$}}
+      edge from parent node[above,sloped,font=\scriptsize]{$10/14$}}
+    edge from parent node[above,sloped,font=\scriptsize]{$11/15$}};
+\end{tikzpicture}
+\end{center}
+
+\textbf{¿De dónde sale?} Cada numerador es el número de buenos que quedan y cada denominador el número de artículos que quedan; ambos bajan en $1$ por cada bueno extraído, porque al sacar un bueno se pierde un bueno y un artículo del total. Los defectuosos se mantienen en $4$ a lo largo de toda esta rama, ya que en ella nunca se saca uno.
+
+\textbf{¿Por qué?} Porque cada extracción es al azar entre los artículos presentes, todos igualmente probables, y la definición clásica da el cociente ``favorables sobre posibles''. Nótese que las probabilidades \emph{cambian} de una etapa a otra: las extracciones no son independientes, y por eso hay que condicionar.
+
+\textbf{¿Qué tomamos?} Anotamos las tres aristas de la rama favorable: $\tfrac{11}{15}$, $\tfrac{10}{14}$, $\tfrac{9}{13}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Regla de la multiplicación encadenada y simplificación}
+\textbf{Qué hago:} multiplico las tres aristas y simplifico paso a paso.
+
+\[
+P(B_1\cap B_2\cap B_3)=P(B_1)\,P(B_2\mid B_1)\,P(B_3\mid B_1\cap B_2)
+=\frac{11}{15}\cdot\frac{10}{14}\cdot\frac{9}{13}.
+\]
+Simplificamos antes de multiplicar. El $10$ y el $15$ tienen factor común $5$:
+\[
+\frac{11}{15}\cdot\frac{10}{14}=\frac{11}{3}\cdot\frac{2}{14}=\frac{11}{3}\cdot\frac{1}{7}=\frac{11}{21},
+\]
+donde primero $15\div 5=3$ y $10\div 5=2$, y luego $\tfrac{2}{14}=\tfrac17$. Ahora multiplicamos por el tercer factor, cancelando el $9$ con el $21$ mediante el factor común $3$:
+\[
+\frac{11}{21}\cdot\frac{9}{13}=\frac{11}{7}\cdot\frac{3}{13}=\frac{11\cdot 3}{7\cdot 13}=\frac{33}{91}.
+\]
+Como comprobación, sin simplificar:
+\[
+\frac{11\cdot 10\cdot 9}{15\cdot 14\cdot 13}=\frac{990}{2\,730}
+=\frac{990\div 30}{2\,730\div 30}=\frac{33}{91}.
+\]
+
+\textbf{¿De dónde sale?} Las tres fracciones son las aristas del Paso 2, y la fórmula del producto es la regla de la multiplicación encadenada para tres etapas.
+
+\textbf{¿Por qué?} Porque ``los tres artículos están buenos'' es exactamente la intersección $B_1\cap B_2\cap B_3$, es decir, recorrer la rama superior completa del árbol, y la probabilidad de una rama es el producto de sus aristas.
+
+\textbf{¿Qué tomamos?} Tomamos $P=\dfrac{33}{91}\approx 0{,}3626$, fracción exacta e irreducible ($91=7\cdot 13$ y $33=3\cdot 11$).
+\end{paso}
+
+\begin{nota}
+El mismo valor se obtiene con conteo combinatorio, tratando los tres artículos como un subconjunto:
+\[
+\frac{\binom{11}{3}}{\binom{15}{3}}=\frac{165}{455}=\frac{33}{91}.
+\]
+Coincide porque, al extraer al azar y sin reposición, la probabilidad de un conjunto de resultados no depende del orden en que se saquen.
+\end{nota}
+
+\begin{resp}
+$P(\text{los tres artículos están buenos})=\dfrac{33}{91}$.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 7}
+
+\begin{quote}
+Suponga que se tiene una caja con 20 botellas de un refresco para la venta y que 10 de ellos en su tapa traen la palabra \textbf{PREMIO}. Cada vez que un cliente compra una botella, esta es tomada al azar de la caja. Determine la probabilidad de que la tercera botella que se venda sea la primera que tenga la palabra \textbf{PREMIO} en su tapa.\hfill R/ $\dfrac{5}{38}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Eventos, partición y traducción del enunciado}
+\textbf{Qué hago:} nombro los eventos de cada venta, verifico la partición y traduzco la frase ``la tercera sea la primera con \textbf{PREMIO}''.
+
+La caja tiene $20$ botellas, de las cuales $10$ traen la palabra \textbf{PREMIO} y las otras $20-10=10$ no la traen. Para la venta número $i$ definimos
+\[
+W_i=\text{``la $i$-ésima botella vendida trae \textbf{PREMIO}''},
+\]
+\[
+\overline{W_i}=\text{``la $i$-ésima botella vendida no trae \textbf{PREMIO}''}.
+\]
+En cada venta $\{W_i,\overline{W_i}\}$ es una partición: la tapa trae la palabra o no la trae, nunca ambas y siempre una de las dos.
+
+Que la tercera botella vendida sea \emph{la primera} con \textbf{PREMIO} significa que las dos primeras no traían la palabra y la tercera sí:
+\[
+E=\overline{W_1}\cap\overline{W_2}\cap W_3 .
+\]
+
+\textbf{¿De dónde sale?} El $20$ y el $10$ son datos del enunciado; el otro $10$ es la resta. La palabra ``primera'' es la que obliga a que las dos ventas anteriores fallen: si alguna de ellas hubiera traído \textbf{PREMIO}, la tercera ya no sería la primera.
+
+\textbf{¿Por qué?} Porque el enunciado no pide simplemente que la tercera traiga \textbf{PREMIO}, sino que sea la primera en hacerlo; eso impone condiciones sobre las dos ventas previas y convierte el evento en una intersección de tres condiciones.
+
+\textbf{¿Qué tomamos?} Fijamos $E=\overline{W_1}\cap\overline{W_2}\cap W_3$ y la composición inicial $10$ con premio y $10$ sin premio.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Árbol de probabilidad}
+\textbf{Qué hago:} construyo el árbol actualizando los conteos, teniendo en cuenta que las botellas vendidas no regresan a la caja.
+
+\emph{Primera venta.} $10$ botellas sin premio entre $20$:
+\[
+P(\overline{W_1})=\frac{10}{20}.
+\]
+Sale una sin premio, así que quedan $9$ sin premio, $10$ con premio y $19$ en total.
+
+\emph{Segunda venta, dado $\overline{W_1}$.}
+\[
+P(\overline{W_2}\mid \overline{W_1})=\frac{9}{19}.
+\]
+Sale otra sin premio: quedan $8$ sin premio, $10$ con premio y $18$ en total.
+
+\emph{Tercera venta, dado $\overline{W_1}\cap\overline{W_2}$.}
+\[
+P(W_3\mid \overline{W_1}\cap\overline{W_2})=\frac{10}{18}.
+\]
+
+\begin{center}
+\begin{tikzpicture}[
+  grow=right,
+  level 1/.style={sibling distance=24mm, level distance=30mm},
+  level 2/.style={sibling distance=15mm, level distance=30mm},
+  level 3/.style={sibling distance=12mm, level distance=30mm},
+  every node/.style={font=\small}
+]
+\node {$20$ botellas}
+  child {node {$W_1$} edge from parent node[below,sloped,font=\scriptsize]{$10/20$}}
+  child {node {$\overline{W_1}$}
+    child {node {$W_2$} edge from parent node[below,sloped,font=\scriptsize]{$10/19$}}
+    child {node {$\overline{W_2}$}
+      child {node {$\overline{W_3}$} edge from parent node[below,sloped,font=\scriptsize]{$8/18$}}
+      child {node {$W_3$} edge from parent node[above,sloped,font=\scriptsize]{$10/18$}}
+      edge from parent node[above,sloped,font=\scriptsize]{$9/19$}}
+    edge from parent node[above,sloped,font=\scriptsize]{$10/20$}};
+\end{tikzpicture}
+\end{center}
+
+\textbf{¿De dónde sale?} El $10$ del numerador de la tercera arista sigue siendo $10$ porque las dos botellas ya vendidas eran \emph{sin} premio; el stock de premiadas no se ha tocado. Los denominadores $20$, $19$, $18$ bajan de uno en uno porque cada venta retira una botella de la caja.
+
+\textbf{¿Por qué?} Porque cada compra toma una botella al azar entre las que quedan, todas igualmente probables. Las extracciones no son independientes: la probabilidad de premio en la tercera venta ($\tfrac{10}{18}$) es mayor que en la primera ($\tfrac{10}{20}$), precisamente porque se han retirado dos botellas sin premio.
+
+\textbf{¿Qué tomamos?} Anotamos las aristas $\tfrac{10}{20}$, $\tfrac{9}{19}$, $\tfrac{10}{18}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Regla de la multiplicación y aritmética}
+\textbf{Qué hago:} multiplico las tres aristas y simplifico.
+
+\[
+P(E)=\frac{10}{20}\cdot\frac{9}{19}\cdot\frac{10}{18}.
+\]
+Simplificamos factor por factor: $\tfrac{10}{20}=\tfrac12$ y $\tfrac{9}{18}=\tfrac12$, de modo que reordenando
+\[
+P(E)=\frac{1}{2}\cdot\frac{9}{19}\cdot\frac{10}{18}
+=\frac{1}{2}\cdot\frac{10}{19}\cdot\frac{9}{18}
+=\frac{1}{2}\cdot\frac{10}{19}\cdot\frac{1}{2}
+=\frac{10}{4\cdot 19}
+=\frac{10}{76}.
+\]
+Dividimos numerador y denominador entre $2$:
+\[
+P(E)=\frac{5}{38}\approx 0{,}1316 .
+\]
+Comprobación sin simplificar:
+\[
+\frac{10\cdot 9\cdot 10}{20\cdot 19\cdot 18}=\frac{900}{6\,840}
+=\frac{900\div 180}{6\,840\div 180}=\frac{5}{38}.
+\]
+
+\textbf{¿De dónde sale?} Las tres fracciones son las del Paso 2 y la regla del producto encadenada es la de la teoría.
+
+\textbf{¿Por qué?} Porque $E$ es una intersección de tres eventos sucesivos, es decir, una única rama del árbol, y la probabilidad de una rama es el producto de las probabilidades de sus aristas.
+
+\textbf{¿Qué tomamos?} Tomamos $P(E)=\dfrac{5}{38}$, fracción exacta e irreducible.
+\end{paso}
+
+\begin{resp}
+$P(\text{la tercera botella vendida sea la primera con \textbf{PREMIO}})=\dfrac{5}{38}$.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 8}
+
+\begin{quote}
+En una bolsa se tienen 10 bolas blancas, 8 bolas verdes y 7 bolas rojas. Considere el experimento en que se extraen bolas al azar sucesivamente de la bolsa y en cada extracción, la bola no se devuelve y antes de la siguiente extracción, las bolas blancas se pintan verdes, las que eran verdes se pintan rojas y las que eran rojas, se pintan blancas. Si se extraen tres bolas ¿cuál es la probabilidad de que sean del mismo color?\hfill R/ $\dfrac{14}{115}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Eventos, partición y regla de repintado}
+\textbf{Qué hago:} defino el estado de la bolsa, la regla de repintado y verifico que la clasificación por color es una partición en cada extracción.
+
+Escribimos el estado como la terna $(b,v,r)$ = (blancas, verdes, rojas). Inicialmente
+\[
+(b,v,r)=(10,8,7),\qquad N_1=10+8+7=25 .
+\]
+Para la extracción $i$ definimos $B_i$, $V_i$, $R_i$ como los eventos ``la $i$-ésima bola extraída es blanca / verde / roja'' (color \emph{observado en el momento de sacarla}). La familia $\{B_i,V_i,R_i\}$ es una partición del espacio muestral: toda bola de la bolsa tiene exactamente uno de los tres colores, así que los tres eventos son excluyentes dos a dos y su unión es todo $S$.
+
+La dinámica tiene dos partes que se aplican en este orden:
+\begin{enumerate}[leftmargin=1.8em]
+\item se extrae una bola y \emph{no} se devuelve, de modo que el total baja en $1$ y el color extraído baja en $1$;
+\item las que quedan se repintan según el ciclo blanca $\to$ verde $\to$ roja $\to$ blanca. Es decir, si tras la extracción quedan $(b,v,r)$, el nuevo estado es
+\[
+(b',v',r')=(r,\,b,\,v),
+\]
+porque las nuevas blancas son las que eran rojas, las nuevas verdes las que eran blancas y las nuevas rojas las que eran verdes.
+\end{enumerate}
+
+\textbf{¿De dónde sale?} Los conteos $10$, $8$, $7$ son literales del enunciado. La permutación $(b,v,r)\mapsto(r,b,v)$ traduce las tres frases ``las blancas se pintan verdes, las que eran verdes se pintan rojas y las que eran rojas se pintan blancas'': el destino de cada grupo se lee directamente de ahí.
+
+\textbf{¿Por qué?} Porque el repintado no crea ni destruye bolas, solo permuta las etiquetas; por eso el total tras cada extracción es simplemente el anterior menos $1$, y basta con reordenar los tres conteos. Y el orden importa: primero se saca y después se repinta, tal como dice ``en cada extracción, la bola no se devuelve y \emph{antes de la siguiente} extracción'' se hace el repintado.
+
+\textbf{¿Qué tomamos?} Anotamos el estado inicial $(10,8,7)$ con $N=25$ y la regla de actualización ``restar $1$ al color extraído y luego rotar la terna a $(r,b,v)$''.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Los tres caminos favorables}
+\textbf{Qué hago:} identifico los caminos que cumplen ``las tres bolas son del mismo color'' y verifico que son disjuntos.
+
+Que las tres bolas extraídas sean del mismo color significa que el color anotado en las tres extracciones coincide. Como hay tres colores, hay exactamente tres caminos:
+\[
+T_B=B_1\cap B_2\cap B_3,
+\qquad
+T_V=V_1\cap V_2\cap V_3,
+\qquad
+T_R=R_1\cap R_2\cap R_3 .
+\]
+Son mutuamente excluyentes porque el color de la primera bola es único: si la primera fue blanca, no fue verde ni roja. El evento pedido es la unión $T_B\cup T_V\cup T_R$.
+
+\textbf{¿De dónde sale?} De la pregunta ``¿cuál es la probabilidad de que sean del mismo color?'', entendida como que las tres anotaciones de color coinciden, que es lo único observable en el experimento descrito.
+
+\textbf{¿Por qué?} Porque las bolas cambian de color entre extracciones, de modo que la única lectura consistente de ``del mismo color'' es la del color registrado en el instante de cada extracción. Al ser tres eventos disjuntos, la probabilidad de la unión será la suma de las tres.
+
+\textbf{¿Qué tomamos?} Fijamos los tres caminos y el objetivo $P(T_B)+P(T_V)+P(T_R)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Evolución del estado en cada camino y árbol}
+\textbf{Qué hago:} sigo la terna $(b,v,r)$ a lo largo de cada camino, aplicando extracción y repintado.
+
+\emph{Camino $T_B$ (tres blancas).} Estado inicial $(10,8,7)$, $N=25$; se saca blanca con probabilidad $\tfrac{10}{25}$. Quedan $(9,8,7)$ con $N=24$; al repintar, $(b',v',r')=(7,9,8)$. Se saca blanca con probabilidad $\tfrac{7}{24}$. Quedan $(6,9,8)$ con $N=23$; al repintar, $(8,6,9)$. Se saca blanca con probabilidad $\tfrac{8}{23}$.
+
+\emph{Camino $T_V$ (tres verdes).} Desde $(10,8,7)$, $N=25$: verde con $\tfrac{8}{25}$. Quedan $(10,7,7)$, $N=24$; repintado: $(7,10,7)$. Verde con $\tfrac{10}{24}$. Quedan $(7,9,7)$, $N=23$; repintado: $(7,7,9)$. Verde con $\tfrac{7}{23}$.
+
+\emph{Camino $T_R$ (tres rojas).} Desde $(10,8,7)$, $N=25$: roja con $\tfrac{7}{25}$. Quedan $(10,8,6)$, $N=24$; repintado: $(6,10,8)$. Roja con $\tfrac{8}{24}$. Quedan $(6,10,7)$, $N=23$; repintado: $(7,6,10)$. Roja con $\tfrac{10}{23}$.
+
+\begin{center}
+\begin{tikzpicture}[
+  grow=right,
+  level 1/.style={sibling distance=30mm, level distance=32mm},
+  level 2/.style={sibling distance=30mm, level distance=32mm},
+  level 3/.style={sibling distance=30mm, level distance=30mm},
+  every node/.style={font=\scriptsize}
+]
+\node {$(10,8,7)$}
+  child {node {$R_1\to(6,10,8)$}
+    child {node {$R_2\to(7,6,10)$}
+      child {node {$R_3$} edge from parent node[above,sloped]{$10/23$}}
+      edge from parent node[above,sloped]{$8/24$}}
+    edge from parent node[below,sloped]{$7/25$}}
+  child {node {$V_1\to(7,10,7)$}
+    child {node {$V_2\to(7,7,9)$}
+      child {node {$V_3$} edge from parent node[above,sloped]{$7/23$}}
+      edge from parent node[above,sloped]{$10/24$}}
+    edge from parent node[above,sloped]{$8/25$}}
+  child {node {$B_1\to(7,9,8)$}
+    child {node {$B_2\to(8,6,9)$}
+      child {node {$B_3$} edge from parent node[above,sloped]{$8/23$}}
+      edge from parent node[above,sloped]{$7/24$}}
+    edge from parent node[above,sloped]{$10/25$}};
+\end{tikzpicture}
+\end{center}
+
+En el árbol, cada nodo indica el estado $(b,v,r)$ ya repintado, listo para la siguiente extracción; las ramas que no conducen a ``tres del mismo color'' se han omitido por claridad.
+
+\textbf{¿De dónde sale?} Cada terna sale de restar $1$ al color extraído y aplicar después la rotación $(b,v,r)\mapsto(r,b,v)$ del Paso 1. Por ejemplo, en $T_B$: de $(10,8,7)$ se quita una blanca y queda $(9,8,7)$; al rotar se obtiene $(7,9,8)$, y en efecto las blancas ahora son las $7$ que antes eran rojas.
+
+\textbf{¿Por qué?} Porque después del repintado la bolsa es físicamente la misma colección de bolas, solo con las etiquetas rotadas; la probabilidad de sacar una bola de cierto color se calcula con la definición clásica usando los conteos ya actualizados.
+
+\textbf{¿Qué tomamos?} Anotamos las tres ternas de aristas: $\bigl(\tfrac{10}{25},\tfrac{7}{24},\tfrac{8}{23}\bigr)$, $\bigl(\tfrac{8}{25},\tfrac{10}{24},\tfrac{7}{23}\bigr)$ y $\bigl(\tfrac{7}{25},\tfrac{8}{24},\tfrac{10}{23}\bigr)$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Probabilidad de cada camino}
+\textbf{Qué hago:} multiplico las aristas de cada camino con la regla de la multiplicación encadenada.
+
+Los tres denominadores son los mismos en los tres caminos:
+\[
+25\cdot 24\cdot 23=600\cdot 23=13\,800 .
+\]
+Los numeradores son, en los tres casos, los mismos tres números $10$, $8$ y $7$, solo que en distinto orden:
+\[
+P(T_B)=\frac{10\cdot 7\cdot 8}{13\,800}=\frac{560}{13\,800},
+\qquad
+P(T_V)=\frac{8\cdot 10\cdot 7}{13\,800}=\frac{560}{13\,800},
+\qquad
+P(T_R)=\frac{7\cdot 8\cdot 10}{13\,800}=\frac{560}{13\,800}.
+\]
+En efecto, $10\cdot 7=70$ y $70\cdot 8=560$; $8\cdot 10=80$ y $80\cdot 7=560$; $7\cdot 8=56$ y $56\cdot 10=560$.
+
+\textbf{¿De dónde sale?} Los numeradores y denominadores son los del Paso 3. Que los denominadores coincidan se debe a que el total baja de $25$ a $24$ y a $23$ sin importar qué color salga; que los numeradores sean una permutación de $(10,8,7)$ se debe a que el repintado solo rota las etiquetas de los tres grupos originales.
+
+\textbf{¿Por qué?} Porque cada camino es una intersección de tres eventos sucesivos y su probabilidad es $P(X_1)P(X_2\mid X_1)P(X_3\mid X_1\cap X_2)$. La coincidencia de los tres valores no es casualidad: seguir un color fijo a lo largo del experimento equivale a recorrer los tres grupos iniciales en un orden cíclico, y el producto de tres números no depende del orden.
+
+\textbf{¿Qué tomamos?} Anotamos $P(T_B)=P(T_V)=P(T_R)=\dfrac{560}{13\,800}$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Suma de casos disjuntos y simplificación}
+\textbf{Qué hago:} sumo los tres caminos y simplifico la fracción resultante.
+
+\[
+P(\text{mismo color})=\frac{560}{13\,800}+\frac{560}{13\,800}+\frac{560}{13\,800}
+=\frac{3\cdot 560}{13\,800}=\frac{1\,680}{13\,800}.
+\]
+Simplificamos por etapas. Dividimos entre $10$:
+\[
+\frac{1\,680}{13\,800}=\frac{168}{1\,380}.
+\]
+Dividimos entre $4$ (ambos son múltiplos de $4$: $168=4\cdot 42$ y $1\,380=4\cdot 345$):
+\[
+\frac{168}{1\,380}=\frac{42}{345}.
+\]
+Dividimos entre $3$ ($42=3\cdot 14$ y $345=3\cdot 115$):
+\[
+\frac{42}{345}=\frac{14}{115}\approx 0{,}1217 .
+\]
+
+\textbf{¿De dónde sale?} Los tres sumandos son las probabilidades del Paso 4, y la lista de caminos es la del Paso 2.
+
+\textbf{¿Por qué?} Porque los tres caminos son mutuamente excluyentes (difieren en el color de la primera bola) y su unión es el evento pedido; la aditividad permite sumar directamente. La fracción final es irreducible porque $14=2\cdot 7$ y $115=5\cdot 23$ no comparten factores.
+
+\textbf{¿Qué tomamos?} Tomamos $P=\dfrac{14}{115}$, que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+$P(\text{las tres bolas son del mismo color})=\dfrac{14}{115}$.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 9}
+
+\begin{quote}
+Esteban tiene una moneda cargada. Sabe que la probabilidad de obtener al menos una corona en dos lanzamientos independientes es de 0,8. Determine la probabilidad de obtener al menos un escudo en dos lanzamientos.\hfill R/ $\dfrac{2\sqrt{5}-1}{5}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Eventos, incógnita y partición por cara}
+\textbf{Qué hago:} nombro los eventos de cada lanzamiento, introduzco la incógnita y verifico la partición.
+
+La moneda tiene dos caras: corona y escudo. Para el lanzamiento $i$ definimos
+\[
+C_i=\text{``en el lanzamiento $i$ sale corona''},
+\qquad
+E_i=\text{``en el lanzamiento $i$ sale escudo''}.
+\]
+La familia $\{C_i,E_i\}$ es una partición del espacio muestral de ese lanzamiento: sale una cara o la otra, nunca las dos y siempre una, de modo que $C_i\cap E_i=\varnothing$ y $C_i\cup E_i=S$. Como consecuencia,
+\[
+P(C_i)+P(E_i)=1 .
+\]
+Llamamos
+\[
+p=P(C_i)=P(\text{corona}),
+\qquad
+q=P(E_i)=P(\text{escudo})=1-p ,
+\]
+valores que no cambian de un lanzamiento a otro, pues es siempre la misma moneda. Los eventos de interés son
+\[
+A=\text{``al menos una corona en dos lanzamientos''},
+\]
+\[
+D=\text{``al menos un escudo en dos lanzamientos''},
+\]
+con el dato $P(A)=0{,}8$ y la incógnita $P(D)$.
+
+\textbf{¿De dónde sale?} La frase ``moneda cargada'' avisa de que $p\neq\tfrac12$, es decir, que $p$ es desconocido y hay que determinarlo. El dato $0{,}8$ es el valor de $P(A)$, y la palabra ``independientes'' autoriza a multiplicar las probabilidades de los dos lanzamientos.
+
+\textbf{¿Por qué?} Porque no nos dan $p$ directamente, sino una consecuencia suya; el plan será escribir $P(A)$ en función de $p$, despejar $p$ y con él calcular $P(D)$.
+
+\textbf{¿Qué tomamos?} Anotamos $p+q=1$, $P(A)=0{,}8$ y la independencia entre lanzamientos.
+\end{paso}
+
+\begin{paso}{Paso 2 --- ``Al menos uno'' mediante el complemento}
+\textbf{Qué hago:} traduzco ``al menos una corona'' pasando al complemento, que es un solo camino del árbol.
+
+El complemento de ``al menos una corona en dos lanzamientos'' es ``ninguna corona'', o sea escudo en ambos:
+\[
+\overline{A}=E_1\cap E_2 .
+\]
+Por independencia,
+\[
+P(\overline{A})=P(E_1)P(E_2)=q\cdot q=q^{2},
+\]
+y por la regla del complemento
+\[
+P(A)=1-q^{2}.
+\]
+
+\textbf{¿De dónde sale?} La independencia viene de la palabra ``independientes'' del enunciado; el valor $q$ es el mismo en los dos factores porque la moneda no cambia entre lanzamientos.
+
+\textbf{¿Por qué?} Porque ``al menos uno'' agrupa varios casos (corona en el primero, en el segundo, o en ambos), mientras que su negación es un único caso: fallar las dos veces. Es mucho más económico calcular un caso y restar de $1$. Y la regla $P(\overline{A})=1-P(A)$ es válida porque $A$ y $\overline{A}$ forman la partición más simple posible.
+
+\textbf{¿Qué tomamos?} Anotamos la relación $P(A)=1-q^{2}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Ecuación cuadrática y despeje de $q$}
+\textbf{Qué hago:} sustituyo el dato y resuelvo la ecuación resultante.
+
+\[
+1-q^{2}=0{,}8
+\quad\Longrightarrow\quad
+q^{2}=1-0{,}8=0{,}2=\frac{1}{5}.
+\]
+Como $q$ es una probabilidad, $q\geq 0$, y tomamos la raíz no negativa:
+\[
+q=\sqrt{\frac{1}{5}}=\frac{1}{\sqrt{5}}=\frac{\sqrt{5}}{5},
+\]
+donde en el último paso racionalizamos multiplicando numerador y denominador por $\sqrt5$:
+$\tfrac{1}{\sqrt5}=\tfrac{1\cdot\sqrt5}{\sqrt5\cdot\sqrt5}=\tfrac{\sqrt5}{5}$. Numéricamente $q\approx 0{,}4472$.
+
+En consecuencia
+\[
+p=1-q=1-\frac{\sqrt{5}}{5}=\frac{5-\sqrt{5}}{5}\approx 0{,}5528 .
+\]
+Escrito como ecuación en $p$, el planteo era $1-(1-p)^{2}=0{,}8$, que al desarrollar da
+\[
+1-\bigl(1-2p+p^{2}\bigr)=2p-p^{2}=0{,}8
+\quad\Longrightarrow\quad
+p^{2}-2p+0{,}8=0,
+\]
+y por la fórmula cuadrática
+\[
+p=\frac{2\pm\sqrt{4-4(0{,}8)}}{2}=\frac{2\pm\sqrt{0{,}8}}{2}=1\pm\frac{\sqrt{0{,}8}}{2}=1\pm\frac{\sqrt{5}}{5},
+\]
+porque $\sqrt{0{,}8}=\sqrt{4/5}=\tfrac{2}{\sqrt5}=\tfrac{2\sqrt5}{5}$ y al dividir entre $2$ queda $\tfrac{\sqrt5}{5}$. La raíz con signo $+$ da $p\approx 1{,}447>1$, imposible para una probabilidad, así que se descarta y queda $p=1-\tfrac{\sqrt5}{5}$, en concordancia con lo anterior.
+
+\textbf{¿De dónde sale?} El $0{,}8$ es el dato; la relación $P(A)=1-q^{2}$ es del Paso 2; la restricción $0\leq p\leq 1$ es la que permite descartar una de las dos raíces.
+
+\textbf{¿Por qué?} Porque la ecuación es de segundo grado y produce dos soluciones formales, pero solo una de ellas es admisible como probabilidad. Descartar la otra no es opcional: es parte de la resolución.
+
+\textbf{¿Qué tomamos?} Tomamos $q=\dfrac{\sqrt5}{5}$ y $p=1-\dfrac{\sqrt5}{5}$, valores exactos con radical.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Cálculo de ``al menos un escudo''}
+\textbf{Qué hago:} repito la estrategia del complemento, ahora con el escudo, y sustituyo el valor de $p$.
+
+El complemento de ``al menos un escudo'' es ``ningún escudo'', es decir, corona en los dos lanzamientos:
+\[
+\overline{D}=C_1\cap C_2,
+\qquad
+P(\overline{D})=p^{2},
+\qquad
+P(D)=1-p^{2}.
+\]
+Conviene escribirlo en función de $q$, que es más limpio. Como $p=1-q$,
+\[
+P(D)=1-(1-q)^{2}=1-\bigl(1-2q+q^{2}\bigr)=2q-q^{2}.
+\]
+Sustituimos $q=\dfrac{\sqrt5}{5}$ y $q^{2}=\dfrac{1}{5}$:
+\[
+P(D)=2\cdot\frac{\sqrt5}{5}-\frac{1}{5}=\frac{2\sqrt5}{5}-\frac{1}{5}=\frac{2\sqrt5-1}{5}.
+\]
+
+\textbf{¿De dónde sale?} El valor $q=\tfrac{\sqrt5}{5}$ viene del Paso 3, y $q^{2}=\tfrac15$ es el propio dato despejado en ese paso (no hace falta volver a elevar al cuadrado el radical). La independencia que permite escribir $P(\overline{D})=p\cdot p$ es la misma del enunciado.
+
+\textbf{¿Por qué?} Porque la estructura del problema es simétrica: ``al menos un escudo'' se trata igual que ``al menos una corona'', intercambiando los papeles de $p$ y $q$. Escribirlo en términos de $q$ evita tener que desarrollar $\bigl(1-\tfrac{\sqrt5}{5}\bigr)^{2}$ con radicales.
+
+\textbf{¿Qué tomamos?} Tomamos $P(D)=\dfrac{2\sqrt5-1}{5}$, valor exacto.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Comprobación numérica}
+\textbf{Qué hago:} evalúo el resultado y verifico que es coherente con los datos.
+
+Con $\sqrt5\approx 2{,}2361$:
+\[
+P(D)=\frac{2(2{,}2361)-1}{5}=\frac{4{,}4721-1}{5}=\frac{3{,}4721}{5}\approx 0{,}6944 .
+\]
+Comprobamos también por la vía directa: $p\approx 0{,}5528$, luego $p^{2}\approx 0{,}3056$ y $1-p^{2}\approx 0{,}6944$, lo mismo.
+
+\textbf{¿De dónde sale?} Los números son los del Paso 3 y del Paso 4.
+
+\textbf{¿Por qué?} Porque conviene verificar que el valor está entre $0$ y $1$ y que es menor que $P(A)=0{,}8$; tiene sentido, pues la moneda favorece la corona ($p>q$), de modo que es más fácil obtener al menos una corona que al menos un escudo.
+
+\textbf{¿Qué tomamos?} Confirmamos $P(D)=\dfrac{2\sqrt5-1}{5}\approx 0{,}6944$, que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+$P(\text{al menos un escudo en dos lanzamientos})=\dfrac{2\sqrt{5}-1}{5}\approx 0{,}6944$.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 10}
+
+\begin{quote}
+Un experimento consiste en lanzar una moneda tantas veces como sean necesarias hasta obtener un escudo. Determine la probabilidad de que se de deba lanzar la moneda menos de 20 veces.\hfill R/ $0{,}999998$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Eventos, partición por el turno de parada y traducción}
+\textbf{Qué hago:} defino los eventos, construyo la partición según en qué lanzamiento aparece el primer escudo y traduzco ``menos de 20 veces''.
+
+La moneda es equilibrada (no se dice lo contrario), así que en cada lanzamiento
+\[
+P(\text{escudo})=\frac{1}{2},
+\qquad
+P(\text{corona})=\frac{1}{2},
+\]
+y los lanzamientos son independientes entre sí. Para $k=1,2,3,\dots$ definimos
+\[
+A_k=\text{``el primer escudo aparece exactamente en el lanzamiento $k$''},
+\]
+es decir, los primeros $k-1$ lanzamientos son corona y el $k$-ésimo es escudo. Los eventos $A_1,A_2,A_3,\dots$ son mutuamente excluyentes, porque el primer escudo aparece en un turno concreto y en uno solo, y son exhaustivos, porque con probabilidad $1$ tarde o temprano sale un escudo. Forman por tanto una partición del espacio muestral.
+
+``Menos de $20$ veces'' significa $k<20$, o sea $k\in\{1,2,\dots,19\}$. El evento pedido es
+\[
+E=A_1\cup A_2\cup\cdots\cup A_{19}.
+\]
+
+\textbf{¿De dónde sale?} La condición de parada ``hasta obtener un escudo'' es la que define los $A_k$; la desigualdad estricta ``menos de $20$'' es la que fija el tope en $19$ y no en $20$.
+
+\textbf{¿Por qué?} Porque el número de lanzamientos coincide con el turno en que aparece el primer escudo: el experimento se detiene justo ahí. Y como los $A_k$ son disjuntos, la probabilidad de la unión será la suma de sus probabilidades.
+
+\textbf{¿Qué tomamos?} Fijamos $E=\bigcup_{k=1}^{19}A_k$ y $P(\text{escudo})=\tfrac12$ en cada lanzamiento.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Probabilidad de cada $A_k$ por la regla de la multiplicación}
+\textbf{Qué hago:} calculo $P(A_k)$ multiplicando las probabilidades de los $k$ lanzamientos que forman esa rama.
+
+El evento $A_k$ es la intersección de $k-1$ coronas seguidas y un escudo. Como los lanzamientos son independientes, cada factor vale $\tfrac12$ sin importar lo ocurrido antes:
+\[
+P(A_k)=\underbrace{\frac{1}{2}\cdot\frac{1}{2}\cdots\frac{1}{2}}_{k-1\ \text{coronas}}\cdot\frac{1}{2}
+=\left(\frac{1}{2}\right)^{k-1}\cdot\frac{1}{2}
+=\left(\frac{1}{2}\right)^{k}.
+\]
+Por ejemplo,
+\[
+P(A_1)=\frac12,\qquad P(A_2)=\frac14,\qquad P(A_3)=\frac18,\qquad\dots
+\]
+
+\begin{center}
+\begin{tikzpicture}[
+  grow=right,
+  level 1/.style={sibling distance=20mm, level distance=28mm},
+  level 2/.style={sibling distance=14mm, level distance=28mm},
+  level 3/.style={sibling distance=12mm, level distance=28mm},
+  every node/.style={font=\small}
+]
+\node {Inicio}
+  child {node {corona}
+    child {node {corona}
+      child {node {$\cdots$} edge from parent node[below,sloped,font=\scriptsize]{$1/2$}}
+      child {node {escudo: $A_3$} edge from parent node[above,sloped,font=\scriptsize]{$1/2$}}
+      edge from parent node[below,sloped,font=\scriptsize]{$1/2$}}
+    child {node {escudo: $A_2$} edge from parent node[above,sloped,font=\scriptsize]{$1/2$}}
+    edge from parent node[below,sloped,font=\scriptsize]{$1/2$}}
+  child {node {escudo: $A_1$} edge from parent node[above,sloped,font=\scriptsize]{$1/2$}};
+\end{tikzpicture}
+\end{center}
+
+\textbf{¿De dónde sale?} Cada $\tfrac12$ es la probabilidad de una cara de la moneda; hay $k$ factores porque la rama tiene $k$ aristas: $k-1$ coronas y el escudo final.
+
+\textbf{¿Por qué?} Porque la regla de la multiplicación encadenada da el producto de las probabilidades condicionadas, y la independencia hace que cada condicional sea simplemente $\tfrac12$: el resultado de un lanzamiento no influye en el siguiente. La moneda no recuerda lo que ya salió.
+
+\textbf{¿Qué tomamos?} Anotamos la fórmula general $P(A_k)=\left(\tfrac12\right)^{k}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Suma de la serie geométrica finita}
+\textbf{Qué hago:} sumo las $19$ probabilidades usando la fórmula de la suma geométrica finita.
+
+Por ser los $A_k$ disjuntos,
+\[
+P(E)=\sum_{k=1}^{19}P(A_k)=\sum_{k=1}^{19}\left(\frac{1}{2}\right)^{k}
+=\frac12+\frac14+\frac18+\cdots+\frac{1}{2^{19}} .
+\]
+Se trata de una suma geométrica con primer término $r=\tfrac12$ y razón $\tfrac12$. Usamos
+\[
+\sum_{k=1}^{m}r^{k}=r\,\frac{1-r^{m}}{1-r}.
+\]
+Con $r=\tfrac12$ y $m=19$:
+\[
+P(E)=\frac{1}{2}\cdot\frac{1-\left(\frac12\right)^{19}}{1-\frac12}
+=\frac{1}{2}\cdot\frac{1-\left(\frac12\right)^{19}}{\frac12}
+=1-\left(\frac{1}{2}\right)^{19}.
+\]
+Calculamos la potencia:
+\[
+2^{10}=1\,024,
+\qquad
+2^{19}=2^{10}\cdot 2^{9}=1\,024\cdot 512=524\,288 .
+\]
+Por lo tanto
+\[
+P(E)=1-\frac{1}{524\,288}=\frac{524\,288-1}{524\,288}=\frac{524\,287}{524\,288}.
+\]
+
+\textbf{¿De dónde sale?} Los sumandos son los del Paso 2; el tope $19$ viene del Paso 1; la fórmula de la suma geométrica es la de la caja de fórmulas.
+
+\textbf{¿Por qué?} Porque los $A_k$ son mutuamente excluyentes, de modo que la probabilidad de la unión es la suma de las probabilidades, sin correcciones. Y porque los sumandos forman una progresión geométrica, cuya suma tiene fórmula cerrada; la deducción estándar consiste en restar $S$ y $rS$ para que se cancele casi todo.
+
+\textbf{¿Qué tomamos?} Anotamos $P(E)=1-2^{-19}=\dfrac{524\,287}{524\,288}$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Vía alternativa por el complemento y valor decimal}
+\textbf{Qué hago:} confirmo el resultado con el complemento y lo expreso en decimales.
+
+El complemento de ``se necesitan menos de $20$ lanzamientos'' es ``se necesitan $20$ o más'', lo cual ocurre exactamente cuando los primeros $19$ lanzamientos son todos corona:
+\[
+P(\overline{E})=\left(\frac{1}{2}\right)^{19}=\frac{1}{524\,288},
+\qquad
+P(E)=1-\frac{1}{524\,288},
+\]
+que es lo mismo del Paso 3, obtenido sin sumar ninguna serie. En decimales,
+\[
+\frac{1}{524\,288}\approx 0{,}0000019073,
+\qquad
+P(E)\approx 1-0{,}0000019073=0{,}9999980927\approx 0{,}999998 .
+\]
+
+\textbf{¿De dónde sale?} El $19$ del exponente es el número de coronas consecutivas que deben salir para que la parada no haya ocurrido antes del lanzamiento $20$; el $524\,288$ es $2^{19}$ del Paso 3.
+
+\textbf{¿Por qué?} Porque ``al menos $20$ lanzamientos'' es un único camino del árbol (diecinueve coronas seguidas), mientras que ``menos de $20$'' agrupa diecinueve casos. Calcular el complemento es una sola multiplicación y es la vía más corta; la coincidencia de ambos métodos valida el cálculo.
+
+\textbf{¿Qué tomamos?} Tomamos $P(E)\approx 0{,}999998$, redondeado a seis decimales, tal como pide la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+$P(\text{menos de 20 lanzamientos})=1-\left(\dfrac{1}{2}\right)^{19}=\dfrac{524\,287}{524\,288}\approx 0{,}999998$.
+\end{resp}
+
+% ==================================================================
+\section*{Ejercicio 11}
+
+\begin{quote}
+Se tienen 4 hombres y 5 mujeres en una sala de eventos. El organizador del evento elige tres personas al azar ¿Cuál es la probabilidad de que la tercera persona sea hombre?\hfill R/ $\dfrac{4}{9}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Eventos, partición y planteo}
+\textbf{Qué hago:} nombro el evento pedido y construyo la partición según lo ocurrido en las dos primeras elecciones.
+
+Hay $4$ hombres y $5$ mujeres, es decir
+\[
+4+5=9 \text{ personas.}
+\]
+Las tres personas se eligen una tras otra y sin repetir (nadie puede ser elegido dos veces). Sea
+\[
+H=\text{``la tercera persona elegida es hombre''}.
+\]
+No podemos calcular $P(H)$ de inmediato porque la composición del grupo restante en el tercer turno depende de quiénes salieron antes. Definimos entonces, para $j=0,1,2$,
+\[
+A_j=\text{``entre las dos primeras personas elegidas hay exactamente $j$ hombres''}.
+\]
+La familia $\{A_0,A_1,A_2\}$ es una partición del espacio muestral:
+\begin{itemize}[leftmargin=1.4em]
+\item \emph{Mutuamente excluyentes:} el número de hombres entre los dos primeros elegidos es un valor único, así que no puede ser $0$ y $1$ a la vez.
+\item \emph{Exhaustivos:} ese número solo puede ser $0$, $1$ o $2$, y siempre es alguno de ellos, porque se eligen exactamente dos personas.
+\end{itemize}
+
+\textbf{¿De dónde sale?} Los números $4$ y $5$ son del enunciado; el $9$ es la suma. Que la elección sea sin repetición es lo natural al ``elegir tres personas'' de una sala.
+
+\textbf{¿Por qué?} Porque la ley de probabilidad total requiere una partición, y elegimos como partición justamente el dato que hace falta para responder por la tercera persona: sabido cuántos hombres salieron ya, el grupo restante queda determinado.
+
+\textbf{¿Qué tomamos?} Fijamos el evento $H$ y la partición $\{A_0,A_1,A_2\}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Probabilidades de las casillas mediante el árbol}
+\textbf{Qué hago:} calculo $P(A_j)$ recorriendo las cuatro ramas de las dos primeras elecciones.
+
+Denotemos por $h$ y $m$ los resultados ``hombre'' y ``mujer'' en cada elección. En la primera elección hay $4$ hombres y $5$ mujeres de $9$ personas; tras retirar a una persona quedan $8$.
+
+\begin{center}
+\begin{tikzpicture}[
+  grow=right,
+  level 1/.style={sibling distance=26mm, level distance=30mm},
+  level 2/.style={sibling distance=14mm, level distance=34mm},
+  every node/.style={font=\small}
+]
+\node {$9$ personas}
+  child {node {mujer}
+    child {node {mujer \ ($A_0$)} edge from parent node[below,sloped,font=\scriptsize]{$4/8$}}
+    child {node {hombre \ ($A_1$)} edge from parent node[above,sloped,font=\scriptsize]{$4/8$}}
+    edge from parent node[below,sloped,font=\scriptsize]{$5/9$}}
+  child {node {hombre}
+    child {node {mujer \ ($A_1$)} edge from parent node[below,sloped,font=\scriptsize]{$5/8$}}
+    child {node {hombre \ ($A_2$)} edge from parent node[above,sloped,font=\scriptsize]{$3/8$}}
+    edge from parent node[above,sloped,font=\scriptsize]{$4/9$}};
+\end{tikzpicture}
+\end{center}
+
+Multiplicando las aristas de cada rama:
+\[
+P(hh)=\frac{4}{9}\cdot\frac{3}{8}=\frac{12}{72},
+\qquad
+P(hm)=\frac{4}{9}\cdot\frac{5}{8}=\frac{20}{72},
+\]
+\[
+P(mh)=\frac{5}{9}\cdot\frac{4}{8}=\frac{20}{72},
+\qquad
+P(mm)=\frac{5}{9}\cdot\frac{4}{8}=\frac{20}{72}.
+\]
+Agrupando por número de hombres:
+\[
+P(A_1)=P(hm)+P(mh)=\frac{20}{72}+\frac{20}{72}=\frac{40}{72},
+\]
+\[
+P(A_2)=P(hh)=\frac{12}{72},
+\qquad
+P(A_0)=P(mm)=\frac{20}{72}.
+\]
+Control de partición:
+\[
+\frac{12}{72}+\frac{40}{72}+\frac{20}{72}=\frac{12+40+20}{72}=\frac{72}{72}=1 .
+\]
+
+\textbf{¿De dónde sale?} Los numeradores son los conteos actualizados: tras elegir un hombre quedan $3$ hombres y $5$ mujeres; tras elegir una mujer quedan $4$ hombres y $4$ mujeres. En ambos casos el total pasa de $9$ a $8$.
+
+\textbf{¿Por qué?} Porque cada elección es al azar entre las personas presentes, todas igualmente probables, y la probabilidad de una rama es el producto de sus aristas. Las ramas $hm$ y $mh$ se suman porque ambas producen ``exactamente un hombre'' y son disjuntas entre sí.
+
+\textbf{¿Qué tomamos?} Anotamos $P(A_0)=\tfrac{20}{72}$, $P(A_1)=\tfrac{40}{72}$, $P(A_2)=\tfrac{12}{72}$, sin simplificar para facilitar la suma final.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Probabilidades condicionadas de la tercera elección}
+\textbf{Qué hago:} calculo $P(H\mid A_j)$ actualizando el grupo restante en cada caso.
+
+Después de dos elecciones quedan $9-2=7$ personas. Si entre las dos primeras hubo $j$ hombres, todavía quedan $4-j$ hombres, y por la definición clásica
+\[
+P(H\mid A_j)=\frac{4-j}{7}.
+\]
+Caso por caso:
+\[
+P(H\mid A_0)=\frac{4}{7},
+\qquad
+P(H\mid A_1)=\frac{3}{7},
+\qquad
+P(H\mid A_2)=\frac{2}{7}.
+\]
+
+\textbf{¿De dónde sale?} El $7$ es $9-2$; el $4-j$ es el número inicial de hombres menos los que ya fueron elegidos, dato que aporta precisamente la casilla $A_j$.
+
+\textbf{¿Por qué?} Porque la tercera persona se elige al azar entre las $7$ que quedan, todas con la misma oportunidad. Nótese que no importa el orden en que se eligieron las dos primeras, solo cuántos hombres eran: por eso la partición por número de hombres es suficiente.
+
+\textbf{¿Qué tomamos?} Anotamos las tres condicionadas $\tfrac47$, $\tfrac37$, $\tfrac27$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Ley de probabilidad total y aritmética}
+\textbf{Qué hago:} combino los pesos y las condicionadas con la ley de probabilidad total.
+
+\[
+P(H)=P(A_0)P(H\mid A_0)+P(A_1)P(H\mid A_1)+P(A_2)P(H\mid A_2)
+\]
+\[
+=\frac{20}{72}\cdot\frac{4}{7}+\frac{40}{72}\cdot\frac{3}{7}+\frac{12}{72}\cdot\frac{2}{7}.
+\]
+Como todos los términos comparten el denominador $72\cdot 7=504$, calculamos solo los numeradores:
+\[
+20\cdot 4=80,
+\qquad
+40\cdot 3=120,
+\qquad
+12\cdot 2=24 .
+\]
+Entonces
+\[
+P(H)=\frac{80+120+24}{504}=\frac{224}{504}.
+\]
+Simplificamos por etapas. Dividimos entre $8$ ($224=8\cdot 28$ y $504=8\cdot 63$):
+\[
+\frac{224}{504}=\frac{28}{63}.
+\]
+Dividimos entre $7$ ($28=7\cdot 4$ y $63=7\cdot 9$):
+\[
+\frac{28}{63}=\frac{4}{9}.
+\]
+
+\textbf{¿De dónde sale?} Los pesos vienen del Paso 2 y las condicionadas del Paso 3; el denominador común $504$ es el producto de los denominadores $72$ y $7$.
+
+\textbf{¿Por qué?} Porque los tres caminos ``$A_j$ y luego hombre'' son disjuntos y su unión es exactamente $H$; sumar sus probabilidades es aditividad y escribir cada una como producto es la regla de la multiplicación, que es justo el contenido de la ley de probabilidad total.
+
+\textbf{¿Qué tomamos?} Tomamos $P(H)=\dfrac{4}{9}$, fracción exacta e irreducible.
+\end{paso}
+
+\begin{nota}
+El resultado $\tfrac49$ coincide con la proporción inicial de hombres, $\tfrac{4}{9}$, igual que sucedió en el Ejercicio 1. La razón es la misma: al elegir al azar y sin repetición, todas las posiciones del orden de elección son equivalentes, así que la tercera persona tiene la misma probabilidad de ser hombre que la primera. El cálculo por probabilidad total confirma esa simetría y sirve de comprobación del resultado.
+\end{nota}
+
+\begin{resp}
+$P(\text{la tercera persona es hombre})=\dfrac{4}{9}$.
+\end{resp}
+
+\end{document}

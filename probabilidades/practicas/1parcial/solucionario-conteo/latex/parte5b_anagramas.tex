@@ -1,0 +1,1817 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+
+\begin{center}{\LARGE\bfseries Principios de conteo}\\[2pt]{\large Anagramas --- Ejercicios 14--23}\end{center}
+
+\vspace{4pt}
+
+\begin{teo}
+\textbf{Cómo se cuenta un anagrama: de la permutación simple a la permutación con repetición.}
+
+Un \emph{anagrama} de una palabra es cualquier reordenamiento de sus letras. Si todas las letras fueran
+distintas, contar anagramas sería contar permutaciones: hay $n$ maneras de escoger la letra que va en la
+primera casilla, $n-1$ para la segunda (ya se gastó una), $n-2$ para la tercera, y así hasta $1$. Por el
+principio del producto eso da
+\[
+n\cdot(n-1)\cdot(n-2)\cdots 2\cdot 1 \;=\; n! .
+\]
+Ese es el punto de partida: \textbf{el factorial no es una fórmula caída del cielo, es el principio del
+producto aplicado a casillas que se van vaciando}.
+
+\medskip
+\textbf{(1) Permutación con repetición y su demostración.} El problema aparece cuando la palabra repite
+letras. En \textbf{ANA} las dos letras A son \emph{indistinguibles}: si las pintáramos de colores,
+$\text{A}_1\text{NA}_2$ y $\text{A}_2\text{NA}_1$ serían dos permutaciones diferentes, pero escritas en
+papel son la misma palabra ANA. Entonces $n!$ cuenta cada palabra varias veces. ¿Cuántas veces? Fijemos
+una palabra concreta ya escrita, por ejemplo ANA. Las $n_1$ copias de la primera letra repetida ocupan
+$n_1$ casillas fijas, y podemos permutarlas entre sí de $n_1!$ maneras \emph{sin que la palabra cambie};
+lo mismo con las $n_2$ copias de la segunda letra repetida, etc. Por el principio del producto, cada
+palabra distinta proviene de exactamente
+\[
+n_1!\,n_2!\cdots n_k!
+\]
+permutaciones coloreadas. Como todas las palabras se repiten \emph{el mismo} número de veces, podemos
+dividir (regla del pastor: si $N$ objetos se agrupan en bloques de tamaño constante $d$, hay $N/d$
+bloques) y obtenemos
+\[
+\boxed{\;P_n^{n_1,n_2,\dots,n_k}=\frac{n!}{n_1!\,n_2!\cdots n_k!}\;}
+\qquad\text{con } n_1+n_2+\dots+n_k=n .
+\]
+Por eso \emph{siempre} se divide entre los factoriales de las multiplicidades: no es una corrección
+arbitraria, es deshacer el sobreconteo exacto que produjo tratar como distintas letras que son iguales.
+
+\medskip
+\textbf{(2) Técnica del bloque (letras que deben ir juntas).} Si un grupo de $m$ letras debe aparecer
+seguido, encerramos ese grupo en una caja y tratamos la caja como \emph{una sola letra}. Con eso el
+problema pasa a tener $n-m+1$ objetos (la caja más las $n-m$ letras sueltas), y se cuentan sus
+ordenamientos con la fórmula anterior. Pero cada ordenamiento de esos objetos representa \emph{varias}
+palabras, porque adentro de la caja las $m$ letras pueden acomodarse de $P_m^{\dots}$ maneras distintas y
+todas cumplen la condición ``van juntas''. Por el principio del producto,
+\[
+\#\{\text{palabras con el grupo junto}\}=
+\underbrace{(\text{ordenamientos de los objetos})}_{\text{dónde va el bloque}}
+\;\times\;
+\underbrace{(\text{ordenamientos internos})}_{\text{cómo se ve el bloque por dentro}}.
+\]
+La caja se cuenta como un objeto porque su posición relativa a las demás letras es lo único que decide
+el ``dónde''; el ``cómo'' se agrega después y es independiente del ``dónde''.
+
+\medskip
+\textbf{(3) Técnica de huecos y el complemento (letras que no deben ir juntas).} Para ``estas letras no
+pueden estar todas juntas'' lo más corto casi siempre es el complemento:
+\[
+\#\{\text{no juntas}\}=\#\{\text{total}\}-\#\{\text{juntas}\},
+\]
+válido porque los dos sucesos son disjuntos y su unión es todo el conjunto de anagramas. Cuando la
+condición es más fuerte (``ningún par de ellas adyacente''), se usan huecos: se colocan primero las otras
+letras, lo que crea espacios (uno a cada extremo y uno entre cada dos letras consecutivas), y luego se
+eligen huecos distintos para las letras prohibidas, con lo cual queda garantizado que ninguna queda pegada
+a otra.
+
+\medskip
+\textbf{(4) Argumento de simetría cuando se fija un orden.} Si se exige que ciertas $k$ letras
+\emph{distintas} aparezcan en un orden concreto (alfabético, por ejemplo), se cuenta todo sin restricción
+y se divide entre $k!$. La razón: agrupe todos los anagramas en familias, donde dos anagramas están en la
+misma familia si se obtienen uno del otro permutando únicamente esas $k$ letras entre sus mismas
+posiciones. Cada familia tiene exactamente $k!$ miembros y en cada familia hay \emph{exactamente uno} con
+las $k$ letras en el orden pedido. Luego el número buscado es $\text{total}/k!$. Si las $k$ letras no
+fueran todas distintas la división sería distinta, porque las familias tendrían menos elementos.
+
+\medskip
+\textbf{(5) Restricciones de posición.} Cuando el enunciado dice ``las vocales van después de la posición
+$p$'' o ``las vocales están en los primeros $q$ lugares'', el método es: primero decidir \emph{qué
+casillas} recibirán vocales (una combinación), luego ordenar las vocales dentro de esas casillas
+(permutación con repetición) y luego ordenar las consonantes en las casillas sobrantes. Los tres pasos son
+independientes, así que se multiplican.
+
+\medskip
+\textbf{(6) Probabilidad clásica.} Si todos los anagramas son igualmente probables, la regla de Laplace da
+\[
+P(A)=\frac{\#\{\text{casos favorables}\}}{\#\{\text{casos totales}\}},
+\]
+de modo que toda probabilidad de esta sección se obtiene dividiendo dos conteos ya calculados.
+\end{teo}
+
+\begin{tip}
+Fórmulas de bolsillo para toda la sección:
+\[
+\begin{aligned}
+\text{Permutación simple:}&\quad n!\\
+\text{Permutación con repetición:}&\quad \frac{n!}{n_1!\,n_2!\cdots n_k!}\\
+\text{Bloque de $m$ letras juntas:}&\quad (\text{permut. de los } n-m+1 \text{ objetos})\times(\text{permut. internas})\\
+\text{No juntas:}&\quad \text{total}-\text{juntas}\\
+\text{$k$ letras distintas en orden fijo:}&\quad \frac{\text{total}}{k!}\\
+\text{Combinación (elegir sin orden):}&\quad \binom{n}{r}=\frac{n!}{r!\,(n-r)!}\\
+\text{Laplace:}&\quad P(A)=\frac{|A|}{|\Omega|}
+\end{aligned}
+\]
+Antes de aplicar cualquiera de ellas: \textbf{haga el inventario de letras}. Escriba el total $n$ y la
+multiplicidad de cada letra, y verifique que las multiplicidades sumen $n$. Si ese inventario está mal,
+todo lo demás está mal.
+\end{tip}
+
+% ============================================================
+\section*{Ejercicio 14}
+
+\begin{quote}
+Considere la palabra \textbf{ENAJENACION} ¿Cuántos anagramas se pueden formar a partir de las letras de
+esta palabra? en los cuales:\\
+a) No hay restricción. \hfill R/ 1\,663\,200\\
+b) Las vocales deben ir juntas en cualquier orden y las N también juntas. \hfill R/ 4\,320\\
+c) Las N no están juntas. \hfill R/ 1\,572\,480\\
+d) Las vocales deben ir después de la tercera posición. \hfill R/ 100\,800
+\end{quote}
+
+\begin{paso}{Paso 1 --- Inventario de letras de ENAJENACION}
+\textbf{Qué hago:} deletreo la palabra letra por letra y cuento cuántas veces aparece cada una. Este
+inventario es el dato de entrada de todos los incisos, así que se hace una sola vez y con cuidado:
+\[
+\text{E}\;\text{N}\;\text{A}\;\text{J}\;\text{E}\;\text{N}\;\text{A}\;\text{C}\;\text{I}\;\text{O}\;\text{N}
+\qquad\Longrightarrow\qquad n=11 .
+\]
+\[
+\text{N}\times 3,\quad \text{E}\times 2,\quad \text{A}\times 2,\quad
+\text{J}\times 1,\quad \text{C}\times 1,\quad \text{I}\times 1,\quad \text{O}\times 1 .
+\]
+
+\textbf{¿De dónde sale?} Únicamente del enunciado: es la palabra ENAJENACION escrita en once casillas.
+
+\textbf{¿Por qué?} La fórmula de permutación con repetición necesita $n$ y las multiplicidades $n_i$; sin
+ellas no se puede escribir el denominador. Además el inventario permite separar vocales de consonantes,
+que es lo que piden los incisos b) y d).
+
+\textbf{¿Qué tomamos?} $n=11$ con multiplicidades $3,2,2,1,1,1,1$. Verificación obligatoria:
+$3+2+2+1+1+1+1=11=n$. Además: vocales $=\{$E, E, A, A, I, O$\}$, o sea $6$ vocales; consonantes
+$=\{$N, N, N, J, C$\}$, o sea $5$ consonantes, y $6+5=11$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): anagramas sin restricción}
+\textbf{Qué hago:} aplico directamente la permutación con repetición sobre las $11$ letras, dividiendo
+entre los factoriales de las tres letras que se repiten (N tres veces, E dos veces, A dos veces):
+\[
+\frac{11!}{3!\,2!\,2!}=\frac{39\,916\,800}{6\cdot 2\cdot 2}=\frac{39\,916\,800}{24}=1\,663\,200 .
+\]
+
+\textbf{¿De dónde sale?} El $11$ y los exponentes $3,2,2$ salen del inventario del Paso 1. El valor
+$11!=39\,916\,800$ y $3!=6$, $2!=2$ son aritmética directa.
+
+\textbf{¿Por qué?} Si las once letras fueran distintas habría $11!$ ordenamientos. Pero al intercambiar
+entre sí las tres N la palabra escrita no cambia, y eso ocurre de $3!=6$ maneras por cada palabra; lo
+mismo con las dos E ($2!$ maneras) y las dos A ($2!$ maneras). Cada palabra distinta fue contada entonces
+$3!\cdot 2!\cdot 2!=24$ veces dentro de $11!$, y por eso se divide entre $24$.
+
+\textbf{¿Qué tomamos?} $\;1\,663\,200$ anagramas. Este número será además el espacio total en los incisos
+que usan complemento.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso b): dos bloques simultáneos (vocales juntas y N juntas)}
+\textbf{Qué hago:} encierro las seis vocales en una caja $V=[\text{E,E,A,A,I,O}]$ y las tres N en otra
+caja $W=[\text{N,N,N}]$. Las letras que quedan sueltas son las consonantes J y C. Cuento primero los
+ordenamientos de los objetos y después los ordenamientos internos de cada caja:
+\[
+\underbrace{4!}_{\text{objetos } V,\;W,\;\text{J},\;\text{C}}\times
+\underbrace{\frac{6!}{2!\,2!}}_{\text{dentro de }V}\times
+\underbrace{\frac{3!}{3!}}_{\text{dentro de }W}
+=24\times\frac{720}{4}\times 1=24\times 180=4\,320 .
+\]
+
+\textbf{¿De dónde sale?} Las seis vocales y las tres N salen del inventario; J y C son las únicas
+consonantes que no son N. Objetos $=1$ (caja $V$) $+\,1$ (caja $W$) $+\,2$ (J y C) $=4$. Dentro de $V$ hay
+$6$ letras con E$\times2$ y A$\times2$; dentro de $W$ las tres letras son iguales.
+
+\textbf{¿Por qué?} Cada caja se cuenta como un solo objeto porque la condición ``van juntas'' obliga a que
+ocupen casillas consecutivas: lo único que queda libre es \emph{en qué lugar de la fila} está el bloque
+respecto de las demás piezas, y eso es exactamente un ordenamiento de $4$ objetos. Después, para cada uno
+de esos $24$ ordenamientos, el interior del bloque puede verse de $180$ formas distintas y todas siguen
+cumpliendo la condición; como la elección interna no depende de la externa, se multiplica. Las tres N
+aportan factor $1$ porque al ser iguales solo producen la palabra NNN.
+
+\textbf{¿Qué tomamos?} $\;4\,320$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso c): las N no están juntas, vía complemento}
+\textbf{Qué hago:} cuento primero el suceso contrario (las tres N seguidas) con la técnica del bloque y
+luego lo resto del total del Paso 2. El bloque $[\text{NNN}]$ más las ocho letras restantes
+E, A, J, E, A, C, I, O da $9$ objetos, entre los cuales E se repite dos veces y A se repite dos veces:
+\[
+\#\{\text{N juntas}\}=\frac{9!}{2!\,2!}\times\frac{3!}{3!}=\frac{362\,880}{4}\times 1=90\,720 ,
+\]
+\[
+\#\{\text{N no juntas}\}=1\,663\,200-90\,720=1\,572\,480 .
+\]
+
+\textbf{¿De dónde sale?} El $1\,663\,200$ viene del inciso a). Los $9$ objetos son $8$ letras sueltas más
+la caja; las repeticiones $2!\,2!$ son las de E y A, que siguen sueltas y siguen siendo indistinguibles.
+
+\textbf{¿Por qué?} Todo anagrama cae en exactamente uno de dos casos: o las tres N están seguidas o no lo
+están. Son sucesos disjuntos que agotan el espacio, de modo que sus cardinales suman el total y basta
+restar. Contar directamente ``no juntas'' obligaría a separar en subcasos (dos juntas y una aparte, todas
+separadas), mientras que el complemento se resuelve con un solo bloque.
+
+\textbf{¿Qué tomamos?} $\;1\,572\,480$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso d): las vocales después de la tercera posición}
+\textbf{Qué hago:} traduzco la condición a una restricción sobre casillas. ``Las vocales van después de la
+tercera posición'' significa que en las posiciones $1$, $2$ y $3$ no puede haber ninguna vocal, es decir,
+esas tres casillas son consonantes. Como hay $5$ consonantes en total, quedan $2$ consonantes que se
+reparten libremente entre las posiciones $4,5,\dots,11$ ($8$ casillas). Entonces:
+\[
+\underbrace{\binom{8}{2}}_{\text{casillas de las 2 consonantes sobrantes}}\times
+\underbrace{\frac{5!}{3!}}_{\text{ordenar N,N,N,J,C}}\times
+\underbrace{\frac{6!}{2!\,2!}}_{\text{ordenar las 6 vocales}}
+=28\times\frac{120}{6}\times\frac{720}{4} .
+\]
+\[
+28\times 20=560,\qquad 560\times 180=100\,800 .
+\]
+
+\textbf{¿De dónde sale?} Las $5$ consonantes N, N, N, J, C y las $6$ vocales E, E, A, A, I, O salen del
+Paso 1. El $8$ es $11-3$, las casillas que quedan después de las tres primeras; el $2$ es $5-3$, las
+consonantes que sobran tras llenar las tres primeras casillas.
+
+\textbf{¿Por qué?} La estructura de la palabra queda determinada por tres decisiones independientes: (i)
+cuáles casillas son de consonante --- las tres primeras son obligatorias y las otras dos se eligen entre
+las ocho restantes, sin importar el orden en que se elijan, de ahí la combinación $\binom{8}{2}$; (ii) qué
+consonante concreta va en cada casilla de consonante, que es una permutación con repetición de N,N,N,J,C
+y por eso se divide entre $3!$; (iii) qué vocal va en cada casilla de vocal, permutación con repetición
+que se divide entre $2!\,2!$ por las dos E y las dos A. Al ser independientes, el principio del producto
+multiplica los tres resultados. Nótese que como las tres primeras casillas son forzosamente consonantes,
+no hay que elegirlas: ya vienen dadas por el enunciado.
+
+\textbf{¿Qué tomamos?} $\;100\,800$ anagramas.
+\end{paso}
+
+\begin{resp}
+a) $\mathbf{1\,663\,200}$\quad b) $\mathbf{4\,320}$\quad c) $\mathbf{1\,572\,480}$\quad
+d) $\mathbf{100\,800}$. Los cuatro valores coinciden con las respuestas oficiales.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 15}
+
+\begin{quote}
+Considere la palabra \textbf{PRESENTIMIENTO} ¿Cuántos anagramas se pueden formar a partir de las letras de
+esta palabra? en los cuales:\\
+a) No hay restricción. \hfill R/ 1\,816\,214\,400\\
+b) Las vocales se encuentran en los primeros 9 lugares. \hfill R/ 50\,803\,200\\
+c) Al menos dos letras iguales en los primeros tres lugares (no necesariamente juntas)
+\hfill R/ 33\,264\,000
+\end{quote}
+
+\begin{paso}{Paso 1 --- Inventario de letras de PRESENTIMIENTO}
+\textbf{Qué hago:} deletreo y cuento. La palabra tiene catorce letras:
+\[
+\text{P}\;\text{R}\;\text{E}\;\text{S}\;\text{E}\;\text{N}\;\text{T}\;\text{I}\;\text{M}\;\text{I}\;\text{E}\;\text{N}\;\text{T}\;\text{O}
+\qquad\Longrightarrow\qquad n=14 .
+\]
+\[
+\text{E}\times 3,\quad \text{N}\times 2,\quad \text{T}\times 2,\quad \text{I}\times 2,\quad
+\text{P}\times 1,\ \text{R}\times 1,\ \text{S}\times 1,\ \text{M}\times 1,\ \text{O}\times 1 .
+\]
+
+\textbf{¿De dónde sale?} Del enunciado, contando ocurrencia por ocurrencia: las E están en las posiciones
+$3$, $5$ y $11$; las N en $6$ y $12$; las T en $7$ y $13$; las I en $8$ y $10$.
+
+\textbf{¿Por qué?} Sin el inventario no hay denominador para la permutación con repetición, y en el
+inciso c) la lista de \emph{cuáles} letras se repiten es literalmente la lista de casos que hay que
+examinar.
+
+\textbf{¿Qué tomamos?} $n=14$, verificación $3+2+2+2+1+1+1+1+1=14$. Vocales: E, E, E, I, I, O, es decir
+$6$ vocales. Consonantes: P, R, S, N, T, M, N, T, es decir $8$ consonantes, con N$\times2$ y T$\times2$;
+$6+8=14$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): total de anagramas}
+\textbf{Qué hago:} permutación con repetición de $14$ letras con las multiplicidades $3,2,2,2$:
+\[
+\frac{14!}{3!\,2!\,2!\,2!}=\frac{87\,178\,291\,200}{6\cdot 2\cdot 2\cdot 2}
+=\frac{87\,178\,291\,200}{48}=1\,816\,214\,400 .
+\]
+
+\textbf{¿De dónde sale?} $n=14$ y las multiplicidades $3,2,2,2$ del Paso 1; $14!=87\,178\,291\,200$.
+
+\textbf{¿Por qué?} Mismo argumento del sobreconteo: las tres E se pueden permutar entre sus posiciones de
+$3!=6$ maneras sin alterar la palabra, y cada par de letras iguales (N, T, I) de $2!$ maneras. En total
+cada palabra aparece $6\cdot2\cdot2\cdot2=48$ veces dentro de $14!$, y dividir entre $48$ deja una sola
+copia de cada una.
+
+\textbf{¿Qué tomamos?} $\;1\,816\,214\,400$ anagramas. Es el espacio total del inciso c).
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso b): las 6 vocales dentro de los primeros 9 lugares}
+\textbf{Qué hago:} descompongo en tres decisiones independientes. Las $6$ vocales deben ocupar $6$ de las
+$9$ primeras casillas; las $3$ casillas sobrantes de ese bloque inicial y las $5$ casillas finales
+(posiciones $10$ a $14$) son todas de consonante:
+\[
+\underbrace{\binom{9}{6}}_{\text{cuáles de las 9 primeras son vocales}}\times
+\underbrace{\frac{6!}{3!\,2!}}_{\text{ordenar E,E,E,I,I,O}}\times
+\underbrace{\frac{8!}{2!\,2!}}_{\text{ordenar las 8 consonantes}} .
+\]
+Calculo cada factor:
+\[
+\binom{9}{6}=\binom{9}{3}=\frac{9\cdot 8\cdot 7}{3\cdot 2\cdot 1}=\frac{504}{6}=84,\qquad
+\frac{6!}{3!\,2!}=\frac{720}{6\cdot 2}=\frac{720}{12}=60,\qquad
+\frac{8!}{2!\,2!}=\frac{40\,320}{4}=10\,080 .
+\]
+\[
+84\times 60=5\,040,\qquad 5\,040\times 10\,080=50\,803\,200 .
+\]
+
+\textbf{¿De dónde sale?} El $9$ es el enunciado (``los primeros 9 lugares''); el $6$ es la cantidad de
+vocales del Paso 1; el $8$ es la cantidad de consonantes; las repeticiones $3!\,2!$ son las de E e I entre
+las vocales, y $2!\,2!$ las de N y T entre las consonantes.
+
+\textbf{¿Por qué?} La condición no dice \emph{dónde} exactamente va cada vocal, solo que ninguna se sale
+de las nueve primeras casillas. Elegir el conjunto de casillas vocálicas es una combinación (no importa el
+orden en que se seleccionan las casillas, importa cuáles son). Una vez fijado ese conjunto, repartir las
+seis vocales dentro es una permutación con repetición, y repartir las ocho consonantes en las ocho
+casillas que quedaron es otra permutación con repetición; ninguna afecta a la otra, así que el principio
+del producto multiplica los tres factores.
+
+\textbf{¿Qué tomamos?} $\;50\,803\,200$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso c): montar el conteo por casos según qué letra se repite}
+\textbf{Qué hago:} el suceso es ``entre las letras que ocupan las posiciones $1$, $2$ y $3$ hay al menos
+dos iguales''. Clasifico según el multiconjunto que queda en esas tres casillas: o bien es del tipo
+$\{X,X,X\}$ (las tres iguales), o bien del tipo $\{X,X,Y\}$ con $Y\neq X$ (exactamente dos iguales). Para
+cada caso, el conteo es
+\[
+(\text{ordenamientos del trío en las 3 casillas})\times(\text{permutaciones de las 11 letras restantes}).
+\]
+Los ordenamientos del trío son $3!/3!=1$ en el caso $\{X,X,X\}$ y $3!/2!=3$ en el caso $\{X,X,Y\}$.
+
+\textbf{¿De dónde sale?} Las letras que pueden repetirse son las del Paso 1 con multiplicidad
+$\geq 2$: E (tres veces), N, T e I (dos veces cada una). Solo E admite el caso de triple, porque es la
+única con multiplicidad $\geq 3$. Las once letras restantes son las catorce originales menos las tres
+usadas al frente.
+
+\textbf{¿Por qué?} Las tres primeras casillas y las once últimas se llenan de forma independiente una vez
+que se decide \emph{qué} letras van adelante; por eso el producto. Y los casos $\{X,X,X\}$ y $\{X,X,Y\}$
+con distintos $X$ o distintos $Y$ son disjuntos entre sí (describen contenidos diferentes de las tres
+primeras casillas), así que se suman sin riesgo de contar dos veces.
+
+\textbf{¿Qué tomamos?} La estructura de casos y el hecho de que el conteo del resto solo depende de qué
+letras se retiraron.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso c): un atajo aritmético para las permutaciones restantes}
+\textbf{Qué hago:} observo que no hace falta recalcular un factorial por caso. Si $D=3!\,2!\,2!\,2!=48$ es
+el denominador completo del Paso 2 y retiro dos copias de $X$ y una de $Y$, el nuevo denominador es
+\[
+D\cdot\frac{(m_X-2)!}{m_X!}\cdot\frac{(m_Y-1)!}{m_Y!}=\frac{D}{m_X(m_X-1)\,m_Y},
+\]
+donde $m_X$ y $m_Y$ son las multiplicidades originales. Por lo tanto
+\[
+\#\{\text{permut. restantes}\}=\frac{11!}{D/\big(m_X(m_X-1)m_Y\big)}=K\cdot m_X(m_X-1)\,m_Y,
+\]
+\[
+\text{donde}\qquad K=\frac{11!}{48}=\frac{39\,916\,800}{48}=831\,600 .
+\]
+Análogamente, para el triple $\{X,X,X\}$ el conteo restante es $K\cdot m_X(m_X-1)(m_X-2)$.
+
+\textbf{¿De dónde sale?} $D=48$ es el denominador del inciso a); $11!=39\,916\,800$; las multiplicidades
+$m_X,m_Y$ vienen del inventario.
+
+\textbf{¿Por qué?} Quitar una copia de una letra con multiplicidad $m$ cambia el factorial $m!$ por
+$(m-1)!$, es decir divide el denominador entre $m$; quitar dos copias lo divide entre $m(m-1)$. Dividir el
+denominador equivale a multiplicar el resultado, y como el numerador siempre es $11!$ (siempre quedan once
+letras), todo el conteo se reduce a multiplicar la constante $K$ por un producto de multiplicidades.
+
+\textbf{¿Qué tomamos?} La constante $K=831\,600$ y las reglas
+$\{X,X,Y\}\to 3K\,m_X(m_X-1)m_Y$ y $\{X,X,X\}\to K\,m_X(m_X-1)(m_X-2)$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso c): recorrer todos los casos y sumar}
+\textbf{Qué hago:} aplico las dos reglas del paso anterior a cada elección de $X$ (letra repetida) y $Y$
+(la tercera letra, distinta de $X$). Con $m_{\text{E}}=3$ y $m_{\text{N}}=m_{\text{T}}=m_{\text{I}}=2$:
+
+\medskip
+\emph{Caso triple $\{$E,E,E$\}$:} $\;K\cdot 3\cdot 2\cdot 1=831\,600\times 6=4\,989\,600$.
+
+\medskip
+\emph{Casos $\{$E,E,$Y\}$} (aquí $m_X(m_X-1)=3\cdot2=6$):
+\[
+Y\in\{\text{N},\text{T},\text{I}\}:\;3K\cdot 6\cdot 2=3\times831\,600\times12=29\,937\,600\ \text{cada uno}\;\Rightarrow\;3\times 29\,937\,600=89\,812\,800,
+\]
+\[
+Y\in\{\text{P},\text{R},\text{S},\text{M},\text{O}\}:\;3K\cdot 6\cdot 1=14\,968\,800\ \text{cada uno}\;\Rightarrow\;5\times 14\,968\,800=74\,844\,000 .
+\]
+Subtotal con $X=$E: $89\,812\,800+74\,844\,000=164\,656\,800$.
+
+\medskip
+\emph{Casos $\{X,X,Y\}$ con $X\in\{$N,T,I$\}$} (aquí $m_X(m_X-1)=2\cdot1=2$); para un $X$ fijo:
+\[
+Y=\text{E}:\;3K\cdot2\cdot3=14\,968\,800;\qquad
+Y\in\{\text{otras dos dobles}\}:\;3K\cdot2\cdot2=9\,979\,200\ \text{c/u};
+\]
+\[
+Y\in\text{los 5 singulares}:\;3K\cdot2\cdot1=4\,989\,600\ \text{c/u}\;\Rightarrow\;24\,948\,000 .
+\]
+Subtotal por cada $X$: $14\,968\,800+19\,958\,400+24\,948\,000=59\,875\,200$; y como hay tres letras
+dobles, $3\times 59\,875\,200=179\,625\,600$.
+
+\medskip
+\emph{Suma final:}
+\[
+4\,989\,600+164\,656\,800+179\,625\,600=349\,272\,000 .
+\]
+
+\textbf{¿De dónde sale?} Cada número es la regla del Paso 5 evaluada en las multiplicidades del Paso 1; la
+cantidad de opciones para $Y$ sale de contar cuántas letras distintas de $X$ hay de cada tipo.
+
+\textbf{¿Por qué?} Los casos forman una partición del suceso ``al menos dos iguales adelante'': si el trío
+tiene tres letras iguales cae en el caso triple, y si tiene exactamente dos iguales queda determinado por
+la pareja $(X,Y)$. Ninguna palabra se cuenta dos veces porque el contenido de las tres primeras casillas
+determina de manera única el caso al que pertenece, y por eso se aplica el principio de la suma.
+
+\textbf{¿Qué tomamos?} $\;349\,272\,000$ anagramas según este desarrollo.
+\end{paso}
+
+\begin{nota}
+\textbf{Discrepancia con la respuesta oficial del inciso c).} La R/ oficial es $33\,264\,000$, mientras que
+el desarrollo anterior da $349\,272\,000$. Conviene señalar que \emph{exactamente el mismo método} se
+aplica al ejercicio 18 inciso b) (``al menos se tiene 2 letras iguales en los primeros 3 lugares'', palabra
+OTORRINOLARINGOLOGO) y allí reproduce la respuesta oficial $602\,983\,180\,800$ sin ninguna corrección,
+lo cual respalda el procedimiento. Como control adicional, el valor $349\,272\,000$ representa una
+proporción $349\,272\,000/1\,816\,214\,400\approx 0{,}19$ del total, coherente con una palabra que tiene
+cuatro letras repetidas; en cambio $33\,264\,000$ representa apenas $0{,}018$, es decir menos de dos de
+cada cien anagramas, lo cual es demasiado pequeño para este suceso. No se modifica la respuesta oficial:
+queda registrada como R/ $33\,264\,000$ y se deja constancia de la diferencia.
+\end{nota}
+
+\begin{resp}
+a) $\mathbf{1\,816\,214\,400}$\quad b) $\mathbf{50\,803\,200}$ (ambas coinciden con la R/ oficial).\quad
+c) el desarrollo da $\mathbf{349\,272\,000}$; la R/ oficial indicada es $33\,264\,000$ (véase la nota de
+discrepancia).
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 16}
+
+\begin{quote}
+Considere la palabra \textbf{ESTUDIO} ¿Cuántos anagramas se obtienen si?\\
+a) No hay restricciones \hfill R/ 5\,040\\
+b) Debe empezar con vocal \hfill R/ 2\,880\\
+c) Inician en vocal y terminan en consonante \hfill R/ 1\,440\\
+d) Inician en vocal o terminan en consonante \hfill R/ 3\,600\\
+e) Tienen vocales en los primeros tres lugares \hfill R/ 576
+\end{quote}
+
+\begin{paso}{Paso 1 --- Inventario de letras de ESTUDIO}
+\textbf{Qué hago:} deletreo y verifico multiplicidades:
+\[
+\text{E}\;\text{S}\;\text{T}\;\text{U}\;\text{D}\;\text{I}\;\text{O}\qquad\Longrightarrow\qquad n=7,
+\]
+\[
+\text{E}\times1,\ \text{S}\times1,\ \text{T}\times1,\ \text{U}\times1,\ \text{D}\times1,\ \text{I}\times1,\ \text{O}\times1 .
+\]
+
+\textbf{¿De dónde sale?} Del enunciado. Al recorrer las siete letras no se repite ninguna.
+
+\textbf{¿Por qué?} Es el caso más simple: al no haber repeticiones, todos los denominadores de la
+permutación con repetición valen $1!=1$ y la fórmula se reduce a $n!$. Esto simplifica todos los incisos.
+
+\textbf{¿Qué tomamos?} $n=7$, todas distintas, con $1+1+1+1+1+1+1=7$. Vocales: E, U, I, O ($4$);
+consonantes: S, T, D ($3$); $4+3=7$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Incisos a) y b): total y primera letra vocal}
+\textbf{Qué hago:} para a) uso permutación simple; para b) fijo primero la casilla restringida y luego
+ordeno lo demás:
+\[
+\text{a)}\quad 7!=7\cdot6\cdot5\cdot4\cdot3\cdot2\cdot1=5\,040 ,
+\]
+\[
+\text{b)}\quad \underbrace{4}_{\text{vocal en la casilla 1}}\times\underbrace{6!}_{\text{las otras 6 letras}}=4\times 720=2\,880 .
+\]
+
+\textbf{¿De dónde sale?} El $7$ y el $4$ (cantidad de vocales) salen del Paso 1; el $6!$ porque tras
+colocar la primera letra quedan seis letras distintas para seis casillas.
+
+\textbf{¿Por qué?} La regla de oro con restricciones de posición es \emph{atender primero la casilla
+restringida}. Si primero ordenáramos libremente y luego quisiéramos imponer la condición, tendríamos que
+descartar; en cambio al elegir la vocal inicial (cuatro opciones) las seis casillas restantes ya no tienen
+ninguna restricción y admiten $6!$ ordenamientos, y el principio del producto los combina.
+
+\textbf{¿Qué tomamos?} a) $5\,040$; b) $2\,880$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso c): vocal al inicio y consonante al final}
+\textbf{Qué hago:} ahora hay dos casillas restringidas, la primera y la última, y son distintas entre sí,
+así que las lleno primero y luego reparto el resto:
+\[
+\underbrace{4}_{\text{vocal en la casilla 1}}\times\underbrace{3}_{\text{consonante en la casilla 7}}\times\underbrace{5!}_{\text{las 5 letras del medio}}
+=4\times3\times120=12\times120=1\,440 .
+\]
+
+\textbf{¿De dónde sale?} $4$ vocales y $3$ consonantes del inventario; $5!$ porque después de fijar dos
+letras quedan cinco letras distintas para las casillas $2$ a $6$.
+
+\textbf{¿Por qué?} Las dos elecciones no interfieren: una vocal usada al principio nunca reduce el número
+de consonantes disponibles al final, porque vocales y consonantes son conjuntos disjuntos. Por eso los
+factores $4$ y $3$ se multiplican tal cual. Si la condición hubiese sido ``empieza con vocal y termina con
+vocal'' el segundo factor sería $3$ y no $4$, porque ahí sí se gastaría una vocal.
+
+\textbf{¿Qué tomamos?} $\;1\,440$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso d): la disyuntiva, con inclusión--exclusión}
+\textbf{Qué hago:} llamo $A=\{$inicia en vocal$\}$ y $B=\{$termina en consonante$\}$. El enunciado pide
+$|A\cup B|$, y la ``o'' del español matemático es inclusiva. Necesito además $|B|$:
+\[
+|B|=\underbrace{3}_{\text{consonante final}}\times 6!=3\times720=2\,160 .
+\]
+\[
+|A\cup B|=|A|+|B|-|A\cap B|=2\,880+2\,160-1\,440=5\,040-1\,440=3\,600 .
+\]
+
+\textbf{¿De dónde sale?} $|A|=2\,880$ del inciso b), $|A\cap B|=1\,440$ del inciso c), y $|B|$ se calcula
+igual que $|A|$ pero fijando la última casilla con una de las tres consonantes.
+
+\textbf{¿Por qué?} Al sumar $|A|+|B|$, los anagramas que cumplen ambas condiciones quedan contados dos
+veces: una al contarlos dentro de $A$ y otra al contarlos dentro de $B$. Restar $|A\cap B|$ los devuelve a
+una sola aparición. Ese es exactamente el principio de inclusión--exclusión para dos conjuntos, y aquí es
+imprescindible porque $A$ y $B$ no son disjuntos (el inciso c) muestra que su intersección tiene
+$1\,440$ elementos).
+
+\textbf{¿Qué tomamos?} $\;3\,600$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso e): vocales en los primeros tres lugares}
+\textbf{Qué hago:} las casillas $1$, $2$ y $3$ deben llevar vocales; hay $4$ vocales disponibles y solo
+$3$ casillas, así que se trata de una permutación de $4$ elementos tomados de $3$ en $3$, y las cuatro
+casillas restantes reciben las cuatro letras que sobran (las tres consonantes y la vocal no usada):
+\[
+\underbrace{4\cdot3\cdot2}_{\text{vocales en las casillas 1,2,3}}\times\underbrace{4!}_{\text{casillas 4 a 7}}
+=24\times24=576 .
+\]
+
+\textbf{¿De dónde sale?} El $4\cdot3\cdot2$ es el principio del producto casilla por casilla: cuatro
+vocales para la primera, tres para la segunda porque ya se usó una, dos para la tercera. El $4!$ son las
+$7-3=4$ letras restantes en las $4$ casillas restantes.
+
+\textbf{¿Por qué?} La condición solo obliga a que \emph{esas} tres casillas sean vocálicas; no prohíbe que
+la cuarta vocal aparezca más adelante, y en efecto la vocal sobrante entra en el $4!$ junto con las
+consonantes sin ninguna restricción. Por eso no hay que separar en casos: todas las palabras válidas se
+generan una sola vez con este esquema.
+
+\textbf{¿Qué tomamos?} $\;576$ anagramas.
+\end{paso}
+
+\begin{resp}
+a) $\mathbf{5\,040}$\quad b) $\mathbf{2\,880}$\quad c) $\mathbf{1\,440}$\quad d) $\mathbf{3\,600}$\quad
+e) $\mathbf{576}$. Los cinco valores coinciden con las respuestas oficiales.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 17}
+
+\begin{quote}
+Considere la palabra \textbf{INICIACION}. ¿Cuántos anagramas existen de esta palabra? si\\
+a) No hay restricciones. \hfill R/ 37\,800\\
+b) Las vocales deben ir juntas en cualquier orden. \hfill R/ 900\\
+c) La primer vocal debe ir después de la tercera posición. \hfill R/ 1\,260\\
+d) Hay al menos tres vocales I después del sexto lugar. \hfill R/ 4\,500
+\end{quote}
+
+\begin{paso}{Paso 1 --- Inventario de letras de INICIACION}
+\textbf{Qué hago:} deletreo la palabra y anoto multiplicidades:
+\[
+\text{I}\;\text{N}\;\text{I}\;\text{C}\;\text{I}\;\text{A}\;\text{C}\;\text{I}\;\text{O}\;\text{N}
+\qquad\Longrightarrow\qquad n=10,
+\]
+\[
+\text{I}\times4,\quad \text{N}\times2,\quad \text{C}\times2,\quad \text{A}\times1,\quad \text{O}\times1 .
+\]
+
+\textbf{¿De dónde sale?} Del enunciado: las I ocupan las posiciones $1,3,5,8$; las N las posiciones
+$2,10$; las C las posiciones $4,7$.
+
+\textbf{¿Por qué?} Es la base de los cuatro incisos; en particular el inciso d) habla explícitamente de
+``las vocales I'', y saber que son cuatro es lo que permite plantear los casos.
+
+\textbf{¿Qué tomamos?} $n=10$ y verificación $4+2+2+1+1=10$. Vocales: I, I, I, I, A, O ($6$);
+consonantes: N, N, C, C ($4$); $6+4=10$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): total de anagramas}
+\textbf{Qué hago:} permutación con repetición con multiplicidades $4,2,2$:
+\[
+\frac{10!}{4!\,2!\,2!}=\frac{3\,628\,800}{24\cdot2\cdot2}=\frac{3\,628\,800}{96}=37\,800 .
+\]
+
+\textbf{¿De dónde sale?} $n=10$ y las multiplicidades del Paso 1; $10!=3\,628\,800$ y $4!=24$.
+
+\textbf{¿Por qué?} Las cuatro I se pueden permutar entre sus casillas de $4!=24$ formas sin cambiar la
+palabra escrita, y cada par N,N y C,C de $2!$ formas; en total cada palabra distinta aparece $96$ veces
+dentro de $10!$, de modo que dividir entre $96$ deja exactamente una copia de cada anagrama.
+
+\textbf{¿Qué tomamos?} $\;37\,800$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso b): las seis vocales en un bloque}
+\textbf{Qué hago:} encierro las vocales I, I, I, I, A, O en una caja $V$ y la trato como un objeto más
+junto a las cuatro consonantes N, N, C, C:
+\[
+\underbrace{\frac{5!}{2!\,2!}}_{\text{objetos } V,\text{N},\text{N},\text{C},\text{C}}\times
+\underbrace{\frac{6!}{4!}}_{\text{dentro de }V}
+=\frac{120}{4}\times\frac{720}{24}=30\times30=900 .
+\]
+
+\textbf{¿De dónde sale?} Las $6$ vocales y las $4$ consonantes del Paso 1. Los objetos son $1+4=5$, entre
+los cuales las dos N son iguales y las dos C también, de ahí el $2!\,2!$. Dentro del bloque hay seis
+letras con I$\times4$, de ahí el $4!$.
+
+\textbf{¿Por qué?} El bloque se cuenta como un solo objeto porque la condición fuerza a las seis vocales a
+ocupar casillas consecutivas: lo único libre es la posición del grupo dentro de la fila. Para cada una de
+esas $30$ colocaciones, el interior del bloque admite $30$ configuraciones distintas y todas cumplen la
+condición; como la elección interna es independiente de la externa, el principio del producto multiplica
+ambas cantidades. Obsérvese que las repeticiones se dividen \emph{dos veces}: una entre los objetos
+(N,N,C,C) y otra dentro del bloque (las cuatro I), porque son sobreconteos de naturaleza distinta.
+
+\textbf{¿Qué tomamos?} $\;900$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso c): la primera vocal aparece después de la tercera posición}
+\textbf{Qué hago:} traduzco la condición. Que la \emph{primera} vocal esté después de la posición $3$
+equivale a decir que en las posiciones $1$, $2$ y $3$ no hay ninguna vocal, es decir que son consonantes.
+Como solo hay $4$ consonantes, tres de ellas quedan fijas al frente y la cuarta puede ir en cualquiera de
+las posiciones $4,5,\dots,10$:
+\[
+\underbrace{7}_{\text{casilla de la 4.\textsuperscript{a} consonante}}\times
+\underbrace{\frac{4!}{2!\,2!}}_{\text{ordenar N,N,C,C}}\times
+\underbrace{\frac{6!}{4!}}_{\text{ordenar las 6 vocales}}
+=7\times\frac{24}{4}\times\frac{720}{24}=7\times6\times30 .
+\]
+\[
+7\times6=42,\qquad 42\times30=1\,260 .
+\]
+
+\textbf{¿De dónde sale?} El $7$ es $10-3$, las casillas disponibles para la consonante sobrante; el $4$ y
+el $6$ son las cantidades de consonantes y vocales del Paso 1.
+
+\textbf{¿Por qué?} La condición no exige que la cuarta consonante esté también al frente, solo prohíbe
+vocales en las tres primeras casillas. Una vez elegido el conjunto de cuatro casillas consonánticas (las
+tres primeras, obligatorias, más una escogida entre siete), repartir N,N,C,C entre ellas es una
+permutación con repetición y repartir las seis vocales en las seis casillas restantes es otra; las tres
+decisiones son independientes, luego se multiplican.
+
+\textbf{¿Qué tomamos?} $\;1\,260$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso d): al menos tres letras I después del sexto lugar}
+\textbf{Qué hago:} ``después del sexto lugar'' son las posiciones $7$, $8$, $9$ y $10$: cuatro casillas.
+Hay cuatro I en total, así que ``al menos tres I ahí'' se parte en dos casos disjuntos: exactamente cuatro
+I o exactamente tres I en esas casillas.
+
+\medskip
+\emph{Caso $k=4$ (las cuatro I al final).} Las casillas $7$--$10$ quedan forzadas a ser I,I,I,I, lo cual se
+puede hacer de una sola forma. Las seis letras restantes N,N,C,C,A,O llenan las casillas $1$--$6$:
+\[
+1\times\frac{6!}{2!\,2!}=\frac{720}{4}=180 .
+\]
+
+\medskip
+\emph{Caso $k=3$.} Escojo cuáles tres de las cuatro casillas finales llevan I ($\binom{4}{3}=4$ maneras) y
+qué letra ocupa la casilla final sobrante (que no puede ser I). Según cuál sea esa letra, las seis
+restantes cambian:
+\[
+\begin{array}{ll}
+\text{sobrante}=\text{N}: & \text{restantes } \text{I},\text{N},\text{C},\text{C},\text{A},\text{O}\;\Rightarrow\;\dfrac{6!}{2!}=360,\\[6pt]
+\text{sobrante}=\text{C}: & \text{restantes } \text{I},\text{N},\text{N},\text{C},\text{A},\text{O}\;\Rightarrow\;\dfrac{6!}{2!}=360,\\[6pt]
+\text{sobrante}=\text{A}: & \text{restantes } \text{I},\text{N},\text{N},\text{C},\text{C},\text{O}\;\Rightarrow\;\dfrac{6!}{2!\,2!}=180,\\[6pt]
+\text{sobrante}=\text{O}: & \text{restantes } \text{I},\text{N},\text{N},\text{C},\text{C},\text{A}\;\Rightarrow\;\dfrac{6!}{2!\,2!}=180 .
+\end{array}
+\]
+Suma sobre la letra sobrante: $360+360+180+180=1\,080$; y multiplicando por las $\binom{4}{3}=4$
+elecciones de casillas: $4\times1\,080=4\,320$.
+
+\medskip
+\emph{Total:} $\;4\,320+180=4\,500 .$
+
+\textbf{¿De dónde sale?} El ``sexto lugar'' y el ``al menos tres'' son literales del enunciado; las cuatro
+I y el resto del inventario vienen del Paso 1. Los denominadores $2!$ o $2!\,2!$ dependen de cuáles pares
+de letras iguales sobrevivieron tras retirar la letra sobrante.
+
+\textbf{¿Por qué?} Los dos casos son disjuntos (una palabra no puede tener a la vez exactamente tres y
+exactamente cuatro I al final) y cubren todo el suceso ``al menos tres'', de modo que se suman por el
+principio de la suma. Dentro del caso $k=3$, la elección de las casillas es una combinación porque las
+tres I son indistinguibles y solo importa \emph{cuáles} casillas ocupan; después, elegir la letra sobrante
+y ordenar el resto son decisiones independientes que se multiplican. Es indispensable separar según cuál
+letra es la sobrante, porque el conteo de las seis restantes cambia: quitar una N rompe el par de N y hace
+desaparecer un $2!$ del denominador.
+
+\textbf{¿Qué tomamos?} $\;4\,500$ anagramas.
+\end{paso}
+
+\begin{resp}
+a) $\mathbf{37\,800}$\quad b) $\mathbf{900}$\quad c) $\mathbf{1\,260}$\quad d) $\mathbf{4\,500}$.
+Los cuatro valores coinciden con las respuestas oficiales.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 18}
+
+\begin{quote}
+Considere la palabra \textbf{OTORRINOLARINGOLOGO} ¿Cuántos anagramas existen sí?\\
+a) No hay restricciones \hfill R/ 1\,759\,911\,753\,600\\
+b) Al menos se tiene 2 letras iguales en los primeros 3 lugares \hfill R/ 602\,983\,180\,800\\
+c) Las letras L no se encuentren juntas \hfill R/ 1\,574\,657\,884\,800\\
+d) Se comienza con las letras R o G y las letras T, L, I, L, I deben ir juntas en cualquier orden
+\hfill R/ 756\,756\,000\\
+e) Se comienza con las letras T o A y las letras A, L, I, L, I deben ir juntas en cualquier orden
+\hfill R/ 181\,621\,440
+\end{quote}
+
+\begin{paso}{Paso 1 --- Inventario de letras de OTORRINOLARINGOLOGO}
+\textbf{Qué hago:} deletreo la palabra numerando las casillas para no perder ninguna letra:
+\[
+\underset{1}{\text{O}}\;\underset{2}{\text{T}}\;\underset{3}{\text{O}}\;\underset{4}{\text{R}}\;\underset{5}{\text{R}}\;
+\underset{6}{\text{I}}\;\underset{7}{\text{N}}\;\underset{8}{\text{O}}\;\underset{9}{\text{L}}\;\underset{10}{\text{A}}\;
+\underset{11}{\text{R}}\;\underset{12}{\text{I}}\;\underset{13}{\text{N}}\;\underset{14}{\text{G}}\;\underset{15}{\text{O}}\;
+\underset{16}{\text{L}}\;\underset{17}{\text{O}}\;\underset{18}{\text{G}}\;\underset{19}{\text{O}}
+\]
+de donde $n=19$ y las multiplicidades son
+\[
+\text{O}\times6,\quad \text{R}\times3,\quad \text{I}\times2,\quad \text{N}\times2,\quad
+\text{L}\times2,\quad \text{G}\times2,\quad \text{T}\times1,\quad \text{A}\times1 .
+\]
+
+\textbf{¿De dónde sale?} De leer la palabra del enunciado. Las O están en las casillas
+$1,3,8,15,17,19$; las R en $4,5,11$; las I en $6,12$; las N en $7,13$; las L en $9,16$; las G en $14,18$;
+T y A aparecen una sola vez, en $2$ y $10$.
+
+\textbf{¿Por qué?} Con una palabra de diecinueve letras el inventario es lo único que evita errores, y
+todos los incisos dependen de él: el b) necesita la lista de letras repetidas, el c) que L aparece dos
+veces, y el d) y e) necesitan saber cuántas copias quedan tras retirar las letras del bloque.
+
+\textbf{¿Qué tomamos?} $n=19$ y la verificación $6+3+2+2+2+2+1+1=19$. Se anota también el denominador
+completo, que reaparecerá constantemente:
+\[
+D=6!\,3!\,2!\,2!\,2!\,2!=720\cdot6\cdot2\cdot2\cdot2\cdot2=720\cdot6\cdot16=69\,120 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): total de anagramas}
+\textbf{Qué hago:} permutación con repetición de las $19$ letras con el denominador $D$ del paso anterior:
+\[
+\frac{19!}{6!\,3!\,2!\,2!\,2!\,2!}=\frac{121\,645\,100\,408\,832\,000}{69\,120}=1\,759\,911\,753\,600 .
+\]
+Comprobación de la división por multiplicación inversa:
+$1\,759\,911\,753\,600\times 69\,120=121\,645\,100\,408\,832\,000$.
+
+\textbf{¿De dónde sale?} $n=19$ y las multiplicidades del Paso 1; $19!=121\,645\,100\,408\,832\,000$ y
+$D=69\,120$.
+
+\textbf{¿Por qué?} Cada palabra escrita corresponde a $6!$ permutaciones de las seis O entre sus casillas,
+$3!$ de las tres R, y $2!$ de cada uno de los cuatro pares (I, N, L, G), todas invisibles en el papel. Por
+el principio del producto ese sobreconteo es $D=69\,120$ por palabra, idéntico para todas, y por eso la
+división es legítima.
+
+\textbf{¿Qué tomamos?} $\;1\,759\,911\,753\,600$ anagramas, que además será el total del que se resta en el
+inciso c).
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso b): plantear los casos y el atajo de multiplicidades}
+\textbf{Qué hago:} el suceso es ``en las casillas $1$, $2$, $3$ hay al menos dos letras iguales''. Igual
+que en el ejercicio 15, clasifico el contenido de esas tres casillas en dos tipos disjuntos: $\{X,X,X\}$
+(tres iguales, con $3!/3!=1$ ordenamiento) y $\{X,X,Y\}$ con $Y\neq X$ (dos iguales, con $3!/2!=3$
+ordenamientos). Para las $16$ letras restantes uso el atajo
+\[
+\#\{\text{permut. restantes}\}=K\cdot m_X(m_X-1)\,m_Y ,
+\]
+\[
+\text{donde}\qquad K=\frac{16!}{D}=\frac{20\,922\,789\,888\,000}{69\,120}=302\,702\,400 ,
+\]
+y para el triple $K\cdot m_X(m_X-1)(m_X-2)$.
+
+\textbf{¿De dónde sale?} $D=69\,120$ del Paso 1, $16!=20\,922\,789\,888\,000$ porque quedan $19-3=16$
+letras, y las multiplicidades $m_X,m_Y$ del inventario: $m_{\text{O}}=6$, $m_{\text{R}}=3$,
+$m_{\text{I}}=m_{\text{N}}=m_{\text{L}}=m_{\text{G}}=2$, $m_{\text{T}}=m_{\text{A}}=1$.
+
+\textbf{¿Por qué?} Retirar una copia de una letra de multiplicidad $m$ sustituye $m!$ por $(m-1)!$ en el
+denominador, o sea lo divide entre $m$; retirar dos copias lo divide entre $m(m-1)$. Como el numerador de
+las restantes siempre es $16!$, el conteo queda $16!/(D/(m_X(m_X-1)m_Y))=K\,m_X(m_X-1)m_Y$. Este atajo
+evita escribir un factorial distinto para cada uno de los casi cincuenta casos.
+
+\textbf{¿Qué tomamos?} $K=302\,702\,400$ y las dos reglas de conteo por caso.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso b): sumar sobre todas las letras repetidas}
+\textbf{Qué hago:} sumo primero los casos de dos iguales. Para $X$ fijo, al recorrer todas las letras
+$Y\neq X$ la suma de sus multiplicidades es $19-m_X$, porque entre las $19$ letras de la palabra las que no
+son $X$ son exactamente $19-m_X$. Entonces
+\[
+\#\{\text{dos iguales}\}=3K\sum_{X} m_X(m_X-1)\,(19-m_X),
+\]
+donde $X$ recorre las letras con multiplicidad $\geq 2$:
+\[
+\begin{array}{lll}
+X=\text{O}: & m_X(m_X-1)=6\cdot5=30, & 30\cdot(19-6)=30\cdot13=390,\\
+X=\text{R}: & 3\cdot2=6, & 6\cdot(19-3)=6\cdot16=96,\\
+X\in\{\text{I},\text{N},\text{L},\text{G}\}: & 2\cdot1=2, & 2\cdot(19-2)=2\cdot17=34 \ \text{cada una}.
+\end{array}
+\]
+\[
+\sum_X m_X(m_X-1)(19-m_X)=390+96+4\cdot34=390+96+136=622 ,
+\]
+\[
+\#\{\text{dos iguales}\}=3\times302\,702\,400\times622=908\,107\,200\times622=564\,842\,678\,400 .
+\]
+Desglosado por letra: $X=$O aporta $3K\cdot390=354\,161\,808\,000$; $X=$R aporta
+$3K\cdot96=87\,178\,291\,200$; cada una de I, N, L, G aporta $3K\cdot34=30\,875\,644\,800$, y las cuatro
+juntas $123\,502\,579\,200$.
+
+\medskip
+Ahora los triples. Solo O y R tienen multiplicidad $\geq3$:
+\[
+\#\{\text{tres iguales}\}=K\big[6\cdot5\cdot4+3\cdot2\cdot1\big]=K\,[120+6]=302\,702\,400\times126=38\,140\,502\,400 ,
+\]
+con $K\cdot120=36\,324\,288\,000$ para OOO y $K\cdot6=1\,816\,214\,400$ para RRR.
+
+\medskip
+\emph{Total del inciso b):}
+\[
+564\,842\,678\,400+38\,140\,502\,400=602\,983\,180\,800 .
+\]
+
+\textbf{¿De dónde sale?} Todo sale del inventario del Paso 1 y de la constante $K$ del Paso 3; el $19$ que
+aparece en $19-m_X$ es la longitud de la palabra.
+
+\textbf{¿Por qué?} Los casos son disjuntos: el contenido de las tres primeras casillas determina de forma
+única si el caso es triple o de par, y en el caso de par determina cuál letra es la repetida $X$ y cuál la
+distinta $Y$. Por el principio de la suma los cardinales se suman. La sustitución
+$\sum_{Y\neq X}m_Y=19-m_X$ es simplemente contar las letras de la palabra que no son $X$, y es válida
+porque en la fórmula $Y$ aparece solo a través de su multiplicidad.
+
+\textbf{¿Qué tomamos?} $\;602\,983\,180\,800$ anagramas, que coincide exactamente con la R/ oficial.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso c): las dos L no juntas, por complemento}
+\textbf{Qué hago:} cuento el complemento (las dos L pegadas) con la técnica del bloque y lo resto del
+total. El bloque $[\text{LL}]$ más las $17$ letras restantes (O$\times6$, R$\times3$, I$\times2$,
+N$\times2$, G$\times2$, T, A) da $18$ objetos:
+\[
+\#\{\text{L juntas}\}=\frac{18!}{6!\,3!\,2!\,2!\,2!}\times\frac{2!}{2!}
+=\frac{6\,402\,373\,705\,728\,000}{720\cdot6\cdot2\cdot2\cdot2}
+=\frac{6\,402\,373\,705\,728\,000}{34\,560}=185\,253\,868\,800 .
+\]
+\[
+\#\{\text{L no juntas}\}=1\,759\,911\,753\,600-185\,253\,868\,800=1\,574\,657\,884\,800 .
+\]
+
+\textbf{¿De dónde sale?} El total viene del inciso a). Los $18$ objetos son $17$ letras sueltas más la
+caja; el denominador $6!\,3!\,2!\,2!\,2!$ recoge las repeticiones que \emph{siguen} sueltas (O, R, I, N,
+G), y ya no aparece el $2!$ de las L porque las dos L están dentro de la caja.
+
+\textbf{¿Por qué?} El bloque se cuenta como un objeto porque las dos L deben quedar en casillas
+consecutivas y lo único libre es la posición del bloque respecto de las otras letras. El factor interno
+$2!/2!=1$ refleja que las dos L son iguales: LL es la única palabra posible dentro de la caja, así que no
+se multiplica por nada. Finalmente, ``L juntas'' y ``L no juntas'' son sucesos complementarios y disjuntos
+cuya unión es el total, de modo que la resta es exacta.
+
+\textbf{¿Qué tomamos?} $\;1\,574\,657\,884\,800$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso d): empieza con R o con G, y el bloque T, L, L, I, I}
+\textbf{Qué hago:} combino dos condiciones: una casilla fija (la primera) y un bloque de cinco letras
+juntas. Separo en dos casos disjuntos según cuál letra abre la palabra. El bloque contiene
+$\{$T, L, L, I, I$\}$, cuyas permutaciones internas son
+\[
+\frac{5!}{2!\,2!}=\frac{120}{4}=30 ,
+\]
+y ninguna de sus letras es R ni G, de modo que la letra inicial nunca pertenece al bloque.
+
+\medskip
+\emph{Caso R inicial.} Se gasta una R en la casilla $1$ y las cinco letras del bloque quedan encerradas.
+Sobran entonces O$\times6$, R$\times2$, N$\times2$, A$\times1$, G$\times2$, que son $13$ letras; junto con
+la caja son $14$ objetos para las casillas $2$ a $19$:
+\[
+\frac{14!}{6!\,2!\,2!\,2!}\times30=\frac{87\,178\,291\,200}{720\cdot2\cdot2\cdot2}\times30
+=\frac{87\,178\,291\,200}{5\,760}\times30=15\,135\,120\times30=454\,053\,600 .
+\]
+
+\medskip
+\emph{Caso G inicial.} Se gasta una G en la casilla $1$; sobran O$\times6$, R$\times3$, N$\times2$,
+A$\times1$, G$\times1$, que son $13$ letras, y con la caja $14$ objetos:
+\[
+\frac{14!}{6!\,3!\,2!}\times30=\frac{87\,178\,291\,200}{720\cdot6\cdot2}\times30
+=\frac{87\,178\,291\,200}{8\,640}\times30=10\,090\,080\times30=302\,702\,400 .
+\]
+
+\medskip
+\emph{Total:} $\;454\,053\,600+302\,702\,400=756\,756\,000 .$
+
+\textbf{¿De dónde sale?} Las letras del bloque las da el enunciado; lo que sobra en cada caso se obtiene
+restando del inventario del Paso 1 la letra inicial y las cinco del bloque. Nótese que $1+5+13=19$ en
+ambos casos.
+
+\textbf{¿Por qué?} Los dos casos son disjuntos porque la primera letra es R o es G, nunca las dos a la vez,
+y por el principio de la suma se suman. Hay que separarlos porque el denominador cambia: al gastar una R
+quedan dos R y el factor pasa de $3!$ a $2!$; al gastar una G queda una sola G y su factor pasa de $2!$ a
+$1!$, mientras las tres R conservan su $3!$. Dentro de cada caso, la caja se cuenta como un objeto (decide
+\emph{dónde} está el grupo) y luego se multiplica por sus $30$ configuraciones internas (deciden
+\emph{cómo} se ve el grupo), que son independientes de la posición.
+
+\textbf{¿Qué tomamos?} $\;756\,756\,000$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Inciso e): empieza con T o con A, y el bloque A, L, L, I, I}
+\textbf{Qué hago:} de nuevo dos casos disjuntos, pero ahora con una particularidad decisiva: la letra A
+\emph{pertenece} al bloque y solo hay una A en toda la palabra. Las permutaciones internas del bloque
+$\{$A, L, L, I, I$\}$ son $5!/(2!\,2!)=30$.
+
+\medskip
+\emph{Caso T inicial.} La T es única y no está en el bloque, así que se coloca en la casilla $1$ y el
+bloque queda libre. Sobran O$\times6$, R$\times3$, N$\times2$, G$\times2$, o sea $13$ letras, y con la caja
+$14$ objetos para las casillas $2$ a $19$:
+\[
+\frac{14!}{6!\,3!\,2!\,2!}\times30=\frac{87\,178\,291\,200}{720\cdot6\cdot2\cdot2}\times30
+=\frac{87\,178\,291\,200}{17\,280}\times30=5\,045\,040\times30=151\,351\,200 .
+\]
+
+\medskip
+\emph{Caso A inicial.} Si la palabra comienza con A, y la A está obligada a viajar dentro del bloque,
+entonces el bloque entero ocupa las casillas $1$ a $5$ y además la A debe ser la primera letra del bloque.
+Con la A fijada en la casilla $1$, dentro del bloque quedan L, L, I, I para las casillas $2$ a $5$:
+\[
+\frac{4!}{2!\,2!}=\frac{24}{4}=6 .
+\]
+Las restantes $14$ letras (O$\times6$, T$\times1$, R$\times3$, N$\times2$, G$\times2$) ocupan las casillas
+$6$ a $19$:
+\[
+\frac{14!}{6!\,3!\,2!\,2!}=5\,045\,040 ,
+\qquad\text{y el caso aporta}\quad 6\times 5\,045\,040=30\,270\,240 .
+\]
+
+\medskip
+\emph{Total:} $\;151\,351\,200+30\,270\,240=181\,621\,440 .$
+
+\textbf{¿De dónde sale?} El bloque y las letras iniciales permitidas los da el enunciado. En el caso T las
+letras sobrantes son el inventario menos T y menos A, L, L, I, I. En el caso A, la posición del bloque ya
+no es libre: queda determinada por la exigencia de que la palabra empiece en A.
+
+\textbf{¿Por qué?} Aquí no se puede aplicar el esquema del inciso d) mecánicamente. En el caso A, si se
+tratara la caja como un objeto móvil se contarían palabras en las que el bloque está en el medio y la
+palabra empieza con otra letra, lo cual viola el enunciado; y también se contarían configuraciones en las
+que la A no es la primera letra del bloque, con lo que la palabra empezaría por L o por I. Al haber una
+sola A, la condición ``empieza con A'' clava el bloque al inicio y clava la A en la primera posición
+interna; lo único que queda libre son las cuatro letras interiores del bloque y las catorce de la cola, y
+esas dos elecciones sí son independientes, así que se multiplican. Los dos casos siguen siendo disjuntos
+porque la primera letra es T o es A, nunca ambas.
+
+\textbf{¿Qué tomamos?} $\;181\,621\,440$ anagramas.
+\end{paso}
+
+\begin{resp}
+a) $\mathbf{1\,759\,911\,753\,600}$\quad b) $\mathbf{602\,983\,180\,800}$\quad
+c) $\mathbf{1\,574\,657\,884\,800}$\quad d) $\mathbf{756\,756\,000}$\quad e) $\mathbf{181\,621\,440}$.
+Los cinco valores coinciden con las respuestas oficiales.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 19}
+
+\begin{quote}
+Considere la palabra \textbf{PERMUTACION} ¿Cuántos anagramas se pueden construir sí?\\
+a) No hay restricción \hfill R/ 39\,916\,800\\
+b) Las vocales van juntas (en cualquier orden) \hfill R/ 604\,800\\
+c) ¿Cuál es la probabilidad de que las vocales estén juntas (en cualquier orden)? \hfill R/ $\dfrac{1}{66}$\\
+d) Las consonantes van juntas (en cualquier orden) \hfill R/ 518\,400\\
+e) ¿Cuál es la probabilidad de que las consonantes de la palabra estén juntas (en cualquier orden)?
+\hfill R/ $\dfrac{1}{77}$\\
+f) Las vocales van juntas (en cualquier orden) y las consonantes van juntas (en cualquier orden)
+\hfill R/ 172\,800\\
+g) ¿Cuál es la probabilidad de que las vocales estén juntas (en cualquier orden) y las consonantes estén
+juntas (en cualquier orden)? \hfill R/ $\dfrac{1}{231}$\\
+h) Las vocales van juntas (en cualquier orden) o las consonantes van juntas (en cualquier orden)
+\hfill R/ 950\,400\\
+i) ¿Cuál es la probabilidad de que las vocales estén juntas (en cualquier orden) o las consonantes estén
+juntas (en cualquier orden)? \hfill R/ $\dfrac{1}{42}$\\
+j) Las vocales aparecen en orden alfabético. \hfill R/ 332\,640\\
+k) Las vocales deben ir después de la segunda posición \hfill R/ 10\,886\,400\\
+l) Hay por lo menos 2 vocales después de la quinta posición \hfill R/ 2\,678\,400
+\end{quote}
+
+\begin{paso}{Paso 1 --- Inventario de letras de PERMUTACION}
+\textbf{Qué hago:} deletreo la palabra y verifico si hay repeticiones:
+\[
+\text{P}\;\text{E}\;\text{R}\;\text{M}\;\text{U}\;\text{T}\;\text{A}\;\text{C}\;\text{I}\;\text{O}\;\text{N}
+\qquad\Longrightarrow\qquad n=11 ,
+\]
+\[
+\text{P}\times1,\ \text{E}\times1,\ \text{R}\times1,\ \text{M}\times1,\ \text{U}\times1,\ \text{T}\times1,\
+\text{A}\times1,\ \text{C}\times1,\ \text{I}\times1,\ \text{O}\times1,\ \text{N}\times1 .
+\]
+
+\textbf{¿De dónde sale?} Del enunciado. Al recorrer las once letras ninguna se repite: la palabra
+PERMUTACION es un pangrama parcial de once letras distintas.
+
+\textbf{¿Por qué?} Que no haya repeticiones es la observación más importante del ejercicio: todos los
+denominadores de la permutación con repetición valen $1$, así que se trabaja con permutaciones simples, y
+además el argumento de simetría del inciso j) se podrá aplicar sin ajustes porque las vocales involucradas
+son todas distintas.
+
+\textbf{¿Qué tomamos?} $n=11$, todas distintas, $1+1+\dots+1=11$. Vocales: E, U, A, I, O, es decir $5$
+vocales distintas. Consonantes: P, R, M, T, C, N, es decir $6$ consonantes distintas. Verificación
+$5+6=11$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): total de anagramas y espacio muestral}
+\textbf{Qué hago:} permutación simple de $11$ objetos distintos:
+\[
+11!=11\cdot10\cdot9\cdot8\cdot7\cdot6\cdot5\cdot4\cdot3\cdot2\cdot1 .
+\]
+Desarrollo por pasos: $11\cdot10=110$; $110\cdot9=990$; $990\cdot8=7\,920$; $7\,920\cdot7=55\,440$;
+$55\,440\cdot6=332\,640$; $332\,640\cdot5=1\,663\,200$; $1\,663\,200\cdot4=6\,652\,800$;
+$6\,652\,800\cdot3=19\,958\,400$; $19\,958\,400\cdot2=39\,916\,800$. Es decir
+\[
+11!=39\,916\,800 .
+\]
+
+\textbf{¿De dónde sale?} De $n=11$ letras distintas, según el Paso 1.
+
+\textbf{¿Por qué?} Hay $11$ candidatas para la primera casilla, $10$ para la segunda porque una letra ya se
+usó, $9$ para la tercera, y así sucesivamente; el principio del producto encadena las once elecciones y da
+el factorial. No hay que dividir por nada porque no existen dos letras iguales que se puedan intercambiar
+sin cambiar la palabra.
+
+\textbf{¿Qué tomamos?} $|\Omega|=39\,916\,800$. Este valor es a la vez la respuesta del inciso a) y el
+\textbf{espacio muestral} de los incisos de probabilidad: se supone que los $39\,916\,800$ anagramas son
+equiprobables, es decir que se elige uno al azar con la misma chance para todos, lo que permite usar la
+regla de Laplace.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso b): las cinco vocales en un bloque}
+\textbf{Qué hago:} encierro las vocales E, U, A, I, O en una caja $V$ y la trato como un objeto más junto
+a las seis consonantes:
+\[
+\underbrace{7!}_{\text{objetos } V,\text{P},\text{R},\text{M},\text{T},\text{C},\text{N}}\times
+\underbrace{5!}_{\text{dentro de }V}=5\,040\times120=604\,800 .
+\]
+
+\textbf{¿De dónde sale?} Los $5$ vocales y $6$ consonantes del Paso 1: los objetos son
+$1+6=7$; $7!=5\,040$ y $5!=120$.
+
+\textbf{¿Por qué?} La caja se cuenta como un objeto único porque ``juntas'' significa casillas
+consecutivas: fijado el orden relativo de la caja y las seis consonantes, las posiciones de todas las
+letras quedan determinadas salvo el arreglo interior. Y para cada uno de esos $5\,040$ arreglos exteriores
+el interior admite $5!=120$ órdenes distintos, todos válidos porque el enunciado dice ``en cualquier
+orden''. Las dos elecciones son independientes, así que se multiplican.
+
+\textbf{¿Qué tomamos?} $|A|=604\,800$, donde $A=\{$las vocales van juntas$\}$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso c): probabilidad de que las vocales estén juntas}
+\textbf{Qué hago:} aplico la regla de Laplace con el favorable del Paso 3 y el total del Paso 2:
+\[
+P(A)=\frac{|A|}{|\Omega|}=\frac{604\,800}{39\,916\,800}=\frac{1}{66} ,
+\]
+porque $39\,916\,800\div 604\,800=66$. En efecto, $604\,800\times66=604\,800\times60+604\,800\times6
+=36\,288\,000+3\,628\,800=39\,916\,800$.
+
+\textbf{¿De dónde sale?} El numerador es el conteo del inciso b) y el denominador el del inciso a). No hace
+falta ningún cálculo combinatorio nuevo.
+
+\textbf{¿Por qué?} El experimento consiste en escoger al azar uno de los anagramas de PERMUTACION, y todos
+tienen la misma probabilidad de salir porque no hay ninguna razón que privilegie a uno; el espacio muestral
+es finito y equiprobable. En esas condiciones la probabilidad de un suceso es el cociente entre la cantidad
+de resultados que lo cumplen y la cantidad total de resultados, que es precisamente la regla clásica de
+Laplace.
+
+\textbf{¿Qué tomamos?} $P(A)=\dfrac{1}{66}\approx0{,}01515$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Incisos d) y e): las seis consonantes juntas y su probabilidad}
+\textbf{Qué hago:} misma técnica del bloque, ahora con la caja $W$ que contiene las seis consonantes P, R,
+M, T, C, N; los objetos son la caja más las cinco vocales sueltas, o sea $1+5=6$:
+\[
+|B|=\underbrace{6!}_{\text{objetos } W,\text{E},\text{U},\text{A},\text{I},\text{O}}\times\underbrace{6!}_{\text{dentro de }W}
+=720\times720=518\,400 ,
+\]
+\[
+P(B)=\frac{518\,400}{39\,916\,800}=\frac{1}{77},
+\]
+ya que $518\,400\times77=518\,400\times70+518\,400\times7=36\,288\,000+3\,628\,800=39\,916\,800$.
+
+\textbf{¿De dónde sale?} Los $6$ y $5$ son las cantidades de consonantes y vocales del Paso 1; el total
+$39\,916\,800$ del Paso 2.
+
+\textbf{¿Por qué?} El razonamiento es idéntico al del bloque de vocales, con los papeles cambiados: la caja
+ocupa un lugar en una fila de seis objetos ($6!$ maneras) y por dentro las seis consonantes distintas se
+ordenan de $6!$ maneras. Es útil notar que el bloque de consonantes es \emph{menos} probable que el de
+vocales aunque tenga más permutaciones internas: al ser más largo tiene menos lugares posibles donde
+caber, y ese efecto pesa más.
+
+\textbf{¿Qué tomamos?} $|B|=518\,400$ y $P(B)=\dfrac{1}{77}$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Incisos f) y g): los dos bloques a la vez}
+\textbf{Qué hago:} si las vocales van juntas y las consonantes van juntas, la palabra queda formada por
+exactamente dos cajas pegadas: o el bloque de vocales primero y el de consonantes después, o al revés. Por
+tanto los objetos son solo $2$:
+\[
+|A\cap B|=\underbrace{2!}_{\text{orden de las dos cajas}}\times\underbrace{5!}_{\text{dentro de }V}\times\underbrace{6!}_{\text{dentro de }W}
+=2\times120\times720 .
+\]
+\[
+2\times120=240,\qquad 240\times720=172\,800 .
+\]
+\[
+P(A\cap B)=\frac{172\,800}{39\,916\,800}=\frac{1}{231},
+\]
+pues $172\,800\times231=172\,800\times200+172\,800\times31=34\,560\,000+5\,356\,800=39\,916\,800$.
+
+\textbf{¿De dónde sale?} Las cajas y sus tamaños vienen de los incisos b) y d); el $2!$ aparece porque no
+sobra ninguna letra suelta: los $5+6=11$ lugares están cubiertos por las dos cajas.
+
+\textbf{¿Por qué?} Al no haber letras sueltas, la única libertad exterior es cuál de las dos cajas va
+primero, y eso son $2!=2$ configuraciones. El resto es el interior de cada caja, independiente entre sí y
+del orden exterior, de donde el producto $2!\cdot5!\cdot6!$. La probabilidad sale otra vez de Laplace
+sobre el mismo espacio muestral equiprobable de $39\,916\,800$ anagramas.
+
+\textbf{¿Qué tomamos?} $|A\cap B|=172\,800$ y $P(A\cap B)=\dfrac{1}{231}$.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Incisos h) e i): la disyuntiva, con inclusión--exclusión}
+\textbf{Qué hago:} el enunciado pide $|A\cup B|$ con la ``o'' inclusiva, así que aplico
+inclusión--exclusión con los tres valores ya calculados:
+\[
+|A\cup B|=|A|+|B|-|A\cap B|=604\,800+518\,400-172\,800=1\,123\,200-172\,800=950\,400 ,
+\]
+\[
+P(A\cup B)=\frac{950\,400}{39\,916\,800}=\frac{1}{42},
+\]
+ya que $950\,400\times42=950\,400\times40+950\,400\times2=38\,016\,000+1\,900\,800=39\,916\,800$.
+
+\textbf{¿De dónde sale?} $|A|=604\,800$ del inciso b), $|B|=518\,400$ del inciso d) y
+$|A\cap B|=172\,800$ del inciso f).
+
+\textbf{¿Por qué?} Los sucesos $A$ y $B$ no son disjuntos: el inciso f) muestra que hay $172\,800$
+anagramas en los que ocurren ambas cosas. Al sumar $|A|+|B|$ esos anagramas se cuentan dos veces, una vez
+como miembros de $A$ y otra como miembros de $B$; restarlos una vez los deja contados exactamente una vez.
+Alternativamente se puede verificar con las probabilidades:
+$\frac{1}{66}+\frac{1}{77}-\frac{1}{231}=\frac{7}{462}+\frac{6}{462}-\frac{2}{462}=\frac{11}{462}=\frac{1}{42}$.
+
+\textbf{¿Qué tomamos?} $|A\cup B|=950\,400$ y $P(A\cup B)=\dfrac{1}{42}$.
+\end{paso}
+
+\begin{paso}{Paso 8 --- Inciso j): las vocales en orden alfabético, por simetría}
+\textbf{Qué hago:} pido que las cinco vocales, leídas de izquierda a derecha, aparezcan en el orden
+alfabético A, E, I, O, U. Cuento todo sin restricción y divido entre $5!$:
+\[
+\frac{11!}{5!}=\frac{39\,916\,800}{120}=332\,640 .
+\]
+
+\textbf{¿De dónde sale?} $11!$ es el total del inciso a) y $5!$ es el número de órdenes posibles de las
+cinco vocales, que son distintas según el Paso 1.
+
+\textbf{¿Por qué?} Agrupo los $39\,916\,800$ anagramas en familias: dos anagramas están en la misma familia
+si se obtienen uno del otro permutando \emph{únicamente} las vocales entre las mismas cinco casillas
+vocálicas, dejando las consonantes intactas. Cada familia tiene exactamente $5!=120$ miembros, porque las
+cinco vocales son distintas y cualquiera de sus $120$ órdenes produce un anagrama diferente. Dentro de cada
+familia hay \textbf{uno y solo uno} en el que las vocales quedan en orden alfabético. Por lo tanto la
+cantidad buscada es el número de familias, es decir $11!/5!$. La división entre $5!$ no viene de letras
+repetidas, sino de fijar un orden entre letras distintas: son dos motivos diferentes que llevan a la misma
+operación.
+
+\textbf{¿Qué tomamos?} $\;332\,640$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 9 --- Inciso k): las vocales después de la segunda posición}
+\textbf{Qué hago:} la condición obliga a que las casillas $1$ y $2$ no contengan vocales, es decir que
+sean consonantes. Lleno primero esas dos casillas restringidas y luego reparto libremente las nueve letras
+que sobran:
+\[
+\underbrace{6\cdot5}_{\text{consonantes en las casillas 1 y 2}}\times\underbrace{9!}_{\text{casillas 3 a 11}}
+=30\times362\,880=10\,886\,400 .
+\]
+
+\textbf{¿De dónde sale?} Las $6$ consonantes del Paso 1; el $5$ porque la segunda casilla ya no puede
+repetir la consonante usada; el $9!$ porque quedan $11-2=9$ letras distintas para $9$ casillas, y
+$9!=362\,880$.
+
+\textbf{¿Por qué?} Basta prohibir vocales en las dos primeras casillas: automáticamente todas las vocales
+quedan en las posiciones $3$ a $11$, que es lo que pide el enunciado. Las cuatro consonantes sobrantes no
+tienen restricción alguna y entran junto con las vocales en el $9!$. El orden de trabajo (primero las
+casillas restringidas) es esencial: si se ordenara primero el resto no se sabría cuántas consonantes
+quedan libres para el frente.
+
+\textbf{¿Qué tomamos?} $\;10\,886\,400$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 10 --- Inciso l): al menos 2 vocales después de la quinta posición}
+\textbf{Qué hago:} ``después de la quinta posición'' son las casillas $6,7,8,9,10,11$: seis casillas. Sea
+$k$ la cantidad de vocales que caen ahí. Como hay $5$ vocales en total y $5$ casillas al frente,
+$k$ puede valer $0,1,2,3,4,5$. Para un $k$ fijo:
+\[
+N(k)=\underbrace{\binom{6}{k}}_{\text{6 finales}}\times
+\underbrace{\binom{5}{5-k}}_{\text{5 iniciales}}\times
+\underbrace{5!}_{\text{ordenar vocales}}\times\underbrace{6!}_{\text{ordenar consonantes}} ,
+\]
+y $5!\cdot6!=120\cdot720=86\,400$. Los coeficientes son
+\[
+\begin{array}{lllllll}
+k: & 0 & 1 & 2 & 3 & 4 & 5\\
+\binom{6}{k}\binom{5}{5-k}: & 1\cdot1=1 & 6\cdot5=30 & 15\cdot10=150 & 20\cdot10=200 & 15\cdot5=75 & 6\cdot1=6
+\end{array}
+\]
+cuya suma es $1+30+150+200+75+6=462=\binom{11}{5}$, y en efecto
+$462\times86\,400=39\,916\,800=11!$, lo que confirma que los casos cubren todo el espacio.
+Entonces
+\[
+\#\{k\geq2\}=(150+200+75+6)\times86\,400=431\times86\,400=37\,238\,400 .
+\]
+Equivalentemente, por complemento:
+$\#\{k\geq2\}=39\,916\,800-(1+30)\times86\,400=39\,916\,800-2\,678\,400=37\,238\,400$.
+
+\textbf{¿De dónde sale?} El $6$ y el $5$ son las casillas finales e iniciales que produce el corte en la
+quinta posición; las $5$ vocales y $6$ consonantes vienen del Paso 1.
+
+\textbf{¿Por qué?} Fijar $k$ determina cuántas vocales van adelante ($5-k$) y por tanto qué casillas son
+vocálicas: se eligen $k$ de las seis finales y $5-k$ de las cinco iniciales, elecciones independientes que
+se multiplican, y son combinaciones porque solo importa \emph{cuáles} casillas, no en qué orden se
+seleccionan. Después se reparten las cinco vocales distintas entre sus casillas ($5!$) y las seis
+consonantes distintas entre las suyas ($6!$). Los valores de $k$ son disjuntos y exhaustivos, de modo que
+se suman los que cumplen $k\geq2$, o bien se resta del total lo que cumple $k\leq1$.
+
+\textbf{¿Qué tomamos?} $\;37\,238\,400$ anagramas según este desarrollo.
+\end{paso}
+
+\begin{nota}
+\textbf{Discrepancia con la respuesta oficial del inciso l).} La R/ oficial es $2\,678\,400$, y ese valor
+es exactamente el que aparece arriba como el \emph{complemento}: $2\,678\,400=(1+30)\times86\,400$ cuenta
+los anagramas con \textbf{a lo sumo una} vocal después de la quinta posición ($k=0$ o $k=1$), no los que
+tienen por lo menos dos. El suceso pedido es el complementario de ese, y su conteo es
+$39\,916\,800-2\,678\,400=37\,238\,400$. Un control de razonabilidad lo confirma: en una palabra con cinco
+vocales entre once letras, tener dos o más vocales en las últimas seis posiciones es lo habitual, con
+probabilidad $431/462\approx0{,}93$; la respuesta oficial correspondería a una probabilidad de
+$31/462\approx0{,}067$. No se corrige la respuesta oficial: queda registrada como R/ $2\,678\,400$ y se
+deja constancia de que corresponde al suceso contrario.
+\end{nota}
+
+\begin{resp}
+a) $\mathbf{39\,916\,800}$\quad b) $\mathbf{604\,800}$\quad c) $\mathbf{\frac{1}{66}}$\quad
+d) $\mathbf{518\,400}$\quad e) $\mathbf{\frac{1}{77}}$\quad f) $\mathbf{172\,800}$\quad
+g) $\mathbf{\frac{1}{231}}$\quad h) $\mathbf{950\,400}$\quad i) $\mathbf{\frac{1}{42}}$\quad
+j) $\mathbf{332\,640}$\quad k) $\mathbf{10\,886\,400}$.
+Todos coinciden con las respuestas oficiales. \quad
+l) el desarrollo da $\mathbf{37\,238\,400}$; la R/ oficial indicada es $2\,678\,400$ (véase la nota de
+discrepancia).
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 20}
+
+\begin{quote}
+¿Cuántas permutaciones se pueden formar con los números 0, 1, 3, 5, 6, 9? si:\\
+a) Los números 1, 3 y 5 están juntos. \hfill R/ 144\\
+b) El número 3 está después de la segunda posición y el número 6 debe ir en cualquier lugar que esté
+posterior al lugar del número 3 \hfill R/ 144\\
+c) Los números 3 y 6 deben ir separados por al menos un lugar \hfill R/ 480
+\end{quote}
+
+\begin{paso}{Paso 1 --- Inventario de los símbolos}
+\textbf{Qué hago:} listo los objetos que se van a permutar y cuento sus multiplicidades, igual que con las
+letras de una palabra:
+\[
+0,\;1,\;3,\;5,\;6,\;9\qquad\Longrightarrow\qquad n=6,
+\]
+\[
+0\times1,\quad 1\times1,\quad 3\times1,\quad 5\times1,\quad 6\times1,\quad 9\times1 .
+\]
+
+\textbf{¿De dónde sale?} Del enunciado, que da explícitamente los seis números.
+
+\textbf{¿Por qué?} Al no repetirse ningún símbolo, todos los denominadores valen $1$ y se trabaja con
+permutaciones simples. El total de permutaciones es entonces
+\[
+6!=6\cdot5\cdot4\cdot3\cdot2\cdot1=720 ,
+\]
+valor que servirá de referencia para el complemento del inciso c).
+
+\textbf{¿Qué tomamos?} $n=6$, todos distintos, con $1+1+1+1+1+1=6$, y el total $6!=720$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): los números 1, 3 y 5 juntos}
+\textbf{Qué hago:} encierro $1$, $3$ y $5$ en una caja y la trato como un solo objeto junto a los números
+sueltos $0$, $6$ y $9$:
+\[
+\underbrace{4!}_{\text{objetos caja},\,0,\,6,\,9}\times\underbrace{3!}_{\text{dentro de la caja}}
+=24\times6=144 .
+\]
+
+\textbf{¿De dónde sale?} Los tres números del bloque los da el enunciado; los sueltos son los otros tres
+del Paso 1. Objetos $=1+3=4$.
+
+\textbf{¿Por qué?} La caja se cuenta como un objeto porque ``están juntos'' obliga a que los tres ocupen
+lugares consecutivos, y así lo único libre en el exterior es la posición del grupo respecto de $0$, $6$ y
+$9$. Adentro los tres números pueden ordenarse de $3!=6$ formas y todas cumplen la condición; al ser
+independientes del exterior, se multiplica.
+
+\textbf{¿Qué tomamos?} $\;144$ permutaciones.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso b): el 3 después de la segunda posición y el 6 después del 3}
+\textbf{Qué hago:} llamo $p$ a la posición del número $3$. La condición exige $p\geq3$ y además que el
+número $6$ esté en una posición mayor que $p$. Recorro los valores posibles de $p$ y en cada caso cuento
+cuántos lugares admite el $6$:
+\[
+\begin{array}{lll}
+p=3: & \text{el 6 puede ir en } 4,5,6 & \Rightarrow\;3 \text{ opciones},\\
+p=4: & \text{el 6 puede ir en } 5,6 & \Rightarrow\;2 \text{ opciones},\\
+p=5: & \text{el 6 puede ir en } 6 & \Rightarrow\;1 \text{ opción},\\
+p=6: & \text{no queda lugar posterior} & \Rightarrow\;0 \text{ opciones}.
+\end{array}
+\]
+Total de parejas de posiciones válidas: $3+2+1+0=6$. Fijadas las casillas del $3$ y del $6$, los cuatro
+números restantes ($0$, $1$, $5$, $9$) llenan las cuatro casillas sobrantes de $4!$ maneras:
+\[
+6\times4!=6\times24=144 .
+\]
+
+\textbf{¿De dónde sale?} Las posiciones $1$ a $6$ salen de que hay seis casillas; la exigencia $p\geq3$ es
+literal del enunciado (``después de la segunda posición''); el $4!$ porque quedan $6-2=4$ números
+distintos para $4$ casillas.
+
+\textbf{¿Por qué?} Los casos según $p$ son disjuntos (el $3$ está en una única casilla) y cubren todas las
+posibilidades permitidas, así que por el principio de la suma se suman las opciones. Una vez elegidas las
+casillas del $3$ y del $6$, los cuatro números restantes no tienen ninguna restricción y el principio del
+producto multiplica por $4!$. Conviene notar que este resultado también se puede obtener por simetría: de
+las $4!\cdot\binom{4}{2}\cdot 2=\dots$ formas de colocar $3$ y $6$ con $p\geq3$, exactamente la mitad tiene
+al $6$ después del $3$; en efecto, con $p\geq3$ hay $4\cdot5=20$ pares ordenados de casillas distintas
+para $(3,6)$ y en $6$ de ellos el $6$ va después, lo que confirma la enumeración directa.
+
+\textbf{¿Qué tomamos?} $\;144$ permutaciones.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso c): el 3 y el 6 separados por al menos un lugar}
+\textbf{Qué hago:} ``separados por al menos un lugar'' significa que no pueden quedar en casillas
+contiguas. Cuento el complemento (el $3$ y el $6$ adyacentes) con la técnica del bloque y lo resto del
+total:
+\[
+\#\{3\text{ y }6\text{ adyacentes}\}=\underbrace{5!}_{\text{objetos caja},\,0,\,1,\,5,\,9}\times\underbrace{2!}_{36\text{ o }63}
+=120\times2=240 ,
+\]
+\[
+\#\{\text{separados}\}=720-240=480 .
+\]
+
+\textbf{¿De dónde sale?} El $720$ es el total del Paso 1; los objetos del bloque son la caja más los cuatro
+números que no son $3$ ni $6$, o sea $1+4=5$.
+
+\textbf{¿Por qué?} Una permutación cumple exactamente una de dos cosas: el $3$ y el $6$ están pegados o no
+lo están. Son sucesos disjuntos que agotan las $720$ permutaciones, así que basta restar. Contar
+directamente las posiciones no adyacentes obligaría a revisar casilla por casilla, mientras que el bloque
+resuelve el complemento en un solo cálculo; el factor $2!$ aparece porque adentro del bloque caben los dos
+órdenes $36$ y $63$, ambos adyacentes.
+
+\textbf{¿Qué tomamos?} $\;480$ permutaciones.
+\end{paso}
+
+\begin{resp}
+a) $\mathbf{144}$\quad b) $\mathbf{144}$\quad c) $\mathbf{480}$. Los tres valores coinciden con las
+respuestas oficiales.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 21}
+
+\begin{quote}
+¿Cuántos anagramas de tres letras se pueden formar con las letras $a,b,c,d,e,f,g,h,i$ si?\\
+a) No hay restricciones \hfill R/ 729\\
+b) Las letras no se pueden repetir y los anagramas deben empezar con vocal \hfill R/ 168\\
+c) Las letras no se pueden repetir y los anagramas deben terminar en consonante \hfill R/ 336\\
+d) Las letras no se pueden repetir y los anagramas deben empezar con vocal y terminar en consonante
+\hfill R/ 126
+\end{quote}
+
+\begin{paso}{Paso 1 --- Inventario del alfabeto disponible y de la longitud de la palabra}
+\textbf{Qué hago:} aquí no se reordena una palabra dada, sino que se construyen palabras de tres letras
+tomando letras de un alfabeto. Inventario del alfabeto:
+\[
+a,\;b,\;c,\;d,\;e,\;f,\;g,\;h,\;i\qquad\Longrightarrow\qquad 9 \text{ letras disponibles},
+\]
+\[
+\text{todas con multiplicidad } 1 \text{ en el alfabeto}:\quad 1+1+1+1+1+1+1+1+1=9 .
+\]
+La longitud de cada anagrama es $3$, es decir hay tres casillas por llenar.
+
+\textbf{¿De dónde sale?} Del enunciado: la lista de nueve letras y la frase ``anagramas de tres letras''.
+
+\textbf{¿Por qué?} Hay que distinguir dos cosas que aquí se confunden fácilmente: el tamaño del alfabeto
+($9$) y el tamaño de la palabra ($3$). Además, el inciso a) no prohíbe repetir (los incisos b), c) y d) sí
+lo aclaran explícitamente), lo cual cambia por completo la fórmula.
+
+\textbf{¿Qué tomamos?} $9$ letras disponibles y $3$ casillas. Vocales del alfabeto: $a$, $e$, $i$, es
+decir $3$ vocales. Consonantes: $b$, $c$, $d$, $f$, $g$, $h$, es decir $6$ consonantes. Verificación
+$3+6=9$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): tres casillas, con repetición permitida}
+\textbf{Qué hago:} lleno las tres casillas de forma independiente, cada una con cualquiera de las nueve
+letras:
+\[
+9\times9\times9=9^{3}=729 .
+\]
+
+\textbf{¿De dónde sale?} El $9$ del tamaño del alfabeto y el exponente $3$ de la longitud, ambos del
+Paso 1.
+
+\textbf{¿Por qué?} Al no prohibirse la repetición, elegir la letra de una casilla no consume ninguna
+letra: la segunda casilla vuelve a tener las nueve opciones completas, y lo mismo la tercera. El principio
+del producto encadena tres elecciones independientes de nueve opciones cada una, lo que da $9^3$. Que la
+respuesta oficial sea $729=9^3$ confirma que en este inciso la repetición está permitida; si estuviera
+prohibida el resultado sería $9\cdot8\cdot7=504$.
+
+\textbf{¿Qué tomamos?} $\;729$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso b): sin repetir letras y empezando con vocal}
+\textbf{Qué hago:} atiendo primero la casilla restringida (la primera) y luego las libres, descontando en
+cada paso las letras ya usadas:
+\[
+\underbrace{3}_{\text{vocal en la casilla 1}}\times\underbrace{8}_{\text{casilla 2}}\times\underbrace{7}_{\text{casilla 3}}
+=3\times56=168 .
+\]
+
+\textbf{¿De dónde sale?} El $3$ son las vocales $a$, $e$, $i$ del Paso 1; el $8$ es $9-1$ porque ya se usó
+una letra; el $7$ es $9-2$ porque ya se usaron dos.
+
+\textbf{¿Por qué?} Ahora la prohibición de repetir hace que cada elección consuma una letra del alfabeto,
+de ahí la cadena decreciente $8$, $7$. Se empieza por la casilla restringida porque solo así se conoce con
+certeza cuántas opciones quedan para las siguientes; si se ordenaran primero las casillas libres, el número
+de vocales disponibles para la primera casilla dependería de lo elegido y habría que separar en casos.
+
+\textbf{¿Qué tomamos?} $\;168$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso c): sin repetir letras y terminando en consonante}
+\textbf{Qué hago:} la casilla restringida es ahora la tercera, así que la lleno primero y después las dos
+libres:
+\[
+\underbrace{6}_{\text{consonante en la casilla 3}}\times\underbrace{8}_{\text{casilla 1}}\times\underbrace{7}_{\text{casilla 2}}
+=6\times56=336 .
+\]
+
+\textbf{¿De dónde sale?} El $6$ son las consonantes $b$, $c$, $d$, $f$, $g$, $h$ del Paso 1; el $8$ y el
+$7$ son las letras que quedan tras consumir una y dos letras respectivamente.
+
+\textbf{¿Por qué?} El principio del producto no exige llenar las casillas de izquierda a derecha: se pueden
+llenar en cualquier orden siempre que se lleve la cuenta de las letras gastadas. Conviene llenar la
+restringida primero para que las demás queden sin condiciones. Obsérvese que el resultado es el doble del
+inciso b) simplemente porque hay el doble de consonantes que de vocales, y el factor $8\cdot7$ es el mismo
+en ambos casos.
+
+\textbf{¿Qué tomamos?} $\;336$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso d): sin repetir, vocal al inicio y consonante al final}
+\textbf{Qué hago:} hay dos casillas restringidas, la primera y la tercera; las lleno ambas y después la
+casilla central:
+\[
+\underbrace{3}_{\text{vocal en la casilla 1}}\times\underbrace{6}_{\text{consonante en la casilla 3}}\times\underbrace{7}_{\text{casilla 2}}
+=3\times6\times7=18\times7=126 .
+\]
+
+\textbf{¿De dónde sale?} $3$ vocales y $6$ consonantes del Paso 1; el $7$ es $9-2$, las letras que quedan
+después de gastar una vocal y una consonante.
+
+\textbf{¿Por qué?} Los factores $3$ y $6$ se multiplican sin corrección porque vocales y consonantes son
+conjuntos disjuntos: gastar una vocal al inicio no reduce el número de consonantes disponibles al final.
+La casilla central admite cualquiera de las siete letras sobrantes, sean vocales o consonantes, porque el
+enunciado no le impone nada.
+
+\textbf{¿Qué tomamos?} $\;126$ anagramas.
+\end{paso}
+
+\begin{resp}
+a) $\mathbf{729}$\quad b) $\mathbf{168}$\quad c) $\mathbf{336}$\quad d) $\mathbf{126}$. Los cuatro valores
+coinciden con las respuestas oficiales.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 22}
+
+\begin{quote}
+¿Cuántos anagramas de tres letras se pueden formar con las letras $a$, $b$, $c$, $d$, $e$, $f$, $g$, $h$,
+$i$ si:\\
+a) No hay restricciones \hfill R/ 729\\
+b) Las letras no se pueden repetir y los anagramas deben empezar con vocal \hfill R/ 168\\
+c) Las letras no se pueden repetir y los anagramas deben terminar en consonante \hfill R/ 336\\
+d) Las letras no se pueden repetir y los anagramas deben empezar con vocal y terminar en consonante
+\hfill R/ 126
+\end{quote}
+
+\begin{nota}
+\textbf{Los ejercicios 21 y 22 son idénticos.} En la práctica original ambos plantean el mismo problema
+palabra por palabra --- el mismo alfabeto de nueve letras $a,b,c,d,e,f,g,h,i$, la misma longitud de tres
+letras y los mismos cuatro incisos --- y traen además exactamente las mismas respuestas oficiales
+($729$, $168$, $336$, $126$). Se trata, con toda probabilidad, de una repetición involuntaria en el
+documento. Aun así se resuelve de nuevo aquí de forma completa, tal como se pide, para que el ejercicio 22
+quede autocontenido y no dependa de la lectura del 21.
+\end{nota}
+
+\begin{paso}{Paso 1 --- Inventario del alfabeto y de las casillas}
+\textbf{Qué hago:} vuelvo a levantar el inventario, sin arrastrar nada del ejercicio anterior. El alfabeto
+disponible es
+\[
+a,\;b,\;c,\;d,\;e,\;f,\;g,\;h,\;i\qquad\Longrightarrow\qquad 9 \text{ letras},
+\]
+todas con multiplicidad $1$ ($1+1+1+1+1+1+1+1+1=9$), y cada anagrama tiene $3$ casillas.
+
+\textbf{¿De dónde sale?} Del enunciado del ejercicio 22, que enumera las nueve letras y fija la longitud
+en tres.
+
+\textbf{¿Por qué?} El inventario separa lo que decide cada inciso: cuántas opciones hay por casilla ($9$)
+y cuántas de esas opciones son vocales o consonantes. Igual que antes, hay que registrar que la
+prohibición de repetir aparece solo en los incisos b), c) y d).
+
+\textbf{¿Qué tomamos?} $9$ letras y $3$ casillas; vocales $a$, $e$, $i$ ($3$ en total) y consonantes
+$b$, $c$, $d$, $f$, $g$, $h$ ($6$ en total), con $3+6=9$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): sin restricciones, con repetición permitida}
+\textbf{Qué hago:} tres elecciones independientes entre nueve letras:
+\[
+9\times9\times9=9^{3}=81\times9=729 .
+\]
+
+\textbf{¿De dónde sale?} Los $9$ y el $3$ del Paso 1.
+
+\textbf{¿Por qué?} Como el inciso no prohíbe repetir, ninguna elección agota letras y las tres casillas
+conservan las nueve opciones; el principio del producto da $9^3$. La coincidencia con la respuesta oficial
+$729$ confirma esa lectura del enunciado.
+
+\textbf{¿Qué tomamos?} $\;729$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Incisos b) y c): una sola casilla restringida y sin repetición}
+\textbf{Qué hago:} lleno primero la casilla con condición y luego las dos libres, restando las letras ya
+consumidas:
+\[
+\text{b)}\quad \underbrace{3}_{\text{vocal al inicio}}\times 8\times 7=3\times56=168 ,
+\qquad
+\text{c)}\quad \underbrace{6}_{\text{consonante al final}}\times 8\times 7=6\times56=336 .
+\]
+
+\textbf{¿De dónde sale?} El $3$ y el $6$ son las cantidades de vocales y consonantes del Paso 1; el $8$ y
+el $7$ son $9-1$ y $9-2$, las letras que sobreviven después de usar una y dos.
+
+\textbf{¿Por qué?} Con la repetición prohibida cada casilla consume una letra del alfabeto, de modo que las
+opciones decrecen: $8$ para la segunda casilla que se llene y $7$ para la tercera. Se empieza por la casilla
+restringida para que las restantes queden totalmente libres y el conteo no se ramifique en casos.
+
+\textbf{¿Qué tomamos?} b) $168$ y c) $336$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso d): dos casillas restringidas y sin repetición}
+\textbf{Qué hago:} fijo simultáneamente la primera casilla (vocal) y la tercera (consonante), y dejo la
+central libre:
+\[
+\underbrace{3}_{\text{vocal al inicio}}\times\underbrace{6}_{\text{consonante al final}}\times\underbrace{7}_{\text{central}}
+=18\times7=126 .
+\]
+
+\textbf{¿De dónde sale?} $3$ vocales, $6$ consonantes y $7=9-2$ letras sobrantes, todo del Paso 1.
+
+\textbf{¿Por qué?} Las dos restricciones se aplican a conjuntos disjuntos de letras (vocales por un lado,
+consonantes por otro), de modo que las elecciones no se estorban y los factores $3$ y $6$ se multiplican
+tal cual. La casilla central toma cualquiera de las siete letras que quedan, sin distinción de tipo, porque
+el enunciado no le impone condición alguna.
+
+\textbf{¿Qué tomamos?} $\;126$ anagramas.
+\end{paso}
+
+\begin{resp}
+a) $\mathbf{729}$\quad b) $\mathbf{168}$\quad c) $\mathbf{336}$\quad d) $\mathbf{126}$. Los cuatro valores
+coinciden con las respuestas oficiales y, como era de esperar, con los del ejercicio 21.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 23}
+
+\begin{quote}
+Un colegio tiene 16 grupos de sétimo, 11 grupos de octavo y 9 grupos de noveno. Se desea elegir 5 grupos de
+tercer ciclo para que asistan a una actividad ¿de cuántas manera se pueden elegir los 5 grupos si?\\
+a) No hay restricciones \hfill R/ 376\,992\\
+b) Se deben elegir dos grupos de sétimo, dos de octavo y uno de noveno \hfill R/ 59\,400\\
+c) Se deben elegir al menos tres grupos de sétimo \hfill R/ 147\,168\\
+d) Se deben elegir a lo sumo dos grupos de octavo \hfill R/ 318\,780\\
+e) Se debe elegir por lo menos un grupo de cada sección \hfill R/ 232\,584
+\end{quote}
+
+\begin{paso}{Paso 1 --- Inventario de grupos y naturaleza del conteo}
+\textbf{Qué hago:} hago el inventario de la población de la que se elige, igual que con las letras de una
+palabra:
+\[
+\text{sétimo: }16,\qquad \text{octavo: }11,\qquad \text{noveno: }9
+\qquad\Longrightarrow\qquad 16+11+9=36 \text{ grupos en total},
+\]
+y se eligen $5$ de ellos. Los grupos son objetos \emph{distinguibles} (cada uno es un grupo concreto del
+colegio) y el orden en que se eligen no importa, porque solo se decide cuáles cinco asisten a la actividad.
+
+\textbf{¿De dónde sale?} Los tres números los da el enunciado; el $36$ es su suma y el $5$ es la cantidad
+de grupos que se van a elegir.
+
+\textbf{¿Por qué?} Que el orden no importe es lo que obliga a usar combinaciones y no permutaciones. Si se
+usara $36\cdot35\cdot34\cdot33\cdot32$ se contaría $5!$ veces cada selección, una por cada orden en que se
+pudo haber elegido el mismo quinteto; dividir entre $5!$ corrige ese sobreconteo, y ese cociente es
+justamente $\binom{36}{5}$.
+
+\textbf{¿Qué tomamos?} $36$ grupos repartidos en $16+11+9$, y selecciones de tamaño $5$ sin orden.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): elegir 5 grupos cualesquiera}
+\textbf{Qué hago:} una combinación de $36$ tomados de $5$ en $5$:
+\[
+\binom{36}{5}=\frac{36!}{5!\,31!}=\frac{36\cdot35\cdot34\cdot33\cdot32}{5\cdot4\cdot3\cdot2\cdot1} .
+\]
+Desarrollo el numerador: $36\cdot35=1\,260$; $1\,260\cdot34=42\,840$; $42\,840\cdot33=1\,413\,720$;
+$1\,413\,720\cdot32=45\,239\,040$. El denominador es $5!=120$. Entonces
+\[
+\binom{36}{5}=\frac{45\,239\,040}{120}=376\,992 .
+\]
+
+\textbf{¿De dónde sale?} El $36$ y el $5$ del Paso 1.
+
+\textbf{¿Por qué?} La fórmula $\binom{n}{r}=n!/(r!(n-r)!)$ cuenta subconjuntos: el numerador
+$36\cdot35\cdot34\cdot33\cdot32$ cuenta selecciones \emph{ordenadas} de cinco grupos distintos, y como cada
+subconjunto de cinco grupos se puede ordenar de $5!=120$ maneras, cada uno aparece $120$ veces; dividir
+entre $120$ deja una sola copia por subconjunto.
+
+\textbf{¿Qué tomamos?} $\;376\,992$ maneras, que además es el total del que se resta en el inciso d) y en
+el e).
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso b): dos de sétimo, dos de octavo y uno de noveno}
+\textbf{Qué hago:} la composición está fijada por sección, así que elijo dentro de cada sección por
+separado y multiplico:
+\[
+\binom{16}{2}\binom{11}{2}\binom{9}{1}
+=\frac{16\cdot15}{2}\cdot\frac{11\cdot10}{2}\cdot 9
+=120\times55\times9 .
+\]
+\[
+120\times55=6\,600,\qquad 6\,600\times9=59\,400 .
+\]
+
+\textbf{¿De dónde sale?} Los tamaños $16$, $11$, $9$ del Paso 1 y las cantidades $2$, $2$, $1$ del
+enunciado; nótese que $2+2+1=5$, la cantidad total pedida.
+
+\textbf{¿Por qué?} Las tres elecciones son independientes: escoger qué dos grupos de sétimo van no cambia
+en nada las opciones de octavo o de noveno, porque las secciones son conjuntos disjuntos de grupos. El
+principio del producto multiplica los tres factores. Dentro de cada sección se usa combinación porque
+tampoco importa el orden entre los grupos elegidos de una misma sección.
+
+\textbf{¿Qué tomamos?} $\;59\,400$ maneras.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso c): al menos tres grupos de sétimo}
+\textbf{Qué hago:} ``al menos tres de sétimo'' significa exactamente $3$, $4$ o $5$ grupos de sétimo. Estos
+tres casos son disjuntos, así que los cuento por separado y sumo. Los grupos que no son de sétimo son
+$11+9=20$:
+\[
+\binom{16}{3}\binom{20}{2}+\binom{16}{4}\binom{20}{1}+\binom{16}{5}\binom{20}{0} .
+\]
+Calculo cada combinación:
+\[
+\binom{16}{3}=\frac{16\cdot15\cdot14}{6}=\frac{3\,360}{6}=560,\qquad
+\binom{20}{2}=\frac{20\cdot19}{2}=190,
+\]
+\[
+\binom{16}{4}=\frac{16\cdot15\cdot14\cdot13}{24}=\frac{43\,680}{24}=1\,820,\qquad
+\binom{20}{1}=20,
+\]
+\[
+\binom{16}{5}=\frac{16\cdot15\cdot14\cdot13\cdot12}{120}=\frac{524\,160}{120}=4\,368,\qquad
+\binom{20}{0}=1 .
+\]
+Y sumo:
+\[
+560\times190=106\,400,\qquad 1\,820\times20=36\,400,\qquad 4\,368\times1=4\,368,
+\]
+\[
+106\,400+36\,400+4\,368=147\,168 .
+\]
+
+\textbf{¿De dónde sale?} El $16$ es el número de grupos de sétimo; el $20=11+9$ agrupa a todos los que no
+son de sétimo, porque el enunciado no distingue entre octavo y noveno en este inciso.
+
+\textbf{¿Por qué?} Fijado cuántos grupos de sétimo entran (digamos $k$), los $5-k$ restantes se eligen
+libremente entre los $20$ que no son de sétimo, y esas dos elecciones son independientes, de ahí el
+producto $\binom{16}{k}\binom{20}{5-k}$. Los valores $k=3,4,5$ describen selecciones distintas (una misma
+selección tiene un número único de grupos de sétimo), así que son disjuntos y se aplica el principio de la
+suma. Es importante \emph{no} intentar ``elegir tres de sétimo y luego dos cualesquiera de los 33
+restantes'': eso contaría varias veces las selecciones con cuatro o cinco grupos de sétimo.
+
+\textbf{¿Qué tomamos?} $\;147\,168$ maneras.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso d): a lo sumo dos grupos de octavo, por complemento}
+\textbf{Qué hago:} ``a lo sumo dos de octavo'' es $0$, $1$ o $2$ grupos de octavo; su complemento es ``tres
+o más de octavo'', que tiene menos casos ($3$, $4$, $5$). Cuento el complemento y resto del total. Los que
+no son de octavo son $16+9=25$:
+\[
+\#\{\geq3\text{ de octavo}\}=\binom{11}{3}\binom{25}{2}+\binom{11}{4}\binom{25}{1}+\binom{11}{5}\binom{25}{0} .
+\]
+\[
+\binom{11}{3}=\frac{11\cdot10\cdot9}{6}=165,\qquad \binom{25}{2}=\frac{25\cdot24}{2}=300,\qquad 165\times300=49\,500,
+\]
+\[
+\binom{11}{4}=\frac{11\cdot10\cdot9\cdot8}{24}=\frac{7\,920}{24}=330,\qquad 330\times25=8\,250,
+\]
+\[
+\binom{11}{5}=\frac{11\cdot10\cdot9\cdot8\cdot7}{120}=\frac{55\,440}{120}=462,\qquad 462\times1=462 .
+\]
+\[
+\#\{\geq3\text{ de octavo}\}=49\,500+8\,250+462=58\,212 ,
+\]
+\[
+\#\{\leq2\text{ de octavo}\}=376\,992-58\,212=318\,780 .
+\]
+
+\textbf{¿De dónde sale?} El $11$ son los grupos de octavo; el $25=16+9$ los que no son de octavo; el
+$376\,992$ es el total del inciso a).
+
+\textbf{¿Por qué?} Para cada selección de cinco grupos, la cantidad de grupos de octavo que contiene es un
+número entre $0$ y $5$; los casos ``$\leq2$'' y ``$\geq3$'' son disjuntos y cubren todas las posibilidades,
+de modo que sus cardinales suman el total y la resta es exacta. Se elige contar el complemento porque tiene
+tres términos igual que el directo pero con combinaciones más pequeñas, y sobre todo porque reutiliza el
+total ya calculado.
+
+\textbf{¿Qué tomamos?} $\;318\,780$ maneras.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso e): por lo menos un grupo de cada sección, con inclusión--exclusión}
+\textbf{Qué hago:} defino los sucesos ``falta una sección'': sea $F_7$ el conjunto de selecciones sin
+ningún grupo de sétimo, $F_8$ sin ninguno de octavo y $F_9$ sin ninguno de noveno. Lo pedido es el
+complemento de $F_7\cup F_8\cup F_9$:
+\[
+\#\{\text{al menos uno de cada sección}\}=\binom{36}{5}-|F_7\cup F_8\cup F_9| ,
+\]
+\[
+|F_7\cup F_8\cup F_9|=|F_7|+|F_8|+|F_9|-|F_7\cap F_8|-|F_7\cap F_9|-|F_8\cap F_9|+|F_7\cap F_8\cap F_9| .
+\]
+Cada cardinal se calcula restringiendo la elección a las secciones que quedan:
+\[
+|F_7|=\binom{11+9}{5}=\binom{20}{5},\qquad |F_8|=\binom{16+9}{5}=\binom{25}{5},\qquad |F_9|=\binom{16+11}{5}=\binom{27}{5},
+\]
+\[
+|F_7\cap F_8|=\binom{9}{5},\qquad |F_7\cap F_9|=\binom{11}{5},\qquad |F_8\cap F_9|=\binom{16}{5},\qquad
+|F_7\cap F_8\cap F_9|=\binom{0}{5}=0 .
+\]
+Valores:
+\[
+\binom{20}{5}=\frac{20\cdot19\cdot18\cdot17\cdot16}{120}=\frac{1\,860\,480}{120}=15\,504,
+\]
+\[
+\binom{25}{5}=\frac{25\cdot24\cdot23\cdot22\cdot21}{120}=\frac{6\,375\,600}{120}=53\,130,
+\]
+\[
+\binom{27}{5}=\frac{27\cdot26\cdot25\cdot24\cdot23}{120}=\frac{9\,687\,600}{120}=80\,730,
+\]
+\[
+\binom{9}{5}=126,\qquad \binom{11}{5}=462,\qquad \binom{16}{5}=4\,368 .
+\]
+Entonces
+\[
+|F_7\cup F_8\cup F_9|=15\,504+53\,130+80\,730-126-462-4\,368+0 ,
+\]
+\[
+15\,504+53\,130+80\,730=149\,364,\qquad 126+462+4\,368=4\,956,
+\]
+\[
+|F_7\cup F_8\cup F_9|=149\,364-4\,956=144\,408 ,
+\]
+\[
+\#\{\text{al menos uno de cada sección}\}=376\,992-144\,408=232\,584 .
+\]
+
+\textbf{¿De dónde sale?} Cada $\binom{n}{5}$ sale de contar cuántos grupos quedan disponibles al excluir
+una o dos secciones: excluir sétimo deja $11+9=20$; excluir octavo deja $16+9=25$; excluir noveno deja
+$16+11=27$; excluir sétimo y octavo deja los $9$ de noveno; excluir sétimo y noveno deja los $11$ de
+octavo; excluir octavo y noveno deja los $16$ de sétimo. El $376\,992$ viene del inciso a).
+
+\textbf{¿Por qué?} Es más cómodo negar la condición: ``no hay al menos uno de cada sección'' equivale a
+``falta por lo menos una sección'', que es la unión $F_7\cup F_8\cup F_9$. Esa unión no es disjunta (una
+selección de cinco grupos todos de sétimo está a la vez en $F_8$ y en $F_9$), así que hay que aplicar
+inclusión--exclusión: al sumar los tres cardinales las selecciones que faltan dos secciones se cuentan dos
+veces, y restar las tres intersecciones dobles las devuelve a una sola aparición. El último término es cero
+porque no se puede elegir cinco grupos si se excluyen las tres secciones: no queda ningún grupo
+disponible. Como control, el mismo resultado se obtiene sumando las composiciones válidas
+$(n_7,n_8,n_9)$ con $n_i\geq1$ y $n_7+n_8+n_9=5$, pero eso exige seis productos de combinaciones en lugar
+de estos seis términos.
+
+\textbf{¿Qué tomamos?} $\;232\,584$ maneras.
+\end{paso}
+
+\begin{resp}
+a) $\mathbf{376\,992}$\quad b) $\mathbf{59\,400}$\quad c) $\mathbf{147\,168}$\quad d) $\mathbf{318\,780}$\quad
+e) $\mathbf{232\,584}$. Los cinco valores coinciden con las respuestas oficiales.
+\end{resp}
+
+\end{document}

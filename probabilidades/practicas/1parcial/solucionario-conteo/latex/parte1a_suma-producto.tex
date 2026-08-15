@@ -1,0 +1,845 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\begin{document}
+\begin{center}{\LARGE\bfseries Principios de conteo}\\[2pt]{\large Principio de la suma y el producto --- Ejercicios 1--13}\end{center}
+
+\begin{teo}
+\textbf{Método general para contar sin listar todos los casos.} Todo ejercicio de esta sección se resuelve con la misma rutina de siete movimientos.
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Identificar el objeto que se cuenta.} Antes de escribir un solo número hay que decir en voz alta qué es un ``resultado'': una vestimenta, una pareja de libros, un número de tres cifras, una mano de cinco cartas. Todo el conteo depende de esa definición, porque dos resultados se consideran distintos exactamente cuando difieren en algo que la definición reconoce.
+
+  \item \textbf{Decidir si el objeto se arma por etapas o si se parte en casos.} Si para construir un resultado hay que tomar varias decisiones \emph{sucesivas} (primero la camisa, después el pantalón), estamos ante etapas. Si en cambio los resultados se separan en familias \emph{excluyentes} (o el par de libros es español-francés, o es español-ruso, o es francés-ruso), estamos ante casos.
+
+  \item \textbf{Principio de la suma (casos).} Si un conjunto de resultados se parte en familias $A_1,A_2,\dots,A_k$ que no comparten ningún elemento (mutuamente excluyentes) y que juntas cubren todo, entonces
+  \[
+    |A_1\cup A_2\cup\cdots\cup A_k| \;=\; |A_1|+|A_2|+\cdots+|A_k|.
+  \]
+  \emph{Por qué vale:} contar el total equivale a recorrer una lista sin repetidos; si las familias no se traslapan, ningún resultado aparece en dos listas, así que la lista total tiene tantos renglones como la suma de los renglones parciales. Si las familias se traslaparan, cada elemento compartido se contaría dos veces y la suma sería incorrecta: por eso la exigencia de que sean disjuntas no es un adorno.
+
+  \item \textbf{Principio del producto (etapas).} Si un resultado se construye tomando una decisión de $n_1$ maneras, luego otra de $n_2$ maneras, \dots, hasta $n_k$ maneras, y el \emph{número} de opciones de cada etapa no depende de cuál opción se eligió antes, entonces el total es
+  \[
+    n_1\cdot n_2\cdots n_k .
+  \]
+  \emph{Por qué vale:} piénsese en un árbol. La primera etapa abre $n_1$ ramas; de cada una de esas ramas salen $n_2$ ramas nuevas, de modo que después de dos etapas hay $n_1$ bloques de $n_2$ hojas cada uno, es decir $n_1\cdot n_2$ hojas. Repitiendo el argumento, cada etapa multiplica la cantidad de hojas del árbol. Sumar sería el error clásico: sumar cuenta \emph{alternativas} que se excluyen, multiplicar cuenta \emph{combinaciones} de decisiones que conviven en un mismo resultado.
+
+  \item \textbf{Permutaciones: cuando el orden importa y no hay repetición.} El número de maneras de elegir $r$ objetos de entre $n$ distintos \emph{y colocarlos en un orden} es
+  \[
+    P(n,r)=\frac{n!}{(n-r)!}=n(n-1)(n-2)\cdots(n-r+1).
+  \]
+  \emph{De dónde sale:} se llena la primera posición ($n$ opciones), luego la segunda (ya se gastó un objeto, quedan $n-1$), luego la tercera ($n-2$), y así hasta la posición $r$, donde quedan $n-r+1$ opciones. Eso es puro principio del producto: $n(n-1)\cdots(n-r+1)$. Ese producto es el comienzo de $n!$ al que le falta la cola $(n-r)(n-r-1)\cdots 1=(n-r)!$; multiplicando y dividiendo por esa cola se obtiene la forma compacta $n!/(n-r)!$. Por eso al calcular conviene \emph{cancelar} en vez de evaluar factoriales gigantes: $\frac{15!}{12!}=15\cdot 14\cdot 13$, porque $12!$ se va contra la cola de $15!$.
+
+  \item \textbf{Combinaciones: cuando el orden no importa.} El número de maneras de elegir $r$ objetos de entre $n$ distintos \emph{sin importar el orden} es
+  \[
+    C(n,r)=\binom{n}{r}=\frac{n!}{r!\,(n-r)!}.
+  \]
+  \emph{De dónde sale:} las $P(n,r)$ listas ordenadas cuentan cada grupo de $r$ objetos muchas veces, exactamente $r!$ veces, porque esos mismos $r$ objetos se pueden ordenar entre sí de $r!$ formas y todas esas listas describen el mismo grupo. Dividir por $r!$ borra esa repetición: $C(n,r)=P(n,r)/r!=n!\big/\big(r!(n-r)!\big)$.
+
+  \item \textbf{Decidir orden sí / orden no.} La pregunta operativa es: \emph{si intercambio dos de los objetos elegidos, ¿obtengo un resultado distinto?} Si sí (presidente y vicepresidente, primera y segunda carta sacadas, cifras de un número), el orden importa y se usa producto o permutación. Si no (una mano de cartas, un par de libros que uno se lleva), el orden no importa y se usa combinación. Cuando la respuesta ordenada ya se calculó, basta dividir por $r!$ para pasar al conteo no ordenado.
+\end{enumerate}
+\end{teo}
+
+\begin{tip}
+Fórmulas que se van a repetir en los trece ejercicios:
+\begin{itemize}[leftmargin=*]
+  \item Suma (casos disjuntos): $N=N_1+N_2+\cdots+N_k$.
+  \item Producto (etapas sucesivas): $N=n_1\cdot n_2\cdots n_k$.
+  \item Permutaciones sin repetición: $P(n,r)=\dfrac{n!}{(n-r)!}=n(n-1)\cdots(n-r+1)$.
+  \item Permutaciones de los $n$ objetos entre sí: $P(n,n)=n!$.
+  \item Combinaciones: $C(n,r)=\dbinom{n}{r}=\dfrac{n!}{r!\,(n-r)!}=\dfrac{P(n,r)}{r!}$.
+  \item Con repetición permitida en $k$ posiciones y $m$ símbolos disponibles: $m^k$.
+  \item Complemento: (casos que cumplen) $=$ (total) $-$ (casos que no cumplen).
+\end{itemize}
+\end{tip}
+
+% ==========================================================
+\section*{Ejercicio 1}
+\addcontentsline{toc}{subsection}{Ejercicio 1}
+
+\begin{quote}
+Juan tiene 3 camisas y 5 pantalones ¿Cuántas maneras tiene de vestirse?\\[2pt]
+\textbf{R/ 15}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Definir qué es una ``manera de vestirse''}
+\textbf{Qué hago:} nombro el objeto que se va a contar antes de operar. Una manera de vestirse es una pareja formada por una camisa y un pantalón, escrita como (camisa, pantalón). Dos maneras son distintas si difieren en la camisa, o en el pantalón, o en ambas.
+
+\textbf{¿De dónde sale?} Del propio enunciado: se mencionan dos prendas, camisas y pantalones, y vestirse exige usar una de cada tipo, no una u otra.
+
+\textbf{¿Por qué?} Fijar la definición es lo que decide si al final se suma o se multiplica. Aquí no se trata de escoger ``camisa o pantalón'' (eso serían alternativas excluyentes), sino de escoger ``camisa y pantalón'', lo cual es una construcción por etapas.
+
+\textbf{¿Qué tomamos?} Se anota que el resultado es una pareja ordenada por tipo de prenda, y que el conteo tendrá dos etapas.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar las opciones de cada etapa y aplicar el principio del producto}
+\textbf{Qué hago:} aplico el principio del producto, porque el atuendo se arma con dos decisiones sucesivas.
+
+\[
+  N \;=\; (\text{opciones de camisa})\cdot(\text{opciones de pantalón}) \;=\; 3\cdot 5 \;=\; 15 .
+\]
+
+\textbf{¿De dónde sale?} El factor $3$ es la cantidad de camisas que menciona el enunciado (``3 camisas'') y el factor $5$ es la cantidad de pantalones (``5 pantalones''). No hay ningún otro número en el problema.
+
+\textbf{¿Por qué?} Porque escoger la camisa no consume ni condiciona los pantalones: sea cual sea la camisa elegida, siguen disponibles los $5$ pantalones. Es el árbol de la teoría: la primera etapa abre $3$ ramas y de cada rama salen $5$ ramas nuevas, de modo que hay $3$ bloques de $5$ atuendos, es decir $5+5+5=15$ hojas. Sumar $3+5=8$ contaría prendas sueltas, no atuendos completos.
+
+\textbf{¿Qué tomamos?} Se anota $N=15$ como la cantidad total de maneras de vestirse.
+\end{paso}
+
+\begin{resp}
+Juan tiene $3\cdot 5=\mathbf{15}$ maneras de vestirse. Coincide con la respuesta oficial R/ 15.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 2}
+\addcontentsline{toc}{subsection}{Ejercicio 2}
+
+\begin{quote}
+En el grupo hay 15 hombres y 10 mujeres. ¿De cuántas maneras se puede escoger un hombre y una mujer para pasar a la pizarra?\\[2pt]
+\textbf{R/ 150}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Reconocer que hay dos elecciones obligatorias, no una alternativa}
+\textbf{Qué hago:} clasifico el problema como producto y no como suma, leyendo la conjunción del enunciado.
+
+\textbf{¿De dónde sale?} El enunciado dice ``un hombre \emph{y} una mujer'': el resultado que se cuenta es una pareja (hombre, mujer), y para tenerla completa hay que hacer las dos elecciones.
+
+\textbf{¿Por qué?} El principio de la suma sirve cuando los casos se excluyen entre sí (``o pasa un hombre o pasa una mujer''). Aquí ambos pasan a la pizarra en el mismo resultado, así que las elecciones conviven y hay que multiplicar.
+
+\textbf{¿Qué tomamos?} Se anota que el conteo tiene dos etapas: elegir hombre, luego elegir mujer.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Multiplicar las opciones de las dos etapas}
+\textbf{Qué hago:} aplico el principio del producto con las cantidades del enunciado.
+
+\[
+  N \;=\; 15\cdot 10 \;=\; 150 .
+\]
+
+\textbf{¿De dónde sale?} El $15$ es la cantidad de hombres del grupo y el $10$ la cantidad de mujeres, ambos tomados literalmente del enunciado.
+
+\textbf{¿Por qué?} Los grupos son disjuntos: escoger un hombre no reduce la lista de mujeres disponibles, así que para cada uno de los $15$ hombres hay las mismas $10$ mujeres posibles. Eso da $15$ bloques de $10$ parejas, o sea $15\cdot 10$ parejas distintas. Además el orden dentro de la pareja no genera casos nuevos porque los papeles ya están fijados por el sexo: la pareja se identifica diciendo quién es el hombre y quién la mujer.
+
+\textbf{¿Qué tomamos?} Se anota $N=150$ parejas posibles.
+\end{paso}
+
+\begin{resp}
+Hay $15\cdot 10=\mathbf{150}$ maneras de escoger la pareja. Coincide con la respuesta oficial R/ 150.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 3}
+\addcontentsline{toc}{subsection}{Ejercicio 3}
+
+\begin{quote}
+Se tienen cinco libros en español, seis libros en francés y ocho libros en ruso ¿De cuántas maneras se pueden seleccionar dos libros que no estén en la misma lengua?\\[2pt]
+\textbf{R/ 118}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Partir el problema en casos disjuntos según el par de idiomas}
+\textbf{Qué hago:} aplico el principio de la suma, separando las selecciones válidas según cuáles dos idiomas aparecen.
+
+Los idiomas disponibles son español ($5$ libros), francés ($6$ libros) y ruso ($8$ libros). Como los dos libros elegidos deben estar en lenguas distintas, los idiomas que aparecen forman exactamente uno de estos tres pares:
+\[
+  \text{(español, francés)},\qquad \text{(español, ruso)},\qquad \text{(francés, ruso)}.
+\]
+
+\textbf{¿De dónde sale?} Las cantidades $5$, $6$ y $8$ son las del enunciado; los tres pares son todas las formas de escoger dos idiomas de entre tres, es decir $C(3,2)=\frac{3!}{2!\,1!}=3$.
+
+\textbf{¿Por qué?} Los tres casos son mutuamente excluyentes: una selección concreta tiene un solo par de idiomas, así que no puede pertenecer a dos casos a la vez; y son exhaustivos, porque la condición ``lenguas distintas'' obliga a que los dos idiomas presentes sean uno de esos tres pares. Al no traslaparse, sus cantidades se suman sin corregir nada.
+
+\textbf{¿Qué tomamos?} Se anota que el total será $N=N_{\text{esp-fra}}+N_{\text{esp-rus}}+N_{\text{fra-rus}}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar cada caso con el principio del producto}
+\textbf{Qué hago:} dentro de cada caso multiplico, porque hay que escoger un libro de un idioma \emph{y} un libro del otro.
+
+\begin{align*}
+  N_{\text{esp-fra}} &= 5\cdot 6 = 30,\\
+  N_{\text{esp-rus}} &= 5\cdot 8 = 40,\\
+  N_{\text{fra-rus}} &= 6\cdot 8 = 48.
+\end{align*}
+
+\textbf{¿De dónde sale?} Cada factor es el tamaño de un estante: $5$ libros en español, $6$ en francés, $8$ en ruso.
+
+\textbf{¿Por qué?} Fijado el par de idiomas, elegir el libro español no altera cuántos libros franceses quedan (son colecciones separadas), de modo que cada uno de los $5$ libros en español se puede acompañar con cualquiera de los $6$ franceses: $5$ bloques de $6$ parejas. Dentro de un caso el orden no importa, y aquí no hace falta dividir por $2$ porque los dos libros vienen de estantes distintos: cada pareja se produce una sola vez, ya que el primer factor siempre aporta el libro español y el segundo el francés.
+
+\textbf{¿Qué tomamos?} Se anotan los tres subtotales $30$, $40$ y $48$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Sumar los casos}
+\textbf{Qué hago:} cierro con el principio de la suma sobre los tres casos disjuntos del Paso 1.
+\[
+  N = 30+40+48 = 118 .
+\]
+
+\textbf{¿De dónde sale?} Los sumandos $30$, $40$ y $48$ son los subtotales calculados en el Paso 2.
+
+\textbf{¿Por qué?} Porque ninguna selección fue contada dos veces: una pareja español-francés no aparece en el caso español-ruso ni en el francés-ruso. Al ser las tres listas ajenas, la lista total tiene $30+40+48$ renglones.
+
+\textbf{¿Qué tomamos?} Se anota $N=118$ selecciones válidas.
+\end{paso}
+
+\begin{resp}
+Se pueden seleccionar los dos libros de $5\cdot 6+5\cdot 8+6\cdot 8=30+40+48=\mathbf{118}$ maneras. Coincide con la respuesta oficial R/ 118.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 4}
+\addcontentsline{toc}{subsection}{Ejercicio 4}
+
+\begin{quote}
+Un médico tiene que viajar de San José a Liberia y desea detenerse en Puntarenas. Si el viaje de San José a Puntarenas lo puede hacer en carro, tren o avioneta y de Puntarenas a Liberia puede hacerlo en carro o avioneta ¿De cuántas maneras puede realizar el viaje?\\[2pt]
+\textbf{R/ 6}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Ver el viaje como dos tramos obligatorios}
+\textbf{Qué hago:} identifico las etapas del recorrido para justificar el uso del principio del producto.
+
+El viaje completo es San José $\to$ Puntarenas $\to$ Liberia, y un ``resultado'' es una pareja (medio del primer tramo, medio del segundo tramo).
+
+\textbf{¿De dónde sale?} Del enunciado: el médico ``desea detenerse en Puntarenas'', así que el trayecto no es directo sino que se descompone obligatoriamente en dos tramos, cada uno con su lista de medios de transporte.
+
+\textbf{¿Por qué?} No se trata de elegir un tramo u otro: hay que recorrer los dos para llegar a Liberia. Cuando ambas decisiones se toman en el mismo resultado, se multiplica.
+
+\textbf{¿Qué tomamos?} Se anota que hay dos etapas y que se contarán sus opciones por separado.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Multiplicar las opciones de cada tramo}
+\textbf{Qué hago:} aplico el principio del producto con las opciones listadas.
+\[
+  N=(\text{medios San José--Puntarenas})\cdot(\text{medios Puntarenas--Liberia})=3\cdot 2=6 .
+\]
+
+\textbf{¿De dónde sale?} El $3$ cuenta los medios del primer tramo que nombra el enunciado: carro, tren y avioneta. El $2$ cuenta los del segundo tramo: carro y avioneta.
+
+\textbf{¿Por qué?} Porque el medio usado en el primer tramo no elimina opciones en el segundo: aunque llegue en carro a Puntarenas, sigue pudiendo seguir en carro o en avioneta, según lo que dice el enunciado. Cada uno de los $3$ modos de llegar a Puntarenas se combina con cada uno de los $2$ modos de seguir a Liberia, lo que da $3$ bloques de $2$ viajes: carro-carro, carro-avioneta, tren-carro, tren-avioneta, avioneta-carro, avioneta-avioneta.
+
+\textbf{¿Qué tomamos?} Se anota $N=6$ viajes distintos.
+\end{paso}
+
+\begin{resp}
+El médico puede realizar el viaje de $3\cdot 2=\mathbf{6}$ maneras. Coincide con la respuesta oficial R/ 6.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 5}
+\addcontentsline{toc}{subsection}{Ejercicio 5}
+
+\begin{quote}
+¿De cuántas maneras se pueden escoger al azar dos cartas sucesivamente de una baraja de 52 cartas tales que la primera carta sea un $A$ y la segunda no sea una $Q$?\\[2pt]
+\textbf{R/ 188}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Fijar que la extracción es ordenada y sin reposición}
+\textbf{Qué hago:} preciso el tipo de resultado que se cuenta antes de multiplicar.
+
+Un resultado es un par ordenado (primera carta, segunda carta) con cartas distintas.
+
+\textbf{¿De dónde sale?} La palabra ``sucesivamente'' del enunciado indica que se saca una carta y después otra, y las condiciones se imponen a posiciones distintas (``la primera sea un $A$'', ``la segunda no sea una $Q$''), lo que confirma que el orden distingue resultados. Como no se dice que se devuelva la carta, la primera ya no está disponible para la segunda extracción.
+
+\textbf{¿Por qué?} Si el orden no importara, no tendría sentido pedir condiciones diferentes para la primera y la segunda carta. Y sin reposición, el tamaño de la baraja disponible cambia de una etapa a la otra, cosa que hay que reflejar en el segundo factor.
+
+\textbf{¿Qué tomamos?} Se anota que habrá dos etapas ordenadas y que la segunda se cuenta \emph{después} de haber retirado la primera carta.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar las opciones de la primera carta}
+\textbf{Qué hago:} cuento directamente las cartas que cumplen la condición de la primera posición.
+
+En una baraja inglesa hay cuatro palos (diamantes, corazones, espadas y tréboles) y un as por palo, de modo que
+\[
+  n_1=4 .
+\]
+
+\textbf{¿De dónde sale?} El $4$ sale de la estructura de la baraja de $52$ cartas: $52=4\ \text{palos}\times 13\ \text{cartas por palo}$, y el valor $A$ aparece una vez en cada palo.
+
+\textbf{¿Por qué?} La condición ``la primera carta sea un $A$'' restringe la primera etapa a ese subconjunto de $4$ cartas y a ninguna otra.
+
+\textbf{¿Qué tomamos?} Se anota $n_1=4$ opciones para la primera extracción.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar las opciones de la segunda carta usando complemento}
+\textbf{Qué hago:} aplico el complemento dentro de la baraja que queda: cuento todas las cartas disponibles y le resto las prohibidas.
+
+Después de retirar el as, quedan $52-1=51$ cartas. De ellas hay que descartar las cuatro reinas, que siguen todas en el mazo porque un as no es una reina:
+\[
+  n_2 = 51-4 = 47 .
+\]
+
+\textbf{¿De dónde sale?} El $51$ viene de las $52$ cartas iniciales menos la carta usada en el Paso 2. El $4$ es la cantidad de reinas $Q$, una por palo.
+
+\textbf{¿Por qué?} Contar directamente ``cartas que no son $Q$'' obligaría a clasificar doce valores; es más corto contar el total disponible y quitar el bloque prohibido, que es exactamente el principio del complemento. Es válido restar $4$ completo porque ninguna reina fue retirada en la primera extracción: la carta retirada era un as.
+
+\textbf{¿Qué tomamos?} Se anota $n_2=47$ opciones para la segunda extracción, y este número es el mismo cualquiera que haya sido el as elegido, que es la condición que permite multiplicar.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Multiplicar las dos etapas}
+\textbf{Qué hago:} aplico el principio del producto con $n_1$ y $n_2$.
+\[
+  N = n_1\cdot n_2 = 4\cdot 47 = 4\cdot 40 + 4\cdot 7 = 160+28 = 188 .
+\]
+
+\textbf{¿De dónde sale?} El $4$ es el conteo del Paso 2 y el $47$ el del Paso 3.
+
+\textbf{¿Por qué?} Porque para cada uno de los $4$ ases posibles en primera posición hay exactamente las mismas $47$ continuaciones válidas, así que la lista total se parte en $4$ bloques de $47$ pares ordenados. Como los bloques corresponden a primeras cartas distintas, no se repite ningún par.
+
+\textbf{¿Qué tomamos?} Se anota $N=188$ extracciones ordenadas que cumplen las dos condiciones.
+\end{paso}
+
+\begin{resp}
+Hay $4\cdot 47=\mathbf{188}$ maneras. Coincide con la respuesta oficial R/ 188.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 6}
+\addcontentsline{toc}{subsection}{Ejercicio 6}
+
+\begin{quote}
+Considere el conjunto $A=\{2,3,5,6,7,9\}$. Sea $X$ el conjunto de números de tres cifras formados con los elementos del conjunto $A$, de tal manera que ninguno se repita.\\[2pt]
+a) ¿Cuántos elementos tiene el conjunto $X$? \quad \textbf{R/ 120}\\
+b) ¿Cuántos números del conjunto $X$ son múltiplos de 5? \quad \textbf{R/ 20}\\
+c) ¿Cuántos números del conjunto $X$ son menores que 360?\\
+d) ¿Cuántos números del inciso anterior son pares?
+\end{quote}
+
+\begin{paso}{Paso 1 --- Leer la estructura común a los cuatro incisos}
+\textbf{Qué hago:} describo el objeto contado y las restricciones globales, que valen para a), b), c) y d).
+
+Un elemento de $X$ es un número de tres cifras $\overline{c_1c_2c_3}$ donde cada $c_i$ pertenece a $A=\{2,3,5,6,7,9\}$ y las tres cifras son distintas entre sí.
+
+\textbf{¿De dónde sale?} El conjunto $A$ y la condición ``ninguno se repita'' están escritos en el enunciado; $A$ tiene $6$ elementos, todos distintos de cero.
+
+\textbf{¿Por qué?} Importa que $0\notin A$: eso evita el problema habitual de que la primera cifra no pueda ser cero, así que las tres posiciones se tratan igual. Y el orden de las cifras sí importa, porque $235$ y $523$ son números distintos aunque usen las mismas cifras; por eso todos los incisos se cuentan con producto o permutaciones, nunca con combinaciones.
+
+\textbf{¿Qué tomamos?} Se anota que hay $6$ símbolos disponibles, tres posiciones ordenadas y prohibición de repetir.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso a): contar todos los números de tres cifras sin repetición}
+\textbf{Qué hago:} aplico permutaciones de $6$ objetos tomados de $3$ en $3$, que es el principio del producto con opciones que se van agotando.
+\[
+  |X| = P(6,3) = \frac{6!}{(6-3)!} = \frac{6!}{3!} = 6\cdot 5\cdot 4 = 120 .
+\]
+
+\textbf{¿De dónde sale?} El $6$ es el tamaño de $A$ (el enunciado lista seis elementos: $2,3,5,6,7,9$) y el $3$ es la cantidad de cifras del número.
+
+\textbf{¿Por qué?} Para la primera cifra hay $6$ opciones. Una vez usada, esa cifra no puede repetirse, así que para la segunda quedan $5$, y para la tercera $4$: eso es el producto $6\cdot 5\cdot 4$. La forma $6!/3!$ dice lo mismo: $6!=6\cdot 5\cdot 4\cdot 3\cdot 2\cdot 1$ y al dividir entre $3!=3\cdot 2\cdot 1$ se cancela la cola $3\cdot 2\cdot 1$, dejando exactamente los tres primeros factores $6\cdot 5\cdot 4$.
+
+\textbf{¿Qué tomamos?} Se anota $|X|=120$, que además servirá de total de referencia para los demás incisos.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso b): imponer la condición de múltiplo de 5 en la última cifra}
+\textbf{Qué hago:} traduzco la condición aritmética a una restricción de posición y luego multiplico.
+
+Un número es múltiplo de $5$ cuando termina en $0$ o en $5$. Como $0\notin A$, la única posibilidad es $c_3=5$, lo que fija esa posición:
+\[
+  N_b = \underbrace{1}_{c_3=5}\cdot \underbrace{5}_{c_1}\cdot \underbrace{4}_{c_2} = 5\cdot 4 = 20 .
+\]
+
+\textbf{¿De dónde sale?} El $1$ es la única elección posible para la última cifra. Tras gastar el $5$, quedan $6-1=5$ elementos de $A$ para la primera cifra y luego $5-1=4$ para la segunda.
+
+\textbf{¿Por qué?} Conviene decidir primero la posición más restringida (la última) y después las libres: así el número de opciones de las etapas siguientes no depende de lo elegido antes, que es la condición para poder multiplicar. Si se empezara por la primera cifra, habría que separar el caso ``la primera cifra es 5'' del resto, complicando el conteo sin necesidad.
+
+\textbf{¿Qué tomamos?} Se anota $N_b=20$ múltiplos de $5$ dentro de $X$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso c): partir en casos según la primera cifra}
+\textbf{Qué hago:} aplico el principio de la suma sobre casos disjuntos determinados por la cifra de las centenas, porque la condición ``menor que $360$'' es una comparación que se decide de izquierda a derecha.
+
+Todos los elementos de $X$ tienen tres cifras, así que la comparación con $360$ depende primero de $c_1$. Los valores posibles de $c_1$ son $2,3,5,6,7,9$; si $c_1\ge 5$ el número pasa de $500$ y no sirve, así que solo hay dos casos vivos.
+
+\emph{Caso 1: $c_1=2$.} Todo número que empieza en $2$ está entre $200$ y $299$, por lo que siempre es menor que $360$, sin condición extra sobre $c_2$ y $c_3$. Quedan $5$ elementos de $A$ para $c_2$ y $4$ para $c_3$:
+\[
+  N_1 = 5\cdot 4 = 20 .
+\]
+
+\emph{Caso 2: $c_1=3$.} Ahora el número es $\overline{3c_2c_3}$ y ser menor que $360$ obliga a $c_2<6$. Los elementos de $A$ que quedan tras usar el $3$ son $\{2,5,6,7,9\}$, y los menores que $6$ son $2$ y $5$: dos opciones. Fijadas $c_1$ y $c_2$, para $c_3$ quedan $6-2=4$ elementos:
+\[
+  N_2 = 2\cdot 4 = 8 .
+\]
+
+\textbf{¿De dónde sale?} Los valores de $c_1$ salen de $A$; el umbral $6$ para $c_2$ sale de comparar con la cifra de las decenas de $360$; los factores $5,4$ y $4$ salen de descontar de los $6$ elementos de $A$ los que ya se usaron.
+
+\textbf{¿Por qué?} Los dos casos son disjuntos porque un número tiene una única cifra de centenas, así que sus cantidades se suman. Dentro del caso $c_1=3$ no hace falta mirar $c_3$: si $c_2\in\{2,5\}$ el número es a lo sumo $359$, siempre por debajo de $360$; y si $c_2\ge 6$ el número es al menos $360$, lo que ya no cumple la desigualdad estricta.
+
+\textbf{¿Qué tomamos?} Se anota $N_c=N_1+N_2=20+8=28$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso d): pedir además que el número sea par}
+\textbf{Qué hago:} refino los casos del Paso 4 exigiendo que la última cifra sea par, y vuelvo a sumar casos disjuntos.
+
+Las cifras pares de $A$ son $2$ y $6$, así que $c_3\in\{2,6\}$ y hay que revisar en cada caso cuáles siguen disponibles.
+
+\emph{Caso 1: $c_1=2$.} El $2$ ya se gastó en las centenas, así que la única cifra par libre para $c_3$ es el $6$. Fijadas $c_1=2$ y $c_3=6$, para $c_2$ quedan los elementos $\{3,5,7,9\}$, es decir $4$ opciones:
+\[
+  M_1 = 1\cdot 4 = 4 \qquad (236,\ 256,\ 276,\ 296).
+\]
+
+\emph{Caso 2: $c_1=3$ y $c_2=2$.} Con el $2$ ya usado en las decenas, la única cifra par libre es el $6$, y va en $c_3$:
+\[
+  M_2 = 1 \qquad (326).
+\]
+
+\emph{Caso 3: $c_1=3$ y $c_2=5$.} Aquí siguen libres las dos cifras pares, $2$ y $6$:
+\[
+  M_3 = 2 \qquad (352,\ 356).
+\]
+
+Sumando los tres casos disjuntos:
+\[
+  N_d = 4+1+2 = 7 .
+\]
+
+\textbf{¿De dónde sale?} Los casos son los del Paso 4 (única diferencia: el caso $c_1=3$ se abre en sus dos valores posibles de $c_2$, que eran $2$ y $5$); las cifras pares $2$ y $6$ salen de mirar $A=\{2,3,5,6,7,9\}$.
+
+\textbf{¿Por qué?} Hubo que abrir el caso $c_1=3$ en dos subcasos porque el número de opciones para $c_3$ \emph{sí} depende de qué se puso en $c_2$: si $c_2=2$ se consumió una cifra par y si $c_2=5$ no. Cuando esa dependencia existe, el principio del producto no se puede aplicar de un solo golpe y se separa en casos, que al ser excluyentes se suman.
+
+\textbf{¿Qué tomamos?} Se anota $N_d=7$ números pares menores que $360$.
+\end{paso}
+
+\begin{nota}
+Los incisos c) y d) no traen respuesta oficial en el folleto. Los resultados obtenidos aquí son $28$ para c) y $7$ para d), y en d) la lista completa es $236,\ 256,\ 276,\ 296,\ 326,\ 352,\ 356$, que se puede revisar uno a uno.
+\end{nota}
+
+\begin{resp}
+a) $|X|=P(6,3)=6\cdot 5\cdot 4=\mathbf{120}$ (coincide con R/ 120).\\
+b) $\mathbf{20}$ múltiplos de $5$ (coincide con R/ 20).\\
+c) $20+8=\mathbf{28}$ números menores que $360$ (resultado obtenido; el folleto no da respuesta).\\
+d) $4+1+2=\mathbf{7}$ números pares menores que $360$ (resultado obtenido; el folleto no da respuesta).
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 7}
+\addcontentsline{toc}{subsection}{Ejercicio 7}
+
+\begin{quote}
+¿Cuántas permutaciones se pueden formar con los números $0,1,3,5,6,9$ si el número 3 está después de la segunda posición?\\[2pt]
+\textbf{R/ 144}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Precisar qué se está permutando y qué restringe la condición}
+\textbf{Qué hago:} defino el objeto contado y traduzco la frase ``después de la segunda posición'' a un conjunto de posiciones.
+
+Se permutan los seis símbolos $0,1,3,5,6,9$, es decir se colocan los seis en seis posiciones numeradas $1,2,3,4,5,6$, usando cada símbolo exactamente una vez. La condición dice que el símbolo $3$ ocupa una posición posterior a la segunda, o sea
+\[
+  \text{posición del }3 \in \{3,4,5,6\},\qquad \text{4 posiciones posibles}.
+\]
+
+\textbf{¿De dónde sale?} La lista de seis símbolos y la frase ``después de la segunda posición'' están en el enunciado; las posiciones $3,4,5,6$ son las que quedan al excluir la primera y la segunda de un total de seis.
+
+\textbf{¿Por qué?} El enunciado habla de \emph{permutaciones}, no de números, así que se cuentan ordenamientos de los seis símbolos y no hay restricción sobre el cero en la primera posición. El orden es lo único que distingue una permutación de otra, por eso el conteo es de tipo permutación y no de tipo combinación.
+
+\textbf{¿Qué tomamos?} Se anota que hay $4$ ubicaciones admisibles para el $3$ y que los otros cinco símbolos quedan libres.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Colocar primero el elemento restringido y luego el resto}
+\textbf{Qué hago:} aplico el principio del producto en dos etapas, empezando por la decisión condicionada.
+
+Etapa 1: ubicar el $3$, con $4$ posiciones posibles. Etapa 2: ubicar los cinco símbolos restantes $0,1,5,6,9$ en las cinco posiciones que sobran; como son cinco objetos distintos en cinco casillas, hay
+\[
+  P(5,5)=5!=5\cdot 4\cdot 3\cdot 2\cdot 1=120
+\]
+maneras. Entonces
+\[
+  N = 4\cdot 120 = 480 .
+\]
+
+\textbf{¿De dónde sale?} El $4$ viene del Paso 1; el $5!$ viene de que quedan $5$ símbolos y $5$ casillas: la primera casilla libre admite $5$ símbolos, la siguiente $4$, luego $3$, $2$ y $1$, lo que es el mismo razonamiento de agotamiento que da $P(n,r)$.
+
+\textbf{¿Por qué?} Se coloca primero el $3$ porque es el único elemento con restricción; hecho eso, las cinco casillas restantes son intercambiables y su conteo, $120$, no depende de cuál de las cuatro posiciones haya recibido el $3$. Esa independencia es justamente lo que autoriza a multiplicar. Además los cuatro bloques son disjuntos, porque en cada bloque el $3$ está en una posición diferente, así que ninguna permutación se cuenta dos veces.
+
+\textbf{¿Qué tomamos?} Se anota $N=480$ permutaciones.
+\end{paso}
+
+\begin{nota}
+\textbf{Discrepancia con el folleto.} La respuesta del folleto es \textbf{R/ 144}, mientras que el conteo anterior da $4\cdot 5!=480$. Vale la pena registrar también la variante más común de este enunciado, la de contar \emph{números} de seis cifras (donde el $0$ no puede ir en la primera posición): en ese caso, para cada una de las $4$ ubicaciones del $3$ se tienen $5!-4!=120-24=96$ acomodos válidos de los otros cinco símbolos (se quitan los $4!$ en que el $0$ queda de primero), y el total sería $4\cdot 96=384$. Ni $480$ ni $384$ coinciden con $144$, y con las herramientas de suma, producto y permutaciones no se obtiene ese valor bajo ninguna de las dos lecturas del enunciado. Se conserva $144$ como \emph{respuesta del folleto} y se reporta $480$ como resultado obtenido con la lectura literal (``permutaciones'' de los seis símbolos).
+\end{nota}
+
+\begin{resp}
+Resultado obtenido: $4\cdot 5!=4\cdot 120=\mathbf{480}$ permutaciones (o $384$ si se exige que el $0$ no encabece el número). Respuesta del folleto: R/ 144.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 8}
+\addcontentsline{toc}{subsection}{Ejercicio 8}
+
+\begin{quote}
+¿Cuántos números telefónicos de 7 dígitos se pueden construir con los dígitos $0$, $1$, $2$, $3$, $4$, $5$, $6$, $7$, $8$, $9$ si?\\[2pt]
+a) No hay restricciones \quad \textbf{R/ 10\,000\,000}\\
+b) Los números deben ser de líneas residenciales, es decir, no pueden empezar con las cifras $0, 1, 3, 8$ \quad \textbf{R/ 6\,000\,000}\\
+c) Los números no se pueden repetir, deben empezar con 1 o con 2 y deben terminar en número par (tomando el cero como par) \quad \textbf{R/ 60\,480}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Inciso a): siete posiciones libres con repetición permitida}
+\textbf{Qué hago:} aplico el principio del producto sobre las siete posiciones del número telefónico.
+\[
+  N_a = \underbrace{10\cdot 10\cdot 10\cdot 10\cdot 10\cdot 10\cdot 10}_{7\ \text{factores}} = 10^{7} = 10\,000\,000 .
+\]
+
+\textbf{¿De dónde sale?} El $10$ es la cantidad de dígitos disponibles ($0$ al $9$, que el enunciado lista explícitamente) y los siete factores corresponden a los siete dígitos del número.
+
+\textbf{¿Por qué?} Un número telefónico es una secuencia ordenada de siete dígitos, y al no haber restricciones tampoco se prohíbe repetir: usar el $5$ en la primera posición no impide volver a usarlo después. Por eso cada posición conserva sus $10$ opciones independientemente de las demás, y el árbol se multiplica por $10$ en cada nivel. El orden importa, pues $2345678$ y $8765432$ son teléfonos distintos.
+
+\textbf{¿Qué tomamos?} Se anota $N_a=10^7=10\,000\,000$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso b): restringir solo la primera posición}
+\textbf{Qué hago:} aplico complemento en la primera posición y producto en el resto.
+
+La primera cifra no puede ser $0,1,3$ ni $8$, que son cuatro dígitos prohibidos, así que le quedan
+\[
+  10-4=6 \quad\text{opciones}\ (\,2,4,5,6,7,9\,),
+\]
+y las otras seis posiciones siguen libres con $10$ opciones cada una:
+\[
+  N_b = 6\cdot 10^{6} = 6\,000\,000 .
+\]
+
+\textbf{¿De dónde sale?} El $4$ es la cantidad de cifras prohibidas que enumera el enunciado ($0,1,3,8$); el $10$ es el total de dígitos; el exponente $6$ son las posiciones $2$ a $7$, es decir $7-1=6$.
+
+\textbf{¿Por qué?} La prohibición afecta únicamente a la primera cifra, de modo que conviene decidirla primero: hecha esa elección, cada una de las seis posiciones restantes vuelve a tener las mismas $10$ opciones, sin depender de cuál dígito se usó al inicio. Esa independencia es la que permite multiplicar $6$ por $10^6$ en lugar de separar en casos.
+
+\textbf{¿Qué tomamos?} Se anota $N_b=6\,000\,000$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso c): separar en casos según la primera cifra}
+\textbf{Qué hago:} aplico el principio de la suma partiendo según si el número empieza con $1$ o con $2$, porque el $2$ es par y el $1$ no, y eso cambia cuántos dígitos pares quedan libres para la última posición.
+
+Ahora los siete dígitos deben ser distintos entre sí (``no se pueden repetir''), la primera cifra es $1$ o $2$, y la última cifra pertenece a $\{0,2,4,6,8\}$, que son los cinco dígitos pares contando el cero como par.
+
+\textbf{¿De dónde sale?} Las condiciones son las tres del enunciado del inciso c); el conjunto de pares sale de recorrer $0$ a $9$ y quedarse con los divisibles entre $2$, incluyendo el $0$ tal como pide el paréntesis del enunciado.
+
+\textbf{¿Por qué?} Sin la partición no se puede multiplicar de un solo golpe: si la primera cifra es $2$, ese dígito par ya quedó usado y la última posición pierde una opción, mientras que si la primera es $1$ no pierde ninguna. Como la cantidad de opciones de la última etapa depende de la primera, hay que separar en casos; y los casos son disjuntos porque un número no puede empezar a la vez con $1$ y con $2$.
+
+\textbf{¿Qué tomamos?} Se anota que $N_c = N_{(1)}+N_{(2)}$ y se calculan ambos por separado.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso c): contar el caso ``empieza con 1''}
+\textbf{Qué hago:} aplico el principio del producto tratando primero las posiciones restringidas (la primera y la séptima) y después las cinco intermedias con una permutación.
+
+Primera cifra: fija en $1$, $1$ opción. Última cifra: cualquier par, y como el $1$ no es par siguen disponibles los cinco, $5$ opciones. Con dos dígitos ya usados quedan $10-2=8$ dígitos para las cinco posiciones intermedias, todas distintas:
+\[
+  P(8,5)=\frac{8!}{(8-5)!}=\frac{8!}{3!}=8\cdot 7\cdot 6\cdot 5\cdot 4 = 6\,720 .
+\]
+Entonces
+\[
+  N_{(1)} = 1\cdot 5\cdot 6\,720 = 33\,600 .
+\]
+
+\textbf{¿De dónde sale?} El $5$ son los pares $0,2,4,6,8$; el $8$ es $10$ dígitos menos los $2$ ya colocados (el $1$ del inicio y el par del final); el $5$ del $P(8,5)$ son las posiciones $2,3,4,5,6$.
+
+\textbf{¿Por qué?} La expansión $\frac{8!}{3!}=8\cdot 7\cdot 6\cdot 5\cdot 4$ ocurre porque $8!=8\cdot 7\cdot 6\cdot 5\cdot 4\cdot(3\cdot 2\cdot 1)$ y el paréntesis final es exactamente $3!$, que se cancela con el denominador. El producto $8\cdot 7\cdot 6\cdot 5\cdot 4$ también se lee directamente: la segunda posición tiene $8$ dígitos libres, la tercera $7$ porque uno se gastó, y así sucesivamente. Se multiplica $5$ por $6\,720$ porque para cada elección de la última cifra el conteo interior vale lo mismo: siempre quedan $8$ dígitos libres, sin importar cuál par se haya puesto al final.
+
+Aritmética del producto: $8\cdot 7=56$, $56\cdot 6=336$, $336\cdot 5=1\,680$, $1\,680\cdot 4=6\,720$; y luego $5\cdot 6\,720=33\,600$.
+
+\textbf{¿Qué tomamos?} Se anota $N_{(1)}=33\,600$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso c): contar el caso ``empieza con 2'' y sumar}
+\textbf{Qué hago:} repito el conteo del Paso 4 corrigiendo la cantidad de pares disponibles, y cierro con el principio de la suma.
+
+Primera cifra: fija en $2$, $1$ opción. Última cifra: debe ser par, pero el $2$ ya se usó, así que quedan $5-1=4$ opciones ($0,4,6,8$). Las cinco posiciones intermedias se llenan igual que antes con los $10-2=8$ dígitos restantes:
+\[
+  N_{(2)} = 1\cdot 4\cdot P(8,5) = 4\cdot 6\,720 = 26\,880 .
+\]
+Sumando los dos casos disjuntos del Paso 3:
+\[
+  N_c = 33\,600 + 26\,880 = 60\,480 .
+\]
+
+\textbf{¿De dónde sale?} El $4$ sale de los cinco pares menos el $2$ ya ocupado; el $6\,720$ es el $P(8,5)$ calculado en el Paso 4, que se reutiliza porque de nuevo quedan $8$ dígitos para $5$ casillas; los sumandos son los subtotales de los Pasos 4 y 5.
+
+\textbf{¿Por qué?} La resta $5-1$ es obligatoria porque no se puede repetir dígitos y el $2$ ya está en la primera posición: si no se descontara, se estarían contando teléfonos con dos doses. Y la suma final es legítima porque ningún número empieza con $1$ y con $2$ a la vez, de modo que las dos listas no comparten elementos.
+
+Aritmética: $4\cdot 6\,720=26\,880$, y $33\,600+26\,880=60\,480$.
+
+\textbf{¿Qué tomamos?} Se anota $N_c=60\,480$.
+\end{paso}
+
+\begin{resp}
+a) $10^7=\mathbf{10\,000\,000}$ (coincide con R/ 10\,000\,000).\\
+b) $6\cdot 10^6=\mathbf{6\,000\,000}$ (coincide con R/ 6\,000\,000).\\
+c) $5\cdot P(8,5)+4\cdot P(8,5)=33\,600+26\,880=\mathbf{60\,480}$ (coincide con R/ 60\,480).
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 9}
+\addcontentsline{toc}{subsection}{Ejercicio 9}
+
+\begin{quote}
+Una pequeña asociación está formada por 15 personas, se desea formar la directiva de la asociación (un presidente, un vicepresidente y un secretario) ¿De cuántas maneras de pueden efectuar estos nombramientos?\\[2pt]
+\textbf{R/ 2\,730}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Decidir si el orden importa}
+\textbf{Qué hago:} determino el tipo de conteo comparando dos asignaciones que usen a las mismas personas.
+
+Si Ana es presidenta y Luis vicepresidente, esa directiva no es la misma que aquella en la que Luis es presidente y Ana vicepresidenta, aunque el trío de personas sea idéntico.
+
+\textbf{¿De dónde sale?} Del enunciado, que distingue tres cargos con nombre propio: presidente, vicepresidente y secretario.
+
+\textbf{¿Por qué?} Cuando los puestos son distinguibles, intercambiar dos personas produce un resultado diferente, y eso es exactamente el criterio de la teoría para usar permutaciones en lugar de combinaciones. Si el enunciado hubiera pedido ``una comisión de tres personas'' sin cargos, habría que dividir después por $3!$.
+
+\textbf{¿Qué tomamos?} Se anota que el conteo es una permutación de $15$ personas tomadas de $3$ en $3$, y que además nadie puede ocupar dos cargos.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Calcular la permutación desglosando el factorial}
+\textbf{Qué hago:} aplico $P(n,r)$ con $n=15$ y $r=3$, expandiendo la cancelación.
+\[
+  P(15,3)=\frac{15!}{(15-3)!}=\frac{15!}{12!}
+  =\frac{15\cdot 14\cdot 13\cdot 12!}{12!}
+  =15\cdot 14\cdot 13 .
+\]
+Aritmética: $15\cdot 14=210$ y $210\cdot 13=210\cdot 10+210\cdot 3=2\,100+630=2\,730$.
+
+\textbf{¿De dónde sale?} El $15$ es la cantidad de personas de la asociación; el $3$ es la cantidad de cargos que se nombran.
+
+\textbf{¿Por qué?} La cancelación es legítima porque $15!=15\cdot 14\cdot 13\cdot 12!$ por definición de factorial, así que el $12!$ del numerador y el del denominador se eliminan y solo sobreviven los tres primeros factores. Esos tres factores tienen lectura directa: hay $15$ candidatos a presidente; escogido este, quedan $14$ para vicepresidente porque una persona no ocupa dos cargos; y luego $13$ para secretario. Ese descenso $15,14,13$ es el principio del producto con opciones que se agotan.
+
+\textbf{¿Qué tomamos?} Se anota $N=2\,730$ directivas posibles.
+\end{paso}
+
+\begin{resp}
+Los nombramientos se pueden efectuar de $P(15,3)=15\cdot 14\cdot 13=\mathbf{2\,730}$ maneras. Coincide con la respuesta oficial R/ 2\,730.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 10}
+\addcontentsline{toc}{subsection}{Ejercicio 10}
+
+\begin{quote}
+El colegio San Bartolomé tiene 5 grupos de quinto año, 9 grupos de cuarto año y 18 grupos de noveno año. Una empresa regalará una fiesta a un grupo de tercer ciclo de dicho colegio. Si el grupo se elige al azar ¿De cuántas maneras se puede seleccionar?\\[2pt]
+\textbf{R/ 32}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Reconocer que se elige un solo objeto entre familias separadas}
+\textbf{Qué hago:} identifico el tipo de conteo: se selecciona \emph{un} grupo, no una combinación de grupos.
+
+Un resultado es un único grupo del colegio, y ese grupo pertenece a exactamente uno de los tres niveles mencionados: quinto año ($5$ grupos), cuarto año ($9$ grupos) o noveno año ($18$ grupos).
+
+\textbf{¿De dónde sale?} Las tres cantidades están en el enunciado, y la frase ``regalará una fiesta a un grupo'' indica que se elige una sola sección.
+
+\textbf{¿Por qué?} Aquí no hay etapas sucesivas: no se escoge un grupo de quinto \emph{y} uno de cuarto \emph{y} uno de noveno, sino uno solo. Cuando el resultado es una alternativa entre familias que no se traslapan, corresponde el principio de la suma, no el del producto.
+
+\textbf{¿Qué tomamos?} Se anota que hay tres familias disjuntas de tamaños $5$, $9$ y $18$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Sumar las tres familias}
+\textbf{Qué hago:} aplico el principio de la suma sobre los tres niveles.
+\[
+  N = 5+9+18 = 14+18 = 32 .
+\]
+
+\textbf{¿De dónde sale?} El $5$ son los grupos de quinto año, el $9$ los de cuarto año y el $18$ los de noveno año, tal como los lista el enunciado.
+
+\textbf{¿Por qué?} Ningún grupo es a la vez de quinto y de cuarto año, de modo que las tres listas son ajenas y la lista total de grupos elegibles tiene $5+9+18$ renglones. Multiplicar habría sido el error típico: $5\cdot 9\cdot 18$ contaría ternas formadas por un grupo de cada nivel, que no es lo que pide el problema.
+
+\textbf{¿Qué tomamos?} Se anota $N=32$ maneras de seleccionar el grupo.
+\end{paso}
+
+\begin{nota}
+El enunciado dice ``un grupo de tercer ciclo''. La respuesta oficial R/ 32 corresponde a sumar los tres bloques listados, $5+9+18$, es decir, a tomar como elegibles todos los grupos mencionados en el enunciado. Si en cambio se leyera ``tercer ciclo'' en sentido estricto, solo noveno año caería dentro de ese ciclo y la cantidad sería $18$. Se conserva $32$ como respuesta del folleto y se deja constancia de la lectura alternativa.
+\end{nota}
+
+\begin{resp}
+El grupo se puede seleccionar de $5+9+18=\mathbf{32}$ maneras. Coincide con la respuesta oficial R/ 32.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 11}
+\addcontentsline{toc}{subsection}{Ejercicio 11}
+
+\begin{quote}
+Un grupo de una escuela está formado por 17 niñas y 13 niños ¿De cuántas maneras se puede elegir al estudiante que representará al grupo en el próximo acto cívico?\\[2pt]
+\textbf{R/ 30}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Ver que se elige un solo estudiante entre dos familias disjuntas}
+\textbf{Qué hago:} clasifico el conteo como suma, contrastándolo con el Ejercicio 2.
+
+Un resultado es un único estudiante, y ese estudiante o es niña (hay $17$) o es niño (hay $13$), nunca las dos cosas.
+
+\textbf{¿De dónde sale?} Del enunciado: ``el estudiante que representará al grupo'' está en singular, y las cantidades $17$ y $13$ son las que se dan.
+
+\textbf{¿Por qué?} En el Ejercicio 2 se pedían dos personas, una de cada grupo, y por eso se multiplicaba; aquí se pide una sola persona, así que las dos familias son alternativas excluyentes y el conteo es aditivo. Multiplicar $17\cdot 13$ contaría parejas niña-niño, algo que el problema no pregunta.
+
+\textbf{¿Qué tomamos?} Se anota que hay dos familias disjuntas de tamaños $17$ y $13$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Aplicar el principio de la suma}
+\textbf{Qué hago:} sumo los tamaños de las dos familias.
+\[
+  N = 17+13 = 30 .
+\]
+
+\textbf{¿De dónde sale?} El $17$ es la cantidad de niñas y el $13$ la de niños, ambos del enunciado.
+
+\textbf{¿Por qué?} Porque el grupo completo tiene $30$ estudiantes distintos y cualquiera de ellos puede ser el representante; al ser las listas de niñas y niños ajenas, nadie se cuenta dos veces y la suma da el tamaño exacto del conjunto de candidatos.
+
+\textbf{¿Qué tomamos?} Se anota $N=30$ maneras de elegir al representante.
+\end{paso}
+
+\begin{resp}
+Hay $17+13=\mathbf{30}$ maneras de elegir al estudiante. Coincide con la respuesta oficial R/ 30.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 12}
+\addcontentsline{toc}{subsection}{Ejercicio 12}
+
+\begin{quote}
+En un concurso se tienen 5 hombres y 6 mujeres, los cuales deben tratar de conseguir sentarse en una banca de cinco personas, una vez terminada la música ¿De cuántas maneras, al finalizar la música, se pueden obtener cinco personas sentadas en la banca de forma intercalada (no hay dos hombres ni dos mujeres sentadas juntas)?\\[2pt]
+\textbf{R/ 4\,200}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Determinar los patrones de alternancia posibles}
+\textbf{Qué hago:} aplico el principio de la suma partiendo según el patrón de sexos en los cinco asientos.
+
+La banca tiene cinco asientos en fila y no puede haber dos personas del mismo sexo contiguas. Si el primer asiento lo ocupa un hombre (H), la alternancia obliga a seguir con mujer, hombre, mujer, hombre, y si lo ocupa una mujer (M) el patrón es el contrario:
+\[
+  \text{Patrón 1: } H\,M\,H\,M\,H \quad(3\ \text{hombres y }2\ \text{mujeres}),
+\]
+\[
+  \text{Patrón 2: } M\,H\,M\,H\,M \quad(3\ \text{mujeres y }2\ \text{hombres}).
+\]
+
+\textbf{¿De dónde sale?} Los cinco asientos vienen de ``una banca de cinco personas'' y la condición de alternancia de la aclaración entre paréntesis del enunciado.
+
+\textbf{¿Por qué?} Fijado el sexo del primer asiento, todo el patrón queda determinado: la prohibición de vecinos iguales no deja libertad en ningún asiento posterior. Como el primer asiento solo admite dos posibilidades, hay exactamente dos patrones, y son disjuntos porque difieren en quién se sienta de primero. Al ser cinco asientos (número impar), los patrones no reparten $2$ y $3$ del mismo modo, y por eso hay que contarlos por separado.
+
+\textbf{¿Qué tomamos?} Se anota $N=N_{HMHMH}+N_{MHMHM}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar el patrón $H\,M\,H\,M\,H$}
+\textbf{Qué hago:} aplico permutaciones dentro de cada sexo y luego el principio del producto entre los dos sexos.
+
+Los tres asientos de hombre son distinguibles (posiciones $1$, $3$ y $5$), así que hay que escoger $3$ hombres de los $5$ y ordenarlos:
+\[
+  P(5,3)=\frac{5!}{2!}=5\cdot 4\cdot 3=60 .
+\]
+Los dos asientos de mujer (posiciones $2$ y $4$) se llenan escogiendo $2$ mujeres de las $6$ y ordenándolas:
+\[
+  P(6,2)=\frac{6!}{4!}=6\cdot 5=30 .
+\]
+Por lo tanto
+\[
+  N_{HMHMH}=60\cdot 30=1\,800 .
+\]
+
+\textbf{¿De dónde sale?} El $5$ es la cantidad de hombres del concurso y el $6$ la de mujeres, ambos del enunciado; el $3$ y el $2$ son las cantidades de asientos de cada sexo en este patrón.
+
+\textbf{¿Por qué?} El orden importa porque los asientos están en posiciones distintas de la banca: que Juan quede en el asiento $1$ y Pedro en el $3$ es una configuración distinta de la contraria. En $\frac{5!}{2!}$ la cancelación funciona porque $5!=5\cdot 4\cdot 3\cdot(2\cdot 1)$ y el paréntesis es $2!$; igual en $\frac{6!}{4!}=6\cdot 5$ porque $6!=6\cdot 5\cdot(4!)$. Se multiplica $60$ por $30$ porque las dos elecciones son independientes: escoger cuáles hombres se sientan no cambia la cantidad de mujeres disponibles, y ambas decisiones ocurren en la misma configuración final.
+
+\textbf{¿Qué tomamos?} Se anota $N_{HMHMH}=1\,800$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar el patrón $M\,H\,M\,H\,M$ y sumar}
+\textbf{Qué hago:} repito el conteo intercambiando los papeles y cierro con el principio de la suma.
+
+Ahora hay tres asientos de mujer (posiciones $1$, $3$, $5$) y dos de hombre (posiciones $2$ y $4$):
+\[
+  P(6,3)=\frac{6!}{3!}=6\cdot 5\cdot 4=120,\qquad
+  P(5,2)=\frac{5!}{3!}=5\cdot 4=20,
+\]
+\[
+  N_{MHMHM}=120\cdot 20=2\,400 .
+\]
+Sumando los dos patrones disjuntos:
+\[
+  N = 1\,800+2\,400 = 4\,200 .
+\]
+
+\textbf{¿De dónde sale?} El $6$ y el $5$ siguen siendo las cantidades de mujeres y hombres; el $3$ y el $2$ ahora corresponden a los asientos de mujer y de hombre respectivamente en este segundo patrón; los sumandos son los subtotales de los Pasos 2 y 3.
+
+\textbf{¿Por qué?} La suma es válida porque una configuración concreta tiene un hombre o una mujer en el primer asiento, nunca ambas cosas, de modo que las dos listas no comparten configuraciones. Los cálculos usan la misma cancelación de siempre: $6!=6\cdot 5\cdot 4\cdot(3!)$ y $5!=5\cdot 4\cdot(3!)$.
+
+Aritmética: $6\cdot 5=30$, $30\cdot 4=120$; $5\cdot 4=20$; $120\cdot 20=2\,400$; y $1\,800+2\,400=4\,200$.
+
+\textbf{¿Qué tomamos?} Se anota $N=4\,200$ maneras.
+\end{paso}
+
+\begin{resp}
+Se pueden obtener $P(5,3)\cdot P(6,2)+P(6,3)\cdot P(5,2)=1\,800+2\,400=\mathbf{4\,200}$ configuraciones intercaladas. Coincide con la respuesta oficial R/ 4\,200.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 13}
+\addcontentsline{toc}{subsection}{Ejercicio 13}
+
+\begin{quote}
+Se tiene una baraja inglesa, la cual consiste en 52 cartas divididas cuatro palos: diamantes, corazones (ambos de color rojo), espadas y tréboles (ambos de color negro). Además, cada palo consiste en las cartas: As, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K. Si se sacan 5 cartas al azar:\\[2pt]
+a) Determine la cantidad de manos de cinco cartas en las cuales, se tienen 4 cartas del mismo número. \quad \textbf{R/ 432}\\
+b) ¿De cuántas maneras se puede formar una mano de cinco cartas tomadas de una baraja de 52 cartas? \quad \textbf{R/ 2\,598\,960}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Establecer que una mano no está ordenada}
+\textbf{Qué hago:} defino el objeto contado para justificar el uso de combinaciones en ambos incisos.
+
+Una mano de cinco cartas es un conjunto de cinco cartas distintas: importa cuáles cartas se tienen, no en qué orden llegaron.
+
+\textbf{¿De dónde sale?} Del enunciado, que habla de ``manos de cinco cartas'' sacadas ``al azar'', sin asignarles posiciones ni papeles distintos, a diferencia del Ejercicio 5, donde sí se hablaba de primera y segunda carta.
+
+\textbf{¿Por qué?} Si se intercambian dos cartas de la mano, la mano sigue siendo la misma; ese es el criterio de la teoría para usar $C(n,r)$ en lugar de $P(n,r)$. Concretamente, cada mano de cinco cartas se podría ordenar de $5!$ maneras, y todas esas listas describen una sola mano: por eso hay que dividir entre $5!$.
+
+\textbf{¿Qué tomamos?} Se anota que el conteo será con combinaciones.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso b): contar todas las manos posibles}
+\textbf{Qué hago:} aplico la fórmula de combinaciones con $n=52$ y $r=5$.
+\[
+  C(52,5)=\binom{52}{5}=\frac{52!}{5!\,(52-5)!}=\frac{52!}{5!\,47!}
+  =\frac{52\cdot 51\cdot 50\cdot 49\cdot 48}{5\cdot 4\cdot 3\cdot 2\cdot 1}.
+\]
+
+\textbf{¿De dónde sale?} El $52$ es el tamaño de la baraja, dato del enunciado; el $5$ es el tamaño de la mano.
+
+\textbf{¿Por qué?} El numerador $52\cdot 51\cdot 50\cdot 49\cdot 48$ es $P(52,5)$, es decir la cantidad de formas de sacar cinco cartas \emph{en orden}: la primera se elige entre $52$, la segunda entre las $51$ que quedan, y así hasta la quinta. Esa expansión sale de $\frac{52!}{47!}$ porque $52!=52\cdot 51\cdot 50\cdot 49\cdot 48\cdot(47!)$ y el $47!$ se cancela. Como cada mano aparece $5!=120$ veces en ese conteo ordenado (una por cada orden de sus cinco cartas), se divide entre $120$.
+
+Aritmética paso a paso, simplificando antes de multiplicar: $50/5=10$, $48/(4\cdot 3\cdot 2)=48/24=2$, de modo que
+\[
+  \binom{52}{5}=52\cdot 51\cdot 10\cdot 49\cdot 2 = 52\cdot 51\cdot 980 .
+\]
+Ahora $52\cdot 51=2\,652$ y $2\,652\cdot 980 = 2\,652\cdot 1\,000 - 2\,652\cdot 20 = 2\,652\,000-53\,040=2\,598\,960$.
+
+\textbf{¿Qué tomamos?} Se anota $C(52,5)=2\,598\,960$ manos posibles.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso a): identificar qué valores cuentan como ``número''}
+\textbf{Qué hago:} preciso el conjunto de valores admisibles antes de contar, porque de eso depende el primer factor.
+
+Cada palo tiene las cartas As, $2$, $3$, $4$, $5$, $6$, $7$, $8$, $9$, $10$, J, Q, K. De esos trece valores, los que son \emph{números} son
+\[
+  2,3,4,5,6,7,8,9,10 \qquad\Longrightarrow\qquad 9\ \text{valores},
+\]
+mientras que As, J, Q y K son figuras o letras, no números.
+
+\textbf{¿De dónde sale?} La lista de valores es literalmente la que da el enunciado; el conteo $13-4=9$ resulta de quitar As, J, Q y K.
+
+\textbf{¿Por qué?} El inciso pide ``4 cartas del mismo número'', y el propio enunciado separa la nomenclatura al escribir ``As, 2, 3, \dots, 10, J, Q, K''. Tomar los trece valores daría $13\cdot 48=624$; restringirse a los nueve numéricos es lo que reproduce la respuesta oficial $432$.
+
+\textbf{¿Qué tomamos?} Se anota que hay $9$ opciones para el número que se repite cuatro veces.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso a): armar la mano por etapas}
+\textbf{Qué hago:} aplico el principio del producto en dos etapas: fijar el número repetido y luego escoger la quinta carta.
+
+Etapa 1: escoger el número que aparece cuatro veces, $9$ opciones (Paso 3). Etapa 2: tomar las cuatro cartas de ese número. Como el número aparece exactamente una vez en cada uno de los cuatro palos, hay que tomarlas todas y solo hay una forma de hacerlo:
+\[
+  C(4,4)=\frac{4!}{4!\,0!}=1 ,
+\]
+usando que $0!=1$. Etapa 3: escoger la quinta carta entre las que sobran, que son $52-4=48$, o sea $48$ opciones. Entonces
+\[
+  N_a = 9\cdot 1\cdot 48 = 9\cdot 48 = 9\cdot 50 - 9\cdot 2 = 450-18=432 .
+\]
+
+\textbf{¿De dónde sale?} El $9$ viene del Paso 3; el $4$ de que cada valor tiene exactamente cuatro cartas, una por palo (diamantes, corazones, espadas, tréboles, según el enunciado); el $48$ de restarle a las $52$ cartas las $4$ ya comprometidas.
+
+\textbf{¿Por qué?} Se multiplica porque las tres decisiones conviven en una misma mano y ninguna cambia el número de opciones de la siguiente: sea cual sea el número repetido, siempre quedan $48$ cartas para la quinta. Los $9$ bloques son además disjuntos, porque una mano no puede tener cuatro cartas de un número y cuatro de otro: eso requeriría ocho cartas y la mano solo tiene cinco. Por eso no hay manos contadas dos veces y no hace falta corregir nada. Tampoco se divide entre $5!$ aquí: cada etapa ya entrega conjuntos de cartas, no listas ordenadas, así que el resultado ya cuenta manos.
+
+\textbf{¿Qué tomamos?} Se anota $N_a=432$ manos con cuatro cartas del mismo número.
+\end{paso}
+
+\begin{resp}
+a) $9\cdot C(4,4)\cdot 48=9\cdot 48=\mathbf{432}$ manos (coincide con R/ 432).\\
+b) $C(52,5)=\dfrac{52\cdot 51\cdot 50\cdot 49\cdot 48}{5!}=\mathbf{2\,598\,960}$ manos (coincide con R/ 2\,598\,960).
+\end{resp}
+
+\end{document}
