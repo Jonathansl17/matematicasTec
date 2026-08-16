@@ -1,0 +1,725 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+
+\title{Solucionario --- Cap\'itulo 1, Secci\'on 1.5\\ Ejercicios 55 a 59: distribuciones de objetos en recipientes}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{teo}
+\textbf{Los cuatro casos de distribución (y de dónde sale cada fórmula).}
+
+Un problema de \emph{distribución} consiste en repartir $n$ objetos en $k$ recipientes (cajas, personas, laboratorios, cartucheras, cuevas). Todo depende de dos preguntas: \emph{¿los objetos se distinguen entre sí?} y \emph{¿los recipientes se distinguen entre sí?} En esta sección los recipientes \textbf{siempre son distintos} (son paquetes turísticos con nombre, personas con nombre, cartucheras diferentes, cuevas diferentes), así que lo único que cambia es si los objetos son idénticos o distintos, y qué restricciones hay (mínimos, máximos, vacíos permitidos o no).
+
+\medskip
+\textbf{Caso 1. Objetos idénticos en cajas distintas, sin restricción.}
+Si los $n$ objetos son indistinguibles, un reparto queda completamente determinado por \emph{cuántos} objetos recibe cada caja, es decir por una solución entera
+\[
+x_1+x_2+\cdots+x_k=n,\qquad x_i\ge 0 .
+\]
+Para contar esas soluciones se usa el modelo de \textbf{barras y estrellas}: dibujamos los $n$ objetos como $n$ estrellas en fila y colocamos $k-1$ barras para separarlas en $k$ bloques; el primer bloque es lo que recibe la caja $1$, el segundo lo que recibe la caja $2$, etc. Por ejemplo, con $n=5$ y $k=3$, la fila $\star\star\,|\,\star\star\star\,|\,$ significa $x_1=2$, $x_2=3$, $x_3=0$. Cada reparto produce exactamente una fila de símbolos y cada fila produce exactamente un reparto: la correspondencia es uno a uno. La fila tiene $n+k-1$ posiciones y elegir el reparto equivale a \emph{escoger cuáles $n$ posiciones son estrellas} (o, lo que es lo mismo, cuáles $k-1$ son barras). Por eso
+\[
+\#\{\text{repartos}\}=\binom{n+k-1}{n}=C(n+k-1,\;n)=C(n+k-1,\;k-1).
+\]
+Se conserva la escritura $\binom{n+k-1}{n}$ con la suma \emph{sin evaluar} en la parte superior, porque así se lee de un vistazo de dónde salió cada número: el de abajo son los objetos y el de arriba son objetos más barras. Nótese que es una \emph{combinación} y no una permutación porque las estrellas son iguales entre sí y las barras también: solo importa el patrón, no el orden en que las escribimos.
+
+\medskip
+\textbf{Caso 2. Objetos idénticos con mínimos por caja.}
+Si cada caja debe recibir al menos $1$ objeto, primero \emph{depositamos} un objeto en cada caja (eso se hace de una sola manera, porque los objetos son iguales) y luego repartimos libremente los $n-k$ restantes. Formalmente es el cambio de variable $y_i=x_i-1\ge 0$, que convierte $x_1+\cdots+x_k=n$ en $y_1+\cdots+y_k=n-k$, y por el Caso 1 esto da
+\[
+\binom{(n-k)+k-1}{n-k}=C(n-1,\;n-k)=C(n-1,\;k-1).
+\]
+Si el mínimo de una caja es $m$ en lugar de $1$, se hace el mismo cambio de variable restando $m$ únicamente a esa caja: se le adelantan $m$ objetos y se reparten los $n-m$ que sobran sin restricción. La idea es siempre la misma: \emph{pagar por adelantado lo obligatorio y contar libremente el resto}.
+
+\medskip
+\textbf{Caso 2'. Objetos idénticos con máximos por caja: se hacen casos, o se resta el complemento.}
+Cuando lo que hay es un \emph{máximo} (``a lo sumo $t$'') no existe fórmula directa. Hay dos salidas, y ambas se usan en esta sección:
+\begin{itemize}[leftmargin=1.2cm]
+  \item \textbf{Hacer casos} sobre la cantidad exacta que recibe la caja restringida: si esa caja recibe $j$ objetos ($j=0,1,\dots,t$), se apartan esos $j$ y se reparten los $n-j$ restantes entre las \emph{otras} $k-1$ cajas, lo cual da $\binom{(n-j)+(k-1)-1}{n-j}$; los casos son disjuntos y se suman. Hay que sacar a la caja restringida del reparto posterior, porque si siguiera participando podría recibir más y romper la condición.
+  \item \textbf{Restar el complemento}: se cuenta la situación prohibida y se resta del total. Cuando el máximo es \emph{simultáneo para todas las cajas} conviene además el cambio de variable espejo $z_i=t-x_i\ge0$, que convierte la cota superior en una cota inferior trivial.
+\end{itemize}
+
+\medskip
+\textbf{Caso 3. Objetos distintos en cajas distintas, sin restricción.}
+Si los objetos se distinguen, el reparto ya no se describe por cantidades sino por una \emph{función} que a cada objeto le asigna su caja. Construimos el reparto objeto por objeto: el objeto $1$ puede ir a cualquiera de las $k$ cajas, el objeto $2$ también a cualquiera de las $k$ (la decisión anterior no lo limita, porque las cajas no tienen cupo), y así hasta el objeto $n$. Por el principio del producto,
+\[
+\underbrace{k\cdot k\cdots k}_{n\ \text{factores}}=k^{\,n}.
+\]
+El exponente es el número de \emph{objetos} y la base el número de \emph{cajas}: quien elige es el objeto.
+
+\medskip
+\textbf{Caso 4. Objetos distintos con todas las cajas no vacías (sobreyecciones).}
+Aquí se cuentan las funciones \emph{sobreyectivas} de los $n$ objetos sobre las $k$ cajas. La estructura del argumento es la misma que la del profesor cuando aparece un ``al menos uno de cada tipo'': se nombra el universo y los sucesos, y se pasa al complemento de la unión. Sea
+\[
+\Omega=\{\text{repartos de los }n\text{ objetos distintos en las }k\text{ cajas, sin restricción}\},\qquad |\Omega|=k^{\,n},
+\]
+\[
+X_i=\{x\in\Omega:\ \text{la caja }i\text{ queda vacía en }x\},\qquad i=1,\dots,k .
+\]
+Lo que se busca es $\bigl|\overline{X_1}\cap\cdots\cap\overline{X_k}\bigr|$, y para facilitar los cálculos se usa
+\[
+\bigl|\overline{X_1}\cap\cdots\cap\overline{X_k}\bigr|=|\Omega|-\bigl|X_1\cup\cdots\cup X_k\bigr| .
+\]
+Los $X_i$ se traslapan (una misma función puede dejar dos o tres cajas vacías a la vez), así que la unión se calcula por \textbf{inclusión--exclusión}:
+\[
+\Bigl|\bigcup_{i=1}^{k}X_i\Bigr|=\sum_{i}|X_i|-\sum_{i<j}|X_i\cap X_j|+\sum_{i<j<l}|X_i\cap X_j\cap X_l|-\cdots
+\]
+Ahora se identifica cada sumando: una intersección de $i$ de esos conjuntos es el conjunto de repartos que evitan $i$ cajas fijas, es decir los repartos de los $n$ objetos distintos entre las $k-i$ cajas permitidas; por el Caso 3 hay $(k-i)^{\,n}$ de ellos, y las $i$ cajas prohibidas se eligen de $C(k,i)$ maneras. Sustituyendo y absorbiendo el $|\Omega|=k^n$ como el término $i=0$:
+\[
+\boxed{\ \text{Sobre}(n,k)=\sum_{i=0}^{k}(-1)^i\,C(k,i)\,(k-i)^{\,n}
+=k^n-C(k,1)(k-1)^n+C(k,2)(k-2)^n-\cdots\ }
+\]
+El término $C(k,i)(k-i)^n$ cuenta: elijo $i$ cajas que prohíbo ($C(k,i)$ maneras) y reparto los $n$ objetos distintos entre las $k-i$ cajas permitidas ($(k-i)^n$ maneras). Los signos alternados corrigen que esos casos se contaron varias veces. Cuando $n=k$ la fórmula colapsa a $k!$, porque una sobreyección entre conjuntos del mismo tamaño es una biyección.
+
+\medskip
+\textbf{Cómo se organiza la solución: por etapas, y dentro de una etapa, por casos.}
+Cuando hay dos clases de objeto (por ejemplo lapiceros idénticos \emph{y} lápices distintos), repartir cada clase es un \emph{proceso independiente}: la manera en que se acomodan los lapiceros no restringe ni una sola de las maneras de acomodar los lápices, y viceversa (las cajas no tienen capacidad limitada ni las restricciones mezclan los dos tipos). Un reparto completo es entonces un par ordenado (reparto de la clase A, reparto de la clase B), y por el \textbf{principio del producto} el total es
+\[
+N=N_A\cdot N_B .
+\]
+Por eso la solución se escribe \emph{por etapas}: Etapa 1 reparte una clase, Etapa 2 la otra, y al final se multiplican. Si dentro de una etapa aparece una restricción de tipo ``a lo sumo'' o ``al menos'' que no se resuelve con una sola fórmula, esa etapa se abre en \emph{casos} disjuntos, se cuenta cada caso y se \emph{suman} (principio de la suma). La única precaución es que la restricción del enunciado se aplique a la clase correcta: ``al menos un lapicero y al menos un lápiz'' impone una condición a cada etapa por separado, y ahí sí se multiplican los dos conteos ya restringidos.
+\end{teo}
+
+\begin{tip}
+\textbf{Fórmulas de bolsillo} ($n$ objetos, $k$ cajas distintas):
+\begin{itemize}[leftmargin=1.2cm]
+  \item Objetos idénticos, sin restricción: $\binom{n+k-1}{n}=C(n+k-1,\,n)$.
+  \item Objetos idénticos, cada caja $\ge 1$: $C(n-1,\,k-1)$.
+  \item Objetos idénticos, una caja con $\ge m$: adelanto $m$ y cuento $\binom{(n-m)+k-1}{n-m}$.
+  \item Objetos idénticos, una caja con $\le t$: casos $j=0,1,\dots,t$, cada uno $\binom{(n-j)+(k-1)-1}{n-j}$, y se suman.
+  \item Objetos idénticos, \emph{todas} las cajas con $\le t$: cambio espejo $z_i=t-x_i$, queda $\binom{(kt-n)+k-1}{kt-n}$.
+  \item Objetos distintos, sin restricción: $k^{\,n}$.
+  \item Objetos distintos, una caja con exactamente $r$: $C(n,r)\,(k-1)^{\,n-r}$.
+  \item Objetos distintos, todas las cajas no vacías: $\sum_{i=0}^{k}(-1)^i C(k,i)(k-i)^n$.
+  \item Dos clases de objeto: una etapa por clase y se multiplican los conteos.
+\end{itemize}
+\end{tip}
+
+% ==========================================================
+\section*{Ejercicio 55}
+\addcontentsline{toc}{subsection}{Ejercicio 55}
+
+\begin{quote}
+Hay seis ganadores del concurso La Llamada Viajera pueden elegir uno de los siguientes paquetes turísticos: Isla San Lucas, Tortuguero, La Fortuna y Bahía Ballena. De cuántas maneras los ganadores pueden elegir su premio si:\\
+\textit{a)} No hay restricciones. \hfill R/ $4096$\\
+\textit{b)} Tortuguero debe ser elegido por exactamente dos ganadores. \hfill R/ $1215$\\
+\textit{c)} Isla San Lucas la pueden elegir a lo sumo dos ganadores. \hfill R/ $3402$\\
+\textit{d)} Al menos un paquete no es elegido por algún ganador. \hfill R/ $2536$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Tipificación: qué se reparte, en qué, y con qué restricciones}
+\textbf{Qué hago:} antes de escribir cualquier fórmula decido las tres preguntas del catálogo. Los \textbf{objetos repartidos son los 6 ganadores} y son \textbf{distintos}: cada ganador es una persona con nombre propio, y ``el ganador 1 elige Tortuguero y el ganador 2 La Fortuna'' es un resultado diferente de ``el ganador 1 elige La Fortuna y el ganador 2 Tortuguero''. Los \textbf{recipientes son los 4 paquetes turísticos} y también son \textbf{distintos}: Isla San Lucas, Tortuguero, La Fortuna y Bahía Ballena no son intercambiables. \textbf{Se permiten paquetes vacíos} (nada obliga a que todos los paquetes sean escogidos) y en el inciso (a) no hay ningún mínimo ni máximo. Estamos por tanto en el \textbf{Caso 3 del catálogo}: objetos distintos en cajas distintas, sin restricción, con $n=6$ y $k=4$.
+\textbf{¿De dónde sale?} Los números $6$ y $4$ están literalmente en el enunciado (``seis ganadores'', y la lista de cuatro paquetes). Que los ganadores sean distintos y los paquetes también es lo que agrego yo al tipificar, y es lo que decide la fórmula.
+\textbf{¿Por qué?} Porque quien \emph{elige} es el ganador: cada ganador se lleva un paquete y solo uno. Eso es exactamente una función
+\[
+f:\{\text{6 ganadores}\}\longrightarrow\{\text{4 paquetes}\},
+\]
+y contar los repartos es contar funciones. Si tratara a los ganadores como idénticos usaría barras y estrellas, $\binom{6+4-1}{6}=C(9,6)=84$, que es un número totalmente distinto y contaría solo ``cuántos ganadores por paquete'', perdiendo la identidad de las personas.
+\textbf{¿Qué tomamos?} Tomamos el modelo funcional con $n=6$ objetos distintos y $k=4$ cajas distintas; la base de todos los incisos será $k^{\,n}=4^6$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a): una sola etapa, principio del producto}
+\textbf{Qué hago:} el inciso (a) no tiene restricciones, así que se resuelve en una sola etapa: construyo el reparto ganador por ganador y aplico el principio del producto.
+
+\medskip
+\textbf{Etapa única: repartir los 6 ganadores entre los 4 paquetes.}
+\[
+\underbrace{4}_{\text{gan. }1}\cdot\underbrace{4}_{\text{gan. }2}\cdot\underbrace{4}_{\text{gan. }3}\cdot\underbrace{4}_{\text{gan. }4}\cdot\underbrace{4}_{\text{gan. }5}\cdot\underbrace{4}_{\text{gan. }6}
+=\underbrace{4}_{\text{paq.}}^{\;\underbrace{6}_{\text{gan.}}}=4^6 .
+\]
+\textbf{¿De dónde sale?} La base $4$ es el número de paquetes disponibles para \emph{cada} ganador y el exponente $6$ es la cantidad de ganadores; el producto de seis factores iguales a $4$ viene de decidir el destino de cada ganador uno tras otro.
+\textbf{¿Por qué?} Porque la elección de un ganador no limita la de los demás: varios ganadores pueden escoger el mismo paquete (no hay cupo), así que en cada una de las seis etapas siguen habiendo $4$ opciones completas. Ese es justamente el Caso 3 del catálogo, $k^{\,n}$.
+\textbf{¿Qué tomamos?} Tomamos el valor
+\[
+4^6=(4^3)^2=64^2=64\cdot 64=64\cdot 60+64\cdot 4=3840+256=4096 .
+\]
+Con esto, hay $4096$ maneras de que los ganadores elijan su premio sin restricciones.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (b): se resuelve por etapas}
+\textbf{Qué hago:} la condición ``Tortuguero debe ser elegido por exactamente dos ganadores'' separa el problema en dos decisiones sucesivas, así que se realizará por etapas.
+
+\medskip
+\textbf{Etapa 1: seleccionar cuáles dos ganadores eligen Tortuguero.}
+\[
+\underbrace{C(6,2)}_{\text{2 de los 6 ganadores}}=\frac{6\cdot 5}{2\cdot 1}=\frac{30}{2}=15 .
+\]
+
+\medskip
+\textbf{Etapa 2: repartir los ganadores restantes entre los paquetes restantes.}
+\[
+\underbrace{3}_{\text{paquetes} \ne \text{Tortuguero}}^{\;\underbrace{4}_{\text{ganadores sin paquete}}}=3^4=9\cdot 9=81 .
+\]
+\textbf{¿De dónde sale?} El $C(6,2)$ escoge el subconjunto de $2$ ganadores, de los $6$ disponibles, que se llevan Tortuguero. El $3$ de la Etapa 2 es $4-1$: los paquetes distintos de Tortuguero. El exponente $4$ es $6-2$: los ganadores que aún no tienen paquete asignado.
+\textbf{¿Por qué?} En la Etapa 1 uso \emph{combinación} y no permutación porque el grupo de dos ganadores que van a Tortuguero no tiene orden interno: ``van Ana y Beto'' es el mismo resultado que ``van Beto y Ana''; ambos terminan en el mismo paquete y el paquete no distingue en qué orden llegaron. En la Etapa 2 hay que \emph{prohibir} Tortuguero a los cuatro restantes: si les dejara las $4$ opciones, alguno podría escoger Tortuguero y entonces ese paquete tendría tres o más ganadores, violando el ``exactamente dos''. Por eso la base baja de $4$ a $3$. Las dos etapas se multiplican por el principio del producto, porque cada elección del par de la Etapa 1 se puede combinar con cualquiera de las asignaciones de la Etapa 2.
+\textbf{¿Qué tomamos?} Tomamos el producto de las dos etapas:
+\[
+N_b=\underbrace{C(6,2)}_{15}\cdot\underbrace{3^4}_{81}=15\cdot 81=15\cdot 80+15\cdot 1=1200+15=1215 .
+\]
+Con esto, hay $1215$ maneras de repartir los premios con Tortuguero elegido por exactamente dos ganadores.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (c): se harán casos sobre cuántos eligen Isla San Lucas}
+\textbf{Qué hago:} ``a lo sumo dos'' no se resuelve con una sola fórmula, así que abro la cuenta en casos disjuntos según el número exacto $r$ de ganadores que eligen Isla San Lucas, con $r=0,1,2$. Cada caso se resuelve con el mismo esquema de dos etapas del Paso 3.
+
+\medskip
+\emph{Caso I: Isla San Lucas no es elegida por nadie ($r=0$).} Los $6$ ganadores se reparten entre los otros $3$ paquetes:
+\[
+\underbrace{C(6,0)}_{\text{quiénes van a Isla San Lucas}}\cdot\underbrace{3^{6}}_{\text{los 6 restantes}}=1\cdot 729=729 .
+\]
+
+\medskip
+\emph{Caso II: Isla San Lucas es elegida por exactamente un ganador ($r=1$).}
+\[
+\underbrace{C(6,1)}_{\text{cuál ganador}}\cdot\underbrace{3^{5}}_{\text{los 5 restantes}}=6\cdot 243=1458 .
+\]
+
+\medskip
+\emph{Caso III: Isla San Lucas es elegida por exactamente dos ganadores ($r=2$).}
+\[
+\underbrace{C(6,2)}_{\text{cuáles dos ganadores}}\cdot\underbrace{3^{4}}_{\text{los 4 restantes}}=15\cdot 81=1215 .
+\]
+\textbf{¿De dónde sale?} El rango $r=0,1,2$ sale de la frase ``a lo sumo dos'': $r\le 2$, y $r$ no puede ser negativo. Cada caso tiene la estructura del inciso (b) con $r$ en lugar de $2$: la Etapa 1 escoge los $r$ ganadores que van a Isla San Lucas, $C(6,r)$; la Etapa 2 reparte los $6-r$ restantes entre los $4-1=3$ paquetes que no son Isla San Lucas, $3^{6-r}$. Los coeficientes son $C(6,0)=1$, $C(6,1)=6$, $C(6,2)=15$, y las potencias $3^6=729$, $3^5=243$, $3^4=81$.
+\textbf{¿Por qué?} Porque los tres casos son \emph{disjuntos} (el número de ganadores que eligen Isla San Lucas es un valor único para cada reparto: no puede ser $1$ y $2$ a la vez) y juntos agotan la condición pedida; el principio de la suma dice entonces que se suman los cardinales. También se podría hacer por complemento, restando los casos $r=3,4,5,6$ del total $4^6$, pero eso serían cuatro casos en lugar de tres, así que el conteo directo es más corto.
+\textbf{¿Qué tomamos?} Tomamos la suma de los tres casos:
+\[
+N_c=\sum_{r=0}^{2}\underbrace{C(6,r)}_{\text{quiénes}}\cdot\underbrace{3^{\,6-r}}_{\text{los demás}}=729+1458+1215 .
+\]
+Desglosando: $729+1458=2187$ y $2187+1215=3402$. Con esto, hay $3402$ maneras de repartir los premios con Isla San Lucas elegida por a lo sumo dos ganadores.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (d): planteamiento por complemento con conjuntos nombrados}
+\textbf{Qué hago:} nombro el universo y los sucesos, y traslado la condición al complemento. Considere
+\[
+\Omega=\{\text{repartos de los 6 ganadores entre los 4 paquetes, sin restricción}\},\quad |\Omega|=4^6,
+\]
+\[
+X_i=\{x\in\Omega:\ \text{el paquete }i\text{ no es elegido por ningún ganador en }x\},\qquad i=1,2,3,4 .
+\]
+Lo que pide el inciso es $\bigl|X_1\cup X_2\cup X_3\cup X_4\bigr|$: ``al menos un paquete no es elegido''. Para facilitar los cálculos se usa
+\[
+N_d=\bigl|X_1\cup X_2\cup X_3\cup X_4\bigr|=|\Omega|-\bigl|\overline{X_1}\cap\overline{X_2}\cap\overline{X_3}\cap\overline{X_4}\bigr|
+=4^6-\underbrace{\text{Sobre}(6,4)}_{\text{todos los paquetes elegidos}} .
+\]
+\textbf{¿De dónde sale?} La intersección de los complementos $\overline{X_i}$ es el conjunto de repartos en los que \emph{ningún} paquete queda sin elegir, es decir, los repartos en los que los cuatro paquetes tienen al menos un ganador: las funciones \emph{sobreyectivas} de los $6$ ganadores sobre los $4$ paquetes.
+\textbf{¿Por qué?} Porque contar directamente la unión $\bigl|\bigcup X_i\bigr|$ y contar el complemento cuestan lo mismo (ambos pasan por inclusión--exclusión), pero pasar al complemento deja el problema expresado en un objeto estándar del catálogo, $\text{Sobre}(6,4)$, que además reaparece en el Ejercicio 59. La resta es válida porque $\bigcup X_i$ y su complemento son disjuntos y su unión es todo $\Omega$.
+\textbf{¿Qué tomamos?} Tomamos la estrategia $N_d=4^6-\text{Sobre}(6,4)$; en el paso siguiente se deriva y evalúa $\text{Sobre}(6,4)$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso (d): derivación de $\text{Sobre}(6,4)$ por inclusión--exclusión}
+\textbf{Qué hago:} derivo el número de sobreyecciones sin citar ninguna fórmula como caja negra, usando los mismos $X_i$ del paso anterior:
+\[
+\text{Sobre}(6,4)=|\Omega|-\Bigl|\bigcup_{i=1}^{4}X_i\Bigr| ,
+\]
+\[
+\Bigl|\bigcup_{i=1}^{4}X_i\Bigr|=\sum_i |X_i|-\sum_{i<j}|X_i\cap X_j|+\sum_{i<j<l}|X_i\cap X_j\cap X_l|-\Bigl|\bigcap_{i=1}^{4}X_i\Bigr| .
+\]
+Una intersección de $i$ de esos conjuntos prohíbe $i$ paquetes fijos y deja a los $6$ ganadores elegir libremente entre los $4-i$ paquetes permitidos, lo cual por el Caso 3 son $(4-i)^6$ repartos; y hay $C(4,i)$ maneras de escoger cuáles $i$ paquetes se prohíben. Sustituyendo y absorbiendo el $|\Omega|=4^6$ como término $i=0$:
+\[
+\text{Sobre}(6,4)=\sum_{i=0}^{4}(-1)^i\,\underbrace{C(4,i)}_{\text{cuáles paquetes prohíbo}}\cdot\underbrace{(4-i)^{6}}_{\text{repartos entre los permitidos}} .
+\]
+\textbf{¿De dónde sale?} El $C(4,i)$ sale de que hay $4$ paquetes y elijo un subconjunto de $i$ para prohibir; el $(4-i)^6$ sale del Caso 3 aplicado a $6$ ganadores distintos y $4-i$ cajas disponibles.
+\textbf{¿Por qué?} Porque los sucesos ``el paquete $i$ quedó vacío'' se traslapan: hay repartos en los que dos paquetes quedan simultáneamente vacíos, y al sumar $|X_1|+|X_2|+|X_3|+|X_4|$ esos repartos se cuentan dos veces. Los signos alternados de la inclusión--exclusión son precisamente la corrección de ese sobreconteo.
+\textbf{¿Qué tomamos?} Tomamos el desarrollo término a término:
+\[
+\begin{aligned}
+i=0:&\quad +C(4,0)\,4^6=1\cdot 4096=4096,\\
+i=1:&\quad -C(4,1)\,3^6=-4\cdot 729=-2916,\\
+i=2:&\quad +C(4,2)\,2^6=+6\cdot 64=+384,\\
+i=3:&\quad -C(4,3)\,1^6=-4\cdot 1=-4,\\
+i=4:&\quad +C(4,4)\,0^6=+1\cdot 0=0 .
+\end{aligned}
+\]
+Sumando en orden: $4096-2916=1180$; $1180+384=1564$; $1564-4=1560$; $1560+0=1560$. Tomamos $\text{Sobre}(6,4)=1560$.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Inciso (d): resta final}
+\textbf{Qué hago:} sustituyo el valor derivado en la expresión del Paso 5.
+\[
+N_d=\underbrace{4^6}_{4096}-\underbrace{\text{Sobre}(6,4)}_{1560}=4096-1560 .
+\]
+\textbf{¿De dónde sale?} El minuendo es $|\Omega|$, calculado en el inciso (a); el sustraendo es el Paso 6.
+\textbf{¿Por qué?} Porque todo reparto o bien deja algún paquete sin elegir, o bien hace que los cuatro sean elegidos, y nunca las dos cosas: son sucesos complementarios dentro de $\Omega$.
+\textbf{¿Qué tomamos?} Tomamos
+\[
+4096-1560=4096-1500-60=2596-60=2536 .
+\]
+Con esto, hay $2536$ maneras de repartir los premios de modo que al menos un paquete no sea elegido, que coincide con la respuesta oficial.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+\textbf{(a)} $4^6=\mathbf{4096}$.\\
+\textbf{(b)} $C(6,2)\cdot 3^4=15\cdot 81=\mathbf{1215}$.\\
+\textbf{(c)} $C(6,0)3^6+C(6,1)3^5+C(6,2)3^4=729+1458+1215=\mathbf{3402}$.\\
+\textbf{(d)} $4^6-\sum_{i=0}^{4}(-1)^iC(4,i)(4-i)^6=4096-1560=\mathbf{2536}$.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 56}
+\addcontentsline{toc}{subsection}{Ejercicio 56}
+
+\begin{quote}
+¿De cuántas maneras se pueden distribuir cinco libros distintos de probabilidad entre Jorge, Karla y Anthony si cada uno le corresponde al menos un libro? \hfill R/ $150$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Tipificación: objetos distintos, cajas distintas, ninguna vacía}
+\textbf{Qué hago:} contesto las tres preguntas del catálogo. Los \textbf{5 libros son distintos}: el enunciado lo dice explícitamente (``cinco libros distintos''), así que importa \emph{cuál} libro recibe cada persona y no solo cuántos. Los \textbf{3 recipientes son distintos}: Jorge, Karla y Anthony son personas con nombre, no cajas intercambiables. Y hay una restricción de \textbf{mínimo $1$ para todas las cajas}: ``a cada uno le corresponde al menos un libro'', es decir, \textbf{ninguna caja puede quedar vacía}. Es el \textbf{Caso 4 del catálogo}: sobreyecciones, con $n=5$ y $k=3$.
+\textbf{¿De dónde sale?} El $5$ y la palabra ``distintos'' salen del enunciado; el $3$ sale de contar los tres nombres; la condición ``ninguna vacía'' sale de ``a cada uno le corresponde al menos un libro''.
+\textbf{¿Por qué?} Porque la frase ``a cada uno al menos un libro'' es exactamente la definición de que la función $f:\{5\text{ libros}\}\to\{\text{Jorge},\text{Karla},\text{Anthony}\}$ sea \emph{sobreyectiva}: cada persona tiene al menos una preimagen. Ojo con no confundir el modelo: si los libros fueran idénticos usaría el Caso 2, $C(n-1,k-1)=C(4,2)=6$, que es un número muy distinto de $150$; y si no hubiera restricción usaría el Caso 3, $3^5=243$, que incluye repartos donde alguien se queda sin libro. Aquí no sirve el planteo directo por etapas ``dele un libro a cada uno y reparta el resto'', porque produce reconteo: ese esquema distingue cuál libro fue el ``obligatorio'' y cuál el ``sobrante'', y una misma repartición final aparece varias veces.
+\textbf{¿Qué tomamos?} Tomamos $n=5$, $k=3$ y el objetivo $\text{Sobre}(5,3)$, que se calculará por inclusión--exclusión.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Planteamiento: universo y sucesos}
+\textbf{Qué hago:} nombro los conjuntos con los que voy a trabajar. Considere
+\[
+\Omega=\{\text{repartos de los 5 libros entre las 3 personas, sin restricción}\},
+\]
+\[
+\begin{aligned}
+X_1&=\{x\in\Omega:\ \text{Jorge no recibe libros en }x\},\\
+X_2&=\{x\in\Omega:\ \text{Karla no recibe libros en }x\},\\
+X_3&=\{x\in\Omega:\ \text{Anthony no recibe libros en }x\} .
+\end{aligned}
+\]
+Lo que se necesita es $\bigl|\overline{X_1}\cap\overline{X_2}\cap\overline{X_3}\bigr|$, y para facilitar los cálculos se utilizará
+\[
+\bigl|\overline{X_1}\cap\overline{X_2}\cap\overline{X_3}\bigr|=|\Omega|-\bigl|X_1\cup X_2\cup X_3\bigr| .
+\]
+El cardinal del universo es
+\[
+|\Omega|=\underbrace{3}_{\text{personas}}^{\;\underbrace{5}_{\text{libros}}}=3^5=\underbrace{3\cdot3\cdot3\cdot3\cdot3}_{5\ \text{factores}}=9\cdot 9\cdot 3=81\cdot 3=243 .
+\]
+\textbf{¿De dónde sale?} Base $3$ (las tres personas disponibles para cada libro), exponente $5$ (los cinco libros distintos que deben ser colocados). Los $X_i$ salen de negar la condición ``cada uno recibe al menos un libro'' persona por persona.
+\textbf{¿Por qué?} Porque cada libro escoge dueño libremente y su elección no restringe la de los demás (nadie tiene cupo máximo); es el principio del producto con $5$ etapas de $3$ opciones cada una. Y se pasa al complemento porque ``que ninguno de los tres suceda'' se calcula restando la unión, mientras que la unión sí se sabe desarrollar.
+\textbf{¿Qué tomamos?} Tomamos $|\Omega|=243$ y la identidad $\text{Sobre}(5,3)=243-\bigl|X_1\cup X_2\cup X_3\bigr|$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Desarrollo de la unión por inclusión--exclusión}
+\textbf{Qué hago:} desarrollo la unión y calculo cada cardinalidad por separado.
+\[
+\bigl|X_1\cup X_2\cup X_3\bigr|=|X_1|+|X_2|+|X_3|-|X_1\cap X_2|-|X_1\cap X_3|-|X_2\cap X_3|+|X_1\cap X_2\cap X_3| .
+\]
+Si prohíbo a una persona, los $5$ libros distintos se reparten entre las $2$ restantes; si prohíbo a dos, entre la $1$ restante; si prohíbo a las tres, no hay ningún reparto posible:
+\[
+|X_1|=|X_2|=|X_3|=2^5=32,\qquad
+|X_i\cap X_j|=1^5=1,\qquad
+|X_1\cap X_2\cap X_3|=0^5=0 .
+\]
+\[
+\bigl|X_1\cup X_2\cup X_3\bigr|=\underbrace{3\cdot 32}_{96}-\underbrace{3\cdot 1}_{3}+0=93 .
+\]
+Reagrupando por el número $i$ de personas prohibidas, con $C(3,i)$ maneras de escogerlas y $(3-i)^5$ repartos entre las permitidas, se obtiene la forma cerrada
+\[
+\text{Sobre}(5,3)=\sum_{i=0}^{3}(-1)^i\,\underbrace{C(3,i)}_{\text{a quiénes dejo sin libros}}\cdot\underbrace{(3-i)^{5}}_{\text{reparto entre los que sí reciben}} .
+\]
+\textbf{¿De dónde sale?} El $2^5$ es el Caso 3 con $2$ cajas y $5$ objetos; el $1^5$ es el único reparto que da todos los libros a la única persona permitida; el $0^5=0$ porque no hay manera de colocar cinco libros si nadie puede recibirlos. Los coeficientes $3$ y $3$ de la reagrupación son $C(3,1)$ y $C(3,2)$.
+\textbf{¿Por qué?} Porque los sucesos ``Jorge se queda sin libros'' y ``Karla se queda sin libros'' \emph{pueden ocurrir a la vez} (si Anthony se lleva los cinco libros), así que sumar $|X_1|+|X_2|+|X_3|$ cuenta dos veces ese reparto; los términos con signo negativo y positivo alternado corrigen exactamente ese doble conteo. Nótese que la fórmula de sobreyecciones no se cita como caja negra: se construye aquí desde la inclusión--exclusión y desde el conteo $k^n$.
+\textbf{¿Qué tomamos?} Tomamos $\bigl|X_1\cup X_2\cup X_3\bigr|=93$ y la forma cerrada anterior para evaluar.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Evaluación término a término y resta final}
+\textbf{Qué hago:} desarrollo la suma con $k=3$ y $n=5$, y verifico que da lo mismo que la resta del paso anterior.
+\[
+\begin{aligned}
+i=0:&\quad +C(3,0)\,3^5=1\cdot 243=243,\\
+i=1:&\quad -C(3,1)\,2^5=-3\cdot 32=-96,\\
+i=2:&\quad +C(3,2)\,1^5=+3\cdot 1=+3,\\
+i=3:&\quad -C(3,3)\,0^5=-1\cdot 0=0 .
+\end{aligned}
+\]
+\textbf{¿De dónde sale?} $C(3,0)=1$, $C(3,1)=3$, $C(3,2)=3$, $C(3,3)=1$ son la cuarta fila del triángulo de Pascal; las potencias ya se justificaron en el Paso 3.
+\textbf{¿Por qué?} El término $i=1$ resta los $96$ repartos en los que alguna persona concreta se queda sin nada; el término $i=2$ vuelve a sumar los $3$ repartos ``todos los libros a una sola persona'', que habían sido restados dos veces (una por cada una de las otras dos personas excluidas); el término $i=3$ es nulo porque no hay ningún reparto que deje a las tres personas sin libros.
+\textbf{¿Qué tomamos?} Tomamos
+\[
+\text{Sobre}(5,3)=243-96+3-0 .
+\]
+Desglosando: $243-96=147$ y $147+3=150$. La otra vía da lo mismo: $|\Omega|-\bigl|X_1\cup X_2\cup X_3\bigr|=243-93=150$. Con esto, hay $150$ maneras de repartir los libros con la condición propuesta.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Verificación independiente: casos según el vector de tamaños}
+\textbf{Qué hago:} recalculo el mismo número por una vía distinta, haciendo casos según cuántos libros recibe cada persona. Con $5$ libros y tres personas no vacías, los tamaños posibles (como multiconjunto) son $\{3,1,1\}$ y $\{2,2,1\}$.
+
+\medskip
+\emph{Caso I: una persona recibe $3$ libros y las otras dos reciben $1$ cada una.} Se resuelve por etapas: Etapa 1, escoger quién recibe los tres; Etapa 2, escoger cuáles tres libros; Etapa 3, repartir los dos libros restantes uno a cada una de las dos personas que quedan.
+\[
+\underbrace{C(3,1)}_{\text{quién recibe }3}\cdot\underbrace{C(5,3)}_{\text{cuáles 3 libros}}\cdot\underbrace{2!}_{\text{los 2 restantes, uno a cada quien}}=3\cdot 10\cdot 2=60 .
+\]
+
+\medskip
+\emph{Caso II: una persona recibe $1$ libro y las otras dos reciben $2$ cada una.}
+\[
+\underbrace{C(3,1)}_{\text{quién recibe }1}\cdot\underbrace{C(5,1)}_{\text{cuál libro}}\cdot\underbrace{C(4,2)}_{\text{cuáles 2 al siguiente}}\cdot\underbrace{C(2,2)}_{\text{los 2 últimos}}=3\cdot 5\cdot 6\cdot 1=90 .
+\]
+\textbf{¿De dónde sale?} El $C(3,1)=3$ escoge cuál de las tres personas ocupa el papel singular del patrón (la que recibe $3$ libros en el Caso I, la que recibe $1$ en el Caso II); las combinaciones sucesivas escogen cuáles libros van a cada persona sobre un conjunto que se va reduciendo, siguiendo un orden fijo de las dos personas restantes.
+\textbf{¿Por qué?} Porque en el Caso I, una vez fijados los tres libros de la persona singular quedan dos libros y dos personas, y cada asignación biyectiva de esos dos libros a esas dos personas es un reparto distinto: eso es $2!=2$. En el Caso II las dos personas que reciben dos libros son distinguibles entre sí (tienen nombre), así que $C(4,2)\cdot C(2,2)$ no repite nada. Los dos casos son disjuntos —una misma distribución no puede tener a la vez tamaños $3,1,1$ y $2,2,1$— y por el principio de la suma se suman.
+\textbf{¿Qué tomamos?} Tomamos $60+90=150$, idéntico al resultado de la inclusión--exclusión. La coincidencia confirma el conteo.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Hay $\;\text{Sobre}(5,3)=\sum_{i=0}^{3}(-1)^iC(3,i)(3-i)^5=243-96+3=\mathbf{150}\;$ maneras de repartir los cinco libros distintos entre Jorge, Karla y Anthony de modo que a cada uno le corresponda al menos un libro.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 57}
+\addcontentsline{toc}{subsection}{Ejercicio 57}
+
+\begin{quote}
+Se desea distribuir 17 lapiceros idénticos y 5 lápices de color distintos en cinco cartucheras diferentes. Determine el número de maneras para distribuir estos objetos en las cartucheras si:\\
+\textit{a)} No hay restrucciones. \hfill R/ $18\,703\,125$\\
+\textit{b)} Cada cartuchera debe tener al menos un lapicero y al menos un lápiz de color. \hfill R/ $218\,400$\\
+\textit{c)} Al menos una cartuchera tiene más de cuatro lapiceros. \hfill R/ $18\,593\,750$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Tipificación: dos clases de objeto, cinco cajas distintas}
+\textbf{Qué hago:} separo los objetos en dos clases y fijo el número de cajas antes de escribir cualquier fórmula. Los \textbf{17 lapiceros son idénticos}: entre ellos no se distinguen, así que un reparto de lapiceros queda descrito solo por \emph{cuántos} recibe cada cartuchera. Los \textbf{5 lápices de color son distintos}: cada lápiz tiene identidad propia, así que un reparto de lápices queda descrito por \emph{a cuál cartuchera va cada lápiz}. Las \textbf{cajas son 5 cartucheras diferentes}, y salvo que un inciso lo prohíba, pueden quedar vacías.
+\textbf{¿De dónde sale?} Las tres cifras ($17$, $5$, $5$) están literalmente en el enunciado, junto con las palabras ``idénticos'' y ``distintos'', que es lo que decide la fórmula.
+\textbf{¿Por qué?} Porque las fórmulas de distribución no dependen del contexto sino de esta clasificación: los lapiceros caen en el \textbf{Caso 1} (barras y estrellas, $\binom{n+k-1}{n}$) y los lápices en el \textbf{Caso 3} (elección independiente, $k^n$). Confundirlas es el error típico: usar $5^{17}$ para los lapiceros contaría como distintos objetos que no lo son, y usar $\binom{5+5-1}{5}$ para los lápices perdería la identidad de cada color.
+\textbf{¿Qué tomamos?} Tomamos el esquema de trabajo: cada inciso se resolverá \textbf{por etapas} —una etapa para los lapiceros, otra para los lápices— y al final se multiplican, porque son procesos independientes (ninguna restricción del enunciado liga una clase con la otra).
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a), Etapa 1: repartir los lapiceros}
+\textbf{Qué hago:} cuento las soluciones enteras no negativas de la ecuación de reparto, donde $x_i$ es el número de lapiceros que recibe la cartuchera $i$.
+
+\medskip
+\textbf{Etapa 1: repartir los 17 lapiceros idénticos entre las 5 cartucheras.}
+\[
+x_1+x_2+x_3+x_4+x_5=17,\qquad x_i\ge 0 ,
+\]
+\[
+\binom{\underbrace{17}_{\text{estrellas}}+\underbrace{5-1}_{\text{barras}}}{17}=\binom{17+5-1}{17}=C(21,17)=C(21,4)=5985 .
+\]
+\textbf{¿De dónde sale?} El $17$ es el número de estrellas (lapiceros) y el $5-1=4$ el número de barras (separadores entre 5 cartucheras); la fila total mide $17+4=21$ símbolos y escogemos cuáles $4$ posiciones son barras.
+\textbf{¿Por qué?} Porque los lapiceros no se distinguen: dos repartos que dan la misma cantidad a cada cartuchera son \emph{el mismo} reparto, y eso es exactamente lo que cuenta barras y estrellas. Uso $C(21,4)$ en vez de $C(21,17)$ solo por comodidad aritmética; son iguales por la simetría $C(n,r)=C(n,n-r)$.
+\textbf{¿Qué tomamos?} Tomamos
+\[
+C(21,4)=\frac{21\cdot 20\cdot 19\cdot 18}{4\cdot 3\cdot 2\cdot 1}=\frac{143\,640}{24}=5985 .
+\]
+El numerador paso a paso: $21\cdot 20=420$, $420\cdot 19=7980$, $7980\cdot 18=143\,640$; y $143\,640/24=5985$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (a), Etapa 2: repartir los lápices y multiplicar}
+\textbf{Qué hago:} reparto los 5 lápices distintos entre las 5 cartucheras y multiplico por la Etapa 1.
+
+\medskip
+\textbf{Etapa 2: repartir los 5 lápices de color distintos entre las 5 cartucheras.}
+\[
+\underbrace{5}_{\text{cartucheras}}^{\;\underbrace{5}_{\text{lápices}}}=5^5=25\cdot 25\cdot 5=625\cdot 5=3125 .
+\]
+\textbf{¿De dónde sale?} La base $5$ son las cartucheras disponibles para cada lápiz y el exponente $5$ es la cantidad de lápices; el producto $5\cdot5\cdot5\cdot5\cdot5$ viene de decidir el destino de cada lápiz uno tras otro.
+\textbf{¿Por qué?} Porque cada lápiz elige cartuchera libremente y su elección no limita la de los demás (no hay cupos), así que aplica el principio del producto con $5$ opciones repetidas. Y multiplico las dos etapas porque un reparto completo es un par ordenado (colocación de lapiceros, colocación de lápices) y ambas colocaciones son independientes entre sí.
+\textbf{¿Qué tomamos?} Tomamos
+\[
+N_a=\underbrace{\binom{17+5-1}{17}}_{5985}\cdot\underbrace{5^5}_{3125}=5985\cdot 3000+5985\cdot 125=17\,955\,000+748\,125=18\,703\,125 .
+\]
+Con esto, hay $18\,703\,125$ maneras de realizar la repartición sin restricciones.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (b), Etapa 1: cada cartuchera con al menos un lapicero}
+\textbf{Qué hago:} impongo $x_i\ge 1$ para las cinco cartucheras mediante el cambio de variable $y_i=x_i-1$, que traslada el problema a uno sin restricción.
+
+\medskip
+\textbf{Etapa 1: repartir los 17 lapiceros con al menos uno por cartuchera.}
+\[
+x_1+\cdots+x_5=17,\;x_i\ge1
+\iff y_1+\cdots+y_5=17-5=12,\;y_i\ge 0,
+\]
+\[
+\binom{\underbrace{12}_{\text{estrellas libres}}+\underbrace{5-1}_{\text{barras}}}{12}=\binom{12+5-1}{12}=C(16,12)=C(16,4)=1820 .
+\]
+\textbf{¿De dónde sale?} El $12$ sale de $17-5$: le entrego de una vez un lapicero obligatorio a cada una de las 5 cartucheras y me quedan $12$ lapiceros libres. El $5-1=4$ vuelve a ser el número de barras. Es exactamente la fórmula $C(n-1,k-1)=C(16,4)$ del Caso 2.
+\textbf{¿Por qué?} Porque ese adelanto se puede hacer de una sola manera (los lapiceros son idénticos, no hay que decidir \emph{cuál} lapicero entregar) y después el problema queda idéntico al caso sin restricción. La correspondencia $x\mapsto y$ es biyectiva entre las soluciones con $x_i\ge1$ y las soluciones con $y_i\ge0$, así que contar unas es contar las otras, sin reconteo.
+\textbf{¿Qué tomamos?} Tomamos
+\[
+C(16,4)=\frac{16\cdot 15\cdot 14\cdot 13}{24}=\frac{43\,680}{24}=1820 .
+\]
+El numerador: $16\cdot 15=240$, $240\cdot 14=3360$, $3360\cdot 13=43\,680$; y $43\,680/24=1820$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (b), Etapa 2: cada cartuchera con al menos un lápiz de color}
+\textbf{Qué hago:} cuento los repartos de 5 lápices distintos en 5 cartucheras sin dejar ninguna vacía, es decir $\text{Sobre}(5,5)$, y observo que la expresión colapsa.
+
+\medskip
+\textbf{Etapa 2: repartir los 5 lápices distintos con al menos uno por cartuchera.}
+\[
+\text{Sobre}(5,5)=\sum_{i=0}^{5}(-1)^i\,C(5,i)\,(5-i)^5 .
+\]
+Como hay tantos lápices como cartucheras y ninguna puede quedar vacía, cada cartuchera recibe \emph{exactamente} un lápiz, y el reparto es una biyección:
+\[
+\text{Sobre}(5,5)=P(5,5)=5!=\underbrace{5}_{\text{lápiz }1}\cdot\underbrace{4}_{\text{lápiz }2}\cdot\underbrace{3}_{\text{lápiz }3}\cdot\underbrace{2}_{\text{lápiz }4}\cdot\underbrace{1}_{\text{lápiz }5}=120 .
+\]
+\textbf{¿De dónde sale?} Son $5$ lápices y $5$ cartucheras: hay tantos objetos como cajas, y la condición ``ninguna vacía'' obliga a que cada cartuchera reciba exactamente uno; si alguna recibiera dos, otra quedaría vacía por el principio del palomar.
+\textbf{¿Por qué?} Porque una función sobreyectiva entre dos conjuntos finitos del mismo tamaño es forzosamente biyectiva, y contar biyecciones de $5$ lápices a $5$ cartucheras es contar permutaciones: el primer lápiz tiene $5$ cartucheras libres, el segundo $4$ (la del primero ya está ocupada), y así sucesivamente. Aquí no sirve $5^5=3125$, porque ese número incluye repartos con cartucheras vacías.
+\textbf{¿Qué tomamos?} Tomamos $5!=120$, y por el principio del producto entre las dos etapas
+\[
+N_b=\underbrace{\binom{12+5-1}{12}}_{1820}\cdot\underbrace{5!}_{120}=1820\cdot 100+1820\cdot 20=182\,000+36\,400=218\,400 .
+\]
+Con esto, hay $218\,400$ maneras de realizar la repartición con la restricción propuesta.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso (c), Etapa 1: complemento para ``más de cuatro lapiceros''}
+\textbf{Qué hago:} ``al menos una cartuchera tiene más de cuatro lapiceros'' es la negación de ``todas las cartucheras tienen a lo sumo cuatro''. Cuento la situación prohibida y la resto del total de la Etapa 1 del inciso (a).
+
+\medskip
+\textbf{Etapa 1: repartir los lapiceros de modo que alguna cartuchera supere los 4.}
+Primero cuento el complemento:
+\[
+x_1+\cdots+x_5=17,\qquad 0\le x_i\le 4 .
+\]
+Aplico el cambio de variable espejo $z_i=4-x_i\ge 0$, que convierte el máximo en un mínimo trivial:
+\[
+\sum_{i=1}^{5}z_i=\underbrace{5\cdot 4}_{20}-\underbrace{17}_{\sum x_i}=3,\qquad z_i\ge 0 ,
+\]
+\[
+\binom{\underbrace{3}_{\text{estrellas}}+\underbrace{5-1}_{\text{barras}}}{3}=\binom{3+5-1}{3}=C(7,3)=C(7,4)=35 .
+\]
+\textbf{¿De dónde sale?} El $20$ es $5\cdot 4$, el máximo total permitido si cada cartuchera llegara a su tope de $4$; el $3$ es lo que ``falta'' para llegar a ese tope, $20-17$. El $C(7,4)$ es barras y estrellas con $n=3$ estrellas y $k=5$ cajas.
+\textbf{¿Por qué?} Porque contar directamente ``al menos una supera $4$'' obligaría a inclusión--exclusión sobre cuál cartuchera se pasa; el complemento es mucho más limpio. Aquí sí conviene el cambio espejo y no el desglose por casos, porque el máximo pesa sobre \emph{todas} las cartucheras a la vez y no sobre una sola. El cambio $z_i=4-x_i$ funciona porque la cota superior $x_i\le 4$ se vuelve $z_i\ge 0$, y la cota inferior $x_i\ge0$ se vuelve $z_i\le 4$, que ya se cumple sola: la suma total de los $z_i$ es apenas $3$, de modo que ninguno puede pasar de $4$. No queda ninguna restricción activa y aplica el Caso 1 directo.
+\textbf{¿Qué tomamos?} Tomamos $C(7,4)=\dfrac{7\cdot 6\cdot 5\cdot 4}{24}=\dfrac{840}{24}=35$ repartos ``malos'' (los que respetan el tope de $4$ en todas las cartucheras), y por lo tanto
+\[
+\underbrace{\binom{17+5-1}{17}}_{5985}-\underbrace{\binom{3+5-1}{3}}_{35}=5950
+\]
+repartos válidos de lapiceros.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Inciso (c), Etapa 2: los lápices y producto final}
+\textbf{Qué hago:} reparto los lápices, que en este inciso no tienen ninguna condición, y multiplico las dos etapas.
+
+\medskip
+\textbf{Etapa 2: repartir los 5 lápices distintos sin restricción.}
+\[
+5^5=3125 .
+\]
+\[
+N_c=\underbrace{5950}_{\text{lapiceros válidos}}\cdot\underbrace{5^5}_{\text{lápices libres}} .
+\]
+\textbf{¿De dónde sale?} El $5950$ es el resultado de la Etapa 1 del Paso 6 y el $5^5=3125$ es el reparto libre de los 5 lápices distintos, porque el enunciado del inciso no les impone ninguna condición.
+\textbf{¿Por qué?} Porque la restricción del inciso habla solo de lapiceros; los lápices quedan exactamente como en el inciso (a), y por independencia de las dos clases se multiplican los conteos de las dos etapas. La resta de la Etapa 1 es válida porque ``alguna cartuchera con más de $4$'' y ``todas con a lo sumo $4$'' son sucesos complementarios dentro de los $5985$ repartos posibles de lapiceros.
+\textbf{¿Qué tomamos?} Tomamos
+\[
+N_c=5950\cdot 3125=5950\cdot 3000+5950\cdot 125=17\,850\,000+743\,750=18\,593\,750 .
+\]
+Con esto, hay $18\,593\,750$ maneras de realizar la repartición con la restricción propuesta, que coincide con la respuesta oficial.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+\textbf{(a)} $\binom{17+5-1}{17}\cdot 5^5=5985\cdot 3125=\mathbf{18\,703\,125}$.\\
+\textbf{(b)} $\binom{12+5-1}{12}\cdot 5!=1820\cdot 120=\mathbf{218\,400}$.\\
+\textbf{(c)} $\left[\binom{17+5-1}{17}-\binom{3+5-1}{3}\right]\cdot 5^5=5950\cdot 3125=\mathbf{18\,593\,750}$.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 58}
+\addcontentsline{toc}{subsection}{Ejercicio 58}
+
+\begin{quote}
+El domingo, el programa TV Ganadores eligió a 15 finalistas; siete son del área metropolitana. De los finalistas, cinco serán ganadores de un viaje a Cáncun ¿De cuántas maneras se pueden elegir los ganadores, de manera que se seleccione al menos un finalista que no sea del área metropolitana? \hfill R/ $2982$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Tipificación: distribución en dos recipientes, uno de tamaño fijo}
+\textbf{Qué hago:} tipifico el problema antes de escribir cualquier fórmula. Los \textbf{15 finalistas son objetos distintos} (son personas identificables). Los \textbf{recipientes son dos y distintos}: ``ganador del viaje'' y ``no ganador''. Pero hay un \textbf{tamaño fijo}: exactamente $5$ finalistas van al recipiente ``ganador'' y los otros $10$ al recipiente ``no ganador''. Cuando una caja tiene tamaño prefijado y el resto va a la otra, el conteo no es $2^{15}$ sino una \emph{combinación}: elegir el contenido de la caja pequeña determina todo el reparto. Además el enunciado impone una restricción de \textbf{mínimo}: al menos un ganador debe venir del bloque de los no metropolitanos.
+\textbf{¿De dónde sale?} El $15$, el $7$ y el $5$ están en el enunciado. Que los $15$ finalistas se parten en dos bloques disjuntos —$7$ del área metropolitana y $15-7=8$ que no lo son— sale de restar.
+\textbf{¿Por qué?} Porque el grupo de cinco ganadores no necesita algún orden: ``ganan Ana, Beto, Carla, Diego y Elena'' es el mismo resultado en cualquier orden en que se anuncien, ya que todos reciben el mismo premio (un viaje a Cáncun). Por eso el modelo es $C(n,r)$ y no $P(n,r)$: si el orden importara habría $P(15,5)=15\cdot14\cdot13\cdot12\cdot11$ resultados, que es $5!=120$ veces más grande y contaría cada grupo repetidamente.
+\textbf{¿Qué tomamos?} Tomamos la partición de los finalistas en $M$ (metropolitanos, $|M|=7$) y $\overline{M}$ (no metropolitanos, $|\overline{M}|=15-7=8$), y el modelo $C(15,5)$ para el conteo sin restricción.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Planteamiento: universo, suceso y paso al complemento}
+\textbf{Qué hago:} nombro los conjuntos. Considere
+\[
+\Omega=\{\text{maneras de elegir los 5 ganadores entre los 15 finalistas, sin restricción}\},
+\]
+\[
+X=\{x\in\Omega:\ \text{en }x\text{ hay al menos un ganador que no es del área metropolitana}\} .
+\]
+Lo que se necesita es $|X|$, y para facilitar los cálculos se utilizará
+\[
+|X|=|\Omega|-\bigl|\overline{X}\bigr|,\qquad
+\overline{X}=\{x\in\Omega:\ \text{los 5 ganadores son del área metropolitana}\} .
+\]
+Ahora se calcula cada cardinalidad por separado.
+\[
+|\Omega|=C\bigl(\underbrace{15}_{\text{finalistas}},\,\underbrace{5}_{\text{ganadores}}\bigr)
+=\frac{15\cdot 14\cdot 13\cdot 12\cdot 11}{5\cdot 4\cdot 3\cdot 2\cdot 1} .
+\]
+\textbf{¿De dónde sale?} El $15$ es el total de finalistas y el $5$ el tamaño del grupo premiado; el denominador $5!$ elimina el orden de los cinco escogidos. El conjunto $\overline{X}$ sale de negar ``al menos uno de $\overline{M}$'': si ninguno viene de $\overline{M}$, todos vienen de $M$.
+\textbf{¿Por qué?} Porque cada selección de ganadores es un subconjunto de tamaño $5$ del conjunto de $15$ finalistas, y contar subconjuntos de tamaño fijo es exactamente lo que hace $C(n,r)$. Y se pasa al complemento porque contar $|X|$ directamente obligaría a cinco casos disjuntos (exactamente $1$, $2$, $3$, $4$ o $5$ ganadores de $\overline{M}$), mientras que $\bigl|\overline{X}\bigr|$ es un solo término.
+\textbf{¿Qué tomamos?} Tomamos el cálculo desglosado. Numerador: $15\cdot 14=210$, $210\cdot 13=2730$, $2730\cdot 12=32\,760$, $32\,760\cdot 11=360\,360$. Denominador: $5!=120$. Entonces
+\[
+|\Omega|=\frac{360\,360}{120}=3003 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar el complemento y restar}
+\textbf{Qué hago:} calculo $\bigl|\overline{X}\bigr|$ y hago la resta.
+\[
+\bigl|\overline{X}\bigr|=C\bigl(\underbrace{7}_{|M|},\,\underbrace{5}_{\text{ganadores}}\bigr)=C(7,5)=C(7,2)=\frac{7\cdot 6}{2\cdot 1}=\frac{42}{2}=21 .
+\]
+\[
+|X|=\underbrace{3003}_{|\Omega|}-\underbrace{21}_{|\overline{X}|}=2982 .
+\]
+\textbf{¿De dónde sale?} El $C(7,5)$ cuenta los grupos de cinco ganadores escogidos íntegramente dentro del bloque $M$ de los $7$ metropolitanos: el $7$ es el tamaño de $M$ y el $5$ el tamaño del grupo. La igualdad $C(7,5)=C(7,2)$ es la simetría $C(n,r)=C(n,n-r)$: escoger cuáles $5$ metropolitanos ganan equivale a escoger cuáles $2$ metropolitanos se quedan sin viaje.
+\textbf{¿Por qué?} Porque los $21$ grupos de $\overline{X}$ son exactamente aquellos en los que ningún finalista de fuera del área metropolitana resulta premiado, y son los únicos que hay que descartar. La resta es válida porque $X$ y $\overline{X}$ son disjuntos y su unión es todo $\Omega$.
+\textbf{¿Qué tomamos?} Tomamos $|X|=3003-21=2982$. Con esto, hay $2982$ maneras de elegir a los ganadores con la condición propuesta.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Verificación: el mismo conteo haciendo casos}
+\textbf{Qué hago:} recalculo el número por la vía larga, haciendo casos según cuántos ganadores $j$ provienen del bloque $\overline{M}$ de $8$ no metropolitanos, con $j=1,2,3,4,5$. Cada caso se resuelve por dos etapas: Etapa 1, escoger los ganadores de $\overline{M}$; Etapa 2, completar con ganadores de $M$.
+\[
+\begin{aligned}
+\text{Caso I }(j=1):&\quad \underbrace{C(8,1)}_{\text{de }\overline{M}}\cdot\underbrace{C(7,4)}_{\text{de }M}=8\cdot 35=280,\\
+\text{Caso II }(j=2):&\quad C(8,2)\,C(7,3)=28\cdot 35=980,\\
+\text{Caso III }(j=3):&\quad C(8,3)\,C(7,2)=56\cdot 21=1176,\\
+\text{Caso IV }(j=4):&\quad C(8,4)\,C(7,1)=70\cdot 7=490,\\
+\text{Caso V }(j=5):&\quad C(8,5)\,C(7,0)=56\cdot 1=56 .
+\end{aligned}
+\]
+\textbf{¿De dónde sale?} $C(8,j)$ escoge cuáles no metropolitanos ganan y $C(7,5-j)$ escoge cuáles metropolitanos completan el grupo de cinco; las dos etapas se multiplican por el principio del producto porque las elecciones son independientes (los bloques $M$ y $\overline{M}$ son disjuntos, así que escoger en uno no afecta lo disponible en el otro).
+\textbf{¿Por qué?} Porque los cinco casos son disjuntos —el número de ganadores de $\overline{M}$ es un valor único para cada grupo— y su unión es exactamente el suceso $X$; por el principio de la suma se suman.
+\textbf{¿Qué tomamos?} Tomamos la suma: $280+980=1260$; $1260+1176=2436$; $2436+490=2926$; $2926+56=2982$. Coincide con el resultado del Paso 3, lo que confirma el conteo.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Hay $\;C(15,5)-C(7,5)=3003-21=\mathbf{2982}\;$ maneras de elegir los cinco ganadores de modo que al menos uno no sea del área metropolitana.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 59}
+\addcontentsline{toc}{subsection}{Ejercicio 59}
+
+\begin{quote}
+En una noche de este mes, cuatro fantasmas de Tibás salen a San José para asustar; en su trabajo se encuentran con dos amigos fantasmas provenientes de Guanacaste. Por lo emocionante de su labor, los sorprende el amanecer y se meten en cuatro cuevas de los fantasmas de Tibás, las cuales ocupan de manera aleatoria ¿De cuántas maneras pueden distribuirse los fantasmas en las cuatro cuevas, si ninguna de ellas queda desocupada? \hfill R/ $1560$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Tipificación: cuántos objetos hay realmente y de qué tipo}
+\textbf{Qué hago:} extraigo los números y clasifico. Los objetos que se reparten son \textbf{todos los fantasmas presentes}: los $4$ de Tibás \emph{más} los $2$ de Guanacaste, o sea
+\[
+n=\underbrace{4}_{\text{de Tibás}}+\underbrace{2}_{\text{de Guanacaste}}=6 \text{ fantasmas}.
+\]
+Son \textbf{objetos distintos}: cada fantasma es un individuo, y que dos fantasmas intercambien cueva produce un reparto diferente. Los \textbf{recipientes son las 4 cuevas} y son \textbf{distintas} (son cuatro cuevas concretas, ubicadas en lugares distintos). La restricción es \textbf{ninguna caja vacía}: ``ninguna de ellas queda desocupada''. Es el \textbf{Caso 4 del catálogo}: sobreyecciones con $n=6$ y $k=4$.
+\textbf{¿De dónde sale?} El $4$ y el $2$ están en el enunciado (``cuatro fantasmas de Tibás'', ``dos amigos fantasmas provenientes de Guanacaste''), y las ``cuatro cuevas'' también. La suma $4+2=6$ la hago yo: el enunciado dice que se meten en las cuevas \emph{todos} los que estaban asustando, no solo los locales.
+\textbf{¿Por qué?} Porque el error más natural aquí es contar solo $4$ fantasmas (los dueños de las cuevas) y olvidar a los dos visitantes; el enunciado precisa que ``se meten en cuatro cuevas'' después de haberse encontrado, así que los seis buscan refugio. Y el origen (Tibás o Guanacaste) no crea ninguna restricción: no dice que los de Guanacaste deban ir a cuevas específicas, así que solo sirve para saber que en total son $6$ y que todos son distinguibles. Este ejercicio es engañoso si se plantea por etapas del tipo ``meta un fantasma en cada cueva y reparta los dos restantes'': eso produce reconteo, porque distingue cuál fantasma fue el ``primero'' de su cueva y cuál el ``sobrante'', y una misma ocupación final se cuenta varias veces. La forma correcta es utilizando el principio de inclusión--exclusión.
+\textbf{¿Qué tomamos?} Tomamos $n=6$ objetos distintos, $k=4$ cajas distintas y la condición de sobreyectividad. El objetivo es $\text{Sobre}(6,4)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Planteamiento: universo y sucesos}
+\textbf{Qué hago:} nombro los conjuntos. Considere
+\[
+\Omega=\{\text{maneras de meter los 6 fantasmas en las 4 cuevas, sin restricción}\},
+\]
+\[
+X_i=\{x\in\Omega:\ \text{la cueva }i\text{ queda desocupada en }x\},\qquad i=1,2,3,4 .
+\]
+Lo que se necesita es $\bigl|\overline{X_1}\cap\overline{X_2}\cap\overline{X_3}\cap\overline{X_4}\bigr|$, y para facilitar los cálculos se utilizará
+\[
+\bigl|\overline{X_1}\cap\overline{X_2}\cap\overline{X_3}\cap\overline{X_4}\bigr|=|\Omega|-\Bigl|\bigcup_{i=1}^{4}X_i\Bigr| .
+\]
+El cardinal del universo es
+\[
+|\Omega|=\underbrace{4}_{\text{cuevas}}^{\;\underbrace{6}_{\text{fantasmas}}}
+=\underbrace{4\cdot4\cdot4\cdot4\cdot4\cdot4}_{6\ \text{factores}}=4^6=64\cdot 64=4096 .
+\]
+\textbf{¿De dónde sale?} Base $4$ (cuevas disponibles para cada fantasma), exponente $6$ (fantasmas que deben ubicarse). Los $X_i$ salen de negar la condición ``ninguna cueva desocupada'' cueva por cueva.
+\textbf{¿Por qué?} Porque cada fantasma escoge cueva libremente y su elección no limita la de los demás: las cuevas no tienen aforo. Es el Caso 3, $k^{\,n}$, aplicado con el principio del producto sobre las seis decisiones.
+\textbf{¿Qué tomamos?} Tomamos $|\Omega|=4096$ y la identidad anterior.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Desarrollo de la unión por inclusión--exclusión}
+\textbf{Qué hago:} desarrollo la unión y calculo cada cardinalidad por separado.
+\[
+\Bigl|\bigcup_{i=1}^{4}X_i\Bigr|=\sum_i |X_i|-\sum_{i<j}|X_i\cap X_j|+\sum_{i<j<l}|X_i\cap X_j\cap X_l|-\Bigl|\bigcap_{i=1}^{4}X_i\Bigr| .
+\]
+Una intersección de $i$ de esos conjuntos deja desocupadas $i$ cuevas fijas, de modo que los $6$ fantasmas distintos se reparten entre las $4-i$ cuevas restantes, lo cual son $(4-i)^6$ repartos por el Paso 2; y las $i$ cuevas prohibidas se escogen de $C(4,i)$ maneras:
+\[
+|X_i|=3^6=729,\quad |X_i\cap X_j|=2^6=64,\quad |X_i\cap X_j\cap X_l|=1^6=1,\quad \Bigl|\bigcap_{i=1}^{4}X_i\Bigr|=0^6=0 .
+\]
+\[
+\Bigl|\bigcup_{i=1}^{4}X_i\Bigr|=\underbrace{C(4,1)\cdot 729}_{2916}-\underbrace{C(4,2)\cdot 64}_{384}+\underbrace{C(4,3)\cdot 1}_{4}-\underbrace{C(4,4)\cdot 0}_{0}=2916-384+4=2536 .
+\]
+Reagrupando por el número $i$ de cuevas prohibidas y absorbiendo $|\Omega|$ como el término $i=0$, se obtiene la forma cerrada
+\[
+\text{Sobre}(6,4)=\sum_{i=0}^{4}(-1)^i\,\underbrace{C(4,i)}_{\text{cuáles cuevas dejo vacías}}\cdot\underbrace{(4-i)^{6}}_{\text{repartos entre las cuevas restantes}} .
+\]
+\textbf{¿De dónde sale?} El $C(4,i)$ de escoger un subconjunto de $i$ cuevas entre las $4$; el $(4-i)^6$ del Caso 3 aplicado al problema reducido. Los coeficientes $C(4,1)=4$, $C(4,2)=6$, $C(4,3)=4$, $C(4,4)=1$ son la quinta fila del triángulo de Pascal.
+\textbf{¿Por qué?} Porque los sucesos ``la cueva $i$ quedó vacía'' se traslapan (hay repartos que dejan dos o tres cuevas vacías a la vez, por ejemplo si los seis fantasmas se meten todos en una sola cueva), y sumar los $|X_i|$ sin más los contaría varias veces. Los signos alternados de la inclusión--exclusión reparan exactamente ese sobreconteo. Nótese que la fórmula no se cita: se construye aquí a partir de la inclusión--exclusión y del conteo $k^n$.
+\textbf{¿Qué tomamos?} Tomamos $\bigl|\bigcup X_i\bigr|=2536$ y la forma cerrada anterior para evaluar.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Evaluación término a término y resta final}
+\textbf{Qué hago:} desarrollo la suma con $n=6$ y $k=4$, y verifico que coincide con la resta del paso anterior.
+\[
+\begin{aligned}
+i=0:&\quad +C(4,0)\,4^6=1\cdot 4096=4096,\\
+i=1:&\quad -C(4,1)\,3^6=-4\cdot 729=-2916,\\
+i=2:&\quad +C(4,2)\,2^6=+6\cdot 64=+384,\\
+i=3:&\quad -C(4,3)\,1^6=-4\cdot 1=-4,\\
+i=4:&\quad +C(4,4)\,0^6=+1\cdot 0=0 .
+\end{aligned}
+\]
+\textbf{¿De dónde sale?} Las potencias: $3^6=729$ (los seis fantasmas en las tres cuevas que quedan al vaciar una), $2^6=64$ (en las dos que quedan al vaciar dos), $1^6=1$ (todos en la única cueva permitida) y $0^6=0$ (no hay manera de ubicar seis fantasmas si se prohíben las cuatro cuevas).
+\textbf{¿Por qué?} El término $i=1$ resta los $4\cdot 729=2916$ repartos en que alguna cueva concreta queda vacía; el término $i=2$ devuelve los $6\cdot 64=384$ repartos que dejan dos cuevas vacías y que habían sido restados dos veces; el término $i=3$ vuelve a quitar los $4$ repartos ``todos los fantasmas en una misma cueva'', y el $i=4$ es nulo.
+\textbf{¿Qué tomamos?} Tomamos la suma en orden:
+\[
+4096-2916=1180,\quad 1180+384=1564,\quad 1564-4=1560,\quad 1560+0=1560 .
+\]
+La otra vía da lo mismo: $|\Omega|-\bigl|\bigcup X_i\bigr|=4096-2536=1560$. Con esto, hay $1560$ maneras de distribuir los fantasmas con la condición propuesta.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Verificación independiente: casos según el vector de tamaños}
+\textbf{Qué hago:} recalculo el número por otra vía, haciendo casos según cuántos fantasmas recibe cada cueva. Con $6$ fantasmas en $4$ cuevas y ninguna vacía, cada cueva tiene al menos $1$ fantasma, lo cual consume $4$ de los $6$; los $2$ excedentes o bien caen ambos en la misma cueva, o bien en cuevas distintas. Eso da exactamente dos casos.
+
+\medskip
+\emph{Caso I: una cueva recibe $3$ fantasmas y las otras tres reciben $1$ cada una.} Por etapas: Etapa 1, escoger la cueva cargada; Etapa 2, escoger cuáles tres fantasmas van ahí; Etapa 3, repartir los tres restantes uno por cueva entre las tres cuevas que quedan.
+\[
+\underbrace{C(4,1)}_{\text{cuál cueva recibe }3}\cdot\underbrace{C(6,3)}_{\text{cuáles 3 fantasmas}}\cdot\underbrace{3!}_{\text{los 3 restantes, uno por cueva}}
+=4\cdot 20\cdot 6=480 .
+\]
+
+\medskip
+\emph{Caso II: dos cuevas reciben $2$ fantasmas cada una y las otras dos reciben $1$ cada una.}
+\[
+\underbrace{C(4,2)}_{\text{cuáles 2 cuevas}}\cdot\underbrace{C(6,2)}_{\text{a la primera}}\cdot\underbrace{C(4,2)}_{\text{a la segunda}}\cdot\underbrace{2!}_{\text{los 2 restantes}}
+=6\cdot 15\cdot 6\cdot 2 .
+\]
+\textbf{¿De dónde sale?} En el Caso I: $C(4,1)=4$ escoge la cueva con tres fantasmas, $C(6,3)=20$ escoge quiénes van ahí, y los $3$ fantasmas sobrantes se distribuyen uno por cueva entre las $3$ cuevas restantes, lo cual es una biyección: $3!=6$. En el Caso II: $C(4,2)=6$ escoge el par de cuevas con dos fantasmas cada una; para llenarlas, $C(6,2)=15$ escoge los fantasmas de la primera de ellas y $C(4,2)=6$ los de la segunda; y los $2$ fantasmas restantes van uno a cada una de las $2$ cuevas que faltan, $2!=2$.
+\textbf{¿Por qué?} Porque los dos casos son disjuntos y agotan todas las posibilidades, según el argumento del ``sobrante'' descrito arriba; por el principio de la suma se suman. Cuando escojo ``cuáles $2$ cuevas'' con $C(4,2)$ y luego reparto con $C(6,2)\,C(4,2)$ no hay reconteo, porque las cuevas son distintas: fijar cuál de ellas es ``la primera'' es legítimo una vez elegido el par.
+\textbf{¿Qué tomamos?} Tomamos $15\cdot 6=90$, luego $6\cdot 90=540$ y $540\cdot 2=1080$ para el Caso II. Sumando ambos casos:
+\[
+480+1080=1560 ,
+\]
+idéntico al valor obtenido por inclusión--exclusión. La coincidencia confirma el conteo.
+\end{paso}
+
+\begin{nota}
+Obsérvese que este ejercicio y el inciso (d) del Ejercicio 55 giran alrededor del mismo conteo, $\text{Sobre}(6,4)=1560$, aunque el contexto sea distinto (seis ganadores eligiendo entre cuatro paquetes turísticos frente a seis fantasmas metiéndose en cuatro cuevas). Ese es precisamente el valor del método: la tipificación ``$6$ objetos distintos, $4$ cajas distintas, ninguna vacía'' es lo único que determina el número; el disfraz narrativo es irrelevante. La diferencia entre los dos ejercicios está en cuál de las dos mitades se pide: en el 55(d) se pide $\bigl|\bigcup X_i\bigr|=4096-1560=2536$, y aquí se pide $\bigl|\bigcap \overline{X_i}\bigr|=1560$. De hecho el desarrollo del Paso 3 de este ejercicio produce, como subproducto, la respuesta del 55(d).
+\end{nota}
+
+\end{sol}
+
+\begin{resp}
+Con $n=4+2=6$ fantasmas distintos y $k=4$ cuevas distintas, ninguna desocupada:
+\[
+\text{Sobre}(6,4)=\sum_{i=0}^{4}(-1)^iC(4,i)(4-i)^6=4096-2916+384-4=\mathbf{1560}
+\]
+maneras de distribuir los fantasmas en las cuatro cuevas.
+\end{resp}
+
+\end{document}

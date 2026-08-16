@@ -1316,34 +1316,30 @@ independientes del exterior, se multiplica.
 \end{paso}
 
 \begin{paso}{Paso 3 --- Inciso b): el 3 después de la segunda posición y el 6 después del 3}
-\textbf{Qué hago:} llamo $p$ a la posición del número $3$. La condición exige $p\geq3$ y además que el
-número $6$ esté en una posición mayor que $p$. Recorro los valores posibles de $p$ y en cada caso cuento
-cuántos lugares admite el $6$:
+\textbf{Qué hago:} traduzco las dos condiciones a una restricción sobre el \emph{conjunto} de casillas que
+ocupan el $3$ y el $6$, y luego multiplico.
+
+Llamo $p$ a la posición del $3$ y $q$ a la del $6$. Las condiciones son $p\geq3$ y $q>p$; de ellas se
+deduce $q>p\geq3$, así que \emph{ambos} números caen en el bloque de casillas
+$\{3,4,5,6\}$, que tiene $6-2=4$ casillas. Escoger las dos casillas que ocupan es una combinación, porque
+una vez escogido el par $\{p,q\}$ el reparto ya está forzado: el $3$ va en la menor y el $6$ en la mayor.
+Fijadas esas dos casillas, los cuatro números restantes ($0$, $1$, $5$, $9$) permutan libremente en las
+cuatro casillas sobrantes:
 \[
-\begin{array}{lll}
-p=3: & \text{el 6 puede ir en } 4,5,6 & \Rightarrow\;3 \text{ opciones},\\
-p=4: & \text{el 6 puede ir en } 5,6 & \Rightarrow\;2 \text{ opciones},\\
-p=5: & \text{el 6 puede ir en } 6 & \Rightarrow\;1 \text{ opción},\\
-p=6: & \text{no queda lugar posterior} & \Rightarrow\;0 \text{ opciones}.
-\end{array}
-\]
-Total de parejas de posiciones válidas: $3+2+1+0=6$. Fijadas las casillas del $3$ y del $6$, los cuatro
-números restantes ($0$, $1$, $5$, $9$) llenan las cuatro casillas sobrantes de $4!$ maneras:
-\[
-6\times4!=6\times24=144 .
+N_b=\underbrace{\binom{4}{2}}_{\text{casillas de }3\text{ y }6}\cdot\underbrace{4!}_{0,1,5,9}
+=\frac{4\cdot 3}{2}\cdot 24=6\cdot 24=144 .
 \]
 
-\textbf{¿De dónde sale?} Las posiciones $1$ a $6$ salen de que hay seis casillas; la exigencia $p\geq3$ es
-literal del enunciado (``después de la segunda posición''); el $4!$ porque quedan $6-2=4$ números
-distintos para $4$ casillas.
+\textbf{¿De dónde sale?} El $4$ del $\binom{4}{2}$ son las casillas $3,4,5,6$, que quedan al descartar las
+dos primeras por la exigencia ``después de la segunda posición''; el $2$ son los dos números con condición
+($3$ y $6$); el $4!$ porque quedan $6-2=4$ números distintos para $4$ casillas libres.
 
-\textbf{¿Por qué?} Los casos según $p$ son disjuntos (el $3$ está en una única casilla) y cubren todas las
-posibilidades permitidas, así que por el principio de la suma se suman las opciones. Una vez elegidas las
-casillas del $3$ y del $6$, los cuatro números restantes no tienen ninguna restricción y el principio del
-producto multiplica por $4!$. Conviene notar que este resultado también se puede obtener por simetría: de
-las $4!\cdot\binom{4}{2}\cdot 2=\dots$ formas de colocar $3$ y $6$ con $p\geq3$, exactamente la mitad tiene
-al $6$ después del $3$; en efecto, con $p\geq3$ hay $4\cdot5=20$ pares ordenados de casillas distintas
-para $(3,6)$ y en $6$ de ellos el $6$ va después, lo que confirma la enumeración directa.
+\textbf{¿Por qué combinación y no permutación?} Porque el orden dentro del par de casillas no es una
+elección libre: $q>p$ lo fija de antemano. Si se contaran pares \emph{ordenados} de casillas se obtendría
+$P(4,2)=4\cdot 3=12$, que cuenta cada par dos veces (una con el $6$ después y otra con el $6$ antes); la
+condición $q>p$ deja exactamente la mitad, $P(4,2)/2!=\binom{4}{2}=6$. Ese es justamente el argumento de
+simetría, escrito como fórmula. Después se multiplica por $4!$ por el principio del producto, porque los
+números restantes no tienen ninguna restricción y su conteo no depende de dónde quedaron el $3$ y el $6$.
 
 \textbf{¿Qué tomamos?} $\;144$ permutaciones.
 \end{paso}

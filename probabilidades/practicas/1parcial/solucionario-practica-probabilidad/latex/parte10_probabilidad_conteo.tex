@@ -1,0 +1,1333 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+
+\title{Solucionario --- Cap\'itulo 2, Secci\'on 2.1\\ Ejercicios 17 a 27: probabilidad en espacios equiprobables v\'ia conteo}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{teo}
+\textbf{Probabilidad cl\'asica (espacios equiprobables).} Sea $\Omega$ un conjunto finito de resultados y sup\'ongase que el experimento se realiza ``al azar'', de modo que todos los resultados de $\Omega$ tienen la misma posibilidad de ocurrir. Entonces, para todo evento $A\subseteq\Omega$,
+\[
+P(A) \;=\; \frac{|A|}{|\Omega|},
+\]
+es decir, la probabilidad de $A$ es el cociente entre la cantidad de resultados favorables y la cantidad total de resultados. La f\'ormula sale de repartir la masa total $1$ en partes iguales entre los $|\Omega|$ resultados: cada resultado recibe $1/|\Omega|$, y $A$ acumula tantas de esas partes como elementos tiene.
+
+\medskip
+En consecuencia, \emph{toda} la dificultad de estos ejercicios es de \textbf{conteo}: hay que calcular dos cardinalidades, $|A|$ y $|\Omega|$, con las mismas herramientas de la secci\'on anterior. Las que se usan aqu\'i son:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Permutaciones de todos los objetos:} $P(n,n)=n!$. Cuenta los \'ordenes posibles de $n$ objetos distinguibles.
+  \item \textbf{Permutaciones parciales:} $P(n,r)=\dfrac{n!}{(n-r)!}=n(n-1)\cdots(n-r+1)$. Cuenta las maneras de llenar $r$ casillas ordenadas gastando un objeto distinto cada vez.
+  \item \textbf{Combinaciones:} $C(n,r)=\dbinom{n}{r}=\dfrac{n!}{r!\,(n-r)!}$. Cuenta los subconjuntos de tama\~no $r$; sale de dividir $P(n,r)$ entre las $r!$ reordenaciones que describen el mismo subconjunto.
+  \item \textbf{Funciones / repeticiones:} $k^{n}$. Cuenta las maneras de asignar a cada uno de $n$ objetos distinguibles una de $k$ etiquetas.
+  \item \textbf{T\'ecnica del bloque:} para forzar que $m$ objetos queden contiguos en una fila de $n$, se pegan en un solo paquete; quedan $n-m+1$ unidades que se ordenan de $(n-m+1)!$ maneras y el paquete se ordena internamente de $m!$ maneras.
+  \item \textbf{T\'ecnica de huecos (posiciones):} para imponer condiciones sobre \emph{cu\'ales} posiciones ocupa cierto tipo de objeto, primero se llenan las posiciones restringidas con $P(n,r)$ y luego las libres con un factorial.
+  \item \textbf{Complemento:} $P(A)=1-P(A^{c})$, con $|A|=|\Omega|-|A^{c}|$. Se usa siempre que la condici\'on diga ``al menos''.
+  \item \textbf{Inclusi\'on--exclusi\'on:}
+  \[
+    \Big|\bigcup_{i=1}^{k}A_i\Big|=\sum_i |A_i|-\sum_{i<j}|A_i\cap A_j|+\sum_{i<j<l}|A_i\cap A_j\cap A_l|-\cdots
+  \]
+  Vale porque un resultado que pertenece a exactamente $m$ de las familias se suma $\binom{m}{1}$ veces, se resta $\binom{m}{2}$, se vuelve a sumar $\binom{m}{3}$, \dots, y la suma alternada $\binom{m}{1}-\binom{m}{2}+\cdots$ vale exactamente $1$.
+  \item \textbf{Cantidad de resultados en \emph{exactamente} una familia:} con $S_j=\sum_{i_1<\cdots<i_j}|A_{i_1}\cap\cdots\cap A_{i_j}|$,
+  \[
+    E_1=\sum_{j\ge 1}(-1)^{\,j-1}\binom{j}{1}S_j = S_1-2S_2+3S_3-4S_4+\cdots
+  \]
+  Vale porque un resultado que est\'a en exactamente $m$ familias aparece $\binom{m}{j}$ veces dentro de $S_j$, y la suma alternada $\sum_j(-1)^{j-1}j\binom{m}{j}$ vale $1$ si $m=1$ y $0$ si $m\ge 2$.
+\end{itemize}
+\end{teo}
+
+\begin{tip}
+\textbf{Rutina fija para los ejercicios 17--27} (es la misma que sigue el profesor en la pr\'actica resuelta del curso: se declara el espacio muestral, se parte el problema en \textbf{casos} excluyentes y dentro de cada caso se numeran las \textbf{etapas} que se multiplican).
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Decir qu\'e es un resultado.} Antes de escribir un solo n\'umero hay que poder describir en una frase el objeto que se est\'a contando: un orden de siete personas en una banca, un subconjunto de cinco invitados, una asignaci\'on de seis confites a tres personas, un emparejamiento de seis puntas. De esa frase depende si el orden cuenta o no, y por lo tanto qu\'e f\'ormula se usa.
+  \item \textbf{Justificar la equiprobabilidad.} La f\'ormula $P(A)=|A|/|\Omega|$ solo vale si todos los elementos de $\Omega$ pesan lo mismo. La descripci\'on de $\Omega$ debe elegirse justamente para que eso ocurra: si el enunciado dice ``al azar'' sobre \'ordenes, hay que tomar $\Omega=$ \emph{\'ordenes}; si dice ``al azar'' sobre grupos de $r$ personas, hay que tomar $\Omega=$ \emph{subconjuntos de tama\~no $r$}.
+  \item \textbf{Contar $|\Omega|$ y $|A|$ con la misma descripci\'on de resultado.} Es el error m\'as caro: contar el denominador con \'ordenes y el numerador con subconjuntos. Ambos deben referirse al mismo tipo de objeto.
+  \item \textbf{Contar por casos y etapas.} Si la condici\'on admite varias configuraciones excluyentes, se abren \emph{casos} (Caso I, Caso II, \dots) y al final se suman. Dentro de cada caso el conteo se descompone en \emph{etapas} numeradas (Etapa 1, Etapa 2, \dots), cada una con su f\'ormula y su valor, y se multiplican.
+  \item \textbf{Simplificar la fracci\'on al final,} nunca antes de tener las dos cardinalidades escritas con sus factores etiquetados.
+\end{enumerate}
+\end{tip}
+
+% ==========================================================
+\section*{Cap\'itulo 2 --- Ejercicio 17}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 17}
+
+\begin{quote}
+Se sientan 3 hombres y 4 mujeres al azar en una banca. Determine la probabilidad de que:\\[2pt]
+(a) Las mujeres quedan juntas. \hfill R/ $4/35$\\
+(b) El primer hombre est\'e luego de la segunda posici\'on. \hfill R/ $2/7$\\
+(c) Danae y Francisco (dos de las 7 personas) quedan separados por al menos una persona. \hfill R/ $5/7$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Definir $\Omega$ y verificar que es equiprobable}
+\textbf{Qu\'e hago:} describo con precisi\'on qu\'e es un resultado de este experimento antes de contar nada.
+
+Un resultado es un \emph{orden} de las $7$ personas en los $7$ asientos de la banca: se dice qui\'en ocupa la posici\'on $1$, qui\'en la posici\'on $2$, \dots, qui\'en la posici\'on $7$. Dos resultados son distintos en cuanto alguna persona cambie de asiento. Formalmente, $\Omega$ es el conjunto de las biyecciones del conjunto de $7$ personas al conjunto de $7$ posiciones, y por la f\'ormula de permutaciones de todos los objetos
+\[
+|\Omega| \;=\; P(7,7) \;=\; 7! \;=\; 5\,040 .
+\]
+El desglose es $7\cdot 6=42$, $42\cdot 5=210$, $210\cdot 4=840$, $840\cdot 3=2\,520$, $2\,520\cdot 2=5\,040$.
+
+\textbf{¿De d\'onde sale?} Del enunciado: hay $3+4=7$ personas y una banca, y los tres incisos hablan de posiciones relativas (``juntas'', ``luego de la segunda posici\'on'', ``separados''), lo cual solo tiene sentido si los asientos est\'an ordenados.
+
+\textbf{¿Por qu\'e?} Porque las personas son objetos distinguibles y los asientos tambi\'en: intercambiar dos personas produce una configuraci\'on que el enunciado reconoce como distinta. Adem\'as, la frase ``al azar'' significa que ning\'un orden est\'a favorecido sobre otro, de modo que los $5\,040$ elementos de $\Omega$ son equiprobables y se puede aplicar $P(A)=|A|/|\Omega|$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|\Omega|=7!=5\,040$ como denominador com\'un de los tres incisos.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a): contar los \'ordenes con las cuatro mujeres juntas usando la t\'ecnica del bloque}
+\textbf{Qu\'e hago:} aplico la t\'ecnica del bloque para convertir la restricci\'on ``las cuatro mujeres quedan contiguas'' en una configuraci\'on sin restricciones.
+
+Sea $A$ el evento ``las $4$ mujeres ocupan cuatro asientos consecutivos''. Se pegan las cuatro mujeres en un \'unico paquete y el conteo se hace por etapas:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Etapa 1:} ordenar las $3+1=4$ unidades de la banca ($3$ hombres sueltos y $1$ bloque): $4!=24$.
+  \item \textbf{Etapa 2:} ordenar a las $4$ mujeres dentro del bloque: $4!=24$.
+\end{itemize}
+Por el principio del producto,
+\[
+|A| \;=\; \underbrace{4!}_{\text{orden de las 4 unidades}}\cdot \underbrace{4!}_{\text{orden interno de las mujeres}} \;=\; 24\cdot 24 \;=\; 576 .
+\]
+
+\textbf{¿De d\'onde sale?} El primer $4$ es $3$ hombres $+\,1$ bloque; el segundo $4$ es la cantidad de mujeres que se ordenan dentro del bloque, dato directo del enunciado.
+
+\textbf{¿Por qu\'e?} Porque la correspondencia entre ``\'ordenes de las $4$ unidades m\'as un orden interno'' y ``\'ordenes de la banca con las mujeres contiguas'' es uno a uno: todo orden de las unidades deja autom\'aticamente a las mujeres juntas, y de todo orden de la banca con las mujeres juntas se recupera sin ambig\"uedad qu\'e orden de unidades y qu\'e orden interno lo produjeron. Ninguna configuraci\'on se cuenta dos veces ni se pierde.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|A|=4!\cdot 4!=576$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (a): formar el cociente}
+\textbf{Qu\'e hago:} divido las dos cardinalidades ya calculadas y simplifico.
+\[
+P(A)\;=\;\frac{|A|}{|\Omega|}
+\;=\;\frac{\underbrace{4!}_{\text{bloque de mujeres}}\cdot\underbrace{4!}_{\text{internas}}}{\underbrace{7!}_{|\Omega|}}
+\;=\;\frac{576}{5\,040}\;=\;\frac{4}{35}.
+\]
+La simplificaci\'on: $576$ y $5\,040$ son ambos m\'ultiplos de $144$, pues $576=144\cdot 4$ y $5\,040=144\cdot 35$; de ah\'i $576/5\,040=4/35$. En decimal, $4/35=0{,}114285\ldots$
+
+\textbf{¿De d\'onde sale?} El numerador del Paso 2 y el denominador del Paso 1.
+
+\textbf{¿Por qu\'e?} Porque $\Omega$ es equiprobable y $A\subseteq\Omega$, de modo que la regla cl\'asica se aplica directamente.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P(A)=\dfrac{4}{35}$, que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (b): traducir la condici\'on a una restricci\'on sobre posiciones}
+\textbf{Qu\'e hago:} traduzco la frase ``el primer hombre est\'e luego de la segunda posici\'on'' a una condici\'on que se pueda contar.
+
+Sea $B$ ese evento. ``El primer hombre'' significa el hombre que aparece m\'as a la izquierda; que est\'e ``luego de la segunda posici\'on'' significa que ocupa la posici\'on $3$ o una mayor. Que el hombre m\'as a la izquierda est\'e en posici\'on $\ge 3$ equivale exactamente a que en las posiciones $1$ y $2$ \emph{no} haya ning\'un hombre, es decir, a que las dos primeras posiciones est\'en ocupadas por mujeres.
+
+\textbf{¿De d\'onde sale?} De la definici\'on de ``primero'': si hubiera un hombre en la posici\'on $1$ o en la $2$, el primer hombre estar\'ia en una posici\'on $\le 2$; y rec\'iprocamente, si las posiciones $1$ y $2$ son de mujeres, el primer hombre necesariamente aparece en la posici\'on $3$ o despu\'es.
+
+\textbf{¿Por qu\'e?} Porque as\'i la condici\'on deja de hablar de un m\'inimo (dif\'icil de contar) y pasa a hablar de qui\'enes ocupan dos posiciones concretas, que es justo lo que la t\'ecnica de huecos sabe contar. Adem\'as la traducci\'on es una equivalencia l\'ogica, no una aproximaci\'on: los dos eventos son el mismo subconjunto de $\Omega$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos la reformulaci\'on $B=\{$las posiciones $1$ y $2$ est\'an ocupadas por mujeres$\}$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (b): contar $|B|$ con la t\'ecnica de huecos}
+\textbf{Qu\'e hago:} lleno primero las posiciones restringidas con una permutaci\'on parcial y luego las posiciones libres con un factorial.
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Etapa 1:} colocar dos mujeres distintas en las posiciones $1$ y $2$, escogi\'endolas y orden\'andolas entre las $4$ disponibles: $P(4,2)=12$.
+  \item \textbf{Etapa 2:} sentar a las $7-2=5$ personas restantes (los $3$ hombres y las $2$ mujeres sobrantes) en las $5$ posiciones libres: $5!=120$.
+\end{itemize}
+Por el principio del producto,
+\[
+|B| \;=\; \underbrace{P(4,2)}_{\text{mujeres en las posiciones 1 y 2}}\cdot \underbrace{5!}_{\text{resto de la banca}}
+\;=\; (4\cdot 3)\cdot 120 \;=\; 12\cdot 120 \;=\; 1\,440 .
+\]
+Aqu\'i $P(4,2)=\dfrac{4!}{2!}=\dfrac{24}{2}=12$ y $5!=120$.
+
+\textbf{¿De d\'onde sale?} El $4$ es la cantidad de mujeres del enunciado; el $2$ son las dos posiciones obligadas; el $5$ son las personas y posiciones que quedan tras llenar esas dos.
+
+\textbf{¿Por qu\'e?} Se usa $P(4,2)$ y no $C(4,2)$ porque las posiciones $1$ y $2$ son distinguibles: poner a Ana en la $1$ y a Berta en la $2$ es un orden de la banca distinto del inverso. Y el factor $5!$ no depende de cu\'ales dos mujeres se hayan escogido: siempre quedan cinco personas para cinco asientos, lo que legitima multiplicar las dos etapas.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|B|=P(4,2)\cdot 5!=1\,440$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso (b): formar el cociente}
+\textbf{Qu\'e hago:} aplico la regla cl\'asica con los valores de los Pasos 1 y 5.
+\[
+P(B)\;=\;\frac{\underbrace{P(4,2)}_{\text{mujeres en 1 y 2}}\cdot\underbrace{5!}_{\text{resto}}}{\underbrace{7!}_{|\Omega|}}
+\;=\;\frac{12\cdot 120}{5\,040}\;=\;\frac{1\,440}{5\,040}\;=\;\frac{2}{7}.
+\]
+Simplificaci\'on: $1\,440=720\cdot 2$ y $5\,040=720\cdot 7$, de donde el cociente es $2/7=0{,}285714\ldots$
+
+\textbf{¿De d\'onde sale?} Numerador del Paso 5, denominador del Paso 1.
+
+\textbf{¿Por qu\'e?} Porque ambos se contaron con la misma descripci\'on de resultado (\'ordenes completos de las $7$ personas), que es la condici\'on para que el cociente tenga sentido.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P(B)=\dfrac{2}{7}$, igual a la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Inciso (c): pasar al complemento}
+\textbf{Qu\'e hago:} reescribo el evento pedido como el complemento de uno m\'as f\'acil de contar.
+
+Sea $C$ el evento ``Danae y Francisco quedan separados por al menos una persona''. Su complemento $C^{c}$ es ``Danae y Francisco quedan en asientos contiguos'', porque entre dos personas de una fila o bien hay al menos una persona en medio, o bien no hay ninguna, y esas dos posibilidades son excluyentes y agotan $\Omega$. Por lo tanto
+\[
+P(C) \;=\; 1-P(C^{c}).
+\]
+
+\textbf{¿De d\'onde sale?} De la partici\'on $\Omega=C\cup C^{c}$ con $C\cap C^{c}=\varnothing$, que da $|C|=|\Omega|-|C^{c}|$ por el principio de la suma.
+
+\textbf{¿Por qu\'e?} Porque contar directamente ``separados por al menos una persona'' obligar\'ia a sumar los casos ``separados por exactamente $1$'', ``por exactamente $2$'', \dots, ``por exactamente $5$'', mientras que ``contiguos'' es un solo conteo con la t\'ecnica del bloque.
+
+\textbf{¿Qu\'e tomamos?} Tomamos la v\'ia del complemento: hay que contar $|C^{c}|$.
+\end{paso}
+
+\begin{paso}{Paso 8 --- Inciso (c): contar $|C^{c}|$ con la t\'ecnica del bloque y concluir}
+\textbf{Qu\'e hago:} pego a Danae y Francisco en un bloque y cuento los \'ordenes resultantes.
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Etapa 1:} ordenar las $5+1=6$ unidades ($5$ personas sueltas y el bloque Danae--Francisco): $6!=720$.
+  \item \textbf{Etapa 2:} ordenar el interior del bloque (Danae a la izquierda o Francisco a la izquierda): $2!=2$.
+\end{itemize}
+Por el principio del producto,
+\[
+|C^{c}| \;=\; \underbrace{6!}_{\text{orden de las 6 unidades}}\cdot\underbrace{2!}_{\text{interno del bloque}} \;=\; 720\cdot 2 \;=\; 1\,440 .
+\]
+De ah\'i
+\[
+P(C)\;=\;1-\frac{\underbrace{6!}_{\text{bloque Danae--Francisco}}\cdot\underbrace{2!}_{\text{internas}}}{\underbrace{7!}_{|\Omega|}}
+\;=\;1-\frac{1\,440}{5\,040}\;=\;1-\frac{2}{7}\;=\;\frac{7-2}{7}\;=\;\frac{5}{7}.
+\]
+
+\textbf{¿De d\'onde sale?} El $6$ es $7$ personas menos las $2$ del bloque, m\'as el bloque: $5+1=6$; el $2!$ son las dos orientaciones del bloque.
+
+\textbf{¿Por qu\'e?} Igual que en el Paso 2, la correspondencia es uno a uno. Obs\'ervese adem\'as la simplificaci\'on estructural $\dfrac{6!\cdot 2!}{7!}=\dfrac{2}{7}$, que sale de cancelar $6!$ con $7!=7\cdot 6!$: la probabilidad de que dos personas fijas queden contiguas en una fila de $7$ es $2/7$ sin necesidad de evaluar los factoriales.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P(C)=\dfrac{5}{7}=0{,}714285\ldots$, igual a la respuesta oficial.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+(a) $P=\dfrac{4!\cdot 4!}{7!}=\dfrac{576}{5\,040}=\mathbf{\dfrac{4}{35}}$. \qquad
+(b) $P=\dfrac{P(4,2)\cdot 5!}{7!}=\dfrac{1\,440}{5\,040}=\mathbf{\dfrac{2}{7}}$. \qquad
+(c) $P=1-\dfrac{6!\cdot 2!}{7!}=1-\dfrac{2}{7}=\mathbf{\dfrac{5}{7}}$.
+\end{resp}
+
+% ==========================================================
+\section*{Cap\'itulo 2 --- Ejercicio 18}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 18}
+
+\begin{quote}
+En una fiesta de 12 hombres y 8 mujeres. Si se eligen 5 personas al azar para realizar una actividad, ¿cu\'al es la probabilidad de que se elija al menos un hombre y al menos una mujer? \hfill R/ $916/969$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Definir $\Omega$ y verificar la equiprobabilidad}
+\textbf{Qu\'e hago:} describo qu\'e es un resultado y decido si el orden cuenta.
+
+Un resultado es un \emph{grupo} de $5$ personas escogidas entre las $12+8=20$ asistentes, sin importar en qu\'e orden se escogieron: el enunciado solo dice que las cinco realizar\'an una actividad, no que ocupen papeles distintos. Es decir, $\Omega$ es el conjunto de subconjuntos de tama\~no $5$ del conjunto de $20$ personas, y
+\[
+|\Omega| \;=\; C(20,5) \;=\; \frac{20!}{5!\,15!}
+\;=\;\frac{20\cdot 19\cdot 18\cdot 17\cdot 16}{5\cdot 4\cdot 3\cdot 2\cdot 1}
+\;=\;\frac{1\,860\,480}{120}\;=\;15\,504 .
+\]
+
+\textbf{¿De d\'onde sale?} Del enunciado: $12$ hombres y $8$ mujeres dan $20$ personas, y se eligen $5$.
+
+\textbf{¿Por qu\'e?} Se usa $C$ y no $P$ porque intercambiar dos de las cinco personas elegidas no cambia el grupo elegido, y el enunciado no distingue papeles dentro del grupo. La frase ``al azar'' aplicada a la elecci\'on de un grupo significa que los $15\,504$ grupos posibles son igualmente probables, que es exactamente la hip\'otesis que necesita $P(A)=|A|/|\Omega|$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|\Omega|=C(20,5)=15\,504$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Reescribir el evento con el complemento}
+\textbf{Qu\'e hago:} identifico qu\'e significa que \emph{no} se cumpla la condici\'on, para poder usar el complemento.
+
+Sea $A$ el evento ``hay al menos un hombre y al menos una mujer entre los $5$ elegidos''. Que $A$ falle significa que falta alguna de las dos exigencias, es decir, que no haya ning\'un hombre o que no haya ninguna mujer. Como el grupo tiene $5$ personas, no puede ocurrir simult\'aneamente que no haya hombres y que no haya mujeres. Por lo tanto $A^{c}=H\cup M$ con
+\[
+H=\{\text{los 5 elegidos son mujeres}\},\qquad M=\{\text{los 5 elegidos son hombres}\},\qquad H\cap M=\varnothing .
+\]
+
+\textbf{¿De d\'onde sale?} De negar la conjunci\'on ``al menos un hombre \emph{y} al menos una mujer'': la negaci\'on de ``$p$ y $q$'' es ``no $p$ o no $q$''.
+
+\textbf{¿Por qu\'e?} Porque contar directamente $A$ obligar\'ia a sumar los casos con $1,2,3,4$ hombres (cuatro conteos), mientras que $A^{c}$ son solo dos conteos, y adem\'as son disjuntos, as\'i que el principio de la suma se aplica sin correcciones.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|A| = |\Omega| - |H| - |M|$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar los dos casos desfavorables}
+\textbf{Qu\'e hago:} cuento con combinaciones cada uno de los dos grupos ``puros'', separando en casos.
+
+\medskip
+\textbf{Caso I: el grupo est\'a formado solo por hombres.} Es un subconjunto de tama\~no $5$ del conjunto de $12$ hombres.
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Etapa 1:} escoger los $5$ hombres entre los $12$ disponibles: $C(12,5)=\dfrac{12\cdot 11\cdot 10\cdot 9\cdot 8}{5\cdot 4\cdot 3\cdot 2\cdot 1}=\dfrac{95\,040}{120}=792$.
+\end{itemize}
+Luego $|M|=792$.
+
+\medskip
+\textbf{Caso II: el grupo est\'a formado solo por mujeres.} Es un subconjunto de tama\~no $5$ del conjunto de $8$ mujeres.
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Etapa 1:} escoger las $5$ mujeres entre las $8$ disponibles: $C(8,5)=C(8,3)=\dfrac{8\cdot 7\cdot 6}{3\cdot 2\cdot 1}=\dfrac{336}{6}=56$.
+\end{itemize}
+Luego $|H|=56$. Los dos casos son excluyentes, as\'i que se suman: $|A^{c}|=792+56=848$.
+
+\textbf{¿De d\'onde sale?} Los n\'umeros $12$ y $8$ son las cantidades de hombres y mujeres del enunciado; el $5$ es el tama\~no del grupo.
+
+\textbf{¿Por qu\'e?} Porque un grupo sin mujeres est\'a totalmente determinado por qui\'enes son sus cinco hombres, y elegir cinco hombres entre doce es una selecci\'on sin orden. En el segundo c\'alculo se us\'o la simetr\'ia $C(n,r)=C(n,n-r)$, v\'alida porque escoger las $5$ mujeres que entran equivale a escoger las $3$ que quedan fuera; sirve para trabajar con menos factores.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|M|=792$ y $|H|=56$, de modo que $|A^{c}|=792+56=848$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Calcular la probabilidad y simplificar}
+\textbf{Qu\'e hago:} formo el cociente con las cardinalidades de los pasos anteriores.
+\[
+P(A)\;=\;\frac{\overbrace{C(20,5)}^{|\Omega|}-\underbrace{C(12,5)}_{\text{solo hombres}}-\underbrace{C(8,5)}_{\text{solo mujeres}}}{\underbrace{C(20,5)}_{|\Omega|}}
+\;=\;\frac{15\,504-792-56}{15\,504}\;=\;\frac{14\,656}{15\,504}.
+\]
+Simplificaci\'on: $15\,504-792=14\,712$ y $14\,712-56=14\,656$. Ambos, $14\,656$ y $15\,504$, son m\'ultiplos de $16$: $14\,656=16\cdot 916$ y $15\,504=16\cdot 969$. Como $969=3\cdot 17\cdot 19$ y $916=2^{2}\cdot 229$ no comparten factores, la fracci\'on ya es irreducible:
+\[
+P(A)\;=\;\frac{916}{969}\;\approx\;0{,}945304 .
+\]
+
+\textbf{¿De d\'onde sale?} De los Pasos 1 y 3.
+
+\textbf{¿Por qu\'e?} Porque $|A|=|\Omega|-|A^{c}|$ por el principio de la suma sobre la partici\'on $\Omega=A\cup A^{c}$, y todos los conteos se hicieron sobre el mismo tipo de resultado (subconjuntos de tama\~no $5$).
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P(A)=\dfrac{916}{969}$, que coincide con la respuesta oficial.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+$P=\dfrac{C(20,5)-C(12,5)-C(8,5)}{C(20,5)}=\dfrac{15\,504-792-56}{15\,504}=\dfrac{14\,656}{15\,504}=\mathbf{\dfrac{916}{969}}\approx 0{,}94530$.
+\end{resp}
+
+% ==========================================================
+\section*{Cap\'itulo 2 --- Ejercicio 19}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 19}
+
+\begin{quote}
+Se reparten 6 confites distintos al azar entre Juan, Ana y Pablo. Determine la probabilidad de que:\\[2pt]
+(a) A Juan le toquen 3 confites. \hfill R/ $160/729$\\
+(b) A Ana le toquen al menos 4 confites. \hfill R/ $73/729$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Definir $\Omega$ y verificar la equiprobabilidad}
+\textbf{Qu\'e hago:} describo qu\'e es un reparto y lo cuento con la f\'ormula de asignaciones $k^{n}$.
+
+Un resultado es una \emph{asignaci\'on}: a cada uno de los $6$ confites (que son distintos, seg\'un dice el enunciado) se le indica cu\'al de las $3$ personas lo recibe. Dos repartos son distintos si alg\'un confite cambia de due\~no. No se exige que todos reciban algo, ni hay l\'imite por persona. Por el principio del producto, la primera golosina tiene $3$ destinos posibles, la segunda tambi\'en $3$, y as\'i sucesivamente:
+\[
+|\Omega| \;=\; \underbrace{3}_{\text{confite 1}}\cdot\underbrace{3}_{\text{confite 2}}\cdots\underbrace{3}_{\text{confite 6}}
+\;=\; 3^{6} \;=\; 729 .
+\]
+El desglose: $3^{2}=9$, $3^{3}=27$, $3^{4}=81$, $3^{5}=243$, $3^{6}=729$.
+
+\textbf{¿De d\'onde sale?} El $3$ es la cantidad de personas (Juan, Ana, Pablo) y el exponente $6$ es la cantidad de confites, ambos datos expl\'icitos.
+
+\textbf{¿Por qu\'e?} La f\'ormula $k^{n}$ cuenta funciones de un conjunto de $n$ objetos distinguibles a un conjunto de $k$ etiquetas; aqu\'i los objetos son los confites y las etiquetas las personas. El n\'umero de opciones de cada etapa ($3$) no depende de lo decidido antes, que es la condici\'on del principio del producto. Y ``al azar'' significa que las $729$ asignaciones son igualmente probables: cada confite va a parar a cualquiera de las tres personas con la misma facilidad, independientemente de los dem\'as.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|\Omega|=3^{6}=729$ como denominador de ambos incisos.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a): contar los repartos en que Juan recibe exactamente 3 confites}
+\textbf{Qu\'e hago:} separo la asignaci\'on en dos etapas: cu\'ales confites son de Juan y qu\'e pasa con los dem\'as.
+
+Sea $A$ el evento ``Juan recibe exactamente $3$ confites''. El reparto se construye por etapas:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Etapa 1:} escoger \emph{cu\'ales} $3$ de los $6$ confites recibe Juan (selecci\'on sin orden): $C(6,3)=20$.
+  \item \textbf{Etapa 2:} repartir los $6-3=3$ confites restantes entre Ana y Pablo, con $2$ destinos posibles cada uno (no pueden ir a Juan, pues recibe exactamente esos tres): $2^{3}=8$.
+\end{itemize}
+Por el principio del producto,
+\[
+|A| \;=\; \underbrace{C(6,3)}_{\text{cu\'ales confites son de Juan}}\cdot\underbrace{2^{3}}_{\text{los otros 3 van a Ana o Pablo}}
+\;=\; 20\cdot 8 \;=\; 160 ,
+\]
+donde $C(6,3)=\dfrac{6\cdot 5\cdot 4}{3\cdot 2\cdot 1}=\dfrac{120}{6}=20$ y $2^{3}=8$.
+
+\textbf{¿De d\'onde sale?} El $6$ y el $3$ del $C(6,3)$ son el total de confites y la cantidad exigida para Juan; el $2$ es la cantidad de personas distintas de Juan; el exponente $3$ son los confites que sobran.
+
+\textbf{¿Por qu\'e?} Se usa $C$ y no $P$ porque el conjunto de confites de Juan no tiene orden interno: darle los confites $\{1,2,3\}$ es el mismo reparto sin importar en qu\'e secuencia se los entreguen. El factor $2^{3}$ es indispensable: si se omitiera, se estar\'ian contando solo los repartos en que los otros tres confites tienen un destino fijo. Y es correcto exigir que los tres restantes eviten a Juan, porque la palabra ``exactamente'' del conteo lo obliga; de lo contrario un mismo reparto en que Juan recibe $4$ confites se contar\'ia varias veces.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|A|=C(6,3)\cdot 2^{3}=160$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (a): formar el cociente}
+\textbf{Qu\'e hago:} aplico la regla cl\'asica.
+\[
+P(A)\;=\;\frac{\underbrace{C(6,3)}_{\text{confites de Juan}}\cdot\underbrace{2^{3}}_{\text{destino de los otros}}}{\underbrace{3^{6}}_{|\Omega|}}
+\;=\;\frac{20\cdot 8}{729}\;=\;\frac{160}{729}.
+\]
+La fracci\'on es irreducible porque $729=3^{6}$ es potencia de $3$ y $160=2^{5}\cdot 5$ no tiene el factor $3$. En decimal, $160/729\approx 0{,}219479$.
+
+\textbf{¿De d\'onde sale?} Numerador del Paso 2, denominador del Paso 1.
+
+\textbf{¿Por qu\'e?} Porque numerador y denominador cuentan el mismo tipo de objeto: asignaciones completas de los seis confites.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P(A)=\dfrac{160}{729}$, igual a la oficial.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (b): partir el evento ``al menos 4'' en casos disjuntos}
+\textbf{Qu\'e hago:} descompongo la condici\'on ``al menos $4$'' seg\'un el n\'umero exacto de confites que recibe Ana.
+
+Sea $B$ el evento ``Ana recibe al menos $4$ confites''. Como hay $6$ confites, los valores posibles compatibles son $4$, $5$ y $6$, y son mutuamente excluyentes (Ana recibe una cantidad exacta y solo una). Por el principio de la suma,
+\[
+|B| \;=\; |B_4| + |B_5| + |B_6|,
+\]
+donde $B_k$ es el evento ``Ana recibe exactamente $k$ confites''.
+
+\textbf{¿De d\'onde sale?} Del rango posible: la cantidad de confites de Ana es un entero entre $0$ y $6$, y ``al menos $4$'' selecciona los valores $4,5,6$.
+
+\textbf{¿Por qu\'e?} Aqu\'i el complemento no conviene: ``menos de $4$'' abarcar\'ia los casos $0,1,2,3$, que son cuatro conteos en lugar de tres. Los tres casos elegidos son disjuntos porque la cantidad que recibe Ana est\'a un\'ivocamente determinada por el reparto, as\'i que el principio de la suma se aplica sin restar traslapes.
+
+\textbf{¿Qu\'e tomamos?} Tomamos la partici\'on $B=B_4\cup B_5\cup B_6$ y pasamos a contar cada pieza.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (b): contar cada caso con el mismo esquema del Paso 2}
+\textbf{Qu\'e hago:} aplico a cada caso la estructura de dos etapas ``escoger los confites de Ana'' y ``repartir el resto entre las otras dos personas''. En general
+\[
+|B_k| \;=\; \underbrace{C(6,k)}_{\text{Etapa 1: cu\'ales confites son de Ana}}\cdot\underbrace{2^{\,6-k}}_{\text{Etapa 2: los restantes van a Juan o Pablo}} .
+\]
+
+\medskip
+\textbf{Caso I: Ana recibe exactamente $4$ confites.}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Etapa 1:} escoger los $4$ confites de Ana: $C(6,4)=C(6,2)=\dfrac{6\cdot 5}{2}=15$.
+  \item \textbf{Etapa 2:} repartir los $2$ restantes entre Juan y Pablo: $2^{2}=4$.
+\end{itemize}
+$|B_4|=15\cdot 4=60$.
+
+\medskip
+\textbf{Caso II: Ana recibe exactamente $5$ confites.}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Etapa 1:} escoger los $5$ confites de Ana: $C(6,5)=C(6,1)=6$.
+  \item \textbf{Etapa 2:} repartir el confite restante entre Juan y Pablo: $2^{1}=2$.
+\end{itemize}
+$|B_5|=6\cdot 2=12$.
+
+\medskip
+\textbf{Caso III: Ana recibe los $6$ confites.}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Etapa 1:} escoger los $6$ confites de Ana: $C(6,6)=1$.
+  \item \textbf{Etapa 2:} no queda nada por repartir (producto vac\'io): $2^{0}=1$.
+\end{itemize}
+$|B_6|=1\cdot 1=1$. Sumando los tres casos, que son excluyentes,
+\[
+|B| \;=\; 60+12+1 \;=\; 73 .
+\]
+
+\textbf{¿De d\'onde sale?} Cada $C(6,k)$ escoge el subconjunto de Ana entre los $6$ confites; cada $2^{6-k}$ reparte los sobrantes entre las $2$ personas restantes.
+
+\textbf{¿Por qu\'e?} Es el mismo argumento del Paso 2 con Ana en el papel de Juan. El caso $k=6$ ilustra bien la estructura: hay una \'unica manera de darle todos los confites a Ana ($C(6,6)=1$) y no queda nada por repartir, lo que corresponde al factor vac\'io $2^{0}=1$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|B|=73$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso (b): formar el cociente}
+\textbf{Qu\'e hago:} divido entre $|\Omega|$.
+\[
+P(B)\;=\;\frac{\underbrace{C(6,4)2^{2}}_{\text{Ana con 4}}+\underbrace{C(6,5)2^{1}}_{\text{Ana con 5}}+\underbrace{C(6,6)2^{0}}_{\text{Ana con 6}}}{\underbrace{3^{6}}_{|\Omega|}}
+\;=\;\frac{60+12+1}{729}\;=\;\frac{73}{729}.
+\]
+La fracci\'on es irreducible: $73$ es primo y no divide a $729=3^{6}$. En decimal, $73/729\approx 0{,}100137$.
+
+\textbf{¿De d\'onde sale?} Numerador del Paso 5, denominador del Paso 1.
+
+\textbf{¿Por qu\'e?} Porque los tres sumandos cuentan asignaciones completas, disjuntas entre s\'i, y todas pertenecen al mismo $\Omega$ equiprobable.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P(B)=\dfrac{73}{729}$, igual a la oficial.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+(a) $P=\dfrac{C(6,3)\cdot 2^{3}}{3^{6}}=\dfrac{160}{729}\approx 0{,}21948$. \qquad
+(b) $P=\dfrac{C(6,4)2^{2}+C(6,5)2^{1}+C(6,6)2^{0}}{3^{6}}=\dfrac{60+12+1}{729}=\mathbf{\dfrac{73}{729}}\approx 0{,}10014$.
+\end{resp}
+
+% ==========================================================
+\section*{Cap\'itulo 2 --- Ejercicio 20}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 20}
+
+\begin{quote}
+El restaurante Mac Burger tiene 8 sucursales en la ciudad, con 12 empleados cada una. Para motivarlos se ha decidido elegir 50 personas al azar para regalarles una entrada a un concierto. ¿Cu\'al es la probabilidad de que no se elijan a todos los empleados de una misma sucursal? \hfill R/ $0{,}99845$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Definir $\Omega$ y verificar la equiprobabilidad}
+\textbf{Qu\'e hago:} describo el resultado y lo cuento con combinaciones.
+
+Hay $8\cdot 12 = 96$ empleados en total, todos distinguibles. Un resultado es el \emph{grupo} de $50$ empleados premiados; no hay orden ni papeles distintos entre ellos. Por lo tanto
+\[
+|\Omega| \;=\; C(96,50) \;=\; \frac{96!}{50!\,46!} .
+\]
+Su valor exacto (calculado con aritm\'etica entera) es
+\[
+C(96,50) \;=\; 5\,925\,514\,768\,686\,681\,770\,366\,994\,528 \;\approx\; 5{,}9255\times 10^{27}.
+\]
+
+\textbf{¿De d\'onde sale?} El $96$ es $8$ sucursales $\times$ $12$ empleados; el $50$ es la cantidad de entradas.
+
+\textbf{¿Por qu\'e?} Se usa $C(96,50)$ porque el premio es el mismo para los $50$ y no se les asigna un orden: intercambiar dos premiados no cambia el resultado. ``Al azar'' significa que los $C(96,50)$ grupos posibles son igualmente probables, hip\'otesis necesaria para usar $P(A)=|A|/|\Omega|$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|\Omega|=C(96,50)$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Definir los eventos ``malos'' y pasar al complemento}
+\textbf{Qu\'e hago:} nombro un evento por cada sucursal y reescribo el evento pedido como complemento de una uni\'on.
+
+Para $i=1,\dots,8$ sea
+\[
+A_i=\{\text{los 12 empleados de la sucursal } i \text{ quedan todos premiados}\}.
+\]
+El evento pedido, ``no se eligen todos los empleados de una misma sucursal'', es exactamente que \emph{ninguno} de los $A_i$ ocurra, es decir, el complemento de $A_1\cup A_2\cup\cdots\cup A_8$. As\'i,
+\[
+P(\text{pedido}) \;=\; 1-\frac{|A_1\cup\cdots\cup A_8|}{|\Omega|}.
+\]
+
+\textbf{¿De d\'onde sale?} De la lectura literal: ``que exista una sucursal completamente premiada'' es la uni\'on de los ocho eventos; negarlo es el complemento de la uni\'on.
+
+\textbf{¿Por qu\'e?} Porque contar directamente los grupos que dejan a cada sucursal incompleta exigir\'ia controlar simult\'aneamente ocho restricciones; el complemento traslada el problema a una uni\'on, que la inclusi\'on--exclusi\'on resuelve.
+
+\textbf{¿Qu\'e tomamos?} Tomamos la v\'ia del complemento con los ocho eventos $A_i$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar las intersecciones de $j$ eventos}
+\textbf{Qu\'e hago:} cuento cu\'antos grupos premian por completo a $j$ sucursales fijas de antemano.
+
+Si se exige que $j$ sucursales concretas queden completas, el conteo se hace por etapas:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Etapa 1:} meter en el grupo a los $12j$ empleados de esas $j$ sucursales; no hay ninguna libertad: $1$ manera.
+  \item \textbf{Etapa 2:} escoger los $50-12j$ premiados restantes entre los $96-12j$ empleados de las dem\'as sucursales: $C(96-12j,\,50-12j)$.
+\end{itemize}
+Por el principio del producto,
+\[
+|A_{i_1}\cap\cdots\cap A_{i_j}| \;=\; \underbrace{1}_{\text{los }12j\text{ obligados}}\cdot\underbrace{C(96-12j,\;50-12j)}_{\text{el resto del grupo}} .
+\]
+Como adem\'as hay $C(8,j)$ maneras de escoger cu\'ales son esas $j$ sucursales (Etapa 0), la suma de todas las intersecciones de tama\~no $j$ es
+\[
+S_j \;=\; \underbrace{C(8,j)}_{\text{cu\'ales sucursales}}\cdot\underbrace{C(96-12j,\,50-12j)}_{\text{completar el grupo}} .
+\]
+Los valores concretos son:
+\[
+\begin{aligned}
+S_1&=C(8,1)\,C(84,38)=9\,212\,633\,549\,490\,307\,061\,623\,680,\\
+S_2&=C(8,2)\,C(72,26)=772\,618\,659\,493\,599\,580\,032,\\
+S_3&=C(8,3)\,C(60,14)=56\cdot 17\,345\,898\,649\,800=971\,370\,324\,388\,800,\\
+S_4&=C(8,4)\,C(48,2)=70\cdot 1\,128=78\,960 .
+\end{aligned}
+\]
+
+\textbf{¿De d\'onde sale?} El $12j$ son los empleados forzados; el $96-12j$ son los empleados a\'un disponibles; el $50-12j$ son las entradas que quedan por repartir.
+
+\textbf{¿Por qu\'e?} Porque fijar $j$ sucursales completas no deja ninguna libertad sobre esos $12j$ empleados (de ah\'i el factor $1$), y las dem\'as elecciones son libres. Adem\'as todas las intersecciones de un mismo tama\~no $j$ tienen el mismo cardinal, porque todas las sucursales tienen $12$ empleados: por eso basta multiplicar por $C(8,j)$ en lugar de sumar t\'ermino a t\'ermino.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $S_1,\dots,S_4$ como arriba, y notamos que la lista se detiene en $j=4$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Justificar por qu\'e la suma se corta en $j=4$}
+\textbf{Qu\'e hago:} verifico para qu\'e valores de $j$ el t\'ermino $C(96-12j,50-12j)$ tiene sentido.
+
+Para que existan grupos con $j$ sucursales completas hace falta $12j\le 50$, es decir $j\le 50/12=4{,}1\overline{6}$, y como $j$ es entero, $j\le 4$. Para $j=5$ se necesitar\'ian $12\cdot 5=60$ premiados solo en esas sucursales, pero solo hay $50$ entradas: $60>50$, as\'i que $S_5=S_6=S_7=S_8=0$.
+
+\textbf{¿De d\'onde sale?} De comparar $12j$ con el tama\~no del grupo premiado, $50$.
+
+\textbf{¿Por qu\'e?} Porque un grupo que contiene enteramente a $5$ sucursales tendr\'ia al menos $60$ personas, y ning\'un elemento de $\Omega$ tiene m\'as de $50$. El evento es vac\'io y su cardinal es $0$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos que la inclusi\'on--exclusi\'on tiene solo cuatro t\'erminos no nulos.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Aplicar inclusi\'on--exclusi\'on y calcular}
+\textbf{Qu\'e hago:} sumo los cuatro t\'erminos con signos alternados y formo la probabilidad.
+\[
+|A_1\cup\cdots\cup A_8| \;=\; S_1-S_2+S_3-S_4 .
+\]
+Entonces
+\[
+P(\text{pedido})\;=\;1-\frac{\underbrace{S_1}_{\text{1 sucursal}}-\underbrace{S_2}_{\text{2 sucursales}}+\underbrace{S_3}_{\text{3 sucursales}}-\underbrace{S_4}_{\text{4 sucursales}}}{\underbrace{C(96,50)}_{|\Omega|}} ,
+\]
+es decir,
+\[
+P(\text{pedido})\;=\;1-\frac{\displaystyle\sum_{j=1}^{4}(-1)^{\,j-1}C(8,j)\,C(96-12j,\,50-12j)}{C(96,50)} .
+\]
+Con aritm\'etica exacta de fracciones el resultado es
+\[
+P(\text{pedido}) \;=\; \frac{33\,195\,882\,191\,819\,730\,151\,835}{33\,247\,569\,175\,232\,750\,753\,922}\;=\;0{,}9984453906\ldots\;\approx\;0{,}99845 .
+\]
+Obs\'ervese la magnitud de cada correcci\'on: $S_1/|\Omega|\approx 1{,}5547\times 10^{-3}$, mientras que $S_2/|\Omega|\approx 1{,}30\times 10^{-7}$; por eso el primer t\'ermino domina y la respuesta est\'a tan cerca de $1$.
+
+\textbf{¿De d\'onde sale?} De la f\'ormula de inclusi\'on--exclusi\'on de la caja de Teor\'ia, con $k=8$ eventos, y de los $S_j$ del Paso 3.
+
+\textbf{¿Por qu\'e?} Porque los eventos $A_i$ \emph{s\'i} se traslapan: un mismo grupo de $50$ puede contener dos sucursales completas ($24\le 50$). Sumar $S_1$ sin corregir contar\'ia dos veces esos grupos, y por eso se resta $S_2$, se vuelve a sumar $S_3$ y se resta $S_4$, que es exactamente la alternancia que deja cada grupo de la uni\'on contado una sola vez.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P(\text{pedido})\approx 0{,}99845$, que coincide con la respuesta oficial redondeada a cinco decimales.
+\end{paso}
+
+\begin{nota}
+\textbf{El mismo enunciado en la pr\'actica resuelta del curso.} Este ejercicio aparece como el n\'umero 37 de la pr\'actica resuelta del profesor (restaurante ``Mc Fast'', $8$ sucursales de $12$ empleados, se eligen $50$), con una diferencia: all\'a se pide el \emph{n\'umero de maneras} y no la probabilidad. Ese n\'umero es justamente el numerador que aqu\'i qued\'o impl\'icito,
+\[
+|A_1^{c}\cap\cdots\cap A_8^{c}| \;=\; \underbrace{C(96,50)}_{\text{sin restricci\'on}}-\underbrace{\big(S_1-S_2+S_3-S_4\big)}_{\text{alguna sucursal completa}} \;=\; 5\,916\,302\,907\,754\,879\,586\,580\,641\,040 ,
+\]
+de modo que la probabilidad pedida en la pr\'actica de probabilidad es ese conteo dividido entre $C(96,50)$. La estructura del argumento es la misma: definir el espacio, contar por casos excluyentes (cu\'antas sucursales quedan completas) y corregir los traslapes.
+\end{nota}
+
+\end{sol}
+
+\begin{resp}
+\[
+P=1-\frac{\sum_{j=1}^{4}(-1)^{j-1}C(8,j)\,C(96-12j,\,50-12j)}{C(96,50)}=0{,}99844539\ldots\approx\mathbf{0{,}99845}.
+\]
+\end{resp}
+
+% ==========================================================
+\section*{Cap\'itulo 2 --- Ejercicio 21}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 21}
+
+\begin{quote}
+Una empresa tiene 8 departamentos con 12 empleados cada uno. Se eligen 50 empleados al azar para un viaje corporativo. ¿Cu\'al es la probabilidad de que se elijan exactamente todos los empleados de un departamento y ninguno de otro departamento completo? \hfill R/ $0{,}00153$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Definir $\Omega$ y reutilizar la estructura del ejercicio anterior}
+\textbf{Qu\'e hago:} verifico que el espacio muestral es id\'entico al del Ejercicio 20 y lo reescribo.
+
+Hay $8\cdot 12=96$ empleados distinguibles y se escoge un grupo de $50$ sin orden, luego
+\[
+|\Omega| \;=\; C(96,50) \;=\; 5\,925\,514\,768\,686\,681\,770\,366\,994\,528 .
+\]
+Los eventos relevantes son los mismos: $A_i=\{$el departamento $i$ queda completo en el grupo$\}$, para $i=1,\dots,8$, con
+\[
+S_j \;=\; \underbrace{C(8,j)}_{\text{cu\'ales departamentos}}\cdot\underbrace{C(96-12j,\,50-12j)}_{\text{completar los 50}},\qquad j=1,2,3,4,
+\]
+y $S_j=0$ para $j\ge 5$ porque $12\cdot 5=60>50$.
+
+\textbf{¿De d\'onde sale?} De los mismos datos num\'ericos: $8$ grupos de $12$, se eligen $50$.
+
+\textbf{¿Por qu\'e?} Porque el experimento es literalmente el mismo (elegir $50$ de $96$ al azar); lo \'unico que cambia es el evento que se quiere medir, as\'i que conviene reutilizar los conteos ya validados.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|\Omega|=C(96,50)$ y los cuatro valores $S_1,S_2,S_3,S_4$ calculados en el Ejercicio 20.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Traducir el enunciado: ``exactamente uno'' de los eventos $A_i$}
+\textbf{Qu\'e hago:} interpreto la condici\'on doble del enunciado en t\'erminos de los eventos $A_i$.
+
+``Se eligen exactamente todos los empleados de un departamento'' pide que alg\'un $A_i$ ocurra; ``y ninguno de otro departamento completo'' pide que ning\'un otro $A_{i'}$, con $i'\ne i$, ocurra. Juntas, las dos cl\'ausulas dicen que el grupo premiado pertenece a \emph{exactamente uno} de los ocho eventos $A_1,\dots,A_8$. Llamemos $E_1$ a ese conjunto de grupos.
+
+\textbf{¿De d\'onde sale?} De la conjunci\'on del enunciado: la primera parte da existencia, la segunda da unicidad.
+
+\textbf{¿Por qu\'e?} Porque ``exactamente uno'' es distinto de ``al menos uno'' (Ejercicio 20): hay grupos de $50$ que contienen dos departamentos completos, ya que $24\le 50$, y esos deben quedar excluidos aqu\'i aunque s\'i contaban all\'a.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P=\dfrac{|E_1|}{|\Omega|}$ con $E_1=\{$el grupo est\'a en exactamente uno de los $A_i\}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Deducir la f\'ormula de ``exactamente uno''}
+\textbf{Qu\'e hago:} justifico la identidad $|E_1|=\sum_{j\ge 1}(-1)^{j-1}\,j\,S_j$ mediante un conteo de multiplicidades.
+
+Fije un grupo $g\in\Omega$ y sea $m$ la cantidad de departamentos que $g$ contiene completos. Dentro de $S_j$, el grupo $g$ aparece una vez por cada elecci\'on de $j$ departamentos completos entre los $m$ que tiene, es decir $\binom{m}{j}$ veces. Por lo tanto su aporte total a la suma alternada es
+\[
+\sum_{j\ge 1}(-1)^{\,j-1}\,j\,\binom{m}{j}
+\;=\;\begin{cases} 1, & m=1,\\[2pt] 0, & m=0 \text{ o } m\ge 2.\end{cases}
+\]
+Para $m=0$ todos los binomios con $j\ge1$ son $0$. Para $m=1$ solo sobrevive $j=1$, que aporta $1\cdot\binom{1}{1}=1$. Para $m\ge 2$ se usa $j\binom{m}{j}=m\binom{m-1}{j-1}$, de donde
+\[
+\sum_{j\ge 1}(-1)^{\,j-1}j\binom{m}{j}=m\sum_{j\ge 1}(-1)^{\,j-1}\binom{m-1}{j-1}=m\sum_{t\ge 0}(-1)^{t}\binom{m-1}{t}=m\,(1-1)^{m-1}=0 .
+\]
+En consecuencia la suma alternada cuenta cada grupo con $m=1$ exactamente una vez y descarta todos los dem\'as:
+\[
+|E_1| \;=\; S_1-2S_2+3S_3-4S_4 .
+\]
+
+\textbf{¿De d\'onde sale?} De la definici\'on de $S_j$ como suma sobre \emph{todas} las familias de $j$ departamentos, y del teorema del binomio $\sum_t(-1)^t\binom{n}{t}=(1-1)^n$.
+
+\textbf{¿Por qu\'e?} Porque es la misma idea que sostiene la inclusi\'on--exclusi\'on ordinaria, pero con el peso $\binom{j}{1}=j$: ese peso extra es justamente el que anula los grupos con dos o m\'as departamentos completos en lugar de contarlos una vez.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|E_1|=S_1-2S_2+3S_3-4S_4$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Sustituir y calcular}
+\textbf{Qu\'e hago:} evalúo la expresi\'on con los valores del Paso 1.
+\[
+P \;=\;\frac{\underbrace{S_1}_{\text{1 dpto.}}-\underbrace{2S_2}_{\text{correcci\'on por pares}}+\underbrace{3S_3}_{\text{correcci\'on por ternas}}-\underbrace{4S_4}_{\text{correcci\'on por cu\'adruples}}}{\underbrace{C(96,50)}_{|\Omega|}} ,
+\]
+es decir,
+\[
+P \;=\;\frac{\displaystyle\sum_{j=1}^{4}(-1)^{\,j-1}j\,C(8,j)\,C(96-12j,\,50-12j)}{C(96,50)} .
+\]
+Con aritm\'etica exacta,
+\[
+|E_1| \;=\; 9\,211\,088\,315\,085\,430\,835\,314\,176 ,
+\]
+\[
+P \;=\; \frac{120\,086\,153\,461\,168\,007\,344}{77\,251\,704\,848\,334\,920\,869\,407}\;=\;0{,}0015544790\ldots
+\]
+es decir $P\approx 0{,}00155$.
+
+\textbf{¿De d\'onde sale?} De los $S_j$ del Paso 1 y de la f\'ormula del Paso 3.
+
+\textbf{¿Por qu\'e?} Porque numerador y denominador cuentan el mismo objeto (grupos de $50$ empleados), y el espacio es equiprobable.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P\approx 0{,}00155$ como valor del desarrollo, y se conserva la respuesta oficial $0{,}00153$ seg\'un se indica abajo.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Comprobar la coherencia con el Ejercicio 20}
+\textbf{Qu\'e hago:} contrasto este resultado con el del ejercicio anterior para detectar errores.
+
+El Ejercicio 20 dio $P(\text{ning\'un departamento completo})=0{,}99844539$, luego
+\[
+P(\text{al menos un departamento completo}) \;=\; 1-0{,}99844539 \;=\; 0{,}00155461 .
+\]
+El valor obtenido aqu\'i, $0{,}00155448$, es ligeramente menor, como debe ser: ``exactamente uno'' est\'a contenido en ``al menos uno'', y la diferencia
+\[
+0{,}00155461-0{,}00155448 \;=\; 1{,}30\times 10^{-7}
+\]
+es la probabilidad de que haya dos o m\'as departamentos completos, que en efecto coincide con $S_2/|\Omega|\approx 1{,}30\times 10^{-7}$.
+
+\textbf{¿De d\'onde sale?} De la relaci\'on de contenci\'on entre los dos eventos y de los valores num\'ericos calculados.
+
+\textbf{¿Por qu\'e?} Porque es una verificaci\'on independiente: si el conteo de ``exactamente uno'' hubiera estado mal, no coincidir\'ia con ``al menos uno'' menos ``dos o m\'as''.
+
+\textbf{¿Qu\'e tomamos?} Tomamos la comprobaci\'on como v\'alida: el desarrollo es internamente consistente.
+\end{paso}
+
+\begin{nota}
+\textbf{Discrepancia con la respuesta oficial.} La pr\'actica reporta $0{,}00153$, mientras que el conteo exacto (verificado con aritm\'etica entera y de fracciones) da
+\[
+P=\frac{S_1-2S_2+3S_3-4S_4}{C(96,50)}=0{,}00155448 ,
+\]
+que redondeado a cinco decimales es $0{,}00155$. La diferencia es de $2\times 10^{-5}$ y no proviene de la interpretaci\'on del enunciado: obs\'ervese que el propio Ejercicio 20 de la pr\'actica reporta $0{,}99845$ para el evento complementario ``ning\'un departamento completo'', y $1-0{,}99845=0{,}00155$, no $0{,}00153$. Es decir, las dos respuestas oficiales son mutuamente incompatibles y la del Ejercicio 20 concuerda con el c\'alculo exacto. Se conserva de todos modos la respuesta oficial $0{,}00153$ tal como aparece en la pr\'actica, dejando la observaci\'on a criterio del profesor.
+\end{nota}
+
+\end{sol}
+
+\begin{resp}
+Respuesta oficial: $\mathbf{0{,}00153}$.\\
+Resultado del desarrollo anterior:
+\[
+P=\frac{\sum_{j=1}^{4}(-1)^{j-1}\,j\,C(8,j)\,C(96-12j,\,50-12j)}{C(96,50)}=0{,}00155448\approx 0{,}00155 .
+\]
+\end{resp}
+
+% ==========================================================
+\section*{Cap\'itulo 2 --- Ejercicio 22}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 22}
+
+\begin{quote}
+En un taller literario inspirado en \emph{El Principito}, hay 6 mesas de lectura, cada una con 10 participantes que analizan un cap\'itulo distinto de la obra. Se seleccionan 35 participantes al azar para un conversatorio especial. ¿Cu\'al es la probabilidad de que se elijan participantes de todas las mesas, pero sin completar completamente ninguna mesa? \hfill R/ $0{,}96428$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Definir $\Omega$ y verificar la equiprobabilidad}
+\textbf{Qu\'e hago:} describo el resultado y lo cuento con combinaciones.
+
+Hay $6\cdot 10=60$ participantes distinguibles. Un resultado es el grupo de $35$ seleccionados, sin orden, de modo que
+\[
+|\Omega| \;=\; C(60,35) \;=\; \frac{60!}{35!\,25!} \;=\; 51\,915\,437\,974\,328\,292 \;\approx\; 5{,}1915\times 10^{16}.
+\]
+
+\textbf{¿De d\'onde sale?} El $60$ es $6$ mesas $\times$ $10$ participantes; el $35$ es la cantidad de invitados al conversatorio.
+
+\textbf{¿Por qu\'e?} Porque todos los seleccionados reciben lo mismo (asistir al conversatorio), as\'i que no hay orden ni papeles; y ``al azar'' significa que los $C(60,35)$ grupos son equiprobables.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|\Omega|=C(60,35)=51\,915\,437\,974\,328\,292$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Traducir el evento a doce condiciones}
+\textbf{Qu\'e hago:} escribo el evento pedido como la ausencia simult\'anea de dos tipos de eventos malos.
+
+Para cada mesa $i=1,\dots,6$ sea $x_i$ la cantidad de sus $10$ participantes que fueron seleccionados, de modo que $x_1+\cdots+x_6=35$ y $0\le x_i\le 10$. El enunciado pide dos cosas:
+\begin{itemize}[leftmargin=*]
+  \item ``participantes de todas las mesas'': $x_i\ge 1$ para toda $i$, es decir, ninguna mesa queda vac\'ia;
+  \item ``sin completar completamente ninguna mesa'': $x_i\le 9$ para toda $i$, es decir, ninguna mesa queda completa.
+\end{itemize}
+Definimos entonces $V_i=\{x_i=0\}$ (mesa $i$ vac\'ia) y $L_i=\{x_i=10\}$ (mesa $i$ llena); el evento pedido es el complemento de $\bigcup_i (V_i\cup L_i)$.
+
+\textbf{¿De d\'onde sale?} De la lectura literal de las dos cl\'ausulas del enunciado, traducidas a desigualdades sobre los $x_i$.
+
+\textbf{¿Por qu\'e?} Porque as\'i el evento queda descrito por una lista de eventos prohibidos, que es la forma que la inclusi\'on--exclusi\'on sabe tratar. Adem\'as, para una misma mesa $V_i$ y $L_i$ son incompatibles ($x_i$ no puede ser $0$ y $10$ a la vez), lo cual simplifica las intersecciones.
+
+\textbf{¿Qu\'e tomamos?} Tomamos el conteo de $\big|\bigcup_i(V_i\cup L_i)\big|$ por inclusi\'on--exclusi\'on sobre las $12$ condiciones.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar una intersecci\'on gen\'erica}
+\textbf{Qu\'e hago:} calculo cu\'antos grupos dejan vac\'ias $a$ mesas fijas y llenas $b$ mesas fijas (distintas de las anteriores).
+
+El conteo se organiza en etapas:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Etapa 1:} escoger cu\'ales $a$ mesas quedan vac\'ias: $C(6,a)$.
+  \item \textbf{Etapa 2:} escoger cu\'ales $b$ mesas quedan llenas, entre las $6-a$ que no se declararon vac\'ias: $C(6-a,b)$.
+  \item \textbf{Etapa 3:} los $10a$ participantes de las mesas vac\'ias quedan fuera y los $10b$ de las llenas quedan dentro; escoger los $35-10b$ seleccionados que faltan entre los $60-10a-10b$ participantes de las mesas no restringidas: $C(60-10a-10b,\,35-10b)$.
+\end{itemize}
+Por el principio del producto, el t\'ermino es
+\[
+\underbrace{C(6,a)}_{\text{cu\'ales mesas vac\'ias}}\cdot\underbrace{C(6-a,\,b)}_{\text{cu\'ales mesas llenas}}\cdot\underbrace{C(60-10a-10b,\;35-10b)}_{\text{el resto del grupo}} .
+\]
+Solo son admisibles los pares $(a,b)$ con $0\le 35-10b\le 60-10a-10b$, es decir $b\le 3$ y $10a+35\le 60$, o sea $a\le 2$ (con $a=2$ solo hasta $b=3$).
+
+\textbf{¿De d\'onde sale?} El $10a$ y el $10b$ salen de que cada mesa tiene $10$ participantes; el $35-10b$ son las plazas del conversatorio que quedan libres tras meter a las mesas llenas.
+
+\textbf{¿Por qu\'e?} Porque una vez fijadas las mesas vac\'ias y llenas, no queda ninguna libertad sobre sus participantes, y las restantes elecciones son libres. Se usa $C(6,a)\,C(6-a,b)$ y no $C(6,a)C(6,b)$ porque una misma mesa no puede estar a la vez vac\'ia y llena: las $b$ mesas llenas se escogen entre las $6-a$ que no se declararon vac\'ias.
+
+\textbf{¿Qu\'e tomamos?} Tomamos esa expresi\'on como el t\'ermino gen\'erico de la inclusi\'on--exclusi\'on, con signo $(-1)^{a+b}$ porque se est\'an imponiendo $a+b$ condiciones.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Ensamblar la f\'ormula y evaluarla}
+\textbf{Qu\'e hago:} sumo con signos alternados sobre todos los pares $(a,b)$ admisibles.
+\[
+|A| \;=\; \sum_{a\ge 0}\ \sum_{b\ge 0} (-1)^{\,a+b}\,
+\underbrace{C(6,a)}_{\text{vac\'ias}}\,\underbrace{C(6-a,b)}_{\text{llenas}}\,\underbrace{C(60-10a-10b,\;35-10b)}_{\text{completar el grupo}} ,
+\]
+donde $A$ es el evento pedido y el t\'ermino $(a,b)=(0,0)$ es $C(60,35)=|\Omega|$. Los t\'erminos no nulos son:
+\[
+\begin{array}{llll}
+(0,0)\!: & 51\,915\,437\,974\,328\,292 &\quad (1,0)\!: & 13\,504\,977\,450\,720\\
+(0,1)\!: & 758\,463\,638\,626\,512 &\quad (1,1)\!: & 1\,206\,760\,351\,680\\
+(0,2)\!: & 603\,380\,175\,840 &\quad (1,2)\!: & 9\,307\,051\,200\\
+(0,3)\!: & 2\,850\,120 &\quad (1,3)\!: & 930\,240\\
+(2,0)\!: & 9\,870\,120 &\quad (2,2)\!: & 1\,395\,360\\
+(2,1)\!: & 8\,550\,360 &\quad (2,3)\!: & 15\,120
+\end{array}
+\]
+Con aritm\'etica exacta la suma alternada da
+\[
+|A| \;=\; 51\,145\,270\,192\,507\,500 ,
+\]
+\[
+P(A)\;=\;\frac{51\,145\,270\,192\,507\,500}{51\,915\,437\,974\,328\,292}
+\;=\;\frac{38\,397\,349\,994\,375}{38\,975\,554\,034\,781}\;=\;0{,}9851649\ldots
+\]
+
+\textbf{¿De d\'onde sale?} De aplicar la f\'ormula de inclusi\'on--exclusi\'on de la caja de Teor\'ia a la familia de $12$ eventos $V_1,\dots,V_6,L_1,\dots,L_6$, agrupando los t\'erminos seg\'un cu\'antos son de cada tipo.
+
+\textbf{¿Por qu\'e?} Porque las condiciones prohibidas se traslapan: un grupo puede dejar una mesa vac\'ia y otra llena a la vez, y restar sin corregir contar\'ia esos casos dos veces. La alternancia $(-1)^{a+b}$ es la que deja cada grupo prohibido descontado exactamente una vez.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P(A)=0{,}98516$ como valor del desarrollo.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Verificar el conteo por un camino independiente}
+\textbf{Qu\'e hago:} recuento $|A|$ sin inclusi\'on--exclusi\'on, sumando directamente sobre los repartos admisibles.
+
+Como cada mesa aporta $x_i\in\{1,2,\dots,9\}$ participantes y la elecci\'on dentro de la mesa $i$ se hace de $C(10,x_i)$ maneras, el principio del producto y el de la suma dan
+\[
+|A| \;=\; \sum_{\substack{x_1+\cdots+x_6=35\\ 1\le x_i\le 9}}\ \prod_{i=1}^{6}\underbrace{C(10,x_i)}_{\text{a qui\'enes de la mesa }i} .
+\]
+Evaluando esta suma con aritm\'etica entera se obtiene de nuevo
+\[
+|A| \;=\; 51\,145\,270\,192\,507\,500 ,
+\]
+exactamente el mismo valor del Paso 4.
+
+\textbf{¿De d\'onde sale?} De partir $\Omega$ seg\'un el vector $(x_1,\dots,x_6)$ de cantidades por mesa, que est\'a un\'ivocamente determinado por el grupo.
+
+\textbf{¿Por qu\'e?} Porque los distintos vectores dan familias disjuntas de grupos (el principio de la suma se aplica sin correcciones) y, fijado el vector, las elecciones dentro de cada mesa son independientes en n\'umero (el principio del producto se aplica). Que los dos caminos coincidan confirma que la inclusi\'on--exclusi\'on del Paso 4 no perdi\'o ni duplic\'o ning\'un t\'ermino.
+
+\textbf{¿Qu\'e tomamos?} Tomamos como confirmado que $P(A)=0{,}98516$.
+\end{paso}
+
+\begin{nota}
+\textbf{Discrepancia con la respuesta oficial.} La pr\'actica reporta $0{,}96428$, mientras que los dos conteos independientes anteriores dan $0{,}98516$. Se revisaron adem\'as las lecturas alternativas del enunciado y ninguna reproduce el valor oficial:
+\begin{itemize}[leftmargin=*]
+  \item exigiendo \'unicamente ``ninguna mesa completa'' (sin pedir que todas est\'en representadas) se obtiene $0{,}98540$;
+  \item exigiendo \'unicamente ``todas las mesas representadas'' (sin prohibir mesas completas) se obtiene $0{,}99974$.
+\end{itemize}
+Ninguno de esos valores es $0{,}96428$. Se conserva la respuesta oficial tal como aparece en la pr\'actica y se se\~nala la diferencia para que quede a criterio del profesor.
+\end{nota}
+
+\end{sol}
+
+\begin{resp}
+Respuesta oficial: $\mathbf{0{,}96428}$.\\
+Resultado del desarrollo anterior:
+\[
+P=\frac{\sum_{a,b}(-1)^{a+b}C(6,a)\,C(6-a,b)\,C(60-10a-10b,\,35-10b)}{C(60,35)}
+\]
+\[
+=\frac{51\,145\,270\,192\,507\,500}{51\,915\,437\,974\,328\,292}=0{,}98516 .
+\]
+\end{resp}
+
+% ==========================================================
+\section*{Cap\'itulo 2 --- Ejercicio 23}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 23}
+
+\begin{quote}
+En una determinada ciudad en un a\~no no bisiesto hubieron 200 nacimientos. Determine la probabilidad de que al menos dos de estos nacimientos ocurran la misma fecha. \hfill R/ $1-\dfrac{365!}{165!\,365^{200}}$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Definir $\Omega$ y verificar la equiprobabilidad}
+\textbf{Qu\'e hago:} describo qu\'e es un resultado y lo cuento con la f\'ormula de asignaciones $k^{n}$.
+
+Los $200$ nacimientos son distinguibles (son eventos distintos, cada uno con su beb\'e). Un resultado es la lista de fechas: al nacimiento $1$ se le asigna una de las $365$ fechas del a\~no, al nacimiento $2$ otra (posiblemente la misma), y as\'i hasta el $200$. Por el principio del producto,
+\[
+|\Omega| \;=\; \underbrace{365}_{\text{nacimiento 1}}\cdot\underbrace{365}_{\text{nacimiento 2}}\cdots\underbrace{365}_{\text{nacimiento 200}} \;=\; 365^{200}.
+\]
+
+\textbf{¿De d\'onde sale?} El $365$ es la cantidad de fechas de un a\~no no bisiesto, dato del enunciado; el exponente $200$ es la cantidad de nacimientos.
+
+\textbf{¿Por qu\'e?} Porque cada nacimiento cae en exactamente una fecha y el n\'umero de fechas disponibles ($365$) no cambia seg\'un lo ocurrido con los nacimientos anteriores, que es la condici\'on del principio del producto. La hip\'otesis de equiprobabilidad que se adopta es la usual: todas las fechas son igualmente probables para cada nacimiento y los nacimientos no se influyen entre s\'i, de modo que las $365^{200}$ listas pesan lo mismo.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|\Omega|=365^{200}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Pasar al complemento}
+\textbf{Qu\'e hago:} reescribo ``al menos dos coinciden'' como el complemento de ``todas las fechas son distintas''.
+
+Sea $A=\{$al menos dos nacimientos comparten fecha$\}$. Su complemento es $A^{c}=\{$las $200$ fechas son todas distintas$\}$, porque o bien alguna fecha se repite, o bien ninguna se repite, y ambas cosas no pueden ocurrir a la vez. Luego
+\[
+P(A)\;=\;1-\frac{|A^{c}|}{|\Omega|}.
+\]
+
+\textbf{¿De d\'onde sale?} De la partici\'on $\Omega=A\cup A^{c}$ con $A\cap A^{c}=\varnothing$.
+
+\textbf{¿Por qu\'e?} Porque contar $A$ directamente exigir\'ia sumar sobre todas las configuraciones de repeticiones posibles (una fecha repetida dos veces, dos fechas repetidas, una fecha tres veces, \dots), lo que es inmanejable; en cambio ``todas distintas'' es un solo conteo con permutaciones.
+
+\textbf{¿Qu\'e tomamos?} Tomamos la v\'ia del complemento.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar $|A^{c}|$ con permutaciones parciales}
+\textbf{Qu\'e hago:} cuento las listas de $200$ fechas sin repetici\'on con $P(n,r)$.
+
+Si las fechas deben ser todas distintas, el primer nacimiento tiene $365$ fechas disponibles, el segundo $364$ (no puede repetir la del primero), el tercero $363$, y as\'i hasta el nacimiento $200$, que tiene $365-199=166$ fechas disponibles. Por el principio del producto,
+\[
+|A^{c}| \;=\; \underbrace{365\cdot 364\cdot 363\cdots 166}_{200\ \text{factores descendentes}} \;=\; P(365,200)\;=\;\frac{365!}{(365-200)!}\;=\;\frac{365!}{165!}.
+\]
+
+\textbf{¿De d\'onde sale?} El $365$ es la cantidad de fechas; el $200$, la de nacimientos; el $165$ del denominador es $365-200$.
+
+\textbf{¿Por qu\'e?} Porque una lista de $200$ fechas distintas tomadas de $365$ es exactamente una permutaci\'on parcial: importa el orden (la fecha del nacimiento $1$ no es intercambiable con la del nacimiento $2$) y no hay repetici\'on. La identidad $P(n,r)=n!/(n-r)!$ vale porque $365!$ es el producto de todos los factores desde $365$ hasta $1$ y dividir entre $165!$ cancela justamente la cola $165\cdot 164\cdots 1$, dejando los $200$ factores $365\cdot 364\cdots 166$. N\'otese que $200\le 365$, as\'i que el evento no es vac\'io.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|A^{c}|=\dfrac{365!}{165!}$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Formar el cociente}
+\textbf{Qu\'e hago:} sustituyo las dos cardinalidades en la regla cl\'asica.
+\[
+P(A)\;=\;1-\frac{\underbrace{P(365,200)}_{\text{fechas todas distintas}}}{\underbrace{365^{200}}_{|\Omega|}}
+\;=\;1-\frac{\ \underbrace{\dfrac{365!}{165!}}_{\text{numerador}}\ }{\underbrace{365^{200}}_{|\Omega|}}
+\;=\;1-\frac{365!}{165!\;365^{200}} .
+\]
+
+\textbf{¿De d\'onde sale?} Numerador del Paso 3, denominador del Paso 1.
+
+\textbf{¿Por qu\'e?} Porque ambos conteos se hicieron sobre el mismo tipo de resultado: listas ordenadas de $200$ fechas.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P(A)=1-\dfrac{365!}{165!\;365^{200}}$, exactamente la respuesta oficial.
+\end{paso}
+
+\begin{nota}
+La respuesta oficial se deja \emph{sin evaluar} porque los tres n\'umeros involucrados ($365!$, $165!$ y $365^{200}$) son astron\'omicos y su cociente no admite una simplificaci\'on cerrada. Vale la pena leer la estructura de la expresi\'on: el $365$ del exponente es la cantidad de fechas del a\~no; el $200$ es la cantidad de nacimientos; y el $165$ es $365-200$, es decir, las fechas que quedar\'ian libres si ninguna se repitiera. Cualitativamente, con $200$ nacimientos y solo $365$ fechas la coincidencia es pr\'acticamente segura: el propio principio del palomar da la certeza a partir de $366$ nacimientos, y ya con $200$ el cociente $365!/(165!\,365^{200})$ es indistinguible de $0$, de modo que $P(A)$ es indistinguible de $1$.
+\end{nota}
+
+\end{sol}
+
+\begin{resp}
+\[
+P=1-\frac{P(365,200)}{365^{200}}=\mathbf{1-\frac{365!}{165!\;365^{200}}} .
+\]
+\end{resp}
+
+% ==========================================================
+\section*{Cap\'itulo 2 --- Ejercicio 24}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 24}
+
+\begin{quote}
+\textbf{El cumplea\~nos:} Suponga que usted es un profesor de un grupo de 40 estudiantes. Hace d\'ias el director le pidi\'o que averiguara si al menos dos estudiantes cumplen a\~nos en la misma fecha. Debido a las m\'ultiples labores, usted olvid\'o averiguar este dato. Suponga que debe darle una respuesta al director. En base a la probabilidad del problema ¿es mejor decirle que s\'i o que no? \hfill R/ $0{,}891232$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Definir $\Omega$ y verificar la equiprobabilidad}
+\textbf{Qu\'e hago:} describo el resultado con el mismo modelo del ejercicio anterior, ahora con $40$ personas.
+
+Un resultado es la lista de fechas de cumplea\~nos de los $40$ estudiantes: al estudiante $1$ se le asigna una de $365$ fechas, al estudiante $2$ otra, y as\'i sucesivamente. Los estudiantes son distinguibles y las fechas se pueden repetir, luego
+\[
+|\Omega| \;=\; \underbrace{365}_{\text{estudiante 1}}\cdots\underbrace{365}_{\text{estudiante 40}} \;=\; 365^{40}.
+\]
+
+\textbf{¿De d\'onde sale?} El $40$ es el tama\~no del grupo; el $365$ son las fechas del a\~no (se descarta el $29$ de febrero, como es usual en este modelo).
+
+\textbf{¿Por qu\'e?} Porque cada estudiante tiene exactamente una fecha de cumplea\~nos y hay $365$ opciones para cada uno, sin que unas condicionen a otras en n\'umero. Se adopta la hip\'otesis de que las $365$ fechas son igualmente probables, que es lo que vuelve equiprobables a las $365^{40}$ listas y habilita $P(A)=|A|/|\Omega|$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|\Omega|=365^{40}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar el complemento con permutaciones}
+\textbf{Qu\'e hago:} paso al complemento y lo cuento con $P(n,r)$.
+
+Sea $A=\{$al menos dos estudiantes comparten fecha$\}$. Entonces $A^{c}=\{$las $40$ fechas son todas distintas$\}$, y por el principio del producto (cada estudiante debe evitar las fechas ya usadas):
+\[
+|A^{c}| \;=\; \underbrace{365\cdot 364\cdots 326}_{40\ \text{factores descendentes}} \;=\; P(365,40)\;=\;\frac{365!}{325!} .
+\]
+El \'ultimo factor es $365-39=326$, y $325=365-40$.
+
+\textbf{¿De d\'onde sale?} De exigir fechas distintas: el $k$-\'esimo estudiante tiene $365-(k-1)$ fechas libres.
+
+\textbf{¿Por qu\'e?} Porque una asignaci\'on inyectiva de $40$ estudiantes a $365$ fechas es exactamente una permutaci\'on parcial, donde importa qui\'en tiene cada fecha y no hay repeticiones. Se usa el complemento porque contar directamente ``al menos una coincidencia'' obligar\'ia a enumerar todos los patrones de repetici\'on posibles.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|A^{c}|=P(365,40)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Formar el cociente y evaluar}
+\textbf{Qu\'e hago:} escribo la probabilidad y la calculo num\'ericamente.
+\[
+P(A)\;=\;1-\frac{\underbrace{P(365,40)}_{\text{40 fechas distintas}}}{\underbrace{365^{40}}_{|\Omega|}}
+\;=\;1-\frac{365!}{325!\;365^{40}}
+\;=\;1-\prod_{k=0}^{39}\frac{365-k}{365}
+\;=\;1-\prod_{k=0}^{39}\left(1-\frac{k}{365}\right).
+\]
+Evaluando el producto con aritm\'etica exacta y redondeando al final,
+\[
+\frac{P(365,40)}{365^{40}} \;=\; 0{,}108768190\ldots
+\qquad\Longrightarrow\qquad
+P(A) \;=\; 1-0{,}108768190 \;=\; 0{,}891231809\ldots
+\]
+es decir $P(A)\approx 0{,}891232$.
+
+\textbf{¿De d\'onde sale?} Numerador del Paso 2, denominador del Paso 1. La forma de producto sale de escribir $365^{40}$ como $365$ repetido $40$ veces y emparejar cada factor con uno del numerador.
+
+\textbf{¿Por qu\'e?} La escritura como producto de los $40$ cocientes es \'util porque evita manejar n\'umeros gigantes: cada factor $1-k/365$ es un n\'umero entre $0$ y $1$, y su producto se calcula sin desbordes.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P(A)\approx 0{,}891232$, que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Responder la pregunta cualitativa}
+\textbf{Qu\'e hago:} traduzco el n\'umero a la decisi\'on que pide el enunciado.
+
+La probabilidad de que \emph{s\'i} haya al menos dos estudiantes que cumplan a\~nos la misma fecha es $0{,}891232$, mientras que la de que \emph{no} los haya es $1-0{,}891232=0{,}108768$. Como
+\[
+0{,}891232 \;>\; 0{,}108768 ,
+\]
+y de hecho la primera es m\'as de ocho veces la segunda ($0{,}891232/0{,}108768\approx 8{,}19$), la respuesta con mayor probabilidad de ser correcta es afirmativa.
+
+\textbf{¿De d\'onde sale?} De comparar $P(A)$ con $P(A^{c})$, ambos calculados en el Paso 3.
+
+\textbf{¿Por qu\'e?} Porque el profesor debe apostar por el escenario m\'as probable: si responde ``s\'i'' acierta con probabilidad $0{,}891232$, y si responde ``no'' acierta apenas con probabilidad $0{,}108768$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos como respuesta que \textbf{es mejor decirle al director que s\'i}, que s\'i hay al menos dos estudiantes que cumplen a\~nos en la misma fecha.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+$P=1-\dfrac{P(365,40)}{365^{40}}=1-\dfrac{365!}{325!\;365^{40}}=\mathbf{0{,}891232}$. Como $0{,}891232>0{,}108768$, \textbf{es mejor responderle al director que s\'i}.
+\end{resp}
+
+% ==========================================================
+\section*{Cap\'itulo 2 --- Ejercicio 25}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 25}
+
+\begin{quote}
+\textbf{La clave duplicada:} En una empresa de tecnolog\'ia, 45 empleados deben crear una clave de seguridad para acceder a un sistema interno. Por simplicidad, las claves se generan a partir de un generador autom\'atico que asigna un d\'ia del a\~no (del 1 al 365) como identificador temporal, asumiendo que todos los d\'ias son igualmente probables e independientes. El gerente desea saber si es razonable asumir que al menos dos empleados compartir\'an la misma clave temporal. Con base en la probabilidad, ¿es mejor responder que s\'i o que no? \hfill R/ $0{,}94097$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Definir $\Omega$ y verificar la equiprobabilidad}
+\textbf{Qu\'e hago:} identifico que el modelo es el mismo del Ejercicio 24 con $45$ objetos en lugar de $40$.
+
+Un resultado es la lista de claves asignadas: al empleado $1$ se le asigna uno de los $365$ identificadores, al empleado $2$ otro (posiblemente igual), y as\'i hasta el $45$. Los empleados son distinguibles y las claves se pueden repetir, luego
+\[
+|\Omega| \;=\; \underbrace{365}_{\text{empleado 1}}\cdots\underbrace{365}_{\text{empleado 45}} \;=\; 365^{45}.
+\]
+
+\textbf{¿De d\'onde sale?} El $365$ son los identificadores ``del 1 al 365'' que menciona el enunciado; el $45$ es la cantidad de empleados.
+
+\textbf{¿Por qu\'e?} Porque aqu\'i el enunciado \emph{declara expl\'icitamente} las hip\'otesis que en el problema del cumplea\~nos hab\'ia que suponer: ``todos los d\'ias son igualmente probables e independientes''. Eso garantiza que las $365^{45}$ listas son equiprobables y que se puede usar $P(A)=|A|/|\Omega|$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|\Omega|=365^{45}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar el complemento con permutaciones}
+\textbf{Qu\'e hago:} cuento las asignaciones sin claves repetidas.
+
+Sea $A=\{$al menos dos empleados comparten clave$\}$. Entonces $A^{c}=\{$las $45$ claves son todas distintas$\}$. El primer empleado tiene $365$ claves disponibles, el segundo $364$, \dots, el cuadrag\'esimo quinto $365-44=321$:
+\[
+|A^{c}| \;=\; \underbrace{365\cdot 364\cdots 321}_{45\ \text{factores descendentes}}\;=\;P(365,45)\;=\;\frac{365!}{320!},
+\]
+donde $320=365-45$.
+
+\textbf{¿De d\'onde sale?} De imponer que ninguna clave se repita: el $k$-\'esimo empleado debe evitar las $k-1$ claves ya usadas.
+
+\textbf{¿Por qu\'e?} Porque una asignaci\'on sin repeticiones es una permutaci\'on parcial: el orden importa (qui\'en tiene cada clave) y no hay repetici\'on. La condici\'on $45\le 365$ garantiza que el evento no es vac\'io.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|A^{c}|=P(365,45)$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Formar el cociente y evaluar}
+\textbf{Qu\'e hago:} armo la probabilidad y la calculo.
+\[
+P(A)\;=\;1-\frac{\underbrace{P(365,45)}_{\text{45 claves distintas}}}{\underbrace{365^{45}}_{|\Omega|}}
+\;=\;1-\frac{365!}{320!\;365^{45}}
+\;=\;1-\prod_{k=0}^{44}\left(1-\frac{k}{365}\right).
+\]
+Evaluando con aritm\'etica exacta,
+\[
+\frac{P(365,45)}{365^{45}} \;=\; 0{,}059024100\ldots
+\qquad\Longrightarrow\qquad
+P(A) \;=\; 1-0{,}059024100 \;=\; 0{,}940975899\ldots
+\]
+es decir $P(A)\approx 0{,}94097$ (con seis decimales, $0{,}940976$).
+
+\textbf{¿De d\'onde sale?} Numerador del Paso 2, denominador del Paso 1.
+
+\textbf{¿Por qu\'e?} Porque ambos conteos describen el mismo objeto: listas de $45$ claves. Comparando con el Ejercicio 24, el valor sube de $0{,}891232$ a $0{,}940976$ al pasar de $40$ a $45$ personas, lo cual es coherente: agregar personas solo puede a\~nadir coincidencias, nunca quitarlas, as\'i que $P(A)$ debe crecer con $n$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P(A)\approx 0{,}94097$, que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Responder la pregunta cualitativa}
+\textbf{Qu\'e hago:} comparo las dos alternativas de respuesta.
+
+La probabilidad de que haya al menos una clave repetida es $0{,}940976$; la de que todas sean distintas es $0{,}059024$. Como
+\[
+0{,}940976 \;>\; 0{,}059024
+\]
+(la primera es casi $16$ veces la segunda), la respuesta que m\'as probablemente acierta es afirmativa.
+
+\textbf{¿De d\'onde sale?} De los dos valores del Paso 3.
+
+\textbf{¿Por qu\'e?} Porque el gerente pregunta si ``es razonable asumir'' que habr\'a claves repetidas, y con una probabilidad superior al 94\% ese supuesto es claramente el m\'as razonable: solo en aproximadamente $6$ de cada $100$ generaciones las $45$ claves saldr\'ian todas distintas.
+
+\textbf{¿Qu\'e tomamos?} Tomamos como respuesta que \textbf{s\'i}: es razonable asumir que al menos dos empleados compartir\'an la misma clave temporal.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+$P=1-\dfrac{P(365,45)}{365^{45}}=1-\dfrac{365!}{320!\;365^{45}}=\mathbf{0{,}94097}$. Como $0{,}94097>0{,}05902$, \textbf{es mejor responder que s\'i}.
+\end{resp}
+
+% ==========================================================
+\section*{Cap\'itulo 2 --- Ejercicio 26}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 26}
+
+\begin{quote}
+\textbf{Bendici\'on para casarse:} En un peque\~no pueblo de China, cuando un hijo se quiere casar y les pide a sus padres su bendici\'on, los padres toman 3 cuerdas de igual tama\~no. Uno de los padres junta las cuerdas, las dobla a la mitad sosteni\'endolas con el pu\~no y obtiene las 6 puntas juntas, de forma que el hijo no pueda saber cu\'ales son las puntas que pertenecen a la misma cuerda. Luego le piden al hijo que ate de dos en dos las puntas de las cuerdas. Si en el momento que el padre suelte las cuerdas estas quedan atadas de tal manera que forman un solo c\'irculo grande, esta era una se\~nal divina que indicaba que el hijo merec\'ia la bendici\'on para casarse. En base a la probabilidad, ¿esta pr\'actica es justa? ¿Cu\'al es la probabilidad de poder casarse? \hfill R/ $8/15$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Definir $\Omega$: qu\'e es un resultado}
+\textbf{Qu\'e hago:} describo el objeto que produce el hijo y verifico la equiprobabilidad.
+
+Ll\'amense $A_1,A_2$ las dos puntas de la cuerda $A$; $B_1,B_2$ las de la cuerda $B$; $C_1,C_2$ las de la cuerda $C$. Son $6$ puntas distinguibles como objetos f\'isicos, aunque el hijo no pueda distinguirlas visualmente. Un resultado es un \emph{emparejamiento perfecto} de esas $6$ puntas: una partici\'on del conjunto de $6$ puntas en $3$ pares, donde cada par representa un nudo. No hay orden entre los tres nudos ni orden dentro de un nudo: atar $A_1$ con $B_1$ es lo mismo que atar $B_1$ con $A_1$.
+
+\textbf{¿De d\'onde sale?} Del enunciado: ``ate de dos en dos las puntas'', y hay $6$ puntas, lo que produce exactamente $3$ nudos.
+
+\textbf{¿Por qu\'e?} Porque el hijo no ve qu\'e puntas pertenecen a la misma cuerda, as\'i que su elecci\'on de nudos es ciega: ning\'un emparejamiento est\'a favorecido y todos son igualmente probables. Esa es exactamente la condici\'on que permite usar $P=|A|/|\Omega|$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $\Omega=\{$emparejamientos perfectos de las $6$ puntas$\}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar $|\Omega|$ derivando la f\'ormula de emparejamientos}
+\textbf{Qu\'e hago:} cuento los emparejamientos perfectos de dos maneras distintas para asegurar el valor.
+
+\emph{Primera manera (secuencial, principio del producto).} Se toma siempre la punta con menor \'indice a\'un libre y se decide con qui\'en se ata:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Etapa 1:} atar la primera punta libre con alguna de las $5$ restantes: $5$.
+  \item \textbf{Etapa 2:} de las $4$ puntas que quedan, atar la de menor \'indice con alguna de las $3$ restantes: $3$.
+  \item \textbf{Etapa 3:} las $2$ \'ultimas puntas quedan obligadas a atarse entre s\'i: $1$.
+\end{itemize}
+Por el principio del producto,
+\[
+|\Omega| \;=\; \underbrace{5}_{\text{pareja de la 1.\textsuperscript{a} punta libre}}\cdot\underbrace{3}_{\text{pareja de la siguiente}}\cdot\underbrace{1}_{\text{las \'ultimas dos}} \;=\; 15 .
+\]
+
+\emph{Segunda manera (ordenar y dividir).} Se ordenan las $6$ puntas en fila ($6!$ maneras) y se leen de dos en dos formando los pares. Cada emparejamiento se obtiene as\'i varias veces: los $2$ \'ordenes internos de cada uno de los $3$ pares dan $2^{3}$ repeticiones, y las $3!$ maneras de ordenar los pares entre s\'i dan otras tantas. Luego
+\[
+|\Omega| \;=\; \frac{\underbrace{6!}_{\text{\'ordenes de las 6 puntas}}}{\underbrace{2^{3}}_{\text{interno de cada par}}\cdot\underbrace{3!}_{\text{orden de los pares}}}
+\;=\;\frac{720}{8\cdot 6}\;=\;\frac{720}{48}\;=\;15 .
+\]
+
+\textbf{¿De d\'onde sale?} El $6$ son las puntas ($3$ cuerdas $\times$ $2$ puntas); el $3$ son los nudos; el $2$ son las puntas por nudo.
+
+\textbf{¿Por qu\'e?} El primer conteo funciona porque tomar siempre ``la punta libre de menor \'indice'' evita ambig\"uedades: cada emparejamiento se construye por una \'unica secuencia de decisiones, as\'i que no hay duplicados. El segundo funciona porque la aplicaci\'on ``orden de las $6$ puntas $\mapsto$ emparejamiento'' es sobreyectiva y cada emparejamiento tiene exactamente $2^{3}\cdot 3!=48$ preim\'agenes, todas del mismo tama\~no, lo que legitima dividir. Que ambos caminos den $15$ confirma el valor.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|\Omega|=15$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Traducir ``un solo c\'irculo grande'' a una condici\'on sobre los nudos}
+\textbf{Qu\'e hago:} determino qu\'e emparejamientos producen un \'unico ciclo al soltar las cuerdas.
+
+Al soltar el pu\~no, cada cuerda conecta sus dos puntas y cada nudo conecta dos puntas de la mano; el resultado es siempre una colecci\'on de ciclos cerrados. Con $3$ cuerdas hay tres formas posibles: tres c\'irculos peque\~nos (cada cuerda atada consigo misma), un c\'irculo de dos cuerdas m\'as uno de una, o un solo c\'irculo con las tres cuerdas. El evento pedido es el tercero.
+
+La condici\'on operativa es: \emph{ning\'un nudo une las dos puntas de una misma cuerda}, y adem\'as los nudos no cierran un ciclo antes de recorrer las tres cuerdas. Con solo tres cuerdas basta imponer que ning\'un nudo cierre una cuerda sobre s\'i misma y que el segundo nudo tampoco cierre el camino ya formado.
+
+\textbf{¿De d\'onde sale?} De la geometr\'ia descrita en el enunciado: las cuerdas est\'an dobladas y sus dos puntas asoman por el pu\~no.
+
+\textbf{¿Por qu\'e?} Porque si un nudo une $A_1$ con $A_2$, la cuerda $A$ queda cerrada en un c\'irculo propio y ya es imposible que forme parte del c\'irculo grande; y si tras el primer nudo se cierra el camino formado por dos cuerdas, quedan dos c\'irculos separados.
+
+\textbf{¿Qu\'e tomamos?} Tomamos el evento $G=\{$los tres nudos forman un solo ciclo$\}$ y lo contamos con el mismo esquema secuencial del Paso 2.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Contar $|G|$ con el principio del producto}
+\textbf{Qu\'e hago:} repito el conteo secuencial del Paso 2, pero descartando en cada etapa las elecciones que cierran un ciclo prematuro.
+
+\textbf{Etapa 1 (primer nudo).} Se parte de la punta $A_1$. De las $5$ puntas restantes, la \'unica prohibida es $A_2$ (cerrar\'ia la cuerda $A$ en un c\'irculo peque\~no): quedan $5-1=4$ elecciones v\'alidas. Por simetr\'ia se puede suponer $A_1$--$B_1$; el camino formado es entonces $A_2 \to A_1 \to B_1 \to B_2$, con extremos libres $A_2$ y $B_2$.
+
+\textbf{Etapa 2 (segundo nudo).} Se parte de $A_2$, que sigue libre. Las puntas disponibles son $B_2$, $C_1$ y $C_2$: son $3$. Est\'a prohibida $B_2$, porque atar $A_2$ con $B_2$ cerrar\'ia el camino $A$--$B$ en un c\'irculo de dos cuerdas y dejar\'ia a $C$ formando su propio c\'irculo. Quedan $3-1=2$ elecciones v\'alidas ($C_1$ o $C_2$).
+
+\textbf{Etapa 3 (tercer nudo).} Las dos puntas que sobran (una de ellas $B_2$ y la otra la punta de $C$ no usada) est\'an obligadas a atarse entre s\'i: $1$ manera, y ese nudo cierra el \'unico ciclo que recorre las tres cuerdas.
+
+Por el principio del producto,
+\[
+|G| \;=\; \underbrace{4}_{\text{no cerrar la cuerda }A}\cdot\underbrace{2}_{\text{no cerrar el camino }A\text{--}B}\cdot\underbrace{1}_{\text{nudo forzado}} \;=\; 8 .
+\]
+
+\textbf{¿De d\'onde sale?} El $4$ es $5$ puntas disponibles menos la punta gemela; el $2$ es $3$ puntas disponibles menos la que cerrar\'ia el camino.
+
+\textbf{¿Por qu\'e?} Porque en cada etapa el n\'umero de opciones v\'alidas no depende de cu\'al opci\'on concreta se tom\'o antes (sea cual sea la punta escogida en el primer nudo, en el segundo siempre hay $2$ v\'alidas), que es la condici\'on del principio del producto. Y el conteo es exhaustivo y sin repeticiones porque, igual que en el Paso 2, se parte siempre de la punta libre determinada de antemano.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|G|=8$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Formar el cociente y evaluar la justicia de la pr\'actica}
+\textbf{Qu\'e hago:} divido y comparo con $1/2$.
+\[
+P(G)\;=\;\frac{|G|}{|\Omega|}
+\;=\;\frac{\underbrace{4}_{\text{1.\textsuperscript{er} nudo v\'alido}}\cdot\underbrace{2}_{\text{2.\textsuperscript{o} nudo v\'alido}}\cdot\underbrace{1}_{\text{3.\textsuperscript{er} nudo}}}{\underbrace{5\cdot 3\cdot 1}_{|\Omega|}}
+\;=\;\frac{8}{15}\;\approx\;0{,}533333 .
+\]
+Para juzgar si la pr\'actica es ``justa'' se compara con $\tfrac12$:
+\[
+\frac{8}{15}-\frac{1}{2}\;=\;\frac{16-15}{30}\;=\;\frac{1}{30}\;\approx\;0{,}0333 ,
+\]
+de modo que el hijo tiene una ventaja de aproximadamente $3{,}33$ puntos porcentuales sobre el resultado equilibrado.
+
+\textbf{¿De d\'onde sale?} Numerador del Paso 4, denominador del Paso 2.
+
+\textbf{¿Por qu\'e?} Porque el espacio es equiprobable (el hijo ata a ciegas) y ambos conteos describen el mismo objeto: emparejamientos de las seis puntas.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P(G)=\dfrac{8}{15}$ y la conclusi\'on de que la pr\'actica \textbf{no es estrictamente justa}: est\'a levemente inclinada a favor del hijo, pues $8/15>1/2$. Los otros dos desenlaces reparten el resto: $1-\tfrac{8}{15}=\tfrac{7}{15}$ es la probabilidad de no obtener la bendici\'on.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Verificaci\'on por enumeraci\'on de los $15$ emparejamientos}
+\textbf{Qu\'e hago:} listo los $15$ elementos de $\Omega$ y marco los favorables, solo como comprobaci\'on del conteo ya hecho.
+
+Con las puntas $A_1,A_2,B_1,B_2,C_1,C_2$, los emparejamientos que contienen el nudo $A_1A_2$ son $3$ (los dos restantes se emparejan de $3$ maneras): todos dan tres c\'irculos o un c\'irculo doble m\'as uno simple. Los que contienen $A_1B_1$ son $3$, de los cuales $2$ son favorables ($A_2C_1,B_2C_2$ y $A_2C_2,B_2C_1$) y $1$ no lo es ($A_2B_2,C_1C_2$). Lo mismo ocurre con $A_1B_2$, $A_1C_1$ y $A_1C_2$. En total: $3+3+3+3+3=15$ emparejamientos y $2+2+2+2=8$ favorables.
+
+\textbf{¿De d\'onde sale?} De clasificar los emparejamientos seg\'un con qui\'en se ata $A_1$, que son $5$ casos disjuntos de $3$ emparejamientos cada uno.
+
+\textbf{¿Por qu\'e?} Porque el conteo del Paso 4 se hizo con el principio del producto y conviene comprobar que ninguna configuraci\'on qued\'o fuera o duplicada; la enumeraci\'on confirma $|\Omega|=15$ y $|G|=8$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos como verificado que $P(G)=8/15$.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+$P(\text{un solo c\'irculo})=\dfrac{4\cdot 2\cdot 1}{5\cdot 3\cdot 1}=\mathbf{\dfrac{8}{15}}\approx 0{,}5333$. La pr\'actica \textbf{no es del todo justa}: favorece ligeramente al hijo, ya que $\tfrac{8}{15}>\tfrac12$ por $\tfrac{1}{30}$.
+\end{resp}
+
+% ==========================================================
+\section*{Cap\'itulo 2 --- Ejercicio 27}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 27}
+
+\begin{quote}
+\textbf{El juicio de las runas:} En un rito ocultista, un aspirante es sometido al llamado juicio de las runas. Sobre una mesa se colocan 4 piedras r\'unicas distintas, cada una marcada secretamente con uno de dos s\'imbolos posibles: sol o luna. El aspirante no conoce las marcas. Luego se seleccionan al azar 3 de las 4 piedras y se colocan en un c\'irculo. El rito se considera exitoso si entre las tres piedras elegidas aparecen ambos s\'imbolos (al menos un sol y al menos una luna). Suponiendo que cada piedra fue marcada independientemente con sol o luna con igual probabilidad, ¿es justo el rito? ¿Cu\'al es la probabilidad de que el aspirante lo supere? \hfill R/ $3/4$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Definir $\Omega$ incluyendo las dos fuentes de azar}
+\textbf{Qu\'e hago:} identifico que el experimento tiene dos etapas aleatorias y las junto en un solo espacio muestral.
+
+Hay dos sorteos: primero se marcan las $4$ piedras y despu\'es se seleccionan $3$ de ellas. Un resultado debe describir ambas cosas, as\'i que se define
+\[
+\Omega \;=\; \{(\,\text{marcado de las 4 piedras},\ \text{selecci\'on de 3 piedras}\,)\}.
+\]
+El conteo es por etapas:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Etapa 1:} marcar las $4$ piedras distintas, asignando a cada una uno de los $2$ s\'imbolos: $2^{4}=16$.
+  \item \textbf{Etapa 2:} seleccionar $3$ de las $4$ piedras, sin orden: $C(4,3)=4$.
+\end{itemize}
+Por el principio del producto,
+\[
+|\Omega| \;=\; \underbrace{2^{4}}_{\text{marcados}}\cdot\underbrace{C(4,3)}_{\text{selecciones}} \;=\; 16\cdot 4 \;=\; 64 .
+\]
+Aqu\'i $C(4,3)=C(4,1)=4$.
+
+\textbf{¿De d\'onde sale?} El $2$ son los s\'imbolos (sol, luna) y el exponente $4$ las piedras; el $C(4,3)$ sale de escoger $3$ de las $4$ piedras.
+
+\textbf{¿Por qu\'e?} Se juntan las dos etapas en un solo $\Omega$ porque el \'exito depende de ambas: no basta saber c\'omo qued\'o marcado el conjunto ni basta saber cu\'ales piedras se eligieron. El enunciado garantiza la equiprobabilidad de las $64$ parejas: las marcas se ponen ``independientemente con igual probabilidad'' (los $16$ marcados pesan lo mismo) y la selecci\'on es ``al azar'' (las $4$ selecciones pesan lo mismo), y adem\'as la selecci\'on no depende del marcado, que es secreto. Se usa $C$ y no $P$ para la selecci\'on porque el enunciado solo pide qu\'e piedras se colocan en el c\'irculo, no en qu\'e orden.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|\Omega|=2^{4}\cdot C(4,3)=64$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Traducir el \'exito y pasar al complemento dentro de cada selecci\'on}
+\textbf{Qu\'e hago:} describo qu\'e parejas $(\text{marcado},\text{selecci\'on})$ son exitosas.
+
+Sea $E$ el evento ``entre las $3$ piedras elegidas aparecen ambos s\'imbolos''. Que $E$ falle significa que las tres piedras elegidas tienen el mismo s\'imbolo: las tres sol, o las tres luna. Esas dos posibilidades son disjuntas, porque tres piedras no pueden ser simult\'aneamente todas sol y todas luna.
+
+\textbf{¿De d\'onde sale?} De negar ``al menos un sol \emph{y} al menos una luna'': la negaci\'on es ``ning\'un sol o ninguna luna'', es decir, todas luna o todas sol.
+
+\textbf{¿Por qu\'e?} Porque contar $E$ directamente obligar\'ia a sumar los casos ``un sol y dos lunas'' y ``dos soles y una luna''; el complemento son solo dos configuraciones, y adem\'as disjuntas, de modo que el principio de la suma se aplica sin correcciones.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|E|=|\Omega|-|E^{c}|$ con $E^{c}=\{$las tres elegidas comparten s\'imbolo$\}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar $|E^{c}|$ organizando el conteo por selecci\'on}
+\textbf{Qu\'e hago:} fijo primero cu\'ales son las $3$ piedras elegidas y cuento los marcados desfavorables.
+
+Que el rito fracase depende \emph{solo} de las tres piedras elegidas. El conteo se hace por etapas:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Etapa 1:} escoger cu\'ales $3$ de las $4$ piedras se seleccionan: $C(4,3)=4$.
+  \item \textbf{Etapa 2:} marcar esas $3$ piedras con un mismo s\'imbolo; hay dos configuraciones desfavorables, todas sol o todas luna: $2$. (De los $2^{3}=8$ marcados posibles de las tres, estos son los \'unicos que hacen fracasar el rito.)
+  \item \textbf{Etapa 3:} marcar la piedra sobrante, cuya marca no influye en el resultado del rito: $2^{1}=2$.
+\end{itemize}
+Por el principio del producto,
+\[
+|E^{c}| \;=\; \underbrace{C(4,3)}_{\text{cu\'ales 3 piedras}}\cdot\underbrace{2}_{\text{las 3 iguales: sol o luna}}\cdot\underbrace{2^{1}}_{\text{marca de la piedra sobrante}}
+\;=\;4\cdot 2\cdot 2\;=\;16 .
+\]
+
+\textbf{¿De d\'onde sale?} El $C(4,3)=4$ son las selecciones; el primer $2$ son los dos s\'imbolos con que las tres pueden coincidir; el $2^{1}$ es la piedra que no se eligi\'o, cuya marca no influye en el resultado del rito.
+
+\textbf{¿Por qu\'e?} Es crucial no olvidar el factor $2^{1}$: los elementos de $\Omega$ son parejas que incluyen el marcado de las \emph{cuatro} piedras, as\'i que dos parejas que difieren solo en la marca de la piedra descartada son resultados distintos y ambos deben contarse. Omitirlo dar\'ia $|E^{c}|=8$ sobre un total de $64$, mezclando dos descripciones distintas de resultado.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|E^{c}|=16$, de donde $|E|=64-16=48$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Formar el cociente}
+\textbf{Qu\'e hago:} aplico la regla cl\'asica con los valores obtenidos.
+\[
+P(E)\;=\;\frac{\overbrace{2^{4}\,C(4,3)}^{|\Omega|}-\underbrace{C(4,3)\cdot 2\cdot 2^{1}}_{\text{las 3 con el mismo s\'imbolo}}}{\underbrace{2^{4}\,C(4,3)}_{|\Omega|}}
+\;=\;\frac{64-16}{64}\;=\;\frac{48}{64}\;=\;\frac{3}{4}.
+\]
+Simplificaci\'on: $48=16\cdot 3$ y $64=16\cdot 4$, luego $48/64=3/4=0{,}75$.
+
+Vale la pena ver la misma cuenta por selecci\'on fija: de los $2^{3}=8$ marcados posibles de las tres piedras elegidas, $2$ son desfavorables y $8-2=6$ favorables; con el factor libre $2$ de la cuarta piedra, cada una de las $4$ selecciones aporta $6\cdot 2=12$ resultados favorables, y $4\cdot 12=48$, el mismo numerador.
+
+\textbf{¿De d\'onde sale?} De los Pasos 1 y 3.
+
+\textbf{¿Por qu\'e?} Porque numerador y denominador cuentan el mismo tipo de objeto (parejas marcado--selecci\'on) sobre un espacio equiprobable.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P(E)=\dfrac{3}{4}$, igual a la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Responder si el rito es justo}
+\textbf{Qu\'e hago:} comparo la probabilidad de \'exito con $\tfrac12$.
+
+El aspirante supera el rito con probabilidad $3/4=0{,}75$ y fracasa con probabilidad $1/4=0{,}25$. Como
+\[
+\frac{3}{4}-\frac{1}{2}\;=\;\frac{3-2}{4}\;=\;\frac{1}{4},
+\]
+el \'exito es tres veces m\'as probable que el fracaso.
+
+\textbf{¿De d\'onde sale?} Del valor calculado en el Paso 4.
+
+\textbf{¿Por qu\'e?} Porque un rito ``justo'', entendido como uno que no favorece de antemano ning\'un desenlace, deber\'ia repartir la probabilidad en partes iguales, es decir $1/2$ para cada resultado. Adem\'as, obs\'ervese que la marca de la cuarta piedra es irrelevante y que el resultado no depende en absoluto de ninguna acci\'on del aspirante: el desenlace lo decide por completo el azar del marcado.
+
+\textbf{¿Qu\'e tomamos?} Tomamos como respuesta que el rito \textbf{no es justo}: est\'a claramente sesgado a favor del aspirante, que lo supera con probabilidad $3/4$.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+$P(\text{\'exito})=\dfrac{2^{4}C(4,3)-C(4,3)\cdot 2\cdot 2}{2^{4}C(4,3)}=\dfrac{64-16}{64}=\mathbf{\dfrac{3}{4}}$. El rito \textbf{no es justo}: favorece al aspirante, pues $\tfrac34>\tfrac12$.
+\end{resp}
+
+\end{document}

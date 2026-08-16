@@ -1,0 +1,1585 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+
+\title{Solucionario --- Cap\'itulo 1, Secci\'on 1.3\\ Ejercicios 33 a 43: permutaciones, combinaciones y arreglos con restricciones}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{teo}
+\textbf{Cat\'alogo de f\'ormulas de conteo.} Todo lo que sigue se resuelve exclusivamente con estas herramientas; no se usa ning\'un otro recurso.
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Principio de la suma (casos).} Si el conjunto de resultados se parte en familias $A_1,\dots,A_k$ mutuamente excluyentes que juntas lo cubren todo, entonces
+  \[
+    |A_1\cup A_2\cup\cdots\cup A_k| \;=\; |A_1|+|A_2|+\cdots+|A_k| .
+  \]
+  \emph{Por qu\'e vale:} contar el total es recorrer una lista sin renglones repetidos; si las familias no se traslapan, ning\'un resultado aparece en dos listas y los renglones simplemente se acumulan.
+
+  \item \textbf{Principio del producto (etapas).} Si un resultado se construye con decisiones sucesivas que admiten $n_1, n_2,\dots,n_k$ opciones, y el \emph{n\'umero} de opciones de cada etapa no depende de lo elegido antes, el total es $n_1\cdot n_2\cdots n_k$.
+  \emph{Por qu\'e vale:} la primera etapa abre $n_1$ ramas, de cada una salen $n_2$ ramas nuevas, y as\'i sucesivamente; el \'arbol termina con $n_1n_2\cdots n_k$ hojas.
+
+  \item \textbf{Complemento.} (casos que cumplen) $=$ (total) $-$ (casos que no cumplen). Es v\'alido porque la condici\'on y su negaci\'on parten el total en dos familias disjuntas.
+
+  \item \textbf{Permutaciones sin repetici\'on.} Elegir $r$ objetos de entre $n$ distintos \emph{y ordenarlos}:
+  \[
+    P(n,r)=\frac{n!}{(n-r)!}=n(n-1)\cdots(n-r+1),\qquad P(n,n)=n! .
+  \]
+  \emph{De d\'onde sale:} la primera posici\'on admite $n$ objetos, la segunda $n-1$ (uno ya se gast\'o), y as\'i hasta la posici\'on $r$, donde quedan $n-r+1$. Eso es el principio del producto; el cociente $n!/(n-r)!$ es la forma compacta de ese producto tras cancelar la cola $(n-r)!$.
+
+  \item \textbf{Permutaciones con repetici\'on (multinomial).} Si de $n$ objetos hay $n_1$ iguales entre s\'i, $n_2$ iguales entre s\'i, \dots, $n_k$ iguales entre s\'i, el n\'umero de ordenamientos distinguibles es $\dfrac{n!}{n_1!\,n_2!\cdots n_k!}$.
+
+  \item \textbf{Combinaciones.} Elegir $r$ objetos de entre $n$ distintos \emph{sin importar el orden}:
+  \[
+    C(n,r)=\binom{n}{r}=\frac{n!}{r!\,(n-r)!}=\frac{P(n,r)}{r!} .
+  \]
+  \emph{De d\'onde sale:} las $P(n,r)$ listas ordenadas describen cada grupo exactamente $r!$ veces (los mismos $r$ objetos se reordenan de $r!$ formas y todas dan el mismo grupo); dividir entre $r!$ borra esa repetici\'on.
+
+  \item \textbf{T\'ecnica del bloque (objetos que deben ir juntos).} Si $m$ objetos deben quedar consecutivos, se pegan en un solo bloque: quedan $n-m+1$ piezas que se ordenan de $(n-m+1)!$ maneras, y dentro del bloque los $m$ objetos se ordenan de $m!$ maneras. Total $(n-m+1)!\cdot m!$.
+
+  \item \textbf{T\'ecnica de los espacios o huecos (objetos que deben ir separados).} Para que ciertos objetos no queden adyacentes: primero se ordenan los \emph{otros} $m$ objetos ($m!$ maneras), lo que crea $m+1$ espacios (antes del primero, entre consecutivos, despu\'es del \'ultimo); luego se \emph{escogen} los espacios que se van a usar y por \'ultimo se \emph{colocan} en ellos los objetos restringidos, a lo sumo uno por espacio.
+  \emph{Por qu\'e vale:} dos objetos restringidos quedan adyacentes si y solo si comparten espacio; prohibir compartir espacio es exactamente prohibir la adyacencia.
+
+  \item \textbf{Inclusi\'on--exclusi\'on.} Para tres conjuntos,
+  \[
+    |X_1\cup X_2\cup X_3|=|X_1|+|X_2|+|X_3|-|X_1\cap X_2|-|X_1\cap X_3|-|X_2\cap X_3|+|X_1\cap X_2\cap X_3| .
+  \]
+
+  \item \textbf{Barras y estrellas.} El n\'umero de soluciones enteras no negativas de $x_1+x_2+\cdots+x_k=n$ es $\dbinom{n+k-1}{k-1}$.
+  \emph{De d\'onde sale:} cada soluci\'on se codifica como una fila de $n$ estrellas y $k-1$ barras; elegir las posiciones de las barras entre los $n+k-1$ s\'imbolos determina la soluci\'on.
+\end{enumerate}
+\end{teo}
+
+\begin{tip}
+\textbf{Estructura de argumento que se sigue en todo el documento} (la misma de las prácticas resueltas del curso).
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Por etapas.} Cuando el resultado se arma con decisiones sucesivas, la solución se escribe como una lista numerada
+  \[
+    \text{Etapa 1: \emph{acción}: } n_1,\qquad \text{Etapa 2: \emph{acción}: } n_2,\qquad\dots
+  \]
+  y el total es el producto $n_1\cdot n_2\cdots n_k$. Una etapa nombra siempre una \emph{acción concreta} (``escoger las posiciones'', ``colocar las mujeres en dichos asientos'', ``permutar las letras restantes''), no un número suelto.
+  \item \textbf{Escoger y colocar van en etapas separadas.} Cuando hay que ubicar objetos distintos en posiciones, primero una etapa \emph{escoge} qué posiciones se usan (combinación $\binom{n}{r}$) y otra etapa \emph{coloca} los objetos en ellas (factorial $r!$). Así queda explícito de dónde sale cada factor y por qué uno es combinación y el otro permutación.
+  \item \textbf{Por casos.} Cuando una decisión interfiere con otra, o cuando la condición dice ``al menos'' / ``a lo sumo'', el conteo se parte en \textbf{Caso I}, \textbf{Caso II}, \dots, cada uno resuelto por etapas, y se cierra con la frase ``como estos casos son excluyentes, hay $N$ maneras''.
+  \item \textbf{Por complemento.} Cuando la condición prohibida es más simple que la pedida, se cuenta el total, se cuenta lo prohibido (por etapas o casos) y se resta.
+  \item \textbf{Por inclusión--exclusión.} Se declara el universo $\Omega$ y los conjuntos $X_1,X_2,X_3$ que representan cada condición ``al menos uno de\dots'', y se calcula
+  \[
+    |X_1\cap X_2\cap X_3| = |\Omega| - \big|\overline{X_1}\cup \overline{X_2}\cup \overline{X_3}\big| ,
+  \]
+  desarrollando la unión con la fórmula de inclusión--exclusión.
+\end{itemize}
+\end{tip}
+
+% ==========================================================
+\section*{Ejercicio 33}
+\addcontentsline{toc}{subsection}{Ejercicio 33}
+
+\begin{quote}
+En una fiesta hay 20 personas con una invitación ennumerada y se desea elegir tres personas para realizar una actividad.\\[2pt]
+(a) Cuántas maneras hay para elegirlas? \hfill R/ 1140\\
+(b) Cuántas maneras hay de elegir personas con invitación con número par? \hfill R/ 120
+\end{quote}
+
+\emph{Ambos apartados se resuelven con una sola etapa de selección; lo único que cambia entre ellos es el conjunto del cual se escoge.}
+
+\begin{paso}{Paso 1 --- Modelar el conjunto y decidir si el orden importa}
+\textbf{Qué hago:} nombro $A$ al conjunto de las personas de la fiesta, identificadas por el número de su invitación, de modo que
+\[
+  A=\{1,2,3,\dots,20\},\qquad |A|=20 ,
+\]
+y declaro que un resultado es un \emph{subconjunto} de $A$ de tamaño $3$.
+
+\textbf{¿De dónde sale?} El $20$ es la cantidad de personas que da el enunciado (``en una fiesta hay 20 personas''); el $3$ es el tamaño del grupo pedido (``elegir tres personas''). Que las invitaciones estén ``ennumeradas'' es lo que permite tratar a las personas como objetos \emph{distinguibles}, requisito de todas las fórmulas del catálogo.
+
+\textbf{¿Por qué?} Porque el enunciado no asigna ningún papel diferenciado a las tres personas elegidas: las tres hacen la misma actividad. Como el grupo no necesita algún orden, para escoger las personas se utiliza la fórmula $\binom{n}{r}$ y no $P(n,r)$.
+
+\textbf{¿Qué tomamos?} Se anota $n=|A|=20$, $r=3$ y el compromiso de usar combinaciones.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a), Etapa única: escoger las tres personas}
+\textbf{Qué hago:} cuento los subconjuntos de tamaño $3$ de un conjunto de tamaño $20$.
+
+\medskip
+\textbf{Etapa 1:} escoger las tres personas de la fiesta:
+\[
+  \underbrace{\binom{20}{3}}_{\text{3 personas de }A} \;=\; \frac{20!}{3!\,(20-3)!} \;=\; \frac{20!}{3!\,17!} \;=\; \frac{20\cdot 19\cdot 18}{3\cdot 2\cdot 1} .
+\]
+
+\textbf{¿De dónde sale?} El $20$ es $|A|$ del Paso 1 y el $3$ es el tamaño del grupo. La cancelación $\frac{20!}{17!}=20\cdot 19\cdot 18$ ocurre porque $20!=20\cdot 19\cdot 18\cdot 17!$ y el factor $17!$ se elimina.
+
+\textbf{¿Por qué?} Porque $P(20,3)=20\cdot 19\cdot 18$ cuenta las \emph{listas ordenadas} de tres personas, y cada grupo de tres aparece en esa lista exactamente $3!=6$ veces (los mismos tres nombres admiten $6$ ordenamientos). Dividir entre $3!$ elimina esa repetición y deja el conteo de grupos.
+
+\textbf{¿Qué tomamos?} Se toma la aritmética desglosada:
+\[
+  20\cdot 19 = 380,\qquad 380\cdot 18 = 380\cdot 20 - 380\cdot 2 = 7600-760 = 6840,\qquad 3!=6,
+\]
+\[
+  N_a=\frac{6840}{6}=1140 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (b), Etapa 1: determinar el conjunto admisible}
+\textbf{Qué hago:} construyo el subconjunto de personas con invitación par y calculo su tamaño.
+
+\medskip
+\textbf{Etapa 1:} identificar las invitaciones con número par:
+\[
+  A_{\text{par}}=\{a\in A:\ a \text{ es par}\}=\{2,4,6,8,10,12,14,16,18,20\},\qquad |A_{\text{par}}|=\frac{20}{2}=10 .
+\]
+
+\textbf{¿De dónde sale?} El $20$ vuelve a ser $|A|$; el $2$ del denominador es el paso entre pares consecutivos. En $\{1,\dots,20\}$ los pares son $2\cdot 1, 2\cdot 2,\dots,2\cdot 10$, es decir exactamente $10$ números.
+
+\textbf{¿Por qué?} Porque la condición del enunciado no cambia la \emph{forma} del conteo (siguen siendo tres personas sin orden), sino solamente el \emph{universo} del que se extraen: en vez de escoger dentro de $A$ se escoge dentro de $A_{\text{par}}$. Esa es la manera sistemática de tratar una restricción del tipo ``solo sirven los elementos que cumplen tal propiedad'': se reemplaza el conjunto por su subconjunto admisible.
+
+\textbf{¿Qué tomamos?} Se anota $|A_{\text{par}}|=10$ como nuevo tamaño del universo.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (b), Etapa 2: escoger las tres personas dentro del conjunto admisible}
+\textbf{Qué hago:} repito el conteo del Paso 2 con $n=10$.
+
+\medskip
+\textbf{Etapa 2:} escoger las tres personas de $A_{\text{par}}$:
+\[
+  \underbrace{\binom{10}{3}}_{\text{3 personas de }A_{\text{par}}} \;=\; \frac{10!}{3!\,7!} \;=\; \frac{10\cdot 9\cdot 8}{3\cdot 2\cdot 1} .
+\]
+
+\textbf{¿De dónde sale?} El $10$ es $|A_{\text{par}}|$ calculado en el Paso 3; el $3$ sigue siendo el tamaño del grupo pedido en el enunciado.
+
+\textbf{¿Por qué?} Porque el argumento de división entre $3!$ es idéntico: dentro del subconjunto de invitaciones pares el orden sigue sin importar, así que cada grupo de tres se cuenta $3!$ veces entre las listas ordenadas $P(10,3)$.
+
+\textbf{¿Qué tomamos?} Se toma
+\[
+  10\cdot 9 = 90,\qquad 90\cdot 8 = 720,\qquad N_b=\frac{720}{6}=120 .
+\]
+\end{paso}
+
+\begin{resp}
+(a) $\dbinom{20}{3}=\dfrac{20\cdot 19\cdot 18}{6}=\mathbf{1140}$ maneras de elegir el grupo.\\[2pt]
+(b) $\dbinom{10}{3}=\dfrac{10\cdot 9\cdot 8}{6}=\mathbf{120}$ maneras con la condición dada. Ambos coinciden con R/ 1140 y R/ 120.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 34}
+\addcontentsline{toc}{subsection}{Ejercicio 34}
+
+\begin{quote}
+Determine el número de anagramas de la palabra ``confite'' de tal manera que:\\[2pt]
+(a) Inicie con vocal y terminan en consonante. \hfill R/ 1440\\
+(b) Inician con ``c'' ó ``e'' y terminan en vocal. \hfill R/ 600
+\end{quote}
+
+\emph{El apartado (a) se resolverá por etapas; el apartado (b) se resolverá por casos, porque la letra ``e'' interfiere entre la primera y la última posición.}
+
+\begin{paso}{Paso 1 --- Inventariar las letras y verificar que no hay repeticiones}
+\textbf{Qué hago:} escribo la palabra letra por letra y clasifico su alfabeto.
+\[
+  \text{c}\;\text{o}\;\text{n}\;\text{f}\;\text{i}\;\text{t}\;\text{e},\qquad n=7 \text{ letras}.
+\]
+\[
+  V=\{\text{o},\text{i},\text{e}\},\quad |V|=3 ;\qquad
+  C=\{\text{c},\text{n},\text{f},\text{t}\},\quad |C|=4 .
+\]
+
+\textbf{¿De dónde sale?} Del enunciado: la palabra ``confite'' tiene siete letras y al listarlas se comprueba que las siete son distintas entre sí. El reparto en $V$ y $C$ es la clasificación estándar vocal/consonante del castellano.
+
+\textbf{¿Por qué?} Para considerar los anagramas se busca la cantidad de letras ($7$) y se verifica si hay repeticiones: aquí \emph{no} las hay, de modo que no se aplica la fórmula multinomial $\frac{n!}{n_1!\cdots n_k!}$ sino permutaciones ordinarias, porque cada reordenamiento produce una palabra distinguible. Además $|V|+|C|=3+4=7=n$, lo que confirma que la clasificación cubre todas las letras y no las duplica.
+
+\textbf{¿Qué tomamos?} Se anotan $n=7$ posiciones $p_1p_2p_3p_4p_5p_6p_7$, con $|V|=3$ y $|C|=4$, y el hecho de que un anagrama es una permutación de las $7$ letras distintas.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a): traducir la condición a restricciones de posición}
+\textbf{Qué hago:} escribo qué símbolos admite cada posición restringida.
+
+La condición ``inicie con vocal y termine en consonante'' dice: $p_1\in V$ y $p_7\in C$. Las posiciones $p_2,\dots,p_6$ no tienen restricción alguna.
+
+\textbf{¿De dónde sale?} Directamente del texto del inciso; $V$ y $C$ son los conjuntos del Paso 1.
+
+\textbf{¿Por qué?} Porque la manera sistemática de tratar restricciones de este tipo es resolver \emph{primero} las etapas restringidas (las que tienen menos libertad) y \emph{después} las libres: si se llenaran primero las libres, el número de opciones que quedan para $p_1$ dependería de lo que se hubiese gastado, y el principio del producto exigiría partir en casos. Al empezar por $p_1$ y $p_7$ el número de opciones de cada etapa queda fijo.
+
+\textbf{¿Qué tomamos?} Se anota el orden de las etapas: primero $p_1$, luego $p_7$, luego las cinco posiciones centrales.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (a): resolver por etapas}
+\textbf{Qué hago:} aplico el principio del producto con las etapas etiquetadas.
+
+\medskip
+\textbf{Etapa 1:} escoger la vocal que va en la primera posición: $\displaystyle\binom{3}{1}=3$.
+
+\textbf{Etapa 2:} escoger la consonante que va en la última posición: $\displaystyle\binom{4}{1}=4$.
+
+\textbf{Etapa 3:} colocar las $5$ letras restantes en las $5$ posiciones centrales: $\displaystyle P(5,5)=5!=120$.
+
+\medskip
+\[
+  N_a \;=\; \underbrace{\binom{3}{1}}_{p_1\in V} \cdot \underbrace{\binom{4}{1}}_{p_7\in C} \cdot \underbrace{5!}_{p_2\cdots p_6} \;=\; 3\cdot 4\cdot 120 .
+\]
+
+\textbf{¿De dónde sale?} El $3$ es $|V|$ del Paso 1; el $4$ es $|C|$; el $5$ de la Etapa 3 es $7-2$, las letras que quedan tras haber gastado una vocal en $p_1$ y una consonante en $p_7$, y las posiciones libres son también $7-2=5$.
+
+\textbf{¿Por qué?} La Etapa 2 aporta $4$ y no menos porque la vocal usada en la Etapa 1 no pertenece a $C$: haya sido cual haya sido, las cuatro consonantes siguen íntegras, y el número de opciones de la segunda etapa no depende de la primera, que es justo la hipótesis del principio del producto. La Etapa 3 es $5!$ y no una combinación porque las cinco posiciones centrales son \emph{distinguibles} (una palabra con las letras centrales permutadas es otro anagrama) y se usan las cinco letras restantes, todas ellas.
+
+\textbf{¿Qué tomamos?} Se toma la aritmética desglosada:
+\[
+  5!=5\cdot 4\cdot 3\cdot 2\cdot 1 = 20\cdot 6 = 120 ,\qquad N_a = 3\cdot 4\cdot 120 = 12\cdot 120 = 1440 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (b): justificar la separación en casos}
+\textbf{Qué hago:} separo el conteo según cuál sea la letra inicial.
+
+La condición es $p_1\in\{\text{c},\text{e}\}$ y $p_7\in V=\{\text{o},\text{i},\text{e}\}$. Se toman dos casos:
+\[
+  \text{Caso I: } p_1=\text{c},\qquad\qquad \text{Caso II: } p_1=\text{e} .
+\]
+
+\textbf{¿De dónde sale?} Las dos letras admisibles en $p_1$ las da el enunciado (``inician con c ó e''); el conjunto $V$ viene del Paso 1.
+
+\textbf{¿Por qué?} Porque \emph{no} se puede escribir un único producto $2\cdot 3\cdot 5!$: la letra ``e'' pertenece a $V$, de modo que si $p_1=\text{e}$ esa vocal ya se gastó y a $p_7$ le quedan solo $2$ vocales, mientras que si $p_1=\text{c}$ (consonante) las $3$ vocales siguen disponibles. El número de opciones de la segunda etapa depende de la primera, y eso rompe la hipótesis del principio del producto; el remedio estándar es partir en casos según el valor conflictivo.
+
+\textbf{¿Qué tomamos?} Se anota la partición $N_b=|\text{Caso I}|+|\text{Caso II}|$, legítima porque los dos casos son excluyentes (una palabra tiene una única primera letra) y exhaustivos (el enunciado solo admite esas dos letras).
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (b), Caso I: los anagramas que inician con ``c''}
+\textbf{Qué hago:} resuelvo el Caso I por etapas.
+
+\medskip
+\textbf{Etapa 1:} colocar la letra ``c'' en la primera posición: $1$.
+
+\textbf{Etapa 2:} escoger la vocal que va en la última posición, con $V$ intacto: $\displaystyle\binom{3}{1}=3$.
+
+\textbf{Etapa 3:} colocar las $5$ letras restantes en las posiciones centrales: $5!=120$.
+
+\medskip
+\[
+  |\text{Caso I}| \;=\; \underbrace{1}_{p_1=\text{c}} \cdot \underbrace{\binom{3}{1}}_{p_7\in V} \cdot \underbrace{5!}_{p_2\cdots p_6} \;=\; 1\cdot 3\cdot 120 \;=\; 360 .
+\]
+
+\textbf{¿De dónde sale?} El $1$ es porque la primera letra ya quedó fijada por la definición del caso. El $3$ es $|V|$, disponible entero porque ``c'' es consonante y no consumió ninguna vocal. El $120$ es $5!$, pues quedan $7-2=5$ letras para $5$ posiciones.
+
+\textbf{¿Por qué?} Dentro del caso ya no hay interferencia: fijada la primera letra, el número de vocales disponibles para $p_7$ está determinado, y fijadas $p_1$ y $p_7$ el número de permutaciones centrales es siempre $5!$ sin importar cuáles fueron. Con las etapas ya independientes, multiplicar es legítimo.
+
+\textbf{¿Qué tomamos?} Así, para este caso hay $360$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso (b), Caso II: los anagramas que inician con ``e''}
+\textbf{Qué hago:} resuelvo el Caso II por etapas.
+
+\medskip
+\textbf{Etapa 1:} colocar la letra ``e'' en la primera posición: $1$.
+
+\textbf{Etapa 2:} escoger la vocal que va en la última posición, de $V\setminus\{\text{e}\}$: $\displaystyle\binom{2}{1}=2$.
+
+\textbf{Etapa 3:} colocar las $5$ letras restantes en las posiciones centrales: $5!=120$.
+
+\medskip
+\[
+  |\text{Caso II}| \;=\; \underbrace{1}_{p_1=\text{e}} \cdot \underbrace{\binom{2}{1}}_{p_7\in V\setminus\{\text{e}\}} \cdot \underbrace{5!}_{p_2\cdots p_6} \;=\; 1\cdot 2\cdot 120 \;=\; 240 .
+\]
+
+\textbf{¿De dónde sale?} El $2$ es $|V\setminus\{\text{e}\}|=3-1$, ya que la ``e'' se consumió en $p_1$; el $3$ original es $|V|$ del Paso 1. El $120$ es de nuevo $5!$, porque también aquí quedan $5$ letras para $5$ posiciones.
+
+\textbf{¿Por qué?} Es exactamente la corrección que motivó la separación en casos: aquí la Etapa 2 tiene una opción menos que en el Caso I, y no se puede promediar ni usar un factor común.
+
+\textbf{¿Qué tomamos?} Así, para este caso hay $240$ anagramas.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Inciso (b): sumar los casos excluyentes}
+\textbf{Qué hago:} cierro con el principio de la suma.
+\[
+  N_b = |\text{Caso I}|+|\text{Caso II}| = 360+240 = 600 .
+\]
+
+\textbf{¿De dónde sale?} Los sumandos son los subtotales de los Pasos 5 y 6.
+
+\textbf{¿Por qué?} Porque ningún anagrama fue contado dos veces: los del Caso I empiezan con ``c'' y los del Caso II con ``e'', y una palabra no puede empezar con dos letras a la vez. Al ser los casos excluyentes la suma es exacta y no hace falta restar intersección.
+
+\textbf{¿Qué tomamos?} Se toma $N_b=600$. Desglose: $360+240=360+200+40=560+40=600$.
+\end{paso}
+
+\begin{resp}
+(a) $\dbinom{3}{1}\dbinom{4}{1}\cdot 5! = 3\cdot 4\cdot 120 = \mathbf{1440}$ anagramas con la condición dada.\\[2pt]
+(b) $1\cdot\dbinom{3}{1}\cdot 5! \;+\; 1\cdot\dbinom{2}{1}\cdot 5! = 360+240=\mathbf{600}$ anagramas. Coinciden con R/ 1440 y R/ 600.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 35}
+\addcontentsline{toc}{subsection}{Ejercicio 35}
+
+\begin{quote}
+Cuántos anagramas de tres letras se pueden formar con las letras a,b,c,d,e,f,g,h,i si:\\[2pt]
+(a) No hay restricciones. \hfill R/ 504\\
+(b) Las letras no se pueden repetir y los anagramas deben empezar con una vocal. \hfill R/ 168\\
+(c) Las letras no se pueden repetir y los anagramas deben terminar en consonante. \hfill R/ 336\\
+(d) Las letras no se pueden repetir y deben iniciar con vocal y terminar en consonante. \hfill R/ 126
+\end{quote}
+
+\emph{Los cuatro apartados se resuelven por etapas: primero las posiciones restringidas, después las libres.}
+
+\begin{paso}{Paso 1 --- Inventariar el alfabeto disponible}
+\textbf{Qué hago:} cuento las letras del enunciado y las clasifico.
+\[
+  L=\{\text{a},\text{b},\text{c},\text{d},\text{e},\text{f},\text{g},\text{h},\text{i}\},\qquad |L|=9 ,
+\]
+\[
+  V=\{\text{a},\text{e},\text{i}\},\ |V|=3 ;\qquad C=\{\text{b},\text{c},\text{d},\text{f},\text{g},\text{h}\},\ |C|=6 .
+\]
+
+\textbf{¿De dónde sale?} La lista ``a,b,c,d,e,f,g,h,i'' del enunciado tiene nueve símbolos, que son las nueve primeras letras del alfabeto. La separación vocal/consonante es la usual.
+
+\textbf{¿Por qué?} Se verifica la partición sumando: $|V|+|C|=3+6=9=|L|$, lo que garantiza que ninguna letra quedó fuera ni fue contada dos veces; esa comprobación es la que permite usar $|V|$ y $|C|$ como tamaños de las etapas restringidas.
+
+\textbf{¿Qué tomamos?} Se anota que un anagrama es una terna ordenada de posiciones $p_1p_2p_3$ con símbolos tomados de $L$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a), Etapa única: colocar tres letras distintas}
+\textbf{Qué hago:} lleno las tres posiciones ordenadas con letras distintas de $L$.
+
+\medskip
+\textbf{Etapa 1:} colocar tres de las nueve letras en las tres posiciones, sin repetir:
+\[
+  N_a \;=\; \underbrace{P(9,3)}_{p_1p_2p_3 \text{ de }L} \;=\; \frac{9!}{(9-3)!} \;=\; \frac{9!}{6!} \;=\; 9\cdot 8\cdot 7 .
+\]
+
+\textbf{¿De dónde sale?} El $9$ es $|L|$ del Paso 1 y el $3$ es la longitud del anagrama que pide el enunciado.
+
+\textbf{¿Por qué?} Se usa permutación y no combinación porque el orden distingue resultados: ``abc'' y ``bac'' son anagramas distintos. La forma $9\cdot 8\cdot 7$ es el principio del producto con opciones que se agotan: $9$ letras para $p_1$; una vez usada no se repite, quedan $8$ para $p_2$ y $7$ para $p_3$. La cancelación $\frac{9!}{6!}=9\cdot 8\cdot 7$ vale porque $9!=9\cdot 8\cdot 7\cdot 6!$.
+
+\textbf{¿Qué tomamos?} Se toma
+\[
+  9\cdot 8 = 72,\qquad 72\cdot 7 = 70\cdot 7 + 2\cdot 7 = 490+14 = 504,\qquad N_a=504 .
+\]
+\end{paso}
+
+\begin{nota}
+\textbf{Sobre la lectura de ``no hay restricciones'' en el inciso (a).} La respuesta oficial $504$ corresponde a $P(9,3)=9\cdot 8\cdot 7$, es decir, a leer ``sin restricciones'' como ``sin ninguna condición \emph{adicional}, pero manteniendo la prohibición de repetir letras'' (prohibición que los incisos (b), (c) y (d) explicitan). Si en cambio se permitiera repetir letras, cada una de las tres posiciones admitiría las $9$ letras y el conteo sería
+\[
+  \underbrace{9}_{p_1}\cdot\underbrace{9}_{p_2}\cdot\underbrace{9}_{p_3} = 9^3 = 81\cdot 9 = 729 \neq 504 .
+\]
+Se conserva la lectura sin repetición porque es la única compatible con la respuesta oficial.
+\end{nota}
+
+\begin{paso}{Paso 3 --- Inciso (b): restricción en la primera posición}
+\textbf{Qué hago:} traduzco ``debe empezar con vocal'' a $p_1\in V$ y resuelvo por etapas.
+
+\medskip
+\textbf{Etapa 1:} escoger la vocal que va en la primera posición: $\displaystyle\binom{3}{1}=3$.
+
+\textbf{Etapa 2:} colocar dos de las $8$ letras restantes en las posiciones $p_2$ y $p_3$: $\displaystyle P(8,2)=\frac{8!}{6!}=8\cdot 7=56$.
+
+\medskip
+\[
+  N_b \;=\; \underbrace{\binom{3}{1}}_{p_1\in V} \cdot \underbrace{\frac{8!}{6!}}_{p_2p_3} \;=\; 3\cdot 56 .
+\]
+
+\textbf{¿De dónde sale?} El $3$ es $|V|$ del Paso 1. El $8$ es $9-1$: las letras de $L$ menos la que se gastó en la Etapa 1. El $2$ es la cantidad de posiciones que quedan libres, $3-1$.
+
+\textbf{¿Por qué?} Se resuelve primero la etapa restringida porque su número de opciones ($3$) no depende de nada, mientras que el número de opciones de las libres sí depende de cuántas letras se hayan gastado; con ese orden, la Etapa 2 vale $P(8,2)$ \emph{cualquiera} que haya sido la vocal escogida, y el principio del producto se aplica sin partir en casos. Es $P(8,2)$ y no $\binom{8}{2}$ porque $p_2$ y $p_3$ son posiciones distinguibles.
+
+\textbf{¿Qué tomamos?} Se toma $N_b = 3\cdot 56 = 168$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (c): restricción en la última posición}
+\textbf{Qué hago:} traduzco ``debe terminar en consonante'' a $p_3\in C$ y repito el esquema.
+
+\medskip
+\textbf{Etapa 1:} escoger la consonante que va en la última posición: $\displaystyle\binom{6}{1}=6$.
+
+\textbf{Etapa 2:} colocar dos de las $8$ letras restantes en $p_1$ y $p_2$: $\displaystyle P(8,2)=56$.
+
+\medskip
+\[
+  N_c \;=\; \underbrace{\binom{6}{1}}_{p_3\in C} \cdot \underbrace{\frac{8!}{6!}}_{p_1p_2} \;=\; 6\cdot 56 .
+\]
+
+\textbf{¿De dónde sale?} El $6$ es $|C|$ del Paso 1; el $8=9-1$ son las letras que sobran tras fijar $p_3$; el $2$ son las posiciones $p_1$ y $p_2$.
+
+\textbf{¿Por qué?} El orden en que se \emph{resuelven} las etapas es una elección del método de conteo, no del problema: el resultado final es la palabra completa, no el proceso. Se empieza por $p_3$ por ser la posición restringida, con lo cual su factor es constante ($6$) y las dos libres aportan $P(8,2)$ sin importar qué consonante fue.
+
+\textbf{¿Qué tomamos?} Se toma $N_c = 6\cdot 56 = 6\cdot 50 + 6\cdot 6 = 300+36 = 336$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (d): dos restricciones simultáneas}
+\textbf{Qué hago:} impongo $p_1\in V$ y $p_3\in C$, y dejo libre solo $p_2$.
+
+\medskip
+\textbf{Etapa 1:} escoger la vocal de la primera posición: $\displaystyle\binom{3}{1}=3$.
+
+\textbf{Etapa 2:} escoger la consonante de la última posición: $\displaystyle\binom{6}{1}=6$.
+
+\textbf{Etapa 3:} colocar una de las $7$ letras restantes en $p_2$: $\displaystyle P(7,1)=\frac{7!}{6!}=7$.
+
+\medskip
+\[
+  N_d \;=\; \underbrace{\binom{3}{1}}_{p_1\in V} \cdot \underbrace{\binom{6}{1}}_{p_3\in C} \cdot \underbrace{\frac{7!}{6!}}_{p_2} \;=\; 3\cdot 6\cdot 7 .
+\]
+
+\textbf{¿De dónde sale?} El $3$ es $|V|$, el $6$ es $|C|$, y el $7$ es $9-2$: las letras que quedan tras gastar una vocal y una consonante.
+
+\textbf{¿Por qué?} Aquí sí es válido multiplicar $3\cdot 6$ sin partir en casos, y esa es la diferencia esencial con el Ejercicio 34(b): los conjuntos $V$ y $C$ son \emph{disjuntos}, de modo que la vocal gastada en la Etapa 1 nunca reduce las opciones de la Etapa 2, que sigue teniendo las $6$ consonantes completas.
+
+\textbf{¿Qué tomamos?} Se toma $N_d = 3\cdot 6\cdot 7 = 18\cdot 7 = 126$.
+
+\emph{Verificación:} el mismo valor se obtiene restringiendo el inciso (b): de los anagramas que empiezan con vocal, fijada la vocal inicial quedan $6$ consonantes para $p_3$ y $7$ letras para $p_2$, o sea $3\cdot 6\cdot 7=126$.
+\end{paso}
+
+\begin{resp}
+(a) $P(9,3)=\dfrac{9!}{6!}=9\cdot 8\cdot 7=\mathbf{504}$.\quad
+(b) $\dbinom{3}{1}P(8,2)=3\cdot 56=\mathbf{168}$.\\[2pt]
+(c) $\dbinom{6}{1}P(8,2)=6\cdot 56=\mathbf{336}$.\quad
+(d) $\dbinom{3}{1}\dbinom{6}{1}P(7,1)=3\cdot 6\cdot 7=\mathbf{126}$. Los cuatro coinciden con R/ 504, R/ 168, R/ 336 y R/ 126.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 36}
+\addcontentsline{toc}{subsection}{Ejercicio 36}
+
+\begin{quote}
+En una banca se desean sentar 5 hombres y 3 mujeres. Determine de cuántas maneras se pueden sentar si se quiere que no haya dos mujeres juntas. \hfill R/ 14400
+\end{quote}
+
+\emph{Este ejercicio se resolverá por etapas, usando la técnica de los espacios: primero se sientan los hombres, luego se escogen los espacios para las mujeres y por último se colocan las mujeres en dichos espacios.}
+
+\begin{paso}{Paso 1 --- Fijar el modelo y reconocer la técnica}
+\textbf{Qué hago:} declaro qué es un resultado y qué prohíbe la condición.
+
+Hay $5+3=8$ personas distintas que ocupan $8$ asientos consecutivos de una banca; un resultado es una asignación de las $8$ personas a las $8$ posiciones. La condición ``no haya dos mujeres juntas'' prohíbe que dos mujeres ocupen asientos \emph{adyacentes}.
+
+\textbf{¿De dónde sale?} Del enunciado: ``5 hombres y 3 mujeres'' da los tamaños, y ``en una banca'' da la disposición lineal, con la noción de adyacencia entre asientos vecinos.
+
+\textbf{¿Por qué?} Una condición de la forma ``ciertos objetos no pueden quedar adyacentes'' se resuelve con la \emph{técnica de los espacios}: se sientan primero los objetos no restringidos y las mujeres se ubican en los espacios que aquellos dejan, a lo sumo una por espacio. Dos mujeres quedan adyacentes si y solo si comparten espacio, así que prohibir compartir espacio es exactamente la condición pedida, sin dejar fuera ningún caso ni admitir ninguno prohibido.
+
+\textbf{¿Qué tomamos?} Se anota: $5$ hombres (no restringidos) y $3$ mujeres (restringidas), y el uso de la técnica de los espacios.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Etapa 1: sentar a los hombres y contar los espacios}
+\textbf{Qué hago:} coloco primero a los cinco hombres y cuento los espacios disponibles.
+
+Escribiendo $\square$ para los espacios y $H$ para cada hombre:
+\[
+  \square\; H \;\square\; H \;\square\; H \;\square\; H \;\square\; H \;\square
+\]
+
+\medskip
+\textbf{Etapa 1:} sentar a los $5$ hombres en fila: $5!=120$. Esto genera $5+1=6$ espacios.
+
+\textbf{¿De dónde sale?} El $5$ es la cantidad de hombres del enunciado. El $6$ sale de contar los espacios del esquema: uno antes del primer hombre, cuatro entre hombres consecutivos y uno después del último, es decir $1+4+1=6=5+1$.
+
+\textbf{¿Por qué?} Es $5!$ y no $1$ porque los hombres son personas distintas y sentarlos en otro orden produce otra disposición de la banca. Y la cuenta de espacios es general: $m$ objetos en fila dejan siempre $m+1$ posiciones de inserción.
+
+\textbf{¿Qué tomamos?} Se toma $5!=5\cdot 4\cdot 3\cdot 2\cdot 1 = 120$ y se anota que hay $6$ espacios disponibles.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Etapa 2: escoger los espacios que ocuparán las mujeres}
+\textbf{Qué hago:} elijo cuáles tres de los seis espacios se van a usar.
+
+\medskip
+\textbf{Etapa 2:} escoger de los $6$ espacios los $3$ donde se sentarán las mujeres:
+\[
+  \underbrace{\binom{6}{3}}_{\text{3 espacios de los 6}} = \frac{6!}{3!\,3!} = \frac{6\cdot 5\cdot 4}{3\cdot 2\cdot 1} = \frac{120}{6} = 20 .
+\]
+
+\textbf{¿De dónde sale?} El $6$ es el número de espacios del Paso 2 y el $3$ es la cantidad de mujeres del enunciado.
+
+\textbf{¿Por qué?} En esta etapa solo se decide \emph{cuáles} espacios se usan, no quién va en cada uno; por eso es una combinación y no una permutación. La exigencia de que sean espacios \emph{distintos} es lo que codifica ``no dos mujeres juntas'': si dos mujeres compartieran espacio quedarían pegadas.
+
+\textbf{¿Qué tomamos?} Se toma $\binom{6}{3}=20$ selecciones de espacios.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Etapa 3: sentar a las mujeres en dichos espacios}
+\textbf{Qué hago:} asigno las tres mujeres a los tres espacios ya escogidos.
+
+\medskip
+\textbf{Etapa 3:} sentar a las $3$ mujeres en los espacios seleccionados: $3!=6$.
+
+\textbf{¿De dónde sale?} El $3$ es la cantidad de mujeres del enunciado; los espacios ya quedaron fijados en la Etapa 2.
+
+\textbf{¿Por qué?} Porque las mujeres son personas distintas: una vez decidido qué tres espacios se usan, todavía hay que decidir cuál mujer va en cada uno, y eso son $3!$ asignaciones. Separar ``escoger'' de ``colocar'' es lo que evita confundir combinación con permutación; el producto de las dos etapas reconstruye $\binom{6}{3}\cdot 3! = P(6,3) = 120$.
+
+\textbf{¿Qué tomamos?} Se toma $3!=3\cdot 2\cdot 1=6$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Producto de las tres etapas}
+\textbf{Qué hago:} aplico el principio del producto sobre las tres etapas.
+\[
+  N \;=\; \underbrace{5!}_{\text{Etapa 1: hombres}} \cdot \underbrace{\binom{6}{3}}_{\text{Etapa 2: espacios}} \cdot \underbrace{3!}_{\text{Etapa 3: mujeres}} \;=\; 120\cdot 20\cdot 6 .
+\]
+
+\textbf{¿De dónde sale?} El $120$ es la Etapa 1, el $20$ la Etapa 2 y el $6$ la Etapa 3.
+
+\textbf{¿Por qué?} Porque el número de opciones de cada etapa no depende de lo elegido en las anteriores: los espacios son siempre $6$ sea cual sea el orden de los hombres, y las asignaciones de mujeres son siempre $3!$ sean cuales sean los espacios escogidos. Además el procedimiento es \emph{biyectivo}: cada disposición válida de la banca determina un único orden de hombres, un único conjunto de espacios usados y una única asignación de mujeres, de modo que no se cuenta dos veces ni se omite ninguna.
+
+\textbf{¿Qué tomamos?} Se toma
+\[
+  120\cdot 20 = 2400,\qquad N = 2400\cdot 6 = 14\,400 .
+\]
+\end{paso}
+
+\begin{resp}
+Con esto, hay $\;5!\cdot\dbinom{6}{3}\cdot 3! = 120\cdot 20\cdot 6=\mathbf{14\,400}\;$ maneras de sentar a las personas con la condición dada. Coincide con la respuesta oficial R/ 14400.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 37}
+\addcontentsline{toc}{subsection}{Ejercicio 37}
+
+\begin{quote}
+En una fila se desean sentar 4 hombres y 4 mujeres. Determine de cuántas maneras se pueden sentar si se quiere que las mujeres no se sienten juntas. \hfill R/ 2880
+\end{quote}
+
+\emph{Este ejercicio se resolverá por etapas, con la misma técnica de los espacios del ejercicio anterior.}
+
+\begin{paso}{Paso 1 --- Precisar la condición y elegir la técnica}
+\textbf{Qué hago:} interpreto ``las mujeres no se sienten juntas'' como ``no hay dos mujeres en asientos adyacentes'' y modelo la fila.
+
+Hay $4+4=8$ personas distintas en $8$ posiciones de una fila.
+
+\textbf{¿De dónde sale?} Los dos $4$ son los del enunciado. La lectura de la condición se apoya en el paralelismo con el ejercicio anterior y, sobre todo, en que es la única lectura que reproduce la respuesta oficial, como se verificará al final.
+
+\textbf{¿Por qué?} De nuevo es una prohibición de adyacencia entre los objetos de un mismo grupo, así que corresponde la técnica de los espacios: sentar primero a los hombres y repartir a las mujeres en espacios distintos.
+
+\textbf{¿Qué tomamos?} Se anota: $4$ hombres no restringidos, $4$ mujeres restringidas.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Etapa 1: sentar a los hombres y contar los espacios}
+\textbf{Qué hago:} coloco a los cuatro hombres y cuento los espacios que dejan.
+\[
+  \square\; H \;\square\; H \;\square\; H \;\square\; H \;\square
+\]
+
+\medskip
+\textbf{Etapa 1:} sentar a los $4$ hombres en fila: $4!=24$. Esto genera $4+1=5$ espacios.
+
+\textbf{¿De dónde sale?} El $4$ es la cantidad de hombres; el $5$ es $4+1$, contando el espacio anterior al primero, los tres intermedios y el posterior al último: $1+3+1=5$.
+
+\textbf{¿Por qué?} Los hombres son distinguibles, así que su orden interno genera resultados distintos y aporta $4!$. El conteo de espacios es la regla general ``$m$ objetos en fila dejan $m+1$ espacios''.
+
+\textbf{¿Qué tomamos?} Se toma $4!=4\cdot 3\cdot 2\cdot 1 = 24$ y $5$ espacios.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Etapa 2: escoger los espacios de las mujeres}
+\textbf{Qué hago:} elijo cuáles cuatro de los cinco espacios se usan.
+
+\medskip
+\textbf{Etapa 2:} escoger de los $5$ espacios los $4$ donde se sentarán las mujeres:
+\[
+  \underbrace{\binom{5}{4}}_{\text{4 espacios de los 5}} = \frac{5!}{4!\,1!} = 5 .
+\]
+
+\textbf{¿De dónde sale?} El $5$ son los espacios del Paso 2 y el $4$ son las mujeres del enunciado.
+
+\textbf{¿Por qué?} Nótese que el conteo es factible justo por poco: se necesitan $4$ espacios distintos y hay exactamente $5$, así que solo uno queda vacío. Si hubiera habido una mujer más ($5$ mujeres y $4$ hombres) el resultado sería $\binom{5}{5}=1$ para la selección de espacios, y con $6$ mujeres sería imposible. En esta etapa solo se decide \emph{cuáles} espacios se usan, por eso es combinación.
+
+\textbf{¿Qué tomamos?} Se toma $\binom{5}{4}=5$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Etapa 3: sentar a las mujeres en dichos espacios}
+\textbf{Qué hago:} asigno las cuatro mujeres a los cuatro espacios elegidos.
+
+\medskip
+\textbf{Etapa 3:} sentar a las $4$ mujeres en los espacios seleccionados: $4!=24$.
+
+\textbf{¿De dónde sale?} El $4$ es la cantidad de mujeres; los espacios ya se fijaron en la Etapa 2.
+
+\textbf{¿Por qué?} Las mujeres son personas distintas y cambiar cuál va en cuál espacio produce otra fila. El producto de las Etapas 2 y 3 reconstruye $\binom{5}{4}\cdot 4! = P(5,4) = 120$.
+
+\textbf{¿Qué tomamos?} Se toma $4!=24$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Producto de las tres etapas y contraste con la respuesta oficial}
+\textbf{Qué hago:} aplico el principio del producto.
+\[
+  N \;=\; \underbrace{4!}_{\text{Etapa 1: hombres}} \cdot \underbrace{\binom{5}{4}}_{\text{Etapa 2: espacios}} \cdot \underbrace{4!}_{\text{Etapa 3: mujeres}} \;=\; 24\cdot 5\cdot 24 .
+\]
+
+\textbf{¿De dónde sale?} El $24$ de la Etapa 1, el $5$ de la Etapa 2 y el $24$ de la Etapa 3.
+
+\textbf{¿Por qué?} La cantidad de opciones de cada etapa no depende de las anteriores (los espacios son siempre $5$ y las asignaciones siempre $4!$), y la correspondencia es biyectiva: de cualquier fila válida se recuperan sin ambigüedad el orden de los hombres, los espacios usados y la mujer de cada espacio.
+
+\textbf{¿Qué tomamos?} Se toma
+\[
+  24\cdot 5 = 120,\qquad N = 120\cdot 24 = 120\cdot 20 + 120\cdot 4 = 2400+480 = 2880 ,
+\]
+que reproduce exactamente la respuesta oficial y confirma la lectura ``no hay dos mujeres adyacentes'' adoptada en el Paso 1.
+\end{paso}
+
+\begin{nota}
+La lectura literal alternativa, ``las cuatro mujeres no forman un bloque de cuatro consecutivas'', daría por complemento
+\[
+  \underbrace{8!}_{\text{total}} - \underbrace{5!\cdot 4!}_{\text{bloque de 4 mujeres}} = 40\,320 - 120\cdot 24 = 40\,320-2880 = 37\,440 ,
+\]
+valor que no coincide con la respuesta oficial. Por eso se adopta la lectura de adyacencia por pares, que sí da $2880$.
+\end{nota}
+
+\begin{resp}
+Con esto, hay $\;4!\cdot\dbinom{5}{4}\cdot 4! = 24\cdot 5\cdot 24=\mathbf{2880}\;$ maneras de sentar a las personas con la condición dada. Coincide con la respuesta oficial R/ 2880.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 38}
+\addcontentsline{toc}{subsection}{Ejercicio 38}
+
+\begin{quote}
+En una ceremonia oficial participan 6 funcionarios y 2 invitadas especiales que deben ubicarse en una fila. Determine de cuántas maneras se pueden ubicar si se quiere que haya al menos un funcionario entre las dos invitadas. \hfill R/ 30240
+\end{quote}
+
+\emph{Este ejercicio se hará por complemento: se buscará la cantidad de maneras de ubicar a las personas donde las dos invitadas quedan juntas, y se restará del total.}
+
+\begin{paso}{Paso 1 --- Traducir ``al menos un funcionario entre las dos'' a una condición de adyacencia}
+\textbf{Qué hago:} reformulo la condición del enunciado en términos de posiciones.
+
+Hay $6+2=8$ personas distintas en $8$ posiciones. Si entre las dos invitadas hay al menos una persona, esa persona es necesariamente un funcionario (no hay más invitadas), así que la condición equivale exactamente a:
+\[
+  \text{las dos invitadas \emph{no} ocupan posiciones adyacentes.}
+\]
+
+\textbf{¿De dónde sale?} Del enunciado: $6$ funcionarios, $2$ invitadas, disposición en fila.
+
+\textbf{¿Por qué?} La equivalencia es exacta en ambos sentidos. Si las invitadas no son adyacentes, entre ellas hay al menos una posición ocupada, y quien la ocupe solo puede ser funcionario porque las únicas dos invitadas son ellas mismas. Recíprocamente, si hubiera un funcionario entre ambas, no podrían ser adyacentes.
+
+\textbf{¿Qué tomamos?} Se anota la condición reformulada: invitadas no adyacentes; su negación (lo que se contará para restar) es: invitadas juntas.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar el total sin restricción}
+\textbf{Qué hago:} cuento todas las filas posibles, que servirán de universo para el complemento.
+\[
+  |\Omega| \;=\; \underbrace{P(8,8)}_{\text{las 8 personas en las 8 posiciones}} \;=\; 8! .
+\]
+
+\textbf{¿De dónde sale?} El $8$ es $6+2$, la cantidad total de participantes.
+
+\textbf{¿Por qué?} Todas las personas son distinguibles y todas las posiciones también, así que cada fila es una permutación de $8$ objetos distintos.
+
+\textbf{¿Qué tomamos?} Se toma
+\[
+  8! = 8\cdot 7\cdot 6\cdot 5\cdot 4\cdot 3\cdot 2\cdot 1 .
+\]
+Por partes: $8\cdot 7=56$; $56\cdot 6=336$; $336\cdot 5=1680$; $1680\cdot 4=6720$; $6720\cdot 3=20\,160$; $20\,160\cdot 2=40\,320$. Luego $|\Omega|=40\,320$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Contar el caso prohibido por etapas (técnica del bloque)}
+\textbf{Qué hago:} cuento las filas en que las dos invitadas \emph{sí} quedan juntas, tomándolas como un solo carácter.
+
+\medskip
+\textbf{Etapa 1:} permutar los $6$ funcionarios junto con el carácter formado por las dos invitadas, es decir $6+1=7$ piezas: $7!=5040$.
+
+\textbf{Etapa 2:} permutar las dos invitadas dentro de ese carácter: $2!=2$.
+
+\medskip
+\[
+  M \;=\; \underbrace{7!}_{\text{Etapa 1: 7 piezas}} \cdot \underbrace{2!}_{\text{Etapa 2: interior del bloque}} \;=\; 5040\cdot 2 \;=\; 10\,080 .
+\]
+
+\textbf{¿De dónde sale?} El $7$ es $6+1$: los seis funcionarios más el bloque contado como una sola pieza. El $2!$ sale de que dentro del bloque las dos invitadas pueden ir en dos órdenes.
+
+\textbf{¿Por qué?} La técnica del bloque funciona porque hay una correspondencia biyectiva entre las filas con las invitadas adyacentes y los pares (ordenamiento de las $7$ piezas, orden interno del bloque): dada una fila con las invitadas juntas, se reconoce sin ambigüedad el bloque y quién está a su izquierda dentro de él; y recíprocamente, cada par produce una fila válida distinta. Sin la Etapa 2 se perdería la mitad de las filas, porque el bloque no es un objeto simétrico.
+
+\textbf{¿Qué tomamos?} Se toma $M = 10\,080$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Aplicar el complemento}
+\textbf{Qué hago:} resto del total el caso prohibido.
+\[
+  N = |\Omega| - M = \underbrace{8!}_{\text{total}} - \underbrace{7!\cdot 2!}_{\text{invitadas juntas}} = 40\,320 - 10\,080 .
+\]
+
+\textbf{¿De dónde sale?} El $40\,320$ es el Paso 2 y el $10\,080$ el Paso 3.
+
+\textbf{¿Por qué?} Porque toda fila cumple exactamente una de dos cosas: o las invitadas son adyacentes o no lo son. Esas dos familias son excluyentes y cubren el total, así que restar es legítimo.
+
+\textbf{¿Qué tomamos?} Se toma $N = 40\,320-10\,080 = 30\,240$.
+
+\emph{Verificación por etapas con la técnica de los espacios:} Etapa 1: ubicar a los $6$ funcionarios, $6!=720$, lo que genera $6+1=7$ espacios; Etapa 2: escoger $2$ de los $7$ espacios, $\binom{7}{2}=21$; Etapa 3: ubicar a las $2$ invitadas en dichos espacios, $2!=2$. El producto es $720\cdot 21\cdot 2 = 720\cdot 42 = 30\,240$, el mismo valor.
+\end{paso}
+
+\begin{resp}
+Con esto, hay $\;8!-7!\cdot 2!=40\,320-10\,080=\mathbf{30\,240}\;$ maneras de ubicar a las personas con la condición dada (equivalentemente $6!\cdot\binom{7}{2}\cdot 2!=30\,240$). Coincide con la respuesta oficial R/ 30240.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 39}
+\addcontentsline{toc}{subsection}{Ejercicio 39}
+
+\begin{quote}
+En una sesión fotográfica participan 5 modelos masculinos y 4 modelos femeninos que deben colocarse en una fila. Determine de cuántas maneras se pueden ordenar si se quiere que no haya tres modelos femeninos consecutivos. \hfill R/ 259200
+\end{quote}
+
+\emph{Este ejercicio se hará por complemento: se contarán los ordenamientos que \textbf{sí} tienen tres o más modelos femeninos consecutivos, separándolos en dos casos excluyentes, y se restarán del total.}
+
+\begin{paso}{Paso 1 --- Modelar la fila y plantear el complemento}
+\textbf{Qué hago:} defino el universo y la condición prohibida.
+
+Hay $5+4=9$ modelos distintos en $9$ posiciones de una fila. La condición pedida es ``no existe ninguna racha de $3$ o más modelos femeninos consecutivos''; su negación es ``existe al menos una racha de $3$ o más femeninos consecutivos''.
+
+\textbf{¿De dónde sale?} Los números $5$ y $4$ son los del enunciado; el $9$ es su suma.
+
+\textbf{¿Por qué?} Conviene el complemento porque la condición prohibida se describe con un solo objeto (una racha larga) y admite la técnica del bloque, mientras que la condición directa exigiría controlar simultáneamente todas las rachas. Total y prohibido son excluyentes y complementarios, así que $N=|\Omega|-B$.
+
+\textbf{¿Qué tomamos?} Se anota $N = |\Omega| - B$, con $|\Omega|$ el total y $B$ los ordenamientos con alguna racha de tres o más femeninos.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Contar el total}
+\textbf{Qué hago:} cuento las filas sin restricción.
+\[
+  |\Omega| \;=\; \underbrace{P(9,9)}_{\text{9 modelos distintos en 9 posiciones}} \;=\; 9! .
+\]
+
+\textbf{¿De dónde sale?} El $9$ es el total de modelos, $5+4$.
+
+\textbf{¿Por qué?} Todos los modelos son distinguibles (el enunciado los trata como personas concretas) y las posiciones también, así que cada fila es una permutación de $9$ objetos.
+
+\textbf{¿Qué tomamos?} Se toma $9! = 9\cdot 8!= 9\cdot 40\,320$. Desglose: $9\cdot 40\,320 = 40\,320\cdot 10 - 40\,320 = 403\,200-40\,320 = 362\,880$. Luego $|\Omega|=362\,880$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Separar el complemento en dos casos excluyentes}
+\textbf{Qué hago:} clasifico los ordenamientos prohibidos según la longitud de la racha femenina más larga.
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Caso I:} la racha femenina más larga tiene exactamente $3$ modelos.
+  \item \textbf{Caso II:} las $4$ femeninas quedan consecutivas.
+\end{itemize}
+
+\textbf{¿De dónde sale?} El $3$ es el umbral que fija el enunciado y el $4$ es la cantidad total de modelos femeninos.
+
+\textbf{¿Por qué?} Los dos casos son excluyentes porque la racha máxima tiene una única longitud, y son exhaustivos dentro de lo prohibido porque una racha de $3$ o más femeninos, teniendo solo $4$ femeninos disponibles, mide exactamente $3$ o exactamente $4$. Además no puede haber dos rachas \emph{disjuntas} de tres, pues eso exigiría $3+3=6$ modelos femeninos y solo hay $4$: por eso basta con estos dos casos y no hace falta corregir traslapes.
+
+\textbf{¿Qué tomamos?} Se anota $B = |\text{Caso I}| + |\text{Caso II}|$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Caso I: racha de exactamente tres femeninos}
+\textbf{Qué hago:} resuelvo el Caso I por etapas.
+
+\medskip
+\textbf{Etapa 1:} escoger cuáles $3$ de los $4$ modelos femeninos forman la racha: $\displaystyle\binom{4}{3}=4$.
+
+\textbf{Etapa 2:} ordenar esos $3$ modelos dentro del bloque: $3!=6$.
+
+\textbf{Etapa 3:} permutar las $5+1+1=7$ piezas (los $5$ masculinos, el bloque y la femenina suelta) de modo que la femenina suelta \emph{no} quede pegada al bloque:
+\[
+  \underbrace{7!}_{\text{permutaciones de las 7 piezas}} - \underbrace{6!\cdot 2}_{\text{femenina suelta pegada al bloque}} = 5040 - 1440 = 3600 .
+\]
+
+\medskip
+\[
+  |\text{Caso I}| = \underbrace{\binom{4}{3}}_{\text{Etapa 1}}\cdot \underbrace{3!}_{\text{Etapa 2}}\cdot \underbrace{3600}_{\text{Etapa 3}} = 4\cdot 6\cdot 3600 = 24\cdot 3600 = 86\,400 .
+\]
+
+\textbf{¿De dónde sale?} El $4$ y el $3$ de la Etapa 1 son la cantidad de femeninos y la longitud de la racha. El $7$ de la Etapa 3 es $5+1+1$. El $6!\cdot 2$ del descuento sale de pegar la femenina suelta al bloque formando una pieza mayor: quedan $5+1=6$ piezas, que se permutan de $6!=720$ maneras, y el $2$ cuenta si la femenina suelta va a la izquierda o a la derecha del bloque.
+
+\textbf{¿Por qué?} El descuento de la Etapa 3 es imprescindible: si la femenina suelta quedara pegada al bloque, la racha real mediría $4$ y no $3$, y ese ordenamiento pertenecería al Caso II. Restarlo es lo que hace que los dos casos sean realmente excluyentes. Nótese además que las Etapas 1 y 2 juntas dan $\binom{4}{3}\cdot 3! = P(4,3) = 24$, que es escoger y ordenar los tres femeninos del bloque.
+
+\textbf{¿Qué tomamos?} Así, para este caso hay $86\,400$ ordenamientos. Desglose: $24\cdot 3600 = 24\cdot 36\cdot 100 = 864\cdot 100 = 86\,400$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Caso II: los cuatro femeninos consecutivos}
+\textbf{Qué hago:} resuelvo el Caso II por etapas.
+
+\medskip
+\textbf{Etapa 1:} ordenar los $4$ modelos femeninos dentro del bloque: $4!=24$.
+
+\textbf{Etapa 2:} permutar las $5+1=6$ piezas (los $5$ masculinos y el bloque): $6!=720$.
+
+\medskip
+\[
+  |\text{Caso II}| = \underbrace{4!}_{\text{Etapa 1}}\cdot \underbrace{6!}_{\text{Etapa 2}} = 24\cdot 720 = 17\,280 .
+\]
+
+\textbf{¿De dónde sale?} El $4$ es la cantidad de femeninos y el $6$ es $5+1$: masculinos más el bloque.
+
+\textbf{¿Por qué?} Aquí no hace falta ningún descuento porque ya no queda ninguna femenina fuera del bloque que pueda alargar la racha. La correspondencia es biyectiva: de una fila con las cuatro femeninas juntas se leen sin ambigüedad su orden interno y la posición del bloque.
+
+\textbf{¿Qué tomamos?} Así, para este caso hay $17\,280$ ordenamientos. Desglose: $24\cdot 720 = 24\cdot 700 + 24\cdot 20 = 16\,800+480 = 17\,280$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Sumar los casos y restar del total}
+\textbf{Qué hago:} cierro el complemento.
+\[
+  B = |\text{Caso I}|+|\text{Caso II}| = 86\,400+17\,280 = 103\,680 ,
+\]
+\[
+  N = |\Omega| - B = 362\,880 - 103\,680 = 259\,200 .
+\]
+
+\textbf{¿De dónde sale?} El $86\,400$ y el $17\,280$ son los Pasos 4 y 5; el $362\,880$ es el Paso 2.
+
+\textbf{¿Por qué?} Como estos dos casos son excluyentes, sus cantidades se suman sin corrección; y como lo prohibido y lo permitido parten el total, la resta final no omite ni duplica nada.
+
+\textbf{¿Qué tomamos?} Se toma $N=259\,200$. Desgloses: $86\,400+17\,280 = 86\,400+17\,000+280 = 103\,400+280 = 103\,680$; y $362\,880-103\,680 = 362\,880-100\,000-3680 = 262\,880-3680 = 259\,200$.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Verificación independiente por etapas (espacios y barras y estrellas)}
+\textbf{Qué hago:} recalculo el mismo número por un camino distinto.
+
+\medskip
+\textbf{Etapa 1:} ordenar a los $5$ masculinos: $5!=120$. Esto genera $5+1=6$ espacios.
+
+\textbf{Etapa 2:} repartir las $4$ femeninas entre los $6$ espacios con a lo sumo $2$ por espacio. Si $x_i$ es la cantidad de femeninas del espacio $i$, hay que contar las soluciones enteras de
+\[
+  x_1+x_2+\cdots+x_6 = 4,\qquad 0\le x_i\le 2 .
+\]
+Por barras y estrellas sin la cota superior hay $\binom{4+6-1}{6-1}=\binom{9}{5}=126$ soluciones. Las que violan la cota tienen algún $x_i\ge 3$; fijando cuál ($6$ maneras) y sustituyendo $x_i'=x_i-3$, queda $x_1'+\cdots+x_6'=1$, con $\binom{1+5}{5}=\binom{6}{5}=6$ soluciones, o sea $6\cdot 6=36$ violaciones. No puede haber dos índices con $x_i\ge 3$ porque eso sumaría al menos $6>4$. Por inclusión--exclusión quedan $126-36=90$ repartos válidos.
+
+\textbf{Etapa 3:} colocar las $4$ femeninas distintas en las casillas del reparto: $4!=24$.
+
+\medskip
+\[
+  N = \underbrace{5!}_{\text{Etapa 1}}\cdot \underbrace{90}_{\text{Etapa 2}} \cdot \underbrace{4!}_{\text{Etapa 3}} = 120\cdot 90\cdot 24 = 10\,800\cdot 24 = 259\,200 .
+\]
+
+\textbf{¿De dónde sale?} El $5$ y el $4$ son los del enunciado; el $6$ es el número de espacios; el $2$ es la cota que impone ``menos de tres consecutivas''.
+
+\textbf{¿Por qué?} La equivalencia clave es que dos femeninas quedan consecutivas exactamente cuando comparten espacio, así que tres consecutivas equivale a tres en un mismo espacio; prohibir eso es exactamente $x_i\le 2$.
+
+\textbf{¿Qué tomamos?} Se confirma $N=259\,200$, en concordancia con el Paso 6 y con la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+Con esto, hay
+\[
+  9! - \left[\binom{4}{3}3!\left(7!-6!\cdot 2\right) + 4!\,6!\right] = 362\,880-\left(86\,400+17\,280\right) = \mathbf{259\,200}
+\]
+maneras de ordenar a los modelos con la condición dada, valor confirmado por la vía de los espacios $5!\cdot 90\cdot 4! = 259\,200$. Coincide con la respuesta oficial R/ 259200.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 40}
+\addcontentsline{toc}{subsection}{Ejercicio 40}
+
+\begin{quote}
+En una formación aérea participan 3 aviones kamikaze y 4 aviones de escolta, todos distintos, que deben alinearse para una misión. Determine de cuántas maneras se pueden ordenar si se requiere que haya al menos un avión de escolta entre dos kamikaze. \hfill R/ 1440
+\end{quote}
+
+\emph{Este ejercicio se resolverá por etapas, con la técnica de los espacios.}
+
+\begin{paso}{Paso 1 --- Traducir la condición a no adyacencia}
+\textbf{Qué hago:} reformulo la exigencia del enunciado.
+
+Hay $3+4=7$ aviones distintos en una formación lineal de $7$ posiciones. Que haya al menos un avión de escolta entre dos kamikaze significa que dos kamikaze nunca ocupan posiciones contiguas: si lo hicieran no habría nada entre ellos.
+
+\textbf{¿De dónde sale?} Del enunciado: $3$ kamikaze, $4$ escoltas, ``todos distintos'' (lo que garantiza objetos distinguibles) y disposición en línea.
+
+\textbf{¿Por qué?} Como los únicos aviones que no son kamikaze son escoltas, cualquier avión situado entre dos kamikaze es necesariamente de escolta; por eso la condición se reduce sin pérdida a ``kamikaze no adyacentes'', que es el patrón de la técnica de los espacios.
+
+\textbf{¿Qué tomamos?} Se anota: escoltas como objetos no restringidos, kamikaze como objetos restringidos.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Etapa 1: alinear las escoltas y contar los espacios}
+\textbf{Qué hago:} coloco primero los cuatro aviones de escolta.
+\[
+  \square\; E \;\square\; E \;\square\; E \;\square\; E \;\square
+\]
+
+\medskip
+\textbf{Etapa 1:} alinear los $4$ aviones de escolta: $4!=24$. Esto genera $4+1=5$ espacios.
+
+\textbf{¿De dónde sale?} El $4$ es la cantidad de escoltas del enunciado; el $5$ es $4+1$, contando el espacio de la punta izquierda, los tres intermedios y el de la punta derecha.
+
+\textbf{¿Por qué?} Las escoltas son aviones distintos (``todos distintos''), así que su orden interno produce formaciones distintas y aporta $4!$.
+
+\textbf{¿Qué tomamos?} Se toma $4!=24$ y $5$ espacios.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Etapa 2: escoger los espacios de los kamikaze}
+\textbf{Qué hago:} elijo cuáles tres de los cinco espacios se usan.
+
+\medskip
+\textbf{Etapa 2:} escoger de los $5$ espacios los $3$ que ocuparán los kamikaze:
+\[
+  \underbrace{\binom{5}{3}}_{\text{3 espacios de los 5}} = \frac{5!}{3!\,2!} = \frac{5\cdot 4}{2} = 10 .
+\]
+
+\textbf{¿De dónde sale?} El $5$ es el número de espacios del Paso 2 y el $3$ la cantidad de kamikaze del enunciado.
+
+\textbf{¿Por qué?} Se exige un kamikaze por espacio como máximo porque dos kamikaze en el mismo espacio quedarían pegados, que es justo lo prohibido. En esta etapa solo se decide cuáles espacios se ocupan, de ahí la combinación.
+
+\textbf{¿Qué tomamos?} Se toma $\binom{5}{3}=10$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Etapa 3: colocar los kamikaze en dichos espacios}
+\textbf{Qué hago:} asigno los tres kamikaze a los tres espacios elegidos.
+
+\medskip
+\textbf{Etapa 3:} colocar los $3$ kamikaze en los espacios seleccionados: $3!=6$.
+
+\textbf{¿De dónde sale?} El $3$ es la cantidad de kamikaze; los espacios ya quedaron fijados en la Etapa 2.
+
+\textbf{¿Por qué?} Los kamikaze son aviones distintos y cambiar cuál va en cuál espacio produce otra formación. El producto de las Etapas 2 y 3 reconstruye $\binom{5}{3}\cdot 3! = P(5,3) = 60$.
+
+\textbf{¿Qué tomamos?} Se toma $3!=6$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Producto de las tres etapas}
+\textbf{Qué hago:} aplico el principio del producto.
+\[
+  N \;=\; \underbrace{4!}_{\text{Etapa 1: escoltas}} \cdot \underbrace{\binom{5}{3}}_{\text{Etapa 2: espacios}} \cdot \underbrace{3!}_{\text{Etapa 3: kamikaze}} \;=\; 24\cdot 10\cdot 6 .
+\]
+
+\textbf{¿De dónde sale?} Los tres factores son las Etapas 1, 2 y 3.
+
+\textbf{¿Por qué?} El número de opciones de cada etapa no depende de las anteriores: los espacios son siempre $5$ sea cual sea el orden de las escoltas, y las asignaciones de kamikaze son siempre $3!$ sean cuales sean los espacios elegidos. La correspondencia es biyectiva: de una formación válida se leen sin ambigüedad el orden de las escoltas, los espacios usados y el kamikaze de cada espacio.
+
+\textbf{¿Qué tomamos?} Se toma
+\[
+  24\cdot 10 = 240,\qquad N = 240\cdot 6 = 1440 .
+\]
+\end{paso}
+
+\begin{resp}
+Con esto, hay $\;4!\cdot\dbinom{5}{3}\cdot 3! = 24\cdot 10\cdot 6=\mathbf{1440}\;$ maneras de ordenar la formación con la condición dada. Coincide con la respuesta oficial R/ 1440.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 41}
+\addcontentsline{toc}{subsection}{Ejercicio 41}
+
+\begin{quote}
+Cuántos números telefónicos de siete dígitos se pueden construir con los números del 0 al 9 si:\\[2pt]
+(a) No hay restricciones. \hfill R/ 10000000\\
+(b) Los números no pueden iniciar con 0,1,3 ni 8. \hfill R/ 6000000\\
+(c) Los números no se pueden repetir, deben empezar con uno o dos y deben terminar en un número par. \hfill R/ 60480
+\end{quote}
+
+\emph{Los apartados (a) y (b) se resuelven por etapas; el apartado (c) se resolverá por casos, porque el dígito $2$ cumple a la vez la condición inicial y la final.}
+
+\begin{paso}{Paso 1 --- Fijar el modelo común a los tres incisos}
+\textbf{Qué hago:} describo el objeto contado y el alfabeto disponible.
+
+Un número telefónico es una sucesión ordenada de $7$ dígitos $d_1d_2d_3d_4d_5d_6d_7$, cada uno tomado del conjunto
+\[
+  D=\{0,1,2,3,4,5,6,7,8,9\},\qquad |D|=10 .
+\]
+
+\textbf{¿De dónde sale?} Del enunciado: ``siete dígitos'' da las $7$ posiciones y ``con los números del 0 al 9'' da $|D|=10$.
+
+\textbf{¿Por qué?} El orden importa porque las posiciones son distinguibles (un teléfono $2345678$ no es el mismo que $8765432$), así que todo se cuenta con producto o permutaciones, nunca con combinaciones solas. Nótese que, a diferencia de un número entero corriente, aquí sí se admite que la primera cifra sea $0$ salvo que el enunciado lo prohíba, porque un teléfono es una cadena de dígitos.
+
+\textbf{¿Qué tomamos?} Se anotan $7$ posiciones y $|D|=10$ símbolos.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a): repetición permitida en las siete posiciones}
+\textbf{Qué hago:} multiplico las opciones de cada posición.
+
+\medskip
+\textbf{Etapas 1 a 7:} escoger el dígito de cada una de las siete posiciones, con $10$ opciones cada vez.
+
+\medskip
+\[
+  N_a \;=\; \underbrace{10}_{d_1}\cdot \underbrace{10}_{d_2}\cdot \underbrace{10}_{d_3}\cdot \underbrace{10}_{d_4}\cdot \underbrace{10}_{d_5}\cdot \underbrace{10}_{d_6}\cdot \underbrace{10}_{d_7} \;=\; 10^7 .
+\]
+
+\textbf{¿De dónde sale?} Cada $10$ es $|D|$ del Paso 1; hay siete factores porque hay siete posiciones.
+
+\textbf{¿Por qué?} Como el enunciado no prohíbe repetir, elegir un dígito no lo elimina para las posiciones siguientes: el número de opciones de cada etapa es siempre $10$, independiente de lo elegido antes, que es la hipótesis exacta del principio del producto. Por eso \emph{no} se usa $P(10,7)$, que supondría dígitos distintos.
+
+\textbf{¿Qué tomamos?} Se toma $N_a = 10^7 = 10\,000\,000$, es decir un $1$ seguido de siete ceros.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (b): restringir solo la primera posición}
+\textbf{Qué hago:} calculo el subconjunto admisible para $d_1$ y dejo el resto libre.
+\[
+  D_1 = D\setminus\{0,1,3,8\} = \{2,4,5,6,7,9\},\qquad |D_1| = 10-4 = 6 .
+\]
+
+\medskip
+\textbf{Etapa 1:} escoger el dígito inicial dentro de $D_1$: $\displaystyle\binom{6}{1}=6$.
+
+\textbf{Etapa 2:} escoger los seis dígitos restantes, con repetición permitida: $10^6 = 1\,000\,000$.
+
+\medskip
+\[
+  N_b \;=\; \underbrace{\binom{6}{1}}_{d_1\in D_1}\cdot \underbrace{10^6}_{d_2\cdots d_7} \;=\; 6\cdot 1\,000\,000 .
+\]
+
+\textbf{¿De dónde sale?} El $10$ es $|D|$; el $4$ es la cantidad de dígitos prohibidos que lista el enunciado ($0$, $1$, $3$ y $8$). El exponente $6$ es $7-1$: las posiciones que quedan sin restricción.
+
+\textbf{¿Por qué?} Se resta $4$ porque los cuatro dígitos prohibidos son distintos entre sí y todos pertenecen a $D$, de modo que quitarlos elimina exactamente cuatro elementos (complemento aplicado al conjunto de símbolos). Las seis posiciones restantes siguen admitiendo los $10$ dígitos, porque la repetición sigue permitida y la prohibición se refiere solo al inicio.
+
+\textbf{¿Qué tomamos?} Se toma $N_b = 6\,000\,000$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (c): justificar la separación en casos}
+\textbf{Qué hago:} escribo las tres condiciones y detecto la interferencia.
+\begin{itemize}[leftmargin=*]
+  \item Sin repetición: los siete dígitos son distintos entre sí.
+  \item $d_1\in\{1,2\}$ (``deben empezar con uno o dos'').
+  \item $d_7\in Par=\{0,2,4,6,8\}$, con $|Par|=5$ (``deben terminar en un número par'').
+\end{itemize}
+Se toman dos casos:
+\[
+  \text{Caso I: } d_1=1,\qquad\qquad \text{Caso II: } d_1=2 .
+\]
+
+\textbf{¿De dónde sale?} Las tres condiciones vienen literalmente del inciso; el conjunto $Par$ son los cinco dígitos pares de $D$.
+
+\textbf{¿Por qué?} El dígito $2$ pertenece a los dos conjuntos $\{1,2\}$ y $Par$. Por eso el número de opciones de la posición final depende de qué se puso en la inicial, y el principio del producto no se puede aplicar de un solo golpe; hay que partir en casos según $d_1$, igual que en el Ejercicio 34(b). Los dos casos son excluyentes (un número tiene un solo primer dígito) y exhaustivos (el enunciado solo admite esos dos).
+
+\textbf{¿Qué tomamos?} Se anota $N_c = |\text{Caso I}|+|\text{Caso II}|$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (c), Caso I: los números que empiezan con $1$}
+\textbf{Qué hago:} resuelvo el Caso I por etapas.
+
+\medskip
+\textbf{Etapa 1:} colocar el dígito $1$ en la primera posición: $1$.
+
+\textbf{Etapa 2:} escoger el dígito par de la última posición, con $Par$ intacto: $\displaystyle\binom{5}{1}=5$.
+
+\textbf{Etapa 3:} colocar cinco de los $8$ dígitos restantes en las posiciones $d_2,\dots,d_6$:
+\[
+  P(8,5)=\frac{8!}{3!}=8\cdot 7\cdot 6\cdot 5\cdot 4 .
+\]
+
+\medskip
+\[
+  |\text{Caso I}| \;=\; \underbrace{1}_{d_1=1}\cdot \underbrace{\binom{5}{1}}_{d_7\in Par} \cdot \underbrace{\frac{8!}{3!}}_{d_2\cdots d_6} \;=\; 1\cdot 5\cdot 6720 \;=\; 33\,600 .
+\]
+
+\textbf{¿De dónde sale?} El $5$ es $|Par|$, disponible entero porque el dígito $1$ es impar y no gastó ningún par. El $8$ es $10-2$: los dígitos que quedan tras gastar uno en $d_1$ y otro en $d_7$; el $5$ del segundo argumento son las posiciones $d_2,\dots,d_6$, que son $7-2=5$.
+
+\textbf{¿Por qué?} Dentro del caso las etapas ya son independientes: fijados $d_1$ y $d_7$, siempre quedan $8$ dígitos distintos para $5$ posiciones ordenadas. Se usa $P$ y no $\binom{}{}$ porque las posiciones centrales son distinguibles, y permutación y no potencia porque ahora está prohibido repetir.
+
+\textbf{¿Qué tomamos?} Se toma el desglose $8\cdot 7=56$; $56\cdot 6=336$; $336\cdot 5=1680$; $1680\cdot 4=6720$; luego $|\text{Caso I}|=5\cdot 6720 = 33\,600$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso (c), Caso II: los números que empiezan con $2$}
+\textbf{Qué hago:} resuelvo el Caso II por etapas.
+
+\medskip
+\textbf{Etapa 1:} colocar el dígito $2$ en la primera posición: $1$.
+
+\textbf{Etapa 2:} escoger el dígito par de la última posición, de $Par\setminus\{2\}$: $\displaystyle\binom{4}{1}=4$.
+
+\textbf{Etapa 3:} colocar cinco de los $8$ dígitos restantes en $d_2,\dots,d_6$: $P(8,5)=6720$.
+
+\medskip
+\[
+  |\text{Caso II}| \;=\; \underbrace{1}_{d_1=2}\cdot \underbrace{\binom{4}{1}}_{d_7\in Par\setminus\{2\}} \cdot \underbrace{\frac{8!}{3!}}_{d_2\cdots d_6} \;=\; 1\cdot 4\cdot 6720 \;=\; 26\,880 .
+\]
+
+\textbf{¿De dónde sale?} El $4$ es $|Par|-1=5-1$, porque el dígito $2$ ya se usó en $d_1$. El $6720$ es el mismo $P(8,5)$ del Paso 5, pues también aquí quedan $8$ dígitos para $5$ posiciones.
+
+\textbf{¿Por qué?} Es exactamente la corrección que motivó la separación en casos: la Etapa 2 tiene una opción menos que en el Caso I.
+
+\textbf{¿Qué tomamos?} Se toma $4\cdot 6720 = 26\,880$.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Inciso (c): sumar los casos excluyentes}
+\textbf{Qué hago:} aplico el principio de la suma.
+\[
+  N_c = |\text{Caso I}|+|\text{Caso II}| = 33\,600 + 26\,880 = 60\,480 .
+\]
+
+\textbf{¿De dónde sale?} Los dos subtotales de los Pasos 5 y 6.
+
+\textbf{¿Por qué?} Un mismo número telefónico no puede empezar a la vez con $1$ y con $2$, así que los casos son excluyentes y la suma no duplica nada.
+
+\textbf{¿Qué tomamos?} Se toma el desglose $33\,600+26\,880 = 33\,600+26\,000+880 = 59\,600+880 = 60\,480$.
+\end{paso}
+
+\begin{resp}
+(a) $10^7=\mathbf{10\,000\,000}$.\\[2pt]
+(b) $\dbinom{6}{1}\cdot 10^6=6\cdot 1\,000\,000=\mathbf{6\,000\,000}$.\\[2pt]
+(c) $\dbinom{5}{1}P(8,5) + \dbinom{4}{1}P(8,5) = 33\,600+26\,880 = \mathbf{60\,480}$. Los tres coinciden con R/ 10000000, R/ 6000000 y R/ 60480.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 42}
+\addcontentsline{toc}{subsection}{Ejercicio 42}
+
+\begin{quote}
+Un colegio tiene 16 grupos de séptimo, 11 grupos de octavo y 9 grupos de noveno. Se desea elegir cinco grupos del tercer ciclo para que asistan a una actividad. De cuántas maneras se pueden elegir cinco grupos si:\\[2pt]
+(a) No hay restricciones. \hfill R/ 376992\\
+(b) Se deben elegir dos grupos de séptimo, dos de ovtavo y uno de noveno. \hfill R/ 59400\\
+(c) Se deben elegir al menos tres grupos de séptimo. \hfill R/ 147168\\
+(d) Se deben elegir a lo sumo dos grupos de octavo. \hfill R/ 318780\\
+(e) Se debe elegir por lo menos un grupo de cada nivel. \hfill R/ 232584
+\end{quote}
+
+\emph{Los apartados (a) y (b) se resuelven por etapas; (c) y (d) por casos; (e) es engañoso, pues si se plantea como (b) se produce reconteo, y la forma correcta es utilizando el principio de inclusión--exclusión.}
+
+\begin{paso}{Paso 1 --- Modelar el universo y decidir orden sí / orden no}
+\textbf{Qué hago:} nombro los tres conjuntos de grupos y el universo total.
+\[
+  |S| = 16 \ (\text{séptimo}),\qquad |O| = 11 \ (\text{octavo}),\qquad |N| = 9 \ (\text{noveno}),
+\]
+\[
+  |\Omega_{\text{grupos}}| = |S|+|O|+|N| = 16+11+9 = 36 .
+\]
+Un resultado es un subconjunto de tamaño $5$ del conjunto de los $36$ grupos.
+
+\textbf{¿De dónde sale?} Los tres tamaños son los del enunciado; el $36$ es su suma: $16+11=27$ y $27+9=36$.
+
+\textbf{¿Por qué?} La suma es legítima porque los tres niveles son disjuntos: un grupo es de séptimo, o de octavo, o de noveno, nunca de dos a la vez. Como el grupo elegido no necesita algún orden (los cinco grupos van todos a la misma actividad, sin papeles distinguidos), se usan combinaciones.
+
+\textbf{¿Qué tomamos?} Se anotan $|S|=16$, $|O|=11$, $|N|=9$, universo de $36$ grupos y el uso de $\binom{n}{r}$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a), Etapa única: elegir cinco grupos cualesquiera}
+\textbf{Qué hago:} aplico la combinación sobre el universo completo.
+
+\medskip
+\textbf{Etapa 1:} escoger los $5$ grupos entre los $36$ disponibles:
+\[
+  N_a \;=\; \underbrace{\binom{36}{5}}_{\text{5 grupos de los 36}} \;=\; \frac{36!}{5!\,31!} \;=\; \frac{36\cdot 35\cdot 34\cdot 33\cdot 32}{5\cdot 4\cdot 3\cdot 2\cdot 1} .
+\]
+
+\textbf{¿De dónde sale?} El $36$ es el tamaño del universo del Paso 1 y el $5$ es el tamaño de la selección pedida.
+
+\textbf{¿Por qué?} $P(36,5)$ contaría las listas ordenadas de cinco grupos y cada selección aparecería $5!$ veces; dividir entre $5!=120$ deja el conteo de subconjuntos.
+
+\textbf{¿Qué tomamos?} Se toma el numerador por partes:
+\[
+  36\cdot 35 = 1260,\quad 1260\cdot 34 = 42\,840,\quad 42\,840\cdot 33 = 1\,413\,720,\quad 1\,413\,720\cdot 32 = 45\,239\,040 ,
+\]
+y con $5!=120$,
+\[
+  N_a = \frac{45\,239\,040}{120} = 376\,992 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (b): fijar la composición por niveles, por etapas}
+\textbf{Qué hago:} elijo por separado dentro de cada nivel y multiplico.
+
+\medskip
+\textbf{Etapa 1:} seleccionar los grupos de séptimo: $\displaystyle\binom{16}{2}=\frac{16\cdot 15}{2}=\frac{240}{2}=120$.
+
+\textbf{Etapa 2:} seleccionar los grupos de octavo: $\displaystyle\binom{11}{2}=\frac{11\cdot 10}{2}=\frac{110}{2}=55$.
+
+\textbf{Etapa 3:} seleccionar el grupo de noveno: $\displaystyle\binom{9}{1}=9$.
+
+\medskip
+\[
+  N_b \;=\; \underbrace{\binom{16}{2}}_{\text{2 de séptimo}}\cdot \underbrace{\binom{11}{2}}_{\text{2 de octavo}}\cdot \underbrace{\binom{9}{1}}_{\text{1 de noveno}} \;=\; 120\cdot 55\cdot 9 .
+\]
+
+\textbf{¿De dónde sale?} Los números $16$, $11$ y $9$ son los tamaños de $S$, $O$ y $N$; los números $2$, $2$ y $1$ son las cantidades que exige el inciso, y se comprueba que $2+2+1=5$, el total pedido.
+
+\textbf{¿Por qué?} Se multiplica porque las tres selecciones conviven en un mismo resultado (hay que elegir de séptimo \emph{y} de octavo \emph{y} de noveno) y son independientes: escoger dos grupos de séptimo no reduce la lista de grupos de octavo, porque los niveles son conjuntos disjuntos. Dentro de cada nivel el orden no importa, de ahí las combinaciones.
+
+\textbf{¿Qué tomamos?} Se toma $N_b = 120\cdot 55\cdot 9 = 6600\cdot 9 = 59\,400$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (c): separar ``al menos tres de séptimo'' en casos excluyentes}
+\textbf{Qué hago:} clasifico las selecciones según la cantidad exacta $k$ de grupos de séptimo.
+
+Como se eligen $5$ grupos y ``al menos tres'' significa $k\ge 3$, los valores posibles son $k=3,4,5$. Los grupos que no son de séptimo forman $O\cup N$, con $|O\cup N| = 11+9 = 20$.
+\[
+  \text{Caso I: } k=3,\qquad \text{Caso II: } k=4,\qquad \text{Caso III: } k=5 .
+\]
+
+\textbf{¿De dónde sale?} El $16$ es $|S|$; el $20$ es $|O|+|N|=11+9$, legítimo por ser $O$ y $N$ disjuntos.
+
+\textbf{¿Por qué?} Los tres casos son excluyentes porque una selección tiene una cantidad exacta de grupos de séptimo y no puede tener a la vez $3$ y $4$; y son exhaustivos porque $k\ge 3$ y $k\le 5$. Por eso se suman sin corrección.
+
+\textbf{¿Qué tomamos?} Se anota $N_c = |\text{Caso I}|+|\text{Caso II}|+|\text{Caso III}|$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (c): resolver cada caso por etapas}
+\textbf{Qué hago:} en cada caso, una etapa elige los grupos de séptimo y otra los grupos restantes.
+
+\medskip
+\textbf{Caso I ($k=3$).} Etapa 1: escoger $3$ de séptimo, $\binom{16}{3}=\frac{16\cdot 15\cdot 14}{6}=\frac{3360}{6}=560$. Etapa 2: escoger $2$ de los otros niveles, $\binom{20}{2}=\frac{20\cdot 19}{2}=190$.
+\[
+  |\text{Caso I}| = \underbrace{\binom{16}{3}}_{\text{Etapa 1}}\underbrace{\binom{20}{2}}_{\text{Etapa 2}} = 560\cdot 190 = 56\cdot 19\cdot 100 = 1064\cdot 100 = 106\,400 .
+\]
+
+\textbf{Caso II ($k=4$).} Etapa 1: $\binom{16}{4}=\frac{16\cdot 15\cdot 14\cdot 13}{24}=\frac{43\,680}{24}=1820$. Etapa 2: $\binom{20}{1}=20$.
+\[
+  |\text{Caso II}| = 1820\cdot 20 = 36\,400 .
+\]
+
+\textbf{Caso III ($k=5$).} Etapa 1: $\binom{16}{5}=\frac{16\cdot 15\cdot 14\cdot 13\cdot 12}{120}=\frac{524\,160}{120}=4368$. Etapa 2: $\binom{20}{0}=1$.
+\[
+  |\text{Caso III}| = 4368\cdot 1 = 4368 .
+\]
+
+\textbf{¿De dónde sale?} En cada caso el primer índice inferior es $k$ y el segundo es $5-k$, para completar los cinco grupos; los índices superiores son $16=|S|$ y $20=|O\cup N|$.
+
+\textbf{¿Por qué?} Dentro de cada caso se multiplican las dos etapas porque provienen de conjuntos disjuntos y por tanto son independientes: escoger los grupos de séptimo no altera cuántos grupos de octavo o noveno quedan.
+
+\textbf{¿Qué tomamos?} Se anotan $106\,400$, $36\,400$ y $4368$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso (c): sumar los casos}
+\textbf{Qué hago:} cierro con el principio de la suma.
+\[
+  N_c = 106\,400 + 36\,400 + 4368 = 142\,800 + 4368 = 147\,168 .
+\]
+
+\textbf{¿De dónde sale?} Los tres subtotales del Paso 5.
+
+\textbf{¿Por qué?} Como estos tres casos son excluyentes, sus cantidades se suman directamente.
+
+\textbf{¿Qué tomamos?} Se toma $N_c = 147\,168$.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Inciso (d): separar ``a lo sumo dos de octavo'' en casos excluyentes}
+\textbf{Qué hago:} clasifico según la cantidad exacta $j$ de grupos de octavo, con $j=0,1,2$.
+
+Los grupos que no son de octavo forman $S\cup N$, con $|S\cup N| = 16+9 = 25$.
+
+\medskip
+\textbf{Caso I ($j=0$).} Etapa 1: escoger $0$ de octavo, $\binom{11}{0}=1$. Etapa 2: escoger $5$ de los otros niveles,
+\[
+  \binom{25}{5}=\frac{25\cdot 24\cdot 23\cdot 22\cdot 21}{120} = \frac{6\,375\,600}{120} = 53\,130 .
+\]
+\[
+  |\text{Caso I}| = 1\cdot 53\,130 = 53\,130 .
+\]
+
+\textbf{Caso II ($j=1$).} Etapa 1: $\binom{11}{1}=11$. Etapa 2: $\binom{25}{4}=\frac{25\cdot 24\cdot 23\cdot 22}{24}=\frac{303\,600}{24}=12\,650$.
+\[
+  |\text{Caso II}| = 11\cdot 12\,650 = 126\,500 + 12\,650 = 139\,150 .
+\]
+
+\textbf{Caso III ($j=2$).} Etapa 1: $\binom{11}{2}=55$. Etapa 2: $\binom{25}{3}=\frac{25\cdot 24\cdot 23}{6}=\frac{13\,800}{6}=2300$.
+\[
+  |\text{Caso III}| = 55\cdot 2300 = 55\cdot 23\cdot 100 = 1265\cdot 100 = 126\,500 .
+\]
+
+\textbf{¿De dónde sale?} El $11$ es $|O|$ y el $25$ es $|S|+|N|=16+9$. Los índices $5-j$ completan los cinco grupos.
+
+\textbf{¿Por qué?} ``A lo sumo dos'' significa $j\le 2$, y como $j\ge 0$ los únicos valores son $0$, $1$ y $2$: tres casos excluyentes y exhaustivos. También podría hacerse por complemento restando los casos $j=3,4,5$ del total $\binom{36}{5}$; se prefiere la suma directa porque tiene el mismo número de términos y no arrastra la resta.
+
+\textbf{¿Qué tomamos?} Se anotan $53\,130$, $139\,150$ y $126\,500$.
+\end{paso}
+
+\begin{paso}{Paso 8 --- Inciso (d): sumar los casos}
+\textbf{Qué hago:} cierro con el principio de la suma.
+\[
+  N_d = 53\,130 + 139\,150 + 126\,500 = 192\,280 + 126\,500 = 318\,780 .
+\]
+
+\textbf{¿De dónde sale?} Los tres subtotales del Paso 7.
+
+\textbf{¿Por qué?} Cada selección tiene un único valor de $j$, así que los casos no se traslapan.
+
+\textbf{¿Qué tomamos?} Se toma $N_d = 318\,780$.
+\end{paso}
+
+\begin{paso}{Paso 9 --- Inciso (e): plantear la inclusión--exclusión}
+\textbf{Qué hago:} declaro el universo y los conjuntos que representan las condiciones.
+
+Considere:
+\[
+  \Omega = \{\text{maneras de elegir los 5 grupos sin restricción}\},\qquad |\Omega| = \binom{36}{5} = 376\,992 ,
+\]
+\[
+  X_1 = \{x\in\Omega:\ x \text{ tiene al menos un grupo de séptimo}\},
+\]
+\[
+  X_2 = \{x\in\Omega:\ x \text{ tiene al menos un grupo de octavo}\},
+\]
+\[
+  X_3 = \{x\in\Omega:\ x \text{ tiene al menos un grupo de noveno}\} .
+\]
+Lo que se necesita es $|X_1\cap X_2\cap X_3|$. Sin embargo, para facilitar los cálculos se utilizará
+\[
+  |X_1\cap X_2\cap X_3| = |\Omega| - \big|\overline{X_1\cap X_2\cap X_3}\big| = |\Omega| - \big|\overline{X_1}\cup \overline{X_2}\cup \overline{X_3}\big| .
+\]
+
+\textbf{¿De dónde sale?} El $376\,992$ es el resultado del Paso 2; los tres conjuntos salen de leer la condición ``por lo menos un grupo de cada nivel'' nivel por nivel.
+
+\textbf{¿Por qué?} Este apartado es engañoso: si se plantea como el inciso (b) --- reservando un grupo de cada nivel y repartiendo los dos restantes --- se produce \emph{reconteo}, porque una misma selección se obtendría por varias reservas distintas. La forma correcta es la inclusión--exclusión. Se pasa al complemento porque los conjuntos $\overline{X_i}$ (``no hay ningún grupo del nivel $i$'') son fáciles de contar: son combinaciones sobre un universo reducido. La igualdad usada es la ley de De Morgan.
+
+\textbf{¿Qué tomamos?} Se anota
+\[
+  \big|\overline{X_1}\cup \overline{X_2}\cup \overline{X_3}\big| = \big|\overline{X_1}\big|+\big|\overline{X_2}\big|+\big|\overline{X_3}\big| - \big|\overline{X_1}\cap \overline{X_2}\big| - \big|\overline{X_1}\cap \overline{X_3}\big| - \big|\overline{X_2}\cap \overline{X_3}\big| + \big|\overline{X_1}\cap \overline{X_2}\cap \overline{X_3}\big| .
+\]
+\end{paso}
+
+\begin{paso}{Paso 10 --- Inciso (e): calcular cada cardinalidad por separado}
+\textbf{Qué hago:} traduzco cada término a una combinación sobre el universo que sobrevive.
+\[
+  \big|\overline{X_1}\big| = \underbrace{\binom{20}{5}}_{\text{sin séptimo: }11+9=20} = \frac{20\cdot 19\cdot 18\cdot 17\cdot 16}{120}=\frac{1\,860\,480}{120}=15\,504 ,
+\]
+\[
+  \big|\overline{X_2}\big| = \underbrace{\binom{25}{5}}_{\text{sin octavo: }16+9=25} = 53\,130 ,
+\]
+\[
+  \big|\overline{X_3}\big| = \underbrace{\binom{27}{5}}_{\text{sin noveno: }16+11=27} = \frac{27\cdot 26\cdot 25\cdot 24\cdot 23}{120}=\frac{9\,687\,600}{120}=80\,730 ,
+\]
+\[
+  \big|\overline{X_1}\cap \overline{X_2}\big| = \underbrace{\binom{9}{5}}_{\text{todo de noveno}} = \frac{9\cdot 8\cdot 7\cdot 6\cdot 5}{120}=\frac{15\,120}{120}=126 ,
+\]
+\[
+  \big|\overline{X_1}\cap \overline{X_3}\big| = \underbrace{\binom{11}{5}}_{\text{todo de octavo}} = \frac{11\cdot 10\cdot 9\cdot 8\cdot 7}{120}=\frac{55\,440}{120}=462 ,
+\]
+\[
+  \big|\overline{X_2}\cap \overline{X_3}\big| = \underbrace{\binom{16}{5}}_{\text{todo de séptimo}} = 4368 ,
+\]
+\[
+  \big|\overline{X_1}\cap \overline{X_2}\cap \overline{X_3}\big| = \binom{0}{5} = 0 .
+\]
+
+\textbf{¿De dónde sale?} Cada tamaño superior es la suma de los niveles que sobreviven: $20=11+9$, $25=16+9$, $27=16+11$, y $9$, $11$, $16$ para los términos dobles. El valor $\binom{25}{5}=53\,130$ ya se calculó en el Paso 7 y $\binom{16}{5}=4368$ en el Paso 5. El término triple es $0$ porque prescindir de los tres niveles deja el conjunto vacío, del cual no se pueden extraer cinco grupos.
+
+\textbf{¿Por qué?} Prohibir un nivel no altera la naturaleza del conteo (siguen siendo cinco grupos sin orden), solo reduce el universo; por eso cada término vuelve a ser una combinación.
+
+\textbf{¿Qué tomamos?} Se anotan las siete cardinalidades.
+\end{paso}
+
+\begin{paso}{Paso 11 --- Inciso (e): aritmética final}
+\textbf{Qué hago:} sustituyo en la fórmula y resto del total.
+\[
+  15\,504+53\,130+80\,730 = 68\,634+80\,730 = 149\,364 ,
+\]
+\[
+  126+462+4368 = 588+4368 = 4956 ,
+\]
+\[
+  \big|\overline{X_1}\cup \overline{X_2}\cup \overline{X_3}\big| = 149\,364 - 4956 + 0 = 144\,408 ,
+\]
+\[
+  N_e = |\Omega| - 144\,408 = 376\,992 - 144\,408 = 232\,584 .
+\]
+
+\textbf{¿De dónde sale?} Los sumandos son los del Paso 10 y el $376\,992$ es $|\Omega|$ del Paso 2.
+
+\textbf{¿Por qué?} La resta final es el complemento: una selección o bien cubre los tres niveles, o bien le falta alguno, y esas dos familias son excluyentes y cubren $\Omega$.
+
+\textbf{¿Qué tomamos?} Se toma $N_e = 232\,584$. Desglose de la última resta: $376\,992-144\,408 = 376\,992-144\,000-408 = 232\,992-408 = 232\,584$.
+\end{paso}
+
+\begin{resp}
+(a) $\dbinom{36}{5}=\mathbf{376\,992}$ posibilidades de elegir los cinco grupos.\\[2pt]
+(b) $\dbinom{16}{2}\dbinom{11}{2}\dbinom{9}{1}=120\cdot 55\cdot 9=\mathbf{59\,400}$ maneras con la condición dada.\\[2pt]
+(c) $\dbinom{16}{3}\dbinom{20}{2}+\dbinom{16}{4}\dbinom{20}{1}+\dbinom{16}{5}=106\,400+36\,400+4368=\mathbf{147\,168}$.\\[2pt]
+(d) $\dbinom{25}{5}+11\dbinom{25}{4}+55\dbinom{25}{3}=53\,130+139\,150+126\,500=\mathbf{318\,780}$.\\[2pt]
+(e) $\dbinom{36}{5}-\left[\dbinom{20}{5}+\dbinom{25}{5}+\dbinom{27}{5}\right]+\left[\dbinom{9}{5}+\dbinom{11}{5}+\dbinom{16}{5}\right]=376\,992-149\,364+4956=\mathbf{232\,584}$.\\[2pt]
+Los cinco coinciden con R/ 376992, R/ 59400, R/ 147168, R/ 318780 y R/ 232584.
+\end{resp}
+
+% ==========================================================
+\section*{Ejercicio 43}
+\addcontentsline{toc}{subsection}{Ejercicio 43}
+
+\begin{quote}
+Una asamblea legíslativa está conformada por 33 diputados neoliberales y 20 paternalistas. Se debe hacer una comisión de siete diputados. De cuántas maneras se puede formar la comisión esta tiene:\\[2pt]
+(a) Tres diputados neoliberalistas y cuatro paternalistas. \hfill R/ 26434320\\
+(b) Al menos un diputado de cada fracción. \hfill R/ 149832272\\
+(c) Al menos cinco diputados neoliberales. \hfill R/ 71517248\\
+(d) Al menos tres diputados neoliberales. \hfill R/ 144600368\\
+(e) Suponga que ya se formó la comisión de siete diputados. Ahora se debe nombrar al presidente, al vicepresidente y al secretario de la comisión. \hfill R/ 210
+\end{quote}
+
+\emph{El apartado (a) se resuelve por etapas; el (b) por complemento; los apartados (c) y (d) por casos; el (e) vuelve a ser por etapas, pero ahora con orden.}
+
+\begin{paso}{Paso 1 --- Modelar la asamblea}
+\textbf{Qué hago:} nombro los dos bloques y el universo.
+\[
+  |L| = 33 \ (\text{neoliberales}),\qquad |P| = 20 \ (\text{paternalistas}),\qquad |L|+|P| = 53 .
+\]
+Una comisión es un subconjunto de tamaño $7$ del conjunto de los $53$ diputados.
+
+\textbf{¿De dónde sale?} Los tamaños $33$ y $20$ son los del enunciado; el $53$ es su suma.
+
+\textbf{¿Por qué?} Los dos bloques son disjuntos (un diputado pertenece a una sola fracción), lo que valida la suma y, más adelante, la independencia de las elecciones dentro de cada bloque. En los incisos (a) a (d) el orden no importa: los siete miembros de la comisión no tienen todavía cargos diferenciados; por eso se usan combinaciones. El inciso (e) cambia esa situación y se tratará aparte.
+
+\textbf{¿Qué tomamos?} Se anotan $|L|=33$, $|P|=20$, universo de $53$ diputados, comisiones de tamaño $7$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a): composición fijada, por etapas}
+\textbf{Qué hago:} elijo dentro de cada bloque y multiplico.
+
+\medskip
+\textbf{Etapa 1:} seleccionar los diputados neoliberales de la comisión:
+\[
+  \binom{33}{3}=\frac{33\cdot 32\cdot 31}{6} = \frac{32\,736}{6} = 5456 .
+\]
+
+\textbf{Etapa 2:} seleccionar los diputados paternalistas de la comisión:
+\[
+  \binom{20}{4}=\frac{20\cdot 19\cdot 18\cdot 17}{24} = \frac{116\,280}{24} = 4845 .
+\]
+
+\medskip
+\[
+  N_a \;=\; \underbrace{\binom{33}{3}}_{\text{Etapa 1}}\cdot \underbrace{\binom{20}{4}}_{\text{Etapa 2}} \;=\; 5456\cdot 4845 .
+\]
+
+\textbf{¿De dónde sale?} El $33$ y el $20$ son los tamaños de los bloques; el $3$ y el $4$ son las cantidades que pide el inciso, y $3+4=7$, el tamaño de la comisión.
+
+\textbf{¿Por qué?} Se multiplica porque ambas selecciones ocurren en la misma comisión y son independientes: escoger tres neoliberales no reduce la lista de paternalistas, al ser bloques disjuntos. Dentro de cada bloque el orden no importa, de ahí las combinaciones.
+
+\textbf{¿Qué tomamos?} Se toma el desglose del producto:
+\[
+  5456\cdot 4000 = 21\,824\,000,\quad 5456\cdot 800 = 4\,364\,800,\quad 5456\cdot 45 = 245\,520 ,
+\]
+\[
+  N_a = 21\,824\,000+4\,364\,800+245\,520 = 26\,188\,800+245\,520 = 26\,434\,320 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (b): plantear el complemento}
+\textbf{Qué hago:} niego la condición y describo lo prohibido.
+
+``Al menos un diputado de cada fracción'' falla exactamente cuando la comisión es \emph{toda} de una sola fracción. Eso da dos casos excluyentes de lo prohibido:
+\[
+  \text{Caso I: los 7 son neoliberales},\qquad \text{Caso II: los 7 son paternalistas.}
+\]
+\[
+  N_b \;=\; \underbrace{\binom{53}{7}}_{|\Omega|} \;-\; \underbrace{\binom{33}{7}}_{\text{Caso I}} \;-\; \underbrace{\binom{20}{7}}_{\text{Caso II}} .
+\]
+
+\textbf{¿De dónde sale?} El $53$ es el tamaño del universo, el $33$ es $|L|$ y el $20$ es $|P|$; el $7$ es el tamaño de la comisión.
+
+\textbf{¿Por qué?} Los dos casos prohibidos son excluyentes: con siete miembros una comisión no puede ser a la vez toda neoliberal y toda paternalista, así que se restan por separado sin ningún término de corrección.
+
+\textbf{¿Qué tomamos?} Se toman, con $7!=5040$,
+\[
+  \binom{53}{7}=\frac{53\cdot 52\cdot 51\cdot 50\cdot 49\cdot 48\cdot 47}{5040} = \frac{776\,881\,123\,200}{5040} = 154\,143\,080 ,
+\]
+\[
+  \binom{33}{7}=\frac{33\cdot 32\cdot 31\cdot 30\cdot 29\cdot 28\cdot 27}{5040} = \frac{21\,531\,121\,920}{5040} = 4\,272\,048 ,
+\]
+\[
+  \binom{20}{7}=\frac{20\cdot 19\cdot 18\cdot 17\cdot 16\cdot 15\cdot 14}{5040} = \frac{390\,700\,800}{5040} = 77\,520 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (b): aritmética}
+\textbf{Qué hago:} ejecuto las dos restas.
+\[
+  154\,143\,080 - 4\,272\,048 = 149\,871\,032 ,
+\]
+\[
+  N_b = 149\,871\,032 - 77\,520 = 149\,793\,512 .
+\]
+
+\textbf{¿De dónde sale?} Los tres números son las combinaciones del Paso 3.
+
+\textbf{¿Por qué?} Restar es válido porque las comisiones monocolor forman dos familias excluyentes contenidas en el total.
+
+\textbf{¿Qué tomamos?} Se toma $N_b = 149\,793\,512$.
+
+\emph{Verificación independiente por casos:} sumando directamente los casos excluyentes según la cantidad $k$ de neoliberales, con $1\le k\le 6$,
+\[
+  \sum_{k=1}^{6} \binom{33}{k}\binom{20}{7-k} = 149\,793\,512 ,
+\]
+el mismo valor, lo que confirma el cálculo por complemento.
+\end{paso}
+
+\begin{nota}
+\textbf{Discrepancia con la respuesta oficial del inciso (b).} La respuesta oficial es $149\,832\,272$, mientras que el desarrollo da $149\,793\,512$. La diferencia es
+\[
+  149\,832\,272 - 149\,793\,512 = 38\,760 = \binom{20}{6} .
+\]
+El origen del desajuste se identifica exactamente: si en la resta se emplea $\binom{20}{6}=38\,760$ en lugar de $\binom{20}{7}=77\,520$, se obtiene
+\[
+  154\,143\,080 - 4\,272\,048 - 38\,760 = 149\,832\,272 ,
+\]
+que es justo el valor oficial. Es decir, la respuesta del folleto corresponde a haber restado $\binom{20}{6}$ donde correspondía $\binom{20}{7}$. El conteo correcto de comisiones formadas íntegramente por paternalistas es $\binom{20}{7}=77\,520$, porque la comisión tiene siete miembros y todos deben salir de los $20$ paternalistas. Se conserva la respuesta oficial tal como aparece en el enunciado y se deja constancia de que el valor obtenido por dos métodos independientes (complemento y suma directa sobre $k=1,\dots,6$) es $\mathbf{149\,793\,512}$.
+\end{nota}
+
+\begin{paso}{Paso 5 --- Inciso (c): separar ``al menos cinco neoliberales'' en casos}
+\textbf{Qué hago:} clasifico las comisiones según la cantidad exacta $k$ de neoliberales, con $k=5,6,7$, y resuelvo cada caso por etapas.
+
+\medskip
+\textbf{Caso I ($k=5$).} Etapa 1: escoger $5$ neoliberales, $\binom{33}{5}=\frac{33\cdot 32\cdot 31\cdot 30\cdot 29}{120}=237\,336$. Etapa 2: escoger $2$ paternalistas, $\binom{20}{2}=\frac{20\cdot 19}{2}=190$.
+\[
+  |\text{Caso I}| = 237\,336\cdot 190 = 237\,336\cdot 19\cdot 10 = 4\,509\,384\cdot 10 = 45\,093\,840 .
+\]
+
+\textbf{Caso II ($k=6$).} Etapa 1: $\binom{33}{6}=\frac{33\cdot 32\cdot 31\cdot 30\cdot 29\cdot 28}{720}=1\,107\,568$. Etapa 2: $\binom{20}{1}=20$.
+\[
+  |\text{Caso II}| = 1\,107\,568\cdot 20 = 22\,151\,360 .
+\]
+
+\textbf{Caso III ($k=7$).} Etapa 1: $\binom{33}{7}=4\,272\,048$. Etapa 2: $\binom{20}{0}=1$.
+\[
+  |\text{Caso III}| = 4\,272\,048 .
+\]
+
+\textbf{¿De dónde sale?} El $33$ y el $20$ son los tamaños de los bloques; los índices $k$ y $7-k$ reparten los siete puestos entre las dos fracciones. El valor $\binom{33}{7}=4\,272\,048$ ya se calculó en el Paso 3.
+
+\textbf{¿Por qué?} Los casos son excluyentes porque cada comisión tiene una cantidad exacta de neoliberales, y exhaustivos porque $k\ge 5$ y $k\le 7$ (no puede haber más de siete miembros). Dentro de cada caso se multiplican las dos etapas por la independencia de los bloques disjuntos.
+
+\textbf{¿Qué tomamos?} Se anotan $45\,093\,840$, $22\,151\,360$ y $4\,272\,048$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso (c): sumar los casos}
+\textbf{Qué hago:} cierro con el principio de la suma.
+\[
+  N_c = 45\,093\,840 + 22\,151\,360 + 4\,272\,048 = 67\,245\,200 + 4\,272\,048 = 71\,517\,248 .
+\]
+
+\textbf{¿De dónde sale?} Los tres subtotales del Paso 5.
+
+\textbf{¿Por qué?} Como estos tres casos son excluyentes, sus cantidades se suman directamente.
+
+\textbf{¿Qué tomamos?} Se toma $N_c = 71\,517\,248$, que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Inciso (d): agregar los casos $k=3$ y $k=4$}
+\textbf{Qué hago:} extiendo la separación en casos a $k\ge 3$.
+
+\medskip
+\textbf{Caso IV ($k=3$).} Etapa 1: $\binom{33}{3}=5456$. Etapa 2: $\binom{20}{4}=4845$.
+\[
+  |\text{Caso IV}| = 5456\cdot 4845 = 26\,434\,320 \quad(\text{ya calculado en el Paso 2}) .
+\]
+
+\textbf{Caso V ($k=4$).} Etapa 1: $\binom{33}{4}=\frac{33\cdot 32\cdot 31\cdot 30}{24}=\frac{982\,080}{24}=40\,920$. Etapa 2: $\binom{20}{3}=\frac{20\cdot 19\cdot 18}{6}=\frac{6840}{6}=1140$.
+\[
+  |\text{Caso V}| = 40\,920\cdot 1140 = 40\,920\cdot 1000 + 40\,920\cdot 140 = 40\,920\,000 + 5\,728\,800 = 46\,648\,800 .
+\]
+
+\textbf{¿De dónde sale?} La estructura es la misma del Paso 5; solo cambia el rango de $k$, que ahora empieza en $3$ por decir el inciso ``al menos tres''.
+
+\textbf{¿Por qué?} Como los casos $k=3,4,5,6,7$ son excluyentes dos a dos, se puede reutilizar el total $N_c$ ya calculado para $k=5,6,7$ y agregarle los dos casos nuevos sin riesgo de duplicar.
+
+\textbf{¿Qué tomamos?} Se anotan $26\,434\,320$ y $46\,648\,800$.
+\end{paso}
+
+\begin{paso}{Paso 8 --- Inciso (d): sumar los cinco casos}
+\textbf{Qué hago:} cierro con el principio de la suma.
+\[
+  N_d = \sum_{k=3}^{7} \binom{33}{k}\binom{20}{7-k} = \underbrace{71\,517\,248}_{k=5,6,7} + \underbrace{26\,434\,320}_{k=3} + \underbrace{46\,648\,800}_{k=4} .
+\]
+\[
+  71\,517\,248 + 26\,434\,320 = 97\,951\,568 ,\qquad
+  N_d = 97\,951\,568 + 46\,648\,800 = 144\,600\,368 .
+\]
+
+\textbf{¿De dónde sale?} El primer sumando es $N_c$ del Paso 6 y los otros dos son los del Paso 7.
+
+\textbf{¿Por qué?} Los cinco casos son mutuamente excluyentes, así que la lista total de comisiones válidas tiene tantos renglones como la suma de los parciales.
+
+\textbf{¿Qué tomamos?} Se toma $N_d = 144\,600\,368$, que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 9 --- Inciso (e): nombrar los cargos, por etapas}
+\textbf{Qué hago:} identifico el nuevo objeto contado sobre la comisión ya formada y lo resuelvo por etapas.
+
+La comisión tiene $7$ diputados fijos y hay que nombrar tres cargos distintos.
+
+\medskip
+\textbf{Etapa 1:} nombrar al presidente entre los $7$ miembros: $7$.
+
+\textbf{Etapa 2:} nombrar al vicepresidente entre los $6$ restantes: $6$.
+
+\textbf{Etapa 3:} nombrar al secretario entre los $5$ restantes: $5$.
+
+\medskip
+\[
+  N_e \;=\; \underbrace{7}_{\text{presidente}}\cdot \underbrace{6}_{\text{vicepresidente}}\cdot \underbrace{5}_{\text{secretario}} \;=\; P(7,3) = \frac{7!}{(7-3)!} = \frac{7!}{4!} = 210 .
+\]
+
+\textbf{¿De dónde sale?} El $7$ es el tamaño de la comisión que fija el enunciado; el $3$ es la cantidad de cargos nombrados. Los factores $6$ y $5$ salen de que una misma persona no ocupa dos cargos, así que cada etapa dispone de un candidato menos.
+
+\textbf{¿Por qué?} Aquí sí importa el orden, a diferencia de los incisos anteriores: nombrar a una persona presidenta y a otra vicepresidenta no es lo mismo que al revés, porque los cargos son papeles distintos. Por eso se usa $P(7,3)$ y no $\binom{7}{3}$. Si se quisiera hacerlo separando ``escoger'' y ``colocar'' en dos etapas: Etapa A, escoger las tres personas que tendrán cargo, $\binom{7}{3}=35$; Etapa B, repartir los tres cargos entre ellas, $3!=6$; producto $35\cdot 6 = 210$, el mismo valor.
+
+\textbf{¿Qué tomamos?} Se toma $N_e = 7\cdot 6\cdot 5 = 42\cdot 5 = 210$.
+\end{paso}
+
+\begin{resp}
+(a) $\dbinom{33}{3}\dbinom{20}{4}=5456\cdot 4845=\mathbf{26\,434\,320}$ maneras (coincide con R/ 26434320).\\[2pt]
+(b) Respuesta oficial: \textbf{R/ 149832272}. El desarrollo da
+$\dbinom{53}{7}-\dbinom{33}{7}-\dbinom{20}{7}=154\,143\,080-4\,272\,048-77\,520=\mathbf{149\,793\,512}$; véase la nota sobre la discrepancia.\\[2pt]
+(c) $\dbinom{33}{5}\dbinom{20}{2}+\dbinom{33}{6}\dbinom{20}{1}+\dbinom{33}{7}=45\,093\,840+22\,151\,360+4\,272\,048=\mathbf{71\,517\,248}$ (coincide con R/ 71517248).\\[2pt]
+(d) $\displaystyle\sum_{k=3}^{7}\binom{33}{k}\binom{20}{7-k}=26\,434\,320+46\,648\,800+45\,093\,840+22\,151\,360+4\,272\,048=\mathbf{144\,600\,368}$ (coincide con R/ 144600368).\\[2pt]
+(e) $P(7,3)=7\cdot 6\cdot 5=\mathbf{210}$ maneras de nombrar los tres cargos (coincide con R/ 210).
+\end{resp}
+
+\end{document}

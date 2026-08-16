@@ -1,0 +1,2143 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+
+\title{Solucionario --- Cap\'itulo 2, Secci\'on 2.2\\ Ejercicios 28 a 41: probabilidad condicional e independencia}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{teo}
+\textbf{Cat\'alogo de f\'ormulas de esta secci\'on, con su justificaci\'on desde los axiomas.}
+
+Se trabaja siempre sobre un espacio muestral $\Omega$ con una medida de probabilidad $P$ que cumple los tres axiomas de Kolmogorov:
+\[
+\text{(A1) } P[E]\ge 0 \ \text{ para todo evento } E,
+\qquad
+\text{(A2) } P[\Omega]=1,
+\]
+\[
+\text{(A3) } E\cap F=\varnothing \Rightarrow P[E\cup F]=P[E]+P[F].
+\]
+
+\medskip
+\textbf{1. Definici\'on de probabilidad condicional.} Si $A$ y $B$ son eventos y $P[B]>0$, se define
+\[
+P[A\mid B]\;=\;\frac{P[A\cap B]}{P[B]}.
+\]
+
+\emph{Justificaci\'on.} Saber que $B$ ocurri\'o elimina del juego todos los resultados que est\'an fuera de $B$: el nuevo espacio muestral es $B$. De $A$ solo sobrevive la porci\'on $A\cap B$. Si defini\'eramos la nueva probabilidad como $Q[A]=P[A\cap B]$ sin m\'as, tendr\'iamos $Q[\Omega]=P[\Omega\cap B]=P[B]$, que en general no vale $1$ y por lo tanto violar\'ia (A2). Al dividir entre $P[B]$ se corrige exactamente ese defecto: $Q[\Omega]=P[B]/P[B]=1$. Adem\'as $Q$ hereda (A1) porque es cociente de dos cantidades no negativas, y hereda (A3) porque si $E\cap F=\varnothing$ entonces $(E\cap B)\cap(F\cap B)=\varnothing$ y
+\[
+Q[E\cup F]=\frac{P[(E\cup F)\cap B]}{P[B]}=\frac{P[(E\cap B)\cup(F\cap B)]}{P[B]}=\frac{P[E\cap B]+P[F\cap B]}{P[B]}=Q[E]+Q[F].
+\]
+As\'i que $P[\cdot\mid B]$ es una probabilidad leg\'itima. La exigencia $P[B]>0$ no es un capricho: con $P[B]=0$ la divisi\'on no existe.
+
+\medskip
+\textbf{2. Regla del producto y regla de la cadena.} Multiplicando la definici\'on por $P[B]$:
+\[
+P[A\cap B]=P[B]\,P[A\mid B]=P[A]\,P[B\mid A],
+\]
+y por inducci\'on, si $P[A_1\cap\cdots\cap A_{n-1}]>0$,
+\[
+P[A_1\cap A_2\cap\cdots\cap A_n]
+= P[A_1]\,P[A_2\mid A_1]\,P[A_3\mid A_1\cap A_2]\cdots P[A_n\mid A_1\cap\cdots\cap A_{n-1}].
+\]
+
+\emph{Justificaci\'on (inducci\'on sobre $n$).} Para $n=2$ es la definici\'on despejada. Supuesto cierto para $n-1$, escriba $D=A_1\cap\cdots\cap A_{n-1}$. Entonces, por el caso $n=2$ aplicado a $D$ y $A_n$,
+\[
+P[D\cap A_n]=P[D]\,P[A_n\mid D],
+\]
+y al sustituir $P[D]$ por la expresi\'on de la hip\'otesis inductiva se obtiene la f\'ormula. $\blacksquare$
+
+Esta regla es la herramienta para experimentos \emph{por etapas}: cada factor es la probabilidad de una extracci\'on \emph{dado todo lo que ya ocurri\'o}, y el producto de la rama completa es la probabilidad de ese camino.
+
+\medskip
+\textbf{3. Independencia.} $A$ y $B$ son independientes cuando
+\[
+P[A\cap B]=P[A]\,P[B].
+\]
+Si $P[B]>0$, esto equivale a $P[A\mid B]=P[A]$.
+
+\emph{Justificaci\'on de la equivalencia.} Si $P[A\cap B]=P[A]P[B]$, entonces
+\[
+P[A\mid B]=\frac{P[A\cap B]}{P[B]}=\frac{P[A]P[B]}{P[B]}=P[A].
+\]
+Rec\'iprocamente, si $P[A\mid B]=P[A]$, multiplicando por $P[B]$ se recupera $P[A\cap B]=P[A]P[B]$. $\blacksquare$
+En palabras: enterarse de que $B$ ocurri\'o no mueve la probabilidad de $A$.
+
+Consecuencia que usaremos: si $A$ y $B$ son independientes, tambi\'en lo son $A$ y $B^{c}$. En efecto, por la partici\'on del punto 4,
+\[
+P[A\cap B^{c}]=P[A]-P[A\cap B]=P[A]-P[A]P[B]=P[A]\bigl(1-P[B]\bigr)=P[A]\,P[B^{c}].
+\]
+
+\medskip
+\textbf{4. Partici\'on por un evento y su complemento.} Para eventos cualesquiera $A$ y $B$,
+\[
+P[A]=P[A\cap B]+P[A\cap B^{c}].
+\]
+
+\emph{Justificaci\'on.} Como $B\cup B^{c}=\Omega$ y $B\cap B^{c}=\varnothing$, se tiene
+\[
+A=A\cap\Omega=A\cap(B\cup B^{c})=(A\cap B)\cup(A\cap B^{c}),
+\]
+y los dos pedazos son disjuntos porque $(A\cap B)\cap(A\cap B^{c})\subseteq B\cap B^{c}=\varnothing$. El axioma (A3) da entonces $P[A]=P[A\cap B]+P[A\cap B^{c}]$. $\blacksquare$
+
+Combinada con la regla del producto, esta identidad es la \textbf{ley de probabilidad total}: si $B_1,\dots,B_k$ son disjuntos dos a dos y su uni\'on es $\Omega$ (una \emph{partici\'on}), el mismo argumento repetido da
+\[
+P[A]=\sum_{i=1}^{k}P[A\cap B_i]=\sum_{i=1}^{k}P[B_i]\,P[A\mid B_i].
+\]
+Y despejando en la definici\'on de condicional se obtiene el \textbf{teorema de Bayes}:
+\[
+P[B_j\mid A]=\frac{P[A\cap B_j]}{P[A]}=\frac{P[B_j]\,P[A\mid B_j]}{\sum_{i=1}^{k}P[B_i]\,P[A\mid B_i]}.
+\]
+
+\medskip
+\textbf{5. Propiedades derivadas que se usar\'an sin volver a demostrar.}
+\[
+P[A^{c}]=1-P[A],
+\qquad
+P[A\setminus B]=P[A]-P[A\cap B],
+\qquad
+P[A\cup B]=P[A]+P[B]-P[A\cap B].
+\]
+La primera sale de (A2)+(A3) con la partici\'on $\Omega=A\cup A^{c}$. La segunda es el punto 4 reescrito, pues $A\setminus B=A\cap B^{c}$. La tercera parte $A\cup B$ en los pedazos disjuntos $A$ y $B\setminus A$, aplica (A3) y luego la segunda.
+
+\medskip
+\textbf{6. Espacios equiprobables y conteo.} Si $\Omega$ es finito y todos sus resultados son igualmente probables, entonces $P[E]=|E|/|\Omega|$, y calcular probabilidades se reduce a contar. Las herramientas de conteo permitidas aqu\'i son
+\[
+C(n,r)=\frac{n!}{r!\,(n-r)!},
+\qquad
+P(n,r)=\frac{n!}{(n-r)!},
+\qquad
+n!,
+\qquad
+k^{n}.
+\]
+donde $k^{n}$ cuenta las secuencias de largo $n$ con $k$ opciones por lugar.
+\end{teo}
+
+\begin{tip}
+\textbf{F\'ormulas de trabajo de la secci\'on.}
+\[
+P[A\mid B]=\frac{P[A\cap B]}{P[B]}\ \ (P[B]>0)
+\qquad
+P[A\cap B]=P[B]P[A\mid B]=P[A]P[B\mid A]
+\]
+\[
+P[A_1\cap\cdots\cap A_n]=P[A_1]P[A_2\mid A_1]\cdots P[A_n\mid A_1\cap\cdots\cap A_{n-1}]
+\]
+\[
+A,B\ \text{independientes}\iff P[A\cap B]=P[A]P[B]\iff P[A\mid B]=P[A]
+\]
+\[
+P[A]=P[A\cap B]+P[A\cap B^{c}]=P[B]P[A\mid B]+P[B^{c}]P[A\mid B^{c}]
+\]
+\[
+P[A^{c}]=1-P[A],\qquad P[A\setminus B]=P[A]-P[A\cap B],\qquad P[A\cup B]=P[A]+P[B]-P[A\cap B]
+\]
+\[
+A\triangle B=(A\setminus B)\cup(B\setminus A),\qquad
+P[A\triangle B]=P[A]+P[B]-2P[A\cap B]
+\]
+\end{tip}
+
+\begin{nota}
+\textbf{M\'etodo de trabajo en los procesos por etapas (ejercicios 30, 33, 37, 38, 39, 40).} Se sigue la t\'ecnica est\'andar del curso:
+\begin{enumerate}[leftmargin=*]
+  \item Se declara $\Omega$ y se bautizan los eventos de cada etapa con sub\'indice de etapa, por ejemplo $R_k=$ ``la $k$-\'esima extracci\'on es roja''.
+  \item Se dibuja el \textbf{\'arbol de probabilidades}: cada nivel es una extracci\'on y cada arista lleva la probabilidad \emph{condicional} de esa extracci\'on dado el camino recorrido.
+  \item Se identifican los \textbf{casos} (ramas) compatibles con la condici\'on pedida, uno por uno, sin omitir ninguno.
+  \item Cada rama se eval\'ua por \textbf{etapas} con la regla de la cadena: el producto de sus aristas.
+  \item Como las ramas son caminos distintos del \'arbol, son eventos disjuntos dos a dos, y por el axioma (A3) la probabilidad pedida es la \emph{suma} de las ramas favorables.
+\end{enumerate}
+\end{nota}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 28}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 28}
+
+\begin{quote}
+Se lanza un dado 3 veces y se obtienen 3 resultados. Considere los eventos: $A$: por lo menos hay un resultado par y por lo menos uno impar. $B$: se obtienen al menos dos resultados impares. ¿Ser\'a que $A$ y $B$ son independientes?
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducci\'on: espacio muestral y eventos}
+\textbf{Qu\'e hago:} describo $\Omega$ como el conjunto de las ternas ordenadas de resultados y escribo los dos eventos en t\'erminos de esas ternas.
+
+Sea
+\[
+\Omega=\{(x_1,x_2,x_3)\;:\;x_i\in\{1,2,3,4,5,6\}\},
+\]
+donde $x_i$ es el resultado del $i$-\'esimo lanzamiento. Los eventos son
+\[
+A=\{\text{hay al menos un } x_i \text{ par \emph{y} al menos un } x_j \text{ impar}\},
+\]
+\[
+B=\{\text{al menos dos de los } x_i \text{ son impares}\}.
+\]
+
+\textbf{¿De d\'onde sale?} De la frase ``se lanza un dado 3 veces y se obtienen 3 resultados'': el resultado del experimento es la lista ordenada de los tres n\'umeros, no el conjunto de ellos, porque los lanzamientos son distinguibles por el orden en que se hicieron.
+
+\textbf{¿Por qu\'e?} Porque para poder aplicar $P[E]=|E|/|\Omega|$ hace falta que todos los resultados de $\Omega$ sean igualmente probables, y eso solo ocurre si el resultado se registra como terna ordenada: un dado equilibrado da cada cara con la misma probabilidad y los tres lanzamientos no se influyen entre s\'i, as\'i que cada una de las ternas tiene la misma probabilidad.
+
+\textbf{¿Qu\'e tomamos?} Tomamos el modelo equiprobable sobre las ternas ordenadas.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Cardinalidad de $\Omega$}
+\textbf{Qu\'e hago:} cuento las ternas ordenadas mediante el principio del producto.
+\[
+|\Omega|=\underbrace{6}_{\substack{\text{caras posibles}\\ \text{del lanzamiento 1}}}\cdot
+\underbrace{6}_{\substack{\text{caras posibles}\\ \text{del lanzamiento 2}}}\cdot
+\underbrace{6}_{\substack{\text{caras posibles}\\ \text{del lanzamiento 3}}}
+=6^{3}=216 .
+\]
+
+\textbf{¿De d\'onde sale?} El $6$ es el n\'umero de caras del dado; el exponente $3$ es el n\'umero de lanzamientos. Es el conteo $k^{n}$ con $k=6$ y $n=3$.
+
+\textbf{¿Por qu\'e?} Porque llenar una terna es una tarea de tres etapas independientes: hay $6$ maneras de fijar $x_1$, y para \emph{cada} una de ellas hay $6$ maneras de fijar $x_2$, y as\'i sucesivamente. No hay restricci\'on entre etapas, por eso el conteo es una potencia y no un $P(n,r)$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|\Omega|=6^{3}=216$. Desglose: $6\cdot 6=36$ y $36\cdot 6=216$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- C\'alculo de $P[A]$ por complemento}
+\textbf{Qu\'e hago:} cuento $A^{c}$ en lugar de $A$, porque negar ``al menos uno par \emph{y} al menos uno impar'' produce una descripci\'on mucho m\'as simple.
+
+Negando: falla $A$ cuando \emph{no} hay ning\'un par, o cuando \emph{no} hay ning\'un impar. Es decir
+\[
+A^{c}=\{\text{los tres resultados son impares}\}\;\cup\;\{\text{los tres resultados son pares}\},
+\]
+y estos dos sucesos son disjuntos (con tres lanzamientos no se puede ser a la vez todo par y todo impar). Como en un dado hay $3$ caras pares $\{2,4,6\}$ y $3$ caras impares $\{1,3,5\}$,
+\[
+|A^{c}|
+=\underbrace{3^{3}}_{\substack{\text{ternas con los 3}\\ \text{resultados impares}}}
++\underbrace{3^{3}}_{\substack{\text{ternas con los 3}\\ \text{resultados pares}}}
+=27+27=54 .
+\]
+Por lo tanto
+\[
+|A|=|\Omega|-|A^{c}|=216-54=162,
+\qquad
+P[A]=\frac{162}{216}=\frac{3}{4}.
+\]
+
+\textbf{¿De d\'onde sale?} Los dos treses de la base son $|\{1,3,5\}|=3$ y $|\{2,4,6\}|=3$; el exponente $3$ vuelve a ser el n\'umero de lanzamientos. La resta $216-54$ es la regla del complemento aplicada a cardinales.
+
+\textbf{¿Por qu\'e?} Porque la negaci\'on de ``$p$ y $q$'' es ``no $p$ o no $q$'': si no ocurre que hay un par \emph{y} hay un impar, es porque falta alguno de los dos tipos, y con tres dados eso significa que la terna es homog\'enea. Contar directamente $A$ obligar\'ia a separar casos ``2 pares y 1 impar'' y ``1 par y 2 impares'', mientras que el complemento se cuenta de un plumazo.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[A]=\dfrac{162}{216}$. Simplificaci\'on: $162=2\cdot 81$ y $216=2\cdot 108$, luego $\frac{162}{216}=\frac{81}{108}$; y $81=27\cdot 3$, $108=27\cdot 4$, de donde $P[A]=\dfrac{3}{4}$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- C\'alculo de $P[B]$ separando casos}
+\textbf{Qu\'e hago:} ``al menos dos impares'' con tres lanzamientos significa exactamente dos impares o exactamente tres impares; cuento cada caso por separado y sumo.
+
+\textbf{Caso I: exactamente dos impares y un par.} Primero elijo cu\'ales dos de las tres posiciones llevan resultado impar, luego lleno cada posici\'on:
+\[
+\underbrace{C(3,2)}_{\substack{\text{posiciones que}\\ \text{llevan impar}}}\cdot
+\underbrace{3^{2}}_{\substack{\text{valores impares en}\\ \text{esas 2 posiciones}}}\cdot
+\underbrace{3^{1}}_{\substack{\text{valor par en la}\\ \text{posici\'on restante}}}
+=3\cdot 9\cdot 3=81 .
+\]
+
+\textbf{Caso II: los tres impares.}
+\[
+\underbrace{C(3,3)}_{\substack{\text{posiciones que}\\ \text{llevan impar}}}\cdot
+\underbrace{3^{3}}_{\substack{\text{valores impares en}\\ \text{las 3 posiciones}}}
+=1\cdot 27=27 .
+\]
+
+Los dos casos son disjuntos (una terna no puede tener a la vez exactamente dos y exactamente tres impares), luego
+\[
+|B|=81+27=108,
+\qquad
+P[B]=\frac{108}{216}=\frac{1}{2}.
+\]
+
+\textbf{¿De d\'onde sale?} $C(3,2)$ y $C(3,3)$ cuentan subconjuntos de posiciones: el $3$ de arriba son los tres lanzamientos y el de abajo cu\'antos de ellos deben ser impares. Las potencias de $3$ salen otra vez de que hay $3$ caras impares y $3$ caras pares.
+
+\textbf{¿Por qu\'e?} Porque se usa combinaci\'on y no permutaci\'on: el conjunto de posiciones impares $\{1,2\}$ es el mismo que $\{2,1\}$, el orden entre las posiciones elegidas no genera ternas distintas. Lo que s\'i distingue ternas es \emph{qu\'e} valor concreto va en cada posici\'on, y eso ya lo cuentan los factores $3^{2}$ y $3^{1}$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[B]=\dfrac{108}{216}=\dfrac{1}{2}$, pues $216=2\cdot 108$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- C\'alculo de $P[A\cap B]$}
+\textbf{Qu\'e hago:} describo la intersecci\'on antes de contarla.
+
+Una terna est\'a en $A\cap B$ si tiene al menos un par y al menos un impar (evento $A$) y adem\'as tiene al menos dos impares (evento $B$). La exigencia ``al menos un par'' proh\'ibe el caso de tres impares; combinada con ``al menos dos impares'' deja \'unicamente
+\[
+A\cap B=\{\text{exactamente dos impares y exactamente un par}\},
+\]
+que es justo el Caso I del paso anterior:
+\[
+|A\cap B|
+=\underbrace{C(3,2)}_{\substack{\text{posiciones}\\ \text{de los impares}}}\cdot
+\underbrace{3^{2}}_{\text{valores impares}}\cdot
+\underbrace{3^{1}}_{\text{valor par}}
+=3\cdot 9\cdot 3=81,
+\qquad
+P[A\cap B]=\frac{81}{216}=\frac{3}{8}.
+\]
+
+\textbf{¿De d\'onde sale?} De cruzar las dos descripciones verbales: $A$ prohibe las ternas homog\'eneas y $B$ obliga a tener dos o tres impares; la \'unica posibilidad sobreviviente es ``dos impares, un par''.
+
+\textbf{¿Por qu\'e?} Porque as\'i se evita contar la intersecci\'on ``a ciegas'': primero se determina cu\'al es el conjunto y luego se cuenta. Y el conteo ya estaba hecho en el Caso I, lo cual ahorra trabajo.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[A\cap B]=\dfrac{81}{216}$. Simplificaci\'on: $81=27\cdot 3$ y $216=27\cdot 8$, luego $P[A\cap B]=\dfrac{3}{8}$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Contraste con la definici\'on de independencia}
+\textbf{Qu\'e hago:} comparo $P[A\cap B]$ con el producto $P[A]\,P[B]$, que es el criterio exacto de independencia.
+\[
+P[A]\,P[B]=\frac{3}{4}\cdot\frac{1}{2}=\frac{3\cdot 1}{4\cdot 2}=\frac{3}{8},
+\qquad\qquad
+P[A\cap B]=\frac{3}{8}.
+\]
+Como ambos valores coinciden,
+\[
+P[A\cap B]=P[A]\,P[B]
+\quad\Longrightarrow\quad
+A \text{ y } B \text{ son independientes.}
+\]
+
+\textbf{¿De d\'onde sale?} $P[A]=3/4$ viene del Paso 3, $P[B]=1/2$ del Paso 4 y $P[A\cap B]=3/8$ del Paso 5.
+
+\textbf{¿Por qu\'e?} Porque la independencia \emph{se define} como esa igualdad, y no se puede decidir ``a ojo'': aqu\'i los dos eventos hablan de la misma paridad de los mismos dados, as\'i que la intuici\'on sugerir\'ia dependencia, y sin embargo la aritm\'etica dice lo contrario. Verific\'andolo por la otra v\'ia equivalente,
+\[
+P[A\mid B]=\frac{P[A\cap B]}{P[B]}=\frac{3/8}{1/2}=\frac{3}{8}\cdot\frac{2}{1}=\frac{6}{8}=\frac{3}{4}=P[A],
+\]
+es decir, enterarse de que hubo al menos dos impares no altera la probabilidad de que la terna sea mixta.
+
+\textbf{¿Qu\'e tomamos?} Tomamos la conclusi\'on: $A$ y $B$ \emph{s\'i} son independientes.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+S\'i son independientes. Con $|\Omega|=6^{3}=216$ se obtiene $P[A]=\frac{162}{216}=\frac{3}{4}$, $P[B]=\frac{108}{216}=\frac{1}{2}$ y $P[A\cap B]=\frac{81}{216}=\frac{3}{8}$, y como
+\[
+P[A]\,P[B]=\frac{3}{4}\cdot\frac{1}{2}=\frac{3}{8}=P[A\cap B],
+\]
+los eventos $A$ y $B$ \textbf{son independientes}.
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 29}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 29}
+
+\begin{quote}
+En una universidad el 35 \% del personal docente es bachiller, el 43 \% es licenciado y el resto posee un posgrado. Adem\'as, el 50 \% de los docentes bachilleres es adicto al caf\'e, al igual que el 65 \% de licenciados y el 45 \% de docentes con posgrado.\\
+(a) Determine el porcentaje de docentes adictos al caf\'e. \hfill R/ $0{,}5535$\\
+(b) ¿Cu\'al es la probabilidad de que un docente adicto al caf\'e posea un posgrado? \hfill R/ $0{,}17886$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducci\'on: espacio muestral, eventos y datos}
+\textbf{Qu\'e hago:} declaro el espacio muestral y bautizo los eventos, y traduzco cada porcentaje del enunciado a una probabilidad simple o condicional.
+
+Sea $\Omega$ el conjunto de todos los docentes de la universidad, y considere
+\[
+\begin{array}{ll}
+B=\{\text{docentes bachilleres}\}, & L=\{\text{docentes licenciados}\},\\[2pt]
+G=\{\text{docentes con posgrado}\}, & C=\{\text{docentes adictos al caf\'e}\}.
+\end{array}
+\]
+Los datos son
+\[
+P[B]=0{,}35,\qquad P[L]=0{,}43,\qquad P[G]=?,
+\]
+\[
+P[C\mid B]=0{,}50,\qquad P[C\mid L]=0{,}65,\qquad P[C\mid G]=0{,}45 .
+\]
+Se pide (a) $P[C]$ y (b) $P[G\mid C]$.
+
+\textbf{¿De d\'onde sale?} Las tres primeras frases dan la composici\'on del personal, luego son probabilidades simples. Las tres \'ultimas est\'an redactadas \emph{dentro} de un grupo (``el 50 \% de los docentes \emph{bachilleres}''), es decir, el porcentaje se toma sobre una subpoblaci\'on y no sobre el total: eso es exactamente una probabilidad condicional.
+
+\textbf{¿Por qu\'e?} Porque distinguir ``el 50 \% de los bachilleres es adicto'' de ``el 50 \% de los docentes es bachiller y adicto'' es la decisi\'on m\'as delicada del problema. La primera es $P[C\mid B]=0{,}50$; la segunda ser\'ia $P[C\cap B]=0{,}50$. La preposici\'on ``de los bachilleres'' se\~nala cu\'al es el universo de referencia, y ese universo restringido es lo que va a la derecha de la barra.
+
+\textbf{¿Qu\'e tomamos?} Tomamos el inventario anterior. Falta a\'un $P[G]$, que se obtiene en el paso siguiente.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Los tres grados forman una partici\'on y c\'alculo de $P[G]$}
+\textbf{Qu\'e hago:} verifico que $B$, $L$ y $G$ forman una partici\'on de $\Omega$ y con ello despejo $P[G]$.
+
+El enunciado dice que el resto ``posee un posgrado'', de modo que todo docente cae en exactamente uno de los tres grados:
+\[
+B\cup L\cup G=\Omega,
+\qquad
+B\cap L=B\cap G=L\cap G=\varnothing .
+\]
+Por el axioma (A3) aplicado dos veces y por (A2),
+\[
+P[B]+P[L]+P[G]=P[\Omega]=1
+\;\Longrightarrow\;
+P[G]=1-P[B]-P[L]=1-0{,}35-0{,}43 .
+\]
+Desglosando: $0{,}35+0{,}43=0{,}78$ y $1-0{,}78=0{,}22$. Luego
+\[
+P[G]=0{,}22 .
+\]
+
+\textbf{¿De d\'onde sale?} De la palabra ``el resto'', que declara que $G$ es exactamente el complemento de $B\cup L$.
+
+\textbf{¿Por qu\'e?} Porque la ley de probabilidad total que se usar\'a en (a) exige una partici\'on: los bloques deben ser disjuntos (para poder sumar por (A3) sin contar dos veces) y deben cubrir $\Omega$ (para no perder docentes). Aqu\'i ambas condiciones vienen garantizadas por el enunciado, que clasifica a cada docente por su \emph{m\'aximo} grado obtenido.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[G]=0{,}22$, valor exacto en dos decimales.
+\end{paso}
+
+\begin{paso}{Paso 3 --- (a) Ley de probabilidad total}
+\textbf{Qu\'e hago:} descompongo $C$ sobre la partici\'on y aplico la regla del producto en cada pedazo.
+
+Por la partici\'on,
+\[
+C=(C\cap B)\cup(C\cap L)\cup(C\cap G),
+\]
+uni\'on de tres eventos disjuntos, luego por (A3)
+\[
+P[C]=P[C\cap B]+P[C\cap L]+P[C\cap G]
+=P[B]\,P[C\mid B]+P[L]\,P[C\mid L]+P[G]\,P[C\mid G].
+\]
+Sustituyendo:
+\[
+P[C]=\underbrace{0{,}35\cdot 0{,}50}_{\text{bachilleres adictos}}
++\underbrace{0{,}43\cdot 0{,}65}_{\text{licenciados adictos}}
++\underbrace{0{,}22\cdot 0{,}45}_{\text{posgrado adictos}} .
+\]
+Producto a producto, en fracciones exactas:
+\[
+0{,}35\cdot 0{,}50=\frac{35}{100}\cdot\frac{50}{100}=\frac{1750}{10000}=0{,}1750,
+\]
+\[
+0{,}43\cdot 0{,}65=\frac{43}{100}\cdot\frac{65}{100}=\frac{2795}{10000}=0{,}2795,
+\]
+\[
+0{,}22\cdot 0{,}45=\frac{22}{100}\cdot\frac{45}{100}=\frac{990}{10000}=0{,}0990 .
+\]
+Sumando: $0{,}1750+0{,}2795=0{,}4545$ y $0{,}4545+0{,}0990=0{,}5535$. Es decir
+\[
+P[C]=\frac{1750+2795+990}{10000}=\frac{5535}{10000}=\frac{1107}{2000}=0{,}5535 .
+\]
+
+\textbf{¿De d\'onde sale?} Cada producto es la regla del producto $P[C\cap X]=P[X]\,P[C\mid X]$: el primer factor es el peso del grupo (Paso 1--2) y el segundo la tasa de adicci\'on \emph{dentro} de ese grupo.
+
+\textbf{¿Por qu\'e?} Porque no se pueden sumar directamente las tasas $0{,}50+0{,}65+0{,}45$: cada una est\'a medida sobre un universo distinto (los bachilleres, los licenciados, los del posgrado). Para poder sumarlas hay que llevarlas todas al mismo universo $\Omega$, y multiplicar por el peso del grupo es exactamente ese cambio de escala.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[C]=\dfrac{1107}{2000}=0{,}5535$; es decir, el $55{,}35\%$ de los docentes es adicto al caf\'e. Coincide con la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 4 --- (b) Teorema de Bayes}
+\textbf{Qu\'e hago:} invierto el condicionamiento: me dan las tasas de adicci\'on por grado y me piden el grado dado el h\'abito.
+
+Por la definici\'on de probabilidad condicional, v\'alida porque $P[C]=0{,}5535>0$,
+\[
+P[G\mid C]=\frac{P[G\cap C]}{P[C]}=\frac{P[G]\,P[C\mid G]}{P[C]}
+=\frac{0{,}22\cdot 0{,}45}{0{,}5535}
+=\frac{0{,}0990}{0{,}5535}.
+\]
+En fracciones exactas, multiplicando numerador y denominador por $10000$:
+\[
+P[G\mid C]=\frac{990}{5535}.
+\]
+Simplifico: $990=2\cdot 3^{2}\cdot 5\cdot 11$ y $5535=3^{3}\cdot 5\cdot 41$, de modo que el m\'aximo com\'un divisor es $3^{2}\cdot 5=45$. Entonces
+\[
+\frac{990}{5535}=\frac{990\div 45}{5535\div 45}=\frac{22}{123}.
+\]
+En decimal, $22\div 123=0{,}178861\ldots$, es decir
+\[
+P[G\mid C]=\frac{22}{123}\approx 0{,}17886 .
+\]
+
+\textbf{¿De d\'onde sale?} El numerador $0{,}22\cdot 0{,}45$ es el mismo tercer sumando del Paso 3, esto es $P[G\cap C]$; el denominador es el $P[C]$ reci\'en calculado.
+
+\textbf{¿Por qu\'e?} Porque la pregunta ``de un docente adicto al caf\'e, ¿cu\'al es la probabilidad de que tenga posgrado?'' fija como nuevo universo el conjunto de los adictos: el total ya no es $1$ sino $P[C]$. Se mide qu\'e fracci\'on de ese nuevo total ocupan los docentes con posgrado, y esa fracci\'on es $P[G\cap C]/P[C]$. N\'otese que el resultado ($\approx 17{,}9\%$) es menor que $P[G]=22\%$: saber que alguien toma caf\'e hace \emph{menos} probable que tenga posgrado, porque los del posgrado son el grupo con la tasa de adicci\'on m\'as baja.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[G\mid C]=\dfrac{22}{123}\approx 0{,}17886$, en concordancia con la respuesta oficial.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+(a) $P[C]=0{,}35\cdot 0{,}50+0{,}43\cdot 0{,}65+0{,}22\cdot 0{,}45=\dfrac{1107}{2000}=\mathbf{0{,}5535}$; el $55{,}35\%$ de los docentes es adicto al caf\'e.\\[2pt]
+(b) $P[G\mid C]=\dfrac{0{,}22\cdot 0{,}45}{0{,}5535}=\dfrac{22}{123}\approx\mathbf{0{,}17886}$.
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 30}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 30}
+
+\begin{quote}
+Se tiene una canasta con 10 bolas: 7 rojas y 3 verdes. Para sacarlas al azar se sigue la regla: si la bola extra\'ida es roja, se devuelve a la canasta con cinco bolas verdes antes de la siguiente extracci\'on, y si la bola extra\'ida es verde, no se devuelve y se agregan dos bolas rojas a la canasta antes de la siguiente extracci\'on. Sucesivamente se extraen dos bolas de la canasta. ¿Cu\'al es la probabilidad de que las bolas extra\'idas sean de diferente color? \hfill R/ $\dfrac{1021}{1650}$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducci\'on: eventos por etapa y estado inicial}
+\textbf{Qu\'e hago:} bautizo los eventos con sub\'indice de extracci\'on y escribo el estado inicial de la canasta.
+
+Sean
+\[
+R_k=\{\text{la } k\text{-\'esima bola extra\'ida es roja}\},
+\qquad
+V_k=\{\text{la } k\text{-\'esima bola extra\'ida es verde}\},
+\]
+para $k=1,2$. Estado inicial: $7$ rojas, $3$ verdes, total $10$. El evento pedido es
+\[
+D=\{\text{las dos bolas son de diferente color}\}=(R_1\cap V_2)\cup(V_1\cap R_2).
+\]
+
+\textbf{¿De d\'onde sale?} ``Diferente color'' con dos extracciones solo admite dos patrones: roja--verde o verde--roja. El enunciado da los conteos iniciales $7$ y $3$.
+
+\textbf{¿Por qu\'e?} Porque los dos patrones son mutuamente excluyentes (la primera bola no puede ser roja y verde a la vez), as\'i que m\'as adelante podr\'e sumar sus probabilidades sin corregir nada, por el axioma (A3).
+
+\textbf{¿Qu\'e tomamos?} Tomamos $D=(R_1\cap V_2)\cup(V_1\cap R_2)$ como el evento a calcular.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Actualizaci\'on del estado seg\'un cada regla}
+\textbf{Qu\'e hago:} traduzco las dos reglas del enunciado a cambios num\'ericos en el contenido de la canasta.
+
+\textbf{Regla 1 (sale roja):} la roja \emph{se devuelve} y adem\'as entran $5$ verdes. El conteo pasa de $(7\text{R},3\text{V},10)$ a
+\[
+(\,7\ \text{rojas},\ 3+5=8\ \text{verdes},\ \text{total } 15\,).
+\]
+
+\textbf{Regla 2 (sale verde):} la verde \emph{no} se devuelve y entran $2$ rojas. El conteo pasa de $(7\text{R},3\text{V},10)$ a
+\[
+(\,7+2=9\ \text{rojas},\ 3-1=2\ \text{verdes},\ \text{total } 11\,).
+\]
+
+\textbf{¿De d\'onde sale?} Palabra por palabra del enunciado: ``se devuelve a la canasta con cinco bolas verdes'' (la roja regresa \emph{y} se suman $5$ verdes) y ``no se devuelve y se agregan dos bolas rojas''.
+
+\textbf{¿Por qu\'e?} Porque en un proceso por etapas la probabilidad de la segunda extracci\'on depende del resultado de la primera, y ese resultado se manifiesta \'unicamente a trav\'es del nuevo contenido de la canasta. Registrar el estado despu\'es de cada rama es lo que permite escribir las condicionales sin ambig\"uedad. Obs\'ervese que los totales cambian: $15$ en una rama y $11$ en la otra, precisamente porque una regla agrega y la otra agrega y quita.
+
+\textbf{¿Qu\'e tomamos?} Tomamos los dos estados actualizados: $(7,8)$ con total $15$ tras roja, y $(9,2)$ con total $11$ tras verde.
+\end{paso}
+
+\begin{paso}{Paso 3 --- \'Arbol de probabilidades}
+\textbf{Qu\'e hago:} dibujo el \'arbol de las dos extracciones con las probabilidades condicionales en cada arista.
+
+\begin{center}
+\begin{tikzpicture}[level 1/.style={sibling distance=52mm,level distance=20mm},
+                    level 2/.style={sibling distance=26mm,level distance=20mm},
+                    every node/.style={font=\small,align=center}]
+\node[draw,rounded corners]{$7$R,\;$3$V}
+  child {node[draw,rounded corners]{$R_1$\\ $7$R,\,$8$V}
+     child {node{$R_2$}edge from parent node[left]{$\frac{7}{15}$}}
+     child {node[fill=green!15]{$V_2$}edge from parent node[right]{$\frac{8}{15}$}}
+     edge from parent node[above left]{$\frac{7}{10}$}}
+  child {node[draw,rounded corners]{$V_1$\\ $9$R,\,$2$V}
+     child {node[fill=green!15]{$R_2$}edge from parent node[left]{$\frac{9}{11}$}}
+     child {node{$V_2$}edge from parent node[right]{$\frac{2}{11}$}}
+     edge from parent node[above right]{$\frac{3}{10}$}};
+\end{tikzpicture}
+\end{center}
+Las hojas sombreadas son las favorables (colores distintos).
+
+\textbf{¿De d\'onde sale?} Las probabilidades del primer nivel son $P[R_1]=7/10$ y $P[V_1]=3/10$, tomadas del estado inicial; las del segundo nivel salen de los estados actualizados del Paso 2.
+
+\textbf{¿Por qu\'e?} Porque cada extracci\'on es equiprobable \emph{dentro de la canasta que hay en ese momento}: si la canasta tiene $n$ bolas de las cuales $r$ son rojas, entonces la probabilidad condicional de sacar roja es $r/n$. El \'arbol es la manera de no perder de vista cu\'al es el $n$ correcto en cada rama.
+
+\textbf{¿Qu\'e tomamos?} Tomamos las cuatro ramas del \'arbol, de las cuales dos son favorables.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Rama roja--verde}
+\textbf{Qu\'e hago:} eval\'uo la primera rama favorable con la regla del producto.
+
+\textbf{Etapa 1.} $P[R_1]=\dfrac{7}{10}$, pues hay $7$ rojas entre $10$ bolas.
+
+\textbf{Etapa 2.} Tras la roja la canasta tiene $7$ rojas y $8$ verdes, total $15$; luego $P[V_2\mid R_1]=\dfrac{8}{15}$.
+
+Por la regla del producto,
+\[
+P[R_1\cap V_2]=P[R_1]\,P[V_2\mid R_1]=\frac{7}{10}\cdot\frac{8}{15}=\frac{7\cdot 8}{10\cdot 15}=\frac{56}{150}=\frac{28}{75}.
+\]
+
+\textbf{¿De d\'onde sale?} El $8$ del numerador es el nuevo n\'umero de verdes ($3+5$) y el $15$ el nuevo total ($10+5$), ambos del Paso 2.
+
+\textbf{¿Por qu\'e?} Porque la regla del producto $P[A\cap B]=P[A]P[B\mid A]$ es literalmente la definici\'on de condicional despejada, y aqu\'i modela el orden temporal: primero ocurre $R_1$, y solo despu\'es, ya con la canasta modificada, ocurre $V_2$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[R_1\cap V_2]=\dfrac{28}{75}$ (se simplific\'o dividiendo entre $2$: $56/2=28$, $150/2=75$).
+\end{paso}
+
+\begin{paso}{Paso 5 --- Rama verde--roja}
+\textbf{Qu\'e hago:} eval\'uo la segunda rama favorable.
+
+\textbf{Etapa 1.} $P[V_1]=\dfrac{3}{10}$, pues hay $3$ verdes entre $10$.
+
+\textbf{Etapa 2.} Tras la verde la canasta tiene $9$ rojas y $2$ verdes, total $11$; luego $P[R_2\mid V_1]=\dfrac{9}{11}$.
+
+\[
+P[V_1\cap R_2]=P[V_1]\,P[R_2\mid V_1]=\frac{3}{10}\cdot\frac{9}{11}=\frac{3\cdot 9}{10\cdot 11}=\frac{27}{110}.
+\]
+
+\textbf{¿De d\'onde sale?} El $9$ es $7+2$ rojas y el $11$ es el nuevo total $10-1+2$, del Paso 2.
+
+\textbf{¿Por qu\'e?} Porque aqu\'i el total baj\'o a $11$ y no subi\'o a $15$: la regla de la bola verde retira una bola y agrega dos, con saldo neto $+1$. Confundir los totales de las dos ramas es el error t\'ipico de este ejercicio.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[V_1\cap R_2]=\dfrac{27}{110}$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Suma de las ramas favorables}
+\textbf{Qu\'e hago:} sumo las dos ramas, lo cual es leg\'itimo porque son disjuntas.
+
+Necesito un denominador com\'un para $75=3\cdot 5^{2}$ y $110=2\cdot 5\cdot 11$. El m\'inimo com\'un m\'ultiplo es $2\cdot 3\cdot 5^{2}\cdot 11=1650$. Convierto:
+\[
+\frac{28}{75}=\frac{28\cdot 22}{75\cdot 22}=\frac{616}{1650},
+\qquad
+\frac{27}{110}=\frac{27\cdot 15}{110\cdot 15}=\frac{405}{1650},
+\]
+donde $28\cdot 22=616$ (pues $28\cdot 20=560$ y $28\cdot 2=56$) y $27\cdot 15=405$. Entonces
+\[
+P[D]=\frac{616}{1650}+\frac{405}{1650}=\frac{616+405}{1650}=\frac{1021}{1650}.
+\]
+Como $1021$ es primo y no divide a $1650$, la fracci\'on ya est\'a en su forma m\'as simple. En decimal, $1021\div 1650\approx 0{,}618788$.
+
+\textbf{¿De d\'onde sale?} Los dos sumandos son los Pasos 4 y 5.
+
+\textbf{¿Por qu\'e?} Porque $R_1\cap V_2$ y $V_1\cap R_2$ son incompatibles: exigen resultados opuestos en la primera extracci\'on. Por el axioma (A3) la probabilidad de la uni\'on es la suma, sin restar intersecci\'on alguna.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[D]=\dfrac{1021}{1650}\approx 0{,}6188$, que coincide con la respuesta oficial.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+\[
+P[D]=\underbrace{\frac{7}{10}\cdot\frac{8}{15}}_{\text{roja--verde}}+\underbrace{\frac{3}{10}\cdot\frac{9}{11}}_{\text{verde--roja}}
+=\frac{28}{75}+\frac{27}{110}
+=\mathbf{\frac{1021}{1650}}\approx 0{,}6188 .
+\]
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 31}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 31}
+
+\begin{quote}
+Se tiene una canasta con 15 bolas numeradas del 1 al 15. Las bolas del 1 al 7 son rojas y las dem\'as verdes. Se eligen tres bolas sucesivamente. ¿Cu\'al es la probabilidad de que la primera sea roja, la segunda sea verde y la tercera roja? \hfill R/ $\dfrac{8}{65}$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducci\'on: composici\'on de la canasta y evento pedido}
+\textbf{Qu\'e hago:} determino cu\'antas bolas hay de cada color y escribo el evento como intersecci\'on de tres eventos de etapa.
+
+Las bolas rojas son las numeradas $1,2,\dots,7$, o sea $7$ rojas. Las dem\'as, $8,9,\dots,15$, son verdes, y son
+\[
+15-7=8 \text{ verdes.}
+\]
+Con $R_k$ y $V_k$ como antes, el evento pedido es
+\[
+E=R_1\cap V_2\cap R_3 .
+\]
+
+\textbf{¿De d\'onde sale?} ``Las bolas del 1 al 7 son rojas y las dem\'as verdes'' fija la partici\'on por color; el conteo de verdes se obtiene por complemento, $15-7$.
+
+\textbf{¿Por qu\'e?} Porque la numeraci\'on del $1$ al $15$ solo sirve para identificar las bolas: lo \'unico relevante para la pregunta es el color, y de \'el dependen los conteos $7$ y $8$. El orden importa (``la primera\dots\ la segunda\dots\ la tercera''), as\'i que el evento es una intersecci\'on ordenada y no una elecci\'on de subconjunto.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $7$ rojas, $8$ verdes, total $15$, y $E=R_1\cap V_2\cap R_3$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Modo de extracci\'on: sin reposici\'on}
+\textbf{Qu\'e hago:} fijo la interpretaci\'on de ``se eligen tres bolas sucesivamente''.
+
+Se entiende que las bolas se eligen una tras otra y no regresan a la canasta: se est\'an eligiendo \emph{tres bolas} de las quince, y una misma bola no puede ser elegida dos veces. Por lo tanto el total disminuye en uno por extracci\'on: $15$, luego $14$, luego $13$.
+
+\textbf{¿De d\'onde sale?} De la frase ``se eligen tres bolas'': el resultado del experimento son tres bolas distintas. Ninguna regla de reposici\'on se menciona, a diferencia de los ejercicios 30, 33 y 37.
+
+\textbf{¿Por qu\'e?} Porque la interpretaci\'on decide los denominadores. Si hubiese reposici\'on el c\'alculo ser\'ia $\frac{7}{15}\cdot\frac{8}{15}\cdot\frac{7}{15}=\frac{392}{3375}\approx 0{,}1161$, que no coincide con la respuesta oficial; sin reposici\'on el resultado s\'i coincide, lo cual confirma la lectura.
+
+\textbf{¿Qu\'e tomamos?} Tomamos extracci\'on sin reposici\'on, con totales $15$, $14$ y $13$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Regla de la cadena, etapa por etapa}
+\textbf{Qu\'e hago:} desarrollo $P[R_1\cap V_2\cap R_3]$ con la regla de la cadena para tres eventos.
+\[
+P[R_1\cap V_2\cap R_3]=P[R_1]\cdot P[V_2\mid R_1]\cdot P[R_3\mid R_1\cap V_2].
+\]
+
+\textbf{Etapa 1.} La canasta tiene $7$ rojas de $15$:
+\[
+P[R_1]=\frac{7}{15}.
+\]
+
+\textbf{Etapa 2.} Sali\'o una roja, as\'i que quedan $6$ rojas y las $8$ verdes intactas, total $14$:
+\[
+P[V_2\mid R_1]=\frac{8}{14}=\frac{4}{7}.
+\]
+
+\textbf{Etapa 3.} Ya salieron una roja y una verde; quedan $6$ rojas y $7$ verdes, total $13$:
+\[
+P[R_3\mid R_1\cap V_2]=\frac{6}{13}.
+\]
+
+\textbf{¿De d\'onde sale?} Cada numerador es el n\'umero de bolas del color pedido que \emph{quedan} en ese momento, y cada denominador el total restante; ambos se actualizan restando las bolas ya extra\'idas.
+
+\textbf{¿Por qu\'e?} Porque la regla de la cadena exige condicionar a \emph{todo} el pasado, y en este experimento el pasado se resume en cu\'antas bolas de cada color se han retirado. En la etapa 2 el $8$ no cambi\'o (la bola retirada era roja) pero el $14$ s\'i; en la etapa 3 cambiaron ambos.
+
+\textbf{¿Qu\'e tomamos?} Tomamos los tres factores $\frac{7}{15}$, $\frac{8}{14}$ y $\frac{6}{13}$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Aritm\'etica exacta}
+\textbf{Qu\'e hago:} multiplico los tres factores y simplifico.
+\[
+P[E]=\frac{7}{15}\cdot\frac{8}{14}\cdot\frac{6}{13}
+=\frac{7\cdot 8\cdot 6}{15\cdot 14\cdot 13}
+=\frac{336}{2730}.
+\]
+Numerador: $7\cdot 8=56$ y $56\cdot 6=336$. Denominador: $15\cdot 14=210$ y $210\cdot 13=2730$. Simplifico por partes: $336=2^{4}\cdot 3\cdot 7$ y $2730=2\cdot 3\cdot 5\cdot 7\cdot 13$, luego el m\'aximo com\'un divisor es $2\cdot 3\cdot 7=42$ y
+\[
+\frac{336}{2730}=\frac{336\div 42}{2730\div 42}=\frac{8}{65}.
+\]
+En decimal, $8\div 65\approx 0{,}123077$.
+
+\textbf{¿De d\'onde sale?} De los factores del Paso 3.
+
+\textbf{¿Por qu\'e?} Porque conviene multiplicar primero y simplificar despu\'es con la descomposici\'on en primos: as\'i se ve exactamente qu\'e se cancela y no queda duda de que $8/65$ es la forma irreducible ($65=5\cdot 13$ no comparte factores con $8=2^{3}$).
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[E]=\dfrac{8}{65}\approx 0{,}1231$, igual a la respuesta oficial.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+\[
+P[R_1\cap V_2\cap R_3]=\frac{7}{15}\cdot\frac{8}{14}\cdot\frac{6}{13}=\frac{336}{2730}=\mathbf{\frac{8}{65}}\approx 0{,}1231 .
+\]
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 32}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 32}
+
+\begin{quote}
+Se juega una versi\'on simplificada de Black Jack con una sola baraja est\'andar de 52 cartas. Las cartas num\'ericas valen su n\'umero, las figuras (J, Q, K) valen 10 puntos y el As vale siempre 11 puntos. Un jugador recibe inicialmente dos cartas. Sabiendo que las dos primeras cartas fueron una carta de valor 10 (10, J, Q o K) y una carta de valor 6, el jugador decide pedir exactamente una carta adicional. ¿Cu\'al es la probabilidad de que el jugador se pase de 21 puntos? \hfill R/ $\dfrac{17}{25}$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducci\'on: puntaje actual y condici\'on de pasarse}
+\textbf{Qu\'e hago:} calculo el puntaje que ya tiene el jugador y determino qu\'e valores de la tercera carta lo hacen pasarse.
+
+El jugador tiene $10+6=16$ puntos. Si la tercera carta vale $v$, su total ser\'a $16+v$, y se pasa cuando
+\[
+16+v>21
+\quad\Longleftrightarrow\quad
+v>21-16=5
+\quad\Longleftrightarrow\quad
+v\ge 6 .
+\]
+
+\textbf{¿De d\'onde sale?} De la tabla de valores del enunciado: la primera carta vale $10$, la segunda vale $6$, y se pide una tercera.
+
+\textbf{¿Por qu\'e?} Porque ``pasarse'' significa superar estrictamente $21$; con $v=5$ el total ser\'ia exactamente $21$, que \emph{no} es pasarse. La desigualdad estricta $v>5$ traducida a valores enteros de carta es $v\ge 6$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos: se pasa si y solo si la tercera carta vale $6$ o m\'as.
+\end{paso}
+
+\begin{paso}{Paso 2 --- El espacio muestral condicionado: cartas que quedan}
+\textbf{Qu\'e hago:} determino el espacio muestral \emph{despu\'es} de saber cu\'ales fueron las dos primeras cartas.
+
+El enunciado dice ``sabiendo que las dos primeras cartas fueron\dots'': eso condiciona el experimento. De las $52$ cartas ya se conocen $2$, luego la tercera carta se toma de un mazo de
+\[
+52-\underbrace{2}_{\substack{\text{cartas ya}\\ \text{repartidas}}}=50 \text{ cartas},
+\]
+todas ellas igualmente probables de ser la siguiente porque la baraja est\'a bien barajada. Sea
+\[
+\Omega=\{\text{las } 50 \text{ cartas que quedan en el mazo}\},
+\qquad |\Omega|=50 .
+\]
+
+\textbf{¿De d\'onde sale?} De la baraja est\'andar de $52$ cartas menos las $2$ que el jugador tiene en la mano.
+
+\textbf{¿Por qu\'e?} Porque condicionar a un evento reduce el espacio muestral, y aqu\'i esa reducci\'on es literal: las dos cartas vistas ya no pueden volver a salir. Trabajar sobre este $\Omega$ reducido con conteo equiprobable es exactamente aplicar la definici\'on $P[\,\cdot\mid B]$ del cat\'alogo, solo que en un espacio equiprobable la divisi\'on entre $P[B]$ se traduce en cambiar el denominador de $52$ a $50$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|\Omega|=50$ cartas equiprobables.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Conteo de las cartas que \emph{no} hacen pasarse}
+\textbf{Qu\'e hago:} cuento primero el complemento, porque los valores que salvan al jugador son pocos.
+
+Por el Paso 1, el jugador no se pasa exactamente cuando $v\le 5$. Con la tabla de valores del enunciado, los rangos con valor $\le 5$ son \'unicamente
+\[
+\{2,\;3,\;4,\;5\},
+\]
+pues el $6$ vale $6$, las figuras valen $10$ y el As vale $11$; no hay carta de valor $1$ ni $0$. Como ninguna de estas cartas fue vista (la mano contiene una de valor $10$ y una de valor $6$), las cuatro rangos siguen completos en el mazo:
+\[
+|\text{no se pasa}|
+=\underbrace{4}_{\substack{\text{rangos } \{2,3,4,5\}}}\cdot
+\underbrace{4}_{\substack{\text{palos por rango}}}
+=16 .
+\]
+
+\textbf{¿De d\'onde sale?} El primer $4$ es el n\'umero de rangos que salvan; el segundo $4$ son los palos ($\heartsuit,\diamondsuit,\clubsuit,\spadesuit$) de una baraja est\'andar.
+
+\textbf{¿Por qu\'e?} Porque una baraja est\'andar tiene $13$ rangos $\times$ $4$ palos $=52$ cartas, de modo que cada rango aporta exactamente $4$ cartas. Es esencial verificar que ninguna de las cartas vistas pertenece a $\{2,3,4,5\}$: si la mano hubiera contenido, digamos, un $4$, entonces solo quedar\'ian $15$ cartas salvadoras.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $16$ cartas que no hacen pasarse.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Conteo de las cartas favorables y probabilidad}
+\textbf{Qu\'e hago:} obtengo por complemento las cartas que s\'i hacen pasarse y divido.
+
+Sea $S=\{\text{el jugador se pasa de } 21\}$. Entonces
+\[
+|S|=|\Omega|-|S^{c}|=50-16=34,
+\]
+y por equiprobabilidad
+\[
+P[S]=\frac{|S|}{|\Omega|}=\frac{34}{50}=\frac{17}{25}.
+\]
+Simplificaci\'on: $34=2\cdot 17$ y $50=2\cdot 25$, luego se cancela el $2$. En decimal, $17\div 25=0{,}68$.
+
+\textbf{¿De d\'onde sale?} $50$ del Paso 2 y $16$ del Paso 3.
+
+\textbf{¿Por qu\'e?} Porque ``pasarse'' y ``no pasarse'' son complementarios dentro del mazo restante, as\'i que $P[S]=1-P[S^{c}]=1-\frac{16}{50}=\frac{34}{50}$; contar el complemento evit\'o enumerar los nueve rangos $\{6,7,8,9,10,J,Q,K,A\}$ con su cantidad restante cada uno. Como verificaci\'on directa: quedan $3$ seises, $4$ sietes, $4$ ochos, $4$ nueves, $3$ dieces, $4$ jotas, $4$ reinas, $4$ reyes y $4$ ases, y en efecto $3+4+4+4+3+4+4+4+4=34$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[S]=\dfrac{17}{25}=0{,}68$, coincidente con la respuesta oficial.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+\[
+P[\text{pasarse}]=\frac{50-16}{50}=\frac{34}{50}=\mathbf{\frac{17}{25}}=0{,}68 .
+\]
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 33}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 33}
+
+\begin{quote}
+En una canasta se tienen 10 bojas rojas y una verde. Se comienzan a sacar bolas al azar sucesivamente bajo las reglas: Si la bola extra\'ida es roja, no se devuelve a la canasta y se agrega una bola verde a la canasta, pero si la extra\'ida es verde, solo no se devuelve a la canasta. El proceso termina hasta tener 2 bolas verdes extr\'idas. ¿Cu\'al es la probabilidad de sacar cuatro bolas en total? \hfill R/ $\dfrac{5769}{66550}$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducci\'on: estado inicial, reglas y condici\'on de paro}
+\textbf{Qu\'e hago:} escribo el estado inicial y traduzco las dos reglas a cambios de conteo.
+
+Estado inicial: $10$ rojas, $1$ verde, total $11$.
+
+\textbf{Regla 1 (sale roja):} la roja no se devuelve y entra una verde. El saldo es
+\[
+\text{rojas} \to \text{rojas}-1,
+\qquad
+\text{verdes}\to\text{verdes}+1,
+\qquad
+\text{total}\to\text{total} \ \ (\text{no cambia}).
+\]
+
+\textbf{Regla 2 (sale verde):} la verde no se devuelve y no entra nada:
+\[
+\text{verdes}\to\text{verdes}-1,
+\qquad
+\text{total}\to\text{total}-1 .
+\]
+
+El proceso \textbf{termina} en el instante en que se ha extra\'ido la segunda bola verde.
+
+\textbf{¿De d\'onde sale?} Literalmente del enunciado; la observaci\'on de que el total no cambia al salir roja se deduce de que sale una bola y entra otra.
+
+\textbf{¿Por qu\'e?} Porque hay que llevar la cuenta de tres n\'umeros (rojas, verdes, total) y la regla 1 los mueve de forma poco intuitiva: quita una roja pero repone con una verde, dejando el total fijo. Fijar esto por escrito evita equivocarse en los denominadores del \'arbol.
+
+\textbf{¿Qu\'e tomamos?} Tomamos el estado inicial $(10\text{R},1\text{V},11)$ y las dos reglas de actualizaci\'on.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Caracterizaci\'on del evento ``exactamente 4 extracciones''}
+\textbf{Qu\'e hago:} traduzco ``sacar cuatro bolas en total'' a una condici\'on sobre la secuencia de colores.
+
+Que el proceso dure exactamente $4$ extracciones significa dos cosas a la vez:
+\begin{enumerate}[leftmargin=*]
+  \item la cuarta bola es verde (es la que dispara el paro), y
+  \item entre las tres primeras hay \emph{exactamente una} verde (si hubiera dos, el proceso habr\'ia terminado antes; si hubiera cero, la cuarta verde ser\'ia solo la primera y el proceso continuar\'ia).
+\end{enumerate}
+El enunciado no exige que las verdes salgan seguidas, as\'i que la verde de las tres primeras puede ocupar cualquiera de las tres posiciones. Los casos son entonces
+\[
+\text{Caso I: } V\!-\!R\!-\!R\!-\!V,
+\qquad
+\text{Caso II: } R\!-\!V\!-\!R\!-\!V,
+\qquad
+\text{Caso III: } R\!-\!R\!-\!V\!-\!V .
+\]
+Su n\'umero es $C(3,1)=3$: se elige cu\'al de las tres primeras posiciones lleva la verde.
+
+\textbf{¿De d\'onde sale?} De la condici\'on de paro (``hasta tener 2 bolas verdes extra\'idas'') combinada con la exigencia de que el total de extracciones sea $4$.
+
+\textbf{¿Por qu\'e?} Porque en un proceso con paro la duraci\'on es exactamente $n$ si y solo si el criterio se cumple \emph{por primera vez} en la extracci\'on $n$. Traducirlo a ``la \'ultima es verde y antes hay exactamente una verde'' es lo que convierte una condici\'on din\'amica en un conjunto finito y expl\'icito de ramas.
+
+\textbf{¿Qu\'e tomamos?} Tomamos los tres casos $VRRV$, $RVRV$ y $RRVV$, disjuntos entre s\'i.
+\end{paso}
+
+\begin{paso}{Paso 3 --- \'Arbol de probabilidades con los estados de cada nodo}
+\textbf{Qu\'e hago:} anoto el estado de la canasta a lo largo de cada rama, para poder leer los denominadores.
+
+\begin{center}
+\small\begin{tabular}{l|c|c|c|c}
+Rama & tras extr. 1 & tras extr. 2 & tras extr. 3 & tras extr. 4\\\hline
+$V\!-\!R\!-\!R\!-\!V$ & $10$R,\,$0$V,\,$10$ & $9$R,\,$1$V,\,$10$ & $8$R,\,$2$V,\,$10$ & fin\\
+$R\!-\!V\!-\!R\!-\!V$ & $9$R,\,$2$V,\,$11$ & $9$R,\,$1$V,\,$10$ & $8$R,\,$2$V,\,$10$ & fin\\
+$R\!-\!R\!-\!V\!-\!V$ & $9$R,\,$2$V,\,$11$ & $8$R,\,$3$V,\,$11$ & $8$R,\,$2$V,\,$10$ & fin
+\end{tabular}
+\end{center}
+El estado \emph{antes} de la primera extracci\'on es siempre $10$R, $1$V, total $11$.
+
+\textbf{¿De d\'onde sale?} De aplicar mec\'anicamente las reglas del Paso 1 letra por letra en cada rama.
+
+\textbf{¿Por qu\'e?} Porque cada arista del \'arbol usa como denominador el total \emph{previo} a esa extracci\'on y como numerador la cantidad del color pedido \emph{previa} a esa extracci\'on. Tener la tabla de estados a la vista elimina el riesgo de mezclar los conteos de una rama con los de otra: obs\'ervese, por ejemplo, que en $VRRV$ el total baja a $10$ desde la primera extracci\'on, mientras que en $RRVV$ sigue en $11$ hasta la tercera.
+
+\textbf{¿Qu\'e tomamos?} Tomamos la tabla de estados como insumo de los tres pasos siguientes.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Caso I: $V\!-\!R\!-\!R\!-\!V$}
+\textbf{Qu\'e hago:} eval\'uo la rama por etapas con la regla de la cadena.
+
+\textbf{Etapa 1.} Hay $1$ verde entre $11$: $\;P[V_1]=\dfrac{1}{11}$.
+
+\textbf{Etapa 2.} Tras la verde quedan $10$ rojas y $0$ verdes, total $10$; sacar roja es seguro:
+\[
+P[R_2\mid V_1]=\frac{10}{10}=1 .
+\]
+
+\textbf{Etapa 3.} Tras esa roja quedan $9$ rojas y $1$ verde, total $10$:
+\[
+P[R_3\mid V_1\cap R_2]=\frac{9}{10}.
+\]
+
+\textbf{Etapa 4.} Tras esa roja quedan $8$ rojas y $2$ verdes, total $10$:
+\[
+P[V_4\mid V_1\cap R_2\cap R_3]=\frac{2}{10}=\frac{1}{5}.
+\]
+
+Multiplicando,
+\[
+P[\text{Caso I}]=\frac{1}{11}\cdot 1\cdot\frac{9}{10}\cdot\frac{1}{5}
+=\frac{1\cdot 9\cdot 1}{11\cdot 10\cdot 5}=\frac{9}{550}.
+\]
+
+\textbf{¿De d\'onde sale?} Cada fracci\'on se lee en la fila $VRRV$ de la tabla del Paso 3.
+
+\textbf{¿Por qu\'e?} El factor $1$ de la etapa 2 merece atenci\'on: despu\'es de sacar la \'unica verde inicial no queda ninguna verde en la canasta, de modo que la segunda extracci\'on es forzosamente roja. La independencia no interviene aqu\'i en ning\'un momento; todo el c\'alculo es regla de la cadena pura, porque cada extracci\'on depende fuertemente de la anterior.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[\text{Caso I}]=\dfrac{9}{550}$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Caso II: $R\!-\!V\!-\!R\!-\!V$}
+\textbf{Qu\'e hago:} repito el procedimiento en la segunda rama.
+
+\textbf{Etapa 1.} $P[R_1]=\dfrac{10}{11}$ ($10$ rojas de $11$).
+
+\textbf{Etapa 2.} Estado $9$R, $2$V, total $11$: $\;P[V_2\mid R_1]=\dfrac{2}{11}$.
+
+\textbf{Etapa 3.} Estado $9$R, $1$V, total $10$: $\;P[R_3\mid\cdot]=\dfrac{9}{10}$.
+
+\textbf{Etapa 4.} Estado $8$R, $2$V, total $10$: $\;P[V_4\mid\cdot]=\dfrac{2}{10}=\dfrac{1}{5}$.
+
+\[
+P[\text{Caso II}]=\frac{10}{11}\cdot\frac{2}{11}\cdot\frac{9}{10}\cdot\frac{1}{5}
+=\frac{10\cdot 2\cdot 9\cdot 1}{11\cdot 11\cdot 10\cdot 5}
+=\frac{180}{6050}=\frac{18}{605}.
+\]
+
+\textbf{¿De d\'onde sale?} De la fila $RVRV$ de la tabla del Paso 3.
+
+\textbf{¿Por qu\'e?} N\'otese el $2$ de la etapa 2: al salir la primera roja se agreg\'o una verde, as\'i que ahora hay \emph{dos} verdes, no una. Ese es precisamente el efecto de la regla 1, y es lo que hace que la segunda verde tenga m\'as posibilidades de aparecer conforme avanza el proceso.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[\text{Caso II}]=\dfrac{18}{605}$ (se simplific\'o dividiendo entre $10$).
+\end{paso}
+
+\begin{paso}{Paso 6 --- Caso III: $R\!-\!R\!-\!V\!-\!V$}
+\textbf{Qu\'e hago:} eval\'uo la tercera rama.
+
+\textbf{Etapa 1.} $P[R_1]=\dfrac{10}{11}$.
+
+\textbf{Etapa 2.} Estado $9$R, $2$V, total $11$: $\;P[R_2\mid R_1]=\dfrac{9}{11}$.
+
+\textbf{Etapa 3.} Estado $8$R, $3$V, total $11$: $\;P[V_3\mid\cdot]=\dfrac{3}{11}$.
+
+\textbf{Etapa 4.} Estado $8$R, $2$V, total $10$: $\;P[V_4\mid\cdot]=\dfrac{2}{10}=\dfrac{1}{5}$.
+
+\[
+P[\text{Caso III}]=\frac{10}{11}\cdot\frac{9}{11}\cdot\frac{3}{11}\cdot\frac{1}{5}
+=\frac{10\cdot 9\cdot 3\cdot 1}{11\cdot 11\cdot 11\cdot 5}
+=\frac{270}{6655}=\frac{54}{1331}.
+\]
+(Simplificaci\'on: $270\div 5=54$ y $6655\div 5=1331=11^{3}$.)
+
+\textbf{¿De d\'onde sale?} De la fila $RRVV$ de la tabla del Paso 3.
+
+\textbf{¿Por qu\'e?} Aqu\'i las dos primeras rojas dejan tres verdes en la canasta manteniendo el total en $11$, por lo que el denominador $11$ se repite tres veces. Es la rama con m\'as peso de las tres, lo cual es razonable: sacar rojas al principio es muy probable y adem\'as va cargando la canasta de verdes.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[\text{Caso III}]=\dfrac{54}{1331}$.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Suma de los tres casos}
+\textbf{Qu\'e hago:} sumo las tres ramas, que son disjuntas por construcci\'on.
+
+Los denominadores son $550=2\cdot 5^{2}\cdot 11$, $605=5\cdot 11^{2}$ y $1331=11^{3}$; el m\'inimo com\'un m\'ultiplo es
+\[
+2\cdot 5^{2}\cdot 11^{3}=2\cdot 25\cdot 1331=66550 .
+\]
+Convierto cada fracci\'on:
+\[
+\frac{9}{550}=\frac{9\cdot 121}{66550}=\frac{1089}{66550},
+\qquad
+\frac{18}{605}=\frac{18\cdot 110}{66550}=\frac{1980}{66550},
+\qquad
+\frac{54}{1331}=\frac{54\cdot 50}{66550}=\frac{2700}{66550},
+\]
+donde $66550\div 550=121$, $66550\div 605=110$ y $66550\div 1331=50$. Sumando los numeradores:
+\[
+1089+1980=3069,
+\qquad
+3069+2700=5769 .
+\]
+Por lo tanto
+\[
+P[\text{4 extracciones}]=\frac{5769}{66550}\approx 0{,}086687 .
+\]
+
+\textbf{¿De d\'onde sale?} De los Pasos 4, 5 y 6.
+
+\textbf{¿Por qu\'e?} Porque las tres ramas describen secuencias de colores distintas, luego son eventos incompatibles y el axioma (A3) permite sumar. Y no falta ninguna rama: el Paso 2 prob\'o que solo hay $C(3,1)=3$ configuraciones posibles.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P=\dfrac{5769}{66550}\approx 0{,}0867$, es decir, cerca de un $8{,}67\%$. Coincide con la respuesta oficial del folleto.
+\end{paso}
+
+\end{sol}
+
+\begin{nota}
+\textbf{Comparaci\'on con el solucionario del profesor.} En la pr\'actica resuelta del curso este mismo problema aparece resuelto con las tres ramas $R\!-\!V\!-\!R\!-\!V$, $V\!-\!R\!-\!R\!-\!V$ y $R\!-\!R\!-\!V\!-\!V$, exactamente los tres casos de arriba, y con los mismos valores $\frac{18}{605}$ y $\frac{54}{1331}$ para la primera y la tercera. En la rama $V\!-\!R\!-\!R\!-\!V$ ese documento usa $\frac{1}{10}$ como \'ultimo factor y obtiene $\frac{9}{1100}$, con total aproximado $0{,}0785$. Sin embargo, justo antes de la cuarta extracci\'on la canasta contiene $8$ rojas y $2$ verdes (la verde inicial se retir\'o, y las dos rojas extra\'idas aportaron una verde cada una), de modo que el factor correcto es $\frac{2}{10}$ y la rama vale $\frac{9}{550}$. Con esa correcci\'on el total es $\frac{5769}{66550}\approx 0{,}0867$, que es precisamente la respuesta oficial del folleto. Se conserva por tanto el valor oficial y se se\~nala la diferencia.
+\end{nota}
+
+\begin{resp}
+\[
+P=\underbrace{\frac{1}{11}\cdot\frac{10}{10}\cdot\frac{9}{10}\cdot\frac{2}{10}}_{VRRV=\frac{9}{550}}
++\underbrace{\frac{10}{11}\cdot\frac{2}{11}\cdot\frac{9}{10}\cdot\frac{2}{10}}_{RVRV=\frac{18}{605}}
++\underbrace{\frac{10}{11}\cdot\frac{9}{11}\cdot\frac{3}{11}\cdot\frac{2}{10}}_{RRVV=\frac{54}{1331}}
+=\mathbf{\frac{5769}{66550}}\approx 0{,}0867 .
+\]
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 34}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 34}
+
+\begin{quote}
+Sean $A,B,C$ eventos tales que $A$ y $B$ son independientes y $A$ y $C$ son disjuntos. Pruebe que:
+\[
+P[(A\setminus B)\cup C]=P[A]+P[C]-P[A\cap B].
+\]
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Inventario de hip\'otesis y objetivo}
+\textbf{Qu\'e hago:} escribo en s\'imbolos cada hip\'otesis y el objetivo, para saber qu\'e herramienta corresponde a cada una.
+
+Hip\'otesis:
+\[
+\text{(H1) } A \text{ y } B \text{ independientes}: \quad P[A\cap B]=P[A]\,P[B],
+\qquad
+\text{(H2) } A\cap C=\varnothing .
+\]
+Objetivo: $P[(A\setminus B)\cup C]=P[A]+P[C]-P[A\cap B]$.
+
+\textbf{¿De d\'onde sale?} De las dos frases del enunciado, traducidas con las definiciones del cat\'alogo.
+
+\textbf{¿Por qu\'e?} Porque en una demostraci\'on hay que saber d\'onde se va a usar cada hip\'otesis. La (H2) servir\'a para poder sumar sin restar intersecci\'on; la (H1), como se ver\'a, no es realmente necesaria para esta identidad concreta.
+
+\textbf{¿Qu\'e tomamos?} Tomamos (H1) y (H2) como disponibles y el objetivo como meta.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Los conjuntos $A\setminus B$ y $C$ son disjuntos}
+\textbf{Qu\'e hago:} verifico la condici\'on que habilita el axioma (A3).
+
+Por definici\'on de diferencia, $A\setminus B=A\cap B^{c}\subseteq A$. Entonces
+\[
+(A\setminus B)\cap C\;\subseteq\; A\cap C\;=\;\varnothing
+\qquad\Longrightarrow\qquad
+(A\setminus B)\cap C=\varnothing .
+\]
+
+\textbf{¿De d\'onde sale?} De (H2) y de la contenci\'on $A\setminus B\subseteq A$, que es inmediata porque quitarle elementos a $A$ no lo saca de $A$.
+
+\textbf{¿Por qu\'e?} Porque un subconjunto del conjunto vac\'io es vac\'io. Y este es el punto exacto donde se usa la hip\'otesis de disyunci\'on: sin ella habr\'ia que restar $P[(A\setminus B)\cap C]$, y el lado derecho del enunciado no tiene ese t\'ermino.
+
+\textbf{¿Qu\'e tomamos?} Tomamos que $A\setminus B$ y $C$ son mutuamente excluyentes.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Aplicaci\'on del axioma de aditividad}
+\textbf{Qu\'e hago:} uso (A3) sobre la uni\'on disjunta del paso anterior.
+\[
+P[(A\setminus B)\cup C]=P[A\setminus B]+P[C].
+\]
+
+\textbf{¿De d\'onde sale?} Del axioma (A3): la probabilidad de la uni\'on de dos eventos disjuntos es la suma de sus probabilidades. La condici\'on de disyunci\'on se verific\'o en el Paso 2.
+
+\textbf{¿Por qu\'e?} Porque sin disyunci\'on lo correcto ser\'ia inclusi\'on--exclusi\'on, $P[X\cup Y]=P[X]+P[Y]-P[X\cap Y]$; aqu\'i el t\'ermino correctivo es $P[\varnothing]=0$ y desaparece.
+
+\textbf{¿Qu\'e tomamos?} Tomamos la igualdad $P[(A\setminus B)\cup C]=P[A\setminus B]+P[C]$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- C\'alculo de $P[A\setminus B]$ por la partici\'on}
+\textbf{Qu\'e hago:} descompongo $A$ seg\'un $B$ y su complemento.
+
+Por el punto 4 del cat\'alogo,
+\[
+P[A]=P[A\cap B]+P[A\cap B^{c}]
+\qquad\Longrightarrow\qquad
+P[A\setminus B]=P[A\cap B^{c}]=P[A]-P[A\cap B].
+\]
+
+\textbf{¿De d\'onde sale?} De la identidad conjuntista $A=(A\cap B)\cup(A\cap B^{c})$ con los dos pedazos disjuntos, y de que $A\setminus B=A\cap B^{c}$.
+
+\textbf{¿Por qu\'e?} Porque ``estar en $A$'' se parte sin ambig\"uedad en ``estar en $A$ y en $B$'' o ``estar en $A$ y fuera de $B$''; el axioma (A3) permite entonces sumar y despejar. N\'otese que este paso vale para eventos cualesquiera: no necesita ninguna hip\'otesis.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[A\setminus B]=P[A]-P[A\cap B]$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Ensamblaje y conclusi\'on}
+\textbf{Qu\'e hago:} sustituyo el Paso 4 en el Paso 3.
+\[
+P[(A\setminus B)\cup C]
+\;\overset{\text{Paso 3}}{=}\;
+P[A\setminus B]+P[C]
+\;\overset{\text{Paso 4}}{=}\;
+\bigl(P[A]-P[A\cap B]\bigr)+P[C]
+\]
+\[
+=P[A]+P[C]-P[A\cap B].
+\]
+Que es exactamente lo que se ped\'ia demostrar. $\blacksquare$
+
+\textbf{¿De d\'onde sale?} De encadenar las dos igualdades ya probadas.
+
+\textbf{¿Por qu\'e?} Porque la cadena de igualdades es la demostraci\'on completa: se parte del lado izquierdo, se aplica (A3) gracias a la disyunci\'on $A\cap C=\varnothing$, y luego la partici\'on de $A$ por $B$. Cada paso est\'a justificado por un axioma o por una identidad conjuntista.
+
+\textbf{¿Qu\'e tomamos?} Tomamos la identidad como demostrada.
+\end{paso}
+
+\end{sol}
+
+\begin{nota}
+\textbf{Sobre la hip\'otesis de independencia.} La demostraci\'on anterior no us\'o en ning\'un momento que $A$ y $B$ fueran independientes: la identidad
+\[
+P[(A\setminus B)\cup C]=P[A]+P[C]-P[A\cap B]
+\]
+es v\'alida para eventos $A$, $B$ cualesquiera, siempre que $A\cap C=\varnothing$. La independencia solo permite, si se desea, reescribir el \'ultimo t\'ermino como un producto:
+\[
+P[(A\setminus B)\cup C]=P[A]+P[C]-P[A]\,P[B].
+\]
+Es la forma en que suele pedirse la respuesta cuando el enunciado da valores num\'ericos para $P[A]$ y $P[B]$.
+\end{nota}
+
+\begin{resp}
+Queda demostrado que $P[(A\setminus B)\cup C]=P[A]+P[C]-P[A\cap B]$, usando \'unicamente que $(A\setminus B)\cap C\subseteq A\cap C=\varnothing$ (aditividad) y la partici\'on $P[A]=P[A\cap B]+P[A\cap B^{c}]$. Con la independencia de $A$ y $B$ puede escribirse tambi\'en como $P[A]+P[C]-P[A]P[B]$.
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 35}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 35}
+
+\begin{quote}
+Sean $A,B,C$ eventos tales que $A$ y $B$ son independientes, $B$ y $C$ son disjuntos y $A$ y $C$ son disjuntos. Pruebe que:
+\[
+P[(A\triangle B)\cap C]=P[A]+P[B]-2P[A]P[B].
+\]
+\end{quote}
+
+\begin{nota}
+\textbf{Sobre la consistencia del enunciado (posible errata del folleto).} Con las tres hip\'otesis tal como est\'an escritas, el lado izquierdo vale siempre $0$, mientras que el lado derecho no lo es en general (por ejemplo, si $P[A]=P[B]=\tfrac{1}{2}$ el lado derecho da $\tfrac{1}{2}$). En efecto, el Paso 2 de abajo muestra que $(A\triangle B)\cap C=\varnothing$. Por lo tanto la igualdad pedida es falsa salvo en casos degenerados.
+
+Lo que s\'i es cierto, y es casi con seguridad lo que se quiso escribir, es la identidad
+\[
+P[A\triangle B]=P[A]+P[B]-2P[A]P[B]
+\qquad\text{(con $A$ y $B$ independientes),}
+\]
+cuyo lado derecho es exactamente el del enunciado. Es decir, sobra el ``$\cap C$'' del lado izquierdo. Otra lectura posible es que se quisiera $P[(A\triangle B)\cup C]$, pero esa versi\'on producir\'ia un sumando adicional $P[C]$ que no aparece en el lado derecho, as\'i que la lectura m\'as plausible es la primera.
+
+Se conserva el enunciado oficial verbatim, se demuestra que el lado izquierdo es $0$ y se demuestra a continuaci\'on la identidad verdadera.
+\end{nota}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Inventario de hip\'otesis y descripci\'on de $A\triangle B$}
+\textbf{Qu\'e hago:} traduzco las hip\'otesis y desarmo la diferencia sim\'etrica.
+
+Hip\'otesis:
+\[
+\text{(H1) } P[A\cap B]=P[A]P[B],
+\qquad
+\text{(H2) } B\cap C=\varnothing,
+\qquad
+\text{(H3) } A\cap C=\varnothing .
+\]
+Por definici\'on,
+\[
+A\triangle B=(A\setminus B)\cup(B\setminus A)=(A\cap B^{c})\cup(B\cap A^{c}),
+\]
+que es el conjunto de los resultados que est\'an en exactamente uno de los dos eventos.
+
+\textbf{¿De d\'onde sale?} De las tres frases del enunciado y de la definici\'on est\'andar de diferencia sim\'etrica.
+
+\textbf{¿Por qu\'e?} Porque para operar con $A\triangle B$ hay que verlo como uni\'on de dos pedazos disjuntos: uno dentro de $A$ y otro dentro de $B$. Esa descomposici\'on es la que conecta la diferencia sim\'etrica con los axiomas.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $A\triangle B=(A\cap B^{c})\cup(B\cap A^{c})$, uni\'on disjunta.
+\end{paso}
+
+\begin{paso}{Paso 2 --- El lado izquierdo del enunciado es cero}
+\textbf{Qu\'e hago:} intersecto la descripci\'on anterior con $C$ y uso (H2) y (H3).
+
+Como $A\triangle B\subseteq A\cup B$, se tiene
+\[
+(A\triangle B)\cap C\;\subseteq\;(A\cup B)\cap C\;=\;(A\cap C)\cup(B\cap C)\;=\;\varnothing\cup\varnothing\;=\;\varnothing .
+\]
+Por lo tanto
+\[
+P[(A\triangle B)\cap C]=P[\varnothing]=0 .
+\]
+
+\textbf{¿De d\'onde sale?} La contenci\'on $A\triangle B\subseteq A\cup B$ sale del Paso 1 ($A\cap B^{c}\subseteq A$ y $B\cap A^{c}\subseteq B$); las dos igualdades a $\varnothing$ son (H3) y (H2).
+
+\textbf{¿Por qu\'e?} Porque la distributividad de la intersecci\'on sobre la uni\'on convierte $(A\cup B)\cap C$ en la uni\'on de las dos intersecciones que las hip\'otesis anulan. Y $P[\varnothing]=0$ se sigue de los axiomas: como $\varnothing\cap\varnothing=\varnothing$, (A3) da $P[\varnothing]=P[\varnothing]+P[\varnothing]$, de donde $P[\varnothing]=0$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[(A\triangle B)\cap C]=0$, que es lo que realmente vale el lado izquierdo del enunciado.
+\end{paso}
+
+\begin{paso}{Paso 3 --- C\'alculo de $P[A\triangle B]$ (la identidad verdadera)}
+\textbf{Qu\'e hago:} calculo la probabilidad de la diferencia sim\'etrica usando que sus dos pedazos son disjuntos.
+
+Los conjuntos $A\cap B^{c}$ y $B\cap A^{c}$ son disjuntos: el primero exige estar fuera de $B$ y el segundo estar en $B$. Por (A3),
+\[
+P[A\triangle B]=P[A\cap B^{c}]+P[B\cap A^{c}].
+\]
+Por la partici\'on del cat\'alogo (punto 4), aplicada una vez a $A$ y otra a $B$,
+\[
+P[A\cap B^{c}]=P[A]-P[A\cap B],
+\qquad
+P[B\cap A^{c}]=P[B]-P[A\cap B].
+\]
+Sumando,
+\[
+P[A\triangle B]=\bigl(P[A]-P[A\cap B]\bigr)+\bigl(P[B]-P[A\cap B]\bigr)=P[A]+P[B]-2P[A\cap B].
+\]
+
+\textbf{¿De d\'onde sale?} De (A3) y de la identidad de partici\'on, ambas del cat\'alogo inicial.
+
+\textbf{¿Por qu\'e?} Porque el factor $2$ tiene una lectura clara: al sumar $P[A]+P[B]$ la zona com\'un $A\cap B$ se cuenta dos veces, pero esa zona \emph{no} pertenece a la diferencia sim\'etrica, as\'i que hay que quitarla \emph{las dos veces} que se cont\'o. Por eso se resta $2P[A\cap B]$ y no $P[A\cap B]$ como en la uni\'on.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[A\triangle B]=P[A]+P[B]-2P[A\cap B]$, v\'alida para eventos cualesquiera.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Entrada de la hip\'otesis de independencia}
+\textbf{Qu\'e hago:} sustituyo $P[A\cap B]$ usando (H1).
+
+Como $A$ y $B$ son independientes, $P[A\cap B]=P[A]P[B]$, y por lo tanto
+\[
+P[A\triangle B]=P[A]+P[B]-2P[A]\,P[B].
+\]
+$\blacksquare$
+
+\textbf{¿De d\'onde sale?} De (H1), que es la \'unica hip\'otesis del enunciado que produce un producto.
+
+\textbf{¿Por qu\'e?} Porque este es exactamente el punto donde la independencia hace falta: el Paso 3 es v\'alido siempre, pero solo con independencia el t\'ermino $P[A\cap B]$ se convierte en $P[A]P[B]$, que es la forma que aparece en el lado derecho del enunciado. Sin independencia el resultado quedar\'ia en t\'erminos de $P[A\cap B]$ y no se podr\'ia escribir con productos.
+
+\textbf{¿Qu\'e tomamos?} Tomamos la identidad $P[A\triangle B]=P[A]+P[B]-2P[A]P[B]$ como demostrada, con las hip\'otesis (H2) y (H3) sin usar (no son necesarias para ella).
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Con las hip\'otesis del enunciado, $(A\triangle B)\cap C\subseteq (A\cap C)\cup(B\cap C)=\varnothing$, luego
+\[
+P[(A\triangle B)\cap C]=\mathbf{0},
+\]
+que no coincide con el lado derecho salvo en casos degenerados. La identidad que s\'i se cumple, y que casi seguramente era la pedida, es
+\[
+P[A\triangle B]=P[A]+P[B]-2P[A\cap B]=\mathbf{P[A]+P[B]-2P[A]P[B]}
+\]
+gracias a la independencia de $A$ y $B$. Se conserva el enunciado oficial tal cual y se documenta la discrepancia.
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 36}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 36}
+
+\begin{quote}
+Sean $A,B,C$ eventos tales que $A$ es independiente de $B$ y de $C$, y adem\'as $B\cap C=\varnothing$. Pruebe que:
+\[
+P[(A\triangle B)\cup C]=P[A]+P[B]+P[C]-2P[A]P[B]-P[A]P[C].
+\]
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Inventario de hip\'otesis y plan de ataque}
+\textbf{Qu\'e hago:} traduzco las hip\'otesis y decido la ruta.
+
+Hip\'otesis:
+\[
+\text{(H1) } P[A\cap B]=P[A]P[B],
+\qquad
+\text{(H2) } P[A\cap C]=P[A]P[C],
+\qquad
+\text{(H3) } B\cap C=\varnothing .
+\]
+Plan: aplicar inclusi\'on--exclusi\'on a la uni\'on de $A\triangle B$ con $C$,
+\[
+P[(A\triangle B)\cup C]=P[A\triangle B]+P[C]-P[(A\triangle B)\cap C],
+\]
+y calcular por separado los dos t\'erminos que faltan.
+
+\textbf{¿De d\'onde sale?} La f\'ormula de inclusi\'on--exclusi\'on es la del punto 5 del cat\'alogo, aplicada a los eventos $X=A\triangle B$ y $Y=C$.
+
+\textbf{¿Por qu\'e?} Porque aqu\'i, a diferencia del ejercicio 35, \emph{no} se supone que $A$ y $C$ sean disjuntos, as\'i que la intersecci\'on $(A\triangle B)\cap C$ puede ser no vac\'ia y hay que calcularla, no descartarla. De hecho ese t\'ermino es el que producir\'a el $-P[A]P[C]$ del lado derecho.
+
+\textbf{¿Qu\'e tomamos?} Tomamos la descomposici\'on por inclusi\'on--exclusi\'on como esqueleto de la demostraci\'on.
+\end{paso}
+
+\begin{paso}{Paso 2 --- C\'alculo de $P[A\triangle B]$}
+\textbf{Qu\'e hago:} reutilizo la identidad demostrada en el ejercicio 35 y le aplico (H1).
+
+Como $A\triangle B=(A\cap B^{c})\cup(B\cap A^{c})$ es uni\'on disjunta, el axioma (A3) y la partici\'on dan
+\[
+P[A\triangle B]=\bigl(P[A]-P[A\cap B]\bigr)+\bigl(P[B]-P[A\cap B]\bigr)=P[A]+P[B]-2P[A\cap B],
+\]
+y por (H1),
+\[
+P[A\triangle B]=P[A]+P[B]-2P[A]\,P[B].
+\]
+
+\textbf{¿De d\'onde sale?} Del Paso 3 del ejercicio 35 (v\'alido para eventos cualesquiera) m\'as la hip\'otesis (H1).
+
+\textbf{¿Por qu\'e?} Porque aqu\'i entra la independencia de $A$ y $B$: es lo \'unico que convierte $P[A\cap B]$ en el producto $P[A]P[B]$ que exige el lado derecho.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[A\triangle B]=P[A]+P[B]-2P[A]P[B]$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Simplificaci\'on conjuntista de $(A\triangle B)\cap C$}
+\textbf{Qu\'e hago:} uso (H3) para reducir esa intersecci\'on a algo manejable.
+
+Distribuyendo,
+\[
+(A\triangle B)\cap C=\bigl[(A\cap B^{c})\cap C\bigr]\;\cup\;\bigl[(B\cap A^{c})\cap C\bigr].
+\]
+El segundo pedazo est\'a contenido en $B\cap C=\varnothing$, luego es vac\'io. Para el primero, obs\'ervese que (H3) dice $B\cap C=\varnothing$, lo cual equivale a $C\subseteq B^{c}$; por lo tanto $C\cap B^{c}=C$ y
+\[
+(A\cap B^{c})\cap C=A\cap(B^{c}\cap C)=A\cap C .
+\]
+En conclusi\'on,
+\[
+(A\triangle B)\cap C=A\cap C .
+\]
+
+\textbf{¿De d\'onde sale?} De la distributividad de la intersecci\'on sobre la uni\'on y de (H3) le\'ida en su forma equivalente $C\subseteq B^{c}$.
+
+\textbf{¿Por qu\'e?} Porque la hip\'otesis (H3) act\'ua aqu\'i de dos maneras a la vez: elimina el pedazo que vive en $B$ y, a la vez, hace inofensiva la condici\'on ``fuera de $B$'' sobre el otro pedazo, ya que todo punto de $C$ est\'a autom\'aticamente fuera de $B$. Este es el paso clave de la demostraci\'on: sin \'el habr\'ia que lidiar con $P[A\cap B^{c}\cap C]$, que no se puede reducir a productos con las hip\'otesis dadas.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $(A\triangle B)\cap C=A\cap C$, y por (H2), $P[(A\triangle B)\cap C]=P[A]\,P[C]$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Ensamblaje final}
+\textbf{Qu\'e hago:} sustituyo los Pasos 2 y 3 en el esqueleto del Paso 1.
+\[
+P[(A\triangle B)\cup C]
+= \underbrace{\bigl(P[A]+P[B]-2P[A]P[B]\bigr)}_{P[A\triangle B],\ \text{Paso 2}}
++ P[C]
+- \underbrace{P[A]P[C]}_{P[(A\triangle B)\cap C],\ \text{Paso 3}} .
+\]
+Reordenando los sumandos,
+\[
+P[(A\triangle B)\cup C]=P[A]+P[B]+P[C]-2P[A]P[B]-P[A]P[C],
+\]
+que es exactamente la identidad pedida. $\blacksquare$
+
+\textbf{¿De d\'onde sale?} De los tres pasos anteriores.
+
+\textbf{¿Por qu\'e?} Porque cada t\'ermino del lado derecho queda ahora identificado con su origen: $P[A]+P[B]-2P[A]P[B]$ viene de la diferencia sim\'etrica (independencia $A$--$B$), $P[C]$ del sumando de inclusi\'on--exclusi\'on, y $-P[A]P[C]$ de la intersecci\'on, que la disyunci\'on $B\cap C=\varnothing$ redujo a $A\cap C$ y la independencia $A$--$C$ convirti\'o en producto. Las tres hip\'otesis se usaron, cada una en un lugar distinto.
+
+\textbf{¿Qu\'e tomamos?} Tomamos la identidad como demostrada.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Queda demostrado que
+\[
+P[(A\triangle B)\cup C]=P[A]+P[B]+P[C]-2P[A]P[B]-P[A]P[C].
+\]
+Las hip\'otesis intervienen as\'i: $B\cap C=\varnothing$ reduce $(A\triangle B)\cap C$ a $A\cap C$; la independencia de $A$ con $B$ da el t\'ermino $-2P[A]P[B]$; y la de $A$ con $C$ da el t\'ermino $-P[A]P[C]$.
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 37}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 37}
+
+\begin{quote}
+En una canasta hay 10 bolas numeradas del 1 al 10 y se extraen bolas sucesivamente siguiendo la regla: si se extrae una bola par se retorna a la canasta, y si se extrae una bola impar no se retorna. El proceso finaliza cuando se hayan extra\'ido dos bolas impares. ¿Cu\'al es la probabilidad de que se extraigan exactamente cinco bolas? \hfill R/ $\dfrac{3439}{26244}$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducci\'on: composici\'on, reglas y condici\'on de paro}
+\textbf{Qu\'e hago:} cuento pares e impares y traduzco las reglas.
+
+Entre $1$ y $10$ hay
+\[
+\underbrace{5}_{\{2,4,6,8,10\}}\ \text{pares}
+\qquad\text{y}\qquad
+\underbrace{5}_{\{1,3,5,7,9\}}\ \text{impares},
+\]
+total $10$.
+
+\textbf{Regla 1 (sale par):} la bola \emph{se retorna}. La canasta queda \emph{exactamente igual}: $5$ pares, los impares que hubiera, y el mismo total.
+
+\textbf{Regla 2 (sale impar):} la bola no se retorna: los impares bajan en $1$ y el total baja en $1$.
+
+El proceso \textbf{termina} al extraerse el segundo impar.
+
+\textbf{¿De d\'onde sale?} De la numeraci\'on $1$ a $10$ (que reparte en mitades exactas) y de las dos reglas del enunciado.
+
+\textbf{¿Por qu\'e?} Porque la regla 1 es una reposici\'on pura: extraer un par no cambia absolutamente nada del estado, de modo que la probabilidad de sacar par vuelve a ser la misma en la siguiente extracci\'on. Solo los impares mueven el estado. Reconocer esto simplifica mucho el \'arbol.
+
+\textbf{¿Qu\'e tomamos?} Tomamos el estado inicial $(5\ \text{pares},\,5\ \text{impares},\,10)$ y las dos reglas.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Caracterizaci\'on del evento ``exactamente 5 extracciones''}
+\textbf{Qu\'e hago:} traduzco la duraci\'on a una condici\'on sobre la secuencia de paridades.
+
+Que el proceso dure exactamente $5$ extracciones significa:
+\begin{enumerate}[leftmargin=*]
+  \item la quinta bola es impar (es la que provoca el paro), y
+  \item entre las cuatro primeras hay \emph{exactamente un} impar.
+\end{enumerate}
+Escribiendo $E$ por ``par'' y $O$ por ``impar'', los casos son los $C(4,1)=4$ arreglos
+\[
+\text{I: } O\,E\,E\,E\,O,
+\qquad
+\text{II: } E\,O\,E\,E\,O,
+\qquad
+\text{III: } E\,E\,O\,E\,O,
+\qquad
+\text{IV: } E\,E\,E\,O\,O .
+\]
+
+\textbf{¿De d\'onde sale?} De la condici\'on de paro (``finaliza cuando se hayan extra\'ido dos bolas impares'') junto con la exigencia de que el total sea $5$.
+
+\textbf{¿Por qu\'e?} Porque el segundo impar debe caer justo en la posici\'on $5$: si cayera antes, el proceso habr\'ia terminado antes de la quinta extracci\'on. El conteo $C(4,1)=4$ elige la posici\'on del primer impar entre las cuatro primeras extracciones.
+
+\textbf{¿Qu\'e tomamos?} Tomamos los cuatro casos, disjuntos dos a dos.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Probabilidades condicionales seg\'un el estado}
+\textbf{Qu\'e hago:} determino qu\'e valen las condicionales en cada situaci\'on posible.
+
+Solo hay dos estados alcanzables antes de la quinta extracci\'on:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Estado 0} (ning\'un impar retirado a\'un): $5$ pares, $5$ impares, total $10$. Entonces
+  \[
+  P[\text{par}]=\frac{5}{10}=\frac{1}{2},
+  \qquad
+  P[\text{impar}]=\frac{5}{10}=\frac{1}{2}.
+  \]
+  \item \textbf{Estado 1} (un impar ya retirado): $5$ pares, $4$ impares, total $9$. Entonces
+  \[
+  P[\text{par}]=\frac{5}{9},
+  \qquad
+  P[\text{impar}]=\frac{4}{9}.
+  \]
+\end{itemize}
+
+\textbf{¿De d\'onde sale?} Del Paso 1: sacar par no altera nada, as\'i que el estado solo cambia cuando sale un impar, y en las ramas de este ejercicio a lo sumo sale un impar antes de la quinta extracci\'on.
+
+\textbf{¿Por qu\'e?} Porque esto reduce el \'arbol a dos ``modos'' de funcionamiento y hace que todos los factores sean uno de cuatro n\'umeros: $\frac{1}{2}$, $\frac{1}{2}$, $\frac{5}{9}$, $\frac{4}{9}$. Cada rama es un producto de cinco de estos n\'umeros, y el \'ultimo factor es siempre la probabilidad de impar en el estado 1, es decir $\frac{4}{9}$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos las cuatro probabilidades condicionales anteriores.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Evaluaci\'on de las cuatro ramas por etapas}
+\textbf{Qu\'e hago:} aplico la regla de la cadena a cada caso, indicando en qu\'e estado se encuentra la canasta en cada etapa.
+
+\textbf{Caso I: $O\,E\,E\,E\,O$.} Etapa 1 en estado 0 (impar): $\frac{1}{2}$; etapas 2, 3 y 4 en estado 1 (par): $\frac{5}{9}$ cada una; etapa 5 en estado 1 (impar): $\frac{4}{9}$.
+\[
+P[\text{I}]=\frac{1}{2}\cdot\frac{5}{9}\cdot\frac{5}{9}\cdot\frac{5}{9}\cdot\frac{4}{9}
+=\frac{1\cdot 125\cdot 4}{2\cdot 729\cdot 9}
+=\frac{500}{13122}=\frac{250}{6561}.
+\]
+
+\textbf{Caso II: $E\,O\,E\,E\,O$.} Etapa 1 en estado 0 (par): $\frac{1}{2}$; etapa 2 en estado 0 (impar): $\frac{1}{2}$; etapas 3 y 4 en estado 1 (par): $\frac{5}{9}$; etapa 5: $\frac{4}{9}$.
+\[
+P[\text{II}]=\frac{1}{2}\cdot\frac{1}{2}\cdot\frac{5}{9}\cdot\frac{5}{9}\cdot\frac{4}{9}
+=\frac{25\cdot 4}{4\cdot 729}=\frac{100}{2916}=\frac{25}{729}.
+\]
+
+\textbf{Caso III: $E\,E\,O\,E\,O$.} Tres primeras: $\frac{1}{2},\frac{1}{2},\frac{1}{2}$ (las dos primeras pares en estado 0, la tercera impar en estado 0); etapa 4 en estado 1 (par): $\frac{5}{9}$; etapa 5: $\frac{4}{9}$.
+\[
+P[\text{III}]=\frac{1}{2}\cdot\frac{1}{2}\cdot\frac{1}{2}\cdot\frac{5}{9}\cdot\frac{4}{9}
+=\frac{1}{8}\cdot\frac{20}{81}=\frac{20}{648}=\frac{5}{162}.
+\]
+
+\textbf{Caso IV: $E\,E\,E\,O\,O$.} Cuatro primeras en estado 0: $\frac{1}{2}$ cada una; etapa 5 en estado 1 (impar): $\frac{4}{9}$.
+\[
+P[\text{IV}]=\left(\frac{1}{2}\right)^{4}\cdot\frac{4}{9}=\frac{1}{16}\cdot\frac{4}{9}=\frac{4}{144}=\frac{1}{36}.
+\]
+
+\textbf{¿De d\'onde sale?} Cada factor es una de las cuatro probabilidades del Paso 3, escogida seg\'un el estado en que se encuentra la canasta en esa etapa.
+
+\textbf{¿Por qu\'e?} Porque la posici\'on del primer impar es lo \'unico que distingue una rama de otra: cuanto m\'as tarde aparezca, m\'as factores $\frac{1}{2}$ y menos factores $\frac{5}{9}$ tiene la rama. Como $\frac{1}{2}<\frac{5}{9}$, las ramas con el impar tard\'io pesan menos, y en efecto $\frac{1}{36}<\frac{5}{162}<\frac{25}{729}<\frac{250}{6561}$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos los cuatro valores $\frac{250}{6561}$, $\frac{25}{729}$, $\frac{5}{162}$ y $\frac{1}{36}$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Suma de las cuatro ramas}
+\textbf{Qu\'e hago:} llevo todo a un denominador com\'un y sumo.
+
+Los denominadores son $6561=3^{8}$, $729=3^{6}$, $162=2\cdot 3^{4}$ y $36=2^{2}\cdot 3^{2}$; el m\'inimo com\'un m\'ultiplo es
+\[
+2^{2}\cdot 3^{8}=4\cdot 6561=26244 .
+\]
+Conversiones ($26244\div 6561=4$, $\div 729=36$, $\div 162=162$, $\div 36=729$):
+\[
+\frac{250}{6561}=\frac{1000}{26244},
+\qquad
+\frac{25}{729}=\frac{900}{26244},
+\qquad
+\frac{5}{162}=\frac{810}{26244},
+\qquad
+\frac{1}{36}=\frac{729}{26244}.
+\]
+Sumando numeradores: $1000+900=1900$; $1900+810=2710$; $2710+729=3439$. Por lo tanto
+\[
+P[\text{5 extracciones}]=\frac{3439}{26244}\approx 0{,}131039 .
+\]
+
+\textbf{¿De d\'onde sale?} De los cuatro valores del Paso 4.
+
+\textbf{¿Por qu\'e?} Porque las cuatro ramas corresponden a secuencias de paridades distintas y por lo tanto son eventos incompatibles; el axioma (A3) autoriza la suma. Y el Paso 2 garantiz\'o que no hay m\'as ramas: son exactamente $C(4,1)=4$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P=\dfrac{3439}{26244}\approx 0{,}1310$, coincidente con la respuesta oficial.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+\[
+P=\frac{250}{6561}+\frac{25}{729}+\frac{5}{162}+\frac{1}{36}
+=\frac{1000+900+810+729}{26244}
+=\mathbf{\frac{3439}{26244}}\approx 0{,}1310 .
+\]
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 38}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 38}
+
+\begin{quote}
+Se tiene un naipe est\'andar de 52 cartas bien barajado. Se extraen cartas sucesivamente siguiendo la regla: si se extrae una carta roja, esta no se repone en el mazo; si se extrae una carta negra, esta se repone inmediatamente. El proceso finaliza cuando se hayan extra\'ido dos cartas negras. ¿Cu\'al es la probabilidad de que se extraigan exactamente cinco cartas?
+\end{quote}
+
+\begin{nota}
+El folleto no proporciona respuesta oficial para este ejercicio. Se resuelve igual, con el mismo m\'etodo de \'arbol y suma de ramas de los ejercicios 33 y 37, y se reporta el valor exacto obtenido.
+\end{nota}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducci\'on: composici\'on del naipe y reglas}
+\textbf{Qu\'e hago:} cuento cartas de cada color y traduzco las reglas.
+
+Un naipe est\'andar tiene $52$ cartas repartidas en cuatro palos: $\heartsuit$ y $\diamondsuit$ son rojos, $\clubsuit$ y $\spadesuit$ son negros, con $13$ cartas cada palo. Por lo tanto
+\[
+\underbrace{2\cdot 13}_{\text{rojas}}=26,
+\qquad
+\underbrace{2\cdot 13}_{\text{negras}}=26,
+\qquad \text{total } 52 .
+\]
+
+\textbf{Regla 1 (sale roja):} no se repone. Las rojas bajan en $1$ y el total baja en $1$.
+
+\textbf{Regla 2 (sale negra):} se repone de inmediato. El mazo queda \emph{exactamente igual}.
+
+El proceso \textbf{termina} al extraerse la segunda carta negra.
+
+\textbf{¿De d\'onde sale?} De la composici\'on est\'andar del naipe y de las dos reglas del enunciado.
+
+\textbf{¿Por qu\'e?} Porque la estructura es la misma del ejercicio 37, con los papeles cambiados: el color que se repone (negro) es aqu\'i el que dispara el paro, mientras que en el 37 el color que se retiraba era el que paraba. En consecuencia el n\'umero de negras \emph{nunca} cambia (siempre $26$), y lo \'unico que se mueve es el n\'umero de rojas y el total.
+
+\textbf{¿Qu\'e tomamos?} Tomamos el estado inicial $(26\ \text{rojas},\,26\ \text{negras},\,52)$ y las dos reglas.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Caracterizaci\'on del evento ``exactamente 5 cartas''}
+\textbf{Qu\'e hago:} traduzco la duraci\'on a una condici\'on sobre la secuencia de colores.
+
+Que el proceso dure exactamente $5$ extracciones significa que la quinta carta es negra y que entre las cuatro primeras hay exactamente una negra (y por tanto tres rojas). Escribiendo $R$ por roja y $N$ por negra, los casos son los $C(4,1)=4$ arreglos
+\[
+\text{I: } N\,R\,R\,R\,N,
+\quad
+\text{II: } R\,N\,R\,R\,N,
+\quad
+\text{III: } R\,R\,N\,R\,N,
+\quad
+\text{IV: } R\,R\,R\,N\,N .
+\]
+
+\textbf{¿De d\'onde sale?} De la condici\'on de paro y de la duraci\'on pedida.
+
+\textbf{¿Por qu\'e?} Porque si entre las cuatro primeras hubiera dos negras el proceso habr\'ia terminado antes, y si no hubiera ninguna, la negra de la posici\'on $5$ ser\'ia solo la primera y el proceso seguir\'ia. El conteo $C(4,1)$ elige la posici\'on de la \'unica negra temprana.
+
+\textbf{¿Qu\'e tomamos?} Tomamos los cuatro casos, disjuntos entre s\'i.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Estados alcanzables y probabilidades condicionales}
+\textbf{Qu\'e hago:} determino el contenido del mazo seg\'un cu\'antas rojas se han retirado.
+
+Como las negras siempre vuelven, el mazo tras retirar $j$ rojas es
+\[
+(\,26-j\ \text{rojas},\ 26\ \text{negras},\ \text{total } 52-j\,),
+\qquad j=0,1,2,3 .
+\]
+De ah\'i las condicionales:
+\[
+\begin{array}{c|c|c}
+\text{rojas retiradas } j & P[\text{roja}] & P[\text{negra}]\\\hline
+0 & \frac{26}{52}=\frac{1}{2} & \frac{26}{52}=\frac{1}{2}\\[3pt]
+1 & \frac{25}{51} & \frac{26}{51}\\[3pt]
+2 & \frac{24}{50}=\frac{12}{25} & \frac{26}{50}=\frac{13}{25}\\[3pt]
+3 & \frac{23}{49} & \frac{26}{49}
+\end{array}
+\]
+
+\textbf{¿De d\'onde sale?} De aplicar la regla 1 tantas veces como rojas hayan salido, y de que la regla 2 no altera nada.
+
+\textbf{¿Por qu\'e?} Porque el estado del mazo queda determinado \'unicamente por el n\'umero de rojas ya extra\'idas: las negras extra\'idas no dejan rastro. Esto reduce el \'arbol a cuatro estados y hace que todos los factores se lean de la tabla.
+
+\textbf{¿Qu\'e tomamos?} Tomamos la tabla de condicionales anterior.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Evaluaci\'on de las cuatro ramas por etapas}
+\textbf{Qu\'e hago:} aplico la regla de la cadena a cada caso, indicando cu\'antas rojas se han retirado antes de cada etapa.
+
+\textbf{Caso I: $N\,R\,R\,R\,N$.} Estados $j=0,0,1,2,3$:
+\[
+P[\text{I}]=\frac{1}{2}\cdot\frac{1}{2}\cdot\frac{25}{51}\cdot\frac{12}{25}\cdot\frac{26}{49}
+=\frac{1}{4}\cdot\frac{12}{51}\cdot\frac{26}{49}
+=\frac{1}{4}\cdot\frac{4}{17}\cdot\frac{26}{49}
+=\frac{26}{17\cdot 49}=\frac{26}{833}.
+\]
+(Se cancel\'o el $25$ y se simplific\'o $\frac{12}{51}=\frac{4}{17}$.)
+
+\textbf{Caso II: $R\,N\,R\,R\,N$.} Estados $j=0,1,1,2,3$:
+\[
+P[\text{II}]=\frac{1}{2}\cdot\frac{26}{51}\cdot\frac{25}{51}\cdot\frac{12}{25}\cdot\frac{26}{49}
+=\frac{1}{2}\cdot\frac{26}{51}\cdot\frac{12}{51}\cdot\frac{26}{49}
+=\frac{26\cdot 12\cdot 26}{2\cdot 51\cdot 51\cdot 49}
+=\frac{8112}{254898}=\frac{1352}{42483}.
+\]
+(Se cancel\'o el $25$; luego se dividi\'o numerador y denominador entre $6$.)
+
+\textbf{Caso III: $R\,R\,N\,R\,N$.} Estados $j=0,1,2,2,3$:
+\[
+P[\text{III}]=\frac{1}{2}\cdot\frac{25}{51}\cdot\frac{13}{25}\cdot\frac{12}{25}\cdot\frac{26}{49}
+=\frac{1}{2}\cdot\frac{13}{51}\cdot\frac{12}{25}\cdot\frac{26}{49}
+=\frac{13\cdot 12\cdot 26}{2\cdot 51\cdot 25\cdot 49}
+=\frac{4056}{124950}=\frac{676}{20825}.
+\]
+
+\textbf{Caso IV: $R\,R\,R\,N\,N$.} Estados $j=0,1,2,3,3$:
+\[
+P[\text{IV}]=\frac{1}{2}\cdot\frac{25}{51}\cdot\frac{12}{25}\cdot\frac{26}{49}\cdot\frac{26}{49}
+=\frac{1}{2}\cdot\frac{12}{51}\cdot\frac{676}{2401}
+=\frac{1}{2}\cdot\frac{4}{17}\cdot\frac{676}{2401}
+=\frac{2704}{81634}=\frac{1352}{40817}.
+\]
+
+\textbf{¿De d\'onde sale?} Cada factor se lee en la fila correspondiente de la tabla del Paso 3, seg\'un cu\'antas rojas se hayan retirado hasta ese punto de la rama.
+
+\textbf{¿Por qu\'e?} Porque la posici\'on de la negra temprana decide en qu\'e etapa el mazo se ``congela'': una negra en la posici\'on $k$ hace que la extracci\'on $k$ no consuma rojas, retrasando en un lugar todos los denominadores posteriores. Obs\'ervese que en el Caso IV el factor $\frac{26}{49}$ aparece dos veces seguidas, porque la cuarta carta negra se repuso y dej\'o el mazo intacto para la quinta.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $\frac{26}{833}$, $\frac{1352}{42483}$, $\frac{676}{20825}$ y $\frac{1352}{40817}$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Suma de las cuatro ramas}
+\textbf{Qu\'e hago:} llevo las cuatro fracciones a un denominador com\'un y sumo.
+
+Factorizando: $833=7^{2}\cdot 17$, $42483=3\cdot 17^{2}\cdot 7^{2}$, $20825=5^{2}\cdot 7^{2}\cdot 17$ y $40817=7^{4}\cdot 17$. El m\'inimo com\'un m\'ultiplo es
+\[
+3\cdot 5^{2}\cdot 7^{4}\cdot 17^{2}=52\,041\,675 .
+\]
+Los factores de conversi\'on son $52041675\div 833=62475$, $\div 42483=1225$, $\div 20825=2499$ y $\div 40817=1275$, de donde
+\[
+\frac{26}{833}=\frac{1\,624\,350}{52\,041\,675},
+\quad
+\frac{1352}{42483}=\frac{1\,656\,200}{52\,041\,675},
+\quad
+\frac{676}{20825}=\frac{1\,689\,324}{52\,041\,675},
+\quad
+\frac{1352}{40817}=\frac{1\,723\,800}{52\,041\,675}.
+\]
+Sumando numeradores:
+\[
+1\,624\,350+1\,656\,200=3\,280\,550,
+\qquad
+3\,280\,550+1\,689\,324=4\,969\,874,
+\]
+\[
+4\,969\,874+1\,723\,800=6\,693\,674 .
+\]
+Por lo tanto
+\[
+P[\text{5 cartas}]=\frac{6\,693\,674}{52\,041\,675}\approx 0{,}128621 .
+\]
+
+\textbf{¿De d\'onde sale?} De los cuatro valores del Paso 4.
+
+\textbf{¿Por qu\'e?} Porque las cuatro ramas son secuencias de colores distintas y por lo tanto eventos incompatibles; (A3) permite sumar. El Paso 2 garantiz\'o que no falta ninguna.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P=\dfrac{6\,693\,674}{52\,041\,675}\approx 0{,}1286$, o sea cerca de un $12{,}86\%$.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+\[
+P=\frac{26}{833}+\frac{1352}{42483}+\frac{676}{20825}+\frac{1352}{40817}
+=\mathbf{\frac{6\,693\,674}{52\,041\,675}}\approx 0{,}1286 .
+\]
+(El folleto no incluye respuesta oficial para este ejercicio.)
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 39}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 39}
+
+\begin{quote}
+En un concurso de televisi\'on hay 3 cajas denominadas C1, C2 y C3. En C1 hay 3 bolas negras y 7 blancas, en C2 hay 4 negras y 6 blancas y en C3 hay 5 negras y 5 blancas. El concursante debe sacar tres bolas en el siguiente orden: La primer bola es de C1, si esta es blanca entonces agrega dos blancas a C2 antes de la siguiente extracci\'on. La segunda bola se extrae de C2, si esta es blanca entonces se agregan 3 bolas blancas a C3 antes de la siguiente extracci\'on. Finalmente se saca la tercer bola de C3. Al final, el concursante ha sacado tres bolas. Si entre ellas hay exactamente una bola negra, se gana un autom\'ovil. ¿Cu\'al es la probabilidad de que el concursante gane el autom\'ovil? \hfill R/ $\dfrac{529}{1300}$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducci\'on: estados iniciales, reglas de traspaso y evento pedido}
+\textbf{Qu\'e hago:} anoto el contenido inicial de cada caja, las dos reglas de traspaso y el evento que da el premio.
+
+Estados iniciales:
+\[
+C1:\ 3\text{N},\,7\text{B},\ \text{total } 10;
+\qquad
+C2:\ 4\text{N},\,6\text{B},\ \text{total } 10;
+\qquad
+C3:\ 5\text{N},\,5\text{B},\ \text{total } 10 .
+\]
+
+\textbf{Regla 1:} si la bola de C1 es blanca, C2 recibe $2$ blancas y pasa a $4$N, $8$B, total $12$. Si es negra, C2 no cambia.
+
+\textbf{Regla 2:} si la bola de C2 es blanca, C3 recibe $3$ blancas y pasa a $5$N, $8$B, total $13$. Si es negra, C3 no cambia.
+
+Sean $N_k$ y $B_k$ los eventos ``la $k$-\'esima bola es negra / blanca''. El premio se gana con
+\[
+G=\{\text{exactamente una negra entre las tres}\}
+=(N_1\cap B_2\cap B_3)\cup(B_1\cap N_2\cap B_3)\cup(B_1\cap B_2\cap N_3).
+\]
+
+\textbf{¿De d\'onde sale?} De la descripci\'on de las tres cajas y de las dos condiciones ``si esta es blanca entonces\dots''.
+
+\textbf{¿Por qu\'e?} Porque los traspasos se disparan \emph{solo} cuando sale blanca; el enunciado no dice nada sobre qu\'e pasa si sale negra, y por lo tanto en ese caso la caja siguiente conserva su composici\'on original. Adem\'as cada bola sale de una caja distinta, de modo que no hay reposiciones ni retiros que arrastrar entre etapas: lo \'unico que se traslada es el efecto del color.
+
+\textbf{¿Qu\'e tomamos?} Tomamos los tres estados iniciales, las dos reglas y $G$ como uni\'on de tres casos disjuntos.
+\end{paso}
+
+\begin{paso}{Paso 2 --- \'Arbol de probabilidades}
+\textbf{Qu\'e hago:} construyo el \'arbol de las tres extracciones con las probabilidades condicionales.
+
+\begin{center}
+\begin{tikzpicture}[level 1/.style={sibling distance=62mm,level distance=17mm},
+                    level 2/.style={sibling distance=31mm,level distance=19mm},
+                    level 3/.style={sibling distance=15mm,level distance=17mm},
+                    every node/.style={font=\footnotesize}]
+\node{C1: $3$N,\,$7$B}
+  child {node{C2: $4$N,\,$6$B}
+     child {node{C3: $5$N,\,$5$B}
+        child {node{$N_3$} edge from parent node[left]{$\frac{5}{10}$}}
+        child {node{$B_3$} edge from parent node[right]{$\frac{5}{10}$}}
+        edge from parent node[left]{$N_2\;\frac{4}{10}$}}
+     child {node{C3: $5$N,\,$8$B}
+        child {node{$N_3$} edge from parent node[left]{$\frac{5}{13}$}}
+        child {node[fill=green!15]{$B_3$} edge from parent node[right]{$\frac{8}{13}$}}
+        edge from parent node[right]{$B_2\;\frac{6}{10}$}}
+     edge from parent node[above left]{$N_1\;\frac{3}{10}$}}
+  child {node{C2: $4$N,\,$8$B}
+     child {node{C3: $5$N,\,$5$B}
+        child {node{$N_3$} edge from parent node[left]{$\frac{5}{10}$}}
+        child {node[fill=green!15]{$B_3$} edge from parent node[right]{$\frac{5}{10}$}}
+        edge from parent node[left]{$N_2\;\frac{4}{12}$}}
+     child {node{C3: $5$N,\,$8$B}
+        child {node[fill=green!15]{$N_3$} edge from parent node[left]{$\frac{5}{13}$}}
+        child {node{$B_3$} edge from parent node[right]{$\frac{8}{13}$}}
+        edge from parent node[right]{$B_2\;\frac{8}{12}$}}
+     edge from parent node[above right]{$B_1\;\frac{7}{10}$}};
+\end{tikzpicture}
+\end{center}
+Las tres hojas sombreadas son las que dan exactamente una bola negra.
+
+\textbf{¿De d\'onde sale?} El primer nivel usa el contenido de C1; el segundo, el de C2 modificado o no seg\'un la regla 1; el tercero, el de C3 modificado o no seg\'un la regla 2.
+
+\textbf{¿Por qu\'e?} Porque los denominadores del segundo nivel difieren ($10$ si la primera fue negra, $12$ si fue blanca) y los del tercero tambi\'en ($10$ o $13$). Dibujar el \'arbol con la composici\'on escrita en cada nodo es la manera de no equivocarse al elegir el denominador de cada rama.
+
+\textbf{¿Qu\'e tomamos?} Tomamos las tres ramas favorables: $N_1B_2B_3$, $B_1N_2B_3$ y $B_1B_2N_3$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Caso I: negra, blanca, blanca}
+\textbf{Qu\'e hago:} eval\'uo la rama $N_1\cap B_2\cap B_3$ por etapas.
+
+\textbf{Etapa 1.} C1 tiene $3$ negras de $10$: $\;P[N_1]=\dfrac{3}{10}$.
+
+\textbf{Etapa 2.} La primera fue negra, luego C2 \emph{no} se modific\'o: sigue con $4$N y $6$B, total $10$. As\'i
+\[
+P[B_2\mid N_1]=\frac{6}{10}=\frac{3}{5}.
+\]
+
+\textbf{Etapa 3.} La segunda fue blanca, luego C3 recibe $3$ blancas: pasa a $5$N y $8$B, total $13$. As\'i
+\[
+P[B_3\mid N_1\cap B_2]=\frac{8}{13}.
+\]
+
+\[
+P[\text{I}]=\frac{3}{10}\cdot\frac{3}{5}\cdot\frac{8}{13}
+=\frac{3\cdot 3\cdot 8}{10\cdot 5\cdot 13}=\frac{72}{650}=\frac{36}{325}.
+\]
+
+\textbf{¿De d\'onde sale?} De la rama izquierda--derecha--derecha del \'arbol del Paso 2.
+
+\textbf{¿Por qu\'e?} Porque la regla 1 no se dispar\'o (la primera bola fue negra) pero la regla 2 s\'i (la segunda fue blanca); mezclar ambas situaciones es el error m\'as com\'un. La regla de la cadena para tres eventos autoriza el producto de las tres condicionales.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[\text{I}]=\dfrac{36}{325}$ (se simplific\'o dividiendo entre $2$).
+\end{paso}
+
+\begin{paso}{Paso 4 --- Caso II: blanca, negra, blanca}
+\textbf{Qu\'e hago:} eval\'uo la rama $B_1\cap N_2\cap B_3$.
+
+\textbf{Etapa 1.} $P[B_1]=\dfrac{7}{10}$ ($7$ blancas de $10$ en C1).
+
+\textbf{Etapa 2.} La primera fue blanca: C2 pasa a $4$N, $8$B, total $12$. Entonces
+\[
+P[N_2\mid B_1]=\frac{4}{12}=\frac{1}{3}.
+\]
+
+\textbf{Etapa 3.} La segunda fue negra: C3 no se modifica y sigue con $5$N, $5$B, total $10$. Entonces
+\[
+P[B_3\mid B_1\cap N_2]=\frac{5}{10}=\frac{1}{2}.
+\]
+
+\[
+P[\text{II}]=\frac{7}{10}\cdot\frac{1}{3}\cdot\frac{1}{2}=\frac{7}{60}.
+\]
+
+\textbf{¿De d\'onde sale?} De la rama derecha--izquierda--derecha del \'arbol.
+
+\textbf{¿Por qu\'e?} Porque aqu\'i se dispara la regla 1 y no la regla 2: el total de C2 sube a $12$ mientras que C3 conserva su total $10$. Obs\'ervese que agregar blancas a C2 \emph{baja} la probabilidad de sacar negra de $\frac{4}{10}$ a $\frac{4}{12}$, lo cual es coherente con la l\'ogica del concurso.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[\text{II}]=\dfrac{7}{60}$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Caso III: blanca, blanca, negra}
+\textbf{Qu\'e hago:} eval\'uo la rama $B_1\cap B_2\cap N_3$.
+
+\textbf{Etapa 1.} $P[B_1]=\dfrac{7}{10}$.
+
+\textbf{Etapa 2.} C2 modificada a $4$N, $8$B, total $12$:
+\[
+P[B_2\mid B_1]=\frac{8}{12}=\frac{2}{3}.
+\]
+
+\textbf{Etapa 3.} La segunda fue blanca: C3 pasa a $5$N, $8$B, total $13$:
+\[
+P[N_3\mid B_1\cap B_2]=\frac{5}{13}.
+\]
+
+\[
+P[\text{III}]=\frac{7}{10}\cdot\frac{2}{3}\cdot\frac{5}{13}
+=\frac{7\cdot 2\cdot 5}{10\cdot 3\cdot 13}=\frac{70}{390}=\frac{7}{39}.
+\]
+
+\textbf{¿De d\'onde sale?} De la rama derecha--derecha--izquierda del \'arbol.
+
+\textbf{¿Por qu\'e?} Porque aqu\'i se disparan \emph{las dos} reglas: C2 llega a total $12$ y C3 a total $13$. Es la \'unica rama favorable en la que ambos traspasos ocurren.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[\text{III}]=\dfrac{7}{39}$ (simplificado dividiendo entre $10$).
+\end{paso}
+
+\begin{paso}{Paso 6 --- Suma de las tres ramas favorables}
+\textbf{Qu\'e hago:} sumo los tres casos, disjuntos por construcci\'on.
+
+Los denominadores son $325=5^{2}\cdot 13$, $60=2^{2}\cdot 3\cdot 5$ y $39=3\cdot 13$; el m\'inimo com\'un m\'ultiplo es
+\[
+2^{2}\cdot 3\cdot 5^{2}\cdot 13=3900 .
+\]
+Conversiones ($3900\div 325=12$, $\div 60=65$, $\div 39=100$):
+\[
+\frac{36}{325}=\frac{432}{3900},
+\qquad
+\frac{7}{60}=\frac{455}{3900},
+\qquad
+\frac{7}{39}=\frac{700}{3900}.
+\]
+Sumando: $432+455=887$ y $887+700=1587$, de donde
+\[
+P[G]=\frac{1587}{3900}.
+\]
+Simplifico: $1587=3\cdot 529=3\cdot 23^{2}$ y $3900=3\cdot 1300$, luego
+\[
+P[G]=\frac{529}{1300}\approx 0{,}406923 .
+\]
+
+\textbf{¿De d\'onde sale?} De los Pasos 3, 4 y 5.
+
+\textbf{¿Por qu\'e?} Porque las tres ramas exigen colores distintos en al menos una posici\'on, luego son eventos incompatibles y (A3) permite sumar. Y son todas las posibles: ``exactamente una negra entre tres bolas'' admite $C(3,1)=3$ posiciones para esa negra.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[G]=\dfrac{529}{1300}\approx 0{,}4069$, es decir, cerca de un $40{,}7\%$ de ganar el autom\'ovil. Coincide con la respuesta oficial.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+\[
+P[G]=\underbrace{\frac{3}{10}\cdot\frac{6}{10}\cdot\frac{8}{13}}_{NBB=\frac{36}{325}}
++\underbrace{\frac{7}{10}\cdot\frac{4}{12}\cdot\frac{5}{10}}_{BNB=\frac{7}{60}}
++\underbrace{\frac{7}{10}\cdot\frac{8}{12}\cdot\frac{5}{13}}_{BBN=\frac{7}{39}}
+=\frac{1587}{3900}=\mathbf{\frac{529}{1300}}\approx 0{,}4069 .
+\]
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 40}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 40}
+
+\begin{quote}
+Se tienen dos urnas, llam\'emoslas U1 y U2. En U1 hay 10 bolas rojas y 8 verdes, mientras que en U2 hay 6 bolas rojas y 7 verdes. Supongamos que se extraen bolas al azar y secuencialmente de las urnas sin devolver de la siguiente forma: se inicia al sacar bolas de U1, en el momento que salga una bola roja se pasa a sacar bolas de U2, cuando se obtenga una bola roja se pasa a sacar bolas de U1 y as\'i sucesivamente.\\
+(a) Si la primera bola es roja, ¿cu\'al es la probabilidad de que la segunda sea verde? \hfill R/ $\dfrac{7}{13}$\\
+(b) Si la primera bola es verde, ¿cu\'al es la probabilidad de que la segunda sea verde? \hfill R/ $\dfrac{7}{17}$\\
+(c) Si la primer bola es roja, la segunda es verde y la tercera roja, ¿cu\'al es la probabilidad de que la cuarta sea roja? \hfill R/ $\dfrac{9}{17}$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducci\'on: estados iniciales y regla de cambio de urna}
+\textbf{Qu\'e hago:} anoto el contenido de cada urna y formalizo la regla de movimiento.
+
+Estados iniciales:
+\[
+U1:\ 10\ \text{rojas},\ 8\ \text{verdes},\ \text{total } 18;
+\qquad
+U2:\ 6\ \text{rojas},\ 7\ \text{verdes},\ \text{total } 13 .
+\]
+
+\textbf{Regla de urna.} Se empieza en U1. Tras cada extracci\'on:
+\begin{itemize}[leftmargin=*]
+  \item si la bola extra\'ida fue \textbf{roja}, la siguiente extracci\'on se hace en la \emph{otra} urna;
+  \item si fue \textbf{verde}, la siguiente extracci\'on se hace en la \emph{misma} urna.
+\end{itemize}
+En ambos casos la bola extra\'ida \emph{no se devuelve} (``sin devolver''), as\'i que se descuenta de la urna de la que sali\'o.
+
+\textbf{¿De d\'onde sale?} De la frase ``en el momento que salga una bola roja se pasa a sacar bolas de U2, cuando se obtenga una bola roja se pasa a sacar bolas de U1 y as\'i sucesivamente'': la roja es el disparador del cambio, y mientras salgan verdes uno se queda donde est\'a.
+
+\textbf{¿Por qu\'e?} Porque hay que llevar dos registros a la vez: \emph{en qu\'e urna se est\'a} y \emph{cu\'antas bolas de cada color quedan en cada urna}. Ambos cambian, y en cada apartado el condicionamiento fija la historia completa, que es justo lo que determina esos dos registros.
+
+\textbf{¿Qu\'e tomamos?} Tomamos los estados iniciales y la regla ``roja $\Rightarrow$ cambio de urna; verde $\Rightarrow$ se queda''.
+\end{paso}
+
+\begin{paso}{Paso 2 --- (a) Estado tras una primera bola roja}
+\textbf{Qu\'e hago:} actualizo el escenario sabiendo que la primera bola fue roja.
+
+La primera extracci\'on se hizo en U1 (as\'i empieza el proceso) y sali\'o roja. Por lo tanto:
+\begin{itemize}[leftmargin=*]
+  \item esa roja se retira de U1, que queda con $9$ rojas y $8$ verdes, total $17$;
+  \item por ser roja, la segunda extracci\'on se hace en \textbf{U2}, que sigue intacta: $6$ rojas, $7$ verdes, total $13$.
+\end{itemize}
+
+\textbf{¿De d\'onde sale?} De la condici\'on ``si la primera bola es roja'' y de la regla del Paso 1.
+
+\textbf{¿Por qu\'e?} Porque la pregunta es una probabilidad condicional $P[V_2\mid R_1]$, y calcular una condicional en este tipo de procesos es exactamente ``rehacer el estado con la informaci\'on dada y leer la probabilidad de la etapa siguiente''. El descuento en U1 es irrelevante para esta pregunta, pero conviene registrarlo porque s\'i importar\'a en el apartado (c).
+
+\textbf{¿Qu\'e tomamos?} Tomamos que la segunda extracci\'on ocurre en U2 con $6$R, $7$V, total $13$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- (a) C\'alculo de $P[V_2\mid R_1]$}
+\textbf{Qu\'e hago:} leo la probabilidad de verde en el estado del paso anterior.
+
+En U2 hay $7$ verdes de $13$ bolas, todas igualmente probables, luego
+\[
+P[V_2\mid R_1]=\frac{7}{13}\approx 0{,}538462 .
+\]
+
+\textbf{¿De d\'onde sale?} Del contenido de U2, $6+7=13$ bolas de las cuales $7$ son verdes.
+
+\textbf{¿Por qu\'e?} Porque una vez fijada la urna y su contenido, la extracci\'on es equiprobable y $P=\frac{\text{favorables}}{\text{totales}}$. La fracci\'on no se simplifica porque $7$ y $13$ son primos entre s\'i.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[V_2\mid R_1]=\dfrac{7}{13}$, igual a la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 4 --- (b) Estado tras una primera bola verde y c\'alculo}
+\textbf{Qu\'e hago:} actualizo el escenario sabiendo que la primera bola fue verde.
+
+La primera extracci\'on se hizo en U1 y sali\'o verde. Entonces:
+\begin{itemize}[leftmargin=*]
+  \item esa verde se retira de U1, que queda con $10$ rojas y $8-1=7$ verdes, total $17$;
+  \item por ser verde, \textbf{no} hay cambio de urna: la segunda extracci\'on se hace de nuevo en U1.
+\end{itemize}
+Por lo tanto
+\[
+P[V_2\mid V_1]=\frac{7}{17}\approx 0{,}411765 .
+\]
+
+\textbf{¿De d\'onde sale?} El $7$ es el n\'umero de verdes que \emph{quedan} en U1 tras retirar una, y el $17$ el total restante $18-1$.
+
+\textbf{¿Por qu\'e?} Porque aqu\'i act\'uan dos efectos simult\'aneos que hay que aplicar en el orden correcto: la bola no se devuelve (baja el conteo) y la urna no cambia (se sigue en U1). Si se olvidara el descuento se obtendr\'ia $\frac{8}{18}=\frac{4}{9}$, y si se cambiara de urna se obtendr\'ia $\frac{7}{13}$; ambas respuestas ser\'ian incorrectas. La comparaci\'on $\frac{7}{17}<\frac{8}{18}$ es coherente: haber sacado una verde deja menos verdes disponibles.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[V_2\mid V_1]=\dfrac{7}{17}$, igual a la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 5 --- (c) Reconstrucci\'on del estado tras las tres primeras extracciones}
+\textbf{Qu\'e hago:} recorro las tres extracciones dadas actualizando urna y conteos.
+
+\textbf{Extracci\'on 1 (roja, en U1).} Se retira una roja de U1: queda $9$R, $8$V, total $17$. Por ser roja, se pasa a U2.
+
+\textbf{Extracci\'on 2 (verde, en U2).} Se retira una verde de U2: queda $6$R, $6$V, total $12$. Por ser verde, se \emph{permanece} en U2.
+
+\textbf{Extracci\'on 3 (roja, en U2).} Se retira una roja de U2: queda $5$R, $6$V, total $11$. Por ser roja, se pasa a \textbf{U1}.
+
+Estado antes de la cuarta extracci\'on:
+\[
+U1:\ 9\ \text{rojas},\ 8\ \text{verdes},\ \text{total } 17;
+\qquad
+U2:\ 5\ \text{rojas},\ 6\ \text{verdes},\ \text{total } 11;
+\qquad
+\text{urna activa: } U1 .
+\]
+
+\textbf{¿De d\'onde sale?} De aplicar la regla del Paso 1 a la historia dada $R_1\cap V_2\cap R_3$, extracci\'on por extracci\'on.
+
+\textbf{¿Por qu\'e?} Porque el condicionamiento en (c) fija toda la historia, y en un proceso sin memoria adicional el efecto de esa historia se resume en dos cosas: los conteos actuales de cada urna y cu\'al urna toca. Hay que rastrear ambas cosas simult\'aneamente; en particular, la extracci\'on 2 no toca U1 en absoluto, por lo que U1 conserva los $9$R y $8$V que le quedaron tras la extracci\'on 1.
+
+\textbf{¿Qu\'e tomamos?} Tomamos el estado anterior, con U1 activa y con $9$ rojas de $17$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- (c) C\'alculo de $P[R_4\mid R_1\cap V_2\cap R_3]$}
+\textbf{Qu\'e hago:} leo la probabilidad de roja en la urna activa.
+
+La cuarta extracci\'on se hace en U1, que tiene $9$ rojas de $17$ bolas:
+\[
+P[R_4\mid R_1\cap V_2\cap R_3]=\frac{9}{17}\approx 0{,}529412 .
+\]
+
+\textbf{¿De d\'onde sale?} Del estado reconstruido en el Paso 5.
+
+\textbf{¿Por qu\'e?} Porque el \'unico descuento que ha sufrido U1 es la roja de la primera extracci\'on ($10\to 9$ rojas, $18\to 17$ bolas): las extracciones 2 y 3 ocurrieron en U2 y no la afectaron. La fracci\'on $\frac{9}{17}$ es irreducible porque $17$ es primo y no divide a $9$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[R_4\mid R_1\cap V_2\cap R_3]=\dfrac{9}{17}$, igual a la respuesta oficial.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+(a) $P[V_2\mid R_1]=\mathbf{\dfrac{7}{13}}\approx 0{,}5385$ (segunda extracci\'on en U2, intacta).\\[2pt]
+(b) $P[V_2\mid V_1]=\mathbf{\dfrac{7}{17}}\approx 0{,}4118$ (se permanece en U1, ya sin la verde extra\'ida).\\[2pt]
+(c) $P[R_4\mid R_1\cap V_2\cap R_3]=\mathbf{\dfrac{9}{17}}\approx 0{,}5294$ (se vuelve a U1, que solo perdi\'o una roja).
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 41}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 41}
+
+\begin{quote}
+Problema del Black Jack: Se juega una versi\'on simplificada de Black Jack con una sola baraja est\'andar de 52 cartas. Las cartas num\'ericas valen su n\'umero, las figuras (J, Q, K) valen 10 puntos y el As vale siempre 11 puntos. Un jugador recibe inicialmente dos cartas cuya suma es 16, espec\'ificamente una carta de valor 10 y una carta de valor 6. Adem\'as, la carta descubierta del crupier es una carta de valor 10. Si el jugador decide pedir exactamente una carta adicional, ¿cu\'al es la probabilidad de que el jugador se pase de 21 puntos? \hfill R/ $\dfrac{33}{49}$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Traducci\'on: puntaje y condici\'on de pasarse}
+\textbf{Qu\'e hago:} repito el an\'alisis de puntaje del ejercicio 32, que es id\'entico.
+
+El jugador tiene $10+6=16$. Si la carta adicional vale $v$, se pasa cuando
+\[
+16+v>21\iff v>5\iff v\ge 6 .
+\]
+Equivalentemente, \emph{no} se pasa si y solo si la carta pertenece a los rangos $\{2,3,4,5\}$.
+
+\textbf{¿De d\'onde sale?} De la tabla de valores del enunciado y de la mano $10+6$.
+
+\textbf{¿Por qu\'e?} Porque la mano del jugador es la misma que en el ejercicio 32; lo \'unico que cambia es la informaci\'on disponible sobre el mazo, y eso afecta al espacio muestral, no a la condici\'on de pasarse.
+
+\textbf{¿Qu\'e tomamos?} Tomamos: se pasa $\iff$ la carta adicional vale $6$ o m\'as.
+\end{paso}
+
+\begin{paso}{Paso 2 --- El espacio muestral: tres cartas conocidas, no dos}
+\textbf{Qu\'e hago:} determino cu\'antas cartas quedan desconocidas.
+
+Ahora se conocen tres cartas: las dos del jugador (una de valor $10$ y un $6$) y la carta descubierta del crupier (de valor $10$). Por lo tanto la carta adicional sale de un conjunto de
+\[
+52-\underbrace{3}_{\substack{\text{cartas}\\ \text{conocidas}}}=49 \ \text{cartas},
+\]
+todas igualmente probables. As\'i, $|\Omega|=49$.
+
+\textbf{¿De d\'onde sale?} De contar las cartas visibles: dos del jugador y una del crupier.
+
+\textbf{¿Por qu\'e?} Porque condicionar a m\'as informaci\'on reduce m\'as el espacio muestral. Es importante notar que la carta \emph{tapada} del crupier no cuenta: no se conoce su identidad, as\'i que desde el punto de vista del jugador sigue siendo una de las cartas posibles. Este es el punto exacto que distingue este ejercicio del 32, donde el denominador era $50$.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|\Omega|=49$ cartas equiprobables.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Conteo del complemento}
+\textbf{Qu\'e hago:} cuento las cartas de valor $\le 5$ que quedan disponibles.
+
+Las cartas que salvan al jugador son las de rango $2$, $3$, $4$ o $5$. Ninguna de las tres cartas conocidas pertenece a esos rangos: son de valor $10$, $6$ y $10$. Por lo tanto los cuatro rangos permanecen completos:
+\[
+|S^{c}|=\underbrace{4}_{\text{rangos }\{2,3,4,5\}}\cdot\underbrace{4}_{\text{palos}}=16 .
+\]
+
+\textbf{¿De d\'onde sale?} De la estructura de la baraja: $13$ rangos por $4$ palos.
+
+\textbf{¿Por qu\'e?} Porque el conteo del complemento depende de \emph{qu\'e} cartas se han visto, no solo de cu\'antas. Aqu\'i las tres cartas vistas son ``altas'', as\'i que ninguna reduce el n\'umero de cartas salvadoras: el $16$ es el mismo del ejercicio 32 aunque el mazo tenga una carta menos.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $|S^{c}|=16$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Probabilidad de pasarse}
+\textbf{Qu\'e hago:} obtengo las cartas favorables por complemento y divido.
+\[
+|S|=49-16=33,
+\qquad
+P[S]=\frac{33}{49}\approx 0{,}673469 .
+\]
+La fracci\'on es irreducible: $33=3\cdot 11$ y $49=7^{2}$ no comparten factores primos.
+
+\textbf{¿De d\'onde sale?} $49$ del Paso 2 y $16$ del Paso 3.
+
+\textbf{¿Por qu\'e?} Porque los eventos ``se pasa'' y ``no se pasa'' son complementarios en el mazo restante, de modo que $P[S]=1-\frac{16}{49}=\frac{33}{49}$. Verificaci\'on directa contando las cartas que hacen pasarse: quedan $3$ seises, $4$ sietes, $4$ ochos, $4$ nueves, $2$ dieces (se vieron dos cartas de valor $10$, y en el peor an\'alisis conservador se reparten entre dieces y figuras; aqu\'i se toma la lectura de que ambas fueron dieces), $4$ jotas, $4$ reinas, $4$ reyes y $4$ ases, en total $3+4+4+4+2+4+4+4+4=33$. Cualquier otra distribuci\'on de las dos cartas de valor $10$ entre dieces y figuras da el mismo total $33$, porque lo \'unico que importa es cu\'antas cartas de valor $\ge 6$ se han retirado: exactamente tres.
+
+\textbf{¿Qu\'e tomamos?} Tomamos $P[S]=\dfrac{33}{49}\approx 0{,}6735$, coincidente con la respuesta oficial.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Comparaci\'on con el ejercicio 32}
+\textbf{Qu\'e hago:} contrasto los dos resultados para dejar clara la funci\'on de la informaci\'on adicional.
+\[
+\text{Ejercicio 32: } P=\frac{34}{50}=\frac{17}{25}=0{,}68,
+\qquad
+\text{Ejercicio 41: } P=\frac{33}{49}\approx 0{,}6735 .
+\]
+
+\textbf{¿De d\'onde sale?} De los dos c\'alculos ya hechos.
+
+\textbf{¿Por qu\'e?} Porque saber que el crupier tiene descubierta una carta de valor $10$ retira del mazo una carta \emph{alta}, es decir, una de las que har\'ian perder al jugador. Eso baja ligeramente la probabilidad de pasarse: el numerador cay\'o de $34$ a $33$ mientras que el denominador cay\'o de $50$ a $49$, y como la fracci\'on era mayor que $\frac{1}{2}$, quitar una unidad arriba y abajo la disminuye.
+
+\textbf{¿Qu\'e tomamos?} Tomamos la observaci\'on de que la informaci\'on sobre el crupier modifica el espacio muestral y por lo tanto la respuesta, aunque solo levemente.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+\[
+P[\text{pasarse}]=\frac{49-16}{49}=\mathbf{\frac{33}{49}}\approx 0{,}6735 .
+\]
+\end{resp}
+
+\end{document}

@@ -4,3 +4,10 @@
 \contentsline {section}{\numberline {3}\ignorespaces Cardinalidades (9--14)}{67}{section.3}%
 \contentsline {section}{\numberline {4}\ignorespaces Múltiplos e inclusión-exclusión (15--26)}{82}{section.4}%
 \contentsline {section}{\numberline {5}\ignorespaces Principio de la suma y del palomar (27--32)}{116}{section.5}%
+\contentsline {section}{\numberline {6}\ignorespaces Permutaciones y combinaciones (33--43)}{128}{section.6}%
+\contentsline {section}{\numberline {7}\ignorespaces Anagramas y selecciones (44--54)}{162}{section.7}%
+\contentsline {section}{\numberline {8}\ignorespaces Distribuciones de objetos (55--59)}{196}{section.8}%
+\contentsline {section}{\numberline {9}\ignorespaces Cap.\ 2 --- Medidas de probabilidad y propiedades (1--16)}{226}{section.9}%
+\contentsline {section}{\numberline {10}\ignorespaces Cap.\ 2 --- Probabilidad vía conteo (17--27)}{281}{section.10}%
+\contentsline {section}{\numberline {11}\ignorespaces Cap.\ 2 --- Condicional e independencia (28--41)}{323}{section.11}%
+\contentsline {section}{\numberline {12}\ignorespaces Cap.\ 2 --- Probabilidad total y Bayes (42--49)}{372}{section.12}%

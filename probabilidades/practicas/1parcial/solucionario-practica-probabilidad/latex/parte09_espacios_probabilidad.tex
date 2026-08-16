@@ -1,0 +1,2918 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+
+\title{Solucionario --- Cap\'itulo 2, Secci\'on 2.1\\ Ejercicios 1 a 16: medidas de probabilidad, axiomas y propiedades}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+%=====================================================================
+\begin{teo}
+\textbf{Los axiomas de Kolmogórov y todas las propiedades que se usarán en esta parte.}
+
+Un \emph{espacio de probabilidad} consta de un conjunto no vacío $\Omega$ (el \emph{espacio
+muestral}, cuyos elementos son los resultados posibles del experimento), de una colección
+$\mathcal{F}$ de subconjuntos de $\Omega$ llamados \emph{eventos} (cerrada bajo complemento y
+uniones numerables) y de una función $P:\mathcal{F}\to\mathbb{R}$ que satisface los tres
+\emph{axiomas de Kolmogórov}:
+
+\medskip
+\textbf{(A1) No negatividad.} Para todo evento $A$ se cumple $P[A]\ge 0$.
+
+\emph{Justificación del axioma:} la probabilidad se piensa como una \emph{medida} de la
+plausibilidad de un evento, y una medida de tamaño no puede ser negativa; ningún evento puede
+ser ``menos que imposible''.
+
+\medskip
+\textbf{(A2) Normalización.} $P[\Omega]=1$.
+
+\emph{Justificación del axioma:} el experimento siempre produce \emph{algún} resultado, así que
+el evento ``ocurre algo de $\Omega$'' es seguro. Fijar en $1$ el valor de lo seguro es una
+elección de escala: convierte la probabilidad en una fracción del total.
+
+\medskip
+\textbf{(A3) Aditividad numerable.} Si $A_1,A_2,A_3,\dots$ son eventos \emph{dos a dos
+disjuntos} (es decir, $A_i\cap A_j=\varnothing$ siempre que $i\ne j$), entonces
+\[
+P\!\left[\bigcup_{i\ge 1}A_i\right] \;=\; \sum_{i\ge 1}P[A_i].
+\]
+
+\emph{Justificación del axioma:} si dos eventos no pueden ocurrir a la vez, la plausibilidad de
+que ocurra ``uno u otro'' es la suma de las plausibilidades, exactamente como el tamaño de dos
+piezas que no se traslapan es la suma de los tamaños. La hipótesis de disyunción es
+imprescindible: sin ella los resultados comunes se contarían dos veces.
+
+\medskip\hrule\medskip
+De estos tres axiomas se deducen, \emph{sin ningún supuesto adicional}, las propiedades que se
+usarán a lo largo de todo el capítulo. Cada una se demuestra a continuación. Se escribe
+$\overline{A}$ para el complemento de $A$ (lo mismo que $A^{c}$).
+
+\medskip
+\textbf{(D0) Aditividad finita.} Si $A_1,\dots,A_n$ son eventos dos a dos disjuntos, entonces
+$P[A_1\cup\cdots\cup A_n]=P[A_1]+\cdots+P[A_n]$.
+
+\emph{Demostración.} Complete la lista finita con infinitos conjuntos vacíos:
+$A_{n+1}=A_{n+2}=\cdots=\varnothing$. La sucesión resultante sigue siendo dos a dos disjunta
+(el vacío no corta a nada) y su unión es $A_1\cup\cdots\cup A_n$. Por (A3),
+$P[A_1\cup\cdots\cup A_n]=\sum_{i=1}^{n}P[A_i]+\sum_{i>n}P[\varnothing]$, y por (D1) todos los
+sumandos de la segunda serie son $0$. $\blacksquare$
+(El caso $n=2$ es el que más se usa: $A\cap B=\varnothing \Rightarrow P[A\cup B]=P[A]+P[B]$.)
+
+\medskip
+\textbf{(D1) $P[\varnothing]=0$.}
+
+\emph{Demostración.} Los eventos $\Omega$ y $\varnothing$ son disjuntos, pues
+$\Omega\cap\varnothing=\varnothing$, y su unión es $\Omega\cup\varnothing=\Omega$. Aplicando
+(A3) a la sucesión $\Omega,\varnothing,\varnothing,\dots$ se obtiene
+$P[\Omega]=P[\Omega]+P[\varnothing]+P[\varnothing]+\cdots$. Como $P[\Omega]=1$ es un número
+real finito, se puede restar de ambos lados y queda
+$0=P[\varnothing]+P[\varnothing]+\cdots$; por (A1) cada sumando es $\ge 0$, y una serie de
+términos no negativos que suma $0$ tiene todos sus términos nulos. Luego
+$P[\varnothing]=0$. $\blacksquare$
+
+\medskip
+\textbf{(D2) Complemento: $P\big[\overline{A}\big]=1-P[A]$.}
+
+\emph{Demostración.} Por definición de complemento, $A\cap\overline{A}=\varnothing$ y
+$A\cup\overline{A}=\Omega$. Por (D0) con $n=2$,
+\[
+P[A]+P\big[\overline{A}\big] \;=\; P\big[A\cup\overline{A}\big] \;=\; P[\Omega]
+\;\overset{\text{(A2)}}{=}\; 1 ,
+\]
+y despejando, $P\big[\overline{A}\big]=1-P[A]$. $\blacksquare$
+
+\medskip
+\textbf{(D3) Partición por un evento: $P[A]=P[A\cap B]+P\big[A\cap\overline{B}\big]$.}
+
+\emph{Demostración.} Los eventos $A\cap B$ y $A\cap\overline{B}$ son disjuntos, porque
+$(A\cap B)\cap(A\cap\overline{B})=A\cap(B\cap\overline{B})=A\cap\varnothing=\varnothing$.
+Además su unión es $A$, por la ley distributiva y la complementación:
+\[
+(A\cap B)\cup(A\cap\overline{B}) \;=\; A\cap(B\cup\overline{B}) \;=\; A\cap\Omega \;=\; A .
+\]
+Aplicando (D0) con $n=2$ se obtiene $P[A]=P[A\cap B]+P\big[A\cap\overline{B}\big]$. $\blacksquare$
+
+\medskip
+\textbf{(D4) Monotonía: si $A\subseteq B$ entonces $P[B]=P[A]+P\big[B\cap\overline{A}\big]$ y,
+en consecuencia, $P[A]\le P[B]$. Además $0\le P[A]\le 1$ para todo evento $A$.}
+
+\emph{Demostración.} Suponga $A\subseteq B$. Los eventos $A$ y $B\cap\overline{A}$ son
+disjuntos, pues $A\cap(B\cap\overline{A})=(A\cap\overline{A})\cap B=\varnothing$. Su unión es
+\[
+A\cup(B\cap\overline{A}) \;=\; (A\cup B)\cap(A\cup\overline{A}) \;=\; (A\cup B)\cap\Omega
+\;=\; A\cup B \;=\; B ,
+\]
+donde la última igualdad usa $A\subseteq B$. Por (D0), $P[B]=P[A]+P\big[B\cap\overline{A}\big]$,
+y como $P\big[B\cap\overline{A}\big]\ge 0$ por (A1), resulta $P[B]\ge P[A]$. Finalmente, todo
+evento cumple $A\subseteq\Omega$, luego $P[A]\le P[\Omega]=1$; junto con (A1) queda
+$0\le P[A]\le 1$. $\blacksquare$
+
+\medskip
+\textbf{(D5) Regla de la suma (inclusión--exclusión para dos eventos):}
+$P[A\cup B]=P[A]+P[B]-P[A\cap B]$.
+
+\emph{Demostración.} Se descompone $A\cup B$ en dos piezas disjuntas: $A$ y $B\cap\overline{A}$.
+Son disjuntas por el mismo cálculo de (D4), y su unión es
+$A\cup(B\cap\overline{A})=(A\cup B)\cap(A\cup\overline{A})=A\cup B$. Luego, por (D0),
+\[
+P[A\cup B] \;=\; P[A]+P\big[B\cap\overline{A}\big].
+\]
+Ahora se calcula $P\big[B\cap\overline{A}\big]$ con (D3) aplicado al evento $B$ y al evento $A$:
+$P[B]=P[B\cap A]+P\big[B\cap\overline{A}\big]$, de donde
+$P\big[B\cap\overline{A}\big]=P[B]-P[A\cap B]$. Sustituyendo,
+\[
+P[A\cup B] \;=\; P[A]+P[B]-P[A\cap B]. \qquad\blacksquare
+\]
+La resta corrige el doble conteo: los resultados de $A\cap B$ están contados una vez dentro de
+$P[A]$ y otra vez dentro de $P[B]$.
+
+\medskip
+\textbf{(D6) Espacio equiprobable (o uniforme).} Si $\Omega$ es \emph{finito}, con
+$|\Omega|=N$, y todos los resultados tienen la misma probabilidad, entonces para todo evento
+$A\subseteq\Omega$
+\[
+P[A] \;=\; \frac{|A|}{|\Omega|}.
+\]
+
+\emph{Demostración.} Escriba $\Omega=\{\omega_1,\dots,\omega_N\}$ y sea $p$ el valor común
+$P[\{\omega_i\}]=p$. Los singuletes son dos a dos disjuntos y su unión es $\Omega$, así que por
+(D0) y (A2): $1=P[\Omega]=\sum_{i=1}^{N}P[\{\omega_i\}]=Np$, luego $p=\dfrac{1}{N}$. Si ahora
+$A$ es un evento con $|A|=k$ elementos, $A$ es la unión disjunta de sus $k$ singuletes y, de
+nuevo por (D0),
+\[
+P[A]\;=\;\sum_{\omega\in A}P[\{\omega\}] \;=\; k\cdot\frac{1}{N} \;=\; \frac{|A|}{|\Omega|}.
+\qquad\blacksquare
+\]
+Obsérvese que la última igualdad de la demostración vale \emph{siempre} para $\Omega$ finito,
+sea o no uniforme: $P[A]=\sum_{\omega\in A}P[\{\omega\}]$. Es lo que permitirá resolver los
+Ejercicios 1, 2 y 3, donde la medida \emph{no} es uniforme.
+\end{teo}
+
+\begin{nota}
+\textbf{Método y notación de esta parte.}
+
+\emph{Notación.} Se sigue la del curso: la probabilidad de un evento se escribe con corchetes,
+$P[A]$, y el complemento con barra, $\overline{A}$ (idéntico a $A^{c}$). Los enunciados se
+transcriben tal como aparecen en el folleto, de modo que allí pueda leerse $A^{c}$; en las
+soluciones se usa $\overline{A}$.
+
+\emph{Esquema de resolución.} Todos los ejercicios siguen el mismo esqueleto, que es el de las
+prácticas resueltas del curso:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Planteo.} ``Considere $\Omega$ como \dots''; se nombran los eventos con dos
+  puntos y su descripción ($A$: los paquetes frágiles, \dots).
+  \item \textbf{Datos.} ``Según el problema, $P[A]=\dots$, $P[B]=\dots$''; y se declara qué se
+  solicita.
+  \item \textbf{Ecuaciones de partida.} Se registran, etiquetadas (E1), (E2), \dots, las
+  identidades que se van a encadenar (regla del complemento, partición, inclusión--exclusión).
+  \item \textbf{Encadenamiento.} Se resuelve por \emph{casos} o por \emph{etapas} mediante una
+  cadena de implicaciones, citando en cada renglón la etiqueta que la justifica (``, por (E2),'').
+  \item \textbf{Conclusión.} Se cierra con una frase que devuelve el número al lenguaje del
+  problema.
+\end{enumerate}
+
+\emph{Herramientas permitidas.} Únicamente (A1), (A2), (A3), las propiedades (D0)--(D6) recién
+demostradas, álgebra de conjuntos y conteo elemental de cardinalidades. No se usan variables
+aleatorias, esperanza, distribuciones con nombre ni herramientas de capítulos posteriores. Los
+Ejercicios 14 y 15 piden demostrar justamente (D3) y (D4); allí la demostración se rehace desde
+los axiomas, sin citar la caja de Teoría, para no razonar en círculo.
+\end{nota}
+
+%=====================================================================
+\section*{Capítulo 2 --- Ejercicio 1}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 1}
+
+\begin{quote}
+Sea $\Omega=\{1,2,3,4,5,6\}$ y sea $P$ una medida de probabilidad tal que
+$P(\{x\})=\dfrac{x}{21}$.\\
+(a) Compruebe que $\sum_{i=1}^{6}P(\{i\})=1$.\\
+(b) Cuál es la probabilidad de obtener un resultado impar? \hfill R/ $9/21$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Planteo: espacio muestral, eventos y datos}
+\textbf{Qué hago:} escribo el planteo formal del ejercicio: espacio muestral, masa de cada
+resultado, evento de interés y lo que se solicita.
+
+\textbf{¿De dónde sale?} Del enunciado, que fija $\Omega=\{1,2,3,4,5,6\}$ y la regla
+$P[\{x\}]=x/21$ válida para todo $x\in\Omega$.
+
+\textbf{¿Por qué?} Porque una medida de probabilidad sobre un espacio muestral finito queda
+completamente determinada por los valores que asigna a los singuletes: cualquier evento
+$A\subseteq\Omega$ es la unión disjunta de los singuletes de sus elementos, y por (D0)
+$P[A]=\sum_{\omega\in A}P[\{\omega\}]$. Conocer la lista de masas es, entonces, conocer $P$ por
+completo, y por eso el planteo consiste en tabularla.
+
+\textbf{¿Qué tomamos?} Tomamos el siguiente planteo.
+
+\medskip
+Considere $\Omega=\{1,2,3,4,5,6\}$ como el conjunto de resultados posibles del experimento, y
+considere el evento $I$: los resultados impares del experimento.
+
+Según el problema, la medida está dada por $P[\{x\}]=\dfrac{x}{21}$, es decir,
+\[
+P[\{1\}]=\tfrac{1}{21},\quad P[\{2\}]=\tfrac{2}{21},\quad P[\{3\}]=\tfrac{3}{21},\quad
+P[\{4\}]=\tfrac{4}{21},\quad P[\{5\}]=\tfrac{5}{21},\quad P[\{6\}]=\tfrac{6}{21}.
+\]
+Se solicita, en (a), verificar que $\sum_{i=1}^{6}P[\{i\}]=1$, y en (b), el valor de $P[I]$.
+Nótese que las seis masas son no negativas, con lo que (A1) ya se cumple sobre los singuletes.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Ecuaciones de partida}
+\textbf{Qué hago:} registro, etiquetadas, las dos identidades que se van a encadenar en los dos
+incisos.
+
+\textbf{¿De dónde sale?} De la caja de Teoría: (D0) aplicada a la partición de un evento en sus
+singuletes, y (A2).
+
+\textbf{¿Por qué?} Porque los singuletes de un espacio finito son dos a dos disjuntos
+($\{i\}\cap\{j\}=\varnothing$ si $i\ne j$) y su unión es el evento que forman; (D0) autoriza
+entonces a sumar sus probabilidades. Y porque (A2) es lo que obliga a que la suma \emph{total}
+valga exactamente $1$: si no lo hiciera, la función propuesta no sería medida de probabilidad.
+
+\textbf{¿Qué tomamos?} Tomamos las ecuaciones
+\[
+\text{(E1)}\quad P[A]=\sum_{\omega\in A}P[\{\omega\}]\ \ \text{para todo } A\subseteq\Omega,
+\qquad\text{por (D0);}
+\]
+\[
+\text{(E2)}\quad \sum_{\omega\in\Omega}P[\{\omega\}]=P[\Omega]=1,
+\qquad\text{por (E1) con } A=\Omega \text{ y por (A2).}
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- (a) Comprobar la normalización}
+\textbf{Qué hago:} sumo las seis masas del Paso 1 y comparo el resultado con $1$.
+
+\textbf{¿De dónde sale?} De la ecuación (E2) y de la lista de masas del planteo.
+
+\textbf{¿Por qué?} Porque comprobar (a) es exactamente comprobar que la fórmula propuesta
+satisface (E2), es decir, el axioma de normalización (A2). Las seis fracciones comparten
+denominador, así que basta sumar los numeradores.
+
+\textbf{¿Qué tomamos?} Tomamos el cálculo
+\[
+\sum_{i=1}^{6}P[\{i\}]
+=\frac{1}{21}+\frac{2}{21}+\frac{3}{21}+\frac{4}{21}+\frac{5}{21}+\frac{6}{21}
+=\frac{1+2+3+4+5+6}{21},
+\]
+con el numerador desglosado: $1+2=3$, $3+3=6$, $6+4=10$, $10+5=15$, $15+6=21$. Por lo tanto
+\[
+\sum_{i=1}^{6}P[\{i\}]=\frac{21}{21}=1 . \qquad\checkmark
+\]
+(Equivalentemente, con la fórmula de Gauss, $1+2+\cdots+6=\frac{6\cdot 7}{2}=21$, que es justo
+el denominador elegido; de ahí sale el $21$ del enunciado.)
+\end{paso}
+
+\begin{paso}{Paso 4 --- (b) Describir el evento $I$ como conjunto}
+\textbf{Qué hago:} escribo explícitamente los elementos del evento $I$ declarado en el planteo.
+
+\textbf{¿De dónde sale?} Del inciso (b), ``obtener un resultado impar'', y del espacio muestral
+$\Omega=\{1,2,3,4,5,6\}$.
+
+\textbf{¿Por qué?} Porque una probabilidad solo se calcula sobre \emph{eventos}, y un evento es
+un subconjunto de $\Omega$. Traducir la frase en castellano a un subconjunto explícito es el
+paso que hace calculable el problema; sin él no hay a qué aplicarle $P$.
+
+\textbf{¿Qué tomamos?} Tomamos $I=\{1,3,5\}$, pues de los seis elementos de $\Omega$ los
+impares son exactamente $1$, $3$ y $5$ ($2$, $4$ y $6$ son pares).
+\end{paso}
+
+\begin{paso}{Paso 5 --- (b) Calcular $P[I]$ sumando las masas de sus elementos}
+\textbf{Qué hago:} aplico (E1) al evento $I$.
+
+\textbf{¿De dónde sale?} De la descomposición $I=\{1\}\cup\{3\}\cup\{5\}$ y de las masas del
+planteo.
+
+\textbf{¿Por qué?} Porque los tres singuletes son dos a dos disjuntos, y (E1) --- es decir,
+(D0), la aditividad finita deducida del axioma (A3) --- autoriza a sumar sus probabilidades.
+\emph{No} se puede usar aquí la fórmula $|I|/|\Omega|=3/6$ del espacio equiprobable (D6), porque
+esta medida no es uniforme: $P[\{1\}]=1/21$ y $P[\{6\}]=6/21$ son distintas, y el resultado $6$
+pesa seis veces más que el $1$.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P[I]=P[\{1\}]+P[\{3\}]+P[\{5\}]
+=\frac{1}{21}+\frac{3}{21}+\frac{5}{21}
+=\frac{1+3+5}{21}
+=\frac{9}{21},
+\]
+con el numerador desglosado: $1+3=4$ y $4+5=9$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Verificar y simplificar}
+\textbf{Qué hago:} controlo el resultado con la regla del complemento y reduzco la fracción a
+términos mínimos.
+
+\textbf{¿De dónde sale?} Del valor $P[I]=9/21$ del Paso 5.
+
+\textbf{¿Por qué?} Porque por (D2) debe cumplirse $P[I]+P\big[\overline{I}\big]=1$, con
+$\overline{I}=\{2,4,6\}$; si el control falla, hay un error de suma. Y porque conviene presentar
+el número también en forma irreducible.
+
+\textbf{¿Qué tomamos?} Tomamos el control
+\[
+P\big[\overline{I}\big]=\frac{2+4+6}{21}=\frac{12}{21},
+\qquad
+P[I]+P\big[\overline{I}\big]=\frac{9}{21}+\frac{12}{21}=\frac{21}{21}=1 , \qquad\checkmark
+\]
+y la simplificación: $9=3^{2}$ y $21=3\cdot 7$, de modo que $\mathrm{mcd}(9,21)=3$ y
+\[
+\frac{9}{21}=\frac{9\div 3}{21\div 3}=\frac{3}{7}\approx 0{,}4286 .
+\]
+La respuesta oficial se reporta sin simplificar, como $9/21$; ambas formas son el mismo número.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+(a) $\displaystyle\sum_{i=1}^{6}P[\{i\}]=\frac{1+2+3+4+5+6}{21}=\frac{21}{21}=\mathbf{1}$, de modo
+que $P$ sí es una medida de probabilidad sobre $\Omega$.\\[4pt]
+(b) $P[I]=P[\{1,3,5\}]=\dfrac{1+3+5}{21}=\mathbf{\dfrac{9}{21}}=\dfrac{3}{7}$. Por lo tanto, la
+probabilidad de obtener un resultado impar es de, aproximadamente, $42{,}9$\,\%.
+\end{resp}
+
+%=====================================================================
+\section*{Capítulo 2 --- Ejercicio 2}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 2}
+
+\begin{quote}
+Sea $\Omega=\{1,2,3,4,5,6,7,8\}$ y sea $P$ una medida de probabilidad definida por
+$P(\{x\})=\dfrac{x^2}{204}$.\\
+(a) Compruebe que $\sum_{x\in\Omega}P(\{x\})=1$.\\
+(b) Cuál es la probabilidad de obtener un número par mayor que 3? \hfill R/ $116/204$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Planteo: espacio muestral, eventos y datos}
+\textbf{Qué hago:} redacto el planteo con el espacio muestral, la tabla de masas y el evento
+que se solicita.
+
+\textbf{¿De dónde sale?} Del enunciado, que fija $\Omega=\{1,\dots,8\}$ y la regla
+$P[\{x\}]=x^{2}/204$.
+
+\textbf{¿Por qué?} Porque, igual que en el ejercicio anterior, la medida sobre un espacio finito
+queda determinada por las masas de los singuletes, y todo evento se calculará como suma de esas
+masas por (D0). Además, como $x^{2}\ge 0$ para todo $x$, las ocho masas son no negativas y (A1)
+se satisface.
+
+\textbf{¿Qué tomamos?} Tomamos el siguiente planteo.
+
+\medskip
+Considere $\Omega=\{1,2,3,4,5,6,7,8\}$ como el conjunto de resultados posibles, y considere el
+evento $B$: los resultados pares mayores que $3$.
+
+Según el problema, $P[\{x\}]=\dfrac{x^{2}}{204}$, lo que se tabula así:
+\[
+\begin{array}{c|cccccccc}
+x & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\\hline
+x^{2} & 1 & 4 & 9 & 16 & 25 & 36 & 49 & 64\\[2pt]
+P[\{x\}] & \frac{1}{204} & \frac{4}{204} & \frac{9}{204} & \frac{16}{204} & \frac{25}{204}
+& \frac{36}{204} & \frac{49}{204} & \frac{64}{204}
+\end{array}
+\]
+Se solicita, en (a), verificar $\sum_{x\in\Omega}P[\{x\}]=1$, y en (b), el valor de $P[B]$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Ecuaciones de partida}
+\textbf{Qué hago:} registro las identidades que se encadenarán.
+
+\textbf{¿De dónde sale?} De (D0) y (A2), demostradas en la caja de Teoría.
+
+\textbf{¿Por qué?} Porque los singuletes son dos a dos disjuntos y su unión es el evento que
+forman, de modo que (D0) permite sumar; y porque (A2) fija en $1$ el total sobre $\Omega$.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+\text{(E1)}\quad P[A]=\sum_{\omega\in A}P[\{\omega\}],\qquad\text{por (D0);}
+\]
+\[
+\text{(E2)}\quad \sum_{\omega\in\Omega}P[\{\omega\}]=1,\qquad\text{por (E1) y (A2).}
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- (a) Comprobar la normalización}
+\textbf{Qué hago:} sumo los ocho numeradores de la tabla y comparo con $204$.
+
+\textbf{¿De dónde sale?} De la tabla del Paso 1 y de la ecuación (E2).
+
+\textbf{¿Por qué?} Porque verificar (a) es verificar que esta fórmula concreta cumple (E2), es
+decir, el axioma (A2). Como todas las fracciones comparten el denominador $204$, la comprobación
+se reduce a sumar los cuadrados.
+
+\textbf{¿Qué tomamos?} Tomamos la suma acumulada
+\[
+1+4=5,\quad 5+9=14,\quad 14+16=30,\quad 30+25=55,
+\]
+\[
+55+36=91,\quad 91+49=140,\quad 140+64=204 ,
+\]
+de donde
+\[
+\sum_{x\in\Omega}P[\{x\}]=\frac{1+4+9+16+25+36+49+64}{204}=\frac{204}{204}=1 . \qquad\checkmark
+\]
+(De aquí sale el $204$ del enunciado: es la suma de los primeros ocho cuadrados,
+$\frac{8\cdot 9\cdot 17}{6}=204$.)
+\end{paso}
+
+\begin{paso}{Paso 4 --- (b) Describir el evento $B$ como intersección de dos condiciones}
+\textbf{Qué hago:} escribo $B$ listando sus elementos.
+
+\textbf{¿De dónde sale?} Del inciso (b), ``un número par mayor que 3'', y de
+$\Omega=\{1,\dots,8\}$.
+
+\textbf{¿Por qué?} Porque el enunciado impone dos condiciones simultáneas: ``par'' \emph{y}
+``mayor que 3'', es decir, una intersección de eventos,
+$B=\{2,4,6,8\}\cap\{4,5,6,7,8\}$. Al ser $\Omega$ pequeño, la intersección puede exhibirse
+elemento por elemento sin riesgo.
+
+\textbf{¿Qué tomamos?} Tomamos $B=\{4,6,8\}$: los pares de $\Omega$ son $2,4,6,8$, y de ellos
+solo $4$, $6$ y $8$ superan a $3$ (el $2$ queda excluido por no ser mayor que $3$).
+\end{paso}
+
+\begin{paso}{Paso 5 --- (b) Calcular $P[B]$}
+\textbf{Qué hago:} aplico (E1) al evento $B$.
+
+\textbf{¿De dónde sale?} De la descomposición disjunta $B=\{4\}\cup\{6\}\cup\{8\}$ y de la tabla
+del Paso 1.
+
+\textbf{¿Por qué?} Por (E1), que es (D0): la unión finita de eventos dos a dos disjuntos tiene
+por probabilidad la suma de las probabilidades. Insisto en que no puede usarse
+$|B|/|\Omega|=3/8$, porque esta medida no es uniforme (las masas van de $1/204$ a $64/204$) y
+(D6) exige equiprobabilidad.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P[B]=\frac{16}{204}+\frac{36}{204}+\frac{64}{204}=\frac{16+36+64}{204}=\frac{116}{204},
+\]
+con el numerador desglosado: $16+36=52$ y $52+64=116$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Simplificar y verificar}
+\textbf{Qué hago:} reduzco $116/204$ y compruebo que el valor es admisible.
+
+\textbf{¿De dónde sale?} Del resultado del Paso 5.
+
+\textbf{¿Por qué?} Porque por (D4) toda probabilidad debe caer en $[0,1]$, y una simplificación
+explícita del mcd deja el número en su forma canónica.
+
+\textbf{¿Qué tomamos?} Tomamos $116=2^{2}\cdot 29$ y $204=2^{2}\cdot 3\cdot 17$, de donde
+$\mathrm{mcd}(116,204)=4$ y
+\[
+\frac{116}{204}=\frac{116\div 4}{204\div 4}=\frac{29}{51}\approx 0{,}5686 ,
+\]
+que efectivamente está entre $0$ y $1$. La respuesta oficial se reporta sin simplificar,
+$116/204$.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+(a) $\displaystyle\sum_{x\in\Omega}P[\{x\}]=\frac{1+4+9+16+25+36+49+64}{204}=\frac{204}{204}=\mathbf{1}$.\\[4pt]
+(b) $P[B]=P[\{4,6,8\}]=\dfrac{16+36+64}{204}=\mathbf{\dfrac{116}{204}}=\dfrac{29}{51}$. Por lo
+tanto, la probabilidad de obtener un número par mayor que $3$ es de, aproximadamente,
+$56{,}9$\,\%.
+\end{resp}
+
+%=====================================================================
+\section*{Capítulo 2 --- Ejercicio 3}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 3}
+
+\begin{quote}
+Sea $\Omega=\{1,2,3,4,5,6,7,8,9,10\}$ y sea $P$ una medida de probabilidad tal que
+$P(\{x\})=\dfrac{2x-1}{100}$.\\
+(a) Verifique que $P$ es una medida de probabilidad sobre $\Omega$.\\
+(b) Cuál es la probabilidad de obtener un número primo o múltiplo de 4? \hfill R/ $13/25$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Planteo: espacio muestral, eventos y datos}
+\textbf{Qué hago:} redacto el planteo con la tabla de masas y los dos eventos que intervienen en
+(b).
+
+\textbf{¿De dónde sale?} Del enunciado, que fija $\Omega=\{1,\dots,10\}$ y
+$P[\{x\}]=(2x-1)/100$.
+
+\textbf{¿Por qué?} Porque verificar que $P$ es medida de probabilidad exige revisar los axiomas
+sobre estas masas, y calcular cualquier evento exigirá sumarlas por (D0). Conviene además
+separar desde el inicio los dos eventos del inciso (b), porque el ``o'' del enunciado obligará a
+tratarlos como una unión.
+
+\textbf{¿Qué tomamos?} Tomamos el siguiente planteo.
+
+\medskip
+Considere $\Omega=\{1,2,\dots,10\}$ como el conjunto de resultados posibles. Considere los
+eventos $R$: los resultados que son números primos, y $C$: los resultados que son múltiplos
+de $4$.
+
+Según el problema, $P[\{x\}]=\dfrac{2x-1}{100}$, es decir:
+\[
+\begin{array}{c|cccccccccc}
+x & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\\hline
+2x-1 & 1 & 3 & 5 & 7 & 9 & 11 & 13 & 15 & 17 & 19\\[2pt]
+P[\{x\}] & \frac{1}{100} & \frac{3}{100} & \frac{5}{100} & \frac{7}{100} & \frac{9}{100}
+& \frac{11}{100} & \frac{13}{100} & \frac{15}{100} & \frac{17}{100} & \frac{19}{100}
+\end{array}
+\]
+Los numeradores son exactamente los diez primeros números impares. Se solicita, en (a),
+verificar que $P$ es una medida de probabilidad, y en (b), el valor de $P[R\cup C]$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Ecuaciones de partida}
+\textbf{Qué hago:} registro las identidades que se usarán en ambos incisos.
+
+\textbf{¿De dónde sale?} De (D0), (A2) y (D5) de la caja de Teoría.
+
+\textbf{¿Por qué?} Porque (E1) permitirá sumar masas puntuales, (E2) es lo que hay que verificar
+en (a), y (E3) es la regla que corresponde al conector ``o'' del inciso (b).
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+\text{(E1)}\quad P[A]=\sum_{\omega\in A}P[\{\omega\}],\ \text{por (D0)};
+\qquad
+\text{(E2)}\quad \sum_{\omega\in\Omega}P[\{\omega\}]=1,\ \text{por (A2)};
+\]
+\[
+\text{(E3)}\quad P[R\cup C]=P[R]+P[C]-P[R\cap C],\ \text{por (D5)}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- (a) Verificar la no negatividad (A1)}
+\textbf{Qué hago:} compruebo que $P[A]\ge 0$ para todo evento $A\subseteq\Omega$.
+
+\textbf{¿De dónde sale?} Del axioma (A1) y de la tabla del Paso 1.
+
+\textbf{¿Por qué?} Porque para $x\ge 1$ se tiene $2x-1\ge 2\cdot 1-1=1>0$, así que cada masa es
+positiva; y como todo evento es unión disjunta de singuletes, por (E1) su probabilidad es una
+suma de números positivos, o la suma vacía si $A=\varnothing$. En cualquier caso el resultado es
+$\ge 0$.
+
+\textbf{¿Qué tomamos?} Tomamos por verificado que $P[A]\ge 0$ para todo $A\subseteq\Omega$: la
+menor masa es $1/100>0$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- (a) Verificar la normalización (A2)}
+\textbf{Qué hago:} sumo las diez masas y compruebo que el total es $1$.
+
+\textbf{¿De dónde sale?} De la ecuación (E2) y de la tabla del Paso 1.
+
+\textbf{¿Por qué?} Porque $\Omega$ es la unión disjunta de sus diez singuletes, así que por (E1)
+$P[\Omega]$ es la suma de las diez masas; si esa suma no fuera $1$, la función propuesta
+violaría (A2) y no sería medida de probabilidad.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+\sum_{x=1}^{10}P[\{x\}]=\frac{1+3+5+7+9+11+13+15+17+19}{100}.
+\]
+El numerador es la suma de los diez primeros impares; agrupando por parejas de extremos,
+$1+19=20$, $3+17=20$, $5+15=20$, $7+13=20$, $9+11=20$, son $5$ parejas de valor $20$, es decir
+$5\cdot 20=100$. (En general $\sum_{x=1}^{n}(2x-1)=n^{2}$; aquí $n=10$ y $10^{2}=100$, que es
+justamente el denominador.) Por lo tanto
+\[
+\sum_{x=1}^{10}P[\{x\}]=\frac{100}{100}=1 . \qquad\checkmark
+\]
+\end{paso}
+
+\begin{paso}{Paso 5 --- (a) Verificar la aditividad (A3) y concluir}
+\textbf{Qué hago:} justifico que la aditividad se cumple automáticamente al haber definido $P$
+por masas puntuales.
+
+\textbf{¿De dónde sale?} De la ecuación (E1), que es la única extensión de las masas compatible
+con (D0).
+
+\textbf{¿Por qué?} Porque si $A$ y $B$ son eventos disjuntos, ningún elemento pertenece a los
+dos a la vez, de modo que la suma sobre $A\cup B$ se parte exactamente en la suma sobre $A$ más
+la suma sobre $B$:
+\[
+P[A\cup B]=\sum_{\omega\in A\cup B}P[\{\omega\}]
+=\sum_{\omega\in A}P[\{\omega\}]+\sum_{\omega\in B}P[\{\omega\}]=P[A]+P[B].
+\]
+Al ser $\Omega$ finito, cualquier familia numerable de eventos disjuntos tiene a lo sumo
+finitos miembros no vacíos, así que (A3) se reduce a este caso finito.
+
+\textbf{¿Qué tomamos?} Tomamos que $P$ cumple (A1), (A2) y (A3): \emph{$P$ sí es una medida de
+probabilidad sobre $\Omega$}.
+\end{paso}
+
+\begin{paso}{Paso 6 --- (b) Determinar los eventos $R$ y $C$ y su intersección}
+\textbf{Qué hago:} enumero los elementos de $R$, de $C$ y de $R\cap C$.
+
+\textbf{¿De dónde sale?} De las definiciones dadas en el planteo y de $\Omega=\{1,\dots,10\}$.
+
+\textbf{¿Por qué?} Porque la ecuación (E3) necesita los tres términos $P[R]$, $P[C]$ y
+$P[R\cap C]$, y cada uno se calculará por (E1) a partir de la lista de elementos. Al enumerar
+hay que recordar que $1$ \emph{no} es primo (no tiene exactamente dos divisores positivos) y que
+$9=3^{2}$ tampoco lo es.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+R=\{2,3,5,7\},\qquad C=\{4,8\},\qquad R\cap C=\varnothing .
+\]
+La intersección es vacía porque ningún múltiplo de $4$ es primo: si $4\mid n$ con $n\ge 4$,
+entonces $2$ es un divisor de $n$ distinto de $1$ y de $n$, luego $n$ es compuesto; en concreto
+$4=2^{2}$ y $8=2^{3}$.
+\end{paso}
+
+\begin{paso}{Paso 7 --- (b) Resolver por casos y encadenar}
+\textbf{Qué hago:} calculo $P[R]$ y $P[C]$ por separado (un caso cada uno) y los combino con
+(E3).
+
+\textbf{¿De dónde sale?} De los conjuntos del Paso 6, de la tabla del Paso 1 y de las ecuaciones
+(E1) y (E3).
+
+\textbf{¿Por qué?} Porque el ``o'' del enunciado es la unión, y (E3) es la regla que la
+resuelve; al ser $R\cap C=\varnothing$, la propiedad (D1) da $P[R\cap C]=P[\varnothing]=0$ y el
+término de corrección desaparece. Separar en dos casos evita mezclar las listas y hace visible
+que ningún elemento se cuenta dos veces.
+
+\textbf{¿Qué tomamos?} Tomamos:
+
+\medskip
+\textbf{Caso 1 (el resultado es primo).} Por (E1), con los numeradores $2x-1$ de la tabla,
+\[
+P[R]=\underbrace{\frac{3}{100}}_{x=2}+\underbrace{\frac{5}{100}}_{x=3}
++\underbrace{\frac{9}{100}}_{x=5}+\underbrace{\frac{13}{100}}_{x=7}
+=\frac{3+5+9+13}{100}=\frac{30}{100},
+\]
+con desglose $3+5=8$, $8+9=17$, $17+13=30$.
+
+\medskip
+\textbf{Caso 2 (el resultado es múltiplo de $4$).} Por (E1),
+\[
+P[C]=\underbrace{\frac{7}{100}}_{x=4}+\underbrace{\frac{15}{100}}_{x=8}
+=\frac{7+15}{100}=\frac{22}{100}.
+\]
+
+\medskip
+\textbf{Combinación.} Por (E3) y (D1),
+\[
+P[R\cup C]=P[R]+P[C]-P[\varnothing]=\frac{30}{100}+\frac{22}{100}-0=\frac{30+22}{100}
+=\frac{52}{100}.
+\]
+Control directo: $R\cup C=\{2,3,4,5,7,8\}$ y
+$\frac{3+5+7+9+13+15}{100}=\frac{52}{100}$, coincidente. $\checkmark$
+
+Obsérvese que la respuesta uniforme $|R\cup C|/|\Omega|=6/10$ sería \emph{falsa}: (D6) no se
+aplica porque la medida no es uniforme (los resultados grandes pesan más,
+$P[\{8\}]=15/100$ frente a $P[\{2\}]=3/100$).
+\end{paso}
+
+\begin{paso}{Paso 8 --- Simplificar}
+\textbf{Qué hago:} reduzco $52/100$ a términos mínimos.
+
+\textbf{¿De dónde sale?} Del valor obtenido en el Paso 7.
+
+\textbf{¿Por qué?} Porque la respuesta oficial viene dada en forma irreducible, $13/25$, y hay
+que llegar exactamente a esa forma.
+
+\textbf{¿Qué tomamos?} Tomamos $52=2^{2}\cdot 13$ y $100=2^{2}\cdot 5^{2}$, de donde
+$\mathrm{mcd}(52,100)=4$ y
+\[
+\frac{52}{100}=\frac{52\div 4}{100\div 4}=\frac{13}{25}=0{,}52 . \qquad\checkmark
+\]
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+(a) $P[\{x\}]=\frac{2x-1}{100}>0$ para todo $x\in\Omega$, y
+$\sum_{x=1}^{10}\frac{2x-1}{100}=\frac{10^{2}}{100}=1$; junto con la aditividad automática de
+las masas puntuales, $P$ \textbf{sí es una medida de probabilidad}.\\[4pt]
+(b) $P[R\cup C]=P[R]+P[C]=\dfrac{30}{100}+\dfrac{22}{100}=\dfrac{52}{100}=\mathbf{\dfrac{13}{25}}$.
+Por lo tanto, la probabilidad de obtener un número primo o múltiplo de $4$ es de $52$\,\%.
+\end{resp}
+
+%=====================================================================
+\section*{Capítulo 2 --- Ejercicio 4}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 4}
+
+\begin{quote}
+Hace muchos años, cuando no se tenían conceptos de probabilidad, Antoine se dió cuenta de que al
+lanzar un dado, la probabilidad de obtener un resultado de a lo sumo 4 era favorable. Así,
+apostaba con sus amigos que al lanzar un dado el resultado sería a lo sumo 4 y ganaba mucho
+dinero. Sin embargo, sus amigos rapidamente se dieron cuenta de que no les convenía apostar.
+Ante esto, Antoine varió el juego e introdujo otro dado. Así, al lanzar dos dados, él apostaría
+porque ambos resultados de a lo sumo 4. Sin embargo, después de mucho jugar, perdió mucho
+dinero. Por qué sucedió esto? Cómo varió la probabilidad de victoria?
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Planteo: los dos juegos, sus espacios muestrales y sus eventos}
+\textbf{Qué hago:} separo el problema en dos experimentos distintos, uno por cada versión del
+juego, y nombro el evento de victoria en cada uno.
+
+\textbf{¿De dónde sale?} Del enunciado, que describe primero la apuesta con un dado (``el
+resultado sería a lo sumo 4'') y después la apuesta con dos dados (``ambos resultados de a lo
+sumo 4'').
+
+\textbf{¿Por qué?} Porque son dos experimentos aleatorios diferentes, con espacios muestrales
+diferentes, y comparar sus probabilidades exige calcular cada una en su propio espacio. Un dado
+ordinario tiene seis caras numeradas del $1$ al $6$; la simetría física del cubo hace que las
+seis caras sean intercambiables, lo que se modela asignando la misma masa a cada resultado. Por
+la demostración de (D6), esa masa común vale $1/6$ y $P[A]=|A|/|\Omega|$ para todo evento.
+
+\textbf{¿Qué tomamos?} Tomamos el siguiente planteo.
+
+\medskip
+\textbf{Etapa 1 (juego original).} Considere $\Omega_1=\{1,2,3,4,5,6\}$ como el conjunto de
+resultados del lanzamiento de un dado legal, con $|\Omega_1|=6$ y todos los resultados
+equiprobables. Considere el evento $V_1$: Antoine gana la apuesta, es decir, el resultado del
+dado es a lo sumo $4$.
+
+\medskip
+\textbf{Etapa 2 (juego modificado).} Considere
+$\Omega_2=\{(a,b): a,b\in\{1,2,3,4,5,6\}\}$ como el conjunto de resultados del lanzamiento de
+dos dados legales, donde $a$ es la cara del primer dado y $b$ la del segundo, con todos los pares
+equiprobables. Considere el evento $V_2$: Antoine gana la apuesta, es decir, ambos resultados son
+a lo sumo $4$.
+
+\medskip
+Se solicita comparar $P[V_1]$ con $P[V_2]$ y explicar el cambio.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Ecuaciones de partida}
+\textbf{Qué hago:} registro las identidades y el criterio con los que se resolverá.
+
+\textbf{¿De dónde sale?} De (D6) y (D2) de la caja de Teoría, y del análisis de qué significa
+que una apuesta sea favorable.
+
+\textbf{¿Por qué?} Porque (E1) es la que convierte el problema en conteo, y (E2) es el criterio
+de decisión: en una apuesta simétrica (los dos jugadores arriesgan lo mismo) el juego es
+favorable a quien apuesta por $V$ exactamente cuando $P[V]>P\big[\overline{V}\big]$, y por (D2)
+esto equivale a $P[V]>1-P[V]$, es decir $2P[V]>1$, es decir $P[V]>\tfrac12$.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+\text{(E1)}\quad P[A]=\frac{|A|}{|\Omega|}\ \text{en un espacio equiprobable},\qquad\text{por (D6);}
+\]
+\[
+\text{(E2)}\quad \text{la apuesta por } V \text{ es favorable}
+\iff P[V]>P\big[\overline{V}\big] \iff P[V]>\tfrac12,\qquad\text{por (D2).}
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Etapa 1: contar y calcular $P[V_1]$}
+\textbf{Qué hago:} enumero $V_1$, cuento sus elementos y aplico (E1).
+
+\textbf{¿De dónde sale?} Del planteo del Paso 1: ``a lo sumo $4$'' significa $\le 4$.
+
+\textbf{¿Por qué?} Porque en el espacio equiprobable $\Omega_1$ vale (E1), demostrada a partir
+de (D0) y (A2): basta contar cuántos resultados favorecen la apuesta y dividir entre el total.
+
+\textbf{¿Qué tomamos?} Tomamos $V_1=\{1,2,3,4\}$, con $|V_1|=4$, y
+\[
+P[V_1]=\frac{|V_1|}{|\Omega_1|}
+=\frac{\overbrace{4}^{\text{caras}\le 4}}{\underbrace{6}_{\text{caras del dado}}}
+=\frac{4}{6}=\frac{2}{3}\approx 0{,}6667 ,
+\]
+donde la simplificación usa $\mathrm{mcd}(4,6)=2$: $\frac{4\div 2}{6\div 2}=\frac{2}{3}$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Etapa 1: decidir si la apuesta original es favorable}
+\textbf{Qué hago:} aplico el criterio (E2) al valor obtenido.
+
+\textbf{¿De dónde sale?} De $P[V_1]=4/6$ (Paso 3) y de la ecuación (E2).
+
+\textbf{¿Por qué?} Porque (E2) traduce ``ser favorable'' a una desigualdad numérica concreta, y
+la regla del complemento (D2) permite además exhibir la probabilidad de perder.
+
+\textbf{¿Qué tomamos?} Tomamos $P\big[\overline{V_1}\big]=1-\frac{4}{6}=\frac{2}{6}=\frac13$ y
+la comparación
+\[
+P[V_1]=\frac{4}{6}\;>\;\frac{3}{6}=\frac12\;>\;\frac{2}{6}=P\big[\overline{V_1}\big] ,
+\]
+de modo que la apuesta original era favorable a Antoine: ganaba dos de cada tres veces, el doble
+de las que perdía. Por eso sus amigos dejaron de aceptarla.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Etapa 2: contar el espacio muestral de los dos dados}
+\textbf{Qué hago:} cuento $|\Omega_2|$.
+
+\textbf{¿De dónde sale?} Del planteo del Paso 1.
+
+\textbf{¿Por qué?} Porque cada resultado queda descrito por un par ordenado $(a,b)$, y
+distinguir los dados es necesario para que el espacio sea equiprobable: físicamente son dos
+objetos distintos y cada uno cae de forma simétrica. Contar los pares es conteo elemental: hay
+$6$ opciones para $a$ y, para cada una, $6$ opciones para $b$, de donde por el principio
+multiplicativo $|\Omega_2|=6\cdot 6$.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+|\Omega_2|=\underbrace{6}_{\text{caras dado }1}\cdot\underbrace{6}_{\text{caras dado }2}=36 ,
+\]
+con $P[\{(a,b)\}]=\frac{1}{36}$ para cada uno de los $36$ pares, por (D6).
+\end{paso}
+
+\begin{paso}{Paso 6 --- Etapa 2: contar los casos favorables}
+\textbf{Qué hago:} describo $V_2$ como producto cartesiano y cuento sus elementos.
+
+\textbf{¿De dónde sale?} Del enunciado: ``ambos resultados de a lo sumo 4''. La palabra
+\emph{ambos} obliga a que las dos coordenadas cumplan la condición a la vez.
+
+\textbf{¿Por qué?} Porque ``ambos $\le 4$'' es la intersección de las condiciones $a\le 4$ y
+$b\le 4$; el conjunto de pares que la cumplen es $\{1,2,3,4\}\times\{1,2,3,4\}$, y su cardinal
+se obtiene otra vez por el principio multiplicativo: $4$ opciones para $a$ y $4$ para $b$, sin
+interacción entre ambas elecciones.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+V_2=\{1,2,3,4\}\times\{1,2,3,4\},
+\qquad
+|V_2|=\underbrace{4}_{a\le 4}\cdot\underbrace{4}_{b\le 4}=16 ,
+\]
+cuyos $16$ pares son
+\[
+\begin{array}{cccc}
+(1,1)&(1,2)&(1,3)&(1,4)\\
+(2,1)&(2,2)&(2,3)&(2,4)\\
+(3,1)&(3,2)&(3,3)&(3,4)\\
+(4,1)&(4,2)&(4,3)&(4,4)
+\end{array}
+\]
+\end{paso}
+
+\begin{paso}{Paso 7 --- Etapa 2: calcular $P[V_2]$ y decidir}
+\textbf{Qué hago:} aplico (E1) con los conteos de los Pasos 5 y 6, y luego el criterio (E2).
+
+\textbf{¿De dónde sale?} De $|V_2|=16$ y $|\Omega_2|=36$.
+
+\textbf{¿Por qué?} Porque $\Omega_2$ es equiprobable y (E1) fue demostrada desde (D0) y (A2)
+para ese caso; y porque (E2) es el criterio que decide si conviene apostar.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P[V_2]=\frac{|V_2|}{|\Omega_2|}
+=\frac{\overbrace{4\cdot 4}^{\text{pares con ambos}\le 4}}{\underbrace{6\cdot 6}_{\text{pares totales}}}
+=\frac{16}{36}=\frac{4}{9}\approx 0{,}4444 ,
+\]
+con $\mathrm{mcd}(16,36)=4$. Por (D2),
+$P\big[\overline{V_2}\big]=1-\frac{16}{36}=\frac{20}{36}=\frac59$, y entonces
+\[
+P[V_2]=\frac{16}{36}\;<\;\frac{18}{36}=\frac12\;<\;\frac{20}{36}=P\big[\overline{V_2}\big] ,
+\]
+de modo que la apuesta nueva es \emph{desfavorable} a Antoine: pierde $5$ de cada $9$ veces y
+gana solo $4$ de cada $9$. Repitiendo el juego muchas veces, la pérdida se acumula; eso explica
+que ``después de mucho jugar, perdió mucho dinero''.
+\end{paso}
+
+\begin{paso}{Paso 8 --- Cuantificar la variación de la probabilidad de victoria}
+\textbf{Qué hago:} comparo $P[V_1]$ con $P[V_2]$ por diferencia y por cociente.
+
+\textbf{¿De dónde sale?} De $P[V_1]=\frac{2}{3}$ (Paso 3) y $P[V_2]=\frac{4}{9}$ (Paso 7).
+
+\textbf{¿Por qué?} Porque la pregunta ``cómo varió la probabilidad de victoria'' pide
+explícitamente el cambio, y la forma honesta de responderla es exhibir tanto cuánto bajó como en
+qué factor.
+
+\textbf{¿Qué tomamos?} Tomamos, con denominador común $9$ (pues
+$\frac{2}{3}=\frac{2\cdot 3}{3\cdot 3}=\frac{6}{9}$),
+\[
+P[V_1]-P[V_2]=\frac{6}{9}-\frac{4}{9}=\frac{2}{9}\approx 0{,}2222 ,
+\]
+es decir, la probabilidad de ganar cayó unos $22{,}2$ puntos porcentuales, de $66{,}7$\,\% a
+$44{,}4$\,\%. Y como cociente,
+\[
+\frac{P[V_2]}{P[V_1]}=\frac{4/9}{2/3}=\frac{4}{9}\cdot\frac{3}{2}=\frac{12}{18}=\frac{2}{3},
+\]
+la nueva probabilidad es exactamente $\frac{2}{3}$ de la anterior. Esto no es casualidad:
+\[
+P[V_2]=\frac{4\cdot 4}{6\cdot 6}=\left(\frac{4}{6}\right)^{2}=\big(P[V_1]\big)^{2},
+\]
+y elevar al cuadrado un número estrictamente entre $0$ y $1$ siempre lo hace \emph{menor} (si
+$0<p<1$, entonces $p^{2}=p\cdot p<1\cdot p=p$).
+\end{paso}
+
+\begin{paso}{Paso 9 --- Explicar por qué falló la intuición de Antoine}
+\textbf{Qué hago:} redacto la explicación conceptual del error.
+
+\textbf{¿De dónde sale?} De los Pasos 3, 7 y 8.
+
+\textbf{¿Por qué?} Porque el enunciado pregunta ``por qué sucedió esto'', es decir, pide la
+razón y no solo los números.
+
+\textbf{¿Qué tomamos?} Tomamos la siguiente explicación. Antoine razonó que, si exigir una
+condición favorable a un dado le daba ventaja, exigirla a dos dados le daría ``la misma ventaja
+dos veces''. Pero exigir la condición a \emph{ambos} dados no repite la ventaja: la
+\emph{endurece}. El evento $V_2$ es más restrictivo que $V_1$, porque un solo dado que salga $5$
+o $6$ ya arruina la apuesta, y con dos dados hay dos oportunidades de que eso ocurra. En
+términos de conteo, al pasar de un dado a dos, los casos favorables se multiplicaron por $4$
+($4\to 4\cdot 4=16$) mientras que los casos totales se multiplicaron por $6$
+($6\to 6\cdot 6=36$); como el denominador creció más rápido que el numerador, la fracción bajó.
+Formalmente, la probabilidad pasó de $p=\frac46$ a $p^{2}$, y $p^{2}<p$ siempre que $0<p<1$. El
+umbral decisivo es $\tfrac12$: como $p=\frac23$ satisface $p^{2}=\frac49<\frac12$, la apuesta
+cruzó de favorable a desfavorable y Antoine empezó a perder sistemáticamente.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Con un dado, $P[V_1]=\dfrac{4}{6}=\dfrac{2}{3}\approx 66{,}7$\,\% $>\dfrac12$: apuesta
+\textbf{favorable}. Con dos dados, sobre $|\Omega_2|=6\cdot 6=36$ pares equiprobables hay
+$4\cdot 4=16$ con ambos resultados $\le 4$, luego
+$P[V_2]=\dfrac{16}{36}=\dfrac{4}{9}\approx 44{,}4$\,\% $<\dfrac12$: apuesta \textbf{desfavorable}.
+Por lo tanto, la probabilidad de victoria \textbf{disminuyó} de $\frac23$ a
+$\left(\frac23\right)^{2}=\frac49$, es decir, cayó en $\frac{2}{9}\approx 22{,}2$ puntos
+porcentuales y quedó reducida a $\frac23$ de su valor original. Antoine perdió porque exigir la
+condición a los dos dados a la vez no duplica la ventaja, sino que multiplica probabilidades
+menores que $1$, lo que \emph{reduce} la probabilidad del evento.
+\end{resp}
+
+%=====================================================================
+\section*{Capítulo 2 --- Ejercicio 5}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 5}
+
+\begin{quote}
+Se lanzan dos dados legales.\\
+(a) Cuál es la probabilidad de que la suma de los resultados sea mayor a 8? \hfill R/ $5/18$\\
+(b) Cuál es la probabilidad de que la diferencia de los resultados sea menor a 2? \hfill R/ $4/9$\\
+(c) Cuál es la probabilidad de que el mínimo de los resultados sea a lo sumo 2? \hfill R/ $5/9$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Planteo: espacio muestral, eventos y lo que se solicita}
+\textbf{Qué hago:} describo $\Omega$ como el conjunto de pares ordenados de caras, cuento sus
+elementos y nombro los tres eventos de los incisos.
+
+\textbf{¿De dónde sale?} Del enunciado: ``se lanzan dos dados legales''. \emph{Legal} significa
+que cada dado es simétrico y ninguna cara está favorecida.
+
+\textbf{¿Por qué?} Porque los dos dados son objetos distinguibles (aunque se lancen a la vez,
+uno puede pintarse de otro color sin alterar la física del lanzamiento), y solo describiendo el
+resultado como par ordenado $(a,b)$ se obtiene un espacio en el que todos los resultados son
+igualmente probables. Si en cambio se describiera el resultado como un par \emph{no ordenado},
+el espacio tendría $21$ elementos pero \emph{no} sería equiprobable, porque $\{1,2\}$ se realiza
+de dos formas físicas y $\{1,1\}$ de una sola; (D6) dejaría de aplicarse.
+
+\textbf{¿Qué tomamos?} Tomamos el siguiente planteo.
+
+\medskip
+Considere $\Omega=\{(a,b): a,b\in\{1,2,3,4,5,6\}\}$ como el conjunto de resultados del
+experimento, donde $a$ es la cara del primer dado y $b$ la del segundo. Por el principio
+multiplicativo,
+\[
+|\Omega|=\underbrace{6}_{\text{caras dado }1}\cdot\underbrace{6}_{\text{caras dado }2}=36 ,
+\]
+y todos los pares son equiprobables. Considere los eventos $S$: los resultados cuya suma es
+mayor que $8$; $D$: los resultados cuya diferencia es menor que $2$; y $M$: los resultados cuyo
+mínimo es a lo sumo $2$.
+
+Se solicitan $P[S]$, $P[D]$ y $P[M]$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Ecuaciones de partida}
+\textbf{Qué hago:} registro las tres identidades que se encadenarán en los incisos.
+
+\textbf{¿De dónde sale?} De (D6), (D2) y (D5) de la caja de Teoría.
+
+\textbf{¿Por qué?} Porque (E1) convierte cada inciso en un problema de conteo; (E2) permitirá
+resolver (c) por complemento, que es mucho más corto; y (E3) sirve tanto para sumar cardinales
+de casos disjuntos como para verificar (c) por conteo directo. Nótese que en un espacio
+equiprobable, multiplicar (E3) por $|\Omega|$ da la versión de cardinales
+$|X\cup Y|=|X|+|Y|-|X\cap Y|$.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+\text{(E1)}\quad P[A]=\frac{|A|}{|\Omega|}=\frac{|A|}{36},\ \text{por (D6)};
+\qquad
+\text{(E2)}\quad P[A]=1-P\big[\overline{A}\big],\ \text{por (D2)};
+\]
+\[
+\text{(E3)}\quad P[X\cup Y]=P[X]+P[Y]-P[X\cap Y],\ \text{por (D5)}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- (a) Contar $S$ por casos según el valor de la suma}
+\textbf{Qué hago:} enumero los pares de $S$ agrupándolos según cuánto suman.
+
+\textbf{¿De dónde sale?} Del inciso (a): ``la suma de los resultados sea mayor a 8'', es decir
+$a+b>8$, o sea $a+b\ge 9$ al ser $a+b$ entero.
+
+\textbf{¿Por qué?} Porque la suma de dos caras varía entre $1+1=2$ y $6+6=12$, así que las sumas
+que cumplen la condición son exactamente $9$, $10$, $11$ y $12$. Agrupar por el valor de la suma
+es legítimo porque los eventos ``$a+b=9$'', ``$a+b=10$'', ``$a+b=11$'' y ``$a+b=12$'' son dos a
+dos disjuntos (una misma tirada tiene una sola suma) y su unión es $S$; por (E3) con
+intersecciones vacías, o directamente por (D0), los cardinales se suman.
+
+\textbf{¿Qué tomamos?} Tomamos el conteo por casos:
+\[
+\begin{array}{ll}
+\text{Caso } a+b=9: & (3,6),(4,5),(5,4),(6,3) \quad\Rightarrow\ 4 \text{ pares}\\
+\text{Caso } a+b=10: & (4,6),(5,5),(6,4) \quad\Rightarrow\ 3 \text{ pares}\\
+\text{Caso } a+b=11: & (5,6),(6,5) \quad\Rightarrow\ 2 \text{ pares}\\
+\text{Caso } a+b=12: & (6,6) \quad\Rightarrow\ 1 \text{ par}
+\end{array}
+\]
+de donde
+\[
+|S|=\underbrace{4}_{a+b=9}+\underbrace{3}_{a+b=10}+\underbrace{2}_{a+b=11}+\underbrace{1}_{a+b=12}=10 ,
+\]
+con desglose $4+3=7$, $7+2=9$, $9+1=10$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- (a) Calcular $P[S]$ y simplificar}
+\textbf{Qué hago:} aplico (E1) con $|S|=10$ y reduzco la fracción.
+
+\textbf{¿De dónde sale?} De $|S|=10$ (Paso 3) y $|\Omega|=36$ (Paso 1).
+
+\textbf{¿Por qué?} Por (E1), válida porque el espacio de los $36$ pares es equiprobable.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P[S]=\frac{|S|}{|\Omega|}
+=\frac{\overbrace{4+3+2+1}^{\text{pares con }a+b>8}}{\underbrace{6\cdot 6}_{\text{pares totales}}}
+=\frac{10}{36}.
+\]
+Como $10=2\cdot 5$ y $36=2^{2}\cdot 3^{2}$, se tiene $\mathrm{mcd}(10,36)=2$ y
+\[
+\frac{10}{36}=\frac{10\div 2}{36\div 2}=\frac{5}{18}\approx 0{,}2778 . \qquad\checkmark
+\]
+\end{paso}
+
+\begin{paso}{Paso 5 --- (b) Precisar el significado de ``diferencia'' y partir en casos}
+\textbf{Qué hago:} fijo la lectura de ``diferencia'' y descompongo $D$ en dos casos disjuntos.
+
+\textbf{¿De dónde sale?} Del inciso (b): ``la diferencia de los resultados sea menor a 2''.
+
+\textbf{¿Por qué?} Porque hablar de \emph{la} diferencia entre dos resultados, sin decir cuál se
+resta de cuál, solo tiene sentido inequívoco si se entiende como diferencia en valor absoluto,
+$|a-b|$ (el ``cuánto se separan''). Con esa lectura, y como $|a-b|$ es un entero $\ge 0$, la
+condición $|a-b|<2$ equivale a $|a-b|\in\{0,1\}$. Esta es además la lectura que reproduce la
+respuesta oficial.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+D=\underbrace{\{(a,b): |a-b|=0\}}_{\text{Caso 1}}\ \cup\ \underbrace{\{(a,b): |a-b|=1\}}_{\text{Caso 2}},
+\]
+unión de dos eventos disjuntos, pues una tirada no puede tener a la vez diferencia $0$ y $1$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- (b) Contar cada caso}
+\textbf{Qué hago:} cuento por separado los pares de cada caso y los sumo.
+
+\textbf{¿De dónde sale?} De la descomposición disjunta del Paso 5.
+
+\textbf{¿Por qué?} Porque al ser los dos trozos disjuntos, por (D0) sus probabilidades se suman
+y, equivalentemente en un espacio equiprobable, sus cardinales se suman. Contar cada caso por
+separado es más seguro que intentar contar $D$ de un golpe.
+
+\textbf{¿Qué tomamos?} Tomamos:
+
+\medskip
+\textbf{Caso 1 ($|a-b|=0$, es decir $a=b$).} Los pares son
+$(1,1),(2,2),(3,3),(4,4),(5,5),(6,6)$, uno por cada valor común posible: $6$ pares.
+
+\medskip
+\textbf{Caso 2 ($|a-b|=1$).} Significa $b=a+1$ o $b=a-1$. Para $b=a+1$ hace falta
+$a\in\{1,2,3,4,5\}$ (si $a=6$ entonces $b=7\notin\{1,\dots,6\}$), lo que da $5$ pares:
+$(1,2),(2,3),(3,4),(4,5),(5,6)$. Simétricamente, para $b=a-1$ hace falta $a\in\{2,3,4,5,6\}$, lo
+que da otros $5$ pares: $(2,1),(3,2),(4,3),(5,4),(6,5)$. Los dos grupos son disjuntos (en uno
+$b>a$ y en el otro $b<a$), así que son $5+5=10$ pares.
+
+\medskip
+Por lo tanto
+\[
+|D|=\underbrace{6}_{a=b}+\underbrace{5+5}_{|a-b|=1}=16 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 7 --- (b) Calcular $P[D]$ y simplificar}
+\textbf{Qué hago:} aplico (E1) con $|D|=16$.
+
+\textbf{¿De dónde sale?} De los Pasos 1 y 6.
+
+\textbf{¿Por qué?} Porque el espacio es equiprobable y (E1) se demostró para ese caso.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P[D]=\frac{|D|}{|\Omega|}
+=\frac{\overbrace{6+5+5}^{\text{pares con }|a-b|<2}}{\underbrace{6\cdot 6}_{\text{pares totales}}}
+=\frac{16}{36}
+=\frac{16\div 4}{36\div 4}=\frac{4}{9}\approx 0{,}4444 ,
+\]
+usando $\mathrm{mcd}(16,36)=4$ (pues $16=2^{4}$ y $36=2^{2}\cdot 3^{2}$, con $2^{2}=4$ como
+mayor potencia común). $\checkmark$
+\end{paso}
+
+\begin{paso}{Paso 8 --- (c) Pasar al complemento de $M$}
+\textbf{Qué hago:} describo $\overline{M}$ y justifico por qué conviene calcular por
+complemento.
+
+\textbf{¿De dónde sale?} Del inciso (c): ``el mínimo de los resultados sea a lo sumo 2''.
+
+\textbf{¿Por qué?} Porque el complemento tiene una descripción mucho más simple: por definición
+de mínimo, $\min(a,b)\ge 3$ significa que \emph{las dos} coordenadas son $\ge 3$, y ese conjunto
+es un producto cartesiano cuyo cardinal se cuenta de inmediato. En cambio, $\min(a,b)\le 2$
+significa ``al menos una coordenada es $\le 2$'', y contar ``al menos una'' directamente obliga
+a corregir el doble conteo. La ecuación que autoriza el cambio es (E2), es decir (D2),
+demostrada a partir de (D0) y (A2).
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+\overline{M}=\{(a,b): \min(a,b)\ge 3\}=\{3,4,5,6\}\times\{3,4,5,6\} ,
+\]
+porque la negación de ``el menor de los dos es $\le 2$'' es ``el menor de los dos es $\ge 3$'',
+y el menor es $\ge 3$ exactamente cuando ambos lo son.
+\end{paso}
+
+\begin{paso}{Paso 9 --- (c) Contar el complemento y encadenar con (E2)}
+\textbf{Qué hago:} cuento $\big|\overline{M}\big|$ con el principio multiplicativo y aplico
+(E2).
+
+\textbf{¿De dónde sale?} De la descripción del Paso 8 y de $|\Omega|=36$.
+
+\textbf{¿Por qué?} Porque $\overline{M}$ es un producto cartesiano: hay $4$ valores admisibles
+para $a$ ($3,4,5,6$) y, para cada uno, $4$ valores admisibles para $b$, sin ninguna interacción
+entre las dos elecciones. Y porque (E2) devuelve $P[M]$ a partir de $P\big[\overline{M}\big]$.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+\big|\overline{M}\big|=\underbrace{4}_{a\ge 3}\cdot\underbrace{4}_{b\ge 3}=16,
+\qquad
+P\big[\overline{M}\big]=\frac{16}{36},
+\]
+y por (E2),
+\[
+P[M]=1-P\big[\overline{M}\big]=\frac{36}{36}-\frac{16}{36}=\frac{36-16}{36}=\frac{20}{36}.
+\]
+Simplificando con $\mathrm{mcd}(20,36)=4$ (pues $20=2^{2}\cdot 5$ y $36=2^{2}\cdot 3^{2}$):
+\[
+\frac{20}{36}=\frac{20\div 4}{36\div 4}=\frac{5}{9}\approx 0{,}5556 . \qquad\checkmark
+\]
+\end{paso}
+
+\begin{paso}{Paso 10 --- (c) Verificación por conteo directo}
+\textbf{Qué hago:} recuento $|M|$ sin usar el complemento, para confirmar el $20$.
+
+\textbf{¿De dónde sale?} De la descripción $M=X\cup Y$ con $X=\{(a,b):a\le 2\}$ y
+$Y=\{(a,b):b\le 2\}$.
+
+\textbf{¿Por qué?} Porque ``el mínimo es $\le 2$'' equivale a ``$a\le 2$ o $b\le 2$'', y sobre
+esa unión se puede aplicar (E3) en su versión de cardinales,
+$|X\cup Y|=|X|+|Y|-|X\cap Y|$, que se obtiene de (E3) multiplicando por $|\Omega|$ en el espacio
+equiprobable. Comprobar por dos vías distintas descarta errores de conteo.
+
+\textbf{¿Qué tomamos?} Tomamos $|X|=2\cdot 6=12$, $|Y|=6\cdot 2=12$ y
+$|X\cap Y|=2\cdot 2=4$, de donde
+\[
+|M|=|X\cup Y|=\underbrace{12}_{a\le 2}+\underbrace{12}_{b\le 2}-\underbrace{4}_{\text{ambos}\le 2}=20 ,
+\]
+coincidente con el Paso 9. $\checkmark$
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Con $|\Omega|=6\cdot 6=36$ pares equiprobables:\\[4pt]
+(a) $P[S]=\dfrac{4+3+2+1}{36}=\dfrac{10}{36}=\mathbf{\dfrac{5}{18}}$; la probabilidad de que la
+suma supere a $8$ es de, aproximadamente, $27{,}78$\,\%.\\[4pt]
+(b) $P[D]=\dfrac{6+5+5}{36}=\dfrac{16}{36}=\mathbf{\dfrac{4}{9}}$; la probabilidad de que la
+diferencia sea menor que $2$ es de, aproximadamente, $44{,}44$\,\%.\\[4pt]
+(c) $P[M]=1-\dfrac{4\cdot 4}{36}=\dfrac{20}{36}=\mathbf{\dfrac{5}{9}}$; la probabilidad de que el
+mínimo sea a lo sumo $2$ es de, aproximadamente, $55{,}56$\,\%.
+\end{resp}
+
+%=====================================================================
+\section*{Capítulo 2 --- Ejercicio 6}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 6}
+
+\begin{quote}
+Se elige un estudiante de secundaria. La probabilidad de que le gusten matemáticas es del 30 \%,
+de que no le guste español es del 60 \% y de que les guste español pero no matemáticas es del
+23 \%.\\
+(a) Cuál es la probabilidad de que le guste español? \hfill R/ $40$\,\%\\
+(b) Cuál es la probabilidad de que les guste matemáticas o no les guste español? \hfill R/ $77$\,\%\\
+(c) Cuál es la probabilidad de que les guste matemáticas y no les guste español? \hfill R/ $13$\,\%
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Planteo: espacio muestral, eventos y datos}
+\textbf{Qué hago:} nombro los eventos y traduzco cada frase del enunciado a una ecuación de
+probabilidades.
+
+\textbf{¿De dónde sale?} De las tres frases del enunciado: ``le gusten matemáticas'' ($30$\,\%),
+``no le guste español'' ($60$\,\%) y ``les guste español pero no matemáticas'' ($23$\,\%).
+
+\textbf{¿Por qué?} Porque los axiomas y las propiedades (D0)--(D5) hablan de eventos y de
+operaciones entre ellos ($\cup$, $\cap$, complemento); mientras los datos sigan en castellano no
+hay nada a lo que aplicarles. La traducción clave es la tercera: ``español \emph{pero no}
+matemáticas'' es la conjunción de ``gusta español'' con la negación de ``gustan matemáticas'',
+es decir la intersección $E\cap\overline{M}$; la palabra ``pero'' es adversativa en la lengua
+pero conjuntiva en lógica.
+
+\textbf{¿Qué tomamos?} Tomamos el siguiente planteo.
+
+\medskip
+Considere $\Omega$ como el conjunto de los estudiantes de secundaria. Considere los eventos
+$M$: los estudiantes a quienes les gustan las matemáticas, y $E$: los estudiantes a quienes les
+gusta el español.
+
+Según el problema,
+\[
+P[M]=0{,}30,\qquad P\big[\overline{E}\big]=0{,}60,\qquad P\big[E\cap\overline{M}\big]=0{,}23 .
+\]
+Se solicitan $P[E]$, $P\big[M\cup\overline{E}\big]$ y $P\big[M\cap\overline{E}\big]$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Ecuaciones de partida}
+\textbf{Qué hago:} registro las tres identidades que se van a encadenar.
+
+\textbf{¿De dónde sale?} De las propiedades (D2), (D3) y (D5), demostradas en la caja de Teoría.
+
+\textbf{¿Por qué?} Porque (E1) convierte un dato sobre un complemento en un dato sobre el evento
+(y al revés); (E2) es la que parte un evento según otro y permite despejar intersecciones a
+partir de datos marginales; y (E3) es la regla que corresponde al conector ``o'' del inciso (b).
+Con estas tres se cubre todo lo que el ejercicio pide.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+\text{(E1)}\quad P\big[\overline{X}\big]=1-P[X],\qquad\text{por (D2);}
+\]
+\[
+\text{(E2)}\quad P[X]=P[X\cap Y]+P\big[X\cap\overline{Y}\big],\qquad\text{por (D3);}
+\]
+\[
+\text{(E3)}\quad P[X\cup Y]=P[X]+P[Y]-P[X\cap Y],\qquad\text{por (D5).}
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- (a) Determinar $P[E]$}
+\textbf{Qué hago:} despejo $P[E]$ a partir del dato $P\big[\overline{E}\big]$.
+
+\textbf{¿De dónde sale?} Del dato $P\big[\overline{E}\big]=0{,}60$ y de la ecuación (E1).
+
+\textbf{¿Por qué?} Porque (E1) se demostró así: $E$ y $\overline{E}$ son disjuntos y su unión es
+$\Omega$, luego por (D0) $P[E]+P\big[\overline{E}\big]=P[\Omega]$, y por (A2) ese total vale
+$1$. En términos del problema: a un estudiante o le gusta el español o no le gusta, sin término
+medio.
+
+\textbf{¿Qué tomamos?} Tomamos el encadenamiento
+\[
+P\big[\overline{E}\big]=1-P[E]
+\ \Longrightarrow\ P[E]=1-P\big[\overline{E}\big]
+=1-0{,}60=0{,}40 , \qquad\text{por (E1)} .
+\]
+En fracciones: $P[E]=\frac{100}{100}-\frac{60}{100}=\frac{40}{100}=\frac{2}{5}$, usando
+$\mathrm{mcd}(40,100)=20$. $\checkmark$
+\end{paso}
+
+\begin{paso}{Paso 4 --- Determinar $P[E\cap M]$ partiendo $E$ según $M$}
+\textbf{Qué hago:} uso la partición de $E$ inducida por $M$ para despejar $P[E\cap M]$.
+
+\textbf{¿De dónde sale?} De $P[E]=0{,}40$ (Paso 3), del dato $P\big[E\cap\overline{M}\big]=0{,}23$
+y de la ecuación (E2).
+
+\textbf{¿Por qué?} Porque (E2) con $X=E$ y $Y=M$ dice
+$P[E]=P[E\cap M]+P\big[E\cap\overline{M}\big]$. La demostración fue: los eventos $E\cap M$ y
+$E\cap\overline{M}$ son disjuntos, porque su intersección contiene $M\cap\overline{M}=\varnothing$,
+y su unión es $E\cap(M\cup\overline{M})=E\cap\Omega=E$; entonces (D0) da la igualdad. En
+palabras: a todo el que le gusta español, o bien le gustan también las matemáticas, o bien no;
+no hay una tercera posibilidad ni solapamiento.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P[E]=P[E\cap M]+P\big[E\cap\overline{M}\big]
+\ \Longrightarrow\ P[E\cap M]=P[E]-P\big[E\cap\overline{M}\big] , \qquad\text{por (E2),}
+\]
+\[
+\Longrightarrow\ P[E\cap M]=0{,}40-0{,}23=0{,}17 ,
+\]
+es decir, $\frac{40}{100}-\frac{23}{100}=\frac{40-23}{100}=\frac{17}{100}$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- (c) Determinar $P\big[M\cap\overline{E}\big]$ partiendo $M$ según $E$}
+\textbf{Qué hago:} aplico la misma ecuación (E2), ahora con los papeles intercambiados, para
+obtener lo que pide el inciso (c).
+
+\textbf{¿De dónde sale?} Del dato $P[M]=0{,}30$ y del valor $P[E\cap M]=0{,}17$ del Paso 4.
+
+\textbf{¿Por qué?} Porque (E2) vale para \emph{cualesquiera} dos eventos, así que puede usarse
+con $X=M$ y $Y=E$: $P[M]=P[M\cap E]+P\big[M\cap\overline{E}\big]$. La justificación es la misma
+del Paso 4 intercambiando nombres: $M\cap E$ y $M\cap\overline{E}$ son disjuntos y su unión es
+$M\cap(E\cup\overline{E})=M$. Además $M\cap E=E\cap M$ por conmutatividad de la intersección, de
+modo que el valor del Paso 4 sirve directamente.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P[M]=P[M\cap E]+P\big[M\cap\overline{E}\big]
+\ \Longrightarrow\ P\big[M\cap\overline{E}\big]=P[M]-P[E\cap M] , \qquad\text{por (E2),}
+\]
+\[
+\Longrightarrow\ P\big[M\cap\overline{E}\big]=0{,}30-0{,}17=0{,}13 ,
+\]
+es decir, $\frac{30}{100}-\frac{17}{100}=\frac{13}{100}$, fracción ya irreducible porque $13$ es
+primo y no divide a $100$. $\checkmark$
+\end{paso}
+
+\begin{paso}{Paso 6 --- (b) Determinar $P\big[M\cup\overline{E}\big]$}
+\textbf{Qué hago:} aplico inclusión--exclusión a la unión $M\cup\overline{E}$.
+
+\textbf{¿De dónde sale?} De $P[M]=0{,}30$, $P\big[\overline{E}\big]=0{,}60$ (datos) y
+$P\big[M\cap\overline{E}\big]=0{,}13$ (Paso 5).
+
+\textbf{¿Por qué?} Por (E3) con $X=M$ y $Y=\overline{E}$. La demostración de (E3) fue:
+$X\cup Y$ se parte en las piezas disjuntas $X$ y $Y\cap\overline{X}$, luego (D0) da
+$P[X\cup Y]=P[X]+P\big[Y\cap\overline{X}\big]$, y (E2) aplicada a $Y$ da
+$P\big[Y\cap\overline{X}\big]=P[Y]-P[X\cap Y]$. La resta del término de intersección es
+indispensable: los estudiantes a los que les gustan las matemáticas \emph{y} no les gusta
+español están contados en $P[M]$ y otra vez en $P\big[\overline{E}\big]$.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P\big[M\cup\overline{E}\big]=P[M]+P\big[\overline{E}\big]-P\big[M\cap\overline{E}\big]
+\qquad\text{, por (E3),}
+\]
+\[
+\Longrightarrow\ P\big[M\cup\overline{E}\big]=\frac{30}{100}+\frac{60}{100}-\frac{13}{100}
+=\frac{30+60-13}{100}=\frac{77}{100}=0{,}77 ,
+\]
+con el numerador desglosado: $30+60=90$ y $90-13=77$. La fracción es irreducible, pues
+$77=7\cdot 11$ y $100=2^{2}\cdot 5^{2}$ no comparten factores. $\checkmark$
+\end{paso}
+
+\begin{paso}{Paso 7 --- Control de consistencia con las cuatro regiones}
+\textbf{Qué hago:} calculo las probabilidades de las cuatro regiones elementales y verifico que
+suman $1$ y que todas son no negativas.
+
+\textbf{¿De dónde sale?} De $P[E\cap M]=0{,}17$, $P\big[E\cap\overline{M}\big]=0{,}23$ y
+$P\big[M\cap\overline{E}\big]=0{,}13$.
+
+\textbf{¿Por qué?} Porque las cuatro regiones $M\cap E$, $M\cap\overline{E}$,
+$\overline{M}\cap E$ y $\overline{M}\cap\overline{E}$ son dos a dos disjuntas y su unión es
+$\Omega$; por (D0) y (A2) sus probabilidades deben sumar exactamente $1$, y por (A1) ninguna
+puede ser negativa. Es la comprobación más fuerte disponible: si algún dato fuera incoherente,
+aparecería aquí.
+
+\textbf{¿Qué tomamos?} Tomamos
+$P\big[\overline{M}\cap\overline{E}\big]=1-(0{,}17+0{,}13+0{,}23)=1-0{,}53=0{,}47$ y la tabla
+\[
+\begin{array}{c|cc|c}
+ & E & \overline{E} & \text{total}\\\hline
+M & 0{,}17 & 0{,}13 & 0{,}30\\
+\overline{M} & 0{,}23 & 0{,}47 & 0{,}70\\\hline
+\text{total} & 0{,}40 & 0{,}60 & 1{,}00
+\end{array}
+\]
+Las cuatro entradas son $\ge 0$, las filas suman $P[M]=0{,}30$ y $P\big[\overline{M}\big]=0{,}70$,
+las columnas suman $P[E]=0{,}40$ y $P\big[\overline{E}\big]=0{,}60$, y el total es $1$. Todo es
+consistente. $\checkmark$
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Con $M$: les gustan las matemáticas, y $E$: les gusta el español:\\[4pt]
+(a) $P[E]=1-P\big[\overline{E}\big]=1-0{,}60=\mathbf{0{,}40}$; la probabilidad de que le guste
+español es del \textbf{40\,\%}.\\[4pt]
+(b) $P\big[M\cup\overline{E}\big]=0{,}30+0{,}60-0{,}13=\mathbf{0{,}77}$; la probabilidad de que
+le gusten matemáticas o no le guste español es del \textbf{77\,\%}.\\[4pt]
+(c) $P\big[M\cap\overline{E}\big]=0{,}30-0{,}17=\mathbf{0{,}13}$; la probabilidad de que le
+gusten matemáticas y no le guste español es del \textbf{13\,\%}.
+\end{resp}
+
+%=====================================================================
+\section*{Capítulo 2 --- Ejercicio 7}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 7}
+
+\begin{quote}
+Se elige un cliente de una tienda en línea. La probabilidad de que utilice la aplicación móvil es
+del 55 \%, de que compre con tarjeta es del 62 \% y de que utilice la aplicación móvil y pague
+con tarjeta es del 41 \%.\\
+(a) Cuál es la probabilidad de que el cliente no utilice la aplicación móvil? \hfill R/ $45$\,\%\\
+(b) Cuál es la probabilidad de que utilice la aplicación móvil o pague con tarjeta? \hfill R/ $76$\,\%\\
+(c) Cuál es la probabilidad de que utilice la aplicación móvil y no pague con tarjeta? \hfill R/ $14$\,\%
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Planteo: espacio muestral, eventos y datos}
+\textbf{Qué hago:} nombro los eventos y escribo los tres datos como ecuaciones.
+
+\textbf{¿De dónde sale?} De las tres frases del enunciado.
+
+\textbf{¿Por qué?} Porque la tercera frase, ``utilice la aplicación móvil \emph{y} pague con
+tarjeta'', une las dos condiciones con la conjunción ``y'', que corresponde a la intersección
+$A\cap T$. Este dato es distinto en naturaleza al del Ejercicio 6: allí se daba una intersección
+con un complemento, aquí se da la intersección directa, lo que acorta el camino porque es
+justamente el término que la regla de la suma necesita.
+
+\textbf{¿Qué tomamos?} Tomamos el siguiente planteo.
+
+\medskip
+Considere $\Omega$ como el conjunto de los clientes de la tienda en línea. Considere los eventos
+$A$: los clientes que utilizan la aplicación móvil, y $T$: los clientes que pagan con tarjeta.
+
+Según el problema,
+\[
+P[A]=0{,}55,\qquad P[T]=0{,}62,\qquad P[A\cap T]=0{,}41 .
+\]
+Se solicitan $P\big[\overline{A}\big]$, $P[A\cup T]$ y $P\big[A\cap\overline{T}\big]$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Ecuaciones de partida}
+\textbf{Qué hago:} registro las identidades que se encadenarán.
+
+\textbf{¿De dónde sale?} De (D2), (D3) y (D5).
+
+\textbf{¿Por qué?} Porque cada inciso corresponde exactamente a una de ellas: (a) al
+complemento, (b) a la unión, (c) a la partición de $A$ según $T$.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+\text{(E1)}\quad P\big[\overline{X}\big]=1-P[X],\ \text{por (D2)};
+\qquad
+\text{(E2)}\quad P[X]=P[X\cap Y]+P\big[X\cap\overline{Y}\big],\ \text{por (D3)};
+\]
+\[
+\text{(E3)}\quad P[X\cup Y]=P[X]+P[Y]-P[X\cap Y],\ \text{por (D5)}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- (a) Determinar $P\big[\overline{A}\big]$}
+\textbf{Qué hago:} aplico la regla del complemento al evento $A$.
+
+\textbf{¿De dónde sale?} Del dato $P[A]=0{,}55$ y de la ecuación (E1).
+
+\textbf{¿Por qué?} Porque (E1) es consecuencia de que $A$ y $\overline{A}$ son disjuntos con
+unión $\Omega$: (D0) da $P[A]+P\big[\overline{A}\big]=P[\Omega]$ y (A2) fija ese total en $1$. En
+términos del problema: o el cliente usa la aplicación o no la usa, sin término medio.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P\big[\overline{A}\big]=1-P[A]=1-0{,}55=0{,}45 , \qquad\text{por (E1)} ,
+\]
+es decir, $\frac{100-55}{100}=\frac{45}{100}$, que simplificado con $\mathrm{mcd}(45,100)=5$ da
+$\frac{9}{20}$. $\checkmark$
+\end{paso}
+
+\begin{paso}{Paso 4 --- (b) Determinar $P[A\cup T]$}
+\textbf{Qué hago:} aplico inclusión--exclusión a $A\cup T$.
+
+\textbf{¿De dónde sale?} De los tres datos del planteo, que son exactamente los tres
+ingredientes que la ecuación (E3) pide.
+
+\textbf{¿Por qué?} Porque (E3) se demostró desde (D0) y (E2). El término que se resta corrige el
+doble conteo: los clientes que usan la aplicación \emph{y} pagan con tarjeta están dentro de $A$
+y también dentro de $T$, de modo que al sumar $P[A]+P[T]$ su probabilidad se contabiliza dos
+veces y hay que descontarla una. Obsérvese que si no se restara, se obtendría
+$0{,}55+0{,}62=1{,}17>1$, imposible por (D4).
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P[A\cup T]=P[A]+P[T]-P[A\cap T]
+=\frac{55}{100}+\frac{62}{100}-\frac{41}{100}=\frac{55+62-41}{100} , \qquad\text{por (E3),}
+\]
+con desglose $55+62=117$ y $117-41=76$, de donde
+\[
+P[A\cup T]=\frac{76}{100}=0{,}76 .
+\]
+Simplificado: $\mathrm{mcd}(76,100)=4$ y $\frac{76}{100}=\frac{19}{25}$. $\checkmark$
+\end{paso}
+
+\begin{paso}{Paso 5 --- (c) Determinar $P\big[A\cap\overline{T}\big]$}
+\textbf{Qué hago:} despejo la probabilidad de ``usa la aplicación pero no paga con tarjeta''.
+
+\textbf{¿De dónde sale?} De $P[A]=0{,}55$, de $P[A\cap T]=0{,}41$ y de la ecuación (E2).
+
+\textbf{¿Por qué?} Porque (E2) con $X=A$ y $Y=T$ dice
+$P[A]=P[A\cap T]+P\big[A\cap\overline{T}\big]$: los que usan la aplicación se parten, sin
+traslape y sin dejar a nadie fuera, entre los que además pagan con tarjeta y los que no.
+Formalmente, $(A\cap T)\cap(A\cap\overline{T})=A\cap(T\cap\overline{T})=\varnothing$ y
+$(A\cap T)\cup(A\cap\overline{T})=A\cap(T\cup\overline{T})=A$, así que (D0) da la igualdad.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P\big[A\cap\overline{T}\big]=P[A]-P[A\cap T]
+=\frac{55}{100}-\frac{41}{100}=\frac{55-41}{100}=\frac{14}{100}=0{,}14 , \qquad\text{por (E2)} .
+\]
+Simplificado: $\mathrm{mcd}(14,100)=2$ y $\frac{14}{100}=\frac{7}{50}$. $\checkmark$
+\end{paso}
+
+\begin{paso}{Paso 6 --- Control de consistencia}
+\textbf{Qué hago:} completo la tabla de las cuatro regiones y verifico los axiomas.
+
+\textbf{¿De dónde sale?} De $P[A\cap T]=0{,}41$, $P\big[A\cap\overline{T}\big]=0{,}14$ (Paso 5)
+y $P[T]=0{,}62$.
+
+\textbf{¿Por qué?} Porque las cuatro regiones elementales son disjuntas con unión $\Omega$, de
+manera que por (D0) y (A2) deben sumar $1$ y por (A1) ninguna puede ser negativa; si un dato
+fuera incoherente aparecería una entrada negativa.
+
+\textbf{¿Qué tomamos?} Tomamos
+$P\big[\overline{A}\cap T\big]=P[T]-P[A\cap T]=0{,}62-0{,}41=0{,}21$ y
+$P\big[\overline{A}\cap\overline{T}\big]=1-P[A\cup T]=1-0{,}76=0{,}24$, de donde
+\[
+\begin{array}{c|cc|c}
+ & T & \overline{T} & \text{total}\\\hline
+A & 0{,}41 & 0{,}14 & 0{,}55\\
+\overline{A} & 0{,}21 & 0{,}24 & 0{,}45\\\hline
+\text{total} & 0{,}62 & 0{,}38 & 1{,}00
+\end{array}
+\]
+Todas las entradas son positivas y los márgenes coinciden con los datos. $\checkmark$
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Con $A$: los clientes que usan la aplicación móvil, y $T$: los clientes que pagan con tarjeta:\\[4pt]
+(a) $P\big[\overline{A}\big]=1-0{,}55=\mathbf{0{,}45}$; la probabilidad de que no utilice la
+aplicación móvil es del \textbf{45\,\%}.\\[4pt]
+(b) $P[A\cup T]=0{,}55+0{,}62-0{,}41=\mathbf{0{,}76}$; la probabilidad de que use la aplicación o
+pague con tarjeta es del \textbf{76\,\%}.\\[4pt]
+(c) $P\big[A\cap\overline{T}\big]=0{,}55-0{,}41=\mathbf{0{,}14}$; la probabilidad de que use la
+aplicación y no pague con tarjeta es del \textbf{14\,\%}.
+\end{resp}
+
+%=====================================================================
+\section*{Capítulo 2 --- Ejercicio 8}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 8}
+
+\begin{quote}
+Se inspecciona un envío de paquetes. La probabilidad de que un paquete sea frágil es del 48 \%,
+la probabilidad de que sea internacional es del 37 \% y la probabilidad de que sea frágil pero no
+internacional es del 21 \%.\\
+(a) Determine la probabilidad de que el paquete sea frágil e internacional. \hfill R/ $27$\,\%\\
+(b) Determine la probabilidad de que el paquete no sea frágil o sea internacional. \hfill R/ $79$\,\%\\
+(c) Determine la probabilidad de que el paquete no sea internacional. \hfill R/ $63$\,\%
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Planteo: espacio muestral, eventos y datos}
+\textbf{Qué hago:} nombro los eventos y traduzco las tres frases del enunciado.
+
+\textbf{¿De dónde sale?} De los tres porcentajes dados.
+
+\textbf{¿Por qué?} Porque ``frágil \emph{pero no} internacional'' es la conjunción de ``frágil''
+con la negación de ``internacional'', es decir $F\cap\overline{I}$; el ``pero'' es adversativo en
+la lengua pero conjuntivo en lógica, igual que en el Ejercicio 6.
+
+\textbf{¿Qué tomamos?} Tomamos el siguiente planteo.
+
+\medskip
+Considere $\Omega$ como el conjunto de los paquetes del envío. Considere los eventos $F$: los
+paquetes frágiles, e $I$: los paquetes internacionales.
+
+Según el problema,
+\[
+P[F]=0{,}48,\qquad P[I]=0{,}37,\qquad P\big[F\cap\overline{I}\big]=0{,}21 .
+\]
+Se solicitan $P[F\cap I]$, $P\big[\overline{F}\cup I\big]$ y $P\big[\overline{I}\big]$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Ecuaciones de partida}
+\textbf{Qué hago:} registro las identidades y la ley de conjuntos que se usarán.
+
+\textbf{¿De dónde sale?} De (D2), (D3), (D5) y de las leyes de De Morgan.
+
+\textbf{¿Por qué?} Porque (E1), (E2) y (E3) resuelven los tres incisos, y (E4) permitirá
+verificar el inciso (b) por un camino independiente, ya que el complemento de
+$\overline{F}\cup I$ resulta ser justamente el evento del que el enunciado da el dato.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+\text{(E1)}\quad P\big[\overline{X}\big]=1-P[X],\ \text{por (D2)};
+\qquad
+\text{(E2)}\quad P[X]=P[X\cap Y]+P\big[X\cap\overline{Y}\big],\ \text{por (D3)};
+\]
+\[
+\text{(E3)}\quad P[X\cup Y]=P[X]+P[Y]-P[X\cap Y],\ \text{por (D5)};
+\]
+\[
+\text{(E4)}\quad \overline{X\cup Y}=\overline{X}\cap\overline{Y},\ \text{por las leyes de De Morgan}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- (a) Determinar $P[F\cap I]$}
+\textbf{Qué hago:} despejo la probabilidad de la intersección partiendo $F$ según $I$.
+
+\textbf{¿De dónde sale?} De $P[F]=0{,}48$, del dato $P\big[F\cap\overline{I}\big]=0{,}21$ y de la
+ecuación (E2).
+
+\textbf{¿Por qué?} Porque (E2) con $X=F$ y $Y=I$ dice
+$P[F]=P[F\cap I]+P\big[F\cap\overline{I}\big]$: todo paquete frágil o bien es internacional o
+bien no lo es, y esas dos posibilidades no se solapan ni dejan huecos. Formalmente,
+$(F\cap I)\cap(F\cap\overline{I})=F\cap(I\cap\overline{I})=F\cap\varnothing=\varnothing$ y
+$(F\cap I)\cup(F\cap\overline{I})=F\cap(I\cup\overline{I})=F\cap\Omega=F$, de donde (D0) da la
+identidad.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P[F\cap I]=P[F]-P\big[F\cap\overline{I}\big]
+=\frac{48}{100}-\frac{21}{100}=\frac{48-21}{100}=\frac{27}{100}=0{,}27 , \qquad\text{por (E2)} .
+\]
+La fracción $\frac{27}{100}$ es irreducible: $27=3^{3}$ y $100=2^{2}\cdot 5^{2}$ no comparten
+factores primos. $\checkmark$
+\end{paso}
+
+\begin{paso}{Paso 4 --- (c) Determinar $P\big[\overline{I}\big]$}
+\textbf{Qué hago:} calculo el complemento de $I$ (se resuelve antes del inciso (b) porque hará
+falta allí).
+
+\textbf{¿De dónde sale?} Del dato $P[I]=0{,}37$ y de la ecuación (E1).
+
+\textbf{¿Por qué?} Porque (E1) se sigue de que $I$ e $\overline{I}$ son disjuntos con unión
+$\Omega$, así que (D0) y (A2) fuerzan que sus probabilidades sumen $1$.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P\big[\overline{I}\big]=1-P[I]=\frac{100-37}{100}=\frac{63}{100}=0{,}63 , \qquad\text{por (E1)} ,
+\]
+fracción irreducible pues $63=3^{2}\cdot 7$. $\checkmark$
+\end{paso}
+
+\begin{paso}{Paso 5 --- (b) Preparar los ingredientes de la unión $\overline{F}\cup I$}
+\textbf{Qué hago:} calculo $P\big[\overline{F}\big]$ y $P\big[\overline{F}\cap I\big]$, que son
+las piezas que la regla de la suma necesitará.
+
+\textbf{¿De dónde sale?} De $P[F]=0{,}48$ y $P[I]=0{,}37$ (datos) y de $P[F\cap I]=0{,}27$
+(Paso 3).
+
+\textbf{¿Por qué?} Porque para aplicar (E3) a $\overline{F}\cup I$ hacen falta
+$P\big[\overline{F}\big]$, $P[I]$ y $P\big[\overline{F}\cap I\big]$. El primero sale de (E1). El
+tercero sale de (E2) aplicada a $I$ con el evento $F$: $P[I]=P[I\cap F]+P\big[I\cap\overline{F}\big]$,
+es decir, los paquetes internacionales se parten entre los frágiles y los no frágiles;
+despejando queda $P\big[I\cap\overline{F}\big]=P[I]-P[I\cap F]$.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P\big[\overline{F}\big]=1-\frac{48}{100}=\frac{52}{100} ,
+\qquad
+P\big[\overline{F}\cap I\big]=\frac{37}{100}-\frac{27}{100}=\frac{37-27}{100}=\frac{10}{100} .
+\]
+\end{paso}
+
+\begin{paso}{Paso 6 --- (b) Determinar $P\big[\overline{F}\cup I\big]$}
+\textbf{Qué hago:} aplico la regla de la suma con los valores del Paso 5.
+
+\textbf{¿De dónde sale?} Del Paso 5 y del dato $P[I]=0{,}37$.
+
+\textbf{¿Por qué?} Por (E3) con $X=\overline{F}$ y $Y=I$. La resta descuenta a los paquetes que
+son a la vez no frágiles e internacionales, contados dos veces al sumar.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P\big[\overline{F}\cup I\big]=P\big[\overline{F}\big]+P[I]-P\big[\overline{F}\cap I\big]
+=\frac{52}{100}+\frac{37}{100}-\frac{10}{100}=\frac{52+37-10}{100} , \qquad\text{por (E3),}
+\]
+con desglose $52+37=89$ y $89-10=79$, de donde
+\[
+P\big[\overline{F}\cup I\big]=\frac{79}{100}=0{,}79 ,
+\]
+fracción irreducible pues $79$ es primo. $\checkmark$
+\end{paso}
+
+\begin{paso}{Paso 7 --- (b) Verificación por De Morgan}
+\textbf{Qué hago:} recalculo $P\big[\overline{F}\cup I\big]$ por el camino del complemento.
+
+\textbf{¿De dónde sale?} De la ecuación (E4) y del dato $P\big[F\cap\overline{I}\big]=0{,}21$.
+
+\textbf{¿Por qué?} Porque por De Morgan, con $X=\overline{F}$ e $Y=I$,
+\[
+\overline{\overline{F}\cup I}=\overline{\overline{F}}\cap\overline{I}=F\cap\overline{I},
+\]
+cuya probabilidad es un dato directo del enunciado. Este atajo confirma el resultado con un
+camino totalmente independiente del anterior, y muestra que el inciso (b) podía resolverse en un
+solo renglón.
+
+\textbf{¿Qué tomamos?} Tomamos, por (E1) y (E4),
+\[
+P\big[\overline{F}\cup I\big]=1-P\big[\overline{\overline{F}\cup I}\big]
+=1-P\big[F\cap\overline{I}\big]=1-\frac{21}{100}=\frac{79}{100},
+\]
+que coincide exactamente con el Paso 6. $\checkmark$
+\end{paso}
+
+\begin{paso}{Paso 8 --- Control de consistencia}
+\textbf{Qué hago:} armo la tabla de las cuatro regiones elementales.
+
+\textbf{¿De dónde sale?} De $P[F\cap I]=0{,}27$, $P\big[F\cap\overline{I}\big]=0{,}21$ y
+$P\big[\overline{F}\cap I\big]=0{,}10$.
+
+\textbf{¿Por qué?} Porque por (D0) y (A2) las cuatro regiones disjuntas deben sumar $1$, y por
+(A1) todas deben ser no negativas.
+
+\textbf{¿Qué tomamos?} Tomamos
+$P\big[\overline{F}\cap\overline{I}\big]=1-(0{,}27+0{,}21+0{,}10)=1-0{,}58=0{,}42$ y
+\[
+\begin{array}{c|cc|c}
+ & I & \overline{I} & \text{total}\\\hline
+F & 0{,}27 & 0{,}21 & 0{,}48\\
+\overline{F} & 0{,}10 & 0{,}42 & 0{,}52\\\hline
+\text{total} & 0{,}37 & 0{,}63 & 1{,}00
+\end{array}
+\]
+Todo cuadra con los datos del enunciado. $\checkmark$
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Con $F$: los paquetes frágiles, e $I$: los paquetes internacionales:\\[4pt]
+(a) $P[F\cap I]=0{,}48-0{,}21=\mathbf{0{,}27}$; la probabilidad de que el paquete sea frágil e
+internacional es del \textbf{27\,\%}.\\[4pt]
+(b) $P\big[\overline{F}\cup I\big]=0{,}52+0{,}37-0{,}10=1-0{,}21=\mathbf{0{,}79}$; la
+probabilidad de que no sea frágil o sea internacional es del \textbf{79\,\%}.\\[4pt]
+(c) $P\big[\overline{I}\big]=1-0{,}37=\mathbf{0{,}63}$; la probabilidad de que no sea
+internacional es del \textbf{63\,\%}.
+\end{resp}
+
+%=====================================================================
+\section*{Capítulo 2 --- Ejercicio 9}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 9}
+
+\begin{quote}
+En un estacionamiento hay 18 vehículos numerados del 1 al 18. Los vehículos con números del 1 al
+6 son motocicletas y los demás son automóviles. Se selecciona un vehículo al azar.\\
+(a) ¿Cuál es la probabilidad de que el vehículo sea una motocicleta o tenga un número par? \hfill R/ $12/18$\\
+(b) ¿Cuál es la probabilidad de que el vehículo sea un automóvil y tenga un número primo? \hfill R/ $4/18$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Planteo: espacio muestral, eventos y datos}
+\textbf{Qué hago:} identifico $\Omega$, su cardinal, la clasificación de los vehículos y los
+eventos de los dos incisos.
+
+\textbf{¿De dónde sale?} Del enunciado: hay $18$ vehículos numerados del $1$ al $18$, los del
+$1$ al $6$ son motocicletas y ``los demás'' (del $7$ al $18$) son automóviles; y se selecciona
+uno ``al azar''.
+
+\textbf{¿Por qué?} Porque la frase ``al azar'', sin más calificativos, significa que ningún
+vehículo está favorecido: todos los singuletes tienen la misma masa. Esa es exactamente la
+hipótesis de (D6), que entonces autoriza a calcular cualquier probabilidad como cociente de
+cardinales. Sin esa hipótesis habría que conocer las masas una por una.
+
+\textbf{¿Qué tomamos?} Tomamos el siguiente planteo.
+
+\medskip
+Considere $\Omega=\{1,2,\dots,18\}$ como el conjunto de los vehículos del estacionamiento,
+identificados por su número, con $|\Omega|=18$ y todos equiprobables. Considere los eventos
+$Mo$: los vehículos que son motocicletas; $Au$: los vehículos que son automóviles; $Pa$: los
+vehículos con número par; y $Pr$: los vehículos con número primo.
+
+Según el problema,
+\[
+Mo=\{1,2,3,4,5,6\},\quad |Mo|=6;
+\qquad
+Au=\overline{Mo}=\{7,8,\dots,18\},\quad |Au|=18-6=12 .
+\]
+Se solicitan $P[Mo\cup Pa]$ y $P[Au\cap Pr]$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Ecuaciones de partida}
+\textbf{Qué hago:} registro las identidades que se encadenarán.
+
+\textbf{¿De dónde sale?} De (D6) y (D5).
+
+\textbf{¿Por qué?} Porque (E1) convierte el problema en conteo, y (E2) es la regla que
+corresponde al conector ``o'' del inciso (a). Nótese que multiplicando (E2) por $|\Omega|$ en un
+espacio equiprobable se obtiene la versión de cardinales
+$|X\cup Y|=|X|+|Y|-|X\cap Y|$, que es la que se usará al contar.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+\text{(E1)}\quad P[A]=\frac{|A|}{|\Omega|}=\frac{|A|}{18},\ \text{por (D6)};
+\]
+\[
+\text{(E2)}\quad |X\cup Y|=|X|+|Y|-|X\cap Y|,\ \text{por (D5) y (E1)}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- (a) Contar $Pa$ y $Mo\cap Pa$}
+\textbf{Qué hago:} enumero los vehículos con número par y los que además son motocicletas.
+
+\textbf{¿De dónde sale?} Del inciso (a): ``sea una motocicleta \emph{o} tenga un número par''.
+
+\textbf{¿Por qué?} Porque el ``o'' inclusivo corresponde a la unión $Mo\cup Pa$, y la ecuación
+(E2) necesita los tres cardinales $|Mo|$, $|Pa|$ y $|Mo\cap Pa|$. Los pares entre $1$ y $18$ se
+escriben como $2k$ con $1\le 2k\le 18$, es decir $k\in\{1,\dots,9\}$: hay tantos pares como
+valores de $k$.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+Pa=\{2,4,6,8,10,12,14,16,18\},\qquad |Pa|=9,
+\]
+\[
+Mo\cap Pa=\{2,4,6\},\qquad |Mo\cap Pa|=3 ,
+\]
+donde la intersección se obtiene quedándose con los pares que además son $\le 6$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- (a) Encadenar y calcular $P[Mo\cup Pa]$}
+\textbf{Qué hago:} aplico (E2) para el cardinal de la unión y luego (E1) para la probabilidad.
+
+\textbf{¿De dónde sale?} De los cardinales del Paso 3 y de $|\Omega|=18$.
+
+\textbf{¿Por qué?} Porque se resta la intersección para corregir el doble conteo: las
+motocicletas con número par ($2$, $4$ y $6$) están en las dos listas y se contarían dos veces al
+sumar $|Mo|+|Pa|$.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+|Mo\cup Pa|=\underbrace{6}_{\text{motos}}+\underbrace{9}_{\text{pares}}
+-\underbrace{3}_{\text{motos pares}}=12 , \qquad\text{por (E2),}
+\]
+con desglose $6+9=15$ y $15-3=12$; explícitamente
+$Mo\cup Pa=\{1,2,3,4,5,6,8,10,12,14,16,18\}$, que en efecto tiene $12$ elementos. Entonces
+\[
+P[Mo\cup Pa]=\frac{|Mo\cup Pa|}{|\Omega|}
+=\frac{\overbrace{6+9-3}^{\text{motos o pares}}}{\underbrace{18}_{\text{vehículos}}}
+=\frac{12}{18} , \qquad\text{por (E1)} . \qquad\checkmark
+\]
+Forma simplificada: $12=2^{2}\cdot 3$ y $18=2\cdot 3^{2}$, luego $\mathrm{mcd}(12,18)=6$ y
+$\frac{12}{18}=\frac{12\div 6}{18\div 6}=\frac{2}{3}\approx 0{,}6667$. La respuesta oficial se
+reporta sin simplificar, $12/18$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- (b) Contar $Au\cap Pr$}
+\textbf{Qué hago:} enumero los vehículos que son automóviles y a la vez tienen número primo.
+
+\textbf{¿De dónde sale?} Del inciso (b): ``sea un automóvil \emph{y} tenga un número primo''.
+
+\textbf{¿Por qué?} Porque el ``y'' es la intersección, y para hallarla hay que cruzar la lista
+de automóviles ($7$ a $18$) con la de primos de $\Omega$. Los primos entre $1$ y $18$ son
+$2,3,5,7,11,13,17$: el $1$ no es primo por no tener exactamente dos divisores positivos;
+$9=3^{2}$ y $15=3\cdot 5$ son compuestos; y todos los pares mayores que $2$ son compuestos. De
+esos primos, los que además son $\ge 7$ (automóviles) son $7$, $11$, $13$ y $17$.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+Pr=\{2,3,5,7,11,13,17\},\qquad
+Au\cap Pr=\{7,11,13,17\},\qquad |Au\cap Pr|=4 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 6 --- (b) Calcular $P[Au\cap Pr]$}
+\textbf{Qué hago:} aplico (E1) con el conteo del Paso 5.
+
+\textbf{¿De dónde sale?} De $|Au\cap Pr|=4$ y $|\Omega|=18$.
+
+\textbf{¿Por qué?} Porque el espacio es equiprobable, así que la probabilidad de un evento es su
+cardinal dividido entre $18$; aquí no hace falta la ecuación (E2) porque el evento se contó
+directamente por enumeración, sin unión de por medio.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P[Au\cap Pr]=\frac{|Au\cap Pr|}{|\Omega|}
+=\frac{\overbrace{4}^{\text{primos}\ \ge 7:\ 7,11,13,17}}{\underbrace{18}_{\text{vehículos}}}
+=\frac{4}{18} , \qquad\text{por (E1)} . \qquad\checkmark
+\]
+Forma simplificada: $\mathrm{mcd}(4,18)=2$, luego
+$\frac{4}{18}=\frac{4\div 2}{18\div 2}=\frac{2}{9}\approx 0{,}2222$. La respuesta oficial se
+reporta sin simplificar, $4/18$.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Con $|\Omega|=18$ vehículos equiprobables:\\[4pt]
+(a) $P[Mo\cup Pa]=\dfrac{6+9-3}{18}=\mathbf{\dfrac{12}{18}}=\dfrac{2}{3}$; la probabilidad de que
+sea motocicleta o tenga número par es de, aproximadamente, $66{,}67$\,\%.\\[4pt]
+(b) $P[Au\cap Pr]=P[\{7,11,13,17\}]=\mathbf{\dfrac{4}{18}}=\dfrac{2}{9}$; la probabilidad de que
+sea automóvil y tenga número primo es de, aproximadamente, $22{,}22$\,\%.
+\end{resp}
+
+%=====================================================================
+\section*{Capítulo 2 --- Ejercicio 10}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 10}
+
+\begin{quote}
+En una biblioteca hay 30 libros numerados del 1 al 30. Los libros con números del 1 al 10 son de
+literatura y los demás son de ciencia. Se elige un libro al azar.\\
+(a) ¿Cuál es la probabilidad de que el libro sea de literatura o tenga un número múltiplo de 4? \hfill R/ $15/30$\\
+(b) ¿Cuál es la probabilidad de que el libro sea de ciencia y tenga un número impar menor que 15? \hfill R/ $2/30$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Planteo: espacio muestral, eventos y datos}
+\textbf{Qué hago:} describo $\Omega$, las dos categorías de libros y los eventos que
+intervienen.
+
+\textbf{¿De dónde sale?} Del enunciado: $30$ libros numerados del $1$ al $30$, los del $1$ al
+$10$ de literatura, ``los demás'' (del $11$ al $30$) de ciencia, y elección ``al azar''.
+
+\textbf{¿Por qué?} Porque ``al azar'' significa que ningún libro está favorecido: todas las
+masas puntuales son iguales, que es la hipótesis de (D6). Esa propiedad, demostrada desde (D0) y
+(A2), es la que permite reducir todo a un problema de conteo.
+
+\textbf{¿Qué tomamos?} Tomamos el siguiente planteo.
+
+\medskip
+Considere $\Omega=\{1,2,\dots,30\}$ como el conjunto de los libros de la biblioteca,
+identificados por su número, con $|\Omega|=30$ y todos equiprobables. Considere los eventos
+$L$: los libros de literatura; $Ci$: los libros de ciencia; $C_4$: los libros con número
+múltiplo de $4$; e $Im$: los libros con número impar.
+
+Según el problema,
+\[
+L=\{1,2,\dots,10\},\quad |L|=10;
+\qquad
+Ci=\overline{L}=\{11,12,\dots,30\},\quad |Ci|=30-10=20 .
+\]
+Se solicitan $P[L\cup C_4]$ y $P\big[Ci\cap Im\cap\{x<15\}\big]$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Ecuaciones de partida}
+\textbf{Qué hago:} registro las identidades que se encadenarán.
+
+\textbf{¿De dónde sale?} De (D6) y (D5).
+
+\textbf{¿Por qué?} Porque (E1) traduce probabilidad a conteo y (E2) resuelve la unión del inciso
+(a); el inciso (b) es una intersección y se contará por enumeración directa.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+\text{(E1)}\quad P[A]=\frac{|A|}{|\Omega|}=\frac{|A|}{30},\ \text{por (D6)};
+\]
+\[
+\text{(E2)}\quad |X\cup Y|=|X|+|Y|-|X\cap Y|,\ \text{por (D5) y (E1)}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- (a) Contar $C_4$ y $L\cap C_4$}
+\textbf{Qué hago:} enumero los múltiplos de $4$ en $\Omega$ y los cruzo con $L$.
+
+\textbf{¿De dónde sale?} Del inciso (a): ``de literatura \emph{o} número múltiplo de 4''.
+
+\textbf{¿Por qué?} Porque la ecuación (E2) necesita los tres cardinales. Los múltiplos de $4$ en
+$\{1,\dots,30\}$ son los números de la forma $4k$ con $1\le 4k\le 30$, es decir
+$1\le k\le 30/4=7{,}5$, o sea $k\in\{1,\dots,7\}$: son $7$ números.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+C_4=\{4,8,12,16,20,24,28\},\qquad |C_4|=7,
+\]
+\[
+L\cap C_4=\{4,8\},\qquad |L\cap C_4|=2 ,
+\]
+pues de los múltiplos de $4$ solo $4$ y $8$ son $\le 10$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- (a) Encadenar y calcular $P[L\cup C_4]$}
+\textbf{Qué hago:} obtengo $|L\cup C_4|$ por (E2) y luego la probabilidad por (E1).
+
+\textbf{¿De dónde sale?} De los cardinales del Paso 3 y de $|\Omega|=30$.
+
+\textbf{¿Por qué?} Porque la corrección $-|L\cap C_4|$ es necesaria: los libros $4$ y $8$ son a
+la vez de literatura y de número múltiplo de $4$, y aparecerían dos veces en la suma.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+|L\cup C_4|=\underbrace{10}_{\text{literatura}}+\underbrace{7}_{\text{múltiplos de }4}
+-\underbrace{2}_{\text{ambos}}=15 , \qquad\text{por (E2),}
+\]
+con desglose $10+7=17$ y $17-2=15$; explícitamente
+$L\cup C_4=\{1,\dots,10\}\cup\{12,16,20,24,28\}$, que tiene $10+5=15$ elementos. Entonces
+\[
+P[L\cup C_4]=\frac{|L\cup C_4|}{|\Omega|}
+=\frac{\overbrace{10+7-2}^{\text{literatura o múltiplo de }4}}{\underbrace{30}_{\text{libros}}}
+=\frac{15}{30} , \qquad\text{por (E1)} . \qquad\checkmark
+\]
+Forma simplificada: $\mathrm{mcd}(15,30)=15$, luego
+$\frac{15}{30}=\frac{15\div 15}{30\div 15}=\frac{1}{2}=0{,}5$. La respuesta oficial se reporta
+sin simplificar, $15/30$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- (b) Contar el evento de tres condiciones simultáneas}
+\textbf{Qué hago:} escribo el evento como intersección de tres condiciones y lo enumero.
+
+\textbf{¿De dónde sale?} Del inciso (b): ``sea de ciencia \emph{y} tenga un número impar menor
+que 15''.
+
+\textbf{¿Por qué?} Porque las tres condiciones deben cumplirse a la vez: número $\ge 11$
+(ciencia), número impar, y número $<15$. La forma más segura de resolver una intersección triple
+sobre un espacio pequeño es imponer primero la condición más restrictiva: los números que son a
+la vez $\ge 11$ y $<15$ forman el bloque $\{11,12,13,14\}$, y de ahí basta filtrar los impares.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+Ci\cap\{x<15\}=\{11,12,13,14\},
+\]
+\[
+\text{y filtrando impares:}\qquad
+Ci\cap Im\cap\{x<15\}=\{11,13\},
+\]
+de cardinal $2$, pues $12$ y $14$ se descartan por ser pares.
+\end{paso}
+
+\begin{paso}{Paso 6 --- (b) Calcular la probabilidad}
+\textbf{Qué hago:} aplico (E1) con el conteo del Paso 5.
+
+\textbf{¿De dónde sale?} Del cardinal $2$ y de $|\Omega|=30$.
+
+\textbf{¿Por qué?} Porque el espacio es equiprobable y el evento se contó por enumeración
+directa, sin necesidad de la regla de la suma.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P\big[Ci\cap Im\cap\{x<15\}\big]
+=\frac{\overbrace{2}^{\text{impares en }\{11,\dots,14\}:\ 11,13}}{\underbrace{30}_{\text{libros}}}
+=\frac{2}{30} , \qquad\text{por (E1)} . \qquad\checkmark
+\]
+Forma simplificada: $\mathrm{mcd}(2,30)=2$, luego
+$\frac{2}{30}=\frac{2\div 2}{30\div 2}=\frac{1}{15}\approx 0{,}0667$. La respuesta oficial se
+reporta sin simplificar, $2/30$.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Con $|\Omega|=30$ libros equiprobables:\\[4pt]
+(a) $P[L\cup C_4]=\dfrac{10+7-2}{30}=\mathbf{\dfrac{15}{30}}=\dfrac{1}{2}$; la probabilidad de que
+sea de literatura o de número múltiplo de $4$ es del $50$\,\%.\\[4pt]
+(b) $P\big[Ci\cap Im\cap\{x<15\}\big]=P[\{11,13\}]=\mathbf{\dfrac{2}{30}}=\dfrac{1}{15}$; la
+probabilidad de que sea de ciencia y de número impar menor que $15$ es de, aproximadamente,
+$6{,}67$\,\%.
+\end{resp}
+
+%=====================================================================
+\section*{Capítulo 2 --- Ejercicio 11}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 11}
+
+\begin{quote}
+Se tiene una canasta con 16 bolas numeradas del 1 al 16. Las del 1 al 7 son rojas y las demás son
+verdes. Se elige una bola al azar.\\
+(a) Cuál es la probabilidad de que la bola sea roja o tiene un número impar? \hfill R/ $11/16$\\
+(b) Cuál es la probabilidad de que la bola tenga un impar y que sea entre el 6 al 11? \hfill R/ $3/16$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Planteo: espacio muestral, eventos y datos}
+\textbf{Qué hago:} describo $\Omega$, las dos clases de bolas y los eventos de los incisos.
+
+\textbf{¿De dónde sale?} Del enunciado: $16$ bolas numeradas del $1$ al $16$, las del $1$ al $7$
+rojas, ``las demás'' (del $8$ al $16$) verdes, elección ``al azar''.
+
+\textbf{¿Por qué?} Porque ``al azar'' impone equiprobabilidad de los $16$ resultados, hipótesis
+de (D6); con ella toda probabilidad se reduce a contar.
+
+\textbf{¿Qué tomamos?} Tomamos el siguiente planteo.
+
+\medskip
+Considere $\Omega=\{1,2,\dots,16\}$ como el conjunto de las bolas de la canasta, identificadas
+por su número, con $|\Omega|=16$ y todas equiprobables. Considere los eventos $R$: las bolas
+rojas; $V$: las bolas verdes; $Im$: las bolas con número impar; y $B$: las bolas con número
+entre el $6$ y el $11$.
+
+Según el problema,
+\[
+R=\{1,2,\dots,7\},\quad |R|=7;
+\qquad
+V=\overline{R}=\{8,9,\dots,16\},\quad |V|=16-7=9 .
+\]
+Se solicitan $P[R\cup Im]$ y $P[Im\cap B]$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Ecuaciones de partida}
+\textbf{Qué hago:} registro las identidades que se encadenarán.
+
+\textbf{¿De dónde sale?} De (D6) y (D5).
+
+\textbf{¿Por qué?} Porque (E1) traduce probabilidad a conteo y (E2) resuelve la unión del inciso
+(a).
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+\text{(E1)}\quad P[A]=\frac{|A|}{|\Omega|}=\frac{|A|}{16},\ \text{por (D6)};
+\]
+\[
+\text{(E2)}\quad |X\cup Y|=|X|+|Y|-|X\cap Y|,\ \text{por (D5) y (E1)}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- (a) Contar $Im$ y $R\cap Im$}
+\textbf{Qué hago:} enumero los números impares de $\Omega$ y los cruzo con $R$.
+
+\textbf{¿De dónde sale?} Del inciso (a): ``sea roja \emph{o} tiene un número impar''.
+
+\textbf{¿Por qué?} Porque el ``o'' es la unión $R\cup Im$ y la ecuación (E2) pide los tres
+cardinales. Los impares de $\{1,\dots,16\}$ son los de la forma $2k-1$ con $1\le 2k-1\le 16$, es
+decir $k\in\{1,\dots,8\}$: son $8$ números. Los impares que además son $\le 7$ (rojos) son
+$1,3,5,7$.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+Im=\{1,3,5,7,9,11,13,15\},\qquad |Im|=8,
+\]
+\[
+R\cap Im=\{1,3,5,7\},\qquad |R\cap Im|=4 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 4 --- (a) Encadenar y calcular $P[R\cup Im]$}
+\textbf{Qué hago:} obtengo $|R\cup Im|$ por (E2) y aplico (E1).
+
+\textbf{¿De dónde sale?} De los cardinales del Paso 3 y de $|\Omega|=16$.
+
+\textbf{¿Por qué?} Porque la resta elimina el doble conteo de las cuatro bolas rojas impares,
+que pertenecen a las dos listas.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+|R\cup Im|=\underbrace{7}_{\text{rojas}}+\underbrace{8}_{\text{impares}}
+-\underbrace{4}_{\text{rojas impares}}=11 , \qquad\text{por (E2),}
+\]
+con desglose $7+8=15$ y $15-4=11$; explícitamente
+$R\cup Im=\{1,2,3,4,5,6,7,9,11,13,15\}$, que tiene $7+4=11$ elementos. Entonces
+\[
+P[R\cup Im]=\frac{|R\cup Im|}{|\Omega|}
+=\frac{\overbrace{7+8-4}^{\text{rojas o impares}}}{\underbrace{16}_{\text{bolas}}}
+=\frac{11}{16}=0{,}6875 , \qquad\text{por (E1)} . \qquad\checkmark
+\]
+La fracción ya es irreducible: $11$ es primo y no divide a $16=2^{4}$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- (b) Precisar el bloque ``entre el 6 al 11'' y contar}
+\textbf{Qué hago:} fijo la lectura de ``entre el 6 al 11'', escribo el bloque $B$ y lo interseco
+con $Im$.
+
+\textbf{¿De dónde sale?} Del inciso (b): ``tenga un impar \emph{y} que sea entre el 6 al 11''.
+
+\textbf{¿Por qué?} Porque ``entre el 6 al 11'' se lee en sentido inclusivo, es decir
+$B=\{6,7,8,9,10,11\}$ con los extremos incluidos, y el ``y'' obliga a intersecarlo con el
+conjunto de impares. De ese bloque los impares son $7$, $9$ y $11$, lo que da $3$ elementos y
+reproduce exactamente la respuesta oficial $3/16$; con la lectura estricta (excluyendo los
+extremos) el bloque sería $\{7,8,9,10\}$ y quedarían solo $7$ y $9$, dando $2/16$, que \emph{no}
+coincide con la respuesta oficial. Se adopta, pues, la lectura inclusiva.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+B=\{6,7,8,9,10,11\},\qquad
+Im\cap B=\{7,9,11\},\qquad |Im\cap B|=3 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 6 --- (b) Calcular $P[Im\cap B]$}
+\textbf{Qué hago:} aplico (E1) con el conteo del Paso 5.
+
+\textbf{¿De dónde sale?} De $|Im\cap B|=3$ y $|\Omega|=16$.
+
+\textbf{¿Por qué?} Porque el espacio es equiprobable y el evento quedó enumerado directamente,
+sin unión de por medio.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P[Im\cap B]=\frac{|Im\cap B|}{|\Omega|}
+=\frac{\overbrace{3}^{\text{impares en }\{6,\dots,11\}:\ 7,9,11}}{\underbrace{16}_{\text{bolas}}}
+=\frac{3}{16}=0{,}1875 , \qquad\text{por (E1)} . \qquad\checkmark
+\]
+La fracción es irreducible: $3$ es primo y no divide a $16$.
+\end{paso}
+
+\begin{nota}
+El color de la bola no interviene en el inciso (b): el enunciado solo impone condiciones sobre
+el número. Sí conviene notar que las tres bolas favorables no son del mismo color ($7$ es roja
+mientras que $9$ y $11$ son verdes), de modo que ninguna simplificación por color es posible.
+\end{nota}
+
+\end{sol}
+
+\begin{resp}
+Con $|\Omega|=16$ bolas equiprobables:\\[4pt]
+(a) $P[R\cup Im]=\dfrac{7+8-4}{16}=\mathbf{\dfrac{11}{16}}$; la probabilidad de que la bola sea
+roja o tenga número impar es del $68{,}75$\,\%.\\[4pt]
+(b) $P[Im\cap B]=P[\{7,9,11\}]=\mathbf{\dfrac{3}{16}}$; la probabilidad de que tenga número impar
+y esté entre el $6$ y el $11$ es del $18{,}75$\,\%.
+\end{resp}
+
+%=====================================================================
+\section*{Capítulo 2 --- Ejercicio 12}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 12}
+
+\begin{quote}
+Sean $A,B$ eventos disjuntos. Pruebe que $P(A\cup B^{c})=1-P(B)$.
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Planteo: hipótesis, tesis y ecuaciones de partida}
+\textbf{Qué hago:} traduzco ``disjuntos'' a una igualdad de conjuntos, fijo qué hay que probar y
+registro la propiedad que se usará.
+
+\textbf{¿De dónde sale?} Del enunciado: ``$A,B$ eventos disjuntos''.
+
+\textbf{¿Por qué?} Porque toda demostración empieza por identificar exactamente de qué se
+dispone y a dónde se quiere llegar. En probabilidad, la hipótesis ``disjuntos'' es siempre la
+igualdad $A\cap B=\varnothing$, y es la única información que se tiene sobre $A$ y $B$: no se
+sabe nada de sus probabilidades individuales, de modo que la demostración tendrá que ser
+puramente estructural.
+
+\textbf{¿Qué tomamos?} Tomamos el siguiente planteo.
+
+\medskip
+Considere $\Omega$ el espacio muestral y considere los eventos $A$ y $B$ de $\Omega$.
+
+Según el problema, $A\cap B=\varnothing$. Se solicita probar que
+$P\big[A\cup\overline{B}\big]=1-P[B]$.
+
+\medskip
+Se recurre a la siguiente ecuación:
+\[
+\text{(E1)}\quad P\big[\overline{X}\big]=1-P[X],\qquad\text{por (D2).}
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Traducir la disyunción a una contención}
+\textbf{Qué hago:} deduzco de $A\cap B=\varnothing$ que $A\subseteq\overline{B}$.
+
+\textbf{¿De dónde sale?} De la hipótesis del Paso 1.
+
+\textbf{¿Por qué?} Porque decir que $A$ y $B$ no tienen elementos comunes es decir que todo
+elemento de $A$ queda fuera de $B$. Formalmente: sea $x\in A$; si fuera $x\in B$, entonces
+$x\in A\cap B=\varnothing$, lo cual es imposible porque el vacío no tiene elementos; luego
+$x\notin B$, es decir $x\in\overline{B}$. Como $x$ era arbitrario, $A\subseteq\overline{B}$.
+Esta reformulación es la clave del ejercicio: convierte una condición sobre una intersección en
+una contención, que es lo que permitirá simplificar la unión.
+
+\textbf{¿Qué tomamos?} Tomamos $A\subseteq\overline{B}$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Simplificar la unión $A\cup\overline{B}$}
+\textbf{Qué hago:} demuestro que $A\cup\overline{B}=\overline{B}$.
+
+\textbf{¿De dónde sale?} De la contención $A\subseteq\overline{B}$ obtenida en el Paso 2.
+
+\textbf{¿Por qué?} Porque en general vale la ley de absorción ``$X\subseteq Y \Rightarrow
+X\cup Y=Y$'', y aquí $X=A$, $Y=\overline{B}$. La justificación por doble contención es
+inmediata:
+\begin{itemize}[leftmargin=*]
+  \item $\overline{B}\subseteq A\cup\overline{B}$, porque todo conjunto está contenido en
+  cualquier unión que lo tenga como sumando.
+  \item $A\cup\overline{B}\subseteq\overline{B}$: si $x\in A\cup\overline{B}$, entonces $x\in A$
+  o $x\in\overline{B}$; en el primer caso $x\in\overline{B}$ por la contención del Paso 2, y en
+  el segundo ya lo está. En ambos casos $x\in\overline{B}$.
+\end{itemize}
+Dos conjuntos contenidos uno en el otro son iguales.
+
+\textbf{¿Qué tomamos?} Tomamos la igualdad de eventos $A\cup\overline{B}=\overline{B}$ y, con
+ella, la igualdad de sus probabilidades $P\big[A\cup\overline{B}\big]=P\big[\overline{B}\big]$,
+pues $P$ es una función definida sobre los eventos y eventos iguales tienen la misma imagen.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Encadenar con (E1) y cerrar la demostración}
+\textbf{Qué hago:} sustituyo $P\big[\overline{B}\big]$ por $1-P[B]$ y redacto la prueba
+completa.
+
+\textbf{¿De dónde sale?} Del Paso 3 y de la ecuación (E1).
+
+\textbf{¿Por qué?} Porque (E1), es decir (D2), se demostró desde los axiomas: $B$ y
+$\overline{B}$ son disjuntos con $B\cup\overline{B}=\Omega$, así que (D0) da
+$P[B]+P\big[\overline{B}\big]=P[\Omega]$ y (A2) fija ese total en $1$.
+
+\textbf{¿Qué tomamos?} Tomamos la redacción final:
+
+\medskip
+\emph{Demostración.} Sean $A,B$ eventos con $A\cap B=\varnothing$. Si $x\in A$, entonces
+$x\notin B$, pues de lo contrario $x\in A\cap B=\varnothing$; luego $x\in\overline{B}$ y por lo
+tanto $A\subseteq\overline{B}$. En consecuencia $A\cup\overline{B}=\overline{B}$, ya que
+$\overline{B}\subseteq A\cup\overline{B}$ siempre, y recíprocamente todo
+$x\in A\cup\overline{B}$ está en $\overline{B}$ (si está en $A$, por la contención; si está en
+$\overline{B}$, trivialmente). Tomando probabilidades y usando (E1):
+\[
+P\big[A\cup\overline{B}\big]=P\big[\overline{B}\big]=1-P[B]. \qquad\blacksquare
+\]
+\end{paso}
+
+\begin{nota}
+La hipótesis de disyunción es esencial. Si $A$ y $B$ no fueran disjuntos, lo correcto sería usar
+(D5):
+\[
+P\big[A\cup\overline{B}\big]=P[A]+P\big[\overline{B}\big]-P\big[A\cap\overline{B}\big]
+\]
+\[
+=P[A]+1-P[B]-\big(P[A]-P[A\cap B]\big)=1-P[B]+P[A\cap B],
+\]
+donde se usó (D3) para $P\big[A\cap\overline{B}\big]=P[A]-P[A\cap B]$. Esa fórmula general se
+reduce a la tesis exactamente cuando $P[A\cap B]=0$, y la hipótesis $A\cap B=\varnothing$ lo
+garantiza por (D1).
+\end{nota}
+
+\end{sol}
+
+\begin{resp}
+Si $A\cap B=\varnothing$, entonces $A\subseteq\overline{B}$, de donde
+$A\cup\overline{B}=\overline{B}$ y, por la regla del complemento (D2),
+\[
+\boxed{\;P\big[A\cup\overline{B}\big]=P\big[\overline{B}\big]=1-P[B].\;}
+\]
+\end{resp}
+
+%=====================================================================
+\section*{Capítulo 2 --- Ejercicio 13}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 13}
+
+\begin{quote}
+Si $A,B,C$ son eventos tales que $A\subseteq B^{c}$. Demuestre que
+$P(A\cup B\cup C)=P(A\cup C)+P(B)-P(B\cap C)$.
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Planteo: hipótesis, tesis y ecuaciones de partida}
+\textbf{Qué hago:} anoto la hipótesis, la reescribo en la forma que se usará, fijo la tesis y
+registro la propiedad de la que todo dependerá.
+
+\textbf{¿De dónde sale?} Del enunciado: $A\subseteq\overline{B}$.
+
+\textbf{¿Por qué?} Porque la forma útil de esta hipótesis en los cálculos con probabilidades es
+$A\cap B=\varnothing$. La equivalencia se prueba así: si $x\in A\cap B$, entonces $x\in A$, y
+por la contención $x\in\overline{B}$, es decir $x\notin B$; pero también $x\in B$, contradicción.
+Como $A\cap B$ no puede tener elementos, $A\cap B=\varnothing$. (El recíproco se probó en el
+Ejercicio 12, así que las dos formulaciones son intercambiables.)
+
+\textbf{¿Qué tomamos?} Tomamos el siguiente planteo.
+
+\medskip
+Considere $\Omega$ el espacio muestral y considere los eventos $A$, $B$ y $C$ de $\Omega$.
+
+Según el problema, $A\subseteq\overline{B}$, lo que equivale a $A\cap B=\varnothing$. Se solicita
+probar que $P[A\cup B\cup C]=P[A\cup C]+P[B]-P[B\cap C]$.
+
+\medskip
+Se recurre a la siguiente ecuación:
+\[
+\text{(E1)}\quad P[X\cup Y]=P[X]+P[Y]-P[X\cap Y],\qquad\text{por (D5).}
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Reagrupar la unión triple como unión de dos bloques}
+\textbf{Qué hago:} escribo $A\cup B\cup C$ en la forma $(A\cup C)\cup B$.
+
+\textbf{¿De dónde sale?} De las leyes conmutativa y asociativa de la unión de conjuntos.
+
+\textbf{¿Por qué?} Porque la única herramienta disponible para una unión es (E1), que está
+formulada para \emph{dos} eventos; hay que decidir, entonces, cómo agrupar los tres. Y la
+agrupación se elige mirando la tesis: en el lado derecho aparecen $P[A\cup C]$ y $P[B]$, lo que
+señala que los dos bloques deben ser $A\cup C$ y $B$. La asociatividad y la conmutatividad
+autorizan el reagrupamiento:
+\[
+A\cup B\cup C=(A\cup B)\cup C=(B\cup A)\cup C=B\cup(A\cup C)=(A\cup C)\cup B .
+\]
+
+\textbf{¿Qué tomamos?} Tomamos $A\cup B\cup C=(A\cup C)\cup B$, igualdad de eventos y por tanto
+de probabilidades.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Aplicar la regla de la suma a los dos bloques}
+\textbf{Qué hago:} aplico (E1) con $X=A\cup C$ e $Y=B$.
+
+\textbf{¿De dónde sale?} Del reagrupamiento del Paso 2.
+
+\textbf{¿Por qué?} Porque (E1) vale para \emph{cualesquiera} dos eventos, sin hipótesis
+adicionales; se demostró en la caja de Teoría descomponiendo $X\cup Y$ en las piezas disjuntas
+$X$ y $Y\cap\overline{X}$ y aplicando (D0) y (D3).
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P[A\cup B\cup C]=P\big[(A\cup C)\cup B\big]
+=P[A\cup C]+P[B]-P\big[(A\cup C)\cap B\big] , \qquad\text{por (E1)} .
+\]
+Comparando con la tesis, solo falta demostrar que $P\big[(A\cup C)\cap B\big]=P[B\cap C]$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Simplificar el término de intersección usando la hipótesis}
+\textbf{Qué hago:} demuestro que $(A\cup C)\cap B=B\cap C$.
+
+\textbf{¿De dónde sale?} De la hipótesis $A\cap B=\varnothing$ (Paso 1) y de la ley distributiva
+de $\cap$ sobre $\cup$.
+
+\textbf{¿Por qué?} Porque la distributiva permite repartir la intersección con $B$ sobre los dos
+sumandos de la unión, y entonces la hipótesis anula uno de ellos. En detalle:
+\[
+(A\cup C)\cap B
+\;\overset{\text{distributiva}}{=}\;(A\cap B)\cup(C\cap B)
+\;\overset{\text{hipótesis}}{=}\;\varnothing\cup(C\cap B)
+\;=\;C\cap B
+\;\overset{\text{conmutativa}}{=}\;B\cap C ,
+\]
+donde el paso $\varnothing\cup X=X$ vale porque unir el vacío no agrega ningún elemento. Aquí es
+donde entra, y es la única vez que se usa, la condición $A\subseteq\overline{B}$ del enunciado.
+
+\textbf{¿Qué tomamos?} Tomamos la igualdad de eventos $(A\cup C)\cap B=B\cap C$ y, en
+consecuencia, $P\big[(A\cup C)\cap B\big]=P[B\cap C]$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Sustituir y cerrar la demostración}
+\textbf{Qué hago:} llevo el resultado del Paso 4 a la identidad del Paso 3 y redacto la prueba.
+
+\textbf{¿De dónde sale?} De los Pasos 2, 3 y 4.
+
+\textbf{¿Por qué?} Porque al reemplazar un término por otro igual se preserva la igualdad, y con
+ello se obtiene exactamente la tesis.
+
+\textbf{¿Qué tomamos?} Tomamos la redacción final:
+
+\medskip
+\emph{Demostración.} Sea $A\subseteq\overline{B}$; entonces $A\cap B=\varnothing$, pues
+cualquier $x\in A\cap B$ estaría a la vez en $B$ y en $\overline{B}$. Por conmutatividad y
+asociatividad de la unión, $A\cup B\cup C=(A\cup C)\cup B$. Aplicando (E1) a los eventos
+$A\cup C$ y $B$:
+\[
+P[A\cup B\cup C]=P[A\cup C]+P[B]-P\big[(A\cup C)\cap B\big].
+\]
+Por la ley distributiva y la hipótesis,
+\[
+(A\cup C)\cap B=(A\cap B)\cup(C\cap B)=\varnothing\cup(B\cap C)=B\cap C .
+\]
+Sustituyendo,
+\[
+P[A\cup B\cup C]=P[A\cup C]+P[B]-P[B\cap C]. \qquad\blacksquare
+\]
+\end{paso}
+
+\begin{nota}
+Sin la hipótesis $A\subseteq\overline{B}$ la identidad es falsa en general: el término correcto
+sería $P\big[(A\cap B)\cup(B\cap C)\big]$, que por (D5) vale
+$P[A\cap B]+P[B\cap C]-P[A\cap B\cap C]$, y solo coincide con $P[B\cap C]$ cuando
+$P[A\cap B]=P[A\cap B\cap C]$. La hipótesis lo garantiza porque hace $A\cap B=\varnothing$ y,
+con (D1), $P[A\cap B]=0$.
+\end{nota}
+
+\end{sol}
+
+\begin{resp}
+Como $A\subseteq\overline{B}$ implica $A\cap B=\varnothing$, se tiene $(A\cup C)\cap B=B\cap C$
+y, por la regla de la suma (D5) aplicada a $(A\cup C)\cup B$,
+\[
+\boxed{\;P[A\cup B\cup C]=P[A\cup C]+P[B]-P[B\cap C].\;}
+\]
+\end{resp}
+
+%=====================================================================
+\section*{Capítulo 2 --- Ejercicio 14}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 14}
+
+\begin{quote}
+Sean $A,B$ dos eventos. Demuestre que $P(A)=P(A\cap B)+P(A\cap B^{c})$.
+\end{quote}
+
+\begin{nota}
+Esta es exactamente la propiedad (D3) enunciada en la caja de Teoría. Para no razonar en
+círculo, aquí se demuestra desde cero, apoyándose únicamente en los axiomas (A1)--(A3), en (D0)
+y en el álgebra de conjuntos; no se cita (D3).
+\end{nota}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Planteo: hipótesis, tesis y estrategia}
+\textbf{Qué hago:} fijo lo que se tiene y lo que hay que probar, y decido partir $A$ en dos
+trozos.
+
+\textbf{¿De dónde sale?} Del enunciado y de la forma de la tesis: el lado derecho es una
+\emph{suma} de dos probabilidades.
+
+\textbf{¿Por qué?} Porque la única propiedad que produce sumas de probabilidades es la
+aditividad (A3), o su versión finita (D0), cuya hipótesis es la disyunción. Los axiomas no
+permiten sumar probabilidades de eventos cualesquiera: la suma solo está autorizada cuando los
+eventos son disjuntos. Por lo tanto, toda la demostración se reduce a verificar dos afirmaciones
+de conjuntos.
+
+\textbf{¿Qué tomamos?} Tomamos el siguiente planteo.
+
+\medskip
+Considere $\Omega$ el espacio muestral y considere los eventos $A$ y $B$ de $\Omega$, sin
+ninguna hipótesis adicional. Se solicita probar que
+$P[A]=P[A\cap B]+P\big[A\cap\overline{B}\big]$.
+
+\medskip
+Se recurre a la siguiente ecuación:
+\[
+\text{(E1)}\quad X\cap Y=\varnothing\ \Longrightarrow\ P[X\cup Y]=P[X]+P[Y],
+\qquad\text{por (D0), consecuencia de (A3).}
+\]
+Con ella, basta demostrar los dos objetivos intermedios
+\[
+\text{(i)}\quad (A\cap B)\cap(A\cap\overline{B})=\varnothing,
+\qquad
+\text{(ii)}\quad (A\cap B)\cup(A\cap\overline{B})=A .
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Probar (i): los dos trozos son disjuntos}
+\textbf{Qué hago:} calculo la intersección de los dos trozos y compruebo que es vacía.
+
+\textbf{¿De dónde sale?} Del objetivo (i) del Paso 1.
+
+\textbf{¿Por qué?} Porque la intersección se reorganiza con las leyes conmutativa, asociativa e
+idempotente de $\cap$ hasta hacer aparecer el par $B$, $\overline{B}$, cuya intersección es
+vacía por definición de complemento:
+\[
+(A\cap B)\cap(A\cap\overline{B})
+=(A\cap A)\cap(B\cap\overline{B})
+=A\cap\varnothing
+=\varnothing ,
+\]
+donde $A\cap A=A$ es la idempotencia y $X\cap\varnothing=\varnothing$ vale porque el vacío no
+tiene elementos que compartir. En palabras: un mismo resultado no puede estar en $B$ y fuera de
+$B$ al mismo tiempo.
+
+\textbf{¿Qué tomamos?} Tomamos por demostrado (i): $A\cap B$ y $A\cap\overline{B}$ son
+disjuntos.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Probar (ii): los dos trozos cubren todo $A$}
+\textbf{Qué hago:} calculo la unión de los dos trozos y compruebo que es $A$.
+
+\textbf{¿De dónde sale?} Del objetivo (ii) del Paso 1.
+
+\textbf{¿Por qué?} Porque la ley distributiva de $\cap$ sobre $\cup$ permite sacar el factor
+común $A$, y entonces aparece $B\cup\overline{B}$, que es todo el espacio:
+\[
+(A\cap B)\cup(A\cap\overline{B})
+\overset{\text{distributiva}}{=}A\cap(B\cup\overline{B})
+=A\cap\Omega
+=A ,
+\]
+donde $B\cup\overline{B}=\Omega$ es la definición de complemento (todo resultado está en $B$ o
+fuera de $B$) y $A\cap\Omega=A$ porque $A\subseteq\Omega$. En palabras: todo resultado de $A$
+está en $B$ o no está, y en cualquier caso queda recogido por uno de los dos trozos.
+
+\textbf{¿Qué tomamos?} Tomamos por demostrado (ii): $A=(A\cap B)\cup(A\cap\overline{B})$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Encadenar con (E1) y cerrar}
+\textbf{Qué hago:} aplico (E1) a la descomposición y redacto la demostración completa.
+
+\textbf{¿De dónde sale?} De (i) y (ii), probados en los Pasos 2 y 3.
+
+\textbf{¿Por qué?} Porque (E1) --- deducida de (A3) rellenando la sucesión con copias de
+$\varnothing$ --- afirma que si dos eventos son disjuntos, la probabilidad de su unión es la
+suma de sus probabilidades. Aquí los eventos disjuntos son $A\cap B$ y $A\cap\overline{B}$, y su
+unión es $A$.
+
+\textbf{¿Qué tomamos?} Tomamos la redacción final:
+
+\medskip
+\emph{Demostración.} Sean $A,B$ eventos cualesquiera. Los eventos $A\cap B$ y $A\cap\overline{B}$
+son disjuntos, pues
+\[
+(A\cap B)\cap(A\cap\overline{B})=(A\cap A)\cap(B\cap\overline{B})=A\cap\varnothing=\varnothing ,
+\]
+y su unión es $A$, pues por la ley distributiva
+\[
+(A\cap B)\cup(A\cap\overline{B})=A\cap(B\cup\overline{B})=A\cap\Omega=A .
+\]
+Aplicando la aditividad finita (E1), consecuencia del axioma (A3), a estos dos eventos
+disjuntos:
+\[
+P[A]=P\big[(A\cap B)\cup(A\cap\overline{B})\big]=P[A\cap B]+P\big[A\cap\overline{B}\big].
+\qquad\blacksquare
+\]
+\end{paso}
+
+\begin{nota}
+Esta identidad es la \emph{ley de probabilidad total} en su versión más simple: la partición
+$\{B,\overline{B}\}$ de $\Omega$ corta a $A$ en dos pedazos cuyas probabilidades se suman. Es la
+herramienta que se usó repetidamente en los Ejercicios 6, 7 y 8 para despejar la probabilidad de
+una intersección a partir de un dato marginal.
+\end{nota}
+
+\end{sol}
+
+\begin{resp}
+Para cualesquiera eventos $A$ y $B$, los eventos $A\cap B$ y $A\cap\overline{B}$ son disjuntos y
+su unión es $A$; por la aditividad (A3)/(D0),
+\[
+\boxed{\;P[A]=P[A\cap B]+P\big[A\cap\overline{B}\big].\;}
+\]
+\end{resp}
+
+%=====================================================================
+\section*{Capítulo 2 --- Ejercicio 15}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 15}
+
+\begin{quote}
+Sean $A,B$ eventos tales que $A\subseteq B$. Demuestre que $P(B)=P(A)+P(B\cap A^{c})$.
+\end{quote}
+
+\begin{nota}
+Esta es la primera mitad de la propiedad (D4) de la caja de Teoría. Igual que en el Ejercicio
+14, se demuestra aquí desde los axiomas sin citar (D4), para no incurrir en circularidad.
+\end{nota}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Planteo: hipótesis, tesis y estrategia}
+\textbf{Qué hago:} anoto la hipótesis $A\subseteq B$, la tesis, y decido partir $B$ en dos
+trozos disjuntos.
+
+\textbf{¿De dónde sale?} Del enunciado y de la forma de la tesis, que es una suma de dos
+probabilidades.
+
+\textbf{¿Por qué?} Porque, de nuevo, la única propiedad que autoriza a sumar probabilidades es
+la aditividad (A3)/(D0), y su hipótesis es la disyunción. Los dos sumandos de la tesis son
+$P[A]$ y $P\big[B\cap\overline{A}\big]$, lo que indica que los trozos deben ser $A$ y
+$B\cap\overline{A}$: lo que está en $A$, y lo que está en $B$ pero fuera de $A$.
+
+\textbf{¿Qué tomamos?} Tomamos el siguiente planteo.
+
+\medskip
+Considere $\Omega$ el espacio muestral y considere los eventos $A$ y $B$ de $\Omega$.
+
+Según el problema, $A\subseteq B$. Se solicita probar que
+$P[B]=P[A]+P\big[B\cap\overline{A}\big]$.
+
+\medskip
+Se recurre a la siguiente ecuación:
+\[
+\text{(E1)}\quad X\cap Y=\varnothing\ \Longrightarrow\ P[X\cup Y]=P[X]+P[Y],
+\qquad\text{por (D0), consecuencia de (A3),}
+\]
+y basta demostrar los objetivos intermedios
+\[
+\text{(i)}\quad A\cap(B\cap\overline{A})=\varnothing,
+\qquad
+\text{(ii)}\quad A\cup(B\cap\overline{A})=B .
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Probar (i): $A$ y $B\cap\overline{A}$ son disjuntos}
+\textbf{Qué hago:} calculo la intersección de los dos trozos.
+
+\textbf{¿De dónde sale?} Del objetivo (i).
+
+\textbf{¿Por qué?} Porque reordenando con la conmutativa y la asociativa de $\cap$ aparece el
+par $A$, $\overline{A}$:
+\[
+A\cap(B\cap\overline{A})=(A\cap\overline{A})\cap B=\varnothing\cap B=\varnothing .
+\]
+Obsérvese que esta parte \emph{no} usa la hipótesis $A\subseteq B$: vale para cualesquiera
+eventos. En palabras: nada puede estar dentro de $A$ y fuera de $A$ a la vez.
+
+\textbf{¿Qué tomamos?} Tomamos por demostrado (i).
+\end{paso}
+
+\begin{paso}{Paso 3 --- Probar (ii): los dos trozos reconstruyen $B$}
+\textbf{Qué hago:} calculo la unión $A\cup(B\cap\overline{A})$ y uso la hipótesis para llegar a
+$B$.
+
+\textbf{¿De dónde sale?} Del objetivo (ii) y de la hipótesis $A\subseteq B$.
+
+\textbf{¿Por qué?} Porque la ley distributiva de $\cup$ sobre $\cap$ da
+\[
+A\cup(B\cap\overline{A})
+\overset{\text{distributiva}}{=}(A\cup B)\cap(A\cup\overline{A})
+=(A\cup B)\cap\Omega
+=A\cup B ,
+\]
+y aquí interviene la hipótesis: si $A\subseteq B$, entonces $A\cup B=B$. Esto último se prueba
+por doble contención: $B\subseteq A\cup B$ siempre; y si $x\in A\cup B$, entonces $x\in A$ (y
+por la contención $x\in B$) o bien $x\in B$ directamente, así que $A\cup B\subseteq B$. Por lo
+tanto $A\cup(B\cap\overline{A})=B$. Este es el único punto de toda la demostración donde se usa
+$A\subseteq B$.
+
+\textbf{¿Qué tomamos?} Tomamos por demostrado (ii): $B=A\cup(B\cap\overline{A})$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Encadenar con (E1) y cerrar}
+\textbf{Qué hago:} uso (E1) sobre la descomposición y redacto la demostración.
+
+\textbf{¿De dónde sale?} De (i) y (ii), Pasos 2 y 3.
+
+\textbf{¿Por qué?} Porque (E1), deducida de (A3), permite sumar las probabilidades de dos
+eventos disjuntos cuya unión se conoce.
+
+\textbf{¿Qué tomamos?} Tomamos la redacción final:
+
+\medskip
+\emph{Demostración.} Sean $A\subseteq B$ eventos. Los eventos $A$ y $B\cap\overline{A}$ son
+disjuntos, pues $A\cap(B\cap\overline{A})=(A\cap\overline{A})\cap B=\varnothing$. Además, por la
+ley distributiva de $\cup$ sobre $\cap$ y por la hipótesis,
+\[
+A\cup(B\cap\overline{A})=(A\cup B)\cap(A\cup\overline{A})=(A\cup B)\cap\Omega=A\cup B=B .
+\]
+Aplicando la aditividad finita (E1) a estos dos eventos disjuntos:
+\[
+P[B]=P\big[A\cup(B\cap\overline{A})\big]=P[A]+P\big[B\cap\overline{A}\big]. \qquad\blacksquare
+\]
+\end{paso}
+
+\begin{paso}{Paso 5 --- Consecuencia inmediata: la monotonía}
+\textbf{Qué hago:} deduzco de la identidad probada que $P[A]\le P[B]$.
+
+\textbf{¿De dónde sale?} De la igualdad $P[B]=P[A]+P\big[B\cap\overline{A}\big]$ del Paso 4 y
+del axioma (A1).
+
+\textbf{¿Por qué?} Porque $B\cap\overline{A}$ es un evento y (A1) garantiza
+$P\big[B\cap\overline{A}\big]\ge 0$; al sumarle a $P[A]$ un número no negativo el resultado no
+puede disminuir.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P[B]=P[A]+\underbrace{P\big[B\cap\overline{A}\big]}_{\ge\,0\ \text{por (A1)}}\;\ge\;P[A],
+\]
+es decir, la \emph{monotonía} de la probabilidad: un evento contenido en otro nunca es más
+probable que él. Además, la identidad da la interpretación exacta de la diferencia:
+$P[B]-P[A]=P\big[B\cap\overline{A}\big]$, la probabilidad de la parte de $B$ que sobra al
+quitarle $A$.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+Si $A\subseteq B$, los eventos $A$ y $B\cap\overline{A}$ son disjuntos y su unión es $B$; por la
+aditividad (A3)/(D0),
+\[
+\boxed{\;P[B]=P[A]+P\big[B\cap\overline{A}\big].\;}
+\]
+En particular, como $P\big[B\cap\overline{A}\big]\ge 0$ por (A1), se obtiene la monotonía
+$P[A]\le P[B]$.
+\end{resp}
+
+%=====================================================================
+\section*{Capítulo 2 --- Ejercicio 16}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 16}
+
+\begin{quote}
+Sean $A,B$ eventos. Demuestre que $P(A\triangle B)=P(A)+P(B)-2P(A\cap B)$, donde
+$A\triangle B=(A\cap B^{c})\cup(A^{c}\cap B)$.
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Planteo: definición, tesis y ecuaciones de partida}
+\textbf{Qué hago:} tomo la definición dada de diferencia simétrica, fijo la tesis y registro las
+identidades con las que se resolverá.
+
+\textbf{¿De dónde sale?} Del propio enunciado, que define
+$A\triangle B=(A\cap\overline{B})\cup(\overline{A}\cap B)$.
+
+\textbf{¿Por qué?} Porque la definición ya viene escrita como una unión de dos eventos, y si esa
+unión resulta ser disjunta se podrá aplicar (E1) y reducir el problema a calcular por separado
+$P\big[A\cap\overline{B}\big]$ y $P\big[\overline{A}\cap B\big]$. Cada uno de esos dos términos
+se obtendrá luego con (E2), que es la identidad demostrada en el Ejercicio 14. Nótese que
+$A\triangle B$ describe los resultados que están en exactamente uno de los dos eventos.
+
+\textbf{¿Qué tomamos?} Tomamos el siguiente planteo.
+
+\medskip
+Considere $\Omega$ el espacio muestral y considere los eventos $A$ y $B$ de $\Omega$, junto con
+$A\triangle B=(A\cap\overline{B})\cup(\overline{A}\cap B)$. Se solicita probar que
+$P[A\triangle B]=P[A]+P[B]-2P[A\cap B]$.
+
+\medskip
+Se recurre a las siguientes ecuaciones:
+\[
+\text{(E1)}\quad X\cap Y=\varnothing\ \Longrightarrow\ P[X\cup Y]=P[X]+P[Y],\qquad\text{por (D0);}
+\]
+\[
+\text{(E2)}\quad P[X]=P[X\cap Y]+P\big[X\cap\overline{Y}\big],\qquad\text{por el Ejercicio 14.}
+\]
+El plan es: (i) probar la disyunción de los dos trozos, (ii) calcular la probabilidad de cada
+trozo con (E2), (iii) sumar.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Probar que los dos trozos son disjuntos}
+\textbf{Qué hago:} calculo $(A\cap\overline{B})\cap(\overline{A}\cap B)$.
+
+\textbf{¿De dónde sale?} Del objetivo (i) del Paso 1.
+
+\textbf{¿Por qué?} Porque reordenando con la conmutativa y la asociativa de $\cap$ aparecen a la
+vez los pares $A$, $\overline{A}$ y $B$, $\overline{B}$:
+\[
+(A\cap\overline{B})\cap(\overline{A}\cap B)
+=(A\cap\overline{A})\cap(\overline{B}\cap B)
+=\varnothing\cap\varnothing
+=\varnothing .
+\]
+En palabras: un resultado del primer trozo está en $A$, y uno del segundo no está en $A$; no
+pueden ser el mismo.
+
+\textbf{¿Qué tomamos?} Tomamos por demostrado que $A\cap\overline{B}$ y $\overline{A}\cap B$ son
+disjuntos, lo que habilita (E1):
+\[
+P[A\triangle B]=P\big[A\cap\overline{B}\big]+P\big[\overline{A}\cap B\big] .
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Calcular $P\big[A\cap\overline{B}\big]$}
+\textbf{Qué hago:} expreso la probabilidad del primer trozo en términos de $P[A]$ y
+$P[A\cap B]$.
+
+\textbf{¿De dónde sale?} De la ecuación (E2), demostrada en el Ejercicio 14 con $X=A$ y $Y=B$:
+$P[A]=P[A\cap B]+P\big[A\cap\overline{B}\big]$.
+
+\textbf{¿Por qué?} Porque esa identidad se probó desde los axiomas partiendo $A$ en los trozos
+disjuntos $A\cap B$ y $A\cap\overline{B}$; despejar de ella el término que interesa es álgebra
+elemental sobre números reales, legítima porque todas las probabilidades son números reales
+finitos (están en $[0,1]$ por (D4)).
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P\big[A\cap\overline{B}\big]=P[A]-P[A\cap B] , \qquad\text{por (E2)} .
+\]
+\end{paso}
+
+\begin{paso}{Paso 4 --- Calcular $P\big[\overline{A}\cap B\big]$}
+\textbf{Qué hago:} repito el razonamiento del Paso 3 intercambiando los papeles de $A$ y $B$.
+
+\textbf{¿De dónde sale?} De la ecuación (E2) aplicada con $X=B$ y $Y=A$:
+$P[B]=P[B\cap A]+P\big[B\cap\overline{A}\big]$.
+
+\textbf{¿Por qué?} Porque (E2) vale para \emph{cualesquiera} dos eventos, así que puede usarse
+con los nombres intercambiados. Además $B\cap A=A\cap B$ y $B\cap\overline{A}=\overline{A}\cap B$
+por conmutatividad de la intersección, de modo que los términos quedan escritos en la misma
+notación del enunciado.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P\big[\overline{A}\cap B\big]=P[B]-P[A\cap B] , \qquad\text{por (E2)} .
+\]
+\end{paso}
+
+\begin{paso}{Paso 5 --- Sumar los dos trozos y cerrar}
+\textbf{Qué hago:} sustituyo los Pasos 3 y 4 en la identidad del Paso 2 y agrupo términos.
+
+\textbf{¿De dónde sale?} De los Pasos 2, 3 y 4.
+
+\textbf{¿Por qué?} Porque al sumar las dos expresiones aparece dos veces el término
+$-P[A\cap B]$, y agrupar sumandos iguales es álgebra de números reales. El factor $2$ del
+enunciado tiene, entonces, un origen muy concreto: la intersección se descuenta \emph{una vez
+por cada lado}, porque los resultados de $A\cap B$ no pertenecen a $A\triangle B$ y hay que
+quitarlos tanto de $P[A]$ como de $P[B]$.
+
+\textbf{¿Qué tomamos?} Tomamos
+\[
+P[A\triangle B]=\big(P[A]-P[A\cap B]\big)+\big(P[B]-P[A\cap B]\big)
+=P[A]+P[B]-2P[A\cap B].
+\]
+Redacción final:
+
+\medskip
+\emph{Demostración.} Sean $A,B$ eventos. Los eventos $A\cap\overline{B}$ y $\overline{A}\cap B$
+son disjuntos, pues
+\[
+(A\cap\overline{B})\cap(\overline{A}\cap B)=(A\cap\overline{A})\cap(B\cap\overline{B})=\varnothing .
+\]
+Por la aditividad (E1) aplicada a la definición
+$A\triangle B=(A\cap\overline{B})\cup(\overline{A}\cap B)$,
+\[
+P[A\triangle B]=P\big[A\cap\overline{B}\big]+P\big[\overline{A}\cap B\big].
+\]
+Por (E2), es decir el Ejercicio 14, aplicado a $A$ respecto de $B$ y a $B$ respecto de $A$:
+\[
+P\big[A\cap\overline{B}\big]=P[A]-P[A\cap B],
+\qquad
+P\big[\overline{A}\cap B\big]=P[B]-P[A\cap B].
+\]
+Sumando ambas igualdades,
+\[
+P[A\triangle B]=P[A]+P[B]-2P[A\cap B]. \qquad\blacksquare
+\]
+\end{paso}
+
+\begin{paso}{Paso 6 --- Verificación por la regla de la suma}
+\textbf{Qué hago:} compruebo el resultado por un camino alternativo, expresando $A\triangle B$
+como $A\cup B$ menos $A\cap B$.
+
+\textbf{¿De dónde sale?} De la identidad de conjuntos
+$A\triangle B=(A\cup B)\cap\overline{(A\cap B)}$ y de la contención $A\cap B\subseteq A\cup B$.
+
+\textbf{¿Por qué?} Porque un resultado está en exactamente uno de los dos eventos si y solo si
+está en al menos uno ($A\cup B$) y no está en los dos ($\overline{A\cap B}$); y porque el
+Ejercicio 15, con $A\cap B\subseteq A\cup B$, da
+$P[A\cup B]=P[A\cap B]+P\big[(A\cup B)\cap\overline{(A\cap B)}\big]$, es decir
+$P[A\triangle B]=P[A\cup B]-P[A\cap B]$. Comprobar por dos vías independientes confirma la
+identidad.
+
+\textbf{¿Qué tomamos?} Tomamos, usando (D5) para desarrollar $P[A\cup B]$,
+\[
+P[A\triangle B]=P[A\cup B]-P[A\cap B]
+=\big(P[A]+P[B]-P[A\cap B]\big)-P[A\cap B]
+\]
+\[
+=P[A]+P[B]-2P[A\cap B],
+\]
+que coincide con el Paso 5. $\checkmark$
+\end{paso}
+
+\begin{nota}
+Casos límite que ayudan a confiar en la fórmula: si $A\cap B=\varnothing$, entonces
+$P[A\cap B]=0$ por (D1) y queda $P[A\triangle B]=P[A]+P[B]$, coherente con que entonces
+$A\triangle B=A\cup B$. Si $A=B$, entonces $A\cap B=A$ y la fórmula da
+$P[A]+P[A]-2P[A]=0$, coherente con que $A\triangle A=\varnothing$ y (D1).
+\end{nota}
+
+\end{sol}
+
+\begin{resp}
+Como $A\cap\overline{B}$ y $\overline{A}\cap B$ son disjuntos, y como
+$P\big[A\cap\overline{B}\big]=P[A]-P[A\cap B]$ y
+$P\big[\overline{A}\cap B\big]=P[B]-P[A\cap B]$ por el Ejercicio 14,
+\[
+\boxed{\;P[A\triangle B]=P[A]+P[B]-2P[A\cap B]\;=\;P[A\cup B]-P[A\cap B].\;}
+\]
+\end{resp}
+
+\end{document}

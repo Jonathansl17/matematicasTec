@@ -1,0 +1,1817 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+
+\title{Solucionario --- Cap\'itulo 1, Secci\'on 1.4\\ Ejercicios 44 a 54: anagramas con restricciones y selecciones estructuradas}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{teo}
+\textbf{Cat\'alogo de herramientas de conteo usadas en esta secci\'on.} Todo ejercicio de aqu\'i en adelante
+se resuelve traduciendo la condici\'on del enunciado a una \emph{restricci\'on sobre posiciones} o a una
+\emph{restricci\'on sobre el conjunto que se elige}, y luego multiplicando o sumando factores. Ning\'un
+n\'umero aparece ``pelado'': cada factor lleva su etiqueta.
+
+\medskip
+\textbf{(1) Principio del producto.} Si una construcci\'on se realiza mediante decisiones sucesivas
+$d_1,d_2,\dots,d_r$, y la decisi\'on $d_i$ admite $m_i$ opciones \emph{sea cual sea} el resultado de las
+anteriores, y si adem\'as la lista completa de decisiones determina un\'ivocamente el objeto construido
+(y objetos distintos provienen de listas distintas), entonces el n\'umero de objetos es
+\[
+m_1\cdot m_2\cdots m_r .
+\]
+Las dos condiciones subrayadas son las que hay que verificar en cada aplicaci\'on: \emph{constancia} del
+n\'umero de opciones y \emph{biyecci\'on} entre listas de decisiones y objetos.
+
+\medskip
+\textbf{(2) Principio de la suma.} Si el conjunto de objetos buscados se parte en clases
+$A_1,\dots,A_k$ dos a dos disjuntas, entonces $\big|\bigcup A_i\big| = \sum |A_i|$. Se usa cuando la
+condici\'on obliga a abrir casos (por ejemplo, ``cu\'antas mujeres provienen del grupo $A$'').
+
+\medskip
+\textbf{(3) Principio del complemento.} $\#\{\text{buenos}\} = \#\{\text{total}\} - \#\{\text{malos}\}$,
+v\'alido porque los buenos y los malos particionan el total.
+
+\medskip
+\textbf{(4) Permutaciones y combinaciones.} Con $n$ objetos distintos:
+\[
+P(n,r)\;=\;\frac{n!}{(n-r)!}\;=\;n(n-1)\cdots(n-r+1)
+\qquad\text{(ordenar $r$ de ellos en $r$ casillas distinguibles)},
+\]
+\[
+C(n,r)\;=\;\binom{n}{r}\;=\;\frac{n!}{r!\,(n-r)!}
+\qquad\text{(elegir un subconjunto de tama\~no $r$, sin orden)} .
+\]
+La relaci\'on entre ambas es el \emph{argumento de simetr\'ia}: cada subconjunto de $r$ elementos se puede
+ordenar de $r!$ maneras y todas producen la misma selecci\'on, de modo que la lista de $P(n,r)$ arreglos
+cuenta cada subconjunto exactamente $r!$ veces; por lo tanto
+\[
+\frac{P(n,r)}{r!}\;=\;\binom{n}{r}.
+\]
+El caso $r=1$ da $\binom{n}{1}=n$, y el caso $r=n$ da $\binom{n}{n}=1$.
+
+\medskip
+\textbf{(5) Permutaciones con repetici\'on.} Si hay $n$ s\'imbolos con multiplicidades
+$n_1,n_2,\dots,n_k$ (y $n_1+\cdots+n_k=n$), el n\'umero de cadenas distintas es
+\[
+\frac{n!}{n_1!\,n_2!\cdots n_k!}.
+\]
+La divisi\'on no es convenci\'on: al marcar temporalmente las copias iguales con sub\'indices hay $n!$
+arreglos, y cada cadena visible se produce exactamente $n_1!\,n_2!\cdots n_k!$ veces (una por cada
+reasignaci\'on de sub\'indices dentro de cada letra repetida). Corregir ese conteo doble es dividir.
+
+\medskip
+\textbf{(6) T\'ecnica del bloque (letras u objetos que deben ir juntos).} Si $m$ objetos deben ocupar
+casillas consecutivas, se pegan y se tratan como \emph{un solo objeto}. Quedan $n-m+1$ objetos por ordenar,
+y despu\'es se multiplica por el n\'umero de \'ordenes internos del bloque. El producto es leg\'itimo por
+(1): la posici\'on externa del bloque y su orden interno son decisiones independientes y su par determina la
+cadena.
+
+\medskip
+\textbf{(7) T\'ecnica de los huecos (objetos que \emph{no} deben quedar juntos).} Se ordenan primero los $c$
+objetos libres, lo cual crea $c+1$ huecos ($\_\,L_1\,\_\,L_2\,\_\cdots L_c\,\_$); colocar los $v$ objetos
+restantes en huecos \emph{distintos} garantiza que ning\'un par queda adyacente. El conteo es
+$(\text{orden de los }c)\cdot\binom{c+1}{v}\cdot(\text{orden de los }v)$, y exige $v\le c+1$.
+
+\medskip
+\textbf{(8) Principio de inclusi\'on--exclusi\'on.} Para conjuntos $A_1,\dots,A_k$,
+\[
+\Big|\bigcup_{i=1}^{k}A_i\Big|
+=\sum_{i}|A_i|-\sum_{i<j}|A_i\cap A_j|+\sum_{i<j<l}|A_i\cap A_j\cap A_l|-\cdots+(-1)^{k+1}\Big|\bigcap_{i=1}^{k}A_i\Big| .
+\]
+Se justifica verificando que un elemento que pertenece a exactamente $t\ge 1$ de los conjuntos se cuenta
+$\binom{t}{1}-\binom{t}{2}+\cdots = 1-(1-1)^t = 1$ vez.
+
+\medskip
+\textbf{(9) Orden relativo prescrito.} Si $k$ objetos \emph{distintos} deben aparecer en un orden relativo
+fijo (por ejemplo, alfab\'etico), se fija el esqueleto (posiciones que ocupar\'an y acomodo de los dem\'as);
+sobre ese esqueleto los $k$ objetos admiten $k!$ repartos y \emph{exactamente uno} respeta el orden pedido.
+Luego el conteo con orden prescrito es $\#\text{total}/k!$; equivalentemente, se eligen las $k$ posiciones
+con $\binom{n}{k}$ y se rellenan de \emph{una} sola manera.
+\end{teo}
+
+\begin{tip}
+\textbf{Formulario y m\'etodo de trabajo de la secci\'on.}
+\begin{itemize}[leftmargin=1.4em]
+\item Permutaci\'on simple de $n$ objetos distintos: $n!$.
+\item Arreglos: $P(n,r)=\dfrac{n!}{(n-r)!}$;\quad selecciones: $\binom{n}{r}=\dfrac{P(n,r)}{r!}$.
+\item Permutaci\'on con repetici\'on: $\dfrac{n!}{n_1!\,n_2!\cdots n_k!}$.
+\item Bloque de $m$ objetos juntos: $(\text{orden de los }n-m+1\text{ objetos})\times(\text{orden interno})$.
+\item Huecos: $(\text{orden de los }c)\times\binom{c+1}{v}\times(\text{orden de los }v)$.
+\item Orden relativo prescrito de $k$ objetos distintos: dividir entre $k!$.
+\item Inclusi\'on--exclusi\'on y complemento para condiciones del tipo ``al menos''.
+\end{itemize}
+
+\medskip
+\textbf{M\'etodo de redacci\'on (el que se sigue en todos los ejercicios).} Se resuelve siempre
+\emph{por etapas}: primero se hace el inventario (cu\'antos objetos hay de cada tipo y cu\'antas casillas se
+llenan), luego se traduce la condici\'on a una restricci\'on sobre posiciones o sobre el conjunto elegido, y
+en seguida se enumeran las \textbf{Etapas} de la construcci\'on, cada una con su factor. Al final se
+multiplican los factores de las etapas (principio del producto) y se concluye con ``con esto hay $N$
+\dots{} con la condici\'on dada''. Cuando la condici\'on no determina una \'unica configuraci\'on, se abre en
+\textbf{Casos} mutuamente excluyentes; cada caso se resuelve por sus propias etapas y al final se
+\emph{suman} los casos (principio de la suma), dejando constancia expl\'icita de que son excluyentes y
+exhaustivos.
+\end{tip}
+
+% ============================================================
+\section*{Ejercicio 44}
+\addcontentsline{toc}{subsection}{Ejercicio 44}
+
+\begin{quote}
+Cu\'antos anagramas tiene la palabra \textbf{PERMUTACION} en las cuales las vocales aparecen en orden
+alfab\'etico? \hfill R/ 30240
+\end{quote}
+
+\begin{paso}{Paso previo --- Inventario de letras y separaci\'on vocal/consonante}
+\textbf{Qu\'e hago:} deletreo la palabra y clasifico cada letra, porque la restricci\'on habla
+exclusivamente de las vocales.
+\[
+\textbf{PERMUTACION}:\quad P,\;E,\;R,\;M,\;U,\;T,\;A,\;C,\;I,\;O,\;N \qquad (n=11\ \text{letras}),
+\]
+\[
+\text{vocales}=\{E,\;U,\;A,\;I,\;O\}\ (5),\qquad
+\text{consonantes}=\{P,\;R,\;M,\;T,\;C,\;N\}\ (6),\qquad 5+6=11 .
+\]
+Ninguna letra se repite: las once son s\'imbolos distintos.
+
+\textbf{¿De d\'onde sale?} De recorrer la palabra letra por letra: P(1), E(2), R(3), M(4), U(5), T(6), A(7),
+C(8), I(9), O(10), N(11). El $11$ es el conteo de esas posiciones; el $5$ y el $6$ salen de separar esa
+lista en vocales y consonantes.
+
+\textbf{¿Por qu\'e?} Porque la f\'ormula aplicable depende del inventario: si hubiera letras repetidas
+habr\'ia que dividir por sus factoriales (herramienta (5)); al no haberlas, cada acomodo distinto produce
+una cadena visiblemente distinta. Adem\'as, la condici\'on ``vocales en orden alfab\'etico'' es una
+condici\'on sobre el \emph{orden relativo} de cinco objetos distintos, que es exactamente el escenario de la
+herramienta (9).
+
+\textbf{¿Qu\'e tomamos?} $n=11$ casillas, $5$ vocales distintas y $6$ consonantes distintas.
+\end{paso}
+
+\begin{paso}{Paso previo --- Traducir ``orden alfab\'etico'' a una restricci\'on sobre posiciones}
+\textbf{Qu\'e hago:} escribo las vocales en orden alfab\'etico y observo qu\'e obliga la condici\'on.
+\[
+A\;<\;E\;<\;I\;<\;O\;<\;U .
+\]
+La condici\'on exige que, al leer el anagrama de izquierda a derecha, las vocales aparezcan justamente en ese
+orden: la vocal que ocupe la primera posici\'on vocal\'ica debe ser $A$, la de la segunda $E$, la tercera
+$I$, la cuarta $O$ y la quinta $U$.
+
+\textbf{¿De d\'onde sale?} Del abecedario espa\~nol aplicado al conjunto $\{A,E,I,O,U\}$ obtenido en el
+inventario.
+
+\textbf{¿Por qu\'e?} Porque una vez elegido \emph{cu\'ales} casillas del anagrama llevan vocal, el conjunto
+de vocales que las llena est\'a fijo (son las cinco de la palabra) y la condici\'on determina completamente
+qu\'e vocal va en cada una: no queda ninguna libertad. Es decir, la restricci\'on convierte una decisi\'on de
+$5!$ opciones en una decisi\'on de $1$ opci\'on.
+
+\textbf{¿Qu\'e tomamos?} Que elegir el conjunto de casillas vocal\'icas determina por completo la
+distribuci\'on de las vocales: hay exactamente $1$ manera de llenarlas. \emph{Se procede por etapas.}
+\end{paso}
+
+\begin{paso}{Etapa 1 --- Escoger las posiciones para las vocales}
+\textbf{Qu\'e hago:} elijo cu\'ales de las $11$ casillas llevar\'an vocal.
+\[
+\text{Etapa 1}\;=\;\underbrace{\binom{11}{5}}_{\substack{\text{5 casillas vocal\'icas}\\ \text{entre las 11}}}
+=\frac{11\cdot10\cdot9\cdot8\cdot7}{5\cdot4\cdot3\cdot2\cdot1}=\frac{55\,440}{120}=462 ,
+\]
+con el numerador $11\cdot 10=110$, $110\cdot 9=990$, $990\cdot 8=7920$, $7920\cdot 7=55\,440$; el
+denominador $5!=120$; y $55\,440/120=462$.
+
+\textbf{¿De d\'onde sale?} El $11$ es el total de casillas y el $5$ el n\'umero de vocales, ambos del
+inventario.
+
+\textbf{¿Por qu\'e?} Se usa $\binom{11}{5}$ y no $P(11,5)$ porque las casillas se eligen como
+\emph{conjunto}: el orden en que se nombren es irrelevante, ya que la Etapa 2 fija qu\'e vocal va en la
+casilla m\'as a la izquierda, cu\'al en la siguiente, etc.
+
+\textbf{¿Qu\'e tomamos?} $462$ maneras de escoger las casillas vocal\'icas.
+\end{paso}
+
+\begin{paso}{Etapa 2 --- Colocar las vocales en las casillas seleccionadas}
+\textbf{Qu\'e hago:} lleno esas cinco casillas respetando el orden alfab\'etico.
+\[
+\text{Etapa 2}\;=\;\underbrace{1}_{\substack{\text{llenado forzado en el orden}\\ A,E,I,O,U\ \text{de izquierda a derecha}}} .
+\]
+
+\textbf{¿De d\'onde sale?} Del paso previo de traducci\'on: el orden alfab\'etico determina univocamente
+qu\'e vocal ocupa cada casilla elegida.
+
+\textbf{¿Por qu\'e?} Porque de los $5!=120$ repartos posibles de las cinco vocales en esas cinco casillas,
+exactamente uno las deja en orden alfab\'etico (herramienta (9)); los otros $119$ violan la condici\'on.
+
+\textbf{¿Qu\'e tomamos?} Factor $1$.
+\end{paso}
+
+\begin{paso}{Etapa 3 --- Colocar las consonantes en los lugares restantes}
+\textbf{Qu\'e hago:} lleno las seis casillas que no fueron elegidas en la Etapa 1.
+\[
+\text{Etapa 3}\;=\;\underbrace{6!}_{\substack{\text{6 consonantes distintas}\\ \text{en 6 casillas distinguibles}}}
+=6\cdot5\cdot4\cdot3\cdot2\cdot1=120\cdot 6=720 .
+\]
+
+\textbf{¿De d\'onde sale?} El $6$ es el n\'umero de consonantes del inventario, que coincide con el de
+casillas sobrantes ($11-5=6$).
+
+\textbf{¿Por qu\'e?} Porque las consonantes son todas distintas y las casillas tambi\'en: hay $6$ candidatas
+para la primera casilla libre, $5$ para la segunda, y as\'i hasta $1$; el producto es $6!=P(6,6)$.
+
+\textbf{¿Qu\'e tomamos?} $720$ maneras.
+\end{paso}
+
+\begin{paso}{Cierre --- Multiplicar las etapas}
+\textbf{Qu\'e hago:} combino las tres etapas con el principio del producto.
+\[
+N\;=\;\underbrace{\binom{11}{5}}_{\text{Etapa 1}}\cdot\underbrace{1}_{\text{Etapa 2}}\cdot\underbrace{6!}_{\text{Etapa 3}}
+\;=\;462\cdot 1\cdot 720 ,
+\]
+\[
+462\cdot 720\;=\;462\cdot 700+462\cdot 20\;=\;323\,400+9240\;=\;332\,640 .
+\]
+Comprobaci\'on por la v\'ia (9): $N=\dfrac{11!}{5!}=\dfrac{39\,916\,800}{120}=332\,640$, pues el total sin
+restricci\'on es $11!$ y los anagramas se agrupan en paquetes de $5!$ de los que sirve uno solo.
+
+\textbf{¿De d\'onde sale?} De los factores de las tres etapas.
+
+\textbf{¿Por qu\'e?} Porque el n\'umero de opciones de cada etapa no depende del resultado de las anteriores
+(actúan sobre casillas y letras disjuntas) y la terna de decisiones reconstruye el anagrama de manera
+\'unica; adem\'as las dos v\'ias de c\'alculo coinciden, lo que valida el procedimiento.
+
+\textbf{¿Qu\'e tomamos?} Con esto, hay $332\,640$ anagramas con la condici\'on dada.
+\end{paso}
+
+\begin{nota}
+\textbf{Discrepancia con la respuesta oficial.} El folleto reporta $30\,240$, pero el desarrollo anterior da
+$332\,640$. La respuesta oficial corresponde a $\dfrac{10!}{5!}=\binom{10}{5}\cdot 5!=252\cdot 120=30\,240$,
+es decir, al conteo de una palabra de \emph{diez} letras distintas con cinco vocales, no de once. Como
+PERMUTACION tiene once letras ($6$ consonantes $P,R,M,T,C,N$ y $5$ vocales $E,U,A,I,O$), el valor correcto
+es $\dfrac{11!}{5!}=332\,640$. Se conserva la respuesta oficial tal como aparece en el folleto y se deja
+constancia de la diferencia.
+\end{nota}
+
+\begin{resp}
+Respuesta oficial del folleto: $\mathbf{30\,240}$. El desarrollo por etapas con la palabra completa da
+$\displaystyle N=\binom{11}{5}\cdot 1\cdot 6!=\frac{11!}{5!}=\mathbf{332\,640}$ anagramas con las vocales en
+orden alfab\'etico (v\'ease la nota de discrepancia).
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 45}
+\addcontentsline{toc}{subsection}{Ejercicio 45}
+
+\begin{quote}
+[3 puntos] Considere la palabra \textbf{EDEPACIEMAC}. Cu\'antos anagramas existen de esta palabra en los
+cuales las vocales esten todas juntas en cualquier orden y las C's est\'an juntas?
+\hfill R/ (sin respuesta oficial)
+\end{quote}
+
+\begin{nota}
+El folleto no consigna respuesta oficial para este ejercicio. Se resuelve completo y el valor obtenido se
+verific\'o adem\'as por enumeraci\'on exhaustiva de las $\frac{11!}{3!\,2!\,2!}=1\,663\,200$ cadenas
+distintas, que confirma el resultado.
+\end{nota}
+
+\begin{paso}{Paso previo --- Inventario de letras con multiplicidades}
+\textbf{Qu\'e hago:} deletreo la palabra y cuento cu\'antas veces aparece cada letra.
+\[
+\textbf{EDEPACIEMAC}:\quad E,\;D,\;E,\;P,\;A,\;C,\;I,\;E,\;M,\;A,\;C \qquad (n=11) .
+\]
+\[
+E:3,\qquad A:2,\qquad C:2,\qquad D:1,\qquad P:1,\qquad I:1,\qquad M:1 ,
+\]
+y en efecto $3+2+2+1+1+1+1=11$.
+
+\textbf{¿De d\'onde sale?} De recorrer la palabra posici\'on por posici\'on: $E$ en las posiciones
+$1,3,8$ (tres veces), $A$ en $5,10$ (dos veces), $C$ en $6,11$ (dos veces), y $D,P,I,M$ una sola vez cada
+una.
+
+\textbf{¿Por qu\'e?} Porque hay letras repetidas, y toda cuenta de cadenas deber\'a usar permutaciones con
+repetici\'on (herramienta (5)): dos acomodos que solo intercambien copias de una misma letra producen la
+\emph{misma} cadena y no deben contarse dos veces.
+
+\textbf{¿Qu\'e tomamos?} $n=11$ letras con multiplicidades $(3,2,2,1,1,1,1)$.
+\end{paso}
+
+\begin{paso}{Paso previo --- Separar vocales y consonantes y leer las dos restricciones}
+\textbf{Qu\'e hago:} clasifico el inventario y traduzco las dos condiciones a restricciones de adyacencia.
+\[
+\text{vocales}:\; E,E,E,A,A,I \quad (6\ \text{letras}),
+\]
+\[
+\text{consonantes}:\; D,\;P,\;M,\;C,\;C \quad (5\ \text{letras}),\qquad 6+5=11 .
+\]
+Restricci\'on 1: las $6$ vocales ocupan $6$ casillas consecutivas, de modo que se toman como \emph{un solo
+car\'acter} $\mathcal{V}$. Restricci\'on 2: las $2$ letras $C$ ocupan $2$ casillas consecutivas, de modo que
+tambi\'en se toman como un solo car\'acter $\mathcal{C}$.
+
+\textbf{¿De d\'onde sale?} De aplicar la definici\'on de vocal a la lista del inventario: de las tres $E$,
+las dos $A$ y la $I$ salen las $6$ vocales; el resto ($D,P,M$ y las dos $C$) son las $5$ consonantes.
+
+\textbf{¿Por qu\'e?} Porque ``estar todas juntas'' significa exactamente ocupar posiciones consecutivas, que
+es la hip\'otesis de la t\'ecnica del bloque (herramienta (6)). Al haber \emph{dos} condiciones de este tipo
+sobre conjuntos de letras disjuntos ($\{E,E,E,A,A,I\}$ y $\{C,C\}$), se pueden formar dos caracteres
+simult\'aneamente sin interferencia.
+
+\textbf{¿Qu\'e tomamos?} Dos caracteres nuevos, $\mathcal{V}$ y $\mathcal{C}$. \emph{Se procede por etapas.}
+\end{paso}
+
+\begin{paso}{Etapa 1 --- Permutar las vocales dentro de su car\'acter}
+\textbf{Qu\'e hago:} cuento las cadenas distintas que se pueden formar dentro de $\mathcal{V}$.
+\[
+\text{Etapa 1}\;=\;\underbrace{\frac{6!}{3!\,2!\,1!}}_{\substack{6\ \text{vocales con}\\ E:3,\;A:2,\;I:1}}
+=\frac{720}{6\cdot 2\cdot 1}=\frac{720}{12}=60 .
+\]
+
+\textbf{¿De d\'onde sale?} Las multiplicidades $3$, $2$, $1$ salen del inventario restringido a las vocales
+($E$ tres veces, $A$ dos veces, $I$ una vez), y $3+2+1=6$ es el largo del car\'acter.
+
+\textbf{¿Por qu\'e?} Por la herramienta (5): al marcar temporalmente las copias, el bloque de $6$ vocales
+tendr\'ia $6!$ arreglos, pero cada cadena visible se produce $3!\cdot 2!\cdot 1!=12$ veces (una por cada
+reasignaci\'on de sub\'indices entre las tres $E$ y entre las dos $A$); dividir corrige ese conteo m\'ultiple.
+
+\textbf{¿Qu\'e tomamos?} $60$ interiores posibles para $\mathcal{V}$.
+\end{paso}
+
+\begin{paso}{Etapa 2 --- Permutar las letras C dentro de su car\'acter}
+\textbf{Qu\'e hago:} cuento los interiores de $\mathcal{C}$.
+\[
+\text{Etapa 2}\;=\;\underbrace{\frac{2!}{2!}}_{\substack{2\ \text{letras }C\\ \text{id\'enticas}}}=\frac{2}{2}=1 .
+\]
+
+\textbf{¿De d\'onde sale?} El $2$ es la multiplicidad de la letra $C$ en el inventario.
+
+\textbf{¿Por qu\'e?} Porque las dos $C$ son copias id\'enticas: los $2!$ arreglos marcados producen la misma
+cadena visible $CC$, as\'i que al dividir queda una sola posibilidad. No hay nada que ordenar dentro de este
+car\'acter.
+
+\textbf{¿Qu\'e tomamos?} Factor $1$.
+\end{paso}
+
+\begin{paso}{Etapa 3 --- Permutar los caracteres con las consonantes sueltas}
+\textbf{Qu\'e hago:} ordeno los objetos que quedan tras pegar los dos bloques.
+\[
+\text{objetos}:\quad \mathcal{V},\;\mathcal{C},\;D,\;P,\;M \qquad\Longrightarrow\qquad 5\ \text{objetos},
+\]
+\[
+\text{Etapa 3}\;=\;\underbrace{5!}_{\substack{\text{orden de}\\ \mathcal{V},\mathcal{C},D,P,M}}
+=5\cdot4\cdot3\cdot2\cdot1=120 .
+\]
+
+\textbf{¿De d\'onde sale?} De las $11$ letras, $6$ se fundieron en $\mathcal{V}$ y $2$ en $\mathcal{C}$,
+quedando $11-6-2=3$ letras sueltas ($D,P,M$); entonces $1+1+3=5$ objetos.
+
+\textbf{¿Por qu\'e?} Porque los cinco objetos son mutuamente distinguibles ($\mathcal{V}$ es el \'unico
+bloque de vocales, $\mathcal{C}$ el \'unico par de $C$, y $D$, $P$, $M$ son letras distintas entre s\'i), de
+modo que se aplica la permutaci\'on simple $5!$ sin denominadores. La correspondencia es biyectiva: dada una
+cadena v\'alida, sus vocales forman un \'unico bloque, sus dos $C$ otro, y las posiciones de $D$, $P$, $M$
+son visibles.
+
+\textbf{¿Qu\'e tomamos?} $120$ acomodos externos.
+\end{paso}
+
+\begin{paso}{Cierre --- Multiplicar las etapas y verificar}
+\textbf{Qu\'e hago:} combino las tres etapas.
+\[
+N\;=\;\underbrace{\frac{6!}{3!\,2!\,1!}}_{\text{Etapa 1}}\cdot\underbrace{\frac{2!}{2!}}_{\text{Etapa 2}}\cdot\underbrace{5!}_{\text{Etapa 3}}
+\;=\;60\cdot 1\cdot 120 ,
+\]
+\[
+60\cdot 120\;=\;6\cdot 12\cdot 100\;=\;72\cdot 100\;=\;7200 .
+\]
+Verificaci\'on de magnitud: el total sin restricciones es
+\[
+\frac{11!}{3!\,2!\,2!}=\frac{39\,916\,800}{6\cdot 2\cdot 2}=\frac{39\,916\,800}{24}=1\,663\,200 ,
+\]
+y $7200\le 1\,663\,200$, con proporci\'on $\approx 0{,}0043$, coherente con lo exigente de la condici\'on.
+
+\textbf{¿De d\'onde sale?} De los factores de las Etapas 1 a 3 y del inventario.
+
+\textbf{¿Por qu\'e?} Por el principio del producto: el interior de cada car\'acter no depende de d\'onde
+quede colocado, y la terna (interior de $\mathcal{V}$, interior de $\mathcal{C}$, orden externo) reconstruye
+la cadena de manera \'unica; rec\'iprocamente, toda cadena que cumple las dos condiciones se descompone
+as\'i de una \'unica forma.
+
+\textbf{¿Qu\'e tomamos?} Con esto, hay $7200$ anagramas con la condici\'on dada.
+\end{paso}
+
+\begin{resp}
+\[
+N=\underbrace{\frac{6!}{3!\,2!\,1!}}_{\text{interior vocal}}\cdot\underbrace{\frac{2!}{2!}}_{\text{interior }CC}\cdot\underbrace{5!}_{\text{objetos }\mathcal{V},\mathcal{C},D,P,M}=60\cdot 1\cdot 120=\mathbf{7200}
+\]
+anagramas de EDEPACIEMAC con todas las vocales juntas y las dos $C$ juntas. (El folleto no trae respuesta
+oficial para este \'item.)
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 46}
+\addcontentsline{toc}{subsection}{Ejercicio 46}
+
+\begin{quote}
+Durante los Juicios de N\'uremberg, los criminales nazis condenados fueron recluidos en 3 prisiones
+distintas, cada una con 7 prisioneros (todos distinguibles). Se decide seleccionar a 10 de ellos para ser
+enviados a ejecuci\'on, con la condici\'on de que todos los prisioneros de por lo menos una prisi\'on sean
+seleccionados. ¿De cu\'antas maneras se puede realizar esta selecci\'on? \hfill R/ 1092
+\end{quote}
+
+\begin{paso}{Paso previo --- Modelar el problema y fijar el inventario}
+\textbf{Qu\'e hago:} defino el conjunto sobre el que se elige y el tama\~no de la selecci\'on.
+\[
+\text{prisiones } \mathcal{P}_1,\mathcal{P}_2,\mathcal{P}_3,\qquad |\mathcal{P}_i|=7,\qquad
+\text{total}=\underbrace{3}_{\text{prisiones}}\cdot\underbrace{7}_{\text{por prisi\'on}}=21\ \text{prisioneros},
+\]
+y se elige un subconjunto $S$ con $|S|=10$.
+
+\textbf{¿De d\'onde sale?} Los n\'umeros $3$ y $7$ del enunciado (``3 prisiones distintas, cada una con 7
+prisioneros''); el $10$ de ``seleccionar a 10 de ellos''.
+
+\textbf{¿Por qu\'e?} Porque los prisioneros son distinguibles y la selecci\'on no tiene orden: se env\'ia un
+\emph{grupo} de $10$, no una lista ordenada. El objeto contado es por tanto un subconjunto de un conjunto de
+$21$ elementos, y la herramienta natural es $\binom{n}{r}$.
+
+\textbf{¿Qu\'e tomamos?} El universo $\{S\subseteq\{1,\dots,21\}:|S|=10\}$.
+\end{paso}
+
+\begin{paso}{Paso previo --- Traducir ``por lo menos una prisi\'on completa'' y justificar que los casos son excluyentes}
+\textbf{Qu\'e hago:} defino, para $i=1,2,3$,
+\[
+A_i \;=\; \{\, S : |S|=10 \text{ y } \mathcal{P}_i \subseteq S \,\},
+\]
+de modo que la condici\'on del enunciado dice $S\in A_1\cup A_2\cup A_3$; y compruebo por
+inclusi\'on--exclusi\'on que los tres sucesos son disjuntos:
+\[
+S\in A_i\cap A_j\ (i\ne j) \;\Longrightarrow\; \mathcal{P}_i\cup\mathcal{P}_j\subseteq S
+\;\Longrightarrow\; |S|\ \ge\ \underbrace{7+7}_{\text{dos prisiones disjuntas}}=14 > 10 ,
+\]
+lo cual es imposible; luego $|A_i\cap A_j|=0$ y con m\'as raz\'on $|A_1\cap A_2\cap A_3|=0$ (exigir\'ia
+$|S|\ge 21$). Entonces
+\[
+N=\Big|\bigcup_{i=1}^{3}A_i\Big|=\sum_{i=1}^{3}|A_i|-\underbrace{\sum_{i<j}|A_i\cap A_j|}_{=0}+\underbrace{|A_1\cap A_2\cap A_3|}_{=0}=\sum_{i=1}^{3}|A_i| .
+\]
+
+\textbf{¿De d\'onde sale?} El $14=7+7$ de que dos prisiones distintas no comparten prisioneros; el
+$21=3\cdot 7$ del inventario; el $10$ del enunciado.
+
+\textbf{¿Por qu\'e?} Porque ``al menos una'' es la uni\'on de los tres sucesos, y sumar sin m\'as ser\'ia
+il\'icito si se traslaparan; la inclusi\'on--exclusi\'on (herramienta (8)) muestra que aqu\'i los traslapes
+son vac\'ios, y por tanto el problema se reduce a \emph{tres casos mutuamente excluyentes} que al final se
+suman (principio de la suma).
+
+\textbf{¿Qu\'e tomamos?} Tres casos excluyentes: Caso $i$ $=$ ``la prisi\'on $\mathcal{P}_i$ va completa''.
+\end{paso}
+
+\begin{paso}{Caso I --- La prisi\'on $\mathcal{P}_i$ va completa (por etapas)}
+\textbf{Qu\'e hago:} resuelvo un caso gen\'erico $i$ (los tres son id\'enticos por simetr\'ia, pues las tres
+prisiones tienen el mismo tama\~no).
+
+\medskip
+\textbf{Etapa 1: seleccionar a los prisioneros de $\mathcal{P}_i$.}
+\[
+\underbrace{\binom{7}{7}}_{\substack{\text{los 7 de }\mathcal{P}_i\\ \text{son obligatorios}}}=1 .
+\]
+\textbf{Etapa 2: seleccionar a los prisioneros restantes de las otras dos prisiones.}
+\[
+\underbrace{\binom{14}{3}}_{\substack{10-7=3\ \text{plazas libres, entre}\\ 21-7=14\ \text{prisioneros ajenos a }\mathcal{P}_i}}
+=\frac{14\cdot 13\cdot 12}{3\cdot 2\cdot 1}=\frac{2184}{6}=364 ,
+\]
+con $14\cdot 13=182$ y $182\cdot 12=2184$.
+
+\medskip
+As\'i, para este caso hay $1\cdot 364=364$ selecciones.
+
+\textbf{¿De d\'onde sale?} El $7$ es el tama\~no de una prisi\'on; el $3$ sale de $10-7=3$ plazas que quedan
+por llenar; el $14$ de $21-7=14$ prisioneros que no pertenecen a $\mathcal{P}_i$.
+
+\textbf{¿Por qu\'e?} Porque si $\mathcal{P}_i\subseteq S$ entonces $7$ de los $10$ elegidos ya est\'an
+determinados (no hay libertad: $\binom{7}{7}=1$) y las $3$ plazas restantes se llenan libremente con
+cualquier subconjunto de tama\~no $3$ de los otros $14$. El producto de las dos etapas es leg\'itimo porque
+las dos partes de $S$ son disjuntas y su uni\'on reconstruye $S$ de forma \'unica.
+
+\textbf{¿Qu\'e tomamos?} $|A_1|=|A_2|=|A_3|=364$.
+\end{paso}
+
+\begin{paso}{Cierre --- Sumar los tres casos excluyentes}
+\textbf{Qu\'e hago:} aplico el principio de la suma sobre los tres casos.
+\[
+N\;=\;\underbrace{|A_1|+|A_2|+|A_3|}_{\text{tres casos excluyentes}}
+\;=\;\underbrace{3}_{\text{prisiones}}\cdot\underbrace{\binom{14}{3}}_{364}
+\;=\;3\cdot 364 ,
+\]
+\[
+3\cdot 364\;=\;3\cdot 300+3\cdot 64\;=\;900+192\;=\;1092 .
+\]
+
+\textbf{¿De d\'onde sale?} El $3$ del n\'umero de prisiones (hay tres casos, todos del mismo tama\~no por
+simetr\'ia); el $364$ del caso resuelto.
+
+\textbf{¿Por qu\'e?} Porque los tres casos son excluyentes (ninguna selecci\'on de $10$ puede contener dos
+prisiones completas, seg\'un se prob\'o) y exhaustivos (la condici\'on exige al menos una prisi\'on
+completa), que es exactamente la hip\'otesis del principio de la suma: cada selecci\'on v\'alida se cuenta
+una sola vez.
+
+\textbf{¿Qu\'e tomamos?} Con esto, hay $1092$ maneras de realizar la selecci\'on, que coincide con la
+respuesta oficial.
+\end{paso}
+
+\begin{resp}
+\[
+N=\underbrace{\binom{3}{1}}_{\text{cu\'al prisi\'on va completa}}\cdot\underbrace{\binom{14}{3}}_{\text{3 plazas libres entre los otros 14}}=3\cdot 364=\mathbf{1092}
+\]
+maneras de realizar la selecci\'on. Coincide con la R/ oficial.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 47}
+\addcontentsline{toc}{subsection}{Ejercicio 47}
+
+\begin{quote}
+Suponga que en una asamblea legislativa hay 16 diputados liberacionistas, 26 socialcristianos y 11
+minoritarios. En Liberaci\'on hay 9 mujeres en la Unidad hay 12 mujeres y en los minoritarios solo 5. Se
+desea formar una comisi\'on de siete diputados. De cu\'antas maneras se puede formar la comisi\'on si
+est\'a formada por:\\
+(a) Tres mujeres y cuatro hombres. \hfill R/ 45630000\\
+(b) Tres mujeres liberacionistas, dos hombres y una mujer socialcristiano y un hombre minoritario.
+\hfill R/ 127008
+\end{quote}
+
+\begin{paso}{Paso previo --- Tabla de inventario de la asamblea}
+\textbf{Qu\'e hago:} organizo los datos en una tabla partido $\times$ sexo, obteniendo los hombres por
+diferencia.
+\[
+\begin{array}{l|c|c|c}
+\text{Partido} & \text{Total} & \text{Mujeres} & \text{Hombres}\\ \hline
+\text{Liberaci\'on} & 16 & 9 & 16-9=7\\
+\text{Unidad (socialcristianos)} & 26 & 12 & 26-12=14\\
+\text{Minoritarios} & 11 & 5 & 11-5=6\\ \hline
+\text{Totales} & 53 & 26 & 27
+\end{array}
+\]
+con $16+26+11=53$, $9+12+5=26$ y $7+14+6=27$, y en efecto $26+27=53$.
+
+\textbf{¿De d\'onde sale?} Los totales $16$, $26$, $11$ y las mujeres $9$, $12$, $5$ vienen textualmente del
+enunciado (``la Unidad'' es el nombre del partido socialcristiano). Los hombres se obtienen restando, porque
+cada diputado es hombre o mujer y no ambas cosas.
+
+\textbf{¿Por qu\'e?} Porque las dos clasificaciones (partido y sexo) parten la asamblea en seis casillas
+disjuntas cuyos tama\~nos son los que aparecen en la tabla; toda selecci\'on se describir\'a diciendo
+cu\'antos se toman de cada casilla, y cada casilla aportar\'a una etapa del conteo.
+
+\textbf{¿Qu\'e tomamos?} La tabla completa, con $26$ mujeres y $27$ hombres en total.
+\end{paso}
+
+\subsection*{(a) Tres mujeres y cuatro hombres}
+
+\begin{paso}{Paso previo --- Traducir la condici\'on a cuotas}
+\textbf{Qu\'e hago:} escribo qu\'e determina la comisi\'on.
+\[
+\text{comisi\'on}=\underbrace{M}_{|M|=3,\ M\subseteq\text{mujeres}}\;\cup\;\underbrace{H}_{|H|=4,\ H\subseteq\text{hombres}},\qquad 3+4=7 .
+\]
+
+\textbf{¿De d\'onde sale?} El $3$ y el $4$ del enunciado del inciso; el $7$ del tama\~no pedido para la
+comisi\'on, y $3+4=7$ confirma que la descripci\'on es completa.
+
+\textbf{¿Por qu\'e?} Porque el inciso no impone ninguna restricci\'on por partido: cualquiera de las $26$
+mujeres y cualquiera de los $27$ hombres puede entrar. No hace falta abrir casos por partido; basta con dos
+etapas.
+
+\textbf{¿Qu\'e tomamos?} Dos etapas: elegir $M$ y elegir $H$. \emph{Se procede por etapas.}
+\end{paso}
+
+\begin{paso}{Etapa 1 --- Seleccionar las tres mujeres}
+\textbf{Qu\'e hago:} elijo $3$ mujeres entre todas las de la asamblea.
+\[
+\text{Etapa 1}\;=\;\underbrace{\binom{26}{3}}_{\substack{3\ \text{mujeres de las}\\ 26\ \text{de la asamblea}}}
+=\frac{26\cdot 25\cdot 24}{3\cdot 2\cdot 1}=\frac{15\,600}{6}=2600 ,
+\]
+con $26\cdot 25=650$ y $650\cdot 24=15\,600$.
+
+\textbf{¿De d\'onde sale?} El $26$ es el total de mujeres de la tabla del inventario; el $3$ es la cuota del
+inciso.
+
+\textbf{¿Por qu\'e?} Se usan combinaciones porque una comisi\'on es un conjunto sin orden interno: nombrar a
+las mismas tres mujeres en otro orden no da una comisi\'on nueva.
+
+\textbf{¿Qu\'e tomamos?} $2600$ maneras.
+\end{paso}
+
+\begin{paso}{Etapa 2 --- Seleccionar los cuatro hombres}
+\textbf{Qu\'e hago:} elijo $4$ hombres entre todos los de la asamblea.
+\[
+\text{Etapa 2}\;=\;\underbrace{\binom{27}{4}}_{\substack{4\ \text{hombres de los}\\ 27\ \text{de la asamblea}}}
+=\frac{27\cdot 26\cdot 25\cdot 24}{4\cdot 3\cdot 2\cdot 1}=\frac{421\,200}{24}=17\,550 ,
+\]
+con $27\cdot 26=702$, $702\cdot 25=17\,550$ y $17\,550\cdot 24=421\,200$.
+
+\textbf{¿De d\'onde sale?} El $27$ es el total de hombres de la tabla; el $4$ es la cuota del inciso.
+
+\textbf{¿Por qu\'e?} Porque el conjunto de hombres es disjunto del de mujeres, de modo que esta etapa
+dispone de las mismas $\binom{27}{4}$ opciones cualquiera que haya sido el resultado de la Etapa 1
+(constancia), requisito del principio del producto.
+
+\textbf{¿Qu\'e tomamos?} $17\,550$ maneras.
+\end{paso}
+
+\begin{paso}{Cierre (a) --- Multiplicar las etapas}
+\textbf{Qu\'e hago:} multiplico los factores de las dos etapas.
+\[
+N_a\;=\;\underbrace{\binom{26}{3}}_{\text{Etapa 1}}\cdot\underbrace{\binom{27}{4}}_{\text{Etapa 2}}
+\;=\;2600\cdot 17\,550 ,
+\]
+\[
+2600\cdot 17\,550\;=\;26\cdot 17\,550\cdot 100\;=\;456\,300\cdot 100\;=\;45\,630\,000 ,
+\]
+donde $26\cdot 17\,550 = 20\cdot 17\,550 + 6\cdot 17\,550 = 351\,000+105\,300 = 456\,300$.
+
+\textbf{¿De d\'onde sale?} De las Etapas 1 y 2.
+
+\textbf{¿Por qu\'e?} Porque el par $(M,H)$ determina la comisi\'on de forma \'unica: dada la comisi\'on se
+recuperan $M$ y $H$ separando por sexo, lo que cierra la biyecci\'on exigida por el principio del producto.
+
+\textbf{¿Qu\'e tomamos?} Con esto, hay $45\,630\,000$ comisiones con la condici\'on dada.
+\end{paso}
+
+\subsection*{(b) Tres mujeres liberacionistas, dos hombres y una mujer socialcristiano, un hombre minoritario}
+
+\begin{paso}{Paso previo --- Leer la composici\'on exacta por casilla}
+\textbf{Qu\'e hago:} traduzco la frase a un vector de cuotas sobre la tabla del inventario.
+\[
+\begin{array}{l|c|c}
+\text{Casilla} & \text{Disponibles} & \text{Se eligen}\\ \hline
+\text{mujeres de Liberaci\'on} & 9 & 3\\
+\text{hombres de Liberaci\'on} & 7 & 2\\
+\text{mujeres socialcristianas} & 12 & 1\\
+\text{hombres minoritarios} & 6 & 1\\ \hline
+& & 3+2+1+1=7
+\end{array}
+\]
+
+\textbf{¿De d\'onde sale?} Los disponibles $9$, $7$, $12$, $6$ salen de la tabla del inventario; las
+cantidades $3,2,1,1$ de la frase del inciso, y su suma $7$ coincide con el tama\~no de la comisi\'on, lo que
+confirma que la descripci\'on cubre a todos sus integrantes.
+
+\textbf{¿Por qu\'e?} Porque la comisi\'on queda completamente descrita al decir cu\'antos se toman de cada
+casilla disjunta; cada casilla es entonces una etapa independiente.
+
+\textbf{¿Qu\'e tomamos?} Cuatro etapas, una por casilla. \emph{Se procede por etapas.}
+\end{paso}
+
+\begin{paso}{Etapas 1 a 4 --- Una etapa por casilla}
+\textbf{Qu\'e hago:} escribo y eval\'uo el factor de cada etapa.
+
+\medskip
+\textbf{Etapa 1: seleccionar las tres mujeres liberacionistas.}
+\[
+\underbrace{\binom{9}{3}}_{\substack{3\ \text{de las 9 mujeres}\\ \text{de Liberaci\'on}}}=\frac{9\cdot 8\cdot 7}{3\cdot 2\cdot 1}=\frac{504}{6}=84 .
+\]
+\textbf{Etapa 2: seleccionar los dos hombres liberacionistas.}
+\[
+\underbrace{\binom{7}{2}}_{\substack{2\ \text{de los 7 hombres}\\ \text{de Liberaci\'on}}}=\frac{7\cdot 6}{2\cdot 1}=\frac{42}{2}=21 .
+\]
+\textbf{Etapa 3: seleccionar la mujer socialcristiana.}
+\[
+\underbrace{\binom{12}{1}}_{\substack{1\ \text{de las 12 mujeres}\\ \text{socialcristianas}}}=12 .
+\]
+\textbf{Etapa 4: seleccionar el hombre minoritario.}
+\[
+\underbrace{\binom{6}{1}}_{\substack{1\ \text{de los 6 hombres}\\ \text{minoritarios}}}=6 .
+\]
+
+\textbf{¿De d\'onde sale?} Cada par (arriba, abajo) sale de una fila de la tabla de cuotas.
+
+\textbf{¿Por qu\'e?} Porque $\binom{n}{1}=n$ por la propia definici\'on, y las otras dos combinaciones se
+eval\'uan con $\binom{n}{r}=P(n,r)/r!$, que es el argumento de simetr\'ia de la herramienta (4). Las cuatro
+casillas son disjuntas: ning\'un diputado pertenece a dos de ellas, de modo que la elecci\'on hecha en una
+no altera las opciones de otra.
+
+\textbf{¿Qu\'e tomamos?} Factores $84$, $21$, $12$ y $6$.
+\end{paso}
+
+\begin{paso}{Cierre (b) --- Multiplicar las etapas}
+\textbf{Qu\'e hago:} multiplico paso a paso.
+\[
+N_b\;=\;\underbrace{\binom{9}{3}}_{\text{Etapa 1}}\cdot\underbrace{\binom{7}{2}}_{\text{Etapa 2}}\cdot\underbrace{\binom{12}{1}}_{\text{Etapa 3}}\cdot\underbrace{\binom{6}{1}}_{\text{Etapa 4}}
+\;=\;84\cdot 21\cdot 12\cdot 6 ,
+\]
+\[
+84\cdot 21 = 84\cdot 20+84 = 1680+84 = 1764;\qquad
+1764\cdot 12 = 17\,640+3528 = 21\,168;
+\]
+\[
+21\,168\cdot 6 = 126\,000+1008 = 127\,008 .
+\]
+
+\textbf{¿De d\'onde sale?} De las cuatro etapas anteriores.
+
+\textbf{¿Por qu\'e?} Porque la cu\'adrupla de subconjuntos reconstruye la comisi\'on de forma \'unica
+(biyecci\'on) y el n\'umero de opciones de cada etapa no depende de las otras (constancia): las dos
+condiciones del principio del producto.
+
+\textbf{¿Qu\'e tomamos?} Con esto, hay $127\,008$ comisiones con la condici\'on dada.
+\end{paso}
+
+\begin{nota}
+\textbf{Sobre la lectura del inciso (b).} La frase ``\emph{dos hombres y una mujer socialcristiano}'' es
+ambigua: el adjetivo puede leerse como calificando solo a la mujer o tambi\'en a los dos hombres. La
+respuesta oficial $127\,008$ corresponde a la primera lectura, en la que los \emph{dos hombres son
+liberacionistas} (Etapa 2 con $\binom{7}{2}=21$), que es la desarrollada arriba. Si en cambio se leyera que
+los dos hombres son socialcristianos, esa etapa ser\'ia
+$\binom{14}{2}=\frac{14\cdot 13}{2}=91$ y el resultado
+\[
+\binom{9}{3}\binom{14}{2}\binom{12}{1}\binom{6}{1}=84\cdot 91\cdot 12\cdot 6=550\,368 ,
+\]
+que no coincide con el folleto. Se conserva la respuesta oficial y se deja constancia de la lectura
+alternativa.
+\end{nota}
+
+\begin{resp}
+(a) $\displaystyle \binom{26}{3}\binom{27}{4}=2600\cdot 17\,550=\mathbf{45\,630\,000}$ comisiones.\\[4pt]
+(b) $\displaystyle \binom{9}{3}\binom{7}{2}\binom{12}{1}\binom{6}{1}=84\cdot 21\cdot 12\cdot 6=\mathbf{127\,008}$ comisiones.\\
+Ambas coinciden con las R/ oficiales.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 48}
+\addcontentsline{toc}{subsection}{Ejercicio 48}
+
+\begin{quote}
+En una urna hay 6 colores de bolas: negro, blanco, rojo, azul, verde y amarillo. De cada color hay 7 bolas.
+¿De cu\'antas maneras se pueden elegir 4 bolas de manera que todas sean de colores diferentes?
+\hfill R/ 36015
+\end{quote}
+
+\begin{paso}{Paso previo --- Inventario y modelo}
+\textbf{Qu\'e hago:} fijo los par\'ametros del problema.
+\[
+\text{colores}:\;6,\qquad \text{bolas por color}:\;7,\qquad
+\text{total}=\underbrace{6}_{\text{colores}}\cdot\underbrace{7}_{\text{por color}}=42\ \text{bolas},
+\qquad \text{se eligen}:\;4 .
+\]
+
+\textbf{¿De d\'onde sale?} Los $6$ colores est\'an listados en el enunciado (negro, blanco, rojo, azul,
+verde, amarillo) y ``de cada color hay 7 bolas'' da el $7$; el $4$ de ``elegir 4 bolas''.
+
+\textbf{¿Por qu\'e?} Porque las bolas de un mismo color se consideran objetos distinguibles (son $7$ bolas
+f\'isicas distintas), de modo que el universo es un conjunto de $42$ objetos y la elecci\'on es un
+subconjunto de tama\~no $4$; la restricci\'on ``colores diferentes'' limita cu\'ales subconjuntos valen.
+
+\textbf{¿Qu\'e tomamos?} $6$ clases de $7$ bolas cada una y una selecci\'on de tama\~no $4$.
+\end{paso}
+
+\begin{paso}{Paso previo --- Traducir ``todas de colores diferentes''}
+\textbf{Qu\'e hago:} describo la selecci\'on como un par.
+\[
+\text{selecci\'on v\'alida}\;\longleftrightarrow\;
+\Big(\underbrace{\{c_1,c_2,c_3,c_4\}}_{\text{4 colores distintos}},\;
+\underbrace{(b_1,b_2,b_3,b_4)}_{b_i\ \text{bola del color}\ c_i}\Big) .
+\]
+
+\textbf{¿De d\'onde sale?} De la condici\'on ``todas sean de colores diferentes'': si los cuatro colores son
+distintos, cada color elegido aporta exactamente una bola.
+
+\textbf{¿Por qu\'e?} Porque la correspondencia es biyectiva: dada una selecci\'on v\'alida de $4$ bolas, sus
+colores son cuatro y distintos, y dentro de cada color hay una sola bola elegida; rec\'iprocamente, todo par
+de esa forma produce una selecci\'on v\'alida distinta. Esa biyecci\'on es la que autoriza el conteo por
+etapas.
+
+\textbf{¿Qu\'e tomamos?} Dos etapas. \emph{Se procede por etapas.}
+\end{paso}
+
+\begin{paso}{Etapa 1 --- Escoger los cuatro colores que participan}
+\textbf{Qu\'e hago:} elijo el conjunto de colores.
+\[
+\text{Etapa 1}\;=\;\underbrace{\binom{6}{4}}_{\substack{\text{4 colores}\\ \text{entre los 6}}}
+=\binom{6}{2}=\frac{6\cdot 5}{2\cdot 1}=\frac{30}{2}=15 ,
+\]
+usando $\binom{n}{r}=\binom{n}{n-r}$, que se comprueba intercambiando $r$ por $n-r$ en
+$\frac{n!}{r!(n-r)!}$.
+
+\textbf{¿De d\'onde sale?} El $6$ y el $4$ del inventario.
+
+\textbf{¿Por qu\'e?} Se usa $\binom{6}{4}$ y no $P(6,4)$ porque los colores se eligen como conjunto: las
+cuatro bolas forman un grupo sin orden, as\'i que nombrar los colores en distinto orden no genera
+selecciones nuevas.
+
+\textbf{¿Qu\'e tomamos?} $15$ conjuntos de colores.
+\end{paso}
+
+\begin{paso}{Etapa 2 --- Escoger una bola dentro de cada color elegido}
+\textbf{Qu\'e hago:} designo el representante de cada uno de los cuatro colores.
+\[
+\text{Etapa 2}\;=\;\underbrace{7^4}_{\substack{7\ \text{opciones en cada uno}\\ \text{de los 4 colores}}}
+=7\cdot 7\cdot 7\cdot 7=\underbrace{49}_{7^2}\cdot\underbrace{49}_{7^2}=2401 ,
+\]
+con $49\cdot 49=49\cdot 50-49=2450-49=2401$.
+
+\textbf{¿De d\'onde sale?} El $7$ es el n\'umero de bolas por color y el exponente $4$ el n\'umero de
+colores elegidos en la Etapa 1.
+
+\textbf{¿Por qu\'e?} Porque las clases de color son disjuntas: elegir una bola dentro de un color no reduce
+ni aumenta las opciones dentro de otro, de modo que se dispone de $7$ opciones en cada uno de los cuatro
+colores, independientemente de lo elegido antes.
+
+\textbf{¿Qu\'e tomamos?} $2401$ maneras.
+\end{paso}
+
+\begin{paso}{Cierre --- Multiplicar las etapas}
+\textbf{Qu\'e hago:} combino ambas etapas.
+\[
+N\;=\;\underbrace{\binom{6}{4}}_{\text{Etapa 1}}\cdot\underbrace{7^4}_{\text{Etapa 2}}
+\;=\;15\cdot 2401\;=\;10\cdot 2401+5\cdot 2401\;=\;24\,010+12\,005\;=\;36\,015 .
+\]
+
+\textbf{¿De d\'onde sale?} De las Etapas 1 y 2.
+
+\textbf{¿Por qu\'e?} Por el principio del producto, cuyas dos hip\'otesis (constancia y biyecci\'on) fueron
+verificadas en los pasos previos.
+
+\textbf{¿Qu\'e tomamos?} Con esto, hay $36\,015$ maneras de elegir las bolas con la condici\'on dada, que
+coincide con la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+\[
+N=\underbrace{\binom{6}{4}}_{\text{colores}}\cdot\underbrace{7^4}_{\text{una bola por color}}=15\cdot 2401=\mathbf{36\,015}
+\]
+maneras de elegir $4$ bolas de colores todos diferentes. Coincide con la R/ oficial.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 49}
+\addcontentsline{toc}{subsection}{Ejercicio 49}
+
+\begin{quote}
+En el contexto de la predicaci\'on de Jesucristo, se considera un grupo de seguidores organizados en 8
+comunidades distintas, cada una asociada simb\'olicamente a una ense\~nanza transmitida por los ap\'ostoles.
+En cada comunidad hay 5 disc\'ipulos (todos distinguibles). ¿De cu\'antas maneras se pueden elegir 3
+disc\'ipulos de modo que provengan de comunidades diferentes? \hfill R/ 7000
+\end{quote}
+
+\begin{paso}{Paso previo --- Inventario y traducci\'on de la condici\'on}
+\textbf{Qu\'e hago:} fijo los par\'ametros y describo la selecci\'on como un par.
+\[
+\text{comunidades}:\;8,\qquad \text{disc\'ipulos por comunidad}:\;5,\qquad
+\text{total}=8\cdot 5=40,\qquad \text{se eligen}:\;3 ,
+\]
+\[
+\text{selecci\'on v\'alida}\;\longleftrightarrow\;
+\Big(\underbrace{\{k_1,k_2,k_3\}}_{\text{3 comunidades distintas}},\;
+\underbrace{(d_1,d_2,d_3)}_{d_i\ \text{disc\'ipulo de la comunidad}\ k_i}\Big) .
+\]
+
+\textbf{¿De d\'onde sale?} Del enunciado: ``8 comunidades distintas'', ``en cada comunidad hay 5
+disc\'ipulos (todos distinguibles)'' y ``elegir 3 disc\'ipulos''; el par sale de la condici\'on ``provengan
+de comunidades diferentes'', que obliga a que cada comunidad elegida aporte exactamente un disc\'ipulo.
+
+\textbf{¿Por qu\'e?} Porque la estructura es id\'entica a la del ejercicio anterior: un universo partido en
+clases disjuntas del mismo tama\~no, del que se elige un subconjunto con a lo sumo un elemento por clase. La
+correspondencia con el par es biyectiva, lo que autoriza el conteo por etapas.
+
+\textbf{¿Qu\'e tomamos?} Dos etapas. \emph{Se procede por etapas.}
+\end{paso}
+
+\begin{paso}{Etapa 1 --- Escoger las tres comunidades}
+\textbf{Qu\'e hago:} elijo el conjunto de comunidades de procedencia.
+\[
+\text{Etapa 1}\;=\;\underbrace{\binom{8}{3}}_{\substack{\text{3 comunidades}\\ \text{entre las 8}}}
+=\frac{8\cdot 7\cdot 6}{3\cdot 2\cdot 1}=\frac{336}{6}=56 ,
+\]
+con $8\cdot 7=56$ y $56\cdot 6=336$.
+
+\textbf{¿De d\'onde sale?} El $8$ y el $3$ del inventario.
+
+\textbf{¿Por qu\'e?} Se usa $\binom{8}{3}$ y no $P(8,3)=336$ porque los tres disc\'ipulos forman un grupo sin
+orden; por el argumento de simetr\'ia, $P(8,3)/3!=336/6=56$ es exactamente el n\'umero de conjuntos de tres
+comunidades.
+
+\textbf{¿Qu\'e tomamos?} $56$ conjuntos de comunidades.
+\end{paso}
+
+\begin{paso}{Etapa 2 --- Escoger un disc\'ipulo dentro de cada comunidad elegida}
+\textbf{Qu\'e hago:} designo el representante de cada comunidad.
+\[
+\text{Etapa 2}\;=\;\underbrace{5^3}_{\substack{5\ \text{opciones en cada una}\\ \text{de las 3 comunidades}}}
+=5\cdot 5\cdot 5=25\cdot 5=125 .
+\]
+
+\textbf{¿De d\'onde sale?} El $5$ es el n\'umero de disc\'ipulos por comunidad y el exponente $3$ el
+n\'umero de comunidades elegidas.
+
+\textbf{¿Por qu\'e?} Porque las comunidades son disjuntas (cada disc\'ipulo pertenece a una sola), de modo
+que la elecci\'on en una no altera las opciones de otra: se cumple la constancia exigida por el principio
+del producto.
+
+\textbf{¿Qu\'e tomamos?} $125$ maneras.
+\end{paso}
+
+\begin{paso}{Cierre --- Multiplicar las etapas}
+\textbf{Qu\'e hago:} combino las dos etapas.
+\[
+N\;=\;\underbrace{\binom{8}{3}}_{\text{Etapa 1}}\cdot\underbrace{5^3}_{\text{Etapa 2}}
+\;=\;56\cdot 125\;=\;56\cdot 100+56\cdot 25\;=\;5600+1400\;=\;7000 .
+\]
+
+\textbf{¿De d\'onde sale?} De las Etapas 1 y 2.
+
+\textbf{¿Por qu\'e?} Por el principio del producto, con la biyecci\'on establecida en el paso previo.
+
+\textbf{¿Qu\'e tomamos?} Con esto, hay $7000$ maneras de elegir los tres disc\'ipulos con la condici\'on
+dada, que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+\[
+N=\underbrace{\binom{8}{3}}_{\text{comunidades}}\cdot\underbrace{5^3}_{\text{un disc\'ipulo por comunidad}}=56\cdot 125=\mathbf{7000}
+\]
+maneras de elegir los tres disc\'ipulos. Coincide con la R/ oficial.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 50}
+\addcontentsline{toc}{subsection}{Ejercicio 50}
+
+\begin{quote}
+En una final ol\'impica de nataci\'on participan 3 nadadores campeones, 3 medallistas de plata y 5
+medallistas de bronce, todos distinguibles. Los 11 nadadores se asignan a carriles alineados de izquierda a
+derecha. ¿De cu\'antas maneras pueden ordenarse los nadadores si los 3 campeones deben ocupar carriles
+consecutivos y, a la derecha de ellos, deben ubicarse exactamente 1 nadador de plata y 2 de bronce, en
+cualquier orden? \hfill R/ 129600
+\end{quote}
+
+\begin{paso}{Paso previo --- Inventario de nadadores y de carriles}
+\textbf{Qu\'e hago:} fijo cu\'antos nadadores hay de cada tipo y cu\'antas casillas se llenan.
+\[
+\text{campeones }C:\;3,\qquad \text{plata }P:\;3,\qquad \text{bronce }B:\;5,
+\]
+\[
+\text{total}=3+3+5=11=\text{n\'umero de carriles}.
+\]
+Todos los nadadores son distinguibles entre s\'i, incluso dentro de un mismo tipo.
+
+\textbf{¿De d\'onde sale?} Del enunciado: ``3 nadadores campeones, 3 medallistas de plata y 5 medallistas de
+bronce, todos distinguibles'' y ``los 11 nadadores se asignan a carriles''.
+
+\textbf{¿Por qu\'e?} Porque al ser todos distinguibles no habr\'a divisiones por factoriales
+(la herramienta (5) no interviene): cada asignaci\'on distinta de nadadores a carriles es un arreglo
+distinto. Los tipos solo sirven para expresar las restricciones.
+
+\textbf{¿Qu\'e tomamos?} $11$ casillas ordenadas y $11$ nadadores distinguibles con tipos $3C$, $3P$, $5B$.
+\end{paso}
+
+\begin{paso}{Paso previo --- Traducir las condiciones a una restricci\'on sobre posiciones}
+\textbf{Qu\'e hago:} determino qu\'e carriles puede ocupar el bloque de campeones. Sea $j$ el carril del
+primer campe\'on, de modo que el bloque ocupa $j,\,j+1,\,j+2$; a su derecha quedan $11-(j+2)=9-j$ carriles y
+la condici\'on obliga a que sean exactamente $3$:
+\[
+9-j\;=\;\underbrace{1}_{\text{plata}}+\underbrace{2}_{\text{bronce}}\;=\;3
+\qquad\Longrightarrow\qquad j=6 ,
+\]
+\[
+\text{estructura}:\quad \underbrace{\square\,\square\,\square\,\square\,\square}_{\text{carriles }1..5}\;\big|\;\underbrace{C\,C\,C}_{\text{carriles }6,7,8}\;\big|\;\underbrace{\square\,\square\,\square}_{\text{carriles }9,10,11} .
+\]
+
+\textbf{¿De d\'onde sale?} El $3$ del tama\~no del bloque; el $11$ del total de carriles; el $1$ y el $2$ de
+la composici\'on exigida a la derecha.
+
+\textbf{¿Por qu\'e?} Porque ``exactamente 1 de plata y 2 de bronce a la derecha'' no solo dice qui\'enes van
+a la derecha sino \emph{cu\'antos}: si hubiera un cuarto nadador a la derecha, ser\'ia de plata o de bronce y
+violar\'ia el ``exactamente''. Esto convierte la condici\'on verbal en la ecuaci\'on lineal $9-j=3$, cuya
+soluci\'on \'unica fija la posici\'on del bloque; en consecuencia el factor ``posiciones del bloque'' vale
+$1$, no $9$.
+
+\textbf{¿Qu\'e tomamos?} La estructura de carriles $5+3+3=11$ ya fijada. \emph{Se procede por etapas.}
+\end{paso}
+
+\begin{paso}{Etapa 1 --- Ubicar el bloque de campeones y ordenarlo internamente}
+\textbf{Qu\'e hago:} coloco el bloque (posici\'on forzada) y ordeno a los tres campeones dentro de \'el.
+\[
+\text{Etapa 1}\;=\;\underbrace{1}_{\substack{\text{posici\'on del bloque:}\\ \text{carriles }6,7,8}}
+\cdot\underbrace{3!}_{\substack{\text{3 campeones distinguibles}\\ \text{en 3 carriles}}}=1\cdot 6=6 .
+\]
+
+\textbf{¿De d\'onde sale?} El $1$ del paso previo; el $3!$ del n\'umero de campeones, que coincide con el de
+carriles del bloque.
+
+\textbf{¿Por qu\'e?} Porque los campeones son distinguibles y los tres carriles tambi\'en: se trata de una
+permutaci\'on simple $P(3,3)=3!$. El enunciado exige que est\'en juntos, pero no impone orden interno.
+
+\textbf{¿Qu\'e tomamos?} $6$ maneras.
+\end{paso}
+
+\begin{paso}{Etapa 2 --- Escoger qui\'enes se ubican a la derecha del bloque}
+\textbf{Qu\'e hago:} selecciono el nadador de plata y los dos de bronce que ir\'an en los carriles $9,10,11$.
+\[
+\text{Etapa 2}\;=\;\underbrace{\binom{3}{1}}_{\substack{\text{cu\'al de los 3}\\ \text{de plata}}}
+\cdot\underbrace{\binom{5}{2}}_{\substack{\text{cu\'ales 2 de los}\\ 5\ \text{de bronce}}}
+=3\cdot\frac{5\cdot 4}{2\cdot 1}=3\cdot 10=30 .
+\]
+
+\textbf{¿De d\'onde sale?} El $3$ y el $5$ de arriba son los totales de medallistas de plata y bronce del
+inventario; el $1$ y el $2$ de abajo, la composici\'on exigida.
+
+\textbf{¿Por qu\'e?} Se separan ``qui\'enes'' y ``en qu\'e orden'' porque el enunciado dice ``en cualquier
+orden'': la condici\'on restringe la \emph{composici\'on} del tramo derecho, no su disposici\'on; por eso
+esta etapa usa combinaciones.
+
+\textbf{¿Qu\'e tomamos?} $30$ maneras.
+\end{paso}
+
+\begin{paso}{Etapa 3 --- Ordenar a esos tres nadadores en los carriles 9, 10 y 11}
+\textbf{Qu\'e hago:} distribuyo a los tres seleccionados entre las tres casillas de la derecha.
+\[
+\text{Etapa 3}\;=\;\underbrace{3!}_{\substack{\text{3 nadadores distinguibles}\\ \text{en los carriles }9,10,11}}=6 .
+\]
+
+\textbf{¿De d\'onde sale?} El $3$ es la cantidad de carriles a la derecha, seg\'un la estructura fijada.
+
+\textbf{¿Por qu\'e?} Porque una vez elegido el conjunto de tres nadadores, los tres son distinguibles y las
+tres casillas tambi\'en, y el enunciado permite cualquier orden entre ellos; corresponde $P(3,3)=3!$.
+
+\textbf{¿Qu\'e tomamos?} $6$ maneras.
+\end{paso}
+
+\begin{paso}{Etapa 4 --- Ordenar el resto en los carriles 1 a 5}
+\textbf{Qu\'e hago:} cuento los nadadores sobrantes y sus arreglos.
+\[
+\text{sobran}=\underbrace{3-1}_{\text{plata}}+\underbrace{5-2}_{\text{bronce}}=2+3=5 ,
+\]
+\[
+\text{Etapa 4}\;=\;\underbrace{5!}_{\substack{\text{5 nadadores restantes}\\ \text{en los carriles }1..5}}=5\cdot4\cdot3\cdot2\cdot1=120 .
+\]
+
+\textbf{¿De d\'onde sale?} Las restas $3-1$ y $5-2$ descuentan a los ya ubicados en la Etapa 2; el $5$ de
+carriles, de la estructura fijada.
+
+\textbf{¿Por qu\'e?} Porque el resto se ubica sin restricci\'on adicional, siendo todos distinguibles y las
+cinco casillas tambi\'en. Que sobren exactamente $5$ nadadores para $5$ carriles confirma que la partici\'on
+$5+3+3=11$ es correcta.
+
+\textbf{¿Qu\'e tomamos?} $120$ maneras.
+\end{paso}
+
+\begin{paso}{Cierre --- Multiplicar las etapas}
+\textbf{Qu\'e hago:} reuno los factores de las cuatro etapas.
+\[
+N\;=\;\underbrace{1\cdot 3!}_{\text{Etapa 1}}\cdot\underbrace{\binom{3}{1}\binom{5}{2}}_{\text{Etapa 2}}\cdot\underbrace{3!}_{\text{Etapa 3}}\cdot\underbrace{5!}_{\text{Etapa 4}}
+\;=\;6\cdot 30\cdot 6\cdot 120 .
+\]
+Paso a paso: $6\cdot 30=180$; $180\cdot 6=1080$; $1080\cdot 120 = 1080\cdot 100+1080\cdot 20 =
+108\,000+21\,600 = 129\,600$.
+
+\textbf{¿De d\'onde sale?} De las Etapas 1 a 4.
+
+\textbf{¿Por qu\'e?} Porque las cuatro etapas actúan sobre conjuntos disjuntos de carriles y de nadadores
+(constancia) y su combinaci\'on determina la fila completa de manera \'unica; rec\'iprocamente, toda fila
+v\'alida se descompone as\'i de una sola forma (biyecci\'on).
+
+\textbf{¿Qu\'e tomamos?} Con esto, hay $129\,600$ \'ordenes con la condici\'on dada, que coincide con la
+respuesta oficial.
+\end{paso}
+
+\begin{resp}
+\[
+N=\underbrace{1}_{\text{bloque en }6,7,8}\cdot\underbrace{3!}_{\text{interior}}\cdot\underbrace{\binom{3}{1}\binom{5}{2}}_{\text{qui\'enes a la derecha}}\cdot\underbrace{3!}_{\text{orden a la derecha}}\cdot\underbrace{5!}_{\text{resto a la izquierda}}
+\]
+\[
+=6\cdot 30\cdot 6\cdot 120=\mathbf{129\,600}
+\]
+\'ordenes posibles. Coincide con la R/ oficial.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 51}
+\addcontentsline{toc}{subsection}{Ejercicio 51}
+
+\begin{quote}
+En una competencia final de ciclismo ol\'impico participan 2 ciclistas campeones, 4 medallistas de plata y 4
+medallistas de bronce, todos distinguibles. Los 10 ciclistas se colocan en posiciones alineadas de izquierda
+a derecha. ¿De cu\'antas maneras pueden ordenarse los ciclistas si los 2 campeones deben ocupar posiciones
+consecutivas y, a la derecha de ellos, deben ubicarse exactamente 2 medallistas de plata seguidos de 1
+medallista de bronce, respetando ese orden? El resto de los ciclistas se ubica a la izquierda, en cualquier
+orden. \hfill R/ 11520
+\end{quote}
+
+\begin{paso}{Paso previo --- Inventario de ciclistas y de posiciones}
+\textbf{Qu\'e hago:} fijo los datos.
+\[
+\text{campeones }C:\;2,\qquad \text{plata }P:\;4,\qquad \text{bronce }B:\;4,
+\]
+\[
+\text{total}=2+4+4=10=\text{n\'umero de posiciones}.
+\]
+Todos son distinguibles.
+
+\textbf{¿De d\'onde sale?} Del enunciado: ``2 ciclistas campeones, 4 medallistas de plata y 4 medallistas de
+bronce, todos distinguibles'' y ``los 10 ciclistas''.
+
+\textbf{¿Por qu\'e?} Porque al ser distinguibles, todos los arreglos que difieran en qui\'en ocupa cada
+posici\'on son distintos y no hay que dividir por ning\'un factorial.
+
+\textbf{¿Qu\'e tomamos?} $10$ casillas ordenadas y $10$ ciclistas distinguibles con tipos $2C$, $4P$, $4B$.
+\end{paso}
+
+\begin{paso}{Paso previo --- Traducir las condiciones a una restricci\'on sobre posiciones}
+\textbf{Qu\'e hago:} localizo el bloque de campeones y el patr\'on del tramo derecho. Si el bloque ocupa las
+posiciones $j,\,j+1$, a su derecha quedan $10-(j+1)=9-j$ posiciones y se exige que sean exactamente
+$2+1=3$:
+\[
+9-j\;=\;\underbrace{2}_{\text{plata}}+\underbrace{1}_{\text{bronce}}\;=\;3
+\qquad\Longrightarrow\qquad j=6 ,
+\]
+\[
+\text{estructura}:\quad \underbrace{\square\,\square\,\square\,\square\,\square}_{\text{posiciones }1..5}\;\big|\;\underbrace{C\,C}_{6,7}\;\big|\;\underbrace{P}_{8}\;\underbrace{P}_{9}\;\underbrace{B}_{10} .
+\]
+
+\textbf{¿De d\'onde sale?} El $2$ del tama\~no del bloque, el $10$ del total de posiciones, y el $2$ y el $1$
+de la composici\'on exigida a la derecha.
+
+\textbf{¿Por qu\'e?} Porque ``exactamente'' fija el n\'umero de ciclistas a la derecha (si hubiera un cuarto,
+sobrar\'ia), lo que da la ecuaci\'on $9-j=3$ con soluci\'on \'unica $j=6$; y porque ``respetando ese orden''
+elimina la libertad de permutar los tipos dentro del tramo derecho: a diferencia del Ejercicio 50, aqu\'i el
+patr\'on $P,P,B$ est\'a impuesto y \emph{no} se multiplica por $3!$.
+
+\textbf{¿Qu\'e tomamos?} La estructura $5+2+3=10$ ya fijada. \emph{Se procede por etapas.}
+\end{paso}
+
+\begin{paso}{Etapa 1 --- Ubicar el bloque de campeones y ordenarlo internamente}
+\textbf{Qu\'e hago:} coloco el bloque (posici\'on forzada) y ordeno a los dos campeones.
+\[
+\text{Etapa 1}\;=\;\underbrace{1}_{\substack{\text{posici\'on del bloque:}\\ \text{casillas }6,7}}
+\cdot\underbrace{2!}_{\substack{\text{2 campeones distinguibles}\\ \text{en 2 casillas}}}=1\cdot 2=2 .
+\]
+
+\textbf{¿De d\'onde sale?} El $1$ del paso previo; el $2!$ del n\'umero de campeones.
+
+\textbf{¿Por qu\'e?} Porque el enunciado exige que est\'en juntos pero no dice en qu\'e orden; siendo
+distinguibles, los dos \'ordenes posibles dan filas distintas y ambos deben contarse: es $P(2,2)=2!$.
+
+\textbf{¿Qu\'e tomamos?} $2$ maneras.
+\end{paso}
+
+\begin{paso}{Etapa 2 --- Colocar los dos medallistas de plata en las posiciones 8 y 9}
+\textbf{Qu\'e hago:} lleno las dos casillas de plata del patr\'on.
+\[
+\text{Etapa 2}\;=\;\underbrace{P(4,2)}_{\substack{\text{cu\'al plata en la 8 y}\\ \text{cu\'al en la 9, en orden}}}
+=\frac{4!}{(4-2)!}=\frac{24}{2}=12\;=\;4\cdot 3 .
+\]
+
+\textbf{¿De d\'onde sale?} El $4$ es el total de medallistas de plata del inventario; el $2$, las casillas
+$8$ y $9$ que el patr\'on reserva para plata.
+
+\textbf{¿Por qu\'e?} Se usa $P(4,2)$ y no $\binom{4}{2}$ porque las casillas $8$ y $9$ son distinguibles: el
+patr\'on obliga a que ambas lleven plata, pero \emph{cu\'al} de los dos ciclistas de plata va en cada una
+s\'i importa, y eso es un arreglo ordenado. Por el argumento de simetr\'ia, $P(4,2)=\binom{4}{2}\cdot 2!=6\cdot 2=12$,
+lo que confirma el valor.
+
+\textbf{¿Qu\'e tomamos?} $12$ maneras.
+\end{paso}
+
+\begin{paso}{Etapa 3 --- Colocar el medallista de bronce en la posici\'on 10}
+\textbf{Qu\'e hago:} lleno la \'ultima casilla del patr\'on.
+\[
+\text{Etapa 3}\;=\;\underbrace{\binom{4}{1}}_{\substack{\text{cu\'al de los 4}\\ \text{de bronce}}}=4 .
+\]
+
+\textbf{¿De d\'onde sale?} El $4$ es el total de medallistas de bronce; el $1$, la \'unica casilla que el
+patr\'on reserva para bronce.
+
+\textbf{¿Por qu\'e?} Porque con una sola casilla no hay orden que decidir y $\binom{4}{1}=P(4,1)=4$
+coinciden.
+
+\textbf{¿Qu\'e tomamos?} $4$ maneras.
+\end{paso}
+
+\begin{paso}{Etapa 4 --- Ordenar el resto en las posiciones 1 a 5}
+\textbf{Qu\'e hago:} cuento los ciclistas sobrantes y sus arreglos.
+\[
+\text{sobran}=\underbrace{4-2}_{\text{plata}}+\underbrace{4-1}_{\text{bronce}}=2+3=5 ,
+\]
+\[
+\text{Etapa 4}\;=\;\underbrace{5!}_{\substack{\text{5 ciclistas restantes}\\ \text{en las casillas }1..5}}=120 .
+\]
+
+\textbf{¿De d\'onde sale?} Las restas $4-2$ y $4-1$ descuentan a los ya ubicados en las Etapas 2 y 3; el $5$
+de casillas libres, de la estructura fijada.
+
+\textbf{¿Por qu\'e?} Porque el enunciado dice expl\'icitamente ``el resto de los ciclistas se ubica a la
+izquierda, en cualquier orden'': no hay restricci\'on, todos son distinguibles y las casillas tambi\'en, de
+modo que corresponde $P(5,5)=5!$. Que sobren $5$ para $5$ casillas confirma la partici\'on $5+2+3=10$.
+
+\textbf{¿Qu\'e tomamos?} $120$ maneras.
+\end{paso}
+
+\begin{paso}{Cierre --- Multiplicar las etapas}
+\textbf{Qu\'e hago:} reuno los factores.
+\[
+N\;=\;\underbrace{1\cdot 2!}_{\text{Etapa 1}}\cdot\underbrace{P(4,2)}_{\text{Etapa 2}}\cdot\underbrace{\binom{4}{1}}_{\text{Etapa 3}}\cdot\underbrace{5!}_{\text{Etapa 4}}
+\;=\;2\cdot 12\cdot 4\cdot 120 .
+\]
+Paso a paso: $2\cdot 12=24$; $24\cdot 4=96$; $96\cdot 120=96\cdot 100+96\cdot 20=9600+1920=11\,520$.
+
+\textbf{¿De d\'onde sale?} De las Etapas 1 a 4.
+
+\textbf{¿Por qu\'e?} Por el principio del producto: cada etapa opera sobre un conjunto de casillas y de
+ciclistas disjunto de los dem\'as, y la combinaci\'on de las cuatro reconstruye la fila completa de manera
+\'unica.
+
+\textbf{¿Qu\'e tomamos?} Con esto, hay $11\,520$ \'ordenes con la condici\'on dada, que coincide con la
+respuesta oficial.
+\end{paso}
+
+\begin{nota}
+Comparaci\'on con el Ejercicio 50: la \'unica diferencia estructural es que all\'a el tramo derecho iba ``en
+cualquier orden'' (una etapa adicional con factor $3!$ y elecci\'on por combinaciones) y aqu\'i va con
+patr\'on fijo $P,P,B$ (sin esa etapa, pero con $P(4,2)$ en lugar de $\binom{4}{2}$, que ya incorpora el orden
+entre las dos casillas de plata). En ambos casos la posici\'on del bloque queda \emph{forzada} por la palabra
+``exactamente''.
+\end{nota}
+
+\begin{resp}
+\[
+N=\underbrace{2!}_{\text{interior }CC}\cdot\underbrace{P(4,2)}_{\text{plata en }8,9}\cdot\underbrace{\binom{4}{1}}_{\text{bronce en }10}\cdot\underbrace{5!}_{\text{resto}}=2\cdot 12\cdot 4\cdot 120=\mathbf{11\,520}
+\]
+\'ordenes posibles. Coincide con la R/ oficial.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 52}
+\addcontentsline{toc}{subsection}{Ejercicio 52}
+
+\begin{quote}
+Una escuela rural tiene dos grupos de sexto a\~no. En cada uno hay diez estudiantes con cuadro de honor: en
+el grupo A son dos mujeres y ocho hombres y en el B son seis mujeres y cuatro hombres. En el pr\'oximo acto
+c\'ivico ser\'a organizado por diez estudiantes cuadro de honor de sexto a\~no, cinco de cada grupo.
+Cu\'antas maneras de elegir las personas para la pr\'oxima actividad si:\\
+(a) No hay restricciones. \hfill R/ 63504\\
+(b) De cada grupo se deben elegir exactamente dos mujeres. \hfill R/ 3360\\
+(c) En total est\'en cuatro mujeres. \hfill R/ 23520
+\end{quote}
+
+\begin{paso}{Paso previo --- Tabla de inventario y estructura com\'un a los tres incisos}
+\textbf{Qu\'e hago:} organizo los datos y anoto la restricci\'on que rige en todos los incisos.
+\[
+\begin{array}{l|c|c|c}
+\text{Grupo} & \text{Total} & \text{Mujeres} & \text{Hombres}\\ \hline
+A & 10 & 2 & 8\\
+B & 10 & 6 & 4\\ \hline
+\text{Totales} & 20 & 8 & 12
+\end{array}
+\qquad\qquad
+\text{se eligen } \underbrace{5}_{\text{de }A}+\underbrace{5}_{\text{de }B}=10 .
+\]
+
+\textbf{¿De d\'onde sale?} Del enunciado: ``en cada uno hay diez estudiantes'', ``en el grupo A son dos
+mujeres y ocho hombres'', ``en el B son seis mujeres y cuatro hombres'' (y $2+8=10$, $6+4=10$); la
+restricci\'on ``cinco de cada grupo'' fija los tama\~nos de las dos selecciones.
+
+\textbf{¿Por qu\'e?} Porque los grupos $A$ y $B$ son conjuntos disjuntos de estudiantes y la cuota es
+independiente en cada uno; entonces toda la cuenta se organiza en etapas (una por grupo, y dentro de cada
+grupo una por sexo cuando el inciso lo exija).
+
+\textbf{¿Qu\'e tomamos?} La tabla anterior y las cuotas $5$ y $5$.
+\end{paso}
+
+\subsection*{(a) Sin restricciones}
+
+\begin{paso}{Etapas 1 y 2 --- Seleccionar cinco de cada grupo}
+\textbf{Qu\'e hago:} elijo $5$ de los $10$ de $A$ y $5$ de los $10$ de $B$.
+
+\medskip
+\textbf{Etapa 1: seleccionar los cinco estudiantes del grupo $A$.}
+\[
+\underbrace{\binom{10}{5}}_{\substack{5\ \text{de los 10}\\ \text{del grupo }A}}
+=\frac{10\cdot 9\cdot 8\cdot 7\cdot 6}{5\cdot 4\cdot 3\cdot 2\cdot 1}=\frac{30\,240}{120}=252 ,
+\]
+con el numerador $10\cdot 9=90$, $90\cdot 8=720$, $720\cdot 7=5040$, $5040\cdot 6=30\,240$ y el denominador
+$5!=120$.
+
+\medskip
+\textbf{Etapa 2: seleccionar los cinco estudiantes del grupo $B$.}
+\[
+\underbrace{\binom{10}{5}}_{\substack{5\ \text{de los 10}\\ \text{del grupo }B}}=252 .
+\]
+
+\textbf{¿De d\'onde sale?} Los dos $10$ del tama\~no de cada grupo y los dos $5$ de la cuota por grupo.
+
+\textbf{¿Por qu\'e?} Se usan combinaciones porque no hay orden entre los organizadores; y las dos etapas son
+independientes porque los grupos son disjuntos, de modo que la Etapa 2 dispone de $\binom{10}{5}$ opciones
+cualquiera que haya sido el resultado de la Etapa 1.
+
+\textbf{¿Qu\'e tomamos?} $252$ y $252$.
+\end{paso}
+
+\begin{paso}{Cierre (a) --- Multiplicar las etapas}
+\textbf{Qu\'e hago:} multiplico los dos factores.
+\[
+N_a\;=\;\underbrace{\binom{10}{5}}_{\text{Etapa 1}}\cdot\underbrace{\binom{10}{5}}_{\text{Etapa 2}}
+=252^2=252\cdot 250+252\cdot 2=63\,000+504=63\,504 .
+\]
+
+\textbf{¿De d\'onde sale?} De las Etapas 1 y 2.
+
+\textbf{¿Por qu\'e?} Porque el par (subconjunto de $A$, subconjunto de $B$) determina el comit\'e de manera
+\'unica: dado el comit\'e se recuperan ambos subconjuntos separando por grupo.
+
+\textbf{¿Qu\'e tomamos?} Con esto, hay $63\,504$ maneras sin restricci\'on.
+\end{paso}
+
+\subsection*{(b) Exactamente dos mujeres de cada grupo}
+
+\begin{paso}{Paso previo --- Traducir la condici\'on a cuotas por casilla}
+\textbf{Qu\'e hago:} determino cu\'antos hombres acompa\~nan a las dos mujeres en cada grupo.
+\[
+\text{grupo }A:\;\underbrace{2}_{\text{mujeres}}+\underbrace{5-2=3}_{\text{hombres}}=5,
+\qquad
+\text{grupo }B:\;\underbrace{2}_{\text{mujeres}}+\underbrace{5-2=3}_{\text{hombres}}=5 .
+\]
+
+\textbf{¿De d\'onde sale?} El $2$ de la condici\'on del inciso; el $5$ de la cuota por grupo; el $3$ por
+diferencia.
+
+\textbf{¿Por qu\'e?} Porque dentro de cada grupo cada estudiante es hombre o mujer, de modo que fijar el
+n\'umero de mujeres determina autom\'aticamente el n\'umero de hombres. As\'i la condici\'on queda expresada
+como cuatro cuotas sobre cuatro casillas disjuntas.
+
+\textbf{¿Qu\'e tomamos?} Cuatro etapas, una por casilla. \emph{Se procede por etapas.}
+\end{paso}
+
+\begin{paso}{Etapas 1 a 4 --- Una etapa por casilla}
+\textbf{Qu\'e hago:} escribo y eval\'uo el factor de cada etapa.
+
+\medskip
+\textbf{Etapa 1: seleccionar las dos mujeres del grupo $A$.}
+\[
+\underbrace{\binom{2}{2}}_{\substack{2\ \text{de las 2}\\ \text{mujeres de }A}}=1 .
+\]
+\textbf{Etapa 2: seleccionar los tres hombres del grupo $A$.}
+\[
+\underbrace{\binom{8}{3}}_{\substack{3\ \text{de los 8}\\ \text{hombres de }A}}=\frac{8\cdot 7\cdot 6}{3\cdot 2\cdot 1}=\frac{336}{6}=56 .
+\]
+\textbf{Etapa 3: seleccionar las dos mujeres del grupo $B$.}
+\[
+\underbrace{\binom{6}{2}}_{\substack{2\ \text{de las 6}\\ \text{mujeres de }B}}=\frac{6\cdot 5}{2\cdot 1}=\frac{30}{2}=15 .
+\]
+\textbf{Etapa 4: seleccionar los tres hombres del grupo $B$.}
+\[
+\underbrace{\binom{4}{3}}_{\substack{3\ \text{de los 4}\\ \text{hombres de }B}}=\binom{4}{1}=4 .
+\]
+
+\textbf{¿De d\'onde sale?} Los ``de arriba'' $2,8,6,4$ son los tama\~nos de las cuatro casillas seg\'un la
+tabla del inventario; los ``de abajo'' $2,3,2,3$ son las cuotas del paso previo.
+
+\textbf{¿Por qu\'e?} Porque las cuatro casillas son disjuntas y por tanto las etapas son independientes. El
+factor $\binom{2}{2}=1$ refleja que el grupo $A$ tiene exactamente dos mujeres: pedir dos mujeres de $A$
+obliga a incluir a ambas, sin libertad de elecci\'on.
+
+\textbf{¿Qu\'e tomamos?} Factores $1$, $56$, $15$ y $4$.
+\end{paso}
+
+\begin{paso}{Cierre (b) --- Multiplicar las etapas}
+\textbf{Qu\'e hago:} multiplico los cuatro factores.
+\[
+N_b\;=\;\underbrace{\binom{2}{2}}_{\text{Etapa 1}}\underbrace{\binom{8}{3}}_{\text{Etapa 2}}\underbrace{\binom{6}{2}}_{\text{Etapa 3}}\underbrace{\binom{4}{3}}_{\text{Etapa 4}}
+=1\cdot 56\cdot 15\cdot 4=\underbrace{840}_{56\cdot 15}\cdot 4=3360 ,
+\]
+con $56\cdot 15=56\cdot 10+56\cdot 5=560+280=840$ y $840\cdot 4=3360$.
+
+\textbf{¿De d\'onde sale?} De las cuatro etapas.
+
+\textbf{¿Por qu\'e?} Por el principio del producto sobre casillas disjuntas.
+
+\textbf{¿Qu\'e tomamos?} Con esto, hay $3360$ maneras con la condici\'on dada.
+\end{paso}
+
+\subsection*{(c) Cuatro mujeres en total}
+
+\begin{paso}{Paso previo --- Abrir casos excluyentes}
+\textbf{Qu\'e hago:} llamo $a$ al n\'umero de mujeres que provienen del grupo $A$; entonces del grupo $B$
+provienen $4-a$ mujeres. Determino el rango de $a$:
+\[
+0\le a\le \underbrace{2}_{\text{solo hay 2 mujeres en }A},\qquad
+0\le 4-a\le \underbrace{6}_{\text{mujeres en }B},
+\]
+\[
+4-a\le \underbrace{5}_{\text{cuota de }B},\qquad a\le \underbrace{5}_{\text{cuota de }A}.
+\]
+De $a\le 2$ y $a\ge 0$ resulta $a\in\{0,1,2\}$; las dem\'as desigualdades se cumplen autom\'aticamente
+($4-a\in\{2,3,4\}$, todos $\le 5$ y $\le 6$). Se obtienen tres casos:
+\[
+\text{Caso I}: a=0,\qquad \text{Caso II}: a=1,\qquad \text{Caso III}: a=2 .
+\]
+
+\textbf{¿De d\'onde sale?} El $4$ del total de mujeres exigido; el $2$ y el $6$ de las mujeres disponibles en
+$A$ y $B$; el $5$ de la cuota por grupo.
+
+\textbf{¿Por qu\'e?} Porque la condici\'on ``cuatro mujeres en total'' no fija cu\'antas vienen de cada
+grupo, y el conteo por casillas del inciso (b) exige conocer esa repartici\'on. Los tres casos son
+excluyentes (un comit\'e tiene un valor de $a$ bien determinado) y exhaustivos (cubren todo el rango
+posible), que es la hip\'otesis exacta del principio de la suma.
+
+\textbf{¿Qu\'e tomamos?} Tres casos, cada uno resuelto por etapas.
+\end{paso}
+
+\begin{paso}{Caso I ($a=0$) --- Ninguna mujer del grupo A}
+\textbf{Qu\'e hago:} resuelvo por etapas con las cuotas $A:(0\ \text{mujeres},5\ \text{hombres})$ y
+$B:(4\ \text{mujeres},1\ \text{hombre})$.
+
+\medskip
+\textbf{Etapa 1: mujeres de $A$:} $\displaystyle \underbrace{\binom{2}{0}}_{0\ \text{de las 2}}=1$.\quad
+\textbf{Etapa 2: hombres de $A$:} $\displaystyle \underbrace{\binom{8}{5}}_{5\ \text{de los 8}}=\binom{8}{3}=56$.
+
+\medskip
+\textbf{Etapa 3: mujeres de $B$:} $\displaystyle \underbrace{\binom{6}{4}}_{4\ \text{de las 6}}=\binom{6}{2}=15$.\quad
+\textbf{Etapa 4: hombres de $B$:} $\displaystyle \underbrace{\binom{4}{1}}_{1\ \text{de los 4}}=4$.
+
+\medskip
+As\'i, para este caso hay $1\cdot 56\cdot 15\cdot 4 = 840\cdot 4 = 3360$ comit\'es.
+
+\textbf{¿De d\'onde sale?} Las cuotas de hombres salen por diferencia: $5-0=5$ en $A$ y $5-4=1$ en $B$; los
+tama\~nos $2,8,6,4$ de la tabla del inventario.
+
+\textbf{¿Por qu\'e?} Porque fijado $a=0$ la situaci\'on es exactamente la del inciso (b): cuatro casillas
+disjuntas con cuotas conocidas, y se aplica el principio del producto.
+
+\textbf{¿Qu\'e tomamos?} $T_0=3360$.
+\end{paso}
+
+\begin{paso}{Caso II ($a=1$) --- Una mujer del grupo A}
+\textbf{Qu\'e hago:} cuotas $A:(1,4)$ y $B:(3,2)$.
+
+\medskip
+\textbf{Etapa 1: mujeres de $A$:} $\displaystyle \underbrace{\binom{2}{1}}_{1\ \text{de las 2}}=2$.\quad
+\textbf{Etapa 2: hombres de $A$:} $\displaystyle \underbrace{\binom{8}{4}}_{4\ \text{de los 8}}=\frac{8\cdot 7\cdot 6\cdot 5}{4\cdot 3\cdot 2\cdot 1}=\frac{1680}{24}=70$.
+
+\medskip
+\textbf{Etapa 3: mujeres de $B$:} $\displaystyle \underbrace{\binom{6}{3}}_{3\ \text{de las 6}}=\frac{6\cdot 5\cdot 4}{3\cdot 2\cdot 1}=\frac{120}{6}=20$.\quad
+\textbf{Etapa 4: hombres de $B$:} $\displaystyle \underbrace{\binom{4}{2}}_{2\ \text{de los 4}}=\frac{4\cdot 3}{2}=6$.
+
+\medskip
+As\'i, para este caso hay $2\cdot 70\cdot 20\cdot 6 = 140\cdot 20\cdot 6 = 2800\cdot 6 = 16\,800$ comit\'es.
+
+\textbf{¿De d\'onde sale?} Las cuotas de hombres por diferencia: $5-1=4$ en $A$ y $5-3=2$ en $B$.
+
+\textbf{¿Por qu\'e?} Mismo argumento que en el Caso I: casillas disjuntas y principio del producto.
+
+\textbf{¿Qu\'e tomamos?} $T_1=16\,800$.
+\end{paso}
+
+\begin{paso}{Caso III ($a=2$) --- Dos mujeres del grupo A}
+\textbf{Qu\'e hago:} cuotas $A:(2,3)$ y $B:(2,3)$, que son exactamente las del inciso (b).
+
+\medskip
+\textbf{Etapa 1:} $\displaystyle \underbrace{\binom{2}{2}}_{\text{mujeres de }A}=1$.\quad
+\textbf{Etapa 2:} $\displaystyle \underbrace{\binom{8}{3}}_{\text{hombres de }A}=56$.\quad
+\textbf{Etapa 3:} $\displaystyle \underbrace{\binom{6}{2}}_{\text{mujeres de }B}=15$.\quad
+\textbf{Etapa 4:} $\displaystyle \underbrace{\binom{4}{3}}_{\text{hombres de }B}=4$.
+
+\medskip
+As\'i, para este caso hay $1\cdot 56\cdot 15\cdot 4=3360$ comit\'es.
+
+\textbf{¿De d\'onde sale?} Las cuotas de hombres por diferencia: $5-2=3$ en ambos grupos.
+
+\textbf{¿Por qu\'e?} Porque ``dos mujeres de $A$ y dos de $B$'' suma cuatro mujeres, que es justo el enunciado
+del inciso (b); el valor $3360$ debe coincidir con $N_b$, y coincide.
+
+\textbf{¿Qu\'e tomamos?} $T_2=3360$.
+\end{paso}
+
+\begin{paso}{Cierre (c) --- Sumar los casos y verificar la coherencia entre incisos}
+\textbf{Qu\'e hago:} aplico el principio de la suma.
+\[
+N_c\;=\;\underbrace{T_0}_{a=0}+\underbrace{T_1}_{a=1}+\underbrace{T_2}_{a=2}\;=\;3360+16\,800+3360 ,
+\]
+\[
+3360+16\,800=20\,160,\qquad 20\,160+3360=23\,520 .
+\]
+En forma cerrada:
+\[
+N_c=\sum_{a=0}^{2}\underbrace{\binom{2}{a}}_{\text{mujeres de }A}\underbrace{\binom{8}{5-a}}_{\text{hombres de }A}\underbrace{\binom{6}{4-a}}_{\text{mujeres de }B}\underbrace{\binom{4}{1+a}}_{\text{hombres de }B} .
+\]
+Verificaci\'on entre incisos: $N_b=3360=T_2\le N_c=23\,520\le N_a=63\,504$.
+
+\textbf{¿De d\'onde sale?} De los tres casos anteriores.
+
+\textbf{¿Por qu\'e?} Porque los casos son excluyentes y exhaustivos, seg\'un se estableci\'o. Y las
+desigualdades deben cumplirse necesariamente, pues el conjunto del inciso (b) est\'a contenido en el del
+(c) --- dos mujeres de cada grupo son cuatro en total --- y este en el del (a), que no tiene restricciones.
+
+\textbf{¿Qu\'e tomamos?} Con esto, hay $23\,520$ maneras con la condici\'on dada, que coincide con la
+respuesta oficial.
+\end{paso}
+
+\begin{resp}
+(a) $\displaystyle \left[\binom{10}{5}\right]^2=252^2=\mathbf{63\,504}$.\\[4pt]
+(b) $\displaystyle \binom{2}{2}\binom{8}{3}\binom{6}{2}\binom{4}{3}=1\cdot 56\cdot 15\cdot 4=\mathbf{3360}$.\\[4pt]
+(c) $\displaystyle \sum_{a=0}^{2}\binom{2}{a}\binom{8}{5-a}\binom{6}{4-a}\binom{4}{1+a}=3360+16\,800+3360=\mathbf{23\,520}$.\\
+Los tres coinciden con las R/ oficiales.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 53}
+\addcontentsline{toc}{subsection}{Ejercicio 53}
+
+\begin{quote}
+Cu\'antos anagramas hay de la palabra \textbf{COMPETIRAS} en los cuales las vocales se encuentran en la
+misma posici\'on original? \hfill R/ 720
+\end{quote}
+
+\begin{paso}{Paso previo --- Inventario de letras y posiciones originales}
+\textbf{Qu\'e hago:} deletreo la palabra numerando las posiciones y marco cu\'ales son vocales.
+\[
+\begin{array}{c|c|c|c|c|c|c|c|c|c|c}
+\text{posici\'on} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\ \hline
+\text{letra} & C & O & M & P & E & T & I & R & A & S\\ \hline
+\text{tipo} & \text{cons.} & \text{voc.} & \text{cons.} & \text{cons.} & \text{voc.} & \text{cons.} & \text{voc.} & \text{cons.} & \text{voc.} & \text{cons.}
+\end{array}
+\]
+\[
+n=10\ \text{letras, todas distintas};\qquad
+\text{vocales}=\{O,E,I,A\}\ (4)\ \text{en las posiciones } 2,5,7,9;
+\]
+\[
+\text{consonantes}=\{C,M,P,T,R,S\}\ (6)\ \text{en las posiciones } 1,3,4,6,8,10 .
+\]
+
+\textbf{¿De d\'onde sale?} De recorrer C-O-M-P-E-T-I-R-A-S contando: son diez s\'imbolos y ninguno se repite.
+La clasificaci\'on vocal/consonante da $4+6=10$.
+
+\textbf{¿Por qu\'e?} Porque la condici\'on habla de ``la misma posici\'on original'', as\'i que hay que tener
+expl\'icita la lista de posiciones originales de las vocales; y porque al no haber letras repetidas no
+intervienen denominadores de permutaci\'on con repetici\'on.
+
+\textbf{¿Qu\'e tomamos?} $10$ casillas; vocales ancladas en $\{2,5,7,9\}$ y consonantes libres en
+$\{1,3,4,6,8,10\}$.
+\end{paso}
+
+\begin{paso}{Paso previo --- Traducir la condici\'on a una restricci\'on sobre posiciones}
+\textbf{Qu\'e hago:} escribo qu\'e queda fijo y qu\'e queda libre.
+\[
+\text{fijo}:\quad \text{pos. }2=O,\quad \text{pos. }5=E,\quad \text{pos. }7=I,\quad \text{pos. }9=A ;
+\]
+\[
+\text{libre}:\quad \text{las } 6 \text{ consonantes } C,M,P,T,R,S \text{ en las posiciones } 1,3,4,6,8,10 .
+\]
+
+\textbf{¿De d\'onde sale?} De la tabla del inventario: la vocal que ocupaba cada una de esas cuatro
+posiciones queda obligada a permanecer ah\'i.
+
+\textbf{¿Por qu\'e?} Porque ``la misma posici\'on original'' es una condici\'on de \emph{punto fijo}: no dice
+que las vocales conserven su orden relativo (eso ser\'ia m\'as d\'ebil), sino que cada una vuelva a su
+casilla exacta. Como las cuatro vocales son distintas, la exigencia deja $0$ grados de libertad en esas
+cuatro casillas; y como las vocales ocupan $2,5,7,9$, las consonantes deben ocupar necesariamente las seis
+restantes.
+
+\textbf{¿Qu\'e tomamos?} Dos etapas. \emph{Se procede por etapas.}
+\end{paso}
+
+\begin{paso}{Etapa 1 --- Colocar las vocales en sus posiciones originales}
+\textbf{Qu\'e hago:} lleno las casillas $2,5,7,9$.
+\[
+\text{Etapa 1}\;=\;\underbrace{1}_{\substack{O,E,I,A\ \text{anclados en}\\ 2,5,7,9\ \text{respectivamente}}} .
+\]
+
+\textbf{¿De d\'onde sale?} Del paso previo de traducci\'on.
+
+\textbf{¿Por qu\'e?} Porque de los $4!=24$ repartos posibles de las cuatro vocales en esas cuatro casillas,
+solo uno las devuelve a su lugar original; los otros $23$ violan la condici\'on.
+
+\textbf{¿Qu\'e tomamos?} Factor $1$.
+\end{paso}
+
+\begin{paso}{Etapa 2 --- Colocar las consonantes en los lugares restantes}
+\textbf{Qu\'e hago:} lleno las casillas $1,3,4,6,8,10$.
+\[
+\text{Etapa 2}\;=\;\underbrace{6!}_{\substack{\text{6 consonantes distintas}\\ \text{en 6 casillas distinguibles}}}
+=6\cdot 5\cdot 4\cdot 3\cdot 2\cdot 1=120\cdot 6=720 .
+\]
+
+\textbf{¿De d\'onde sale?} El $6$ del n\'umero de consonantes, que coincide con el de casillas libres
+($10-4=6$).
+
+\textbf{¿Por qu\'e?} Porque llenar seis casillas distinguibles con seis objetos distinguibles, uno en cada
+una, es una permutaci\'on simple: hay $6$ candidatas para la primera casilla libre, $5$ para la segunda una
+vez gastada la primera, y as\'i hasta $1$. Se cuentan \emph{todos} los arreglos de consonantes, incluido el
+original, porque el enunciado no exige que ninguna consonante se mueva.
+
+\textbf{¿Qu\'e tomamos?} $720$ maneras.
+\end{paso}
+
+\begin{paso}{Cierre --- Multiplicar las etapas}
+\textbf{Qu\'e hago:} combino ambas etapas.
+\[
+N\;=\;\underbrace{1}_{\text{Etapa 1}}\cdot\underbrace{6!}_{\text{Etapa 2}}\;=\;720 .
+\]
+
+\textbf{¿De d\'onde sale?} De las Etapas 1 y 2.
+
+\textbf{¿Por qu\'e?} Por el principio del producto: las dos etapas act\'uan sobre casillas disjuntas y su
+combinaci\'on determina el anagrama completo de manera \'unica.
+
+\textbf{¿Qu\'e tomamos?} Con esto, hay $720$ anagramas con la condici\'on dada, que coincide con la
+respuesta oficial.
+\end{paso}
+
+\begin{resp}
+\[
+N=\underbrace{1}_{\text{vocales ancladas}}\cdot\underbrace{6!}_{\text{consonantes libres}}=\mathbf{720}
+\]
+anagramas de COMPETIRAS con las vocales en su posici\'on original. Coincide con la R/ oficial.
+\end{resp}
+
+% ============================================================
+\section*{Ejercicio 54}
+\addcontentsline{toc}{subsection}{Ejercicio 54}
+
+\begin{quote}
+Un anagrama-dos de una palabra $X$ con letras distintas es un anagrama de $X$ que tiene al menos dos letras
+que no se permutaron, es decir, mantienen sus posiciones originales. Determine el n\'umero de anagramas
+posibles de la palabra \textbf{MAIDEN}. \hfill R/ 191
+\end{quote}
+
+\begin{paso}{Paso previo --- Inventario y modelo de permutaciones con puntos fijos}
+\textbf{Qu\'e hago:} identifico el objeto contado.
+\[
+\textbf{MAIDEN}:\quad M,\;A,\;I,\;D,\;E,\;N \qquad (n=6\ \text{letras, todas distintas}) .
+\]
+Un anagrama es una biyecci\'on $\sigma$ de las $6$ posiciones en las $6$ posiciones. Se llama \emph{punto
+fijo} a toda posici\'on $i$ con $\sigma(i)=i$, es decir, a toda letra que no se movi\'o. Lo pedido es
+\[
+N\;=\;\#\{\sigma:\ \sigma \text{ tiene al menos } 2 \text{ puntos fijos}\} .
+\]
+
+\textbf{¿De d\'onde sale?} Las seis letras, de deletrear M-A-I-D-E-N, todas diferentes; la definici\'on de
+punto fijo, de la frase ``mantienen sus posiciones originales''.
+
+\textbf{¿Por qu\'e?} Porque al ser todas las letras distintas, cada anagrama corresponde a exactamente una
+biyecci\'on de posiciones y viceversa; adem\'as ``la letra $\ell$ mantiene su posici\'on'' equivale a que esa
+posici\'on sea punto fijo, sin ambig\"uedad (si hubiera letras repetidas el modelo fallar\'ia).
+
+\textbf{¿Qu\'e tomamos?} Contar permutaciones de $6$ elementos con al menos $2$ puntos fijos.
+\end{paso}
+
+\begin{paso}{Paso previo --- Abrir casos por el n\'umero exacto de puntos fijos}
+\textbf{Qu\'e hago:} parto el conjunto buscado seg\'un el n\'umero exacto $k$ de puntos fijos:
+\[
+\text{Caso } k:\ \sigma \text{ tiene \emph{exactamente} } k \text{ puntos fijos},\qquad k=2,3,4,5,6 ,
+\]
+\[
+N\;=\;\sum_{k=2}^{6}\#\{\text{Caso } k\} .
+\]
+
+\textbf{¿De d\'onde sale?} El rango $k=2,\dots,6$ de la condici\'on ``al menos dos'' junto con el m\'aximo
+posible de puntos fijos, que es $6$.
+
+\textbf{¿Por qu\'e?} Porque las clases ``exactamente $k$ puntos fijos'' son disjuntas dos a dos (un $\sigma$
+tiene un n\'umero de puntos fijos bien determinado) y su uni\'on para $k\ge 2$ es justo el conjunto buscado;
+eso habilita el principio de la suma. Dentro de cada caso se proceder\'a por etapas.
+
+\textbf{¿Qu\'e tomamos?} Cinco casos excluyentes.
+\end{paso}
+
+\begin{paso}{Etapas gen\'ericas del Caso $k$ y aparici\'on del desarreglo}
+\textbf{Qu\'e hago:} resuelvo el caso gen\'erico por etapas.
+
+\medskip
+\textbf{Etapa 1: escoger cu\'ales $k$ posiciones quedan fijas.}
+\[
+\underbrace{\binom{6}{k}}_{\substack{k\ \text{posiciones fijas}\\ \text{entre las 6}}} .
+\]
+\textbf{Etapa 2: colocar esas $k$ letras.}
+\[
+\underbrace{1}_{\substack{\text{cada una vuelve}\\ \text{a su propia casilla}}} .
+\]
+\textbf{Etapa 3: permutar las $6-k$ letras restantes sin que ninguna quede en su lugar.}
+\[
+\underbrace{D_{6-k}}_{\substack{\text{desarreglos de }6-k\\ \text{objetos}}} ,
+\]
+donde $D_m$ denota el n\'umero de permutaciones de $m$ objetos \emph{sin ning\'un} punto fijo.
+
+\medskip
+As\'i, $\#\{\text{Caso } k\}=\binom{6}{k}\cdot 1\cdot D_{6-k}$.
+
+\textbf{¿De d\'onde sale?} El $6$ del n\'umero de letras; el $6-k$ de las letras que no quedaron fijas.
+
+\textbf{¿Por qu\'e?} La Etapa 3 debe ser un desarreglo porque, si alguna de las $6-k$ posiciones restantes
+quedara fija, el n\'umero de puntos fijos ser\'ia mayor que $k$ y la permutaci\'on no pertenecer\'ia al
+Caso $k$ sino a otro; ese es precisamente el sentido de la palabra ``exactamente''. Y el producto de etapas
+vale porque el par (conjunto de puntos fijos, permutaci\'on del resto) determina $\sigma$ de manera \'unica.
+
+\textbf{¿Qu\'e tomamos?} $N=\displaystyle\sum_{k=2}^{6}\binom{6}{k}D_{6-k}$, pendiente de calcular los $D_m$.
+\end{paso}
+
+\begin{paso}{Sub-etapa --- Derivar la f\'ormula de $D_m$ por inclusi\'on--exclusi\'on}
+\textbf{Qu\'e hago:} obtengo $D_m$ sin citarla como f\'ormula hecha. Sobre las $m!$ permutaciones de
+$\{1,\dots,m\}$ defino
+\[
+A_i\;=\;\{\sigma:\ \sigma(i)=i\},\qquad i=1,\dots,m ,
+\]
+de modo que ``tener al menos un punto fijo'' es pertenecer a $A_1\cup\cdots\cup A_m$, y por el principio del
+complemento $D_m=m!-|A_1\cup\cdots\cup A_m|$. Para un conjunto de \'indices $\{i_1,\dots,i_j\}$,
+\[
+|A_{i_1}\cap\cdots\cap A_{i_j}|\;=\;\underbrace{(m-j)!}_{\substack{\text{los }m-j\text{ elementos no fijados}\\ \text{se permutan libremente}}} ,
+\]
+y hay $\binom{m}{j}$ conjuntos de \'indices de tama\~no $j$, de donde
+\[
+\Big|\bigcup_{i=1}^{m}A_i\Big|\;=\;\sum_{j=1}^{m}(-1)^{j+1}\binom{m}{j}(m-j)!
+\qquad\Longrightarrow\qquad
+D_m\;=\;\sum_{j=0}^{m}(-1)^{j}\binom{m}{j}(m-j)! .
+\]
+
+\textbf{¿De d\'onde sale?} El $(m-j)!$ de que fijar $j$ im\'agenes deja una permutaci\'on arbitraria de los
+$m-j$ elementos restantes; el $\binom{m}{j}$ de contar los conjuntos de \'indices fijados.
+
+\textbf{¿Por qu\'e?} Porque los $A_i$ se traslapan (una permutaci\'on puede fijar varias posiciones), de modo
+que sumar $|A_i|$ sin correcci\'on contar\'ia de m\'as; inclusi\'on--exclusi\'on (herramienta (8)) es la
+correcci\'on que hace que cada permutaci\'on con $t\ge 1$ puntos fijos se cuente
+$\binom{t}{1}-\binom{t}{2}+\cdots=1-(1-1)^t=1$ vez. El t\'ermino $j=0$ de la \'ultima suma es $m!$, el total
+del complemento.
+
+\textbf{¿Qu\'e tomamos?} $D_m=\sum_{j=0}^{m}(-1)^{j}\binom{m}{j}(m-j)!$.
+\end{paso}
+
+\begin{paso}{Sub-etapa --- Evaluar los desarreglos necesarios}
+\textbf{Qu\'e hago:} calculo $D_0,D_1,D_2,D_3,D_4$, que son los que aparecen con $k=6,5,4,3,2$.
+\[
+\begin{aligned}
+D_0&=\binom{0}{0}0!=1,\\[2pt]
+D_1&=\binom{1}{0}1!-\binom{1}{1}0!=1-1=0,\\[2pt]
+D_2&=\binom{2}{0}2!-\binom{2}{1}1!+\binom{2}{2}0!=2-2+1=1,\\[2pt]
+D_3&=\binom{3}{0}3!-\binom{3}{1}2!+\binom{3}{2}1!-\binom{3}{3}0!=6-6+3-1=2,\\[2pt]
+D_4&=\binom{4}{0}4!-\binom{4}{1}3!+\binom{4}{2}2!-\binom{4}{3}1!+\binom{4}{4}0!=24-24+12-4+1=9 .
+\end{aligned}
+\]
+Detalle de $D_4$: $\binom{4}{1}3!=4\cdot 6=24$; $\binom{4}{2}2!=6\cdot 2=12$; $\binom{4}{3}1!=4$;
+$\binom{4}{4}0!=1$; y $24-24=0$, $0+12=12$, $12-4=8$, $8+1=9$.
+
+\textbf{¿De d\'onde sale?} De sustituir $m=0,1,2,3,4$ en la f\'ormula reci\'en derivada.
+
+\textbf{¿Por qu\'e?} Los valores peque\~nos se contrastan directo con la definici\'on: $D_1=0$ porque el
+\'unico reordenamiento de un objeto lo deja en su sitio; $D_2=1$ porque de las $2!=2$ permutaciones de dos
+objetos solo el intercambio no fija nada; $D_3=2$ porque de las $6$ permutaciones de tres objetos los dos
+ciclos de longitud $3$ son las \'unicas sin punto fijo. Esa concordancia valida la f\'ormula.
+
+\textbf{¿Qu\'e tomamos?} $D_0=1$, $D_1=0$, $D_2=1$, $D_3=2$, $D_4=9$.
+\end{paso}
+
+\begin{paso}{Casos I a V --- Evaluar $\binom{6}{k}D_{6-k}$ para cada $k$}
+\textbf{Qu\'e hago:} aplico las tres etapas gen\'ericas a cada caso.
+\[
+\begin{aligned}
+\text{Caso I }(k=2):&\quad \underbrace{\binom{6}{2}}_{15}\cdot\underbrace{1}_{\text{colocarlas}}\cdot\underbrace{D_4}_{9}=15\cdot 9=135,\\
+\text{Caso II }(k=3):&\quad \underbrace{\binom{6}{3}}_{20}\cdot 1\cdot\underbrace{D_3}_{2}=20\cdot 2=40,\\
+\text{Caso III }(k=4):&\quad \underbrace{\binom{6}{4}}_{15}\cdot 1\cdot\underbrace{D_2}_{1}=15\cdot 1=15,\\
+\text{Caso IV }(k=5):&\quad \underbrace{\binom{6}{5}}_{6}\cdot 1\cdot\underbrace{D_1}_{0}=6\cdot 0=0,\\
+\text{Caso V }(k=6):&\quad \underbrace{\binom{6}{6}}_{1}\cdot 1\cdot\underbrace{D_0}_{1}=1\cdot 1=1 .
+\end{aligned}
+\]
+Los coeficientes: $\binom{6}{2}=\frac{6\cdot 5}{2}=15$; $\binom{6}{3}=\frac{6\cdot 5\cdot 4}{6}=20$;
+$\binom{6}{4}=\binom{6}{2}=15$; $\binom{6}{5}=\binom{6}{1}=6$; $\binom{6}{6}=1$.
+
+\textbf{¿De d\'onde sale?} Los $\binom{6}{k}$ de la Etapa 1; los $D_{6-k}$ de la sub-etapa anterior.
+
+\textbf{¿Por qu\'e?} El Caso IV da $0$ y eso es correcto por una raz\'on estructural: es imposible que
+exactamente cinco letras se queden en su sitio, pues la sexta no tendr\'ia a d\'onde ir m\'as que a su propia
+posici\'on, lo que dar\'ia seis puntos fijos. El Caso V da $1$: la palabra original MAIDEN, que
+efectivamente tiene al menos dos letras en su lugar y por tanto cuenta.
+
+\textbf{¿Qu\'e tomamos?} $135$, $40$, $15$, $0$ y $1$.
+\end{paso}
+
+\begin{paso}{Cierre --- Sumar los casos y verificar por complemento}
+\textbf{Qu\'e hago:} aplico el principio de la suma.
+\[
+N\;=\;135+40+15+0+1\;=\;175+15+0+1\;=\;190+1\;=\;191 .
+\]
+Verificaci\'on por otra v\'ia (complemento): las $6!=720$ permutaciones se parten en ``cero puntos fijos'',
+``exactamente uno'' y ``al menos dos''; con
+\[
+D_5=\sum_{j=0}^{5}(-1)^j\binom{5}{j}(5-j)!=120-120+60-20+5-1=44 ,
+\]
+\[
+D_6=\sum_{j=0}^{6}(-1)^j\binom{6}{j}(6-j)!=720-720+360-120+30-6+1=265 ,
+\]
+resulta
+\[
+N\;=\;\underbrace{720}_{6!}-\underbrace{265}_{D_6}-\underbrace{6\cdot 44}_{\binom{6}{1}D_5=264}\;=\;720-265-264\;=\;455-264\;=\;191 .
+\]
+
+\textbf{¿De d\'onde sale?} De los cinco casos y de la f\'ormula de $D_m$ ya derivada; el $720=6!$ es el total
+de anagramas de una palabra de seis letras distintas.
+
+\textbf{¿Por qu\'e?} Porque los cinco casos son excluyentes y exhaustivos (hip\'otesis del principio de la
+suma), y porque ``al menos dos puntos fijos'' es el complemento de ``cero o uno''; obtener $191$ por las dos
+v\'ias confirma el resultado.
+
+\textbf{¿Qu\'e tomamos?} Con esto, hay $191$ anagramas-dos de MAIDEN, que coincide con la respuesta oficial.
+\end{paso}
+
+\begin{resp}
+\[
+N=\sum_{k=2}^{6}\binom{6}{k}D_{6-k}
+=\underbrace{15\cdot 9}_{k=2}+\underbrace{20\cdot 2}_{k=3}+\underbrace{15\cdot 1}_{k=4}+\underbrace{6\cdot 0}_{k=5}+\underbrace{1\cdot 1}_{k=6}
+=135+40+15+0+1=\mathbf{191}
+\]
+anagramas-dos de MAIDEN. Coincide con la R/ oficial.
+\end{resp}
+
+\end{document}

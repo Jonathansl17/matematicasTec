@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.2)  12 AUG 2026 08:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.2)  16 AUG 2026 13:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -914,7 +914,7 @@ cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
 usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/ty
 pe1/public/amsfonts/symbols/msam10.pfb>
-Output written on parte1b_suma-producto.pdf (37 pages, 315426 bytes).
+Output written on parte1b_suma-producto.pdf (37 pages, 315647 bytes).
 PDF statistics:
  327 PDF objects out of 1000 (max. 8388607)
  257 compressed objects within 3 object streams

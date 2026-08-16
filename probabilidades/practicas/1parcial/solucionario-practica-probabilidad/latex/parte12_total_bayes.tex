@@ -1,0 +1,1355 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+
+\title{Solucionario --- Cap\'itulo 2, Secci\'on 2.3\\ Ejercicios 42 a 49: probabilidad total y regla de Bayes}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{teo}
+\textbf{1. Partici\'on del espacio muestral.}
+Sea $\Omega$ el espacio muestral de un experimento. Una familia finita de eventos $A_1,A_2,\dots,A_n$ se llama \emph{partici\'on de $\Omega$} cuando cumple simult\'aneamente las dos condiciones siguientes:
+\[
+A_i\cap A_j=\varnothing \quad\text{si } i\neq j
+\qquad\text{(mutuamente excluyentes o disjuntos dos a dos)},
+\]
+\[
+A_1\cup A_2\cup\cdots\cup A_n=\Omega
+\qquad\text{(exhaustivos, cubren todo el espacio)}.
+\]
+La primera condici\'on dice que dos casillas nunca ocurren a la vez; la segunda dice que siempre ocurre alguna. Juntas afirman que, pase lo que pase al realizar el experimento, ocurre \emph{exactamente uno} de los $A_i$.
+
+\medskip
+\textbf{Consecuencia inmediata (control de partici\'on).} Aplicando el axioma de aditividad a los $A_i$, que son disjuntos dos a dos, y el axioma $P[\Omega]=1$:
+\[
+P[A_1]+P[A_2]+\cdots+P[A_n]\;=\;P\!\left[\bigcup_{i=1}^{n}A_i\right]\;=\;P[\Omega]\;=\;1 .
+\]
+Esta igualdad se usar\'a en cada ejercicio como verificaci\'on: \emph{si las probabilidades a priori no suman $1$, la familia propuesta no es una partici\'on} y falta o sobra alg\'un caso.
+
+\medskip
+\textbf{2. Regla de la multiplicaci\'on.}
+De la definici\'on de probabilidad condicional
+\[
+P[B\mid A]=\frac{P[A\cap B]}{P[A]}, \qquad P[A]>0,
+\]
+se despeja multiplicando ambos lados por $P[A]$:
+\[
+P[A\cap B]=P[A]\,P[B\mid A].
+\]
+No es una f\'ormula nueva, es la misma definici\'on escrita al rev\'es. Su lectura es la de un experimento en dos etapas: primero ocurre $A$, con probabilidad $P[A]$; despu\'es, \emph{ya sabiendo} que $A$ ocurri\'o, ocurre $B$ con probabilidad $P[B\mid A]$. Esta es la regla que justifica los \emph{\'arboles de probabilidad}: la probabilidad de una rama completa es el producto de las probabilidades de sus aristas.
+
+\medskip
+\textbf{3. Teorema de probabilidad total: enunciado y demostraci\'on.}
+Sea $A_1,\dots,A_n$ una partici\'on de $\Omega$ con $P[A_i]>0$ para todo $i$, y sea $B\subseteq\Omega$ un evento cualquiera. Entonces
+\[
+P[B]\;=\;\sum_{i=1}^{n}P[B\mid A_i]\,P[A_i]\;=\;P[B\mid A_1]P[A_1]+\cdots+P[B\mid A_n]P[A_n].
+\]
+
+\emph{Demostraci\'on.} Como los $A_i$ cubren todo $\Omega$, intersecamos $B$ con $\Omega$ sin cambiarlo y distribuimos la intersecci\'on sobre la uni\'on:
+\[
+B\;=\;B\cap\Omega\;=\;B\cap\Big(\bigcup_{i=1}^{n}A_i\Big)\;=\;\bigcup_{i=1}^{n}\,(B\cap A_i).
+\]
+Los pedazos $B\cap A_i$ son disjuntos dos a dos, porque si $i\neq j$ entonces
+\[
+(B\cap A_i)\cap(B\cap A_j)\;=\;B\cap(A_i\cap A_j)\;=\;B\cap\varnothing\;=\;\varnothing .
+\]
+Es decir, hemos partido el evento $B$ en trozos que no se traslapan y que juntos lo reconstruyen exactamente. Por el axioma de aditividad sobre eventos disjuntos,
+\[
+P[B]\;=\;\sum_{i=1}^{n}P[B\cap A_i].
+\]
+Finalmente, cada sumando se reescribe con la regla de la multiplicaci\'on, $P[B\cap A_i]=P[B\mid A_i]P[A_i]$, lo cual es l\'icito porque $P[A_i]>0$. Sustituyendo se obtiene la f\'ormula anunciada. $\blacksquare$
+
+\medskip
+Como el producto de n\'umeros reales es conmutativo, cada sumando puede escribirse indistintamente como $P[B\mid A_i]\,P[A_i]$ o como $P[A_i]\cdot P[B\mid A_i]$. En los ejercicios se usar\'a la segunda forma, que ordena los factores igual que el \'arbol de probabilidad: primero la a priori de la casilla y despu\'es la condicional de la rama.
+
+\medskip
+Obs\'ervese que \emph{ambas} condiciones de partici\'on son indispensables: si los $A_i$ se traslaparan, algunos resultados de $B$ se contar\'ian dos veces; si no cubrieran $\Omega$, se perder\'ian resultados de $B$ que caen fuera de todas las casillas.
+
+\medskip
+\textbf{4. Regla de Bayes: enunciado y demostraci\'on.}
+Bajo las mismas hip\'otesis, si adem\'as $P[B]>0$, entonces para cada \'indice $j$:
+\[
+P[A_j\mid B]\;=\;\frac{P[B\mid A_j]\,P[A_j]}{\displaystyle\sum_{i=1}^{n}P[B\mid A_i]\,P[A_i]} .
+\]
+
+\emph{Demostraci\'on.} Se parte \'unicamente de la definici\'on de probabilidad condicional aplicada al par $(A_j,B)$ en el orden que interesa:
+\[
+P[A_j\mid B]\;=\;\frac{P[A_j\cap B]}{P[B]} .
+\]
+Ahora se reescriben por separado numerador y denominador con cantidades que s\'i aparecen en los enunciados:
+\begin{itemize}[leftmargin=1.4em]
+  \item \emph{Numerador.} Por la regla de la multiplicaci\'on con el condicionamiento invertido, $P[A_j\cap B]=P[B\mid A_j]P[A_j]$.
+  \item \emph{Denominador.} Por el teorema de probabilidad total reci\'en demostrado, $P[B]=\sum_{i=1}^{n}P[B\mid A_i]P[A_i]$.
+\end{itemize}
+Sustituyendo ambas expresiones se obtiene
+\[
+P[A_j\mid B]\;=\;\frac{P[B\mid A_j]P[A_j]}{\sum_{i=1}^{n}P[B\mid A_i]P[A_i]},
+\]
+que es la f\'ormula enunciada. $\blacksquare$
+
+\medskip
+\textbf{5. A priori y a posteriori.} La probabilidad $P[A_j]$ se llama \emph{a priori}: es lo que se sabe \emph{antes} de observar nada, y sale de los porcentajes de reparto del enunciado (cu\'anto produce cada m\'aquina, qu\'e fracci\'on de la poblaci\'on es de cada colegio). La probabilidad $P[A_j\mid B]$ se llama \emph{a posteriori}: es lo que se sabe \emph{despu\'es} de enterarse de que ocurri\'o $B$. Las causas que explican bien lo observado suben y las que lo explican mal bajan.
+
+\medskip
+\textbf{6. Por qu\'e $P[B\mid A]$ y $P[A\mid B]$ no son lo mismo.} Cambia el conjunto sobre el que se mide. El numerador es el mismo, $P[A\cap B]$, pero el denominador cambia:
+\[
+P[B\mid A]=\frac{P[A\cap B]}{P[A]},\qquad P[A\mid B]=\frac{P[A\cap B]}{P[B]} .
+\]
+Solo coinciden en el caso excepcional $P[A]=P[B]$. Confundirlas es el error cl\'asico de esta secci\'on: que el $90\%$ de los enfermos d\'e positivo no significa que el $90\%$ de los positivos est\'e enfermo.
+
+\medskip
+\textbf{7. Complemento.} Como $A$ y $\overline{A}$ forman la partici\'on m\'as simple posible, se cumple $P[\overline{A}]=1-P[A]$, y dentro de cada rama de un \'arbol, $P[\overline{B}\mid A_i]=1-P[B\mid A_i]$.
+\end{teo}
+
+\begin{tip}
+F\'ormulas de trabajo de toda esta secci\'on:
+\[
+A_1,\dots,A_n \text{ partici\'on}\iff A_i\cap A_j=\varnothing\ (i\neq j)\ \text{ y }\ \bigcup_{i=1}^{n}A_i=\Omega
+\qquad\Longrightarrow\qquad \sum_{i=1}^{n}P[A_i]=1
+\]
+\[
+P[A\cap B]=P[A]\,P[B\mid A]=P[B]\,P[A\mid B]
+\qquad\qquad
+P[\overline{A}]=1-P[A]
+\]
+\[
+P[B]=\sum_{i=1}^{n}P[B\mid A_i]\,P[A_i]
+\qquad\qquad
+P[A_j\mid B]=\frac{P[B\mid A_j]P[A_j]}{\sum_{i=1}^{n}P[B\mid A_i]P[A_i]}
+\]
+\[
+P[E]=\frac{\#\text{casos favorables}}{\#\text{casos posibles}}
+\qquad\qquad
+C(n,r)=\binom{n}{r}=\frac{n!}{r!\,(n-r)!}
+\]
+En un \'arbol: la probabilidad de una rama completa es el producto de las probabilidades de sus aristas; la probabilidad de un evento es la suma de las ramas (disjuntas) que lo producen.
+\end{tip}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 42}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 42}
+
+\begin{quote}
+En una encuesta, el 60 \% de los entrevistados indica que el pa\'is debe tener relaciones con China; por el contrario el 40 \% indica que debe ser con Estados Unidos. El 20 \% de los encuestados que favorecen a China practica deporte, al igual que el 35 \% que favorecen a Estados Unidos. Cu\'al es el porcentaje de personas que practican deporte? \hfill R/ 26 \%
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Nombrar los eventos y verificar que la partici\'on es exhaustiva y disjunta}
+\textbf{Qu\'e hago:} traduzco el texto a s\'imbolos antes de calcular nada. Considere los siguientes conjuntos: $\Omega$ es el conjunto de todas las personas entrevistadas en la encuesta,
+\[
+C=\{\text{personas entrevistadas que favorecen las relaciones con China}\},
+\]
+\[
+E=\{\text{personas entrevistadas que favorecen las relaciones con Estados Unidos}\},
+\]
+\[
+D=\{\text{personas entrevistadas que practican deporte}\}.
+\]
+El experimento consiste en escoger al azar una persona de $\Omega$. Los datos del enunciado, escritos en notaci\'on de probabilidad, son
+\[
+P[C]=0{,}60,\qquad P[E]=0{,}40 ,
+\]
+y se solicita $P[D]$.
+
+\medskip
+Note que los conjuntos $C$ y $E$ forman una partici\'on de $\Omega$:
+\begin{itemize}[leftmargin=1.4em]
+\item \emph{Disjuntos:} $C\cap E=\varnothing$, porque el enunciado presenta las dos posturas como opuestas (``por el contrario''): cada entrevistado indic\'o una sola de las dos opciones.
+\item \emph{Exhaustivos:} $C\cup E=\Omega$, porque el enunciado reparte al $100\%$ de los entrevistados entre esas dos posturas y no menciona ninguna tercera.
+\end{itemize}
+Control num\'erico:
+\[
+P[C]+P[E]=0{,}60+0{,}40=1{,}00 .
+\]
+\textbf{¿De d\'onde sale?} Los valores $0{,}60$ y $0{,}40$ salen literalmente de ``el 60 \% de los entrevistados indica que el pa\'is debe tener relaciones con China'' y ``el 40 \% indica que debe ser con Estados Unidos''.
+\textbf{¿Por qu\'e?} Porque el teorema de probabilidad total exige exactamente esas dos condiciones sobre la familia de casillas: si se traslaparan, contar\'iamos personas dos veces; si dejaran huecos, perder\'iamos personas.
+\textbf{¿Qu\'e tomamos?} Tomamos la partici\'on v\'alida $\{C,E\}$ con $P[C]=0{,}60$ y $P[E]=0{,}40$, y fijamos como inc\'ognita $P[D]$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Leer las verosimilitudes como probabilidades condicionales}
+\textbf{Qu\'e hago:} identifico qu\'e tipo de porcentaje son el $20\%$ y el $35\%$ y los escribo como condicionales:
+\[
+P[D\mid C]=0{,}20,\qquad P[D\mid E]=0{,}35 .
+\]
+\textbf{¿De d\'onde sale?} De las frases ``el 20 \% de los encuestados \emph{que favorecen a China} practica deporte'' y ``al igual que el 35 \% \emph{que favorecen a Estados Unidos}''. La preposici\'on ``de los que\dots'' es la marca ling\"u\'istica del condicionamiento.
+\textbf{¿Por qu\'e?} Porque ese $20\%$ no se calcula sobre el total de encuestados sino \emph{dentro} del subgrupo pro-China; el universo ya se redujo a $C$. Si se interpretara como porcentaje del total, el $20\%$ ser\'ia $P[D\cap C]$ y el resultado ser\'ia otro.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[D\mid C]=0{,}20$ y $P[D\mid E]=0{,}35$; por complemento dentro de cada rama, $P[\overline{D}\mid C]=0{,}80$ y $P[\overline{D}\mid E]=0{,}65$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Construir el \'arbol de probabilidad}
+\textbf{Qu\'e hago:} organizo el experimento en dos etapas: primero la postura (la partici\'on) y despu\'es el deporte.
+
+\begin{center}
+\shorthandoff{<>}
+\begin{tikzpicture}[scale=1.0,every node/.style={font=\small}]
+  \node (raiz) at (0,0) {$\Omega$};
+  \node (C) at (3.0,1.6) {$C$};
+  \node (E) at (3.0,-1.6) {$E$};
+  \node (CD) at (6.4,2.6) {$D$};
+  \node (CN) at (6.4,0.8) {$\overline{D}$};
+  \node (ED) at (6.4,-0.8) {$D$};
+  \node (EN) at (6.4,-2.6) {$\overline{D}$};
+  \draw[->] (raiz) -- node[above,sloped]{$0{,}60$} (C);
+  \draw[->] (raiz) -- node[below,sloped]{$0{,}40$} (E);
+  \draw[->] (C) -- node[above,sloped]{$0{,}20$} (CD);
+  \draw[->] (C) -- node[below,sloped]{$0{,}80$} (CN);
+  \draw[->] (E) -- node[above,sloped]{$0{,}35$} (ED);
+  \draw[->] (E) -- node[below,sloped]{$0{,}65$} (EN);
+  \node[right=2pt] at (CD.east) {$0{,}60\cdot 0{,}20=0{,}12$};
+  \node[right=2pt] at (CN.east) {$0{,}60\cdot 0{,}80=0{,}48$};
+  \node[right=2pt] at (ED.east) {$0{,}40\cdot 0{,}35=0{,}14$};
+  \node[right=2pt] at (EN.east) {$0{,}40\cdot 0{,}65=0{,}26$};
+\end{tikzpicture}
+\shorthandon{<>}
+\end{center}
+
+\textbf{¿De d\'onde sale?} Las aristas del primer nivel son las a prioris del Paso 1 y las del segundo nivel son las verosimilitudes del Paso 2.
+\textbf{¿Por qu\'e?} Porque multiplicar a lo largo de una rama es exactamente la regla de la multiplicaci\'on $P[C\cap D]=P[C]P[D\mid C]$, y las cuatro puntas del \'arbol son eventos disjuntos que cubren todo $\Omega$.
+\textbf{¿Qu\'e tomamos?} Tomamos las cuatro probabilidades conjuntas. Control: $0{,}12+0{,}48+0{,}14+0{,}26=1{,}00$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Aplicar el teorema de probabilidad total}
+\textbf{Qu\'e hago:} sumo las dos ramas que terminan en $D$, que es literalmente lo que dice el teorema con la partici\'on $\{C,E\}$:
+\[
+P[D]=P[C]\cdot P[D\mid C]+P[E]\cdot P[D\mid E].
+\]
+Sustituyo y desarrollo producto por producto:
+\[
+P[C]\cdot P[D\mid C]=0{,}60\cdot 0{,}20=\frac{60}{100}\cdot\frac{20}{100}=\frac{1200}{10000}=0{,}12,
+\]
+\[
+P[E]\cdot P[D\mid E]=0{,}40\cdot 0{,}35=\frac{40}{100}\cdot\frac{35}{100}=\frac{1400}{10000}=0{,}14 .
+\]
+Sumo:
+\[
+P[D]=0{,}12+0{,}14=0{,}26=\frac{26}{100}=\frac{13}{50}.
+\]
+\textbf{¿De d\'onde sale?} Los pesos $0{,}60$ y $0{,}40$ salen del Paso 1; las condicionales $0{,}20$ y $0{,}35$ salen del Paso 2.
+\textbf{¿Por qu\'e?} Porque una persona que practica deporte o bien favorece a China o bien favorece a Estados Unidos, y esos dos caminos son incompatibles; por eso se suman las probabilidades sin restar intersecciones.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[D]=\dfrac{13}{50}=0{,}26$, es decir, el $26\%$ de las personas practica deporte.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+$P[D]=0{,}60\cdot 0{,}20+0{,}40\cdot 0{,}35=0{,}12+0{,}14=\dfrac{13}{50}=\mathbf{0{,}26}$, es decir el $\mathbf{26\%}$ de las personas practica deporte.
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 43}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 43}
+
+\begin{quote}
+La probabilidad de que un jugador de futbol se lesione en un partido es del 0,05 si hacen buen tiempo y de 0,15 si el tiempo es malo. El meteor\'ologo pronostica que para el pr\'oximo partido hay probabilidad del 30 \% de que llueva y de un 70 \% de que est\'e soleado. Cu\'al es la probabilidad de lesi\'on en el pr\'oximo partido? \hfill R/ 8 \%
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Nombrar los eventos y verificar que la partici\'on es exhaustiva y disjunta}
+\textbf{Qu\'e hago:} traduzco el texto a s\'imbolos. Considere los siguientes conjuntos: $\Omega$ es el conjunto de todos los escenarios posibles del pr\'oximo partido,
+\[
+S_{o}=\{\text{escenarios en que el partido se juega con tiempo soleado (buen tiempo)}\},
+\]
+\[
+L_{l}=\{\text{escenarios en que el partido se juega con lluvia (mal tiempo)}\},
+\]
+\[
+L=\{\text{escenarios en que el jugador se lesiona}\}.
+\]
+Los datos del enunciado, escritos en notaci\'on de probabilidad, son
+\[
+P[S_{o}]=0{,}70,\qquad P[L_{l}]=0{,}30 ,
+\]
+y se solicita $P[L]$.
+
+\medskip
+Note que los conjuntos $S_{o}$ y $L_{l}$ forman una partici\'on de $\Omega$:
+\begin{itemize}[leftmargin=1.4em]
+\item \emph{Disjuntos:} $S_{o}\cap L_{l}=\varnothing$, porque el pron\'ostico presenta ``que llueva'' y ``que est\'e soleado'' como los dos \'unicos escenarios posibles y opuestos del mismo partido.
+\item \emph{Exhaustivos:} $S_{o}\cup L_{l}=\Omega$, porque los porcentajes $30\%$ y $70\%$ agotan el $100\%$ del pron\'ostico.
+\end{itemize}
+Control num\'erico:
+\[
+P[S_{o}]+P[L_{l}]=0{,}70+0{,}30=1{,}00 .
+\]
+\textbf{¿De d\'onde sale?} De ``hay probabilidad del 30 \% de que llueva y de un 70 \% de que est\'e soleado''.
+\textbf{¿Por qu\'e?} Porque necesito una partici\'on del espacio muestral para poder aplicar el teorema de probabilidad total, y el clima es justamente la variable que el enunciado usa para desglosar el riesgo de lesi\'on.
+\textbf{¿Qu\'e tomamos?} Tomamos la partici\'on v\'alida $\{S_{o},L_{l}\}$ y fijamos como inc\'ognita $P[L]$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Emparejar cada verosimilitud con la casilla correcta}
+\textbf{Qu\'e hago:} asigno cada probabilidad de lesi\'on a su escenario clim\'atico:
+\[
+P[L\mid S_{o}]=0{,}05,\qquad P[L\mid L_{l}]=0{,}15 .
+\]
+\textbf{¿De d\'onde sale?} De ``la probabilidad de que un jugador de futbol se lesione en un partido es del 0,05 \emph{si hacen buen tiempo} y de 0,15 \emph{si el tiempo es malo}''. La palabra ``si'' marca el condicionamiento. Hay que emparejar con cuidado: ``buen tiempo'' es el escenario soleado, cuya probabilidad es $0{,}70$, y ``tiempo malo'' es el escenario de lluvia, cuya probabilidad es $0{,}30$.
+\textbf{¿Por qu\'e?} Porque el enunciado da los datos en un orden (buen tiempo primero) y el pron\'ostico en el orden contrario (lluvia primero); emparejar mal producir\'ia $0{,}70\cdot 0{,}15+0{,}30\cdot 0{,}05=0{,}105+0{,}015=0{,}12$, que no es la respuesta.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[L\mid S_{o}]=0{,}05$ con peso $0{,}70$, y $P[L\mid L_{l}]=0{,}15$ con peso $0{,}30$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Construir el \'arbol de probabilidad}
+\textbf{Qu\'e hago:} escribo el \'arbol de dos etapas: clima y luego lesi\'on.
+
+\begin{center}
+\shorthandoff{<>}
+\begin{tikzpicture}[scale=1.0,every node/.style={font=\small}]
+  \node (raiz) at (0,0) {$\Omega$};
+  \node (So) at (3.0,1.6) {$S_{o}$};
+  \node (Ll) at (3.0,-1.6) {$L_{l}$};
+  \node (SL) at (6.6,2.6) {$L$};
+  \node (SN) at (6.6,0.8) {$\overline{L}$};
+  \node (LL) at (6.6,-0.8) {$L$};
+  \node (LN) at (6.6,-2.6) {$\overline{L}$};
+  \draw[->] (raiz) -- node[above,sloped]{$0{,}70$} (So);
+  \draw[->] (raiz) -- node[below,sloped]{$0{,}30$} (Ll);
+  \draw[->] (So) -- node[above,sloped]{$0{,}05$} (SL);
+  \draw[->] (So) -- node[below,sloped]{$0{,}95$} (SN);
+  \draw[->] (Ll) -- node[above,sloped]{$0{,}15$} (LL);
+  \draw[->] (Ll) -- node[below,sloped]{$0{,}85$} (LN);
+  \node[right=2pt] at (SL.east) {$0{,}70\cdot 0{,}05=0{,}035$};
+  \node[right=2pt] at (SN.east) {$0{,}70\cdot 0{,}95=0{,}665$};
+  \node[right=2pt] at (LL.east) {$0{,}30\cdot 0{,}15=0{,}045$};
+  \node[right=2pt] at (LN.east) {$0{,}30\cdot 0{,}85=0{,}255$};
+\end{tikzpicture}
+\shorthandon{<>}
+\end{center}
+
+\textbf{¿De d\'onde sale?} Las aristas del primer nivel son las a prioris del Paso 1 y las del segundo nivel las verosimilitudes del Paso 2; los valores $0{,}95$ y $0{,}85$ son los complementos $1-0{,}05$ y $1-0{,}15$ dentro de cada rama.
+\textbf{¿Por qu\'e?} Porque dentro de cada escenario clim\'atico, ``se lesiona'' y ``no se lesiona'' forman a su vez una partici\'on de dos casillas.
+\textbf{¿Qu\'e tomamos?} Tomamos las cuatro conjuntas. Control: $0{,}035+0{,}665+0{,}045+0{,}255=1{,}000$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Aplicar el teorema de probabilidad total}
+\textbf{Qu\'e hago:} sumo las dos ramas que terminan en lesi\'on:
+\[
+P[L]=P[S_{o}]\cdot P[L\mid S_{o}]+P[L_{l}]\cdot P[L\mid L_{l}].
+\]
+Producto por producto:
+\[
+0{,}70\cdot 0{,}05=\frac{70}{100}\cdot\frac{5}{100}=\frac{350}{10000}=0{,}035,
+\qquad
+0{,}30\cdot 0{,}15=\frac{30}{100}\cdot\frac{15}{100}=\frac{450}{10000}=0{,}045 .
+\]
+Suma:
+\[
+P[L]=0{,}035+0{,}045=0{,}080=\frac{80}{1000}=\frac{2}{25}.
+\]
+\textbf{¿De d\'onde sale?} Los pesos del Paso 1 y las condicionales del Paso 2.
+\textbf{¿Por qu\'e?} Porque el jugador solo puede lesionarse dentro de uno de los dos escenarios clim\'aticos, que son incompatibles entre s\'i y cubren todo el pron\'ostico; la probabilidad de lesi\'on es entonces el promedio ponderado de los dos riesgos, con pesos iguales a las probabilidades de cada clima.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[L]=\dfrac{2}{25}=0{,}08$, es decir el $8\%$.
+\end{paso}
+
+\begin{nota}
+El resultado $0{,}08$ queda entre los dos riesgos $0{,}05$ y $0{,}15$, y m\'as cerca del primero. Eso es lo esperable: un promedio ponderado siempre cae entre el m\'inimo y el m\'aximo de los valores promediados, y se acerca al que tiene mayor peso, que aqu\'i es el escenario soleado con $0{,}70$.
+\end{nota}
+
+\end{sol}
+
+\begin{resp}
+$P[L]=0{,}70\cdot 0{,}05+0{,}30\cdot 0{,}15=0{,}035+0{,}045=\dfrac{2}{25}=\mathbf{0{,}08}$, es decir un $\mathbf{8\%}$ de probabilidad de lesi\'on.
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 44}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 44}
+
+\begin{quote}
+La probabilidad de que una pieza fabricada por una empresa est\'e defectuosa es del 45 \%. Las piezas son elaboradas por dos m\'aquinas. La m\'aquina 1 fabrica el 60 \% de las piezas y la probabilidad de que la pieza tenga un defecto es del 30 \%. Cu\'al es la probabilidad de que una pieza elabolada por m\'aquina 2 est\'e defectuoso? \hfill R/ 67,5 \%
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Nombrar los eventos y verificar que la partici\'on es exhaustiva y disjunta}
+\textbf{Qu\'e hago:} traduzco el texto a s\'imbolos. Considere los siguientes conjuntos: $\Omega$ es el conjunto de todas las piezas fabricadas por la empresa,
+\[
+M_1=\{\text{piezas elaboradas por la m\'aquina 1}\},
+\]
+\[
+M_2=\{\text{piezas elaboradas por la m\'aquina 2}\},
+\]
+\[
+D=\{\text{piezas defectuosas}\}.
+\]
+Los datos del enunciado, escritos en notaci\'on de probabilidad, son
+\[
+P[D]=0{,}45,\qquad P[M_1]=0{,}60,\qquad P[D\mid M_1]=0{,}30 ,
+\]
+y se solicita $P[D\mid M_2]$.
+
+\medskip
+Note que los conjuntos $M_1$ y $M_2$ forman una partici\'on de $\Omega$:
+\begin{itemize}[leftmargin=1.4em]
+\item \emph{Disjuntos:} $M_1\cap M_2=\varnothing$, porque cada pieza sale de una sola m\'aquina.
+\item \emph{Exhaustivos:} $M_1\cup M_2=\Omega$, porque solo hay dos m\'aquinas y toda pieza proviene de alguna.
+\end{itemize}
+De la condici\'on de exhaustividad se despeja el peso faltante:
+\[
+P[M_2]=1-P[M_1]=1-0{,}60=0{,}40 ,
+\qquad\text{control: } 0{,}60+0{,}40=1{,}00 .
+\]
+\textbf{¿De d\'onde sale?} El $0{,}60$ de ``la m\'aquina 1 fabrica el 60 \% de las piezas''; el $0{,}40$ no est\'a escrito en el texto, se \emph{deduce} de que las dos m\'aquinas agotan la producci\'on.
+\textbf{¿Por qu\'e?} Porque sin el valor de $P[M_2]$ la ecuaci\'on de probabilidad total no se puede plantear, y ese valor solo se obtiene usando la propiedad $\sum_i P[A_i]=1$ de las particiones.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[M_1]=0{,}60$ y $P[M_2]=0{,}40$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Distinguir el dato global de la verosimilitud de la m\'aquina 1}
+\textbf{Qu\'e hago:} clasifico los dos porcentajes restantes seg\'un el universo sobre el que se calculan:
+\[
+P[D]=0{,}45
+\qquad\text{(porcentaje sobre \emph{todas} las piezas de la empresa)},
+\]
+\[
+P[D\mid M_1]=0{,}30
+\qquad\text{(porcentaje \emph{dentro} de lo que produce la m\'aquina 1)}.
+\]
+\textbf{¿De d\'onde sale?} El $0{,}45$ de ``la probabilidad de que \emph{una pieza fabricada por una empresa} est\'e defectuosa es del 45 \%'': el sujeto es una pieza cualquiera de la empresa, sin condicionar. El $0{,}30$ aparece en la misma oraci\'on que habla de la m\'aquina 1 (``la m\'aquina 1 fabrica el 60 \% de las piezas y la probabilidad de que la pieza tenga un defecto es del 30 \%''), donde ``la pieza'' se refiere a una pieza de esa m\'aquina.
+\textbf{¿Por qu\'e?} Porque confundir estos dos niveles arruina el problema: $0{,}45$ es el promedio ponderado global y $0{,}30$ es el valor de una sola rama. De hecho, si $0{,}30$ fuera el valor global no habr\'ia nada que resolver.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[D]=0{,}45$ como dato global y $P[D\mid M_1]=0{,}30$ como verosimilitud de la primera rama. La inc\'ognita es $P[D\mid M_2]$, que llamaremos $p$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Plantear la ecuaci\'on de probabilidad total con la inc\'ognita}
+\textbf{Qu\'e hago:} escribo el teorema de probabilidad total para $D$ con la partici\'on $\{M_1,M_2\}$, dejando $p=P[D\mid M_2]$ como inc\'ognita:
+\[
+P[D]=P[M_1]\cdot P[D\mid M_1]+P[M_2]\cdot P[D\mid M_2],
+\]
+\[
+0{,}45 \;=\; \underbrace{0{,}60}_{P[M_1]}\cdot\underbrace{0{,}30}_{P[D\mid M_1]} \;+\; \underbrace{0{,}40}_{P[M_2]}\cdot\underbrace{p}_{P[D\mid M_2]} .
+\]
+\textbf{¿De d\'onde sale?} De la f\'ormula demostrada en la caja de Teor\'ia, sustituyendo los cuatro valores identificados en los Pasos 1 y 2.
+\textbf{¿Por qu\'e?} Porque el teorema se usa aqu\'i en sentido inverso al habitual: normalmente se conocen todas las verosimilitudes y se busca $P[D]$; aqu\'i se conoce $P[D]$ y falta una verosimilitud. La ecuaci\'on es la misma y es lineal en $p$, as\'i que tiene soluci\'on \'unica siempre que $P[M_2]\neq 0$, condici\'on que se cumple porque $P[M_2]=0{,}40>0$.
+\textbf{¿Qu\'e tomamos?} Tomamos la ecuaci\'on $0{,}45=0{,}60\cdot 0{,}30+0{,}40\,p$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Despejar la condicional desconocida}
+\textbf{Qu\'e hago:} resuelvo la ecuaci\'on lineal paso a paso. Primero el producto conocido:
+\[
+0{,}60\cdot 0{,}30=\frac{60}{100}\cdot\frac{30}{100}=\frac{1800}{10000}=0{,}18 .
+\]
+La ecuaci\'on queda
+\[
+0{,}45=0{,}18+0{,}40\,p .
+\]
+Resto $0{,}18$ en ambos lados:
+\[
+0{,}45-0{,}18=0{,}40\,p
+\qquad\Longrightarrow\qquad
+0{,}27=0{,}40\,p .
+\]
+Divido entre $0{,}40$:
+\[
+p=\frac{0{,}27}{0{,}40}=\frac{27/100}{40/100}=\frac{27}{40}.
+\]
+Convierto a decimal ampliando a denominador $1000$:
+\[
+\frac{27}{40}=\frac{27\cdot 25}{40\cdot 25}=\frac{675}{1000}=0{,}675 .
+\]
+\textbf{¿De d\'onde sale?} La ecuaci\'on del Paso 3; el resto y la divisi\'on son \'algebra elemental de una ecuaci\'on lineal.
+\textbf{¿Por qu\'e?} Porque el aporte de la m\'aquina 1 al total de defectuosas es $0{,}18$, es decir, de cada $100$ piezas de la empresa $18$ son defectuosas y vienen de la m\'aquina 1. Como en total hay $45$ defectuosas por cada $100$ piezas, las $45-18=27$ restantes provienen de la m\'aquina 2. Y como la m\'aquina 2 aporta $40$ de cada $100$ piezas, la proporci\'on de defectuosas \emph{dentro} de la m\'aquina 2 es $27/40$.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[D\mid M_2]=\dfrac{27}{40}=0{,}675$, es decir el $67{,}5\%$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Verificar sustituyendo hacia atr\'as}
+\textbf{Qu\'e hago:} compruebo que el valor hallado reproduce el dato global $0{,}45$:
+\[
+P[D]=0{,}60\cdot 0{,}30+0{,}40\cdot 0{,}675 .
+\]
+Calculo el segundo producto:
+\[
+0{,}40\cdot 0{,}675=\frac{40}{100}\cdot\frac{675}{1000}=\frac{27000}{100000}=0{,}27 .
+\]
+Y sumo:
+\[
+0{,}18+0{,}27=0{,}45=P[D]\ \checkmark
+\]
+Adem\'as verifico que $p$ es una probabilidad leg\'itima: $0\le 0{,}675\le 1$.
+\textbf{¿De d\'onde sale?} De sustituir el valor del Paso 4 en la ecuaci\'on del Paso 3.
+\textbf{¿Por qu\'e?} Porque al despejar una inc\'ognita conviene siempre cerrar el ciclo: si la sustituci\'on no devolviera $0{,}45$, habr\'ia un error aritm\'etico; y si $p$ hubiera salido mayor que $1$ o negativo, los datos del enunciado ser\'ian inconsistentes.
+\textbf{¿Qu\'e tomamos?} Tomamos como definitivo $P[D\mid M_2]=0{,}675$.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+De $0{,}45=0{,}60\cdot 0{,}30+0{,}40\,p$ se obtiene $0{,}40\,p=0{,}27$, luego
+\[
+P[D\mid M_2]=\frac{0{,}27}{0{,}40}=\frac{27}{40}=\mathbf{0{,}675}=\mathbf{67{,}5\%}.
+\]
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 45}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 45}
+
+\begin{quote}
+En una localidad hay 3 colegios. El primero tiene 25 \% de que la poblaci\'on estudiantil de quinto a\~no, el segundo el 35 \% y el tercero el 40 \%/ En la prueba de bachillerato de matem\'aticas se obtuvo un 85 \%, 92 \%, 96 \% de promoci\'on en cada colegio respectivamente.\\
+\emph{(a)} Cu\'al es la probabilidad de ganar el examen de matem\'atica en esa localidad? \hfill R/ 91,85 \%\\
+\emph{(b)} Si escoge un estudiante al azar y resulta que perdi\'o la prueba. Cu\'al es la probabilidad de que provenga del primer colegio? \hfill R/ 46,01 \%
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Nombrar los eventos y verificar que la partici\'on es exhaustiva y disjunta}
+\textbf{Qu\'e hago:} traduzco el texto a s\'imbolos. Considere los siguientes conjuntos: $\Omega$ es el conjunto de todos los estudiantes de quinto a\~no de la localidad,
+\[
+C_1=\{\text{estudiantes del primer colegio}\},\qquad
+C_2=\{\text{estudiantes del segundo colegio}\},
+\]
+\[
+C_3=\{\text{estudiantes del tercer colegio}\},
+\]
+\[
+G=\{\text{estudiantes que ganaron (promovieron) la prueba de matem\'aticas}\},
+\]
+\[
+\overline{G}=\{\text{estudiantes que la perdieron}\}.
+\]
+Los datos del enunciado, escritos en notaci\'on de probabilidad, son
+\[
+P[C_1]=0{,}25,\qquad P[C_2]=0{,}35,\qquad P[C_3]=0{,}40 ,
+\]
+\[
+P[G\mid C_1]=0{,}85,\qquad P[G\mid C_2]=0{,}92,\qquad P[G\mid C_3]=0{,}96 ,
+\]
+y se solicitan $P[G]$ en el inciso (a) y $P[C_1\mid\overline{G}]$ en el inciso (b).
+
+\medskip
+Note que los conjuntos $C_1$, $C_2$ y $C_3$ forman una partici\'on de $\Omega$:
+\begin{itemize}[leftmargin=1.4em]
+\item \emph{Disjuntos:} $C_i\cap C_j=\varnothing$ si $i\neq j$, porque cada estudiante de quinto a\~no est\'a matriculado en un solo colegio.
+\item \emph{Exhaustivos:} $C_1\cup C_2\cup C_3=\Omega$, porque el enunciado dice que ``en una localidad hay 3 colegios'' y reparte entre ellos toda la poblaci\'on estudiantil de quinto a\~no.
+\end{itemize}
+Control num\'erico:
+\[
+P[C_1]+P[C_2]+P[C_3]=0{,}25+0{,}35+0{,}40=0{,}60+0{,}40=1{,}00 .
+\]
+\textbf{¿De d\'onde sale?} De ``el primero tiene 25 \% de que la poblaci\'on estudiantil de quinto a\~no, el segundo el 35 \% y el tercero el 40 \%'' (la redacci\'on del folleto tiene una errata, pero el reparto de porcentajes es claro).
+\textbf{¿Por qu\'e?} Porque el teorema de probabilidad total y la regla de Bayes solo se aplican sobre una partici\'on, y la suma $1{,}00$ confirma que no falta ni sobra ning\'un colegio.
+\textbf{¿Qu\'e tomamos?} Tomamos la partici\'on v\'alida $\{C_1,C_2,C_3\}$ con esas tres a prioris.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Leer las verosimilitudes de promoci\'on y sus complementos}
+\textbf{Qu\'e hago:} escribo los porcentajes de promoci\'on como condicionales y calculo el complemento de cada uno:
+\[
+P[G\mid C_1]=0{,}85,\qquad P[G\mid C_2]=0{,}92,\qquad P[G\mid C_3]=0{,}96,
+\]
+\[
+P[\overline{G}\mid C_1]=1-0{,}85=0{,}15,\quad
+P[\overline{G}\mid C_2]=1-0{,}92=0{,}08,\quad
+P[\overline{G}\mid C_3]=1-0{,}96=0{,}04 .
+\]
+\textbf{¿De d\'onde sale?} De ``se obtuvo un 85 \%, 92 \%, 96 \% de promoci\'on \emph{en cada colegio respectivamente}''. La palabra ``respectivamente'' fija el emparejamiento: $85\%$ con el primero, $92\%$ con el segundo y $96\%$ con el tercero.
+\textbf{¿Por qu\'e?} Porque son tasas medidas \emph{dentro} de cada colegio, no sobre la localidad entera. Los complementos se calculan rama por rama porque dentro de cada colegio $\{G,\overline{G}\}$ es a su vez una partici\'on de dos casillas: quien no gan\'o, perdi\'o.
+\textbf{¿Qu\'e tomamos?} Tomamos las seis verosimilitudes anteriores.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Construir el \'arbol de probabilidad}
+\textbf{Qu\'e hago:} organizo las seis ramas del experimento en dos etapas: colegio y luego resultado de la prueba.
+
+\begin{center}
+\shorthandoff{<>}
+\begin{tikzpicture}[scale=1.0,every node/.style={font=\small}]
+  \node (raiz) at (0,0) {$\Omega$};
+  \node (C1) at (3.0,2.6) {$C_1$};
+  \node (C2) at (3.0,0) {$C_2$};
+  \node (C3) at (3.0,-2.6) {$C_3$};
+  \node (G1) at (6.4,3.5) {$G$};
+  \node (N1) at (6.4,1.9) {$\overline{G}$};
+  \node (G2) at (6.4,0.9) {$G$};
+  \node (N2) at (6.4,-0.7) {$\overline{G}$};
+  \node (G3) at (6.4,-1.7) {$G$};
+  \node (N3) at (6.4,-3.3) {$\overline{G}$};
+  \draw[->] (raiz) -- node[above,sloped]{$0{,}25$} (C1);
+  \draw[->] (raiz) -- node[above]{$0{,}35$} (C2);
+  \draw[->] (raiz) -- node[below,sloped]{$0{,}40$} (C3);
+  \draw[->] (C1) -- node[above,sloped]{$0{,}85$} (G1);
+  \draw[->] (C1) -- node[below,sloped]{$0{,}15$} (N1);
+  \draw[->] (C2) -- node[above,sloped]{$0{,}92$} (G2);
+  \draw[->] (C2) -- node[below,sloped]{$0{,}08$} (N2);
+  \draw[->] (C3) -- node[above,sloped]{$0{,}96$} (G3);
+  \draw[->] (C3) -- node[below,sloped]{$0{,}04$} (N3);
+  \node[right=2pt] at (G1.east) {$0{,}25\cdot 0{,}85=0{,}2125$};
+  \node[right=2pt] at (N1.east) {$0{,}25\cdot 0{,}15=0{,}0375$};
+  \node[right=2pt] at (G2.east) {$0{,}35\cdot 0{,}92=0{,}3220$};
+  \node[right=2pt] at (N2.east) {$0{,}35\cdot 0{,}08=0{,}0280$};
+  \node[right=2pt] at (G3.east) {$0{,}40\cdot 0{,}96=0{,}3840$};
+  \node[right=2pt] at (N3.east) {$0{,}40\cdot 0{,}04=0{,}0160$};
+\end{tikzpicture}
+\shorthandon{<>}
+\end{center}
+
+\textbf{¿De d\'onde sale?} Primer nivel: a prioris del Paso 1. Segundo nivel: verosimilitudes y complementos del Paso 2.
+\textbf{¿Por qu\'e?} Porque cada rama completa es una intersecci\'on $C_i\cap G$ o $C_i\cap\overline{G}$, y su probabilidad es el producto de las aristas por la regla de la multiplicaci\'on.
+\textbf{¿Qu\'e tomamos?} Tomamos las seis conjuntas. Control:
+\[
+0{,}2125+0{,}0375+0{,}3220+0{,}0280+0{,}3840+0{,}0160=1{,}0000 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (a): probabilidad total de ganar el examen}
+\textbf{Qu\'e hago:} sumo las tres ramas que terminan en $G$:
+\[
+P[G]=P[C_1]\cdot P[G\mid C_1]+P[C_2]\cdot P[G\mid C_2]+P[C_3]\cdot P[G\mid C_3].
+\]
+Producto por producto:
+\[
+0{,}25\cdot 0{,}85=\frac{25\cdot 85}{10000}=\frac{2125}{10000}=0{,}2125,
+\]
+\[
+0{,}35\cdot 0{,}92=\frac{35\cdot 92}{10000}=\frac{3220}{10000}=0{,}3220,
+\]
+\[
+0{,}40\cdot 0{,}96=\frac{40\cdot 96}{10000}=\frac{3840}{10000}=0{,}3840 .
+\]
+Suma con denominador com\'un $10000$:
+\[
+P[G]=\frac{2125+3220+3840}{10000}=\frac{9185}{10000}=0{,}9185 .
+\]
+La fracci\'on simplificada, dividiendo entre $5$:
+\[
+\frac{9185}{10000}=\frac{1837}{2000}.
+\]
+\textbf{¿De d\'onde sale?} Los pesos del Paso 1 y las tasas de promoci\'on del Paso 2.
+\textbf{¿Por qu\'e?} Porque un estudiante que gan\'o proviene de exactamente uno de los tres colegios; los tres caminos son disjuntos y su uni\'on es $G$, as\'i que sus probabilidades se suman.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[G]=\dfrac{1837}{2000}=0{,}9185$, es decir el $91{,}85\%$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (b): probabilidad total del evento complementario ``perdi\'o''}
+\textbf{Qu\'e hago:} calculo $P[\overline{G}]$ de las dos maneras posibles, para tener un control cruzado. Por complemento global:
+\[
+P[\overline{G}]=1-P[G]=1-0{,}9185=0{,}0815 .
+\]
+Sumando las tres ramas que terminan en $\overline{G}$:
+\[
+P[\overline{G}]=0{,}25\cdot 0{,}15+0{,}35\cdot 0{,}08+0{,}40\cdot 0{,}04
+=\frac{375+280+160}{10000}=\frac{815}{10000}=0{,}0815\ \checkmark
+\]
+donde los productos por separado son
+\[
+0{,}25\cdot 0{,}15=\frac{375}{10000}=0{,}0375,\qquad
+0{,}35\cdot 0{,}08=\frac{280}{10000}=0{,}0280,
+\]
+\[
+0{,}40\cdot 0{,}04=\frac{160}{10000}=0{,}0160 .
+\]
+\textbf{¿De d\'onde sale?} Del \'arbol del Paso 3 y del resultado del Paso 4.
+\textbf{¿Por qu\'e?} Porque el inciso (b) condiciona sobre ``perdi\'o'', que es el complemento de ``gan\'o''; el denominador de Bayes debe ser la probabilidad de lo que \emph{efectivamente} se observ\'o, no la de ganar. Que ambos c\'alculos coincidan confirma que el \'arbol est\'a bien construido.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[\overline{G}]=0{,}0815=\dfrac{815}{10000}=\dfrac{163}{2000}$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Inciso (b): aplicar la regla de Bayes}
+\textbf{Qu\'e hago:} invierto el condicionamiento. El universo se reduce a los estudiantes que perdieron y pregunto qu\'e fracci\'on de ellos viene del primer colegio:
+\[
+P[C_1\mid \overline{G}]
+=\frac{P[C_1]\cdot P[\overline{G}\mid C_1]}{P[C_1]\cdot P[\overline{G}\mid C_1]+P[C_2]\cdot P[\overline{G}\mid C_2]+P[C_3]\cdot P[\overline{G}\mid C_3]}
+=\frac{0{,}0375}{0{,}0815}.
+\]
+Elimino decimales multiplicando numerador y denominador por $10000$ y simplifico:
+\[
+\frac{0{,}0375}{0{,}0815}=\frac{375}{815}=\frac{375\div 5}{815\div 5}=\frac{75}{163}.
+\]
+La divisi\'on decimal, paso a paso:
+\[
+\frac{75}{163}=0{,}4601226\ldots
+\]
+En efecto, $163\cdot 0{,}46=74{,}98$, que ya es casi $75$; afinando, $163\cdot 0{,}4601=74{,}9963$ y $163\cdot 0{,}46012=74{,}99956$. Redondeando a cuatro decimales, $0{,}4601$.
+\textbf{¿De d\'onde sale?} El numerador $0{,}0375$ es la rama $C_1\to\overline{G}$ del \'arbol; el denominador $0{,}0815$ es la suma de las tres ramas de p\'erdida, calculada en el Paso 5.
+\textbf{¿Por qu\'e?} Porque el enunciado da $P[\overline{G}\mid C_1]=0{,}15$ y pide $P[C_1\mid\overline{G}]$, que es otra cosa: cambia el denominador de $P[C_1]=0{,}25$ a $P[\overline{G}]=0{,}0815$. El resultado $0{,}46$ es mucho mayor que la a priori $0{,}25$ porque el primer colegio es el que m\'as reprueba, as\'i que observar una p\'erdida hace subir la sospecha de que el estudiante viene de ah\'i.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[C_1\mid\overline{G}]=\dfrac{75}{163}\approx 0{,}4601$, es decir el $46{,}01\%$.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+\textbf{(a)} $P[G]=0{,}25\cdot 0{,}85+0{,}35\cdot 0{,}92+0{,}40\cdot 0{,}96=\dfrac{1837}{2000}=\mathbf{0{,}9185}=\mathbf{91{,}85\%}$.\\[4pt]
+\textbf{(b)} $P[C_1\mid\overline{G}]=\dfrac{0{,}0375}{0{,}0815}=\dfrac{75}{163}\approx\mathbf{0{,}4601}=\mathbf{46{,}01\%}$.
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 46}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 46}
+
+\begin{quote}
+Al analizar los registros de un hospital sobre resultados de un examen para detectar un tipo de c\'ancer, se determin\'o que el examen era satisfactorio, pues el 90 \% de los pacientes con c\'ancer da positivo en el examen (es decir, el examen indica presencia de c\'ancer). Adem\'as, solo el 10 \% de los pacientes sanos da positivo. Si solo el 1 \% de los pacientes del hospital padecen el c\'ancer. Cu\'al es la probabilidad de que un paciente que fue sometido al examen y obtuvo resultado positivo padezca realmente la enfermedad? \hfill R/ 8,33 \%
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Nombrar los eventos y verificar que la partici\'on es exhaustiva y disjunta}
+\textbf{Qu\'e hago:} traduzco el texto a s\'imbolos. Considere los siguientes conjuntos: $\Omega$ es el conjunto de todos los pacientes del hospital sometidos al examen,
+\[
+C=\{\text{pacientes que padecen el c\'ancer}\},\qquad
+\overline{C}=\{\text{pacientes sanos}\},
+\]
+\[
+T^{+}=\{\text{pacientes cuyo examen da positivo}\}.
+\]
+Los datos del enunciado, escritos en notaci\'on de probabilidad, son
+\[
+P[C]=0{,}01,\qquad P[T^{+}\mid C]=0{,}90,\qquad P[T^{+}\mid\overline{C}]=0{,}10 ,
+\]
+y se solicita $P[C\mid T^{+}]$. Por complemento,
+\[
+P[\overline{C}]=1-0{,}01=0{,}99 .
+\]
+
+\medskip
+Note que los conjuntos $C$ y $\overline{C}$ forman una partici\'on de $\Omega$:
+\begin{itemize}[leftmargin=1.4em]
+\item \emph{Disjuntos:} $C\cap\overline{C}=\varnothing$ por definici\'on de complemento; nadie padece y no padece la enfermedad a la vez.
+\item \emph{Exhaustivos:} $C\cup\overline{C}=\Omega$, tambi\'en por definici\'on de complemento; todo paciente est\'a en uno de los dos grupos.
+\end{itemize}
+Control num\'erico:
+\[
+P[C]+P[\overline{C}]=0{,}01+0{,}99=1{,}00 .
+\]
+\textbf{¿De d\'onde sale?} De ``solo el 1 \% de los pacientes del hospital padecen el c\'ancer''; el $0{,}99$ se deduce de la propiedad del complemento.
+\textbf{¿Por qu\'e?} Porque $\{C,\overline{C}\}$ es la partici\'on m\'as simple posible y basta para aplicar Bayes; el reparto $1\%$ contra $99\%$ ser\'a decisivo en el resultado.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[C]=0{,}01$ y $P[\overline{C}]=0{,}99$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Leer las verosimilitudes del examen}
+\textbf{Qu\'e hago:} escribo las dos tasas del examen como condicionales:
+\[
+P[T^{+}\mid C]=0{,}90
+\qquad\text{(sensibilidad: positivos entre enfermos)},
+\]
+\[
+P[T^{+}\mid \overline{C}]=0{,}10
+\qquad\text{(falsos positivos: positivos entre sanos)}.
+\]
+\textbf{¿De d\'onde sale?} De ``el 90 \% de los pacientes \emph{con c\'ancer} da positivo'' y ``solo el 10 \% de los pacientes \emph{sanos} da positivo''.
+\textbf{¿Por qu\'e?} Porque ambas tasas se calculan dentro de un subgrupo ya fijado (enfermos, sanos), no sobre el total de pacientes del hospital.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[T^{+}\mid C]=0{,}90$ y $P[T^{+}\mid\overline{C}]=0{,}10$; la inc\'ognita es $P[C\mid T^{+}]$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Construir el \'arbol y calcular las conjuntas}
+\textbf{Qu\'e hago:} multiplico a lo largo de cada rama con la regla de la multiplicaci\'on.
+
+\begin{center}
+\shorthandoff{<>}
+\begin{tikzpicture}[scale=1.0,every node/.style={font=\small}]
+  \node (raiz) at (0,0) {$\Omega$};
+  \node (C) at (3.0,1.6) {$C$};
+  \node (Cc) at (3.0,-1.6) {$\overline{C}$};
+  \node (CP) at (6.6,2.6) {$T^{+}$};
+  \node (CN) at (6.6,0.8) {$T^{-}$};
+  \node (SP) at (6.6,-0.8) {$T^{+}$};
+  \node (SN) at (6.6,-2.6) {$T^{-}$};
+  \draw[->] (raiz) -- node[above,sloped]{$0{,}01$} (C);
+  \draw[->] (raiz) -- node[below,sloped]{$0{,}99$} (Cc);
+  \draw[->] (C) -- node[above,sloped]{$0{,}90$} (CP);
+  \draw[->] (C) -- node[below,sloped]{$0{,}10$} (CN);
+  \draw[->] (Cc) -- node[above,sloped]{$0{,}10$} (SP);
+  \draw[->] (Cc) -- node[below,sloped]{$0{,}90$} (SN);
+  \node[right=2pt] at (CP.east) {$0{,}01\cdot 0{,}90=0{,}009$};
+  \node[right=2pt] at (CN.east) {$0{,}01\cdot 0{,}10=0{,}001$};
+  \node[right=2pt] at (SP.east) {$0{,}99\cdot 0{,}10=0{,}099$};
+  \node[right=2pt] at (SN.east) {$0{,}99\cdot 0{,}90=0{,}891$};
+\end{tikzpicture}
+\shorthandon{<>}
+\end{center}
+
+Los dos productos que interesan, en detalle:
+\[
+P[C\cap T^{+}]=0{,}01\cdot 0{,}90=\frac{1}{100}\cdot\frac{90}{100}=\frac{90}{10000}=0{,}009,
+\]
+\[
+P[\overline{C}\cap T^{+}]=0{,}99\cdot 0{,}10=\frac{99}{100}\cdot\frac{10}{100}=\frac{990}{10000}=0{,}099 .
+\]
+\textbf{¿De d\'onde sale?} De las a prioris del Paso 1 y las verosimilitudes del Paso 2.
+\textbf{¿Por qu\'e?} Porque cada rama es una intersecci\'on y la probabilidad de una intersecci\'on es el producto de la a priori por la condicional correspondiente.
+\textbf{¿Qu\'e tomamos?} Tomamos las cuatro conjuntas. Control: $0{,}009+0{,}001+0{,}099+0{,}891=1{,}000$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Probabilidad total de dar positivo}
+\textbf{Qu\'e hago:} sumo las dos ramas que terminan en $T^{+}$:
+\[
+P[T^{+}]=P[C]\cdot P[T^{+}\mid C]+P[\overline{C}]\cdot P[T^{+}\mid \overline{C}]=0{,}009+0{,}099=0{,}108 .
+\]
+En fracci\'on:
+\[
+P[T^{+}]=\frac{90}{10000}+\frac{990}{10000}=\frac{1080}{10000}=\frac{27}{250}.
+\]
+\textbf{¿De d\'onde sale?} De las dos conjuntas del Paso 3.
+\textbf{¿Por qu\'e?} Porque un positivo puede provenir de un enfermo (verdadero positivo) o de un sano (falso positivo), casos incompatibles que agotan todas las formas de obtener un positivo.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[T^{+}]=0{,}108$. Obs\'ervese ya el desequilibrio: de cada $1080$ positivos por cada $10000$ pacientes, solo $90$ corresponden a enfermos.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Aplicar la regla de Bayes}
+\textbf{Qu\'e hago:} divido la rama de inter\'es entre el total de positivos:
+\[
+P[C\mid T^{+}]=\frac{P[C]\cdot P[T^{+}\mid C]}{P[C]\cdot P[T^{+}\mid C]+P[\overline{C}]\cdot P[T^{+}\mid \overline{C}]}
+=\frac{0{,}009}{0{,}108}.
+\]
+Elimino decimales multiplicando arriba y abajo por $1000$ y simplifico por etapas:
+\[
+\frac{0{,}009}{0{,}108}=\frac{9}{108}=\frac{9\div 9}{108\div 9}=\frac{1}{12}.
+\]
+Valor decimal:
+\[
+\frac{1}{12}=0{,}08\overline{3}=0{,}083333\ldots\approx 0{,}0833=8{,}33\% .
+\]
+\textbf{¿De d\'onde sale?} El numerador $0{,}009$ es la rama enfermo-positivo del Paso 3; el denominador $0{,}108$ es el total de positivos del Paso 4.
+\textbf{¿Por qu\'e?} Porque el dato ``el examen detecta al $90\%$ de los enfermos'' es $P[T^{+}\mid C]$, y la pregunta es $P[C\mid T^{+}]$: el universo pasa de ser el grupo de enfermos a ser el grupo de positivos. Como los sanos son $99$ veces m\'as numerosos que los enfermos, incluso una tasa peque\~na de falsos positivos ($10\%$ de $0{,}99$) produce muchos m\'as positivos que la tasa alta de verdaderos positivos ($90\%$ de $0{,}01$): $0{,}099$ frente a $0{,}009$, es decir $11$ veces m\'as.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[C\mid T^{+}]=\dfrac{1}{12}\approx 0{,}0833$, es decir el $8{,}33\%$.
+\end{paso}
+
+\end{sol}
+
+\begin{resp}
+\[
+P[C\mid T^{+}]=\frac{0{,}01\cdot 0{,}90}{0{,}01\cdot 0{,}90+0{,}99\cdot 0{,}10}=\frac{0{,}009}{0{,}108}=\frac{1}{12}\approx \mathbf{0{,}0833}=\mathbf{8{,}33\%}.
+\]
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 47}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 47}
+
+\begin{quote}
+Una pareja tiene dos hijos. La probabilidad de que en un nacimiento se obtenga una ni\~na es del 50 \% y los resultados en los nacimientos en una familia se consideran eventos independientes. El lunes la madre escoge un hijo para que la acompa\~ne al supermercado y resulta que el hijo escogido es ni\~na. La probabilidad de que escoja una ni\~na, bajo el supuesto de que sus hijos son ni\~no y ni\~na, es de 2/3. Determine la probabilidad de que la pareja tenda dos ni\~nas. \hfill R/ 3/7
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Nombrar los eventos y verificar que la partici\'on es exhaustiva y disjunta}
+\textbf{Qu\'e hago:} traduzco el texto a s\'imbolos. Considere $\Omega$ el conjunto de todas las composiciones posibles de la familia. Anotando el sexo del primer y del segundo hijo en orden de nacimiento, con $n$ para ni\~na y $v$ para ni\~no, los resultados posibles son
+\[
+\Omega=\{\,nn,\ nv,\ vn,\ vv\,\}.
+\]
+Agrupo en tres casillas seg\'un el n\'umero de ni\~nas:
+\[
+A_2=\{nn\}=\{\text{las dos son ni\~nas}\},\qquad
+A_1=\{nv,vn\}=\{\text{un ni\~no y una ni\~na}\},
+\]
+\[
+A_0=\{vv\}=\{\text{los dos son ni\~nos}\}.
+\]
+Y defino el evento observado
+\[
+N=\{\text{resultados en que el hijo escogido para ir al supermercado es ni\~na}\}.
+\]
+Los datos del enunciado, escritos en notaci\'on de probabilidad, son
+\[
+P[\text{ni\~na en un nacimiento}]=0{,}5,\qquad \text{nacimientos independientes},\qquad P[N\mid A_1]=\tfrac23 ,
+\]
+y se solicita $P[A_2\mid N]$.
+
+\medskip
+Note que los conjuntos $A_0$, $A_1$ y $A_2$ forman una partici\'on de $\Omega$:
+\begin{itemize}[leftmargin=1.4em]
+\item \emph{Disjuntos:} el n\'umero de ni\~nas en la familia es un valor concreto; no puede ser $1$ y $2$ a la vez, luego $A_i\cap A_j=\varnothing$ si $i\neq j$.
+\item \emph{Exhaustivos:} con dos hijos el n\'umero de ni\~nas solo puede ser $0$, $1$ o $2$, as\'i que $A_0\cup A_1\cup A_2=\Omega$.
+\end{itemize}
+\textbf{¿De d\'onde sale?} De ``una pareja tiene dos hijos'' (dos nacimientos) y de que en cada nacimiento hay dos resultados posibles.
+\textbf{¿Por qu\'e?} Porque la pregunta final es ``¿qu\'e probabilidad hay de que tenga dos ni\~nas, sabiendo que la acompa\~nante fue ni\~na?'', es decir, una probabilidad a posteriori sobre la composici\'on familiar; las casillas deben ser entonces las composiciones posibles.
+\textbf{¿Qu\'e tomamos?} Tomamos la partici\'on $\{A_0,A_1,A_2\}$ y el evento observado $N$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Calcular las probabilidades a priori con independencia}
+\textbf{Qu\'e hago:} uso que los dos nacimientos son independientes y que cada uno da ni\~na con probabilidad $\tfrac12$. Para cada uno de los cuatro resultados de $\Omega$,
+\[
+P[nn]=\tfrac12\cdot\tfrac12=\tfrac14,\quad
+P[nv]=\tfrac12\cdot\tfrac12=\tfrac14,\quad
+P[vn]=\tfrac12\cdot\tfrac12=\tfrac14,\quad
+P[vv]=\tfrac12\cdot\tfrac12=\tfrac14 .
+\]
+Agrupando en las tres casillas:
+\[
+P[A_2]=P[nn]=\frac14,
+\qquad
+P[A_1]=P[nv]+P[vn]=\frac14+\frac14=\frac24=\frac12,
+\]
+\[
+P[A_0]=P[vv]=\frac14 .
+\]
+Control de partici\'on:
+\[
+P[A_0]+P[A_1]+P[A_2]=\frac14+\frac12+\frac14=\frac{1+2+1}{4}=\frac44=1 .
+\]
+\textbf{¿De d\'onde sale?} De ``la probabilidad de que en un nacimiento se obtenga una ni\~na es del 50 \%'' y de ``los resultados en los nacimientos en una familia se consideran eventos independientes''. La independencia es lo que autoriza a multiplicar: $P[\text{primer hijo }n\ \cap\ \text{segundo hijo }n]=P[\text{primero }n]P[\text{segundo }n]$.
+\textbf{¿Por qu\'e?} Porque el caso mixto $A_1$ re\'une \emph{dos} resultados del espacio ($nv$ y $vn$) mientras que $A_0$ y $A_2$ re\'unen uno solo cada uno; por eso $A_1$ pesa el doble. Este detalle es el que hace que el problema no sea sim\'etrico.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[A_2]=\tfrac14$, $P[A_1]=\tfrac12$, $P[A_0]=\tfrac14$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Leer las verosimilitudes del mecanismo de selecci\'on}
+\textbf{Qu\'e hago:} escribo la probabilidad de que la acompa\~nante sea ni\~na \emph{dentro} de cada composici\'on familiar:
+\[
+P[N\mid A_2]=1,
+\qquad
+P[N\mid A_1]=\frac{2}{3},
+\qquad
+P[N\mid A_0]=0 .
+\]
+\textbf{¿De d\'onde sale?} El valor $\tfrac23$ es un dato expl\'icito del enunciado: ``la probabilidad de que escoja una ni\~na, bajo el supuesto de que sus hijos son ni\~no y ni\~na, es de 2/3''. Los otros dos no se dan porque son forzosos: si los dos hijos son ni\~nas, quienquiera que escoja la madre es ni\~na, luego la probabilidad es $1$; si los dos son ni\~nos, es imposible que la acompa\~nante sea ni\~na, luego la probabilidad es $0$.
+\textbf{¿Por qu\'e?} Porque el mecanismo con que la madre escoge al acompa\~nante forma parte del modelo y no es neutro: el enunciado declara que, teniendo un ni\~no y una ni\~na, la madre prefiere llevar a la ni\~na dos veces de cada tres, y no la mitad de las veces. Ese sesgo es un dato del problema, no una suposici\'on nuestra.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[N\mid A_2]=1$, $P[N\mid A_1]=\tfrac23$ y $P[N\mid A_0]=0$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Construir el \'arbol y calcular las conjuntas}
+\textbf{Qu\'e hago:} multiplico a lo largo de cada rama:
+\[
+P[A_2\cap N]=\frac14\cdot 1=\frac14,
+\qquad
+P[A_1\cap N]=\frac12\cdot\frac23=\frac{2}{6}=\frac13,
+\qquad
+P[A_0\cap N]=\frac14\cdot 0=0 .
+\]
+
+\begin{center}
+\shorthandoff{<>}
+\begin{tikzpicture}[scale=1.0,every node/.style={font=\small}]
+  \node (raiz) at (0,0) {$\Omega$};
+  \node (A2) at (3.0,2.4) {$A_2$};
+  \node (A1) at (3.0,0) {$A_1$};
+  \node (A0) at (3.0,-2.4) {$A_0$};
+  \node (P2) at (6.4,3.2) {$N$};
+  \node (Q2) at (6.4,1.7) {$\overline{N}$};
+  \node (P1) at (6.4,0.8) {$N$};
+  \node (Q1) at (6.4,-0.7) {$\overline{N}$};
+  \node (P0) at (6.4,-1.6) {$N$};
+  \node (Q0) at (6.4,-3.1) {$\overline{N}$};
+  \draw[->] (raiz) -- node[above,sloped]{$1/4$} (A2);
+  \draw[->] (raiz) -- node[above]{$1/2$} (A1);
+  \draw[->] (raiz) -- node[below,sloped]{$1/4$} (A0);
+  \draw[->] (A2) -- node[above,sloped]{$1$} (P2);
+  \draw[->] (A2) -- node[below,sloped]{$0$} (Q2);
+  \draw[->] (A1) -- node[above,sloped]{$2/3$} (P1);
+  \draw[->] (A1) -- node[below,sloped]{$1/3$} (Q1);
+  \draw[->] (A0) -- node[above,sloped]{$0$} (P0);
+  \draw[->] (A0) -- node[below,sloped]{$1$} (Q0);
+  \node[right=2pt] at (P2.east) {$\tfrac14\cdot 1=\tfrac14$};
+  \node[right=2pt] at (Q2.east) {$\tfrac14\cdot 0=0$};
+  \node[right=2pt] at (P1.east) {$\tfrac12\cdot\tfrac23=\tfrac13$};
+  \node[right=2pt] at (Q1.east) {$\tfrac12\cdot\tfrac13=\tfrac16$};
+  \node[right=2pt] at (P0.east) {$\tfrac14\cdot 0=0$};
+  \node[right=2pt] at (Q0.east) {$\tfrac14\cdot 1=\tfrac14$};
+\end{tikzpicture}
+\shorthandon{<>}
+\end{center}
+
+\textbf{¿De d\'onde sale?} A prioris del Paso 2, verosimilitudes del Paso 3.
+\textbf{¿Por qu\'e?} Porque cada rama representa ``la familia tiene tal composici\'on \emph{y} la acompa\~nante result\'o ni\~na'', que es una intersecci\'on.
+\textbf{¿Qu\'e tomamos?} Tomamos las conjuntas. Control con denominador com\'un $12$:
+\[
+\frac14+0+\frac13+\frac16+0+\frac14=\frac{3}{12}+\frac{4}{12}+\frac{2}{12}+\frac{3}{12}=\frac{12}{12}=1 .
+\]
+\end{paso}
+
+\begin{paso}{Paso 5 --- Probabilidad total de que la acompa\~nante sea ni\~na}
+\textbf{Qu\'e hago:} sumo las tres ramas que terminan en $N$:
+\[
+P[N]=P[A_2]\cdot P[N\mid A_2]+P[A_1]\cdot P[N\mid A_1]+P[A_0]\cdot P[N\mid A_0]
+=\frac14+\frac13+0 .
+\]
+Con denominador com\'un $12$:
+\[
+\frac14=\frac{3}{12},\qquad \frac13=\frac{4}{12},
+\qquad\Longrightarrow\qquad
+P[N]=\frac{3}{12}+\frac{4}{12}=\frac{7}{12}.
+\]
+\textbf{¿De d\'onde sale?} De las conjuntas del Paso 4.
+\textbf{¿Por qu\'e?} Porque las tres composiciones familiares forman una partici\'on y el evento $N$ se descompone en los tres pedazos $A_i\cap N$, disjuntos entre s\'i.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[N]=\dfrac{7}{12}=0{,}58\overline{3}$. Ese $7$ del numerador es el que aparecer\'a en la respuesta final.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Aplicar la regla de Bayes}
+\textbf{Qu\'e hago:} calculo la probabilidad a posteriori de que la familia tenga dos ni\~nas:
+\[
+P[A_2\mid N]=\frac{P[A_2]\cdot P[N\mid A_2]}{P[N]}=\frac{\tfrac14}{\tfrac{7}{12}} .
+\]
+Dividir entre una fracci\'on es multiplicar por su rec\'iproco:
+\[
+\frac{\tfrac14}{\tfrac{7}{12}}=\frac14\cdot\frac{12}{7}=\frac{12}{28}=\frac{12\div 4}{28\div 4}=\frac{3}{7}.
+\]
+Valor decimal:
+\[
+\frac37=0{,}428571\ldots\approx 0{,}4286 = 42{,}86\% .
+\]
+\textbf{¿De d\'onde sale?} El numerador $\tfrac14$ es la rama $A_2\to N$ del Paso 4; el denominador $\tfrac{7}{12}$ es la probabilidad total del Paso 5.
+\textbf{¿Por qu\'e?} Porque la informaci\'on ``la acompa\~nante fue ni\~na'' reduce el universo a las familias donde eso pudo pasar, y dentro de ese universo la casilla $A_2$ pesa $\tfrac14$ de un total de $\tfrac{7}{12}$.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[A_2\mid N]=\dfrac{3}{7}$.
+\end{paso}
+
+\begin{nota}
+\textbf{Por qu\'e el resultado no es $\tfrac13$ ni $\tfrac12$.} Los dos valores ``intuitivos'' que se suelen proponer corresponden a modelos distintos del mecanismo de selecci\'on, y ambos se obtienen del mismo c\'alculo cambiando \'unicamente $P[N\mid A_1]$:
+\begin{itemize}[leftmargin=1.4em]
+\item \emph{Si el dato observado fuera solo ``al menos una de las hijas es ni\~na''}, sin decir c\'omo se supo, el evento observado ser\'ia $A_1\cup A_2$ con probabilidad $\tfrac12+\tfrac14=\tfrac34$, y entonces
+\[
+P[A_2\mid A_1\cup A_2]=\frac{\tfrac14}{\tfrac34}=\frac13 .
+\]
+Este es el modelo en que $A_1$ conserva todo su peso $\tfrac12$: ver una ni\~na no distingue entre las familias mixtas y las de dos ni\~nas.
+\item \emph{Si la madre escogiera al acompa\~nante al azar puro}, ser\'ia $P[N\mid A_1]=\tfrac12$ y entonces
+\[
+P[N]=\frac14\cdot 1+\frac12\cdot\frac12+0=\frac14+\frac14=\frac12,
+\qquad
+P[A_2\mid N]=\frac{\tfrac14}{\tfrac12}=\frac12 .
+\]
+\item \emph{En nuestro problema} el enunciado fija $P[N\mid A_1]=\tfrac23$, un valor \emph{intermedio} entre $\tfrac12$ y $1$: la madre prefiere llevar a la ni\~na, pero no es seguro que lo haga. Por eso el resultado $\tfrac37\approx 0{,}4286$ cae entre $\tfrac13\approx 0{,}3333$ y $\tfrac12$. El mecanismo con que se obtiene la informaci\'on forma parte del modelo y cambia la respuesta.
+\end{itemize}
+\end{nota}
+
+\end{sol}
+
+\begin{resp}
+\[
+P[\text{dos ni\~nas}\mid N]=\frac{\tfrac14\cdot 1}{\tfrac14\cdot 1+\tfrac12\cdot\tfrac23+\tfrac14\cdot 0}
+=\frac{\tfrac14}{\tfrac{7}{12}}=\mathbf{\frac{3}{7}}\approx 0{,}4286 .
+\]
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 48}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 48}
+
+\begin{quote}
+Un estudio determin\'o que las personas estafadas por realizar transacciones en un banco v\'ia internet: el 40 \% no se desconect\'o formalmente de la p\'agina del banco; el 25 \% di\'o a conocer su clave de ingreso y el resto ten\'ia una clave de ingreso f\'acil de predecir. Adem\'as el 80 \% de los que no se desconectaron formalmente de la p\'agina hac\'ia transacciones diariamente por internet, al igual que el 70 \% de los que dieron a conocer su clave de ingreso. Se ha logrado estimar que, de las personas estafadas por internet que hac\'ian transacciones diariamente, el 30 \% ten\'ia clave f\'acil de predecir. Su una persona fue estafada porque ten\'ia una clave f\'acil de predecir, cul\'a es la probabilidad de que realice transacciones diariamente? \hfill R/ 0,60612
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Nombrar los eventos y verificar que la partici\'on es exhaustiva y disjunta}
+\textbf{Qu\'e hago:} traduzco el texto a s\'imbolos. Considere los siguientes conjuntos: $\Omega$ es el conjunto de todas las personas estafadas por realizar transacciones en el banco v\'ia internet,
+\[
+N=\{\text{personas que no se desconectaron formalmente de la p\'agina}\},
+\]
+\[
+K=\{\text{personas que dieron a conocer su clave de ingreso}\},
+\]
+\[
+F=\{\text{personas que ten\'ian una clave de ingreso f\'acil de predecir}\},
+\]
+\[
+D=\{\text{personas que hac\'ian transacciones diariamente por internet}\}.
+\]
+El experimento consiste en escoger al azar una persona de $\Omega$.
+Los datos del enunciado, escritos en notaci\'on de probabilidad, son
+\[
+P[N]=0{,}40,\qquad P[K]=0{,}25,\qquad P[F]=1-0{,}40-0{,}25=0{,}35 ,
+\]
+\[
+P[D\mid N]=0{,}80,\qquad P[D\mid K]=0{,}70,\qquad P[F\mid D]=0{,}30 ,
+\]
+y se solicita $P[D\mid F]$.
+
+\medskip
+Note que los conjuntos $N$, $K$ y $F$ forman una partici\'on de $\Omega$:
+\begin{itemize}[leftmargin=1.4em]
+\item \emph{Disjuntos:} el enunciado atribuye a cada persona estafada \emph{una} causa, repartiendo el grupo en tres bloques que suman el total; la palabra ``el resto'' confirma que el tercer bloque es lo que queda tras quitar los otros dos.
+\item \emph{Exhaustivos:} $N\cup K\cup F=\Omega$, precisamente porque $F$ se define como ``el resto''.
+\end{itemize}
+Control num\'erico:
+\[
+P[N]+P[K]+P[F]=0{,}40+0{,}25+0{,}35=0{,}65+0{,}35=1{,}00 .
+\]
+\textbf{¿De d\'onde sale?} De ``el 40 \% no se desconect\'o formalmente'', ``el 25 \% di\'o a conocer su clave'' y ``el resto ten\'ia una clave de ingreso f\'acil de predecir''; el $0{,}35$ se calcula, no se lee.
+\textbf{¿Por qu\'e?} Porque sin el peso de la tercera casilla no se puede escribir la ecuaci\'on de probabilidad total, y ese peso solo se obtiene de la propiedad $\sum_i P[A_i]=1$.
+\textbf{¿Qu\'e tomamos?} Tomamos la partici\'on v\'alida $\{N,K,F\}$ con pesos $0{,}40$, $0{,}25$ y $0{,}35$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Clasificar cada porcentaje seg\'un la direcci\'on del condicionamiento}
+\textbf{Qu\'e hago:} separo los datos en dos grupos seg\'un qu\'e se condiciona sobre qu\'e. Los dos primeros son verosimilitudes con la causa como condici\'on:
+\[
+P[D\mid N]=0{,}80,\qquad P[D\mid K]=0{,}70 .
+\]
+El tercero est\'a condicionado \emph{al rev\'es}, con $D$ como condici\'on:
+\[
+P[F\mid D]=0{,}30 .
+\]
+La inc\'ognita es $P[D\mid F]$, y llamaremos $p=P[D\mid F]$ a la verosimilitud que falta.
+\textbf{¿De d\'onde sale?} Las dos primeras de ``el 80 \% \emph{de los que no se desconectaron} hac\'ia transacciones diariamente'' y ``el 70 \% \emph{de los que dieron a conocer su clave}''. La tercera de ``\emph{de las personas estafadas por internet que hac\'ian transacciones diariamente}, el 30 \% ten\'ia clave f\'acil de predecir'': aqu\'i el subgrupo de referencia son los de transacciones diarias, y lo que se mide dentro de ese subgrupo es la proporci\'on con clave f\'acil.
+\textbf{¿Por qu\'e?} Porque leer el $30\%$ como $P[D\mid F]$ ser\'ia el error central de este ejercicio: dar\'ia directamente $0{,}30$ como respuesta, que no coincide con la oficial. La frase ``de las personas \dots que hac\'ian transacciones diariamente, el $30\%$ ten\'ia clave f\'acil'' fija el universo en $D$ y mide $F$ dentro de \'el.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[D\mid N]=0{,}80$, $P[D\mid K]=0{,}70$, $P[F\mid D]=0{,}30$ y la inc\'ognita $p=P[D\mid F]$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Escribir la probabilidad total de $D$ en funci\'on de la inc\'ognita}
+\textbf{Qu\'e hago:} aplico el teorema de probabilidad total sobre la partici\'on $\{N,K,F\}$ dejando $p$ indeterminado:
+\[
+P[D]=P[N]\cdot P[D\mid N]+P[K]\cdot P[D\mid K]+P[F]\cdot P[D\mid F]
+\]
+\[
+=\underbrace{0{,}40}_{P[N]}\cdot\underbrace{0{,}80}_{P[D\mid N]}
++\underbrace{0{,}25}_{P[K]}\cdot\underbrace{0{,}70}_{P[D\mid K]}
++\underbrace{0{,}35}_{P[F]}\cdot\underbrace{p}_{P[D\mid F]} .
+\]
+Calculo los dos productos conocidos:
+\[
+0{,}40\cdot 0{,}80=\frac{40\cdot 80}{10000}=\frac{3200}{10000}=0{,}320,
+\qquad
+0{,}25\cdot 0{,}70=\frac{25\cdot 70}{10000}=\frac{1750}{10000}=0{,}175 .
+\]
+Sumando la parte conocida, $0{,}320+0{,}175=0{,}495$, de modo que
+\[
+P[D]=0{,}495+0{,}35\,p .
+\]
+\textbf{¿De d\'onde sale?} De las a prioris del Paso 1 y las verosimilitudes del Paso 2.
+\textbf{¿Por qu\'e?} Porque no conocemos $P[D]$ ni $p$, pero s\'i sabemos que est\'an ligados por esta igualdad; con una segunda ecuaci\'on que relacione ambos, el sistema se cierra.
+\textbf{¿Qu\'e tomamos?} Tomamos la primera ecuaci\'on del sistema: $P[D]=0{,}495+0{,}35\,p$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Traducir el dato invertido a una segunda ecuaci\'on}
+\textbf{Qu\'e hago:} escribo $P[F\mid D]=0{,}30$ usando la definici\'on de probabilidad condicional y la regla de la multiplicaci\'on en las dos direcciones. Por definici\'on,
+\[
+P[F\mid D]=\frac{P[F\cap D]}{P[D]}
+\qquad\Longrightarrow\qquad
+P[F\cap D]=0{,}30\,P[D].
+\]
+Por otro lado, la misma intersecci\'on se escribe condicionando al rev\'es:
+\[
+P[F\cap D]=P[F]\cdot P[D\mid F]=0{,}35\,p .
+\]
+Igualando ambas expresiones de la \emph{misma} cantidad:
+\[
+0{,}35\,p=0{,}30\,P[D].
+\]
+\textbf{¿De d\'onde sale?} De la definici\'on de condicional aplicada dos veces al par $(F,D)$: una vez con $D$ como condici\'on (que es el dato) y otra con $F$ como condici\'on (que es la inc\'ognita).
+\textbf{¿Por qu\'e?} Porque la intersecci\'on $F\cap D$ (``ten\'ia clave f\'acil \emph{y} hac\'ia transacciones diarias'') es una sola cantidad, y es el puente que conecta las dos direcciones de condicionamiento. Esta es exactamente la idea de la regla de Bayes: $P[F]\cdot P[D\mid F]=P[D]\cdot P[F\mid D]$.
+\textbf{¿Qu\'e tomamos?} Tomamos la segunda ecuaci\'on del sistema: $0{,}35\,p=0{,}30\,P[D]$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Resolver el sistema y despejar $p$}
+\textbf{Qu\'e hago:} sustituyo la primera ecuaci\'on dentro de la segunda:
+\[
+0{,}35\,p=0{,}30\,(0{,}495+0{,}35\,p).
+\]
+Distribuyo el $0{,}30$:
+\[
+0{,}30\cdot 0{,}495=\frac{30\cdot 495}{100000}=\frac{14850}{100000}=0{,}1485,
+\qquad
+0{,}30\cdot 0{,}35=\frac{1050}{10000}=0{,}105 ,
+\]
+de modo que
+\[
+0{,}35\,p=0{,}1485+0{,}105\,p .
+\]
+Paso los t\'erminos con $p$ al lado izquierdo:
+\[
+0{,}35\,p-0{,}105\,p=0{,}1485
+\qquad\Longrightarrow\qquad
+0{,}245\,p=0{,}1485 .
+\]
+Despejo dividiendo entre $0{,}245$ y quito decimales multiplicando arriba y abajo por $10000$:
+\[
+p=\frac{0{,}1485}{0{,}245}=\frac{1485}{2450}.
+\]
+Simplifico dividiendo numerador y denominador entre $5$:
+\[
+\frac{1485}{2450}=\frac{1485\div 5}{2450\div 5}=\frac{297}{490}.
+\]
+Como $297=3^3\cdot 11$ y $490=2\cdot 5\cdot 7^2$ no tienen factores comunes, la fracci\'on ya es irreducible. Su valor decimal:
+\[
+\frac{297}{490}=0{,}6061224\ldots\approx 0{,}60612 .
+\]
+En efecto, $490\cdot 0{,}6=294$ y $490\cdot 0{,}606=296{,}94$, mientras que $490\cdot 0{,}60612=296{,}9988$, ya pr\'acticamente $297$.
+\textbf{¿De d\'onde sale?} De combinar las ecuaciones de los Pasos 3 y 4.
+\textbf{¿Por qu\'e?} Porque el sistema es lineal en las dos inc\'ognitas $p$ y $P[D]$: una ecuaci\'on expresa $P[D]$ en t\'erminos de $p$ y la otra vuelve a ligarlas, as\'i que la sustituci\'on deja una sola ecuaci\'on con una sola inc\'ognita. El coeficiente $0{,}245=0{,}35-0{,}105$ es no nulo, luego la soluci\'on es \'unica.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[D\mid F]=\dfrac{297}{490}\approx 0{,}60612$.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Verificar el resultado reconstruyendo el dato del $30\%$}
+\textbf{Qu\'e hago:} calculo $P[D]$ con el valor hallado y compruebo que $P[F\mid D]$ devuelve $0{,}30$. Primero,
+\[
+0{,}35\cdot\frac{297}{490}=\frac{35}{100}\cdot\frac{297}{490}=\frac{7}{20}\cdot\frac{297}{490}=\frac{2079}{9800}=\frac{297}{1400},
+\]
+que en decimal es $0{,}2121428\ldots$ Entonces
+\[
+P[D]=0{,}495+0{,}212142\ldots=0{,}707142\ldots=\frac{99}{140}.
+\]
+Y el cociente de verificaci\'on:
+\[
+P[F\mid D]=\frac{P[F\cap D]}{P[D]}=\frac{297/1400}{99/140}=\frac{297}{1400}\cdot\frac{140}{99}=\frac{297\cdot 140}{1400\cdot 99}=\frac{3}{10}=0{,}30\ \checkmark
+\]
+usando que $297=3\cdot 99$ y $1400=10\cdot 140$. Adem\'as $0\le 0{,}60612\le 1$ y $0\le 0{,}70714\le 1$, as\'i que ambos valores son probabilidades leg\'itimas.
+\textbf{¿De d\'onde sale?} De sustituir el valor del Paso 5 en las ecuaciones de los Pasos 3 y 4.
+\textbf{¿Por qu\'e?} Porque en un problema donde se despeja de un sistema conviene cerrar el ciclo: si el cociente no diera exactamente $0{,}30$, habr\'ia un error de planteamiento o de aritm\'etica.
+\textbf{¿Qu\'e tomamos?} Confirmamos $P[D\mid F]=\dfrac{297}{490}\approx 0{,}60612$.
+\end{paso}
+
+\begin{nota}
+Obs\'ervese la magnitud de la diferencia entre las dos direcciones del condicionamiento: $P[F\mid D]=0{,}30$ mientras que $P[D\mid F]\approx 0{,}61$, el doble. El numerador es el mismo, $P[F\cap D]\approx 0{,}2121$; lo que cambia es el denominador, que pasa de $P[D]\approx 0{,}7071$ a $P[F]=0{,}35$.
+\end{nota}
+
+\end{sol}
+
+\begin{resp}
+Del sistema $P[D]=0{,}495+0{,}35\,p$ y $0{,}35\,p=0{,}30\,P[D]$ se obtiene $0{,}245\,p=0{,}1485$, luego
+\[
+P[D\mid F]=\frac{0{,}1485}{0{,}245}=\frac{297}{490}\approx \mathbf{0{,}60612}.
+\]
+\end{resp}
+
+% ==================================================================
+\section*{Cap\'itulo 2 --- Ejercicio 49}
+\addcontentsline{toc}{subsection}{C2 --- Ejercicio 49}
+
+\begin{quote}
+Problema de Monty Hall general: Hay cuatro puertas numeradas del 1 al 4. Detr\'as de una puerta hay un premio y detr\'as de las otras tres no hay premio. El concursante elige inicialmente una puerta al azar. El presentador, que conoce la ubicaci\'on del premio, abre exactamente dos de las puertas restantes que no contienen el premio. El concursante puede entonces decidir si mantiene su elecci\'on inicial o cambia a la \'unica puerta cerrada restante.\\
+\emph{(a)} ¿Cu\'al es la probabilidad de ganar el premio si el concursante decide no cambiar su elecci\'on inicial? \hfill R/ $1/4$\\
+\emph{(b)} ¿Cu\'al es la probabilidad de ganar el premio si el concursante decide cambiar su elecci\'on inicial? \hfill R/ $3/4$\\
+\emph{(c)} Generalice el problema para $n$ puertas, donde el presentador abre $n-2$ puertas sin premio despu\'es de la elecci\'on inicial. ¿Cu\'al es la probabilidad de ganar el premio si el concursante cambia de puerta? \hfill R/ $\dfrac{n-1}{n}$
+\end{quote}
+
+\begin{sol}
+
+\begin{paso}{Paso 1 --- Nombrar los eventos y verificar que la partici\'on es exhaustiva y disjunta}
+\textbf{Qu\'e hago:} traduzco el texto a s\'imbolos. Considere los siguientes conjuntos: $\Omega$ es el conjunto de todos los resultados posibles del concurso, cada uno descrito por el par $(j,i)$, donde $j\in\{1,2,3,4\}$ es el n\'umero de la puerta que esconde el premio e $i\in\{1,2,3,4\}$ es el n\'umero de la puerta que el concursante elige al principio. Defino la partici\'on por el acierto inicial:
+\[
+A=\{\text{resultados en que la puerta elegida inicialmente esconde el premio}\},
+\]
+\[
+\overline{A}=\{\text{resultados en que la puerta elegida inicialmente no esconde el premio}\}.
+\]
+Y los eventos de resultado:
+\[
+G_{q}=\{\text{resultados en que el concursante gana si se queda con su puerta}\},
+\]
+\[
+G_{c}=\{\text{resultados en que el concursante gana si cambia de puerta}\}.
+\]
+Se solicitan $P[G_{q}]$ en el inciso (a) y $P[G_{c}]$ en los incisos (b) y (c).
+
+\medskip
+Note que los conjuntos $A$ y $\overline{A}$ forman una partici\'on de $\Omega$:
+\begin{itemize}[leftmargin=1.4em]
+\item \emph{Disjuntos:} $A\cap\overline{A}=\varnothing$: la puerta elegida o esconde el premio o no lo esconde, nunca ambas.
+\item \emph{Exhaustivos:} $A\cup\overline{A}=\Omega$: siempre ocurre una de las dos.
+\end{itemize}
+Adem\'as, por la definici\'on cl\'asica aplicada a la elecci\'on inicial \emph{al azar} entre las $4$ puertas,
+\[
+P[A]=\frac{\underbrace{1}_{\text{puertas con premio}}}{\underbrace{4}_{\text{puertas totales}}}=\frac14,
+\qquad
+P[\overline{A}]=1-\frac14=\frac{\underbrace{3}_{\text{puertas sin premio}}}{\underbrace{4}_{\text{puertas totales}}}=\frac34 ,
+\]
+con el control $\tfrac14+\tfrac34=1$.
+\textbf{¿De d\'onde sale?} Del enunciado: ``hay cuatro puertas'', ``detr\'as de una puerta hay un premio y detr\'as de las otras tres no'' y ``el concursante elige inicialmente una puerta al azar''. La expresi\'on ``al azar'' es la que autoriza el modelo equiprobable sobre las cuatro puertas.
+\textbf{¿Por qu\'e?} Porque toda la decisi\'on posterior depende \'unicamente de si el primer disparo acert\'o o no; esa es la partici\'on que hace transparente el problema.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[A]=\tfrac14$ y $P[\overline{A}]=\tfrac34$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Inciso (a): probabilidad de ganar quedándose}
+\textbf{Qu\'e hago:} escribo las verosimilitudes de ganar bajo la estrategia ``no cambiar'' dentro de cada casilla de la partici\'on:
+\[
+P[G_{q}\mid A]=1,\qquad P[G_{q}\mid \overline{A}]=0 .
+\]
+Aplico el teorema de probabilidad total:
+\[
+P[G_{q}]=P[A]\cdot P[G_{q}\mid A]+P[\overline{A}]\cdot P[G_{q}\mid \overline{A}]
+=\frac14\cdot 1+\frac34\cdot 0=\frac14 .
+\]
+\textbf{¿De d\'onde sale?} De la propia estrategia: si el concursante no cambia, se queda con la puerta inicial, de modo que gana exactamente cuando esa puerta ten\'ia el premio, es decir, exactamente cuando ocurre $A$.
+\textbf{¿Por qu\'e?} Porque la apertura de las dos puertas por parte del presentador no modifica cu\'al es la puerta elegida ni d\'onde est\'a el premio; solo aporta informaci\'on sobre las \emph{otras} puertas. Como $G_{q}=A$ literalmente como conjuntos, se tiene $P[G_{q}]=P[A]$.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[G_{q}]=\dfrac{1}{4}=0{,}25$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Inciso (b): analizar qu\'e queda cerrado tras la apertura}
+\textbf{Qu\'e hago:} cuento las puertas en cada momento para determinar qu\'e hay detr\'as de la \'unica puerta cerrada distinta de la elegida.
+
+Despu\'es de la elecci\'on inicial hay $4$ puertas: $1$ elegida y $3$ no elegidas. El presentador abre $2$ de esas $3$ no elegidas, todas sin premio. Quedan cerradas
+\[
+\underbrace{4}_{\text{puertas totales}}
+-\underbrace{1}_{\text{elegida por el concursante}}
+-\underbrace{2}_{\text{abiertas por el presentador}}
+=\underbrace{1}_{\text{puerta a la que se puede cambiar}} .
+\]
+Distingo los dos casos de la partici\'on:
+\begin{itemize}[leftmargin=1.4em]
+\item \emph{Si ocurre $A$} (el premio est\'a en la puerta elegida): las tres no elegidas est\'an vac\'ias, el presentador abre dos de ellas y la que queda cerrada tambi\'en est\'a vac\'ia. Cambiar hace perder, luego $P[G_{c}\mid A]=0$.
+\item \emph{Si ocurre $\overline{A}$} (el premio no est\'a en la puerta elegida): el premio est\'a en una de las tres no elegidas. El presentador \emph{conoce} d\'onde est\'a y solo puede abrir puertas sin premio, as\'i que abre exactamente las $2$ vac\'ias de esas tres. La \'unica puerta que queda cerrada es forzosamente la del premio. Cambiar hace ganar con certeza, luego $P[G_{c}\mid\overline{A}]=1$.
+\end{itemize}
+\textbf{¿De d\'onde sale?} De ``el presentador, que conoce la ubicaci\'on del premio, abre exactamente dos de las puertas restantes que no contienen el premio''.
+\textbf{¿Por qu\'e?} Porque la frase encierra dos restricciones esenciales: el presentador abre puertas \emph{no elegidas} y \emph{sin premio}. Si abriera al azar y pudiera destapar el premio, el an\'alisis ser\'ia otro; el conocimiento del presentador es lo que convierte a la \'unica puerta cerrada en portadora de toda la probabilidad de $\overline{A}$.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[G_{c}\mid A]=0$ y $P[G_{c}\mid\overline{A}]=1$.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Inciso (b): aplicar el teorema de probabilidad total}
+\textbf{Qu\'e hago:} sumo las dos ramas con la partici\'on $\{A,\overline{A}\}$:
+\[
+P[G_{c}]=P[A]\cdot P[G_{c}\mid A]+P[\overline{A}]\cdot P[G_{c}\mid \overline{A}]
+=\frac14\cdot 0+\frac34\cdot 1=\frac34 .
+\]
+Control cruzado con el inciso (a): las dos estrategias son complementarias, porque exactamente una de las dos puertas cerradas tiene el premio; en efecto
+\[
+P[G_{q}]+P[G_{c}]=\frac14+\frac34=\frac44=1 .
+\]
+
+\begin{center}
+\shorthandoff{<>}
+\begin{tikzpicture}[scale=1.0,every node/.style={font=\small}]
+  \node (raiz) at (0,0) {$\Omega$};
+  \node (A) at (3.2,1.4) {$A$};
+  \node (Ac) at (3.2,-1.4) {$\overline{A}$};
+  \node (AG) at (7.2,2.2) {$G_{c}$};
+  \node (AN) at (7.2,0.6) {$\overline{G_{c}}$};
+  \node (BG) at (7.2,-0.6) {$G_{c}$};
+  \node (BN) at (7.2,-2.2) {$\overline{G_{c}}$};
+  \draw[->] (raiz) -- node[above,sloped]{$1/4$} (A);
+  \draw[->] (raiz) -- node[below,sloped]{$3/4$} (Ac);
+  \draw[->] (A) -- node[above,sloped]{$0$} (AG);
+  \draw[->] (A) -- node[below,sloped]{$1$} (AN);
+  \draw[->] (Ac) -- node[above,sloped]{$1$} (BG);
+  \draw[->] (Ac) -- node[below,sloped]{$0$} (BN);
+  \node[right=2pt] at (AG.east) {$\tfrac14\cdot 0=0$};
+  \node[right=2pt] at (AN.east) {$\tfrac14\cdot 1=\tfrac14$};
+  \node[right=2pt] at (BG.east) {$\tfrac34\cdot 1=\tfrac34$};
+  \node[right=2pt] at (BN.east) {$\tfrac34\cdot 0=0$};
+\end{tikzpicture}
+\shorthandon{<>}
+\end{center}
+
+\textbf{¿De d\'onde sale?} Los pesos del Paso 1 y las verosimilitudes del Paso 3.
+\textbf{¿Por qu\'e?} Porque ganar cambiando equivale exactamente a haber fallado en la elecci\'on inicial: $G_{c}=\overline{A}$ como conjuntos. Esa identidad es la que explica el resultado sin necesidad de calcular nada m\'as.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[G_{c}]=\dfrac{3}{4}=0{,}75$.
+\end{paso}
+
+\begin{paso}{Paso 5 --- Inciso (c): generalizaci\'on a $n$ puertas con demostraci\'on}
+\textbf{Qu\'e hago:} repito el argumento con $n$ puertas ($n\ge 3$), de las cuales exactamente una esconde el premio, y con un presentador que abre $n-2$ puertas no elegidas y sin premio.
+
+\emph{Partici\'on.} Sean, igual que antes,
+\[
+A_n=\{\text{la puerta elegida inicialmente esconde el premio}\},
+\qquad
+\overline{A_n}=\{\text{no lo esconde}\}.
+\]
+Forman partici\'on por ser complementarios. Por la definici\'on cl\'asica aplicada a la elecci\'on al azar entre $n$ puertas igualmente probables,
+\[
+P[A_n]=\frac{\underbrace{1}_{\text{puertas con premio}}}{\underbrace{n}_{\text{puertas totales}}},
+\qquad
+P[\overline{A_n}]=1-\frac1n=\frac{\underbrace{n-1}_{\text{puertas sin premio}}}{\underbrace{n}_{\text{puertas totales}}} ,
+\]
+con el control $\tfrac1n+\tfrac{n-1}{n}=\tfrac{n}{n}=1$.
+
+\emph{Conteo de puertas cerradas.} Tras la apertura quedan cerradas
+\[
+\underbrace{n}_{\text{totales}}-\underbrace{1}_{\text{elegida}}-\underbrace{n-2}_{\text{abiertas}}
+=n-1-(n-2)=1
+\]
+puertas distintas de la elegida: hay exactamente una alternativa a la que cambiar, igual que en el caso $n=4$.
+
+\emph{Verosimilitudes.} Si ocurre $A_n$, las $n-1$ puertas no elegidas est\'an todas vac\'ias; el presentador abre $n-2$ de ellas y la restante tambi\'en est\'a vac\'ia, luego cambiar pierde: $P[G_{c}\mid A_n]=0$. Si ocurre $\overline{A_n}$, entre las $n-1$ puertas no elegidas hay exactamente $1$ con premio y $n-2$ vac\'ias; como el presentador conoce la ubicaci\'on y solo abre puertas sin premio, abre precisamente esas $n-2$ vac\'ias, y la \'unica que queda cerrada es la del premio: $P[G_{c}\mid\overline{A_n}]=1$.
+
+\emph{Probabilidad total.}
+\[
+P[G_{c}]=P[A_n]\cdot P[G_{c}\mid A_n]+P[\overline{A_n}]\cdot P[G_{c}\mid \overline{A_n}]
+=\frac1n\cdot 0+\frac{n-1}{n}\cdot 1=\frac{n-1}{n}. \qquad\blacksquare
+\]
+\textbf{¿De d\'onde sale?} De repetir con $n$ gen\'erico exactamente los Pasos 1, 3 y 4; el \'unico c\'alculo nuevo es el conteo $n-1-(n-2)=1$, que garantiza que la situaci\'on tras la apertura es estructuralmente id\'entica a la del caso $n=4$.
+\textbf{¿Por qu\'e?} Porque el argumento no us\'o en ning\'un momento que $n$ fuera $4$: solo us\'o que hay una puerta premiada, que la elecci\'on inicial es equiprobable y que el presentador deja cerrada una \'unica alternativa que es la del premio siempre que la elecci\'on inicial haya fallado. La identidad de conjuntos $G_{c}=\overline{A_n}$ vale para todo $n\ge 3$.
+\textbf{¿Qu\'e tomamos?} Tomamos $P[G_{c}]=\dfrac{n-1}{n}$, y como control, la estrategia de quedarse da $P[G_{q}]=P[A_n]=\dfrac1n$, con $\dfrac1n+\dfrac{n-1}{n}=1$.
+\end{paso}
+
+\begin{nota}
+Sustituyendo $n=4$ en la f\'ormula general se recupera el inciso (b): $\dfrac{4-1}{4}=\dfrac34$. Y con $n=3$ se obtiene $\dfrac{3-1}{3}=\dfrac23$, que es el valor cl\'asico del problema de Monty Hall original con tres puertas. Adem\'as $\dfrac{n-1}{n}=1-\dfrac1n$ crece con $n$: cuantas m\'as puertas haya, m\'as conviene cambiar, porque m\'as improbable era acertar de entrada.
+\end{nota}
+
+\end{sol}
+
+\begin{resp}
+\textbf{(a)} $P[\text{ganar sin cambiar}]=P[A]=\mathbf{\dfrac14}$.\\[4pt]
+\textbf{(b)} $P[\text{ganar cambiando}]=P[\overline{A}]=1-\dfrac14=\mathbf{\dfrac34}$.\\[4pt]
+\textbf{(c)} Con $n$ puertas y $n-2$ aperturas, $P[\text{ganar cambiando}]=\dfrac1n\cdot 0+\dfrac{n-1}{n}\cdot 1=\mathbf{\dfrac{n-1}{n}}$.
+\end{resp}
+
+\end{document}

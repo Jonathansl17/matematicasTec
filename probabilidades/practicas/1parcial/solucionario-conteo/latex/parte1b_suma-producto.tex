@@ -422,7 +422,7 @@ Sólo las cuatro marcadas dan suma divisible por $3$.
 
 Hay que tomar un número de residuo $0$, uno de residuo $1$ y uno de residuo $2$:
 \[
-  N_{012}=6\cdot 7\cdot 7 = 42\cdot 7 = 294 .
+  N_{012}=\underbrace{C(6,1)}_{\text{residuo }0}\cdot\underbrace{C(7,1)}_{\text{residuo }1}\cdot\underbrace{C(7,1)}_{\text{residuo }2}=6\cdot 7\cdot 7 = 42\cdot 7 = 294 .
 \]
 Y el total es
 \[
@@ -438,7 +438,7 @@ Aritmética de la suma: $20+35=55$, $55+35=90$, $90+294=384$.
 \end{paso}
 
 \begin{resp}
-Se pueden escoger $C(6,3)+C(7,3)+C(7,3)+6\cdot 7\cdot 7=20+35+35+294=\mathbf{384}$ ternas cuya suma es divisible por $3$. Coincide con la respuesta oficial R/ 384.
+Se pueden escoger $C(6,3)+C(7,3)+C(7,3)+C(6,1)C(7,1)C(7,1)=20+35+35+294=\mathbf{384}$ ternas cuya suma es divisible por $3$. Coincide con la respuesta oficial R/ 384.
 \end{resp}
 
 % ==========================================================

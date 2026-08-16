@@ -331,7 +331,7 @@ Un elemento de $X$ es un número de tres cifras $\overline{c_1c_2c_3}$ donde cad
 
 Un número es múltiplo de $5$ cuando termina en $0$ o en $5$. Como $0\notin A$, la única posibilidad es $c_3=5$, lo que fija esa posición:
 \[
-  N_b = \underbrace{1}_{c_3=5}\cdot \underbrace{5}_{c_1}\cdot \underbrace{4}_{c_2} = 5\cdot 4 = 20 .
+  N_b = \underbrace{1}_{c_3=5}\cdot \underbrace{P(5,2)}_{c_1c_2\ \text{de }A\setminus\{5\}} = \frac{5!}{3!} = 5\cdot 4 = 20 .
 \]
 
 \textbf{¿De dónde sale?} El $1$ es la única elección posible para la última cifra. Tras gastar el $5$, quedan $6-1=5$ elementos de $A$ para la primera cifra y luego $5-1=4$ para la segunda.
@@ -346,14 +346,19 @@ Un número es múltiplo de $5$ cuando termina en $0$ o en $5$. Como $0\notin A$,
 
 Todos los elementos de $X$ tienen tres cifras, así que la comparación con $360$ depende primero de $c_1$. Los valores posibles de $c_1$ son $2,3,5,6,7,9$; si $c_1\ge 5$ el número pasa de $500$ y no sirve, así que solo hay dos casos vivos.
 
-\emph{Caso 1: $c_1=2$.} Todo número que empieza en $2$ está entre $200$ y $299$, por lo que siempre es menor que $360$, sin condición extra sobre $c_2$ y $c_3$. Quedan $5$ elementos de $A$ para $c_2$ y $4$ para $c_3$:
+\emph{Caso 1: $c_1=2$.} Todo número que empieza en $2$ está entre $200$ y $299$, así que la condición ya se cumple y no impone nada sobre $c_2$ ni $c_3$. La posición de las centenas queda fijada y las otras dos se llenan con lo que sobra de $A$:
 \[
-  N_1 = 5\cdot 4 = 20 .
+  N_1 = \underbrace{1}_{c_1=2}\cdot \underbrace{P(5,2)}_{c_2c_3\ \text{de }A\setminus\{2\}} = \frac{5!}{3!} = 5\cdot 4 = 20 .
 \]
 
-\emph{Caso 2: $c_1=3$.} Ahora el número es $\overline{3c_2c_3}$ y ser menor que $360$ obliga a $c_2<6$. Los elementos de $A$ que quedan tras usar el $3$ son $\{2,5,6,7,9\}$, y los menores que $6$ son $2$ y $5$: dos opciones. Fijadas $c_1$ y $c_2$, para $c_3$ quedan $6-2=4$ elementos:
+\emph{Caso 2: $c_1=3$.} Ahora el número es $\overline{3c_2c_3}$ y ser menor que $360$ obliga a $c_2<6$; es decir, la condición se traduce en una restricción sobre la segunda posición. Las cifras admisibles para $c_2$ son las de $A\setminus\{3\}=\{2,5,6,7,9\}$ menores que $6$, o sea $\{2,5\}$, y una vez gastadas dos cifras quedan $6-2=4$ para $c_3$:
 \[
-  N_2 = 2\cdot 4 = 8 .
+  N_2 = \underbrace{1}_{c_1=3}\cdot \underbrace{P(2,1)}_{c_2\in\{2,5\}}\cdot \underbrace{P(4,1)}_{c_3} = 2\cdot 4 = 8 .
+\]
+
+Por el principio de la suma sobre los dos casos disjuntos:
+\[
+  N_c = N_1+N_2 = 20+8 = 28 .
 \]
 
 \textbf{¿De dónde sale?} Los valores de $c_1$ salen de $A$; el umbral $6$ para $c_2$ sale de comparar con la cifra de las decenas de $360$; los factores $5,4$ y $4$ salen de descontar de los $6$ elementos de $A$ los que ya se usaron.
@@ -366,26 +371,26 @@ Todos los elementos de $X$ tienen tres cifras, así que la comparación con $360
 \begin{paso}{Paso 5 --- Inciso d): pedir además que el número sea par}
 \textbf{Qué hago:} refino los casos del Paso 4 exigiendo que la última cifra sea par, y vuelvo a sumar casos disjuntos.
 
-Las cifras pares de $A$ son $2$ y $6$, así que $c_3\in\{2,6\}$ y hay que revisar en cada caso cuáles siguen disponibles.
+Un número es par cuando termina en cifra par. Las cifras pares de $A=\{2,3,5,6,7,9\}$ son $2$ y $6$, luego la condición se traduce en la restricción de posición $c_3\in\{2,6\}$, que se cruza con los casos del Paso 4.
 
-\emph{Caso 1: $c_1=2$.} El $2$ ya se gastó en las centenas, así que la única cifra par libre para $c_3$ es el $6$. Fijadas $c_1=2$ y $c_3=6$, para $c_2$ quedan los elementos $\{3,5,7,9\}$, es decir $4$ opciones:
+\emph{Caso 1: $c_1=2$.} El $2$ quedó gastado en las centenas, así que de $\{2,6\}$ sobrevive una sola cifra para $c_3$. Con $c_1$ y $c_3$ fijas, para $c_2$ quedan $6-2=4$ cifras:
 \[
-  M_1 = 1\cdot 4 = 4 \qquad (236,\ 256,\ 276,\ 296).
+  M_1 = \underbrace{1}_{c_1=2}\cdot \underbrace{1}_{c_3=6}\cdot \underbrace{P(4,1)}_{c_2} = 4 .
 \]
 
-\emph{Caso 2: $c_1=3$ y $c_2=2$.} Con el $2$ ya usado en las decenas, la única cifra par libre es el $6$, y va en $c_3$:
+\emph{Caso 2: $c_1=3$ y $c_2=2$.} Aquí el $2$ se gastó en las decenas, de modo que de nuevo sobrevive una sola cifra par para $c_3$:
 \[
-  M_2 = 1 \qquad (326).
+  M_2 = \underbrace{1}_{c_1=3}\cdot \underbrace{1}_{c_2=2}\cdot \underbrace{1}_{c_3=6} = 1 .
 \]
 
-\emph{Caso 3: $c_1=3$ y $c_2=5$.} Aquí siguen libres las dos cifras pares, $2$ y $6$:
+\emph{Caso 3: $c_1=3$ y $c_2=5$.} Ninguna cifra par se consumió, así que las dos siguen disponibles para $c_3$:
 \[
-  M_3 = 2 \qquad (352,\ 356).
+  M_3 = \underbrace{1}_{c_1=3}\cdot \underbrace{1}_{c_2=5}\cdot \underbrace{P(2,1)}_{c_3\in\{2,6\}} = 2 .
 \]
 
 Sumando los tres casos disjuntos:
 \[
-  N_d = 4+1+2 = 7 .
+  N_d = M_1+M_2+M_3 = 4+1+2 = 7 .
 \]
 
 \textbf{¿De dónde sale?} Los casos son los del Paso 4 (única diferencia: el caso $c_1=3$ se abre en sus dos valores posibles de $c_2$, que eran $2$ y $5$); las cifras pares $2$ y $6$ salen de mirar $A=\{2,3,5,6,7,9\}$.
@@ -396,14 +401,14 @@ Sumando los tres casos disjuntos:
 \end{paso}
 
 \begin{nota}
-Los incisos c) y d) no traen respuesta oficial en el folleto. Los resultados obtenidos aquí son $28$ para c) y $7$ para d), y en d) la lista completa es $236,\ 256,\ 276,\ 296,\ 326,\ 352,\ 356$, que se puede revisar uno a uno.
+Los incisos c) y d) no traen respuesta oficial en el folleto. Los resultados obtenidos aquí son $28$ para c) y $7$ para d). El conteo es el argumento; a modo de verificación posterior (nunca como sustituto del conteo) la lista completa de d) es $236,\ 256,\ 276,\ 296,\ 326,\ 352,\ 356$, que en efecto tiene $7$ elementos.
 \end{nota}
 
 \begin{resp}
 a) $|X|=P(6,3)=6\cdot 5\cdot 4=\mathbf{120}$ (coincide con R/ 120).\\
-b) $\mathbf{20}$ múltiplos de $5$ (coincide con R/ 20).\\
-c) $20+8=\mathbf{28}$ números menores que $360$ (resultado obtenido; el folleto no da respuesta).\\
-d) $4+1+2=\mathbf{7}$ números pares menores que $360$ (resultado obtenido; el folleto no da respuesta).
+b) $1\cdot P(5,2)=\mathbf{20}$ múltiplos de $5$ (coincide con R/ 20).\\
+c) $1\cdot P(5,2)+1\cdot P(2,1)\cdot P(4,1)=20+8=\mathbf{28}$ números menores que $360$ (resultado obtenido; el folleto no da respuesta).\\
+d) $P(4,1)+1+P(2,1)=4+1+2=\mathbf{7}$ números pares menores que $360$ (resultado obtenido; el folleto no da respuesta).
 \end{resp}
 
 % ==========================================================

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.2)  12 AUG 2026 08:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.2)  16 AUG 2026 13:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1087,7 +1087,7 @@ Package pdftex.def Info: ../pdf/parte1a_suma-producto.pdf , page8 used on input
  [9
 
  <../pdf/parte1a_suma-producto.pdf>]
-<../pdf/parte1a_suma-producto.pdf, id=178, page=9, 614.295pt x 794.97pt>
+<../pdf/parte1a_suma-producto.pdf, id=184, page=9, 614.295pt x 794.97pt>
 File: ../pdf/parte1a_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1a_suma-producto.pdf, page 9>
 Package pdftex.def Info: ../pdf/parte1a_suma-producto.pdf , page9 used on input
@@ -1106,7 +1106,7 @@ Package pdftex.def Info: ../pdf/parte1a_suma-producto.pdf , page9 used on input
  [10
 
  <../pdf/parte1a_suma-producto.pdf>]
-<../pdf/parte1a_suma-producto.pdf, id=183, page=10, 614.295pt x 794.97pt>
+<../pdf/parte1a_suma-producto.pdf, id=190, page=10, 614.295pt x 794.97pt>
 File: ../pdf/parte1a_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1a_suma-producto.pdf, page 10>
 Package pdftex.def Info: ../pdf/parte1a_suma-producto.pdf , page10 used on inpu
@@ -1125,7 +1125,7 @@ t line 15.
  [11
 
  <../pdf/parte1a_suma-producto.pdf>]
-<../pdf/parte1a_suma-producto.pdf, id=189, page=11, 614.295pt x 794.97pt>
+<../pdf/parte1a_suma-producto.pdf, id=195, page=11, 614.295pt x 794.97pt>
 File: ../pdf/parte1a_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1a_suma-producto.pdf, page 11>
 Package pdftex.def Info: ../pdf/parte1a_suma-producto.pdf , page11 used on inpu
@@ -1144,7 +1144,7 @@ t line 15.
  [12
 
  <../pdf/parte1a_suma-producto.pdf>]
-<../pdf/parte1a_suma-producto.pdf, id=194, page=12, 614.295pt x 794.97pt>
+<../pdf/parte1a_suma-producto.pdf, id=200, page=12, 614.295pt x 794.97pt>
 File: ../pdf/parte1a_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1a_suma-producto.pdf, page 12>
 Package pdftex.def Info: ../pdf/parte1a_suma-producto.pdf , page12 used on inpu
@@ -1163,7 +1163,7 @@ t line 15.
  [13
 
  <../pdf/parte1a_suma-producto.pdf>]
-<../pdf/parte1a_suma-producto.pdf, id=200, page=13, 614.295pt x 794.97pt>
+<../pdf/parte1a_suma-producto.pdf, id=206, page=13, 614.295pt x 794.97pt>
 File: ../pdf/parte1a_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1a_suma-producto.pdf, page 13>
 Package pdftex.def Info: ../pdf/parte1a_suma-producto.pdf , page13 used on inpu
@@ -1182,7 +1182,7 @@ t line 15.
  [14
 
  <../pdf/parte1a_suma-producto.pdf>]
-<../pdf/parte1a_suma-producto.pdf, id=205, page=14, 614.295pt x 794.97pt>
+<../pdf/parte1a_suma-producto.pdf, id=211, page=14, 614.295pt x 794.97pt>
 File: ../pdf/parte1a_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1a_suma-producto.pdf, page 14>
 Package pdftex.def Info: ../pdf/parte1a_suma-producto.pdf , page14 used on inpu
@@ -1201,7 +1201,7 @@ t line 15.
  [15
 
  <../pdf/parte1a_suma-producto.pdf>]
-<../pdf/parte1a_suma-producto.pdf, id=210, page=15, 614.295pt x 794.97pt>
+<../pdf/parte1a_suma-producto.pdf, id=216, page=15, 614.295pt x 794.97pt>
 File: ../pdf/parte1a_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1a_suma-producto.pdf, page 15>
 Package pdftex.def Info: ../pdf/parte1a_suma-producto.pdf , page15 used on inpu
@@ -1220,7 +1220,7 @@ t line 15.
  [16
 
  <../pdf/parte1a_suma-producto.pdf>]
-<../pdf/parte1a_suma-producto.pdf, id=215, page=16, 614.295pt x 794.97pt>
+<../pdf/parte1a_suma-producto.pdf, id=221, page=16, 614.295pt x 794.97pt>
 File: ../pdf/parte1a_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1a_suma-producto.pdf, page 16>
 Package pdftex.def Info: ../pdf/parte1a_suma-producto.pdf , page16 used on inpu
@@ -1239,7 +1239,7 @@ t line 15.
  [17
 
  <../pdf/parte1a_suma-producto.pdf>]
-<../pdf/parte1a_suma-producto.pdf, id=220, page=17, 614.295pt x 794.97pt>
+<../pdf/parte1a_suma-producto.pdf, id=226, page=17, 614.295pt x 794.97pt>
 File: ../pdf/parte1a_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1a_suma-producto.pdf, page 17>
 Package pdftex.def Info: ../pdf/parte1a_suma-producto.pdf , page17 used on inpu
@@ -1258,7 +1258,7 @@ t line 15.
  [18
 
  <../pdf/parte1a_suma-producto.pdf>]
-<../pdf/parte1a_suma-producto.pdf, id=225, page=18, 614.295pt x 794.97pt>
+<../pdf/parte1a_suma-producto.pdf, id=231, page=18, 614.295pt x 794.97pt>
 File: ../pdf/parte1a_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1a_suma-producto.pdf, page 18>
 Package pdftex.def Info: ../pdf/parte1a_suma-producto.pdf , page18 used on inpu
@@ -1277,7 +1277,7 @@ t line 15.
  [19
 
  <../pdf/parte1a_suma-producto.pdf>]
-<../pdf/parte1a_suma-producto.pdf, id=231, page=19, 614.295pt x 794.97pt>
+<../pdf/parte1a_suma-producto.pdf, id=237, page=19, 614.295pt x 794.97pt>
 File: ../pdf/parte1a_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1a_suma-producto.pdf, page 19>
 Package pdftex.def Info: ../pdf/parte1a_suma-producto.pdf , page19 used on inpu
@@ -1296,7 +1296,7 @@ t line 15.
  [20
 
  <../pdf/parte1a_suma-producto.pdf>]
-<../pdf/parte1a_suma-producto.pdf, id=236, page=20, 614.295pt x 794.97pt>
+<../pdf/parte1a_suma-producto.pdf, id=242, page=20, 614.295pt x 794.97pt>
 File: ../pdf/parte1a_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1a_suma-producto.pdf, page 20>
 Package pdftex.def Info: ../pdf/parte1a_suma-producto.pdf , page20 used on inpu
@@ -1315,13 +1315,13 @@ t line 15.
  [21
 
  <../pdf/parte1a_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=241, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=247, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf  used on input line 1
 6.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<../pdf/parte1b_suma-producto.pdf, id=243, page=1, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=249, page=1, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 1>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page1 used on input
@@ -1350,7 +1350,7 @@ Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page1 used on input
  [22
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=285, page=2, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=291, page=2, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 2>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page2 used on input
@@ -1369,7 +1369,7 @@ Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page2 used on input
  [23
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=294, page=3, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=300, page=3, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 3>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page3 used on input
@@ -1388,7 +1388,7 @@ Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page3 used on input
  [24
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=305, page=4, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=309, page=4, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 4>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page4 used on input
@@ -1407,7 +1407,7 @@ Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page4 used on input
  [25
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=311, page=5, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=315, page=5, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 5>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page5 used on input
@@ -1426,7 +1426,7 @@ Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page5 used on input
  [26
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=316, page=6, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=320, page=6, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 6>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page6 used on input
@@ -1445,7 +1445,7 @@ Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page6 used on input
  [27
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=327, page=7, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=331, page=7, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 7>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page7 used on input
@@ -1464,7 +1464,7 @@ Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page7 used on input
  [28
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=332, page=8, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=336, page=8, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 8>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page8 used on input
@@ -1483,7 +1483,7 @@ Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page8 used on input
  [29
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=337, page=9, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=341, page=9, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 9>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page9 used on input
@@ -1502,7 +1502,7 @@ Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page9 used on input
  [30
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=342, page=10, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=346, page=10, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 10>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page10 used on inpu
@@ -1521,7 +1521,7 @@ t line 16.
  [31
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=348, page=11, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=353, page=11, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 11>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page11 used on inpu
@@ -1540,7 +1540,7 @@ t line 16.
  [32
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=360, page=12, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=364, page=12, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 12>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page12 used on inpu
@@ -1559,7 +1559,7 @@ t line 16.
  [33
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=365, page=13, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=369, page=13, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 13>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page13 used on inpu
@@ -1578,7 +1578,7 @@ t line 16.
  [34
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=370, page=14, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=374, page=14, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 14>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page14 used on inpu
@@ -1597,7 +1597,7 @@ t line 16.
  [35
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=375, page=15, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=379, page=15, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 15>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page15 used on inpu
@@ -1616,7 +1616,7 @@ t line 16.
  [36
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=380, page=16, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=384, page=16, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 16>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page16 used on inpu
@@ -1635,7 +1635,7 @@ t line 16.
  [37
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=390, page=17, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=394, page=17, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 17>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page17 used on inpu
@@ -1654,7 +1654,7 @@ t line 16.
  [38
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=395, page=18, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=399, page=18, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 18>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page18 used on inpu
@@ -1673,7 +1673,7 @@ t line 16.
  [39
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=400, page=19, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=404, page=19, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 19>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page19 used on inpu
@@ -1692,7 +1692,7 @@ t line 16.
  [40
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=405, page=20, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=409, page=20, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 20>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page20 used on inpu
@@ -1711,7 +1711,7 @@ t line 16.
  [41
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=410, page=21, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=414, page=21, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 21>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page21 used on inpu
@@ -1730,7 +1730,7 @@ t line 16.
  [42
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=415, page=22, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=419, page=22, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 22>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page22 used on inpu
@@ -1749,7 +1749,7 @@ t line 16.
  [43
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=421, page=23, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=425, page=23, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 23>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page23 used on inpu
@@ -1768,7 +1768,7 @@ t line 16.
  [44
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=426, page=24, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=430, page=24, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 24>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page24 used on inpu
@@ -1787,7 +1787,7 @@ t line 16.
  [45
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=431, page=25, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=435, page=25, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 25>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page25 used on inpu
@@ -1806,7 +1806,7 @@ t line 16.
  [46
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=436, page=26, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=440, page=26, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 26>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page26 used on inpu
@@ -1825,7 +1825,7 @@ t line 16.
  [47
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=441, page=27, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=445, page=27, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 27>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page27 used on inpu
@@ -1844,7 +1844,7 @@ t line 16.
  [48
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=446, page=28, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=450, page=28, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 28>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page28 used on inpu
@@ -1863,7 +1863,7 @@ t line 16.
  [49
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=452, page=29, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=456, page=29, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 29>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page29 used on inpu
@@ -1882,7 +1882,7 @@ t line 16.
  [50
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=457, page=30, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=461, page=30, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 30>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page30 used on inpu
@@ -1901,7 +1901,7 @@ t line 16.
  [51
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=462, page=31, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=466, page=31, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 31>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page31 used on inpu
@@ -1921,7 +1921,7 @@ t line 16.
 [52
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=467, page=32, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=471, page=32, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 32>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page32 used on inpu
@@ -1940,7 +1940,7 @@ t line 16.
  [53
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=472, page=33, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=476, page=33, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 33>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page33 used on inpu
@@ -1959,7 +1959,7 @@ t line 16.
 [54
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=477, page=34, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=481, page=34, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 34>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page34 used on inpu
@@ -1978,7 +1978,7 @@ t line 16.
  [55
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=483, page=35, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=487, page=35, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 35>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page35 used on inpu
@@ -1997,7 +1997,7 @@ t line 16.
 [56
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=488, page=36, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=492, page=36, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 36>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page36 used on inpu
@@ -2016,7 +2016,7 @@ t line 16.
  [57
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte1b_suma-producto.pdf, id=493, page=37, 614.295pt x 794.97pt>
+<../pdf/parte1b_suma-producto.pdf, id=497, page=37, 614.295pt x 794.97pt>
 File: ../pdf/parte1b_suma-producto.pdf Graphic file (type pdf)
 <use ../pdf/parte1b_suma-producto.pdf, page 37>
 Package pdftex.def Info: ../pdf/parte1b_suma-producto.pdf , page37 used on inpu
@@ -2035,13 +2035,13 @@ t line 16.
 [58
 
  <../pdf/parte1b_suma-producto.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=498, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=502, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf  used on input l
 ine 17.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<../pdf/parte2_inclusion-exclusion.pdf, id=500, page=1, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=504, page=1, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 1>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page1 used on 
@@ -2070,7 +2070,7 @@ input line 17.
  [59
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=551, page=2, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=555, page=2, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 2>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page2 used on 
@@ -2089,7 +2089,7 @@ input line 17.
  [60
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=560, page=3, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=564, page=3, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 3>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page3 used on 
@@ -2108,7 +2108,7 @@ input line 17.
  [61
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=566, page=4, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=570, page=4, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 4>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page4 used on 
@@ -2127,7 +2127,7 @@ input line 17.
  [62
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=571, page=5, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=575, page=5, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 5>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page5 used on 
@@ -2146,7 +2146,7 @@ input line 17.
  [63
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=576, page=6, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=580, page=6, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 6>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page6 used on 
@@ -2165,7 +2165,7 @@ input line 17.
  [64
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=581, page=7, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=585, page=7, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 7>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page7 used on 
@@ -2185,7 +2185,7 @@ input line 17.
 [65
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=586, page=8, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=590, page=8, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 8>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page8 used on 
@@ -2204,7 +2204,7 @@ input line 17.
  [66
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=591, page=9, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=595, page=9, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 9>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page9 used on 
@@ -2223,7 +2223,7 @@ input line 17.
  [67
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=597, page=10, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=601, page=10, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 10>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page10 used on
@@ -2242,7 +2242,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page10 used on
  [68
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=602, page=11, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=606, page=11, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 11>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page11 used on
@@ -2261,7 +2261,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page11 used on
  [69
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=607, page=12, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=611, page=12, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 12>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page12 used on
@@ -2280,7 +2280,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page12 used on
  [70
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=612, page=13, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=616, page=13, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 13>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page13 used on
@@ -2299,7 +2299,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page13 used on
  [71
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=617, page=14, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=621, page=14, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 14>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page14 used on
@@ -2319,7 +2319,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page14 used on
 [72
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=622, page=15, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=626, page=15, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 15>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page15 used on
@@ -2338,7 +2338,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page15 used on
  [73
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=628, page=16, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=632, page=16, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 16>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page16 used on
@@ -2357,7 +2357,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page16 used on
  [74
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=633, page=17, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=637, page=17, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 17>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page17 used on
@@ -2376,7 +2376,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page17 used on
  [75
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=638, page=18, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=642, page=18, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 18>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page18 used on
@@ -2395,7 +2395,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page18 used on
  [76
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=643, page=19, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=647, page=19, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 19>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page19 used on
@@ -2414,7 +2414,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page19 used on
  [77
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=648, page=20, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=652, page=20, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 20>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page20 used on
@@ -2433,7 +2433,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page20 used on
  [78
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=653, page=21, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=657, page=21, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 21>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page21 used on
@@ -2453,7 +2453,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page21 used on
 [79
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=659, page=22, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=663, page=22, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 22>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page22 used on
@@ -2472,7 +2472,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page22 used on
  [80
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=664, page=23, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=668, page=23, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 23>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page23 used on
@@ -2491,7 +2491,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page23 used on
  [81
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=669, page=24, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=673, page=24, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 24>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page24 used on
@@ -2510,7 +2510,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page24 used on
  [82
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=674, page=25, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=678, page=25, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 25>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page25 used on
@@ -2529,7 +2529,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page25 used on
  [83
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=679, page=26, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=684, page=26, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 26>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page26 used on
@@ -2548,7 +2548,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page26 used on
  [84
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=685, page=27, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=689, page=27, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 27>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page27 used on
@@ -2567,7 +2567,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page27 used on
  [85
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=691, page=28, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=695, page=28, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 28>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page28 used on
@@ -2587,7 +2587,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page28 used on
 [86
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=696, page=29, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=700, page=29, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 29>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page29 used on
@@ -2606,7 +2606,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page29 used on
  [87
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=701, page=30, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=705, page=30, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 30>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page30 used on
@@ -2625,7 +2625,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page30 used on
  [88
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=706, page=31, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=710, page=31, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 31>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page31 used on
@@ -2644,7 +2644,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page31 used on
  [89
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=711, page=32, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=715, page=32, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 32>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page32 used on
@@ -2663,7 +2663,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page32 used on
  [90
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=716, page=33, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=720, page=33, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 33>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page33 used on
@@ -2682,7 +2682,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page33 used on
  [91
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=722, page=34, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=726, page=34, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 34>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page34 used on
@@ -2701,7 +2701,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page34 used on
  [92
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=727, page=35, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=731, page=35, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 35>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page35 used on
@@ -2721,7 +2721,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page35 used on
 [93
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=732, page=36, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=736, page=36, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 36>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page36 used on
@@ -2740,7 +2740,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page36 used on
  [94
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=737, page=37, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=741, page=37, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 37>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page37 used on
@@ -2759,7 +2759,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page37 used on
  [95
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=742, page=38, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=746, page=38, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 38>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page38 used on
@@ -2778,7 +2778,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page38 used on
  [96
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=747, page=39, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=751, page=39, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 39>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page39 used on
@@ -2797,7 +2797,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page39 used on
  [97
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=753, page=40, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=757, page=40, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 40>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page40 used on
@@ -2816,7 +2816,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page40 used on
  [98
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=762, page=41, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=766, page=41, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 41>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page41 used on
@@ -2835,7 +2835,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page41 used on
  [99
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=767, page=42, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=771, page=42, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 42>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page42 used on
@@ -2855,7 +2855,7 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page42 used on
 [100
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte2_inclusion-exclusion.pdf, id=772, page=43, 614.295pt x 794.97pt>
+<../pdf/parte2_inclusion-exclusion.pdf, id=776, page=43, 614.295pt x 794.97pt>
 File: ../pdf/parte2_inclusion-exclusion.pdf Graphic file (type pdf)
 <use ../pdf/parte2_inclusion-exclusion.pdf, page 43>
 Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page43 used on
@@ -2874,12 +2874,12 @@ Package pdftex.def Info: ../pdf/parte2_inclusion-exclusion.pdf , page43 used on
  [101
 
  <../pdf/parte2_inclusion-exclusion.pdf>]
-<../pdf/parte3_palomar.pdf, id=777, 614.295pt x 794.97pt>
+<../pdf/parte3_palomar.pdf, id=781, 614.295pt x 794.97pt>
 File: ../pdf/parte3_palomar.pdf Graphic file (type pdf)
 <use ../pdf/parte3_palomar.pdf>
 Package pdftex.def Info: ../pdf/parte3_palomar.pdf  used on input line 18.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<../pdf/parte3_palomar.pdf, id=779, page=1, 614.295pt x 794.97pt>
+<../pdf/parte3_palomar.pdf, id=783, page=1, 614.295pt x 794.97pt>
 File: ../pdf/parte3_palomar.pdf Graphic file (type pdf)
 <use ../pdf/parte3_palomar.pdf, page 1>
 Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page1 used on input line 1
@@ -2908,7 +2908,7 @@ Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page1 used on input line 1
  [102
 
  <../pdf/parte3_palomar.pdf>]
-<../pdf/parte3_palomar.pdf, id=829, page=2, 614.295pt x 794.97pt>
+<../pdf/parte3_palomar.pdf, id=833, page=2, 614.295pt x 794.97pt>
 File: ../pdf/parte3_palomar.pdf Graphic file (type pdf)
 <use ../pdf/parte3_palomar.pdf, page 2>
 Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page2 used on input line 1
@@ -2927,7 +2927,7 @@ Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page2 used on input line 1
  [103
 
  <../pdf/parte3_palomar.pdf>]
-<../pdf/parte3_palomar.pdf, id=835, page=3, 614.295pt x 794.97pt>
+<../pdf/parte3_palomar.pdf, id=839, page=3, 614.295pt x 794.97pt>
 File: ../pdf/parte3_palomar.pdf Graphic file (type pdf)
 <use ../pdf/parte3_palomar.pdf, page 3>
 Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page3 used on input line 1
@@ -2946,7 +2946,7 @@ Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page3 used on input line 1
  [104
 
  <../pdf/parte3_palomar.pdf>]
-<../pdf/parte3_palomar.pdf, id=840, page=4, 614.295pt x 794.97pt>
+<../pdf/parte3_palomar.pdf, id=845, page=4, 614.295pt x 794.97pt>
 File: ../pdf/parte3_palomar.pdf Graphic file (type pdf)
 <use ../pdf/parte3_palomar.pdf, page 4>
 Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page4 used on input line 1
@@ -2965,7 +2965,7 @@ Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page4 used on input line 1
  [105
 
  <../pdf/parte3_palomar.pdf>]
-<../pdf/parte3_palomar.pdf, id=846, page=5, 614.295pt x 794.97pt>
+<../pdf/parte3_palomar.pdf, id=850, page=5, 614.295pt x 794.97pt>
 File: ../pdf/parte3_palomar.pdf Graphic file (type pdf)
 <use ../pdf/parte3_palomar.pdf, page 5>
 Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page5 used on input line 1
@@ -2984,7 +2984,7 @@ Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page5 used on input line 1
  [106
 
  <../pdf/parte3_palomar.pdf>]
-<../pdf/parte3_palomar.pdf, id=856, page=6, 614.295pt x 794.97pt>
+<../pdf/parte3_palomar.pdf, id=860, page=6, 614.295pt x 794.97pt>
 File: ../pdf/parte3_palomar.pdf Graphic file (type pdf)
 <use ../pdf/parte3_palomar.pdf, page 6>
 Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page6 used on input line 1
@@ -3003,7 +3003,7 @@ Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page6 used on input line 1
  [107
 
  <../pdf/parte3_palomar.pdf>]
-<../pdf/parte3_palomar.pdf, id=861, page=7, 614.295pt x 794.97pt>
+<../pdf/parte3_palomar.pdf, id=865, page=7, 614.295pt x 794.97pt>
 File: ../pdf/parte3_palomar.pdf Graphic file (type pdf)
 <use ../pdf/parte3_palomar.pdf, page 7>
 Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page7 used on input line 1
@@ -3022,7 +3022,7 @@ Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page7 used on input line 1
  [108
 
  <../pdf/parte3_palomar.pdf>]
-<../pdf/parte3_palomar.pdf, id=877, page=8, 614.295pt x 794.97pt>
+<../pdf/parte3_palomar.pdf, id=881, page=8, 614.295pt x 794.97pt>
 File: ../pdf/parte3_palomar.pdf Graphic file (type pdf)
 <use ../pdf/parte3_palomar.pdf, page 8>
 Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page8 used on input line 1
@@ -3041,7 +3041,7 @@ Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page8 used on input line 1
  [109
 
  <../pdf/parte3_palomar.pdf>]
-<../pdf/parte3_palomar.pdf, id=883, page=9, 614.295pt x 794.97pt>
+<../pdf/parte3_palomar.pdf, id=887, page=9, 614.295pt x 794.97pt>
 File: ../pdf/parte3_palomar.pdf Graphic file (type pdf)
 <use ../pdf/parte3_palomar.pdf, page 9>
 Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page9 used on input line 1
@@ -3060,7 +3060,7 @@ Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page9 used on input line 1
  [110
 
  <../pdf/parte3_palomar.pdf>]
-<../pdf/parte3_palomar.pdf, id=888, page=10, 614.295pt x 794.97pt>
+<../pdf/parte3_palomar.pdf, id=892, page=10, 614.295pt x 794.97pt>
 File: ../pdf/parte3_palomar.pdf Graphic file (type pdf)
 <use ../pdf/parte3_palomar.pdf, page 10>
 Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page10 used on input line 
@@ -3079,12 +3079,12 @@ Package pdftex.def Info: ../pdf/parte3_palomar.pdf , page10 used on input line
  [111
 
  <../pdf/parte3_palomar.pdf>]
-<../pdf/parte4_venn.pdf, id=893, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=897, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf  used on input line 19.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<../pdf/parte4_venn.pdf, id=895, page=1, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=899, page=1, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 1>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page1 used on input line 19.
@@ -3108,7 +3108,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page1 used on input line 19.
  [112
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=937, page=2, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=941, page=2, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 2>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page2 used on input line 19.
@@ -3124,7 +3124,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page2 used on input line 19.
  [113
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=946, page=3, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=950, page=3, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 3>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page3 used on input line 19.
@@ -3140,7 +3140,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page3 used on input line 19.
  [114
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=951, page=4, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=955, page=4, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 4>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page4 used on input line 19.
@@ -3156,7 +3156,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page4 used on input line 19.
  [115
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=957, page=5, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=961, page=5, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 5>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page5 used on input line 19.
@@ -3172,7 +3172,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page5 used on input line 19.
  [116
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=962, page=6, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=966, page=6, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 6>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page6 used on input line 19.
@@ -3188,7 +3188,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page6 used on input line 19.
  [117
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=967, page=7, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=971, page=7, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 7>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page7 used on input line 19.
@@ -3204,7 +3204,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page7 used on input line 19.
  [118
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=972, page=8, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=976, page=8, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 8>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page8 used on input line 19.
@@ -3220,7 +3220,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page8 used on input line 19.
  [119
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=981, page=9, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=985, page=9, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 9>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page9 used on input line 19.
@@ -3236,7 +3236,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page9 used on input line 19.
  [120
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=986, page=10, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=990, page=10, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 10>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page10 used on input line 19.
@@ -3256,7 +3256,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page10 used on input line 19.
 [121
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=992, page=11, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=996, page=11, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 11>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page11 used on input line 19.
@@ -3275,7 +3275,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page11 used on input line 19.
  [122
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=997, page=12, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=1002, page=12, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 12>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page12 used on input line 19.
@@ -3294,7 +3294,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page12 used on input line 19.
  [123
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=1003, page=13, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=1007, page=13, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 13>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page13 used on input line 19.
@@ -3313,7 +3313,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page13 used on input line 19.
  [124
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=1008, page=14, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=1012, page=14, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 14>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page14 used on input line 19.
@@ -3332,7 +3332,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page14 used on input line 19.
  [125
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=1013, page=15, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=1017, page=15, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 15>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page15 used on input line 19.
@@ -3352,7 +3352,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page15 used on input line 19.
 [126
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=1018, page=16, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=1022, page=16, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 16>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page16 used on input line 19.
@@ -3371,7 +3371,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page16 used on input line 19.
  [127
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=1024, page=17, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=1028, page=17, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 17>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page17 used on input line 19.
@@ -3390,7 +3390,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page17 used on input line 19.
  [128
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=1029, page=18, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=1033, page=18, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 18>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page18 used on input line 19.
@@ -3409,7 +3409,7 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page18 used on input line 19.
  [129
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte4_venn.pdf, id=1034, page=19, 614.295pt x 794.97pt>
+<../pdf/parte4_venn.pdf, id=1038, page=19, 614.295pt x 794.97pt>
 File: ../pdf/parte4_venn.pdf Graphic file (type pdf)
 <use ../pdf/parte4_venn.pdf, page 19>
 Package pdftex.def Info: ../pdf/parte4_venn.pdf , page19 used on input line 19.
@@ -3428,12 +3428,12 @@ Package pdftex.def Info: ../pdf/parte4_venn.pdf , page19 used on input line 19.
  [130
 
  <../pdf/parte4_venn.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1039, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1043, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf  used on input line 20.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<../pdf/parte5a_anagramas.pdf, id=1041, page=1, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1045, page=1, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 1>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page1 used on input lin
@@ -3463,7 +3463,7 @@ e 20.
 [131
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1083, page=2, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1087, page=2, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 2>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page2 used on input lin
@@ -3482,7 +3482,7 @@ e 20.
  [132
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1098, page=3, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1102, page=3, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 3>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page3 used on input lin
@@ -3502,7 +3502,7 @@ e 20.
 [133
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1104, page=4, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1108, page=4, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 4>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page4 used on input lin
@@ -3521,7 +3521,7 @@ e 20.
  [134
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1109, page=5, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1113, page=5, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 5>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page5 used on input lin
@@ -3541,7 +3541,7 @@ e 20.
 [135
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1118, page=6, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1122, page=6, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 6>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page6 used on input lin
@@ -3560,7 +3560,7 @@ e 20.
  [136
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1123, page=7, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1127, page=7, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 7>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page7 used on input lin
@@ -3580,7 +3580,7 @@ e 20.
 [137
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1128, page=8, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1132, page=8, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 8>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page8 used on input lin
@@ -3599,7 +3599,7 @@ e 20.
  [138
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1133, page=9, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1137, page=9, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 9>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page9 used on input lin
@@ -3619,7 +3619,7 @@ e 20.
 [139
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1139, page=10, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1143, page=10, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 10>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page10 used on input li
@@ -3638,7 +3638,7 @@ ne 20.
  [140
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1144, page=11, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1148, page=11, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 11>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page11 used on input li
@@ -3658,7 +3658,7 @@ ne 20.
 [141
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1149, page=12, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1153, page=12, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 12>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page12 used on input li
@@ -3677,7 +3677,7 @@ ne 20.
  [142
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1154, page=13, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1159, page=13, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 13>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page13 used on input li
@@ -3697,7 +3697,7 @@ ne 20.
 [143
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1160, page=14, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1164, page=14, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 14>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page14 used on input li
@@ -3716,7 +3716,7 @@ ne 20.
  [144
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1165, page=15, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1169, page=15, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 15>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page15 used on input li
@@ -3736,7 +3736,7 @@ ne 20.
 [145
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1171, page=16, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1175, page=16, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 16>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page16 used on input li
@@ -3755,7 +3755,7 @@ ne 20.
  [146
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1176, page=17, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1180, page=17, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 17>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page17 used on input li
@@ -3775,7 +3775,7 @@ ne 20.
 [147
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1181, page=18, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1185, page=18, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 18>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page18 used on input li
@@ -3794,7 +3794,7 @@ ne 20.
  [148
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1186, page=19, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1190, page=19, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 19>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page19 used on input li
@@ -3814,7 +3814,7 @@ ne 20.
 [149
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1191, page=20, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1195, page=20, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 20>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page20 used on input li
@@ -3833,7 +3833,7 @@ ne 20.
  [150
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1196, page=21, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1200, page=21, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 21>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page21 used on input li
@@ -3853,7 +3853,7 @@ ne 20.
 [151
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1202, page=22, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1206, page=22, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 22>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page22 used on input li
@@ -3872,7 +3872,7 @@ ne 20.
  [152
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1207, page=23, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1211, page=23, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 23>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page23 used on input li
@@ -3892,7 +3892,7 @@ ne 20.
 [153
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1212, page=24, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1216, page=24, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 24>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page24 used on input li
@@ -3911,7 +3911,7 @@ ne 20.
  [154
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1217, page=25, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1221, page=25, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 25>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page25 used on input li
@@ -3931,7 +3931,7 @@ ne 20.
 [155
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1222, page=26, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1226, page=26, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 26>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page26 used on input li
@@ -3950,7 +3950,7 @@ ne 20.
  [156
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1227, page=27, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1231, page=27, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 27>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page27 used on input li
@@ -3970,7 +3970,7 @@ ne 20.
 [157
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1233, page=28, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1237, page=28, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 28>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page28 used on input li
@@ -3989,7 +3989,7 @@ ne 20.
  [158
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1238, page=29, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1242, page=29, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 29>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page29 used on input li
@@ -4009,7 +4009,7 @@ ne 20.
 [159
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5a_anagramas.pdf, id=1243, page=30, 614.295pt x 794.97pt>
+<../pdf/parte5a_anagramas.pdf, id=1247, page=30, 614.295pt x 794.97pt>
 File: ../pdf/parte5a_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5a_anagramas.pdf, page 30>
 Package pdftex.def Info: ../pdf/parte5a_anagramas.pdf , page30 used on input li
@@ -4028,12 +4028,12 @@ ne 20.
  [160
 
  <../pdf/parte5a_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1248, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1252, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf  used on input line 21.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<../pdf/parte5b_anagramas.pdf, id=1250, page=1, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1254, page=1, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 1>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page1 used on input lin
@@ -4063,7 +4063,7 @@ e 21.
 [161
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1306, page=2, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1310, page=2, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 2>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page2 used on input lin
@@ -4082,7 +4082,7 @@ e 21.
  [162
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1311, page=3, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1315, page=3, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 3>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page3 used on input lin
@@ -4102,7 +4102,7 @@ e 21.
 [163
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1317, page=4, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1322, page=4, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 4>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page4 used on input lin
@@ -4121,7 +4121,7 @@ e 21.
  [164
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1323, page=5, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1327, page=5, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 5>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page5 used on input lin
@@ -4141,7 +4141,7 @@ e 21.
 [165
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1328, page=6, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1332, page=6, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 6>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page6 used on input lin
@@ -4160,7 +4160,7 @@ e 21.
  [166
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1333, page=7, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1337, page=7, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 7>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page7 used on input lin
@@ -4180,7 +4180,7 @@ e 21.
 [167
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1338, page=8, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1342, page=8, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 8>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page8 used on input lin
@@ -4199,7 +4199,7 @@ e 21.
  [168
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1343, page=9, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1347, page=9, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 9>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page9 used on input lin
@@ -4219,7 +4219,7 @@ e 21.
 [169
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1349, page=10, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1353, page=10, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 10>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page10 used on input li
@@ -4238,7 +4238,7 @@ ne 21.
  [170
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1354, page=11, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1358, page=11, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 11>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page11 used on input li
@@ -4258,7 +4258,7 @@ ne 21.
 [171
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1359, page=12, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1363, page=12, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 12>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page12 used on input li
@@ -4277,7 +4277,7 @@ ne 21.
  [172
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1364, page=13, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1368, page=13, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 13>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page13 used on input li
@@ -4297,7 +4297,7 @@ ne 21.
 [173
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1369, page=14, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1373, page=14, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 14>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page14 used on input li
@@ -4316,7 +4316,7 @@ ne 21.
  [174
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1374, page=15, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1378, page=15, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 15>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page15 used on input li
@@ -4336,7 +4336,7 @@ ne 21.
 [175
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1384, page=16, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1388, page=16, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 16>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page16 used on input li
@@ -4355,7 +4355,7 @@ ne 21.
  [176
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1389, page=17, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1393, page=17, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 17>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page17 used on input li
@@ -4375,7 +4375,7 @@ ne 21.
 [177
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1394, page=18, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1398, page=18, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 18>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page18 used on input li
@@ -4394,7 +4394,7 @@ ne 21.
  [178
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1399, page=19, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1403, page=19, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 19>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page19 used on input li
@@ -4414,7 +4414,7 @@ ne 21.
 [179
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1404, page=20, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1408, page=20, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 20>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page20 used on input li
@@ -4433,7 +4433,7 @@ ne 21.
  [180
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1409, page=21, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1413, page=21, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 21>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page21 used on input li
@@ -4453,7 +4453,7 @@ ne 21.
 [181
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1415, page=22, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1419, page=22, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 22>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page22 used on input li
@@ -4472,7 +4472,7 @@ ne 21.
  [182
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1424, page=23, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1428, page=23, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 23>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page23 used on input li
@@ -4492,7 +4492,7 @@ ne 21.
 [183
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1429, page=24, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1433, page=24, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 24>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page24 used on input li
@@ -4511,7 +4511,7 @@ ne 21.
  [184
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1434, page=25, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1438, page=25, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 25>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page25 used on input li
@@ -4531,7 +4531,7 @@ ne 21.
 [185
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1439, page=26, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1443, page=26, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 26>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page26 used on input li
@@ -4550,7 +4550,7 @@ ne 21.
  [186
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1444, page=27, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1448, page=27, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 27>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page27 used on input li
@@ -4570,7 +4570,7 @@ ne 21.
 [187
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1450, page=28, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1454, page=28, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 28>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page28 used on input li
@@ -4589,7 +4589,7 @@ ne 21.
  [188
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1455, page=29, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1459, page=29, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 29>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page29 used on input li
@@ -4609,7 +4609,7 @@ ne 21.
 [189
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1460, page=30, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1464, page=30, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 30>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page30 used on input li
@@ -4628,7 +4628,7 @@ ne 21.
  [190
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte5b_anagramas.pdf, id=1465, page=31, 614.295pt x 794.97pt>
+<../pdf/parte5b_anagramas.pdf, id=1469, page=31, 614.295pt x 794.97pt>
 File: ../pdf/parte5b_anagramas.pdf Graphic file (type pdf)
 <use ../pdf/parte5b_anagramas.pdf, page 31>
 Package pdftex.def Info: ../pdf/parte5b_anagramas.pdf , page31 used on input li
@@ -4648,13 +4648,13 @@ ne 21.
 [191
 
  <../pdf/parte5b_anagramas.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1470, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1474, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf  used on input line 
 22.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<../pdf/parte6a_distribuciones.pdf, id=1472, page=1, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1476, page=1, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 1>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page1 used on inpu
@@ -4683,7 +4683,7 @@ t line 22.
  [192
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1519, page=2, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1523, page=2, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 2>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page2 used on inpu
@@ -4703,7 +4703,7 @@ t line 22.
 [193
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1529, page=3, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1533, page=3, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 3>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page3 used on inpu
@@ -4722,7 +4722,7 @@ t line 22.
  [194
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1534, page=4, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1538, page=4, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 4>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page4 used on inpu
@@ -4741,7 +4741,7 @@ t line 22.
  [195
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1539, page=5, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1543, page=5, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 5>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page5 used on inpu
@@ -4760,7 +4760,7 @@ t line 22.
  [196
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1544, page=6, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1548, page=6, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 6>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page6 used on inpu
@@ -4779,7 +4779,7 @@ t line 22.
  [197
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1549, page=7, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1553, page=7, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 7>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page7 used on inpu
@@ -4798,7 +4798,7 @@ t line 22.
  [198
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1554, page=8, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1558, page=8, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 8>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page8 used on inpu
@@ -4817,7 +4817,7 @@ t line 22.
  [199
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1560, page=9, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1564, page=9, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 9>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page9 used on inpu
@@ -4836,7 +4836,7 @@ t line 22.
  [200
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1565, page=10, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1569, page=10, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 10>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page10 used on inp
@@ -4855,7 +4855,7 @@ ut line 22.
  [201
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1570, page=11, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1574, page=11, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 11>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page11 used on inp
@@ -4874,7 +4874,7 @@ ut line 22.
  [202
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1575, page=12, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1579, page=12, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 12>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page12 used on inp
@@ -4893,7 +4893,7 @@ ut line 22.
  [203
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1580, page=13, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1584, page=13, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 13>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page13 used on inp
@@ -4912,7 +4912,7 @@ ut line 22.
  [204
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1585, page=14, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1589, page=14, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 14>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page14 used on inp
@@ -4931,7 +4931,7 @@ ut line 22.
  [205
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1591, page=15, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1595, page=15, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 15>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page15 used on inp
@@ -4951,7 +4951,7 @@ ut line 22.
 [206
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1596, page=16, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1600, page=16, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 16>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page16 used on inp
@@ -4970,7 +4970,7 @@ ut line 22.
  [207
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6a_distribuciones.pdf, id=1601, page=17, 614.295pt x 794.97pt>
+<../pdf/parte6a_distribuciones.pdf, id=1605, page=17, 614.295pt x 794.97pt>
 File: ../pdf/parte6a_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6a_distribuciones.pdf, page 17>
 Package pdftex.def Info: ../pdf/parte6a_distribuciones.pdf , page17 used on inp
@@ -4989,13 +4989,13 @@ ut line 22.
  [208
 
  <../pdf/parte6a_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1606, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1610, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf  used on input line 
 23.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<../pdf/parte6b_distribuciones.pdf, id=1608, page=1, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1612, page=1, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 1>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page1 used on inpu
@@ -5024,7 +5024,7 @@ t line 23.
  [209
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1655, page=2, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1659, page=2, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 2>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page2 used on inpu
@@ -5043,7 +5043,7 @@ t line 23.
  [210
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1664, page=3, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1668, page=3, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 3>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page3 used on inpu
@@ -5062,7 +5062,7 @@ t line 23.
  [211
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1670, page=4, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1674, page=4, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 4>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page4 used on inpu
@@ -5081,7 +5081,7 @@ t line 23.
  [212
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1675, page=5, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1679, page=5, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 5>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page5 used on inpu
@@ -5100,7 +5100,7 @@ t line 23.
  [213
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1680, page=6, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1684, page=6, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 6>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page6 used on inpu
@@ -5119,7 +5119,7 @@ t line 23.
  [214
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1685, page=7, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1689, page=7, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 7>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page7 used on inpu
@@ -5138,7 +5138,7 @@ t line 23.
  [215
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1690, page=8, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1694, page=8, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 8>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page8 used on inpu
@@ -5157,7 +5157,7 @@ t line 23.
  [216
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1695, page=9, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1699, page=9, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 9>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page9 used on inpu
@@ -5176,7 +5176,7 @@ t line 23.
  [217
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1701, page=10, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1705, page=10, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 10>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page10 used on inp
@@ -5195,7 +5195,7 @@ ut line 23.
  [218
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1706, page=11, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1710, page=11, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 11>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page11 used on inp
@@ -5215,7 +5215,7 @@ ut line 23.
 [219
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1711, page=12, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1715, page=12, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 12>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page12 used on inp
@@ -5234,7 +5234,7 @@ ut line 23.
  [220
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1716, page=13, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1720, page=13, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 13>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page13 used on inp
@@ -5253,7 +5253,7 @@ ut line 23.
  [221
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1721, page=14, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1725, page=14, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 14>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page14 used on inp
@@ -5272,7 +5272,7 @@ ut line 23.
  [222
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1726, page=15, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1730, page=15, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 15>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page15 used on inp
@@ -5291,7 +5291,7 @@ ut line 23.
  [223
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1732, page=16, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1736, page=16, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 16>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page16 used on inp
@@ -5310,7 +5310,7 @@ ut line 23.
  [224
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1737, page=17, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1741, page=17, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 17>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page17 used on inp
@@ -5329,7 +5329,7 @@ ut line 23.
  [225
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1742, page=18, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1746, page=18, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 18>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page18 used on inp
@@ -5348,7 +5348,7 @@ ut line 23.
  [226
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1747, page=19, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1751, page=19, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 19>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page19 used on inp
@@ -5367,7 +5367,7 @@ ut line 23.
  [227
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1752, page=20, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1756, page=20, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 20>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page20 used on inp
@@ -5386,7 +5386,7 @@ ut line 23.
  [228
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1757, page=21, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1761, page=21, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 21>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page21 used on inp
@@ -5405,7 +5405,7 @@ ut line 23.
  [229
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1763, page=22, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1767, page=22, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 22>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page22 used on inp
@@ -5424,7 +5424,7 @@ ut line 23.
  [230
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1768, page=23, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1772, page=23, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 23>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page23 used on inp
@@ -5443,7 +5443,7 @@ ut line 23.
  [231
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte6b_distribuciones.pdf, id=1773, page=24, 614.295pt x 794.97pt>
+<../pdf/parte6b_distribuciones.pdf, id=1777, page=24, 614.295pt x 794.97pt>
 File: ../pdf/parte6b_distribuciones.pdf Graphic file (type pdf)
 <use ../pdf/parte6b_distribuciones.pdf, page 24>
 Package pdftex.def Info: ../pdf/parte6b_distribuciones.pdf , page24 used on inp
@@ -5463,12 +5463,12 @@ ut line 23.
 [232
 
  <../pdf/parte6b_distribuciones.pdf>]
-<../pdf/parte7_especiales.pdf, id=1778, 614.295pt x 794.97pt>
+<../pdf/parte7_especiales.pdf, id=1782, 614.295pt x 794.97pt>
 File: ../pdf/parte7_especiales.pdf Graphic file (type pdf)
 <use ../pdf/parte7_especiales.pdf>
 Package pdftex.def Info: ../pdf/parte7_especiales.pdf  used on input line 24.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<../pdf/parte7_especiales.pdf, id=1780, page=1, 614.295pt x 794.97pt>
+<../pdf/parte7_especiales.pdf, id=1784, page=1, 614.295pt x 794.97pt>
 File: ../pdf/parte7_especiales.pdf Graphic file (type pdf)
 <use ../pdf/parte7_especiales.pdf, page 1>
 Package pdftex.def Info: ../pdf/parte7_especiales.pdf , page1 used on input lin
@@ -5497,7 +5497,7 @@ e 24.
  [233
 
  <../pdf/parte7_especiales.pdf>]
-<../pdf/parte7_especiales.pdf, id=1837, page=2, 614.295pt x 794.97pt>
+<../pdf/parte7_especiales.pdf, id=1841, page=2, 614.295pt x 794.97pt>
 File: ../pdf/parte7_especiales.pdf Graphic file (type pdf)
 <use ../pdf/parte7_especiales.pdf, page 2>
 Package pdftex.def Info: ../pdf/parte7_especiales.pdf , page2 used on input lin
@@ -5517,7 +5517,7 @@ e 24.
 [234
 
  <../pdf/parte7_especiales.pdf>]
-<../pdf/parte7_especiales.pdf, id=1842, page=3, 614.295pt x 794.97pt>
+<../pdf/parte7_especiales.pdf, id=1846, page=3, 614.295pt x 794.97pt>
 File: ../pdf/parte7_especiales.pdf Graphic file (type pdf)
 <use ../pdf/parte7_especiales.pdf, page 3>
 Package pdftex.def Info: ../pdf/parte7_especiales.pdf , page3 used on input lin
@@ -5536,7 +5536,7 @@ e 24.
  [235
 
  <../pdf/parte7_especiales.pdf>]
-<../pdf/parte7_especiales.pdf, id=1848, page=4, 614.295pt x 794.97pt>
+<../pdf/parte7_especiales.pdf, id=1852, page=4, 614.295pt x 794.97pt>
 File: ../pdf/parte7_especiales.pdf Graphic file (type pdf)
 <use ../pdf/parte7_especiales.pdf, page 4>
 Package pdftex.def Info: ../pdf/parte7_especiales.pdf , page4 used on input lin
@@ -5556,7 +5556,7 @@ e 24.
 [236
 
  <../pdf/parte7_especiales.pdf>]
-<../pdf/parte7_especiales.pdf, id=1853, page=5, 614.295pt x 794.97pt>
+<../pdf/parte7_especiales.pdf, id=1857, page=5, 614.295pt x 794.97pt>
 File: ../pdf/parte7_especiales.pdf Graphic file (type pdf)
 <use ../pdf/parte7_especiales.pdf, page 5>
 Package pdftex.def Info: ../pdf/parte7_especiales.pdf , page5 used on input lin
@@ -5575,7 +5575,7 @@ e 24.
  [237
 
  <../pdf/parte7_especiales.pdf>]
-<../pdf/parte7_especiales.pdf, id=1858, page=6, 614.295pt x 794.97pt>
+<../pdf/parte7_especiales.pdf, id=1862, page=6, 614.295pt x 794.97pt>
 File: ../pdf/parte7_especiales.pdf Graphic file (type pdf)
 <use ../pdf/parte7_especiales.pdf, page 6>
 Package pdftex.def Info: ../pdf/parte7_especiales.pdf , page6 used on input lin
@@ -5595,7 +5595,7 @@ e 24.
 [238
 
  <../pdf/parte7_especiales.pdf>]
-<../pdf/parte7_especiales.pdf, id=1863, page=7, 614.295pt x 794.97pt>
+<../pdf/parte7_especiales.pdf, id=1867, page=7, 614.295pt x 794.97pt>
 File: ../pdf/parte7_especiales.pdf Graphic file (type pdf)
 <use ../pdf/parte7_especiales.pdf, page 7>
 Package pdftex.def Info: ../pdf/parte7_especiales.pdf , page7 used on input lin
@@ -5614,7 +5614,7 @@ e 24.
  [239
 
  <../pdf/parte7_especiales.pdf>]
-<../pdf/parte7_especiales.pdf, id=1868, page=8, 614.295pt x 794.97pt>
+<../pdf/parte7_especiales.pdf, id=1872, page=8, 614.295pt x 794.97pt>
 File: ../pdf/parte7_especiales.pdf Graphic file (type pdf)
 <use ../pdf/parte7_especiales.pdf, page 8>
 Package pdftex.def Info: ../pdf/parte7_especiales.pdf , page8 used on input lin
@@ -5634,7 +5634,7 @@ e 24.
 [240
 
  <../pdf/parte7_especiales.pdf>]
-<../pdf/parte7_especiales.pdf, id=1877, page=9, 614.295pt x 794.97pt>
+<../pdf/parte7_especiales.pdf, id=1881, page=9, 614.295pt x 794.97pt>
 File: ../pdf/parte7_especiales.pdf Graphic file (type pdf)
 <use ../pdf/parte7_especiales.pdf, page 9>
 Package pdftex.def Info: ../pdf/parte7_especiales.pdf , page9 used on input lin
@@ -5653,7 +5653,7 @@ e 24.
  [241
 
  <../pdf/parte7_especiales.pdf>]
-<../pdf/parte7_especiales.pdf, id=1883, page=10, 614.295pt x 794.97pt>
+<../pdf/parte7_especiales.pdf, id=1887, page=10, 614.295pt x 794.97pt>
 File: ../pdf/parte7_especiales.pdf Graphic file (type pdf)
 <use ../pdf/parte7_especiales.pdf, page 10>
 Package pdftex.def Info: ../pdf/parte7_especiales.pdf , page10 used on input li
@@ -5673,7 +5673,7 @@ ne 24.
 [242
 
  <../pdf/parte7_especiales.pdf>]
-<../pdf/parte7_especiales.pdf, id=1888, page=11, 614.295pt x 794.97pt>
+<../pdf/parte7_especiales.pdf, id=1892, page=11, 614.295pt x 794.97pt>
 File: ../pdf/parte7_especiales.pdf Graphic file (type pdf)
 <use ../pdf/parte7_especiales.pdf, page 11>
 Package pdftex.def Info: ../pdf/parte7_especiales.pdf , page11 used on input li
@@ -5692,7 +5692,7 @@ ne 24.
  [243
 
  <../pdf/parte7_especiales.pdf>]
-<../pdf/parte7_especiales.pdf, id=1893, page=12, 614.295pt x 794.97pt>
+<../pdf/parte7_especiales.pdf, id=1897, page=12, 614.295pt x 794.97pt>
 File: ../pdf/parte7_especiales.pdf Graphic file (type pdf)
 <use ../pdf/parte7_especiales.pdf, page 12>
 Package pdftex.def Info: ../pdf/parte7_especiales.pdf , page12 used on input li
@@ -5746,10 +5746,10 @@ sfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/sh
 are/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texmf
 -dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on solucionario-conteo.pdf (244 pages, 1388823 bytes).
+Output written on solucionario-conteo.pdf (244 pages, 1393531 bytes).
 PDF statistics:
- 1998 PDF objects out of 2073 (max. 8388607)
- 1327 compressed objects within 14 object streams
+ 2002 PDF objects out of 2073 (max. 8388607)
+ 1330 compressed objects within 14 object streams
  256 named destinations out of 1000 (max. 500000)
  1408 words of extra memory for PDF output out of 10000 (max. 10000000)
 
