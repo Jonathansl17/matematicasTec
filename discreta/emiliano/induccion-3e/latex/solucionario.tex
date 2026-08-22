@@ -1,0 +1,356 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+
+\title{\textbf{Solucionario --- Ejercicio 3(e)}\\[4pt]\large Sucesión recursiva $e_n=e_{n-1}+n!$: fórmula explícita y demostración por inducción matemática}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Enunciado}
+\addcontentsline{toc}{section}{Enunciado}
+
+\begin{quote}
+\textbf{3.} Para cada sucesión recursiva dada se proporciona una fórmula explícita. Demuestre que la fórmula es correcta usando inducción matemática.
+
+\medskip
+\textbf{e)} Forma recursiva: $e_n = e_{n-1} + n!,\ e_1 = 1.$
+\end{quote}
+
+\begin{nota}
+\textbf{Sobre la fórmula explícita.} En la fuente disponible la fórmula explícita del inciso (e) no aparece legible, así que \emph{no se copia de ningún lado}: se \textbf{deduce} aquí desde cero mediante análisis regresivo (Parte I) y luego se \textbf{demuestra} formalmente por inducción matemática (Parte II), que es lo que el enunciado exige. El resultado deducido es
+\[
+e_n=\sum_{k=1}^{n}k! = 1!+2!+3!+\cdots+n!,\qquad n\ge 1 .
+\]
+\end{nota}
+
+\begin{teo}
+\textbf{Herramientas usadas en este ejercicio.}
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Factorial (definición).} $n! = n\cdot(n-1)\cdots 2\cdot 1 = n\cdot (n-1)!$, con $0!=1$. La segunda igualdad ($n!=n\cdot(n-1)!$) es la \emph{forma recursiva} del factorial y es la que permite pasar de un factorial al siguiente sin recalcular todo el producto.
+  \item \textbf{Análisis regresivo.} Consiste en desenrollar la recurrencia hacia atrás ($e_n$ en términos de $e_{n-1}$, luego de $e_{n-2}$, etc.) hasta chocar con el dato inicial, y leer el patrón que queda. Sirve para \emph{conjeturar} la fórmula explícita; no la demuestra por sí solo, porque solo se verificaron finitos casos.
+  \item \textbf{Notación de sumatoria.} $\displaystyle\sum_{k=1}^{n}k!$ significa "sumar $k!$ desde $k=1$ hasta $k=n$". Su propiedad clave aquí es la \textbf{separación del último término}:
+  \[
+    \sum_{k=1}^{p+1}k! \;=\; \left(\sum_{k=1}^{p}k!\right) + (p+1)! ,
+  \]
+  válida porque sumar hasta $p+1$ es sumar hasta $p$ y después agregar el término que corresponde a $k=p+1$. Esta identidad es el motor de todo el paso inductivo.
+  \item \textbf{Pasos de la inducción matemática.}
+  \begin{enumerate}[label=(\alph*)]
+    \item \textbf{Caso base:} demostrar que la proposición $P(n)$ es cierta en el valor inicial $n=n_0$.
+    \item \textbf{Hipótesis de inducción (H.I.):} asumir que $P(p)$ es cierta para un $p\ge n_0$ arbitrario pero fijo.
+    \item \textbf{Paso inductivo:} demostrar, usando la H.I., que entonces $P(p+1)$ también es cierta.
+    \item \textbf{Conclusión:} por el principio de inducción, $P(n)$ vale para todo $n\ge n_0$.
+  \end{enumerate}
+  \textbf{¿Por qué esto demuestra infinitos casos?} Porque el caso base enciende $P(n_0)$, y el paso inductivo es una máquina que convierte cualquier caso verdadero en el siguiente: $P(n_0)\Rightarrow P(n_0+1)\Rightarrow P(n_0+2)\Rightarrow\cdots$ Ningún natural $\ge n_0$ queda fuera de esa cadena.
+  \end{enumerate}
+\end{teo}
+
+\newpage
+\section*{Parte I --- Deducción de la fórmula explícita (análisis regresivo)}
+\addcontentsline{toc}{section}{Parte I --- Deducción de la fórmula explícita}
+
+\begin{paso}{Paso 1 --- Clasifico la recurrencia y descarto la ecuación característica}
+\textbf{Qué hago:} antes de elegir método, identifico qué clase de recurrencia es
+\[
+e_n = e_{n-1} + n! ,\qquad e_1 = 1 .
+\]
+Es de \textbf{primer orden} (solo interviene el término inmediatamente anterior, $e_{n-1}$), de \textbf{coeficientes constantes} (el coeficiente que acompaña a $e_{n-1}$ es $1$) pero \textbf{NO homogénea}: sobra el término $n!$, que no contiene ningún $e$.
+
+\textbf{¿De dónde sale esa clasificación?} De mirar la ecuación: los términos con $e$ son $e_n$ y $e_{n-1}$ (orden 1); el término $n!$ depende solo de $n$, no de la sucesión, y por eso se llama \emph{término independiente} o \emph{no homogéneo}.
+
+\textbf{¿Por qué importa?} Porque el método de la ecuación característica ($a_n\to x^2$, $a_{n-1}\to x$, \dots) está construido para recurrencias \emph{homogéneas}: su deducción exige igualar a cero y factorizar $x^{n-k}$, cosa imposible cuando queda un $n!$ suelto que no es potencia de $x$. Aquí, en cambio, la recurrencia es \emph{acumulativa}: cada término es el anterior más algo conocido. Ese tipo se resuelve desenrollando hacia atrás (análisis regresivo), porque al desenrollar los $e$ se van cancelando y solo quedan sumados los términos conocidos.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Genero términos concretos para ver el patrón}
+\textbf{Qué hago:} aplico la recurrencia desde el dato inicial, uno por uno, sin simplificar todavía las sumas.
+
+Arranque (dato del enunciado):
+\[
+e_1 = 1 .
+\]
+Con $n=2$: la regla dice $e_2=e_1+2!$. El $2!$ sale de sustituir $n=2$ en el término $n!$, y el subíndice $2-1=1$ de sustituir esa misma $n$ en $e_{n-1}$:
+\[
+e_2 = e_1 + 2! = 1 + 2 = 3 ,\qquad\text{pues } 2!=2\cdot 1=2 .
+\]
+Con $n=3$:
+\[
+e_3 = e_2 + 3! = 3 + 6 = 9 ,\qquad\text{pues } 3!=3\cdot2\cdot1=6 .
+\]
+Con $n=4$:
+\[
+e_4 = e_3 + 4! = 9 + 24 = 33 ,\qquad\text{pues } 4!=4\cdot3\cdot2\cdot1=24 .
+\]
+
+\textbf{¿Por qué se generan términos antes de conjeturar?} Porque la fórmula explícita no se adivina en abstracto: se \emph{lee} de un patrón, y el patrón necesita datos. Cuatro términos ya bastan para reconocer la estructura.
+
+\textbf{¿Qué tomamos?} La lista $e_1=1,\ e_2=3,\ e_3=9,\ e_4=33$, que servirá además como control: cualquier fórmula candidata debe reproducir exactamente estos cuatro números.
+\end{paso}
+
+\begin{paso}{Paso 3a --- La clave: la regla NO es solo para $n$, sirve para cualquier índice}
+\textbf{Qué hago:} antes de desenrollar nada, dejo claro el único truco que hace funcionar todo el paso siguiente.
+
+La recurrencia del enunciado es
+\[
+e_n = e_{n-1} + n! ,
+\]
+y se lee: \emph{"cada término es igual al anterior más el factorial de su propio índice"}. La letra $n$ ahí NO es un número fijo: es un \textbf{molde}. Se le puede meter cualquier índice válido y la igualdad sigue siendo cierta. Por ejemplo, metiendo $n-1$ en \emph{todos} los lugares donde dice $n$:
+\[
+\underbrace{e_{n-1}}_{n\ \to\ n-1} \;=\; \underbrace{e_{(n-1)-1}}_{n-1\ \to\ n-2} \;+\; \underbrace{(n-1)!}_{n!\ \to\ (n-1)!}
+\qquad\Longrightarrow\qquad
+e_{n-1} = e_{n-2} + (n-1)! .
+\]
+Y otra vez, metiendo $n-2$:
+\[
+e_{n-2} = e_{n-3} + (n-2)! .
+\]
+
+\textbf{¿De dónde sale?} De sustituir en el molde, nada más. Ojo con el detalle que más confunde: hay que sustituir en los \textbf{tres} lugares a la vez (el subíndice de la izquierda, el subíndice de la derecha y el factorial), nunca en uno solo.
+
+\textbf{¿Por qué es lícito?} Porque el enunciado da la regla para todo índice $\ge 2$, no para un $n$ particular. Mientras el índice que se meta sea $\ge 2$, la igualdad es válida.
+
+\textbf{¿Qué tomamos?} Estas igualdades listas para usar:
+\[
+e_{n-1} = e_{n-2} + (n-1)!,\qquad
+e_{n-2} = e_{n-3} + (n-2)!,\qquad
+e_{n-3} = e_{n-4} + (n-3)!,\ \dots
+\]
+Cada una permite \emph{cambiar un $e$ por un $e$ más chico}. Eso es todo lo que se hace en el paso 3b.
+\end{paso}
+
+\begin{paso}{Paso 3b --- Desenrollo la recurrencia hacia atrás, línea por línea}
+\textbf{Qué hago:} sustituyo repetidamente, sin evaluar factoriales, dejándolos indicados para que el patrón se vea.
+\begin{align*}
+e_n &= e_{n-1} + n! &&\text{(regla original)}\\[2pt]
+    &= \underbrace{\bigl[e_{n-2} + (n-1)!\bigr]}_{\text{esto es } e_{n-1}} + n! &&\text{(cambio } e_{n-1}\text{ por su valor)}\\[2pt]
+    &= e_{n-2} + (n-1)! + n! &&\text{(quito el corchete: es una suma)}\\[2pt]
+    &= \underbrace{\bigl[e_{n-3} + (n-2)!\bigr]}_{\text{esto es } e_{n-2}} + (n-1)! + n! &&\text{(cambio } e_{n-2}\text{ por su valor)}\\[2pt]
+    &= e_{n-3} + (n-2)! + (n-1)! + n! &&\text{(quito el corchete)}\\[2pt]
+    &\ \ \vdots &&\text{(sigue igual, bajando de uno en uno)}\\[2pt]
+    &= e_{1} + 2! + 3! + \cdots + (n-1)! + n! . &&\text{(hasta tocar fondo en } e_1\text{)}
+\end{align*}
+
+\medskip
+\textbf{El patrón, en dos columnas.} En cada línea pasan exactamente dos cosas:
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Línea} & \textbf{El $e$ que sobrevive} & \textbf{Factoriales acumulados} \\
+\hline
+1 & $e_{n-1}$ & $n!$ \\
+2 & $e_{n-2}$ & $(n-1)!+n!$ \\
+3 & $e_{n-3}$ & $(n-2)!+(n-1)!+n!$ \\
+$\vdots$ & $\vdots$ & $\vdots$ \\
+última & $e_{1}$ & $2!+3!+\cdots+(n-1)!+n!$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{¿De dónde sale cada sustitución?} De las igualdades preparadas en el paso 3a: $e_{n-1}=e_{n-2}+(n-1)!$, $e_{n-2}=e_{n-3}+(n-2)!$, y así.
+
+\textbf{¿Por qué desaparecen todos los $e$ intermedios?} Porque cada sustitución \emph{no borra} información: cambia un $e$ por otro $e$ de índice menor MÁS un factorial que se queda en la fila. Los $e$ van bajando y se reemplazan; los factoriales, una vez que caen, ya no se tocan más. Al final sobrevive un solo $e$ y una pila de factoriales.
+
+\textbf{¿Por qué se detiene en $e_1$?} Porque el subíndice baja $n,\,n-1,\,n-2,\dots$ y al llegar a $1$ ya no hay nada que sustituir: $e_1=1$ es el \emph{dato inicial}, el único término que se conoce sin depender de otro. Bajar a $e_0$ sería salirse de la sucesión (está definida para $n\ge1$) y la regla ya no aplicaría.
+
+\textbf{¿Por qué el factorial más chico de la lista es $2!$ y no $1!$?} Porque el último salto que se dio fue de $e_2$ a $e_1$, y ese salto usa $e_2=e_1+2!$: el factorial que cae es $2!$. Debajo de $e_1$ no se salta más, así que $1!$ nunca aparece por esta vía. Aparecerá en el paso 4, pero por otra razón: porque $e_1=1$ resulta ser igual a $1!$.
+
+\textbf{¿Qué tomamos?} La expresión
+\[
+e_n = e_1 + 2! + 3! + \cdots + (n-1)! + n! ,
+\]
+todavía con $e_1$ sin reemplazar. Reemplazarlo es el paso 4.
+\end{paso}
+
+\begin{paso}{Paso 3c --- El mismo desenrollado con números, para verlo sin símbolos}
+\textbf{Qué hago:} repito exactamente el procedimiento del paso 3b, pero con $n=4$ fijo, para que no quede ninguna letra que interpretar.
+\begin{align*}
+e_4 &= e_3 + 4! &&\text{(regla con } n=4\text{)}\\
+    &= \bigl[e_2 + 3!\bigr] + 4! = e_2 + 3! + 4! &&\text{(regla con } n=3\text{: } e_3=e_2+3!\text{)}\\
+    &= \bigl[e_1 + 2!\bigr] + 3! + 4! = e_1 + 2! + 3! + 4! &&\text{(regla con } n=2\text{: } e_2=e_1+2!\text{)}\\
+    &= 1 + 2 + 6 + 24 = 33 . &&\text{(}e_1=1\text{ y se evalúan los factoriales)}
+\end{align*}
+
+\textbf{¿De dónde sale el $33$?} $2!=2$, $3!=6$, $4!=24$, y $e_1=1$; sumando: $1+2=3$, $3+6=9$, $9+24=33$.
+
+\textbf{¿Por qué sirve este ejemplo?} Porque el resultado $e_4=33$ coincide con el que se obtuvo en el paso 2 evaluando la recurrencia de frente ($1\to3\to9\to33$). Dos caminos distintos, mismo número: eso confirma que el desenrollado no perdió ni inventó términos.
+
+\textbf{¿Qué tomamos?} La confirmación de que la estructura general
+\[
+e_n = e_1 + 2!+3!+\cdots+n!
+\]
+es correcta en un caso concreto. Que funcione con $n=4$ no la demuestra para todo $n$ --- eso es trabajo de la Parte II --- pero descarta que el patrón esté mal leído.
+\end{paso}
+
+\begin{paso}{Paso 4 --- Sustituyo el dato inicial y compacto en sumatoria}
+\textbf{Qué hago:} reemplazo $e_1=1$ y observo que ese $1$ no es un número suelto sino precisamente $1!$.
+\[
+e_1 = 1 = 1! ,
+\]
+\textbf{¿De dónde sale $1!=1$?} De la definición de factorial: $1!=1$. Reescribirlo así no cambia el valor, pero uniformiza la lista: el primer sumando pasa a tener la misma forma que todos los demás.
+
+Entonces
+\[
+e_n = 1! + 2! + 3! + \cdots + n! = \sum_{k=1}^{n} k! .
+\]
+\textbf{¿Por qué se puede escribir como sumatoria?} Porque los sumandos siguen una ley única, $k!$, y el índice $k$ recorre sin huecos los enteros de $1$ a $n$. Eso es exactamente lo que abrevia el símbolo $\sum$.
+
+\textbf{Verificación contra el paso 2} (control obligatorio antes de dar nada por bueno):
+\[
+\sum_{k=1}^{1}k! = 1!=1=e_1,\qquad
+\sum_{k=1}^{2}k! = 1+2=3=e_2,
+\]
+\[
+\sum_{k=1}^{3}k! = 1+2+6=9=e_3,\qquad
+\sum_{k=1}^{4}k! = 1+2+6+24=33=e_4 .
+\]
+Los cuatro coinciden.
+
+\textbf{¿Qué tomamos?} La \emph{conjetura}
+\[
+e_n=\sum_{k=1}^{n}k!,\qquad n\ge 1 .
+\]
+Se llama conjetura y no teorema porque hasta aquí solo se comprobaron cuatro casos y se hizo un desenrollado con puntos suspensivos; los "$\cdots$" son una descripción informal, no una demostración. Formalizar eso es justamente el trabajo de la Parte II.
+\end{paso}
+
+\begin{nota}
+\textbf{¿Por qué la respuesta queda como sumatoria y no como una expresión "cerrada"?} Porque la suma de factoriales $1!+2!+\cdots+n!$ \emph{no} admite una fórmula cerrada elemental (no es como $1+2+\cdots+n=\frac{n(n+1)}{2}$, donde el patrón se colapsa). La forma explícita legítima de esta sucesión es la sumatoria: es explícita porque permite calcular $e_n$ directamente, sin conocer $e_{n-1}$.
+\end{nota}
+
+\newpage
+\section*{Parte II --- Demostración por inducción matemática}
+\addcontentsline{toc}{section}{Parte II --- Demostración por inducción}
+
+\begin{paso}{Paso 5 --- Escribo con precisión la proposición $P(n)$}
+\textbf{Qué hago:} nombro la afirmación que se va a demostrar, porque toda inducción empieza definiendo qué es $P(n)$.
+\[
+P(n):\quad e_n=\sum_{k=1}^{n}k! \qquad\text{(equivalentemente } e_n = 1!+2!+\cdots+n!\text{)},\qquad n\ge 1 .
+\]
+\textbf{¿De dónde sale?} Del resultado conjeturado en el paso 4.
+
+\textbf{¿Por qué $n_0=1$?} Porque la sucesión está definida a partir de $n=1$ (ahí vive el dato inicial $e_1=1$) y la recurrencia opera para $n\ge2$. El valor inicial de la inducción debe ser el primer índice donde la proposición tiene sentido: $n_0=1$.
+
+\textbf{¿Qué tomamos?} La proposición $P(n)$ y el valor inicial $n_0=1$, que fijan todo el esqueleto de la demostración.
+\end{paso}
+
+\begin{paso}{Paso 6 --- Caso base: verifico $P(1)$}
+\textbf{Qué hago:} evalúo por separado los dos lados de la igualdad en $n=1$ y comparo.
+
+\emph{Lado izquierdo} (lo que dice la definición recursiva):
+\[
+e_1 = 1 .
+\]
+\textbf{¿De dónde sale?} Es el dato inicial del enunciado, $e_1=1$. No se calcula: se lee.
+
+\emph{Lado derecho} (lo que predice la fórmula):
+\[
+\sum_{k=1}^{1}k! = 1! = 1 .
+\]
+\textbf{¿De dónde sale?} La sumatoria con límites $k=1$ hasta $1$ tiene un único sumando, el correspondiente a $k=1$, que es $1!$; y $1!=1$ por definición de factorial.
+
+Comparación:
+\[
+1 = 1 \quad\checkmark
+\]
+\textbf{¿Por qué basta con esto?} Porque el caso base no pide más que confirmar que la fórmula acierta en el primer índice. Es el eslabón inicial: si fallara aquí, la cadena de implicaciones no tendría de dónde arrancar y todo el resto sería inútil.
+
+\textbf{¿Qué tomamos?} La conclusión $P(1)$ es verdadera.
+\end{paso}
+
+\begin{paso}{Paso 7 --- Hipótesis de inducción: supongo $P(p)$}
+\textbf{Qué hago:} tomo un $p\in\mathbb{N}$, $p\ge 1$, arbitrario pero fijo, y \emph{asumo} que la fórmula vale para él:
+\[
+\text{H.I.:}\qquad e_p=\sum_{k=1}^{p}k! .
+\]
+\textbf{¿De dónde sale?} No se demuestra: es la suposición que autoriza el método de inducción en su paso (b).
+
+\textbf{¿Por qué es lícito suponer justo lo que se quiere probar?} Porque no se está suponiendo la tesis general. La tesis general es "vale para todo $n$"; aquí solo se supone que vale para \emph{un} índice $p$, con el fin de demostrar una \textbf{implicación}: $P(p)\Rightarrow P(p+1)$. Una implicación se prueba admitiendo el antecedente y deduciendo el consecuente. La verdad de $P(p)$ no queda afirmada, queda \emph{condicionada}; quien la vuelve incondicional es el caso base al arrancar la cadena.
+
+\textbf{¿Qué tomamos?} La igualdad H.I. $e_p=\sum_{k=1}^{p}k!$, que es la única munición permitida para el paso siguiente (junto con la definición recursiva).
+\end{paso}
+
+\begin{paso}{Paso 8 --- Planteo qué hay que probar en $P(p+1)$}
+\textbf{Qué hago:} escribo explícitamente la meta, sustituyendo $n$ por $p+1$ en $P(n)$:
+\[
+\text{Por demostrar (P.D.):}\qquad e_{p+1}=\sum_{k=1}^{p+1}k! .
+\]
+\textbf{¿De dónde sale?} De reemplazar mecánicamente $n\to p+1$ en los dos lados de $P(n)$: el subíndice $e_n$ pasa a $e_{p+1}$ y el límite superior de la sumatoria pasa de $n$ a $p+1$.
+
+\textbf{¿Por qué conviene escribir la meta antes de operar?} Porque en inducción se avanza \emph{hacia} una expresión concreta. Tener la meta a la vista indica qué forma debe alcanzar el desarrollo y evita manipular al azar.
+
+\textbf{¿Qué tomamos?} El objetivo $e_{p+1}=\sum_{k=1}^{p+1}k!$, que es a lo que hay que llegar en los pasos 9--11.
+\end{paso}
+
+\begin{paso}{Paso 9 --- Arranco por la definición recursiva evaluada en $p+1$}
+\textbf{Qué hago:} uso la recurrencia del enunciado $e_n=e_{n-1}+n!$ con $n=p+1$:
+\[
+e_{p+1} = e_{(p+1)-1} + (p+1)! = e_{p} + (p+1)! .
+\]
+\textbf{¿De dónde sale cada pieza?} El subíndice $(p+1)-1=p$ sale de sustituir $n=p+1$ en $e_{n-1}$; el factorial $(p+1)!$ sale de sustituir esa misma $n=p+1$ en el término $n!$. Ambas sustituciones usan el \emph{mismo} valor de $n$, como siempre en una recurrencia.
+
+\textbf{¿Por qué se empieza por el lado izquierdo y no por la fórmula?} Porque $e_{p+1}$ es, por definición, un objeto recursivo: lo único que se sabe de él con certeza es la regla que lo produce. Traducirlo con la recurrencia es el único movimiento disponible que no supone lo que se quiere probar.
+
+\textbf{¿Por qué se puede aplicar la recurrencia aquí?} Porque la regla vale para índices $\ge 2$, y como $p\ge 1$ se tiene $p+1\ge 2$. La condición se cumple.
+
+\textbf{¿Qué tomamos?} La igualdad $e_{p+1}=e_p+(p+1)!$, donde ya apareció $e_p$: exactamente el objeto sobre el que habla la hipótesis de inducción.
+\end{paso}
+
+\begin{paso}{Paso 10 --- Aplico la hipótesis de inducción}
+\textbf{Qué hago:} reemplazo $e_p$ por lo que asegura la H.I.
+\[
+e_{p+1} = \underbrace{\sum_{k=1}^{p}k!}_{\text{H.I.}} + (p+1)! .
+\]
+\textbf{¿De dónde sale?} Del paso 7: la H.I. dice $e_p=\sum_{k=1}^{p}k!$, y sustituir iguales por iguales es siempre válido.
+
+\textbf{¿Por qué este es el paso decisivo?} Porque es el único momento en que se usa la hipótesis, y sin usarla no habría inducción: el argumento sería circular o incompleto. Aquí se pasa de un objeto recursivo ($e_p$) a una expresión cerrada (la sumatoria), que ya se puede manipular algebraicamente.
+
+\textbf{¿Qué tomamos?} La expresión $\sum_{k=1}^{p}k! + (p+1)!$, que hay que reconocer como la sumatoria hasta $p+1$.
+\end{paso}
+
+\begin{paso}{Paso 11 --- Reconozco la sumatoria hasta $p+1$ y cierro}
+\textbf{Qué hago:} uso la propiedad de separación del último término de una sumatoria, leída de derecha a izquierda:
+\[
+\sum_{k=1}^{p}k! + (p+1)! \;=\; \sum_{k=1}^{p+1}k! .
+\]
+\textbf{¿De dónde sale esa propiedad?} De la definición misma de sumatoria. Desarrollando el lado derecho:
+\[
+\sum_{k=1}^{p+1}k! = \underbrace{1!+2!+\cdots+p!}_{\textstyle \sum_{k=1}^{p}k!} \;+\; (p+1)! ,
+\]
+porque sumar hasta $p+1$ es sumar hasta $p$ y luego agregar el sumando de índice $k=p+1$, que es $(p+1)!$. Es la misma igualdad, leída al revés.
+
+\textbf{¿Por qué esto termina la demostración?} Porque encadenando los pasos 9, 10 y 11:
+\[
+e_{p+1} \;\overset{\text{(recurrencia)}}{=}\; e_p+(p+1)! \;\overset{\text{(H.I.)}}{=}\; \sum_{k=1}^{p}k!+(p+1)! \;\overset{\text{(def. de }\sum)}{=}\; \sum_{k=1}^{p+1}k! ,
+\]
+que es exactamente la meta P.D. planteada en el paso 8. Es decir, se probó $P(p)\Rightarrow P(p+1)$.
+
+\textbf{¿Qué tomamos?} La implicación $P(p)\Rightarrow P(p+1)$, válida para todo $p\ge 1$, que junto con el caso base cierra el argumento.
+\end{paso}
+
+\begin{paso}{Paso 12 --- Conclusión por el principio de inducción}
+\textbf{Qué hago:} junto las dos piezas obtenidas.
+\begin{itemize}[leftmargin=*]
+  \item Paso 6: $P(1)$ es verdadera.
+  \item Pasos 7--11: para todo $p\ge1$, si $P(p)$ es verdadera entonces $P(p+1)$ también lo es.
+\end{itemize}
+\textbf{¿Por qué de ahí se sigue todo?} Porque el principio de inducción matemática afirma exactamente eso: un conjunto de naturales que contiene a $n_0$ y que, cada vez que contiene a $p$, contiene a $p+1$, contiene a todos los naturales $\ge n_0$. Concretamente: $P(1)$ vale por el caso base; aplicando la implicación con $p=1$ se obtiene $P(2)$; con $p=2$ se obtiene $P(3)$; y así indefinidamente. Ningún $n\ge1$ escapa de esa cadena.
+
+Por lo tanto
+\[
+e_n=\sum_{k=1}^{n}k!\qquad\text{para todo } n\in\mathbb{N},\ n\ge 1. \qquad\blacksquare
+\]
+\end{paso}
+
+\begin{resp}
+\textbf{Fórmula explícita (deducida en la Parte I):}
+\[
+e_n=\sum_{k=1}^{n}k! \;=\; 1!+2!+3!+\cdots+n! ,\qquad n\ge 1 .
+\]
+\textbf{Demostración (Parte II):} verificada por inducción matemática sobre $n$, con caso base $n=1$ ($e_1=1=1!$) y paso inductivo
+\[
+e_{p+1}=e_p+(p+1)!\overset{\text{H.I.}}{=}\sum_{k=1}^{p}k!+(p+1)!=\sum_{k=1}^{p+1}k! .
+\]
+Comprobación numérica: $e_1=1$, $e_2=3$, $e_3=9$, $e_4=33$, que coinciden con los valores obtenidos directamente de la recurrencia.
+\end{resp}
+
+\end{document}
