@@ -1,0 +1,12 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\ignorespaces Parte 01 --- §2.1 Funciones}{1}{section*.2}%
+\contentsline {section}{\ignorespaces Parte 02 --- §2.2 Gráficas de funciones}{13}{section*.3}%
+\contentsline {section}{\ignorespaces Parte 03 --- §2.3 Información a partir de la gráfica}{29}{section*.4}%
+\contentsline {section}{\ignorespaces Parte 04 --- §2.4 Razón de cambio promedio}{47}{section*.5}%
+\contentsline {section}{\ignorespaces Parte 05 --- §2.5 Funciones lineales y modelos}{60}{section*.6}%
+\contentsline {section}{\ignorespaces Parte 06 --- §2.6 Transformaciones de funciones}{73}{section*.7}%
+\contentsline {section}{\ignorespaces Parte 07 --- §2.7 Combinación de funciones}{89}{section*.8}%
+\contentsline {section}{\ignorespaces Parte 08 --- §2.8 Funciones uno a uno e inversas}{101}{section*.9}%
+\contentsline {section}{\ignorespaces Parte 09 --- §1.8 Desigualdades y valor absoluto}{113}{section*.10}%
+\contentsline {section}{\ignorespaces Parte 10 --- §3.6 Funciones racionales y asíntotas}{127}{section*.11}%
+\contentsline {section}{\ignorespaces Parte 11 --- §3.7 Desigualdades polinomiales y racionales}{143}{section*.12}%

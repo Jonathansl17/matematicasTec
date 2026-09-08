@@ -1,0 +1,704 @@
+% ============================================================================
+% Parte 01 — Stewart, Precálculo 7.ª ed., §2.1 "Funciones" (pp. 148–158).
+%
+% Ejercicios elegidos (15) y página del libro:
+%   Ej.  7 (p. 156) — Notación de función
+%   Ej. 11 (p. 156) — Funciones en palabras
+%   Ej. 15 (p. 156) — Diagrama de máquina
+%   Ej. 17 (p. 156) — Tabla de valores
+%   Ej. 19 (p. 156) — Evaluar funciones
+%   Ej. 21 (p. 156) — Evaluar funciones (entradas algebraicas)
+%   Ej. 31 (p. 156) — Función definida en tramos (2 tramos)
+%   Ej. 33 (p. 156) — Función definida en tramos (3 tramos)
+%   Ej. 35 (p. 157) — Evaluar y simplificar expresiones
+%   Ej. 39 (p. 157) — Cambio neto
+%   Ej. 43 (p. 157) — Cociente de diferencias
+%   Ej. 51 (p. 157) — Dominio y rango
+%   Ej. 65 (p. 157) — Dominio
+%   Ej. 73 (p. 157) — Cuatro maneras de representar una función
+%   Ej. 85 (p. 158) — Aplicación: impuesto sobre la renta (tramos)
+%
+% Figuras: ninguna extraída del PDF; los dos dibujos (diagrama de máquina del
+% Ej. 15 y gráfica del Ej. 73) se generan con TikZ/pgfplots.
+% ============================================================================
+\documentclass[11pt]{article}
+\input{preamble.tex}
+\begin{document}
+\shorthandoff{<>}  % babel-spanish hace activos < y >; tikz/pgfplots los necesitan literales
+
+\section*{Parte 01 — Funciones (Stewart §2.1, pp. 148--158)}
+
+\begin{teo}
+\textbf{Método de la sección 2.1.}
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Definición.} Una función $f$ es una regla que asigna a cada elemento $x$ de un conjunto $A$ \emph{exactamente un} elemento $f(x)$ de un conjunto $B$. $A$ es el \textbf{dominio} y el conjunto de salidas es el \textbf{rango}.
+\item \textbf{Traducir palabras a fórmula.} Escribí las operaciones en el orden en que se enuncian, empezando por la entrada $x$: ``multiplicar por 3, luego restar 5'' $\Rightarrow f(x)=3x-5$. El orden importa.
+\item \textbf{Evaluar.} Sustituí la entrada (número o expresión) en \emph{todo} lugar donde aparece $x$; encerrá la entrada en paréntesis antes de operar.
+\item \textbf{Tramos.} Primero decidí a qué tramo pertenece la entrada comparándola con las condiciones; recién ahí usá la fórmula de ese tramo.
+\item \textbf{Dominio (por convención).} Si no se indica explícitamente, el dominio es el conjunto de reales donde la expresión está definida: denominador $\ne 0$ y radicando de índice par $\ge 0$.
+\item \textbf{Cuatro representaciones.} Verbal, algebraica, numérica (tabla) y visual (gráfica). Se pasa de la verbal a la algebraica, y de esta se generan la tabla y la gráfica.
+\end{enumerate}
+\end{teo}
+
+\begin{tip}
+Fórmulas que se repiten en toda la sección:
+\begin{itemize}[leftmargin=*]
+\item \textbf{Cambio neto} de $f$ cuando la entrada pasa de $a$ a $b$: $\;f(b)-f(a)$.
+\item \textbf{Cociente de diferencias:} $\;\dfrac{f(a+h)-f(a)}{h}$, con $h\ne 0$.
+\item \textbf{Restricciones de dominio:} $\dfrac{1}{D(x)}$ exige $D(x)\ne0$; $\sqrt[\,\text{par}\,]{R(x)}$ exige $R(x)\ge 0$; si la raíz par está en el denominador la exigencia es estricta: $R(x)>0$.
+\item $(a+h)^2=a^2+2ah+h^2$ y $|u|=u$ si $u\ge0$, $|u|=-u$ si $u<0$.
+\end{itemize}
+\end{tip}
+
+% ===========================================================================
+\subsection*{Ejercicio 7 — Notación de función}
+
+\begin{quote}
+\textbf{7--10 $\blacksquare$ Notación de función}\quad Exprese la regla en notación de función. (Por ejemplo, la regla ``elevar al cuadrado, luego restar 5'' se expresa como la función $f(x)=x^2-5$.)
+
+\textbf{7.} Multiplicar por 3, luego restar 5
+\end{quote}
+
+\begin{paso}{Paso 1 --- Nombrar la entrada y aplicar la primera operación}
+\textbf{Qué hago:} llamo $x$ a la entrada y le aplico ``multiplicar por 3''.
+
+\textbf{¿De dónde sale?} Del enunciado, que lista las operaciones en orden.
+
+\textbf{¿Por qué?} La notación de función escribe la salida como expresión de la entrada, así que toda la regla debe quedar en términos de $x$.
+\[
+x \;\longmapsto\; 3x
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Aplicar la segunda operación al resultado}
+\textbf{Qué hago:} resto 5 al resultado anterior, no a $x$.
+
+\textbf{¿De dónde sale?} La palabra ``luego'' indica que la segunda operación actúa sobre la salida de la primera.
+
+\textbf{¿Por qué?} Las operaciones se componen en el orden enunciado; invertirlas daría $3(x-5)$, otra función.
+\[
+3x \;\longmapsto\; 3x-5
+\]
+\end{paso}
+
+\begin{resp}
+$f(x)=3x-5$
+\end{resp}
+
+% ===========================================================================
+\subsection*{Ejercicio 11 — Funciones en palabras}
+
+\begin{quote}
+\textbf{11--14 $\blacksquare$ Funciones en palabras}\quad Exprese la función (o regla) en palabras.
+
+\textbf{11.} $f(x)=2x+3$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Leer la expresión respetando la jerarquía de operaciones}
+\textbf{Qué hago:} identifico qué operación se aplica primero a $x$ en $2x+3$.
+
+\textbf{¿De dónde sale?} De la expresión del enunciado: $2x$ está dentro de la suma, no al revés.
+
+\textbf{¿Por qué?} La precedencia de operaciones dice que la multiplicación se ejecuta antes que la suma cuando no hay paréntesis.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Traducir la cadena de operaciones a palabras}
+\textbf{Qué hago:} escribo la secuencia entrada $\to$ multiplicar por 2 $\to$ sumar 3.
+
+\textbf{¿De dónde sale?} Del paso 1: primero el factor $2$, después el sumando $3$.
+
+\textbf{¿Por qué?} Es la traducción inversa de la notación de función: la descripción verbal debe reproducir el mismo orden de operaciones.
+\end{paso}
+
+\begin{resp}
+``Multiplicar por 2, luego sumar 3.''
+\end{resp}
+
+% ===========================================================================
+\subsection*{Ejercicio 15 — Diagrama de máquina}
+
+\begin{quote}
+\textbf{15--16 $\blacksquare$ Diagrama de máquina}\quad Trace un diagrama de máquina para la función.
+
+\textbf{15.} $f(x)=\sqrt{x-1}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Descomponer la fórmula en operaciones sucesivas}
+\textbf{Qué hago:} separo $\sqrt{x-1}$ en ``restar 1'' seguido de ``tomar la raíz cuadrada''.
+
+\textbf{¿De dónde sale?} De la expresión: $x-1$ está bajo el radical, luego se calcula primero.
+
+\textbf{¿Por qué?} El diagrama de máquina representa a $f$ como una caja que transforma la entrada paso a paso; cada paso es una operación elemental.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Dibujar la máquina}
+\textbf{Qué hago:} coloco la entrada $x$ a la izquierda, las dos operaciones dentro de la caja y la salida $\sqrt{x-1}$ a la derecha.
+
+\textbf{¿De dónde sale?} Del paso 1 y del formato de diagrama de máquina de la figura 3 del libro.
+
+\textbf{¿Por qué?} Cada entrada del dominio produce una única salida, que es exactamente lo que ilustra la máquina.
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[>=stealth, node distance=0pt]
+  \node (in) at (-3.9,0) {$x$};
+  \draw[->, thick] (-3.5,0) -- (-2.7,0);
+  \draw[thick, rounded corners] (-2.7,-1.1) rectangle (2.7,1.1);
+  \node at (0,0.45) {restar 1};
+  \draw[->, thick] (0,0.2) -- (0,-0.15);
+  \node at (0,-0.5) {tomar la raíz cuadrada};
+  \draw[->, thick] (2.7,0) -- (3.5,0);
+  \node (out) at (4.2,0) {$\sqrt{x-1}$};
+  \node at (-3.9,0.6) {\scriptsize entrada};
+  \node at (4.2,0.6) {\scriptsize salida};
+\end{tikzpicture}
+\end{center}
+
+\begin{resp}
+La máquina recibe $x$, le resta 1 y luego extrae la raíz cuadrada; la salida es $f(x)=\sqrt{x-1}$. Solo acepta entradas con $x-1\ge0$, es decir $x\ge1$.
+\end{resp}
+
+% ===========================================================================
+\subsection*{Ejercicio 17 — Tabla de valores}
+
+\begin{quote}
+\textbf{17--18 $\blacksquare$ Tabla de valores}\quad Complete la tabla.
+
+\textbf{17.} $f(x)=2(x-1)^2$
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+$x$ & $f(x)$ \\ \hline
+$-1$ & \\
+$0$ & \\
+$1$ & \\
+$2$ & \\
+$3$ & \\ \hline
+\end{tabular}
+\end{center}
+\end{quote}
+
+\begin{paso}{Paso 1 --- Evaluar en las entradas negativas y en cero}
+\textbf{Qué hago:} sustituyo $x=-1$ y $x=0$ en $f(x)=2(x-1)^2$, cuidando el paréntesis del cuadrado.
+
+\textbf{¿De dónde sale?} De la primera columna de la tabla del enunciado.
+
+\textbf{¿Por qué?} Evaluar una función es sustituir la entrada en cada aparición de $x$ y operar.
+\[
+f(-1)=2(-1-1)^2=2(-2)^2=2\cdot 4=8,\qquad
+f(0)=2(0-1)^2=2(-1)^2=2.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Evaluar en las entradas positivas}
+\textbf{Qué hago:} sustituyo $x=1,2,3$ en la misma fórmula.
+
+\textbf{¿De dónde sale?} De las filas restantes de la tabla.
+
+\textbf{¿Por qué?} La regla es la misma para todo el dominio: $f$ no está definida por tramos.
+\[
+f(1)=2(0)^2=0,\qquad f(2)=2(1)^2=2,\qquad f(3)=2(2)^2=8.
+\]
+\end{paso}
+
+\begin{resp}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+$x$ & $f(x)$ \\ \hline
+$-1$ & $8$ \\
+$0$ & $2$ \\
+$1$ & $0$ \\
+$2$ & $2$ \\
+$3$ & $8$ \\ \hline
+\end{tabular}
+\end{center}
+\end{resp}
+
+% ===========================================================================
+\subsection*{Ejercicio 19 — Evaluar funciones}
+
+\begin{quote}
+\textbf{19--30 $\blacksquare$ Evaluar funciones}\quad Evalúe la función en los valores indicados.
+
+\textbf{19.} $f(x)=x^2-6$;\quad $f(-3)$, $f(3)$, $f(0)$, $f\!\left(\tfrac12\right)$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Evaluar en $-3$ y en $3$}
+\textbf{Qué hago:} sustituyo cada entrada entre paréntesis en $x^2-6$.
+
+\textbf{¿De dónde sale?} De la fórmula del enunciado y de las entradas pedidas.
+
+\textbf{¿Por qué?} El paréntesis es obligatorio: $(-3)^2=9$, mientras que $-3^2=-9$ elevaría solo el 3.
+\[
+f(-3)=(-3)^2-6=9-6=3,\qquad f(3)=3^2-6=9-6=3.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Evaluar en $0$ y en $\tfrac12$}
+\textbf{Qué hago:} sustituyo $x=0$ y $x=\tfrac12$ en la misma fórmula.
+
+\textbf{¿De dónde sale?} De las dos últimas entradas pedidas.
+
+\textbf{¿Por qué?} $\left(\tfrac12\right)^2=\tfrac14$ por la regla de la potencia de un cociente.
+\[
+f(0)=0^2-6=-6,\qquad f\!\left(\tfrac12\right)=\tfrac14-6=\tfrac{1-24}{4}=-\tfrac{23}{4}.
+\]
+\end{paso}
+
+\begin{resp}
+$f(-3)=3$,\quad $f(3)=3$,\quad $f(0)=-6$,\quad $f\!\left(\tfrac12\right)=-\dfrac{23}{4}$.
+\end{resp}
+
+% ===========================================================================
+\subsection*{Ejercicio 21 — Evaluar con entradas algebraicas}
+
+\begin{quote}
+\textbf{21.} $f(x)=\dfrac{1-2x}{3}$;
+
+\qquad $f(2)$, $f(-2)$, $f\!\left(\tfrac12\right)$, $f(a)$, $f(-a)$, $f(a-1)$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Evaluar en las entradas numéricas}
+\textbf{Qué hago:} sustituyo $2$, $-2$ y $\tfrac12$ en el numerador $1-2x$ y divido entre 3.
+
+\textbf{¿De dónde sale?} De la fórmula $f(x)=\frac{1-2x}{3}$ del enunciado.
+
+\textbf{¿Por qué?} El denominador $3$ es constante, así que solo cambia el numerador al sustituir.
+\[
+f(2)=\frac{1-4}{3}=-1,\qquad f(-2)=\frac{1+4}{3}=\frac53,\qquad f\!\left(\tfrac12\right)=\frac{1-1}{3}=0.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Evaluar en $a$ y en $-a$}
+\textbf{Qué hago:} sustituyo la letra $a$ y luego $-a$ en el lugar de $x$.
+
+\textbf{¿De dónde sale?} Del mismo numerador $1-2x$, ahora con entrada simbólica.
+
+\textbf{¿Por qué?} La regla de la función no distingue entre entradas numéricas y simbólicas; $-2(-a)=+2a$ por la regla de signos.
+\[
+f(a)=\frac{1-2a}{3},\qquad f(-a)=\frac{1-2(-a)}{3}=\frac{1+2a}{3}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Evaluar en $a-1$ y simplificar}
+\textbf{Qué hago:} sustituyo la expresión completa $a-1$ entre paréntesis y distribuyo el $-2$.
+
+\textbf{¿De dónde sale?} De la última entrada pedida; el paréntesis viene de sustituir un binomio.
+
+\textbf{¿Por qué?} Por la propiedad distributiva: $-2(a-1)=-2a+2$.
+\[
+f(a-1)=\frac{1-2(a-1)}{3}=\frac{1-2a+2}{3}=\frac{3-2a}{3}.
+\]
+\end{paso}
+
+\begin{resp}
+$f(2)=-1$,\quad $f(-2)=\dfrac53$,\quad $f\!\left(\tfrac12\right)=0$,\quad
+$f(a)=\dfrac{1-2a}{3}$,\quad $f(-a)=\dfrac{1+2a}{3}$,\quad $f(a-1)=\dfrac{3-2a}{3}$.
+\end{resp}
+
+% ===========================================================================
+\subsection*{Ejercicio 31 — Función definida en tramos (dos tramos)}
+
+\begin{quote}
+\textbf{31--34 $\blacksquare$ Funciones definidas en tramos}\quad Evalúe la función definida en tramos en los valores indicados.
+
+\textbf{31.} $f(x)=\begin{cases} x^2 & \text{si } x<0\\ x+1 & \text{si } x\ge 0\end{cases}$
+
+\qquad $f(-2)$, $f(-1)$, $f(0)$, $f(1)$, $f(2)$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Clasificar cada entrada según la condición}
+\textbf{Qué hago:} comparo cada entrada con $0$ para decidir qué fórmula le corresponde.
+
+\textbf{¿De dónde sale?} De las condiciones ``$x<0$'' y ``$x\ge0$'' del enunciado.
+
+\textbf{¿Por qué?} En una función definida por tramos la fórmula depende de a qué parte del dominio pertenece la entrada; el $0$ cae en el segundo tramo porque la desigualdad $\ge$ lo incluye.
+\[
+-2<0,\quad -1<0 \;\Rightarrow\; \text{usar } x^2;\qquad
+0\ge0,\quad 1\ge0,\quad 2\ge0 \;\Rightarrow\; \text{usar } x+1.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Evaluar con la fórmula que le tocó a cada entrada}
+\textbf{Qué hago:} sustituyo cada valor en la fórmula seleccionada en el paso 1.
+
+\textbf{¿De dónde sale?} De la clasificación anterior.
+
+\textbf{¿Por qué?} Cada entrada tiene una sola salida, porque las condiciones $x<0$ y $x\ge0$ no se solapan y cubren todo $\mathbb{R}$.
+\[
+f(-2)=(-2)^2=4,\quad f(-1)=(-1)^2=1,\quad f(0)=0+1=1,\quad f(1)=2,\quad f(2)=3.
+\]
+\end{paso}
+
+\begin{resp}
+$f(-2)=4$,\quad $f(-1)=1$,\quad $f(0)=1$,\quad $f(1)=2$,\quad $f(2)=3$.
+\end{resp}
+
+% ===========================================================================
+\subsection*{Ejercicio 33 — Función definida en tramos (tres tramos)}
+
+\begin{quote}
+\textbf{33.} $f(x)=\begin{cases} x^2+2x & \text{si } x\le -1\\ x & \text{si } -1<x\le 1\\ -1 & \text{si } x>1\end{cases}$
+
+\qquad $f(-4)$, $f\!\left(-\tfrac32\right)$, $f(-1)$, $f(0)$, $f(25)$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Ubicar cada entrada en su tramo}
+\textbf{Qué hago:} comparo cada entrada con los puntos de corte $-1$ y $1$.
+
+\textbf{¿De dónde sale?} De las tres condiciones del enunciado.
+
+\textbf{¿Por qué?} El extremo $-1$ pertenece al primer tramo (la condición es $x\le-1$), no al segundo, que empieza con desigualdad estricta.
+\[
+-4\le-1,\;\; -\tfrac32\le-1,\;\; -1\le-1 \Rightarrow x^2+2x;\qquad
+-1<0\le1 \Rightarrow x;\qquad 25>1 \Rightarrow -1.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Evaluar en el primer tramo}
+\textbf{Qué hago:} sustituyo $-4$, $-\tfrac32$ y $-1$ en $x^2+2x$.
+
+\textbf{¿De dónde sale?} Del tramo asignado en el paso 1.
+
+\textbf{¿Por qué?} $\left(-\tfrac32\right)^2=\tfrac94$ y $2\left(-\tfrac32\right)=-3$ por la regla de signos.
+\[
+f(-4)=16-8=8,\qquad f\!\left(-\tfrac32\right)=\tfrac94-3=-\tfrac34,\qquad f(-1)=1-2=-1.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Evaluar en el segundo y tercer tramo}
+\textbf{Qué hago:} aplico $f(x)=x$ a la entrada $0$ y la fórmula constante $f(x)=-1$ a la entrada $25$.
+
+\textbf{¿De dónde sale?} De la clasificación del paso 1.
+
+\textbf{¿Por qué?} En el tercer tramo la salida no depende de la entrada: es la función constante $-1$.
+\[
+f(0)=0,\qquad f(25)=-1.
+\]
+\end{paso}
+
+\begin{resp}
+$f(-4)=8$,\quad $f\!\left(-\tfrac32\right)=-\dfrac34$,\quad $f(-1)=-1$,\quad $f(0)=0$,\quad $f(25)=-1$.
+\end{resp}
+
+% ===========================================================================
+\subsection*{Ejercicio 35 — Evaluar y simplificar expresiones}
+
+\begin{quote}
+\textbf{35--38 $\blacksquare$ Evaluar funciones}\quad Use la función para evaluar las expresiones indicadas y simplifique.
+
+\textbf{35.} $f(x)=x^2+1$;\quad $f(x+2)$, $f(x)+f(2)$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Calcular $f(x+2)$}
+\textbf{Qué hago:} sustituyo la expresión $x+2$ entera en el lugar de $x$ y desarrollo el binomio al cuadrado.
+
+\textbf{¿De dónde sale?} De $f(x)=x^2+1$ con entrada $x+2$.
+
+\textbf{¿Por qué?} Por la fórmula notable $(a+b)^2=a^2+2ab+b^2$ con $a=x$, $b=2$.
+\[
+f(x+2)=(x+2)^2+1=x^2+4x+4+1=x^2+4x+5.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Calcular $f(x)+f(2)$}
+\textbf{Qué hago:} evalúo $f(2)$ y lo sumo a $f(x)$.
+
+\textbf{¿De dónde sale?} $f(2)=2^2+1=5$ de la misma fórmula.
+
+\textbf{¿Por qué?} Aquí la suma ocurre \emph{después} de aplicar $f$, no dentro del argumento; por eso el resultado difiere del paso 1.
+\[
+f(x)+f(2)=(x^2+1)+5=x^2+6.
+\]
+\end{paso}
+
+\begin{resp}
+$f(x+2)=x^2+4x+5$\quad y\quad $f(x)+f(2)=x^2+6$. Son distintas: $f$ no es una función lineal aditiva.
+\end{resp}
+
+% ===========================================================================
+\subsection*{Ejercicio 39 — Cambio neto}
+
+\begin{quote}
+\textbf{39--42 $\blacksquare$ Cambio neto}\quad Determine el cambio neto del valor de la función entre los puntos dados.
+
+\textbf{39.} $f(x)=3x-2$;\quad de 1 a 5
+\end{quote}
+
+\begin{paso}{Paso 1 --- Evaluar en los dos extremos}
+\textbf{Qué hago:} calculo $f(1)$ y $f(5)$ sustituyendo en $3x-2$.
+
+\textbf{¿De dónde sale?} Del enunciado: la entrada cambia de $a=1$ a $b=5$.
+
+\textbf{¿Por qué?} El cambio neto se define a partir de los valores de la función en los extremos, no de los valores intermedios.
+\[
+f(1)=3(1)-2=1,\qquad f(5)=3(5)-2=13.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Aplicar la fórmula del cambio neto}
+\textbf{Qué hago:} resto $f(b)-f(a)$ con los valores del paso 1.
+
+\textbf{¿De dónde sale?} De la fórmula $f(b)-f(a)$ de la página 151.
+
+\textbf{¿Por qué?} El signo positivo indica que el valor de $f$ aumentó al pasar de $x=1$ a $x=5$.
+\[
+f(5)-f(1)=13-1=12.
+\]
+\end{paso}
+
+\begin{resp}
+El cambio neto es $12$: al pasar la entrada de 1 a 5, el valor de $f$ aumenta en 12 unidades.
+\end{resp}
+
+% ===========================================================================
+\subsection*{Ejercicio 43 — Cociente de diferencias}
+
+\begin{quote}
+\textbf{43--50 $\blacksquare$ Cociente de diferencias}\quad Encuentre $f(a)$, $f(a+h)$ y el cociente de diferencias $\dfrac{f(a+h)-f(a)}{h}$, donde $h\ne0$.
+
+\textbf{43.} $f(x)=5-2x$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Calcular $f(a)$ y $f(a+h)$}
+\textbf{Qué hago:} sustituyo $a$ y luego $a+h$ entre paréntesis en $5-2x$, y distribuyo el $-2$.
+
+\textbf{¿De dónde sale?} De la fórmula del enunciado.
+
+\textbf{¿Por qué?} Por la propiedad distributiva: $-2(a+h)=-2a-2h$.
+\[
+f(a)=5-2a,\qquad f(a+h)=5-2(a+h)=5-2a-2h.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Restar y simplificar el numerador}
+\textbf{Qué hago:} calculo $f(a+h)-f(a)$ cancelando los términos comunes.
+
+\textbf{¿De dónde sale?} De las dos expresiones del paso 1.
+
+\textbf{¿Por qué?} Al restar hay que cambiar el signo de \emph{todo} el paréntesis sustraendo.
+\[
+f(a+h)-f(a)=(5-2a-2h)-(5-2a)=-2h.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Dividir entre $h$}
+\textbf{Qué hago:} divido el numerador $-2h$ entre $h$.
+
+\textbf{¿De dónde sale?} Del paso 2 y de la definición del cociente de diferencias.
+
+\textbf{¿Por qué?} La cancelación es legítima porque el enunciado impone $h\ne0$.
+\[
+\frac{-2h}{h}=-2.
+\]
+\end{paso}
+
+\begin{resp}
+$f(a)=5-2a$,\quad $f(a+h)=5-2a-2h$,\quad $\dfrac{f(a+h)-f(a)}{h}=-2$ (constante, como corresponde a una función lineal de pendiente $-2$).
+\end{resp}
+
+% ===========================================================================
+\subsection*{Ejercicio 51 — Dominio y rango}
+
+\begin{quote}
+\textbf{51--54 $\blacksquare$ Dominio y rango}\quad Encuentre el dominio y el rango de la función.
+
+\textbf{51.} $f(x)=3x$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Buscar restricciones en la expresión}
+\textbf{Qué hago:} reviso si $3x$ tiene denominador o radical de índice par.
+
+\textbf{¿De dónde sale?} De la expresión $3x$ del enunciado, y el enunciado no indica dominio explícito.
+
+\textbf{¿Por qué?} Por convención, el dominio es el conjunto de reales donde la expresión está definida; un polinomio está definido en todo $\mathbb{R}$.
+\[
+\text{Dominio}=\mathbb{R}=(-\infty,\infty).
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Determinar el rango despejando la salida}
+\textbf{Qué hago:} pregunto qué valores $y$ se alcanzan, resolviendo $3x=y$.
+
+\textbf{¿De dónde sale?} De igualar la fórmula a una salida genérica $y$.
+
+\textbf{¿Por qué?} Todo real $y$ tiene preimagen $x=y/3$, que está en el dominio; luego ninguna salida queda fuera.
+\[
+3x=y \;\Longleftrightarrow\; x=\frac{y}{3}\in\mathbb{R}\quad\text{para todo } y\in\mathbb{R}.
+\]
+\end{paso}
+
+\begin{resp}
+Dominio: $(-\infty,\infty)$.\quad Rango: $(-\infty,\infty)$.
+\end{resp}
+
+% ===========================================================================
+\subsection*{Ejercicio 65 — Dominio con radical y denominador}
+
+\begin{quote}
+\textbf{55--72 $\blacksquare$ Dominio}\quad Encuentre el dominio de la función.
+
+\textbf{65.} $g(x)=\dfrac{\sqrt{2+x}}{3-x}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Restricción del radicando}
+\textbf{Qué hago:} exijo $2+x\ge0$ para que la raíz cuadrada esté definida en $\mathbb{R}$.
+
+\textbf{¿De dónde sale?} Del numerador $\sqrt{2+x}$ del enunciado.
+
+\textbf{¿Por qué?} La raíz de índice par solo está definida para argumentos no negativos en los reales.
+\[
+2+x\ge0 \;\Longleftrightarrow\; x\ge -2.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Restricción del denominador}
+\textbf{Qué hago:} exijo $3-x\ne0$.
+
+\textbf{¿De dónde sale?} Del denominador $3-x$ del enunciado.
+
+\textbf{¿Por qué?} Una expresión racional no está definida cuando el denominador es 0.
+\[
+3-x\ne 0 \;\Longleftrightarrow\; x\ne 3.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Intersecar las dos condiciones}
+\textbf{Qué hago:} tomo los $x$ que cumplen $x\ge-2$ y además $x\ne3$.
+
+\textbf{¿De dónde sale?} De los pasos 1 y 2.
+
+\textbf{¿Por qué?} Para que $g(x)$ sea un número real deben cumplirse simultáneamente todas las restricciones.
+\[
+\{x \mid x\ge -2,\; x\ne 3\}=[-2,3)\cup(3,\infty).
+\]
+\end{paso}
+
+\begin{resp}
+Dominio de $g$: $[-2,3)\cup(3,\infty)$.
+\end{resp}
+
+% ===========================================================================
+\subsection*{Ejercicio 73 — Cuatro maneras de representar una función}
+
+\begin{quote}
+\textbf{73--76 $\blacksquare$ Cuatro maneras de representar una función}\quad Se da una descripción verbal de una función. Encuentre las representaciones de la función \textbf{a}) algebraica, \textbf{b}) numérica y \textbf{c}) gráfica.
+
+\textbf{73.} Para evaluar $f(x)$ divida la entrada entre 3 y sume $\tfrac23$ al resultado.
+\end{quote}
+
+\begin{paso}{Paso 1 --- Representación algebraica}
+\textbf{Qué hago:} traduzco la descripción verbal al orden de operaciones: primero dividir entre 3, luego sumar $\tfrac23$.
+
+\textbf{¿De dónde sale?} Del enunciado, que lista las dos operaciones en ese orden.
+
+\textbf{¿Por qué?} Es el mismo paso de traducción verbal $\to$ algebraica de los ejercicios 7--10.
+\[
+f(x)=\frac{x}{3}+\frac23=\frac{x+2}{3}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Representación numérica}
+\textbf{Qué hago:} construyo una tabla evaluando $f(x)=\dfrac{x+2}{3}$ en $x=-2,-1,0,1,2$.
+
+\textbf{¿De dónde sale?} De la fórmula obtenida en el paso 1.
+
+\textbf{¿Por qué?} La tabla de valores es la representación numérica: una columna de entradas y otra de salidas.
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+$x$ & $f(x)$ \\ \hline
+$-2$ & $0$ \\
+$-1$ & $\tfrac13$ \\
+$0$ & $\tfrac23$ \\
+$1$ & $1$ \\
+$2$ & $\tfrac43$ \\ \hline
+\end{tabular}
+\end{center}
+\end{paso}
+
+\begin{paso}{Paso 3 --- Representación gráfica}
+\textbf{Qué hago:} ubico los puntos de la tabla en el plano y los uno.
+
+\textbf{¿De dónde sale?} De los pares $(x,f(x))$ del paso 2.
+
+\textbf{¿Por qué?} $f(x)=\tfrac13 x+\tfrac23$ es una función lineal, así que su gráfica es la recta de pendiente $\tfrac13$ e intersección $y$ igual a $\tfrac23$.
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  axis lines=middle, xlabel={$x$}, ylabel={$y$},
+  xmin=-3.5, xmax=3.5, ymin=-1.2, ymax=2.2,
+  width=9cm, height=6cm, grid=both, grid style={gray!20},
+  xtick={-3,-2,-1,0,1,2,3}, ytick={-1,0,1,2}, samples=2]
+  \addplot[thick, blue, domain=-3.5:3.5]{(x+2)/3};
+  \addplot[only marks, mark=*, red] coordinates {(-2,0) (-1,0.3333) (0,0.6667) (1,1) (2,1.3333)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\end{paso}
+
+\begin{resp}
+\textbf{a)} Algebraica: $f(x)=\dfrac{x}{3}+\dfrac23=\dfrac{x+2}{3}$.\quad
+\textbf{b)} Numérica: la tabla del paso 2.\quad
+\textbf{c)} Gráfica: la recta de pendiente $\tfrac13$ que corta al eje $y$ en $\tfrac23$ y al eje $x$ en $-2$.
+\end{resp}
+
+% ===========================================================================
+\subsection*{Ejercicio 85 — Aplicación: impuesto sobre la renta}
+
+\begin{quote}
+\textbf{85. Impuesto sobre la renta}\quad En cierto país el impuesto sobre la renta $T$ se valora de acuerdo con la siguiente función de ingreso $x$:
+\[
+T(x)=\begin{cases}
+0 & \text{si } 0\le x\le 10\,000\\
+0.08x & \text{si } 10\,000< x\le 20\,000\\
+1\,600+0.15x & \text{si } 20\,000<x
+\end{cases}
+\]
+\textbf{a)} Encuentre $T(5\,000)$, $T(12\,000)$ y $T(25\,000)$.
+
+\textbf{b)} ¿Qué representan sus repuestas del inciso \emph{a})?
+\end{quote}
+
+\begin{paso}{Paso 1 --- Ubicar cada ingreso en su tramo}
+\textbf{Qué hago:} comparo $5\,000$, $12\,000$ y $25\,000$ con los cortes $10\,000$ y $20\,000$.
+
+\textbf{¿De dónde sale?} De las tres condiciones de la definición de $T$.
+
+\textbf{¿Por qué?} En una función definida por tramos hay que elegir la fórmula antes de sustituir; los tramos no se solapan.
+\[
+0\le5\,000\le10\,000;\qquad 10\,000<12\,000\le20\,000;\qquad 20\,000<25\,000.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Evaluar en cada tramo}
+\textbf{Qué hago:} aplico la fórmula que le tocó a cada ingreso.
+
+\textbf{¿De dónde sale?} De la clasificación del paso 1 y de las fórmulas $0$, $0.08x$ y $1\,600+0.15x$.
+
+\textbf{¿Por qué?} El primer tramo es la función constante 0, así que el ingreso de $5\,000$ no paga impuesto.
+\[
+T(5\,000)=0,\qquad T(12\,000)=0.08(12\,000)=960,
+\]
+\[
+T(25\,000)=1\,600+0.15(25\,000)=1\,600+3\,750=5\,350.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Interpretar en el contexto (inciso b)}
+\textbf{Qué hago:} traduzco cada salida al significado de la variable $T$.
+
+\textbf{¿De dónde sale?} Del enunciado: $T$ es el impuesto sobre la renta y $x$ el ingreso, ambos en la moneda del país.
+
+\textbf{¿Por qué?} La interpretación de una función aplicada exige nombrar entrada y salida con sus unidades.
+\end{paso}
+
+\begin{resp}
+\textbf{a)} $T(5\,000)=0$,\quad $T(12\,000)=960$,\quad $T(25\,000)=5\,350$.
+
+\textbf{b)} Son los impuestos que paga quien tiene un ingreso de $5\,000$, $12\,000$ y $25\,000$ respectivamente: quien gana $5\,000$ no paga impuesto, quien gana $12\,000$ paga $960$ y quien gana $25\,000$ paga $5\,350$.
+\end{resp}
+
+\end{document}

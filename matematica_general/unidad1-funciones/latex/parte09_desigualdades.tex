@@ -1,0 +1,975 @@
+% =====================================================================
+% Parte 09 — Desigualdades (Stewart, Precálculo 7.ª ed., §1.8, pp. 81–91)
+%
+% Ejercicios elegidos (número del libro — página del libro):
+%   15  (p. 89)  — lineal simple
+%   33  (p. 89)  — desigualdad compuesta (doble)
+%   41  (p. 89)  — cuadrática por tabla de signos
+%   43  (p. 89)  — cuadrática con coeficiente principal 2
+%   55  (p. 89)  — polinomial con factor repetido
+%   57  (p. 89)  — cúbica x^3 - 4x > 0
+%   59  (p. 89)  — racional ya factorizada
+%   61  (p. 89)  — racional con constante al otro lado (trampa clásica)
+%   63  (p. 89)  — racional con constante al otro lado
+%   79  (p. 89)  — |x - 5| <= 3
+%   83  (p. 89)  — |3x - 2| >= 5
+%   89  (p. 89)  — 8 - |2x - 1| >= 6
+%   93  (p. 89)  — frase --> desigualdad con valor absoluto
+%  101  (p. 89)  — dominio de raíz: x^2 - 9 >= 0
+%  111  (p. 90)  — aplicación: costo de la renta de un auto
+%
+% Sub-bloques cubiertos: 13–36 lineales, 37–58 no lineales, 59–74 cocientes,
+% 75–90 valor absoluto, 91–94 frase --> valor absoluto, 101–104 dominio,
+% 109–120 aplicaciones.
+%
+% Figuras extraídas del PDF: ninguna. Las rectas numéricas se dibujan con TikZ.
+% =====================================================================
+
+\documentclass[11pt]{article}
+\input{preamble.tex}
+\begin{document}
+
+\section*{Parte 09 --- Desigualdades (Stewart §1.8, pp. 81--91)}
+
+\begin{teo}
+\textbf{Guía del libro (p.~83) para desigualdades no lineales.}
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Mueva todos los términos a un lado.} Reescriba la desigualdad con $0$ de un lado; si hay cocientes, únalos con común denominador. La técnica de factorización solo funciona en esta forma.
+\item \textbf{Factorice} el lado distinto de cero.
+\item \textbf{Encuentre los intervalos.} Los valores frontera son los ceros de cada factor (numerador \emph{y} denominador); ellos parten $\mathbb{R}$ en intervalos.
+\item \textbf{Haga la tabla de signos} con un \emph{valor de prueba} por intervalo: cada factor conserva su signo dentro de un intervalo porque solo cambia de signo en su propio cero.
+\item \textbf{Resuelva:} lea el último renglón y verifique aparte los puntos extremos (pueden entrar si el símbolo es $\le$ o $\ge$, y nunca entran si anulan un denominador).
+\end{enumerate}
+\end{teo}
+
+\begin{tip}
+Herramientas que se repiten en toda la parte.
+\begin{itemize}[leftmargin=*]
+\item \textbf{Reglas para desigualdades (p.~82):} sumar o restar lo mismo en ambos lados conserva el sentido; multiplicar o dividir por un número \emph{positivo} lo conserva; por un número \emph{negativo} lo \emph{invierte}.
+\item \textbf{Signo de un producto o cociente (p.~83):} un número \emph{par} de factores negativos da valor positivo; un número \emph{impar}, negativo.
+\item \textbf{Propiedades del valor absoluto (p.~86), con $c>0$:}
+\[
+|x|<c \iff -c<x<c, \qquad |x|\le c \iff -c\le x\le c,
+\]
+\[
+|x|>c \iff x<-c \ \text{ o } \ c<x, \qquad |x|\ge c \iff x\le -c \ \text{ o } \ c\le x.
+\]
+Valen con cualquier expresión algebraica en lugar de $x$.
+\item \textbf{Nunca} multiplique una desigualdad racional por su denominador: se desconoce su signo y no se sabe si hay que invertir el sentido (advertencia del libro, p.~85). Se usa tabla de signos.
+\item \textbf{Notación de intervalos:} extremo incluido $\to$ corchete; extremo excluido o infinito $\to$ paréntesis.
+\end{itemize}
+\end{tip}
+
+% =====================================================================
+\subsection*{Ejercicio 1 --- Desigualdad lineal (libro 15, p. 89)}
+
+\begin{quote}
+\textbf{13--36 $\blacksquare$ Desigualdades lineales} \; Resuelva la desigualdad lineal. Exprese la solución usando notación de intervalos y trace la gráfica del conjunto solución.
+
+\textbf{15.} $2x-5>3$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Aislar el término con $x$}
+\textbf{Qué hago:} sumo $5$ a ambos lados.
+
+\textbf{¿De dónde sale?} El $-5$ es el término independiente del lado izquierdo del enunciado.
+
+\textbf{¿Por qué?} Sumar la misma cantidad a ambos lados produce una desigualdad equivalente (regla 1, p.~82).
+\[
+2x-5>3 \;\Longleftrightarrow\; 2x>8.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Despejar $x$}
+\textbf{Qué hago:} divido entre $2$ y conservo el sentido de la desigualdad.
+
+\textbf{¿De dónde sale?} $2$ es el coeficiente de $x$ en $2x>8$.
+
+\textbf{¿Por qué?} Dividir entre un número positivo no invierte el sentido (regla 3, p.~82).
+\[
+x>4.
+\]
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+\draw[->] (-1,0) -- (8,0);
+\foreach \x in {0,2,4,6} \draw (\x,0.12)--(\x,-0.12) node[below]{$\x$};
+\draw[very thick,red] (4,0) -- (7.6,0);
+\draw[red,fill=white,thick] (4,0) circle (2.6pt);
+\end{tikzpicture}
+\end{center}
+
+\begin{resp}
+$x>4$, es decir $(4,\infty)$.
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 2 --- Desigualdad compuesta con coeficiente negativo (libro 33, p. 89)}
+
+\begin{quote}
+\textbf{33.} $-2<8-2x\le -1$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Restar $8$ en los tres miembros}
+\textbf{Qué hago:} resto $8$ simultáneamente en los tres lados para dejar solo $-2x$ en el centro.
+
+\textbf{¿De dónde sale?} El $8$ es el término constante del miembro central $8-2x$.
+
+\textbf{¿Por qué?} La desigualdad doble equivale a las dos desigualdades a la vez, y restar lo mismo las conserva (regla 1, p.~82; ejemplo 2, p.~83).
+\[
+-2-8<-2x\le -1-8 \;\Longleftrightarrow\; -10<-2x\le -9.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Dividir entre $-2$ e invertir}
+\textbf{Qué hago:} divido los tres miembros entre $-2$ e invierto ambos símbolos.
+
+\textbf{¿De dónde sale?} $-2$ es el coeficiente de $x$ en $-2x$.
+
+\textbf{¿Por qué?} Multiplicar o dividir por un número negativo invierte el sentido de la desigualdad (regla 4, p.~82).
+\[
+5>x\ge \tfrac92 \;\Longleftrightarrow\; \tfrac92\le x<5.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Verificación de un punto interior}
+\textbf{Qué hago:} pruebo $x=4.6$, que está entre $4.5$ y $5$.
+
+\textbf{¿De dónde sale?} Del intervalo obtenido en el paso 2.
+
+\textbf{¿Por qué?} Sustituir en el enunciado original detecta un error de signo al invertir.
+\[
+8-2(4.6)=8-9.2=-1.2, \qquad -2<-1.2\le -1 \ \checkmark
+\]
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+\draw[->] (-1,0) -- (7,0);
+\foreach \x in {0,2,4,6} \draw (\x,0.12)--(\x,-0.12) node[below]{$\x$};
+\draw (4.5,0.12)--(4.5,-0.12) node[below]{$\frac92$};
+\draw[very thick,red] (4.5,0) -- (5,0);
+\fill[red] (4.5,0) circle (2.6pt);
+\draw[red,fill=white,thick] (5,0) circle (2.6pt);
+\end{tikzpicture}
+\end{center}
+
+\begin{resp}
+$\left[\dfrac92,\,5\right)$.
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 3 --- Cuadrática por tabla de signos (libro 41, p. 89)}
+
+\begin{quote}
+\textbf{37--58 $\blacksquare$ Desigualdad no lineal} \; Resuelva la desigualdad no lineal. Exprese la solución usando notación de intervalos y trace la gráfica del conjunto solución.
+
+\textbf{41.} $x^2-3x-18\le 0$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Factorizar el lado izquierdo}
+\textbf{Qué hago:} factorizo el trinomio buscando dos números de producto $-18$ y suma $-3$: son $-6$ y $3$.
+
+\textbf{¿De dónde sale?} Los coeficientes $-3$ y $-18$ del enunciado; todos los términos ya están de un lado con $0$ del otro (paso 1 de la guía, ya cumplido).
+
+\textbf{¿Por qué?} La guía de la p.~83 exige factorizar para poder analizar el signo factor por factor.
+\[
+x^2-3x-18=(x-6)(x+3)\le 0.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Valores frontera e intervalos}
+\textbf{Qué hago:} igualo cada factor a cero: $x=6$ y $x=-3$.
+
+\textbf{¿De dónde sale?} De los factores $x-6$ y $x+3$ del paso 1.
+
+\textbf{¿Por qué?} Un factor solo cambia de signo en su propio cero, así que esos puntos parten la recta en intervalos de signo constante.
+\[
+(-\infty,-3),\quad (-3,6),\quad (6,\infty).
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Tabla de signos con valores de prueba}
+\textbf{Qué hago:} evalúo el signo de cada factor en $x=-4$, $x=0$ y $x=7$.
+
+\textbf{¿De dónde sale?} Un valor de prueba tomado dentro de cada intervalo del paso 2.
+
+\textbf{¿Por qué?} El signo del producto lo fija la paridad del número de factores negativos (principio del signo de un producto, p.~83).
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Intervalo & $(-\infty,-3)$ & $(-3,6)$ & $(6,\infty)$ \\
+\hline
+Valor de prueba & $-4$ & $0$ & $7$ \\
+Signo de $x-6$ & $-$ & $-$ & $+$ \\
+Signo de $x+3$ & $-$ & $+$ & $+$ \\
+\hline
+Signo de $(x-6)(x+3)$ & $+$ & $-$ & $+$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{paso}
+
+\begin{paso}{Paso 4 --- Leer la solución y revisar los extremos}
+\textbf{Qué hago:} tomo el intervalo con signo $-$ e incluyo $-3$ y $6$.
+
+\textbf{¿De dónde sale?} Del último renglón de la tabla; los extremos anulan el producto.
+
+\textbf{¿Por qué?} El símbolo es $\le$, así que los valores que dan $0$ sí satisfacen la desigualdad (paso 5 de la guía).
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.55]
+\draw[->] (-6,0) -- (9,0);
+\foreach \x in {-4,-2,0,2,4,6,8} \draw (\x,0.15)--(\x,-0.15) node[below]{\small$\x$};
+\draw (-3,0.15)--(-3,-0.15);
+\draw[very thick,red] (-3,0) -- (6,0);
+\fill[red] (-3,0) circle (3pt); \fill[red] (6,0) circle (3pt);
+\end{tikzpicture}
+\end{center}
+
+\begin{resp}
+$[-3,\,6]$.
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 4 --- Cuadrática con coeficiente principal distinto de 1 (libro 43, p. 89)}
+
+\begin{quote}
+\textbf{43.} $2x^2+x\ge 1$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Mover todo a un lado}
+\textbf{Qué hago:} resto $1$ en ambos lados para dejar $0$ a la derecha.
+
+\textbf{¿De dónde sale?} El $1$ es el miembro derecho del enunciado.
+
+\textbf{¿Por qué?} La factorización solo sirve si todos los términos no nulos están de un lado (advertencia de la p.~84).
+\[
+2x^2+x-1\ge 0.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Factorizar}
+\textbf{Qué hago:} factorizo por ensayo de factores: $2x^2+x-1=(2x-1)(x+1)$.
+
+\textbf{¿De dónde sale?} $2x\cdot x=2x^2$, $(-1)(1)=-1$, y $2x\cdot 1+(-1)\cdot x=x$.
+
+\textbf{¿Por qué?} En el capítulo~1 los trinomios se factorizan por inspección de los factores del término principal y del independiente.
+\[
+(2x-1)(x+1)\ge 0.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Valores frontera y tabla de signos}
+\textbf{Qué hago:} los ceros son $x=\tfrac12$ y $x=-1$; pruebo con $-2$, $0$ y $1$.
+
+\textbf{¿De dónde sale?} De igualar a cero cada factor del paso 2.
+
+\textbf{¿Por qué?} Cada factor mantiene su signo entre ceros consecutivos, así que basta un valor de prueba por intervalo.
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Intervalo & $(-\infty,-1)$ & $\left(-1,\tfrac12\right)$ & $\left(\tfrac12,\infty\right)$ \\
+\hline
+Valor de prueba & $-2$ & $0$ & $1$ \\
+Signo de $2x-1$ & $-$ & $-$ & $+$ \\
+Signo de $x+1$ & $-$ & $+$ & $+$ \\
+\hline
+Signo de $(2x-1)(x+1)$ & $+$ & $-$ & $+$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{paso}
+
+\begin{paso}{Paso 4 --- Leer la solución}
+\textbf{Qué hago:} tomo los dos intervalos con signo $+$ e incluyo $-1$ y $\tfrac12$.
+
+\textbf{¿De dónde sale?} Del último renglón de la tabla del paso 3.
+
+\textbf{¿Por qué?} El símbolo $\ge$ admite el valor $0$, que se alcanza justo en los ceros de los factores.
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.7]
+\draw[->] (-4,0) -- (4,0);
+\foreach \x in {-3,-2,-1,0,1,2,3} \draw (\x,0.13)--(\x,-0.13) node[below]{\small$\x$};
+\draw (0.5,0.13)--(0.5,-0.13);
+\node[above] at (0.5,0.15) {\small$\frac12$};
+\draw[very thick,red] (-3.6,0) -- (-1,0);
+\draw[very thick,red] (0.5,0) -- (3.6,0);
+\fill[red] (-1,0) circle (2.6pt); \fill[red] (0.5,0) circle (2.6pt);
+\end{tikzpicture}
+\end{center}
+
+\begin{resp}
+$(-\infty,-1]\cup\left[\dfrac12,\,\infty\right)$.
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 5 --- Polinomial con factor repetido (libro 55, p. 89)}
+
+\begin{quote}
+\textbf{55.} $(x+3)^2(x-2)(x+5)\ge 0$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Valores frontera}
+\textbf{Qué hago:} igualo a cero cada factor: $x=-3$ (doble), $x=2$ y $x=-5$.
+
+\textbf{¿De dónde sale?} Del producto ya factorizado del enunciado, con $0$ del otro lado.
+
+\textbf{¿Por qué?} Los ceros de los factores son los únicos puntos donde el producto puede cambiar de signo.
+\[
+(-\infty,-5),\ (-5,-3),\ (-3,2),\ (2,\infty).
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Tabla de signos}
+\textbf{Qué hago:} evalúo los factores en $x=-6,\,-4,\,0,\,3$. El factor $(x+3)^2$ es $+$ en todos ellos por ser un cuadrado no nulo.
+
+\textbf{¿De dónde sale?} Un valor de prueba por cada intervalo del paso 1.
+
+\textbf{¿Por qué?} El signo del producto lo decide la paridad del número de factores negativos (p.~83); el factor repetido nunca cambia el signo, solo aporta un cero.
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+Intervalo & $(-\infty,-5)$ & $(-5,-3)$ & $(-3,2)$ & $(2,\infty)$ \\
+\hline
+Valor de prueba & $-6$ & $-4$ & $0$ & $3$ \\
+Signo de $(x+3)^2$ & $+$ & $+$ & $+$ & $+$ \\
+Signo de $x-2$ & $-$ & $-$ & $-$ & $+$ \\
+Signo de $x+5$ & $-$ & $+$ & $+$ & $+$ \\
+\hline
+Signo del producto & $+$ & $-$ & $-$ & $+$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{paso}
+
+\begin{paso}{Paso 3 --- Revisar los extremos}
+\textbf{Qué hago:} incluyo $-5$, $-3$ y $2$ porque el producto vale $0$ en ellos.
+
+\textbf{¿De dónde sale?} Son los ceros hallados en el paso 1.
+
+\textbf{¿Por qué?} El símbolo es $\ge$, y $-3$ queda como punto aislado porque a ambos lados el producto es negativo.
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+\draw[->] (-8,0) -- (5,0);
+\foreach \x in {-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4} \draw (\x,0.14)--(\x,-0.14);
+\node[below] at (-5,-0.14) {\small$-5$};
+\node[below] at (-3,-0.14) {\small$-3$};
+\node[below] at (0,-0.14) {\small$0$};
+\node[below] at (2,-0.14) {\small$2$};
+\draw[very thick,red] (-7.6,0) -- (-5,0);
+\draw[very thick,red] (2,0) -- (4.6,0);
+\fill[red] (-5,0) circle (3pt); \fill[red] (-3,0) circle (3pt); \fill[red] (2,0) circle (3pt);
+\end{tikzpicture}
+\end{center}
+
+\begin{resp}
+$(-\infty,-5]\cup\{-3\}\cup[2,\,\infty)$.
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 6 --- Desigualdad cúbica (libro 57, p. 89)}
+
+\begin{quote}
+\textbf{57.} $x^3-4x>0$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Factorizar}
+\textbf{Qué hago:} saco factor común $x$ y luego aplico diferencia de cuadrados a $x^2-4$.
+
+\textbf{¿De dónde sale?} Del lado izquierdo del enunciado, que ya tiene $0$ al otro lado.
+
+\textbf{¿Por qué?} $a^2-b^2=(a-b)(a+b)$ con $a=x$, $b=2$.
+\[
+x^3-4x=x(x^2-4)=x(x-2)(x+2)>0.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Valores frontera y tabla de signos}
+\textbf{Qué hago:} los ceros son $-2$, $0$ y $2$; pruebo con $-3,\,-1,\,1,\,3$.
+
+\textbf{¿De dónde sale?} De los tres factores del paso 1.
+
+\textbf{¿Por qué?} Cada factor conserva su signo entre ceros consecutivos.
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+Intervalo & $(-\infty,-2)$ & $(-2,0)$ & $(0,2)$ & $(2,\infty)$ \\
+\hline
+Valor de prueba & $-3$ & $-1$ & $1$ & $3$ \\
+Signo de $x$ & $-$ & $-$ & $+$ & $+$ \\
+Signo de $x-2$ & $-$ & $-$ & $-$ & $+$ \\
+Signo de $x+2$ & $-$ & $+$ & $+$ & $+$ \\
+\hline
+Signo de $x(x-2)(x+2)$ & $-$ & $+$ & $-$ & $+$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{paso}
+
+\begin{paso}{Paso 3 --- Leer la solución}
+\textbf{Qué hago:} tomo los intervalos con signo $+$ y excluyo los extremos.
+
+\textbf{¿De dónde sale?} Del último renglón del paso 2.
+
+\textbf{¿Por qué?} El símbolo es $>$ estricto, y en $-2,0,2$ el producto vale exactamente $0$.
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.7]
+\draw[->] (-4,0) -- (4,0);
+\foreach \x in {-3,-2,-1,0,1,2,3} \draw (\x,0.13)--(\x,-0.13) node[below]{\small$\x$};
+\draw[very thick,red] (-2,0) -- (0,0);
+\draw[very thick,red] (2,0) -- (3.6,0);
+\draw[red,fill=white,thick] (-2,0) circle (2.6pt);
+\draw[red,fill=white,thick] (0,0) circle (2.6pt);
+\draw[red,fill=white,thick] (2,0) circle (2.6pt);
+\end{tikzpicture}
+\end{center}
+
+\begin{resp}
+$(-2,\,0)\cup(2,\,\infty)$.
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 7 --- Cociente ya factorizado (libro 59, p. 89)}
+
+\begin{quote}
+\textbf{59--74 $\blacksquare$ Desigualdades que implican cocientes} \; Resuelva la desigualdad no lineal. Exprese la solución usando notación de intervalos y trace la gráfica del conjunto solución.
+
+\textbf{59.} $\dfrac{x-3}{x+1}\ge 0$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Valores frontera del numerador y del denominador}
+\textbf{Qué hago:} igualo a cero numerador y denominador: $x=3$ y $x=-1$.
+
+\textbf{¿De dónde sale?} De $x-3$ y $x+1$ del enunciado, que ya está en la forma «cociente $\ge 0$».
+
+\textbf{¿Por qué?} El cociente solo puede cambiar de signo donde se anula el numerador o donde deja de estar definido (paso 3 de la guía, p.~83).
+\[
+(-\infty,-1),\quad (-1,3),\quad (3,\infty).
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Tabla de signos}
+\textbf{Qué hago:} pruebo con $x=-2$, $x=0$ y $x=4$.
+
+\textbf{¿De dónde sale?} Un valor por cada intervalo del paso 1.
+
+\textbf{¿Por qué?} El signo de un cociente sigue la misma regla de paridad que el de un producto (p.~83).
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Intervalo & $(-\infty,-1)$ & $(-1,3)$ & $(3,\infty)$ \\
+\hline
+Valor de prueba & $-2$ & $0$ & $4$ \\
+Signo de $x-3$ & $-$ & $-$ & $+$ \\
+Signo de $x+1$ & $-$ & $+$ & $+$ \\
+\hline
+Signo de $\dfrac{x-3}{x+1}$ & $+$ & $-$ & $+$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{paso}
+
+\begin{paso}{Paso 3 --- Revisar los extremos}
+\textbf{Qué hago:} incluyo $x=3$ y excluyo $x=-1$.
+
+\textbf{¿De dónde sale?} $x=3$ anula el numerador; $x=-1$ anula el denominador.
+
+\textbf{¿Por qué?} En $x=3$ el cociente vale $0$, que sí cumple $\ge 0$; en $x=-1$ el cociente no está definido, así que no puede pertenecer a la solución.
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.7]
+\draw[->] (-4,0) -- (6,0);
+\foreach \x in {-3,-2,-1,0,1,2,3,4,5} \draw (\x,0.13)--(\x,-0.13) node[below]{\small$\x$};
+\draw[very thick,red] (-3.6,0) -- (-1,0);
+\draw[very thick,red] (3,0) -- (5.6,0);
+\draw[red,fill=white,thick] (-1,0) circle (2.6pt);
+\fill[red] (3,0) circle (2.6pt);
+\end{tikzpicture}
+\end{center}
+
+\begin{resp}
+$(-\infty,-1)\cup[3,\,\infty)$.
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 8 --- Cociente con constante al otro lado (libro 61, p. 89)}
+
+\begin{quote}
+\textbf{61.} $\dfrac{x}{x+1}>3$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Mover todo a un lado y unir en una sola fracción}
+\textbf{Qué hago:} resto $3$ y uso $x+1$ como común denominador. \emph{No} multiplico por $x+1$.
+
+\textbf{¿De dónde sale?} El $3$ es el miembro derecho del enunciado; el denominador común es el del enunciado.
+
+\textbf{¿Por qué?} El libro advierte (p.~85) que no se puede multiplicar por $x+1$ sin conocer su signo, porque no se sabría si hay que invertir la desigualdad.
+\[
+\frac{x}{x+1}-3>0 \;\Longleftrightarrow\; \frac{x-3(x+1)}{x+1}>0 \;\Longleftrightarrow\; \frac{-2x-3}{x+1}>0.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Valores frontera}
+\textbf{Qué hago:} resuelvo $-2x-3=0$ y $x+1=0$.
+
+\textbf{¿De dónde sale?} Del numerador y del denominador del paso 1.
+
+\textbf{¿Por qué?} Son los únicos puntos donde el cociente puede cambiar de signo.
+\[
+x=-\tfrac32, \qquad x=-1.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Tabla de signos}
+\textbf{Qué hago:} pruebo con $x=-2$, $x=-1.2$ y $x=0$.
+
+\textbf{¿De dónde sale?} Un valor dentro de cada uno de los tres intervalos que determinan $-\tfrac32$ y $-1$.
+
+\textbf{¿Por qué?} Cada factor conserva su signo dentro de cada intervalo.
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Intervalo & $\left(-\infty,-\tfrac32\right)$ & $\left(-\tfrac32,-1\right)$ & $(-1,\infty)$ \\
+\hline
+Valor de prueba & $-2$ & $-1.2$ & $0$ \\
+Signo de $-2x-3$ & $+$ & $-$ & $-$ \\
+Signo de $x+1$ & $-$ & $-$ & $+$ \\
+\hline
+Signo de $\dfrac{-2x-3}{x+1}$ & $-$ & $+$ & $-$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{paso}
+
+\begin{paso}{Paso 4 --- Leer la solución y verificar}
+\textbf{Qué hago:} tomo el intervalo con signo $+$, con extremos abiertos, y compruebo con $x=-1.2$ en el enunciado original.
+
+\textbf{¿De dónde sale?} Del último renglón del paso 3; $-\tfrac32$ anula el numerador y $-1$ el denominador.
+
+\textbf{¿Por qué?} El símbolo es $>$ estricto, así que ni el cero del numerador ni el punto donde el cociente no existe entran.
+\[
+\frac{-1.2}{-1.2+1}=\frac{-1.2}{-0.2}=6>3 \ \checkmark
+\]
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+\draw[->] (-3.2,0) -- (1.5,0);
+\foreach \x in {-3,-2,-1,0,1} \draw (\x,0.11)--(\x,-0.11) node[below]{\small$\x$};
+\draw (-1.5,0.11)--(-1.5,-0.11);
+\node[above] at (-1.5,0.13) {\small$-\frac32$};
+\draw[very thick,red] (-1.5,0) -- (-1,0);
+\draw[red,fill=white,thick] (-1.5,0) circle (2.2pt);
+\draw[red,fill=white,thick] (-1,0) circle (2.2pt);
+\end{tikzpicture}
+\end{center}
+
+\begin{resp}
+$\left(-\dfrac32,\,-1\right)$.
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 9 --- Cociente con constante al otro lado (libro 63, p. 89)}
+
+\begin{quote}
+\textbf{63.} $\dfrac{2x+1}{x-5}\le 3$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Pasar todo a un lado}
+\textbf{Qué hago:} resto $3$ y combino con denominador común $x-5$.
+
+\textbf{¿De dónde sale?} El $3$ del miembro derecho y el denominador $x-5$ del enunciado.
+
+\textbf{¿Por qué?} No se puede multiplicar por $x-5$ porque su signo es desconocido (p.~85); la guía pide pasar todo a un lado y unir en una fracción.
+\[
+\frac{2x+1}{x-5}-3\le 0 \;\Longleftrightarrow\; \frac{2x+1-3(x-5)}{x-5}\le 0 \;\Longleftrightarrow\; \frac{-x+16}{x-5}\le 0.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Valores frontera y tabla de signos}
+\textbf{Qué hago:} los ceros son $x=16$ (numerador) y $x=5$ (denominador); pruebo con $0$, $6$ y $17$.
+
+\textbf{¿De dónde sale?} De $-x+16=0$ y $x-5=0$ en el paso 1.
+
+\textbf{¿Por qué?} El cociente conserva su signo entre esos dos puntos.
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Intervalo & $(-\infty,5)$ & $(5,16)$ & $(16,\infty)$ \\
+\hline
+Valor de prueba & $0$ & $6$ & $17$ \\
+Signo de $-x+16$ & $+$ & $+$ & $-$ \\
+Signo de $x-5$ & $-$ & $+$ & $+$ \\
+\hline
+Signo de $\dfrac{-x+16}{x-5}$ & $-$ & $+$ & $-$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{paso}
+
+\begin{paso}{Paso 3 --- Extremos y verificación}
+\textbf{Qué hago:} incluyo $x=16$, excluyo $x=5$ y compruebo $x=16$ en el enunciado.
+
+\textbf{¿De dónde sale?} $16$ anula el numerador; $5$ anula el denominador.
+
+\textbf{¿Por qué?} Con $\le$ el valor $0$ sí cumple, pero un punto donde el cociente no está definido nunca pertenece a la solución.
+\[
+\frac{2(16)+1}{16-5}=\frac{33}{11}=3\le 3 \ \checkmark
+\]
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.4]
+\draw[->] (-6,0) -- (22,0);
+\foreach \x in {-4,0,4,8,12,16,20} \draw (\x,0.2)--(\x,-0.2) node[below]{\small$\x$};
+\draw (5,0.2)--(5,-0.2);
+\node[above] at (5,0.25) {\small$5$};
+\draw[very thick,red] (-5.6,0) -- (5,0);
+\draw[very thick,red] (16,0) -- (21.6,0);
+\draw[red,fill=white,thick] (5,0) circle (4pt);
+\fill[red] (16,0) circle (4pt);
+\end{tikzpicture}
+\end{center}
+
+\begin{resp}
+$(-\infty,5)\cup[16,\,\infty)$.
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 10 --- Valor absoluto con $\le$ (libro 79, p. 89)}
+
+\begin{quote}
+\textbf{75--90 $\blacksquare$ Desigualdades con valor absoluto} \; Resuelva la desigualdad con valor absoluto. Exprese la respuesta usando notación de intervalos y trace la gráfica del conjunto solución.
+
+\textbf{79.} $|\,x-5\,|\le 3$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Aplicar la propiedad 2 del valor absoluto}
+\textbf{Qué hago:} sustituyo $|A|\le c$ por la doble desigualdad $-c\le A\le c$, con $A=x-5$ y $c=3$.
+
+\textbf{¿De dónde sale?} Del enunciado: la expresión dentro de las barras es $x-5$ y la cota es $3$.
+
+\textbf{¿Por qué?} Propiedad 2 de la p.~86: $|x|\le c \iff -c\le x\le c$ (válida para cualquier expresión algebraica, con $c>0$).
+\[
+-3\le x-5\le 3.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Despejar $x$}
+\textbf{Qué hago:} sumo $5$ en los tres miembros.
+
+\textbf{¿De dónde sale?} El $-5$ del miembro central $x-5$.
+
+\textbf{¿Por qué?} Sumar la misma cantidad conserva el sentido en ambas desigualdades (regla 1, p.~82).
+\[
+2\le x\le 8.
+\]
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.7]
+\draw[->] (-1,0) -- (10,0);
+\foreach \x in {0,2,4,6,8} \draw (\x,0.13)--(\x,-0.13) node[below]{\small$\x$};
+\draw[very thick,red] (2,0) -- (8,0);
+\fill[red] (2,0) circle (2.6pt); \fill[red] (8,0) circle (2.6pt);
+\end{tikzpicture}
+\end{center}
+
+\begin{resp}
+$[2,\,8]$. Geométricamente: los puntos cuya distancia a $5$ no pasa de $3$.
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 11 --- Valor absoluto con $\ge$ (libro 83, p. 89)}
+
+\begin{quote}
+\textbf{83.} $|\,3x-2\,|\ge 5$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Aplicar la propiedad 4 del valor absoluto}
+\textbf{Qué hago:} sustituyo $|A|\ge c$ por «$A\le -c$ o $c\le A$», con $A=3x-2$ y $c=5$.
+
+\textbf{¿De dónde sale?} Del enunciado: expresión interior $3x-2$, cota $5$.
+
+\textbf{¿Por qué?} Propiedad 4 de la p.~86: $|x|\ge c \iff x\le -c$ o $c\le x$.
+\[
+3x-2\le -5 \qquad \text{o} \qquad 3x-2\ge 5.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Resolver cada desigualdad}
+\textbf{Qué hago:} sumo $2$ y divido entre $3$ en cada rama.
+
+\textbf{¿De dónde sale?} De las dos desigualdades lineales del paso 1.
+
+\textbf{¿Por qué?} $3$ es positivo, así que dividir no invierte ninguno de los dos sentidos (regla 3, p.~82).
+\[
+3x\le -3 \Rightarrow x\le -1,
+\qquad
+3x\ge 7 \Rightarrow x\ge \tfrac73.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Unir las dos ramas}
+\textbf{Qué hago:} escribo la unión de los dos conjuntos.
+
+\textbf{¿De dónde sale?} Del conectivo «o» de la propiedad 4.
+
+\textbf{¿Por qué?} La palabra «o» significa que basta cumplir una de las dos condiciones, lo que corresponde a la unión.
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\draw[->] (-4,0) -- (4.5,0);
+\foreach \x in {-3,-2,-1,0,1,2,3,4} \draw (\x,0.12)--(\x,-0.12) node[below]{\small$\x$};
+\draw (2.3333,0.12)--(2.3333,-0.12);
+\node[above] at (2.3333,0.14) {\small$\frac73$};
+\draw[very thick,red] (-3.7,0) -- (-1,0);
+\draw[very thick,red] (2.3333,0) -- (4.2,0);
+\fill[red] (-1,0) circle (2.4pt); \fill[red] (2.3333,0) circle (2.4pt);
+\end{tikzpicture}
+\end{center}
+
+\begin{resp}
+$(-\infty,-1]\cup\left[\dfrac73,\,\infty\right)$.
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 12 --- Valor absoluto que hay que aislar (libro 89, p. 89)}
+
+\begin{quote}
+\textbf{89.} $8-|\,2x-1\,|\ge 6$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Aislar el valor absoluto}
+\textbf{Qué hago:} resto $8$ y luego multiplico por $-1$ invirtiendo el sentido.
+
+\textbf{¿De dónde sale?} El $8$ y el $6$ del enunciado.
+
+\textbf{¿Por qué?} Las propiedades de la p.~86 solo se aplican cuando el valor absoluto está solo de un lado; multiplicar por $-1$ invierte la desigualdad (regla 4, p.~82).
+\[
+-|2x-1|\ge -2 \;\Longleftrightarrow\; |2x-1|\le 2.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Aplicar la propiedad 2}
+\textbf{Qué hago:} convierto $|2x-1|\le 2$ en la doble desigualdad $-2\le 2x-1\le 2$.
+
+\textbf{¿De dónde sale?} Del resultado del paso 1, con $A=2x-1$ y $c=2$.
+
+\textbf{¿Por qué?} Propiedad 2 de la p.~86.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Despejar $x$}
+\textbf{Qué hago:} sumo $1$ y divido entre $2$ en los tres miembros.
+
+\textbf{¿De dónde sale?} Del $-1$ y del coeficiente $2$ del miembro central.
+
+\textbf{¿Por qué?} Dividir entre el número positivo $2$ conserva ambos sentidos.
+\[
+-1\le 2x\le 3 \;\Longleftrightarrow\; -\tfrac12\le x\le \tfrac32.
+\]
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+\draw[->] (-1.6,0) -- (2.4,0);
+\foreach \x in {-1,0,1,2} \draw (\x,0.09)--(\x,-0.09) node[below]{\small$\x$};
+\draw (-0.5,0.09)--(-0.5,-0.09); \draw (1.5,0.09)--(1.5,-0.09);
+\node[above] at (-0.5,0.11) {\small$-\frac12$};
+\node[above] at (1.5,0.11) {\small$\frac32$};
+\draw[very thick,red] (-0.5,0) -- (1.5,0);
+\fill[red] (-0.5,0) circle (1.9pt); \fill[red] (1.5,0) circle (1.9pt);
+\end{tikzpicture}
+\end{center}
+
+\begin{resp}
+$\left[-\dfrac12,\,\dfrac32\right]$.
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 13 --- De la frase a la desigualdad (libro 93, p. 89)}
+
+\begin{quote}
+\textbf{91--94 $\blacksquare$ Desigualdades con valor absoluto} \; Se proporciona una frase que describe un conjunto de números reales. Exprese la frase como una desigualdad que contenga un valor absoluto.
+
+\textbf{93.} Todos los números reales $x$ menores de 5 unidades desde 7
+\end{quote}
+
+\begin{paso}{Paso 1 --- Traducir «distancia» a valor absoluto}
+\textbf{Qué hago:} escribo la distancia entre $x$ y $7$ como $|x-7|$ y le impongo la cota estricta $5$.
+
+\textbf{¿De dónde sale?} «desde 7» fija el centro; «menores de 5 unidades» fija la cota y el símbolo $<$.
+
+\textbf{¿Por qué?} La distancia entre dos puntos $a$ y $b$ de la recta real es $|b-a|$ (definición del cap.~1, usada en la figura~8, p.~86).
+\[
+|x-7|<5.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Comprobar resolviendo}
+\textbf{Qué hago:} aplico la propiedad 1 y verifico que el conjunto obtenido es el descrito.
+
+\textbf{¿De dónde sale?} De $|x-7|<5$ con $c=5$.
+
+\textbf{¿Por qué?} Propiedad 1 de la p.~86: $|x|<c \iff -c<x<c$.
+\[
+-5<x-7<5 \;\Longleftrightarrow\; 2<x<12,
+\]
+que son, en efecto, los puntos a menos de $5$ unidades de $7$.
+\end{paso}
+
+\begin{resp}
+$|x-7|<5$, cuyo conjunto solución es $(2,\,12)$.
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 14 --- Dominio de una raíz (libro 101, p. 89)}
+
+\begin{quote}
+\textbf{101--104 $\blacksquare$ Dominio} \; Determine los valores de la variable para la cual la expresión está definida como número real.
+
+\textbf{101.} $\sqrt{x^2-9}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Plantear la restricción del radicando}
+\textbf{Qué hago:} exijo $x^2-9\ge 0$.
+
+\textbf{¿De dónde sale?} $x^2-9$ es el radicando de la raíz cuadrada del enunciado.
+
+\textbf{¿Por qué?} Una raíz de índice par solo está definida en los reales para argumentos no negativos.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Factorizar y armar la tabla de signos}
+\textbf{Qué hago:} factorizo por diferencia de cuadrados y pruebo con $-4$, $0$ y $4$.
+
+\textbf{¿De dónde sale?} $x^2-9=(x-3)(x+3)$ con $a=x$, $b=3$; los ceros $\pm 3$ dan los tres intervalos.
+
+\textbf{¿Por qué?} Es la guía de desigualdades no lineales (p.~83) aplicada a $(x-3)(x+3)\ge 0$.
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Intervalo & $(-\infty,-3)$ & $(-3,3)$ & $(3,\infty)$ \\
+\hline
+Valor de prueba & $-4$ & $0$ & $4$ \\
+Signo de $x-3$ & $-$ & $-$ & $+$ \\
+Signo de $x+3$ & $-$ & $+$ & $+$ \\
+\hline
+Signo de $(x-3)(x+3)$ & $+$ & $-$ & $+$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{paso}
+
+\begin{paso}{Paso 3 --- Leer el dominio}
+\textbf{Qué hago:} tomo los intervalos con signo $+$ e incluyo $\pm 3$.
+
+\textbf{¿De dónde sale?} Del último renglón del paso 2.
+
+\textbf{¿Por qué?} En $x=\pm3$ el radicando vale $0$ y $\sqrt{0}=0$ sí es un número real, así que el símbolo $\ge$ los admite.
+\end{paso}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.7]
+\draw[->] (-5,0) -- (5,0);
+\foreach \x in {-4,-3,-2,-1,0,1,2,3,4} \draw (\x,0.13)--(\x,-0.13) node[below]{\small$\x$};
+\draw[very thick,red] (-4.6,0) -- (-3,0);
+\draw[very thick,red] (3,0) -- (4.6,0);
+\fill[red] (-3,0) circle (2.6pt); \fill[red] (3,0) circle (2.6pt);
+\end{tikzpicture}
+\end{center}
+
+\begin{resp}
+$(-\infty,-3]\cup[3,\,\infty)$.
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 15 --- Aplicación: comparar dos planes de renta (libro 111, p. 90)}
+
+\begin{quote}
+\textbf{111. Costo de la renta de un auto} \; Una compañía de renta de autos ofrece dos planes para la renta de un auto.
+
+Plan A:\quad 30 dólares por día y 10 centavos por milla
+
+Plan B:\quad 50 dólares por día con kilometraje ilimitado
+
+¿Para qué intervalo de millas es más económico el plan B?
+\end{quote}
+
+\begin{paso}{Paso 1 --- Identificar la variable}
+\textbf{Qué hago:} defino $x=$ número de millas recorridas en un día.
+
+\textbf{¿De dónde sale?} La pregunta es «para qué intervalo de millas», así que la incógnita son las millas.
+
+\textbf{¿Por qué?} Es el primer paso del modelado con desigualdades del libro (ejemplo 8, p.~87).
+\end{paso}
+
+\begin{paso}{Paso 2 --- Traducir a álgebra}
+\textbf{Qué hago:} escribo el costo diario de cada plan.
+
+\textbf{¿De dónde sale?} Plan A: cuota fija $30$ más $0.10$ dólares por cada una de las $x$ millas. Plan B: $50$ dólares fijos, sin cargo por milla.
+
+\textbf{¿Por qué?} 10 centavos $=0.10$ dólares, y el kilometraje ilimitado significa que el costo no depende de $x$.
+\[
+\text{costo A}=30+0.10x, \qquad \text{costo B}=50.
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Formular el modelo}
+\textbf{Qué hago:} impongo que el plan B sea más barato que el A.
+
+\textbf{¿De dónde sale?} De los costos del paso 2 y de la frase «es más económico el plan B».
+
+\textbf{¿Por qué?} «Más económico» significa costo estrictamente menor.
+\[
+50<30+0.10x.
+\]
+\end{paso}
+
+\begin{paso}{Paso 4 --- Resolver}
+\textbf{Qué hago:} resto $30$ y divido entre $0.10$.
+
+\textbf{¿De dónde sale?} De la desigualdad del paso 3.
+
+\textbf{¿Por qué?} $0.10$ es positivo, así que dividir conserva el sentido (regla 3, p.~82).
+\[
+20<0.10x \;\Longleftrightarrow\; 200<x.
+\]
+\end{paso}
+
+\begin{paso}{Paso 5 --- Verificar}
+\textbf{Qué hago:} comparo los costos en $x=300$ y en $x=100$.
+
+\textbf{¿De dónde sale?} Un valor dentro y otro fuera del intervalo del paso 4.
+
+\textbf{¿Por qué?} Confirma que la desigualdad se planteó en el sentido correcto.
+\[
+x=300:\ 30+0.10(300)=60>50 \ \checkmark
+\qquad
+x=100:\ 30+0.10(100)=40<50 \ \checkmark
+\]
+\end{paso}
+
+\begin{resp}
+El plan B resulta más económico si se recorren más de $200$ millas al día: $x\in(200,\infty)$. (En $x=200$ ambos planes cuestan $50$ dólares.)
+\end{resp}
+
+\end{document}

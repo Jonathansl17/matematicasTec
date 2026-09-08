@@ -1,0 +1,856 @@
+% =====================================================================
+% Parte 11 — Desigualdades polinomiales y racionales
+% Stewart, Redlin, Watson, "Precálculo", 7.ª ed., §3.7, pp. 311-317.
+%
+% Ejercicios elegidos (todos del bloque de ejercicios de §3.7, p. 316-317):
+%   Sub-bloque "3-16 Desigualdades de polinomios" (p. 316):
+%     Ej. 1  = libro 3   (p. 316)
+%     Ej. 2  = libro 5   (p. 316)
+%     Ej. 3  = libro 7   (p. 316)
+%     Ej. 4  = libro 11  (p. 316)
+%     Ej. 5  = libro 13  (p. 316)
+%   Sub-bloque "17-36 Desigualdades racionales" (p. 316):
+%     Ej. 6  = libro 17  (p. 316)
+%     Ej. 7  = libro 19  (p. 316)
+%     Ej. 8  = libro 23  (p. 316)
+%     Ej. 9  = libro 25  (p. 316)
+%     Ej. 10 = libro 27  (p. 316)
+%     Ej. 11 = libro 33  (p. 316)
+%   Sub-bloque "37-40 Gráficas de dos funciones" (p. 316):
+%     Ej. 12 = libro 37  (p. 316)
+%   Sub-bloque "41-44 Dominio de una función" (p. 316):
+%     Ej. 13 = libro 41  (p. 316)
+%   Sub-bloque "APLICACIONES" (p. 317):
+%     Ej. 14 = libro 55  (p. 317)  Temperatura de una fogata
+%     Ej. 15 = libro 56  (p. 317)  Distancia de frenado
+%
+% Se omitieron a propósito los ejercicios 45-50 y 57-58 porque el libro los
+% marca con el ícono de calculadora graficadora.
+% Ningún ejercicio de esta selección trae gráfica en el libro, por lo que no
+% se extrajo ninguna figura fig_p11_*.png.
+% =====================================================================
+\documentclass[11pt]{article}
+\input{preamble.tex}
+\begin{document}
+
+\section*{Parte 11 — Desigualdades polinomiales y racionales (Stewart §3.7, pp. 311--316)}
+
+\begin{teo}
+\textbf{Resolver desigualdades de polinomios} (Stewart, p.~311) y \textbf{desigualdades racionales} (p.~313). El procedimiento es el mismo, con una diferencia en los puntos frontera.
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Pasar todos los términos a un lado.} Reescriba la desigualdad con todo a un lado y $0$ del otro. Si hay cocientes, póngalos sobre un denominador común.
+\item \textbf{Factorizar.} Factorice el polinomio (o el numerador y el denominador) en factores irreducibles.
+\item \textbf{Puntos frontera.} Para un polinomio son sus \emph{ceros reales}. Para una función racional $r=P/Q$ son los \textbf{puntos de corte}: los ceros de $P$ \emph{y} los ceros de $Q$.
+\item \textbf{Encontrar los intervalos} determinados por esos puntos sobre la recta real.
+\item \textbf{Tabla de signos.} Con un valor de prueba por intervalo, anote el signo de cada factor; el último renglón da el signo de la expresión completa.
+\item \textbf{Resolver.} Lea del último renglón los intervalos pedidos y revise uno por uno los puntos finales.
+\end{enumerate}
+\end{teo}
+
+\begin{tip}
+\textbf{Lo que se repite en toda la sección.}
+\begin{itemize}[leftmargin=*]
+\item \emph{Por qué funciona la tabla:} entre dos ceros sucesivos un polinomio no cambia de signo (consecuencia del teorema del valor intermedio, p.~259); una función racional no cambia de signo entre dos puntos de corte sucesivos, porque solo puede cambiar donde vale $0$ o donde deja de estar definida.
+\item \emph{Puntos finales.} Un cero del numerador \textbf{se incluye} si la desigualdad es $\le$ o $\ge$ (ahí la expresión vale $0$). Un cero del denominador \textbf{siempre se excluye}: ahí la expresión no está definida.
+\item \emph{Nunca multiplique por el denominador} para «despejar»: su signo depende de $x$ y multiplicar por un negativo invierte la desigualdad. El libro siempre pasa todo a un lado y usa común denominador.
+\item \emph{Factores repetidos.} $(x-a)^2$ nunca es negativo: no cambia el signo del producto, pero sí lo anula en $x=a$.
+\item \emph{Fórmulas de factorización usadas:} agrupación, diferencia de cuadrados $A^2-B^2=(A-B)(A+B)$, trinomio $x^2+bx+c$ por inspección y fórmula general $x=\dfrac{-b\pm\sqrt{b^2-4ac}}{2a}$.
+\end{itemize}
+\end{tip}
+
+% =====================================================================
+\subsection*{Ejercicio 1 — Producto de tres factores lineales}
+
+\begin{quote}
+\textbf{3.} $(x-3)(x+5)(2x+5)<0$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Puntos frontera}
+\textbf{Qué hago:} igualo cada factor a cero para obtener los ceros reales del polinomio.
+
+\textbf{¿De dónde sale?} De los tres factores del enunciado: $x-3$, $x+5$ y $2x+5$.
+
+\textbf{¿Por qué?} Un producto es cero si y solo si algún factor lo es (propiedad del producto cero); esos son los únicos puntos donde el polinomio puede cambiar de signo.
+\[
+x-3=0\Rightarrow x=3,\qquad x+5=0\Rightarrow x=-5,\qquad 2x+5=0\Rightarrow x=-\tfrac{5}{2}.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Tabla de signos}
+\textbf{Qué hago:} evalúo el signo de cada factor en un valor de prueba de cada uno de los cuatro intervalos que dejan $-5$, $-\frac52$ y $3$.
+
+\textbf{¿De dónde sale?} Valores de prueba $x=-6,\,-3,\,0,\,4$, uno por intervalo del paso 1.
+
+\textbf{¿Por qué?} El polinomio no cambia de signo entre ceros sucesivos, así que un solo punto decide todo el intervalo.
+\[
+\begin{array}{l|cccc}
+ & (-\infty,-5) & (-5,-\tfrac52) & (-\tfrac52,3) & (3,\infty)\\\hline
+\text{Signo de } x-3 & - & - & - & +\\
+\text{Signo de } x+5 & - & + & + & +\\
+\text{Signo de } 2x+5 & - & - & + & +\\\hline
+\text{Signo del producto} & - & + & - & +
+\end{array}
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Leer la solución}
+\textbf{Qué hago:} tomo los intervalos con signo $-$ y excluyo los puntos frontera.
+
+\textbf{¿De dónde sale?} Del último renglón de la tabla del paso 2.
+
+\textbf{¿Por qué?} La desigualdad es estricta ($<0$), y en $-5$, $-\frac52$ y $3$ el producto vale $0$, que no cumple $<0$.
+\end{paso}
+
+\begin{resp}
+$(-\infty,-5)\cup\left(-\dfrac{5}{2},\,3\right)$
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 2 — Factor repetido}
+
+\begin{quote}
+\textbf{5.} $(x+5)^2(x+3)(x-1)>0$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Puntos frontera y el papel del cuadrado}
+\textbf{Qué hago:} obtengo los ceros $x=-5$ (del factor al cuadrado), $x=-3$ y $x=1$, y observo que $(x+5)^2\ge 0$ para todo $x$.
+
+\textbf{¿De dónde sale?} De los factores del enunciado; $(x+5)^2$ es un cuadrado.
+
+\textbf{¿Por qué?} Un cuadrado real nunca es negativo, así que ese factor no aporta cambios de signo, solo un cero en $x=-5$.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Tabla de signos}
+\textbf{Qué hago:} construyo la tabla con valores de prueba $x=-6,\,-4,\,0,\,2$.
+
+\textbf{¿De dónde sale?} De los cuatro intervalos que determinan $-5$, $-3$ y $1$.
+
+\textbf{¿Por qué?} Entre ceros sucesivos el polinomio conserva el signo.
+\[
+\begin{array}{l|cccc}
+ & (-\infty,-5) & (-5,-3) & (-3,1) & (1,\infty)\\\hline
+\text{Signo de } (x+5)^2 & + & + & + & +\\
+\text{Signo de } x+3 & - & - & + & +\\
+\text{Signo de } x-1 & - & - & - & +\\\hline
+\text{Signo del producto} & + & + & - & +
+\end{array}
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Puntos finales}
+\textbf{Qué hago:} descarto $-5$, $-3$ y $1$, aunque $-5$ quede en medio de una región positiva.
+
+\textbf{¿De dónde sale?} $(-5+5)^2=0$ anula todo el producto.
+
+\textbf{¿Por qué?} La desigualdad es estricta $>0$ y en $x=-5$ el producto vale exactamente $0$; hay que abrirle un hueco al intervalo.
+\end{paso}
+
+\begin{resp}
+$(-\infty,-5)\cup(-5,-3)\cup(1,\infty)$
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 3 — Pasar todo a un lado y factorizar por agrupación}
+
+\begin{quote}
+\textbf{7.} $x^3+4x^2\ge 4x+16$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Pasar todos los términos a un lado}
+\textbf{Qué hago:} resto $4x+16$ en ambos lados para dejar $0$ a la derecha.
+
+\textbf{¿De dónde sale?} Del enunciado $x^3+4x^2\ge 4x+16$.
+
+\textbf{¿Por qué?} Es el paso 1 de la guía; la tabla de signos solo sirve si comparamos una sola expresión contra $0$.
+\[
+x^3+4x^2-4x-16\ge 0
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Factorizar}
+\textbf{Qué hago:} agrupo en pares y saco factor común, y luego aplico diferencia de cuadrados.
+
+\textbf{¿De dónde sale?} $x^3+4x^2=x^2(x+4)$ y $-4x-16=-4(x+4)$, del paso 1.
+
+\textbf{¿Por qué?} Factor común por agrupación; después $x^2-4=x^2-2^2$ es diferencia de cuadrados.
+\[
+x^2(x+4)-4(x+4)=(x+4)(x^2-4)=(x+4)(x-2)(x+2)\ge 0
+\]
+Ceros: $-4$, $-2$ y $2$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Tabla de signos}
+\textbf{Qué hago:} pruebo $x=-5,\,-3,\,0,\,3$.
+
+\textbf{¿De dónde sale?} De los intervalos que dejan los ceros del paso 2.
+
+\textbf{¿Por qué?} Un valor de prueba fija el signo de todo el intervalo.
+\[
+\begin{array}{l|cccc}
+ & (-\infty,-4) & (-4,-2) & (-2,2) & (2,\infty)\\\hline
+\text{Signo de } x+4 & - & + & + & +\\
+\text{Signo de } x+2 & - & - & + & +\\
+\text{Signo de } x-2 & - & - & - & +\\\hline
+\text{Signo del producto} & - & + & - & +
+\end{array}
+\]
+\end{paso}
+
+\begin{paso}{Paso 4 --- Puntos finales}
+\textbf{Qué hago:} incluyo $-4$, $-2$ y $2$.
+
+\textbf{¿De dónde sale?} Son los ceros del polinomio del paso 2.
+
+\textbf{¿Por qué?} La desigualdad es $\ge 0$ y ahí el polinomio vale $0$, que sí la satisface.
+\end{paso}
+
+\begin{resp}
+$[-4,-2]\cup[2,\infty)$
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 4 — Polinomio de grado 4 con factor cuadrático irreducible}
+
+\begin{quote}
+\textbf{11.} $x^4-7x^2-18<0$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Factorizar como trinomio en $x^2$}
+\textbf{Qué hago:} veo $x^4-7x^2-18$ como un trinomio en $x^2$ y busco dos números que multiplicados den $-18$ y sumados $-7$.
+
+\textbf{¿De dónde sale?} Del enunciado, con $x^4=(x^2)^2$.
+
+\textbf{¿Por qué?} Factorización de $u^2+bu+c$ por inspección, con $u=x^2$; los números son $-9$ y $2$.
+\[
+x^4-7x^2-18=(x^2-9)(x^2+2)=(x-3)(x+3)(x^2+2)<0
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Descartar el factor sin ceros reales}
+\textbf{Qué hago:} anoto que $x^2+2>0$ para todo $x$ real.
+
+\textbf{¿De dónde sale?} Del factor $x^2+2$ del paso 1.
+
+\textbf{¿Por qué?} $x^2\ge 0$, luego $x^2+2\ge 2>0$: es un factor irreducible que aporta signo $+$ en todos los intervalos.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Tabla de signos}
+\textbf{Qué hago:} pruebo $x=-4,\,0,\,4$ en los intervalos que dejan los ceros reales $-3$ y $3$.
+
+\textbf{¿De dónde sale?} De los ceros del paso 1.
+
+\textbf{¿Por qué?} El polinomio conserva el signo entre ceros sucesivos.
+\[
+\begin{array}{l|ccc}
+ & (-\infty,-3) & (-3,3) & (3,\infty)\\\hline
+\text{Signo de } x-3 & - & - & +\\
+\text{Signo de } x+3 & - & + & +\\
+\text{Signo de } x^2+2 & + & + & +\\\hline
+\text{Signo del producto} & + & - & +
+\end{array}
+\]
+La desigualdad es estricta, así que $-3$ y $3$ quedan fuera.
+\end{paso}
+
+\begin{resp}
+$(-3,3)$
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 5 — Cúbica factorizada con el teorema del factor}
+
+\begin{quote}
+\textbf{13.} $x^3+x^2-17x+15\ge 0$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Hallar un cero racional}
+\textbf{Qué hago:} pruebo los divisores del término constante $15$ y encuentro que $x=1$ anula el polinomio.
+
+\textbf{¿De dónde sale?} $P(1)=1+1-17+15=0$, con $P(x)=x^3+x^2-17x+15$ del enunciado.
+
+\textbf{¿Por qué?} Teorema de los ceros racionales (§3.3): todo cero racional es divisor del término constante entre divisor del coeficiente principal.
+\end{paso}
+
+\begin{paso}{Paso 2 --- División sintética y factorización completa}
+\textbf{Qué hago:} divido $P(x)$ entre $x-1$ y factorizo el cociente cuadrático por inspección.
+
+\textbf{¿De dónde sale?} Del cero $x=1$ del paso 1; los coeficientes $1,\;1,\;-17,\;15$ son los de $P$.
+
+\textbf{¿Por qué?} Teorema del factor: si $P(1)=0$ entonces $x-1$ divide a $P$.
+\[
+\begin{array}{r|rrrr}
+1 & 1 & 1 & -17 & 15\\
+  &   & 1 & 2 & -15\\\hline
+  & 1 & 2 & -15 & 0
+\end{array}
+\qquad\Longrightarrow\qquad
+P(x)=(x-1)(x^2+2x-15)=(x-1)(x+5)(x-3)
+\]
+Ceros: $-5$, $1$ y $3$.
+\end{paso}
+
+\begin{paso}{Paso 3 --- Tabla de signos}
+\textbf{Qué hago:} pruebo $x=-6,\,0,\,2,\,4$.
+
+\textbf{¿De dónde sale?} De los cuatro intervalos que dejan los ceros del paso 2.
+
+\textbf{¿Por qué?} Entre ceros sucesivos el polinomio no cambia de signo.
+\[
+\begin{array}{l|cccc}
+ & (-\infty,-5) & (-5,1) & (1,3) & (3,\infty)\\\hline
+\text{Signo de } x+5 & - & + & + & +\\
+\text{Signo de } x-1 & - & - & + & +\\
+\text{Signo de } x-3 & - & - & - & +\\\hline
+\text{Signo de } P(x) & - & + & - & +
+\end{array}
+\]
+Como la desigualdad es $\ge 0$, los tres ceros se incluyen.
+\end{paso}
+
+\begin{resp}
+$[-5,1]\cup[3,\infty)$
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 6 — Desigualdad racional básica}
+
+\begin{quote}
+\textbf{17.} $\dfrac{x-1}{x-10}<0$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Puntos de corte}
+\textbf{Qué hago:} igualo a cero el numerador y el denominador.
+
+\textbf{¿De dónde sale?} Del enunciado: numerador $x-1$, denominador $x-10$.
+
+\textbf{¿Por qué?} Los puntos de corte de $r=P/Q$ son los ceros de $P$ y los de $Q$ (p.~313): son los únicos lugares donde $r$ puede cambiar de signo.
+\[
+x-1=0\Rightarrow x=1,\qquad x-10=0\Rightarrow x=10.
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Tabla de signos}
+\textbf{Qué hago:} pruebo $x=0,\,2,\,11$.
+
+\textbf{¿De dónde sale?} De los intervalos $(-\infty,1)$, $(1,10)$, $(10,\infty)$ del paso 1.
+
+\textbf{¿Por qué?} Entre puntos de corte sucesivos la función racional conserva el signo.
+\[
+\begin{array}{l|ccc}
+ & (-\infty,1) & (1,10) & (10,\infty)\\\hline
+\text{Signo de } x-1 & - & + & +\\
+\text{Signo de } x-10 & - & - & +\\\hline
+\text{Signo del cociente} & + & - & +
+\end{array}
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Puntos finales}
+\textbf{Qué hago:} excluyo $1$ y $10$.
+
+\textbf{¿De dónde sale?} $x=1$ anula el numerador y $x=10$ el denominador.
+
+\textbf{¿Por qué?} En $x=1$ el cociente vale $0$, que no cumple $<0$; en $x=10$ ni siquiera está definido.
+\end{paso}
+
+\begin{resp}
+$(1,10)$
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 7 — Denominador cuadrático factorizable}
+
+\begin{quote}
+\textbf{19.} $\dfrac{2x+5}{x^2+2x-35}\ge 0$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Factorizar el denominador}
+\textbf{Qué hago:} factorizo $x^2+2x-35$ buscando dos números de producto $-35$ y suma $2$.
+
+\textbf{¿De dónde sale?} Del denominador del enunciado; los números son $7$ y $-5$.
+
+\textbf{¿Por qué?} Factorización de un trinomio $x^2+bx+c$ por inspección.
+\[
+\frac{2x+5}{(x+7)(x-5)}\ge 0
+\]
+Puntos de corte: $-7$ y $5$ (denominador) y $-\frac52$ (numerador).
+\end{paso}
+
+\begin{paso}{Paso 2 --- Tabla de signos}
+\textbf{Qué hago:} pruebo $x=-8,\,-3,\,0,\,6$.
+
+\textbf{¿De dónde sale?} De los cuatro intervalos que dejan $-7$, $-\frac52$ y $5$.
+
+\textbf{¿Por qué?} La función racional no cambia de signo entre puntos de corte sucesivos.
+\[
+\begin{array}{l|cccc}
+ & (-\infty,-7) & (-7,-\tfrac52) & (-\tfrac52,5) & (5,\infty)\\\hline
+\text{Signo de } 2x+5 & - & - & + & +\\
+\text{Signo de } x+7 & - & + & + & +\\
+\text{Signo de } x-5 & - & - & - & +\\\hline
+\text{Signo del cociente} & - & + & - & +
+\end{array}
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Puntos finales}
+\textbf{Qué hago:} incluyo $-\frac52$ y excluyo $-7$ y $5$.
+
+\textbf{¿De dónde sale?} $-\frac52$ es cero del numerador; $-7$ y $5$ son ceros del denominador.
+
+\textbf{¿Por qué?} La desigualdad es $\ge 0$, así que sirve donde la expresión vale $0$; pero los ceros del denominador siempre se excluyen porque ahí la expresión no está definida.
+\end{paso}
+
+\begin{resp}
+$\left(-7,-\dfrac{5}{2}\right]\cup(5,\infty)$
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 8 — Numerador y denominador cuadráticos}
+
+\begin{quote}
+\textbf{23.} $\dfrac{x^2+2x-3}{3x^2-7x-6}>0$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Factorizar arriba y abajo}
+\textbf{Qué hago:} factorizo el numerador por inspección y el denominador buscando la descomposición del término medio.
+
+\textbf{¿De dónde sale?} Numerador: producto $-3$, suma $2$ dan $3$ y $-1$. Denominador: $3x^2-9x+2x-6=3x(x-3)+2(x-3)$.
+
+\textbf{¿Por qué?} Factorización de trinomios por inspección y por agrupación.
+\[
+\frac{(x+3)(x-1)}{(3x+2)(x-3)}>0
+\]
+Puntos de corte: $-3$, $1$ (numerador), $-\frac23$, $3$ (denominador).
+\end{paso}
+
+\begin{paso}{Paso 2 --- Tabla de signos}
+\textbf{Qué hago:} pruebo $x=-4,\,-1,\,0,\,2,\,4$.
+
+\textbf{¿De dónde sale?} De los cinco intervalos que dejan $-3$, $-\frac23$, $1$ y $3$.
+
+\textbf{¿Por qué?} Un valor de prueba por intervalo basta, porque el signo es constante entre puntos de corte sucesivos.
+\[
+\begin{array}{l|ccccc}
+ & (-\infty,-3) & (-3,-\tfrac23) & (-\tfrac23,1) & (1,3) & (3,\infty)\\\hline
+\text{Signo de } x+3 & - & + & + & + & +\\
+\text{Signo de } x-1 & - & - & - & + & +\\
+\text{Signo de } 3x+2 & - & - & + & + & +\\
+\text{Signo de } x-3 & - & - & - & - & +\\\hline
+\text{Signo del cociente} & + & - & + & - & +
+\end{array}
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Puntos finales}
+\textbf{Qué hago:} excluyo los cuatro puntos de corte.
+
+\textbf{¿De dónde sale?} Del paso 1.
+
+\textbf{¿Por qué?} La desigualdad es estricta $>0$: en $-3$ y $1$ el cociente vale $0$, y en $-\frac23$ y $3$ no está definido.
+\end{paso}
+
+\begin{resp}
+$(-\infty,-3)\cup\left(-\dfrac{2}{3},\,1\right)\cup(3,\infty)$
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 9 — Numerador cúbico con cero doble}
+
+\begin{quote}
+\textbf{25.} $\dfrac{x^3+3x^2-9x-27}{x+4}\le 0$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Factorizar el numerador por agrupación}
+\textbf{Qué hago:} agrupo en pares, saco factor común y aplico diferencia de cuadrados.
+
+\textbf{¿De dónde sale?} $x^3+3x^2=x^2(x+3)$ y $-9x-27=-9(x+3)$, del numerador del enunciado.
+
+\textbf{¿Por qué?} Factor común por agrupación y luego $x^2-9=x^2-3^2$.
+\[
+x^2(x+3)-9(x+3)=(x+3)(x^2-9)=(x+3)(x-3)(x+3)=(x+3)^2(x-3)
+\]
+\[
+\frac{(x+3)^2(x-3)}{x+4}\le 0
+\]
+Puntos de corte: $-4$ (denominador), $-3$ y $3$ (numerador).
+\end{paso}
+
+\begin{paso}{Paso 2 --- Tabla de signos}
+\textbf{Qué hago:} pruebo $x=-5,\,-3.5,\,0,\,4$, recordando que $(x+3)^2\ge 0$ siempre.
+
+\textbf{¿De dónde sale?} De los intervalos que dejan $-4$, $-3$ y $3$.
+
+\textbf{¿Por qué?} Un cuadrado nunca es negativo, así que ese factor no invierte el signo; solo anula la expresión en $x=-3$.
+\[
+\begin{array}{l|cccc}
+ & (-\infty,-4) & (-4,-3) & (-3,3) & (3,\infty)\\\hline
+\text{Signo de } (x+3)^2 & + & + & + & +\\
+\text{Signo de } x-3 & - & - & - & +\\
+\text{Signo de } x+4 & - & + & + & +\\\hline
+\text{Signo del cociente} & + & - & - & +
+\end{array}
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Puntos finales}
+\textbf{Qué hago:} incluyo $-3$ y $3$, y excluyo $-4$.
+
+\textbf{¿De dónde sale?} $-3$ y $3$ anulan el numerador; $-4$ anula el denominador.
+
+\textbf{¿Por qué?} La desigualdad es $\le 0$, y $0\le 0$ es cierto; en $x=-4$ la expresión no está definida. Como $-3$ ya está dentro de $(-4,3)$, los dos trozos negativos se unen en un solo intervalo.
+\end{paso}
+
+\begin{resp}
+$(-4,\,3]$
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 10 — Hay que pasar el $1$ al otro lado}
+
+\begin{quote}
+\textbf{27.} $\dfrac{x-3}{2x+5}\ge 1$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Pasar todo a un lado con común denominador}
+\textbf{Qué hago:} resto $1$ y combino sobre el denominador $2x+5$.
+
+\textbf{¿De dónde sale?} Del enunciado; $1=\dfrac{2x+5}{2x+5}$.
+
+\textbf{¿Por qué?} No se puede multiplicar por $2x+5$: su signo cambia con $x$ y eso invertiría la desigualdad sin aviso. La guía manda dejar $0$ a la derecha.
+\[
+\frac{x-3}{2x+5}-1\ge 0
+\quad\Longrightarrow\quad
+\frac{(x-3)-(2x+5)}{2x+5}\ge 0
+\quad\Longrightarrow\quad
+\frac{-x-8}{2x+5}\ge 0
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Puntos de corte y tabla de signos}
+\textbf{Qué hago:} obtengo $-x-8=0\Rightarrow x=-8$ y $2x+5=0\Rightarrow x=-\frac52$, y pruebo $x=-9,\,-3,\,0$.
+
+\textbf{¿De dónde sale?} De la expresión racional del paso 1.
+
+\textbf{¿Por qué?} Los puntos de corte son los ceros del numerador y del denominador, y entre ellos el signo es constante.
+\[
+\begin{array}{l|ccc}
+ & (-\infty,-8) & (-8,-\tfrac52) & (-\tfrac52,\infty)\\\hline
+\text{Signo de } -x-8 & + & - & -\\
+\text{Signo de } 2x+5 & - & - & +\\\hline
+\text{Signo del cociente} & - & + & -
+\end{array}
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Puntos finales}
+\textbf{Qué hago:} incluyo $-8$ y excluyo $-\frac52$.
+
+\textbf{¿De dónde sale?} En $x=-8$ el numerador vale $0$; en $x=-\frac52$ el denominador vale $0$.
+
+\textbf{¿Por qué?} La desigualdad es $\ge 0$; el cero del denominador siempre se excluye. Comprobación: $\dfrac{-8-3}{2(-8)+5}=\dfrac{-11}{-11}=1\ge 1$.
+\end{paso}
+
+\begin{resp}
+$\left[-8,\,-\dfrac{5}{2}\right)$
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 11 — Suma de fracciones contra una constante}
+
+\begin{quote}
+\textbf{33.} $\dfrac{6}{x-1}-\dfrac{6}{x}\ge 1$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Pasar todo a un lado con común denominador}
+\textbf{Qué hago:} resto $1$ y reduzco las tres fracciones al denominador común $x(x-1)$.
+
+\textbf{¿De dónde sale?} Los denominadores del enunciado son $x-1$ y $x$; el del término $1$ es $1$.
+
+\textbf{¿Por qué?} Paso 1 de la guía de desigualdades racionales: todo a un lado, con los cocientes sobre un denominador común.
+\[
+\frac{6}{x-1}-\frac{6}{x}-1\ge 0
+\quad\Longrightarrow\quad
+\frac{6x-6(x-1)-x(x-1)}{x(x-1)}\ge 0
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Simplificar y factorizar el numerador}
+\textbf{Qué hago:} desarrollo el numerador y lo factorizo.
+
+\textbf{¿De dónde sale?} $6x-6x+6-x^2+x=-x^2+x+6$, del paso 1.
+
+\textbf{¿Por qué?} Saco $-1$ y factorizo $x^2-x-6$ por inspección (producto $-6$, suma $-1$: los números $-3$ y $2$).
+\[
+\frac{-(x^2-x-6)}{x(x-1)}\ge 0
+\quad\Longrightarrow\quad
+\frac{-(x-3)(x+2)}{x(x-1)}\ge 0
+\]
+Puntos de corte: $-2$, $3$ (numerador) y $0$, $1$ (denominador).
+\end{paso}
+
+\begin{paso}{Paso 3 --- Tabla de signos}
+\textbf{Qué hago:} pruebo $x=-3,\,-1,\,\tfrac12,\,2,\,4$; el factor constante $-1$ aporta signo $-$ en todo renglón.
+
+\textbf{¿De dónde sale?} De los cinco intervalos que dejan $-2$, $0$, $1$ y $3$.
+
+\textbf{¿Por qué?} El signo es constante entre puntos de corte sucesivos.
+\[
+\begin{array}{l|ccccc}
+ & (-\infty,-2) & (-2,0) & (0,1) & (1,3) & (3,\infty)\\\hline
+\text{Signo de } -1 & - & - & - & - & -\\
+\text{Signo de } x-3 & - & - & - & - & +\\
+\text{Signo de } x+2 & - & + & + & + & +\\
+\text{Signo de } x & - & - & + & + & +\\
+\text{Signo de } x-1 & - & - & - & + & +\\\hline
+\text{Signo del cociente} & - & + & - & + & -
+\end{array}
+\]
+\end{paso}
+
+\begin{paso}{Paso 4 --- Puntos finales}
+\textbf{Qué hago:} incluyo $-2$ y $3$; excluyo $0$ y $1$.
+
+\textbf{¿De dónde sale?} $-2$ y $3$ son ceros del numerador; $0$ y $1$, del denominador.
+
+\textbf{¿Por qué?} La desigualdad es $\ge$, así que los ceros del numerador sirven; en $x=0$ y $x=1$ la expresión original no está definida.
+\end{paso}
+
+\begin{resp}
+$[-2,0)\cup(1,3]$
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 12 — ¿Dónde está la gráfica de $f$ arriba de la de $g$?}
+
+\begin{quote}
+\textbf{37--40 \ $\blacksquare$ \ Gráficas de dos funciones} \ Encuentre todos los valores de $x$ para los que la gráfica de $f$ se encuentra arriba de la gráfica de $g$.
+
+\textbf{37.} $f(x)=x^2;\quad g(x)=3x+10$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Traducir «arriba de» a una desigualdad}
+\textbf{Qué hago:} planteo $f(x)>g(x)$.
+
+\textbf{¿De dónde sale?} Del enunciado, con $f(x)=x^2$ y $g(x)=3x+10$.
+
+\textbf{¿Por qué?} La gráfica de $f$ está arriba de la de $g$ exactamente en los $x$ donde la ordenada de $f$ supera a la de $g$.
+\[
+x^2>3x+10
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Pasar todo a un lado y factorizar}
+\textbf{Qué hago:} resto $3x+10$ y factorizo el trinomio por inspección.
+
+\textbf{¿De dónde sale?} De la desigualdad del paso 1; producto $-10$ y suma $-3$ dan $-5$ y $2$.
+
+\textbf{¿Por qué?} Es el paso 1--2 de la guía: comparar contra $0$ y factorizar.
+\[
+x^2-3x-10>0\quad\Longrightarrow\quad (x-5)(x+2)>0
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Tabla de signos}
+\textbf{Qué hago:} pruebo $x=-3,\,0,\,6$ en los intervalos que dejan $-2$ y $5$.
+
+\textbf{¿De dónde sale?} De los ceros del paso 2.
+
+\textbf{¿Por qué?} El polinomio conserva el signo entre ceros sucesivos.
+\[
+\begin{array}{l|ccc}
+ & (-\infty,-2) & (-2,5) & (5,\infty)\\\hline
+\text{Signo de } x+2 & - & + & +\\
+\text{Signo de } x-5 & - & - & +\\\hline
+\text{Signo del producto} & + & - & +
+\end{array}
+\]
+En $x=-2$ y $x=5$ las gráficas se cortan, así que ahí $f$ no está \emph{arriba}: se excluyen.
+\end{paso}
+
+\begin{resp}
+$(-\infty,-2)\cup(5,\infty)$
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 13 — Dominio de una raíz cuadrada}
+
+\begin{quote}
+\textbf{41--44 \ $\blacksquare$ \ Dominio de una función} \ Encuentre el dominio de la función dada.
+
+\textbf{41.} $f(x)=\sqrt{6+x-x^2}$
+\end{quote}
+
+\begin{paso}{Paso 1 --- Restricción del radicando}
+\textbf{Qué hago:} exijo $6+x-x^2\ge 0$.
+
+\textbf{¿De dónde sale?} Del enunciado: el radicando de $f$ es $6+x-x^2$.
+
+\textbf{¿Por qué?} La raíz de índice par solo está definida para argumentos no negativos en los reales.
+\end{paso}
+
+\begin{paso}{Paso 2 --- Reordenar y factorizar}
+\textbf{Qué hago:} multiplico por $-1$ (invirtiendo el sentido) y factorizo el trinomio.
+
+\textbf{¿De dónde sale?} De la restricción del paso 1; producto $-6$ y suma $-1$ dan $-3$ y $2$.
+
+\textbf{¿Por qué?} Multiplicar una desigualdad por el número negativo $-1$ invierte el símbolo; aquí sí se puede porque $-1$ es constante, no una expresión con $x$.
+\[
+6+x-x^2\ge 0
+\quad\Longleftrightarrow\quad
+x^2-x-6\le 0
+\quad\Longleftrightarrow\quad
+(x-3)(x+2)\le 0
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Tabla de signos y puntos finales}
+\textbf{Qué hago:} pruebo $x=-3,\,0,\,4$ y luego incluyo los ceros.
+
+\textbf{¿De dónde sale?} De los ceros $-2$ y $3$ del paso 2.
+
+\textbf{¿Por qué?} La desigualdad es $\le 0$; en $x=-2$ y $x=3$ el radicando vale $0$ y $\sqrt{0}=0$ sí existe.
+\[
+\begin{array}{l|ccc}
+ & (-\infty,-2) & (-2,3) & (3,\infty)\\\hline
+\text{Signo de } x+2 & - & + & +\\
+\text{Signo de } x-3 & - & - & +\\\hline
+\text{Signo del producto} & + & - & +
+\end{array}
+\]
+\end{paso}
+
+\begin{resp}
+Dominio de $f$: $[-2,3]$
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 14 — Aplicación: temperatura de una fogata}
+
+\begin{quote}
+\textbf{55. Temperatura de una fogata} \ En las cercanías de una fogata la temperatura $T$ (en $^\circ$C) a una distancia de $x$ metros del centro del fuego está dada por
+\[
+T(x)=\frac{500\,000}{x^2+400}
+\]
+¿Para qué intervalo de distancias desde el centro del fuego la temperatura es menor a 300 $^\circ$C?
+\end{quote}
+
+\begin{paso}{Paso 1 --- Plantear la desigualdad y pasar todo a un lado}
+\textbf{Qué hago:} escribo $T(x)<300$ y resto $300$, con común denominador $x^2+400$.
+
+\textbf{¿De dónde sale?} Del enunciado: «la temperatura es menor a 300 $^\circ$C».
+
+\textbf{¿Por qué?} Guía de desigualdades racionales, paso 1; no se multiplica por $x^2+400$ como atajo.
+\[
+\frac{500\,000}{x^2+400}-300<0
+\quad\Longrightarrow\quad
+\frac{500\,000-300(x^2+400)}{x^2+400}<0
+\quad\Longrightarrow\quad
+\frac{380\,000-300x^2}{x^2+400}<0
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- Puntos de corte}
+\textbf{Qué hago:} igualo el numerador a cero; el denominador no tiene ceros reales.
+
+\textbf{¿De dónde sale?} De la expresión del paso 1: $380\,000-300x^2=0$ y $x^2+400\ge 400>0$.
+
+\textbf{¿Por qué?} Los puntos de corte son los ceros del numerador y del denominador; aquí el denominador es siempre positivo, así que el signo del cociente lo decide el numerador.
+\[
+x^2=\frac{380\,000}{300}=\frac{3800}{3}
+\quad\Longrightarrow\quad
+x=\pm\sqrt{\frac{3800}{3}}=\pm\frac{10\sqrt{114}}{3}\approx\pm 35.59
+\]
+\end{paso}
+
+\begin{paso}{Paso 3 --- Tabla de signos y contexto físico}
+\textbf{Qué hago:} pruebo $x=0$ y $x=40$ y me quedo solo con las distancias $x\ge 0$.
+
+\textbf{¿De dónde sale?} De los puntos de corte del paso 2; $x$ es una distancia al centro del fuego.
+
+\textbf{¿Por qué?} Una distancia no puede ser negativa, así que el intervalo $x<-35.59$ se descarta por el contexto.
+\[
+\begin{array}{l|ccc}
+ & \left(-\infty,-\tfrac{10\sqrt{114}}{3}\right) & \left(-\tfrac{10\sqrt{114}}{3},\tfrac{10\sqrt{114}}{3}\right) & \left(\tfrac{10\sqrt{114}}{3},\infty\right)\\\hline
+\text{Signo de } 380\,000-300x^2 & - & + & -\\
+\text{Signo de } x^2+400 & + & + & +\\\hline
+\text{Signo del cociente} & - & + & -
+\end{array}
+\]
+Comprobación: $T(40)=\dfrac{500\,000}{2000}=250<300$, y $T(30)=\dfrac{500\,000}{1300}\approx 385>300$.
+\end{paso}
+
+\begin{resp}
+La temperatura es menor a $300\,^\circ$C a más de $\dfrac{10\sqrt{114}}{3}\approx 35.59$ m del centro: $x\in\left(\dfrac{10\sqrt{114}}{3},\,\infty\right)\approx(35.59,\infty)$ metros.
+\end{resp}
+
+% =====================================================================
+\subsection*{Ejercicio 15 — Aplicación: distancia de frenado}
+
+\begin{quote}
+\textbf{56. Distancia de frenado} \ Para un determinado modelo de auto $d$ la distancia necesaria para detener el vehículo si está viajando a $v$ mi/h está dada por la función
+\[
+d(t)=v+\frac{v^2}{25}
+\]
+donde $d$ se mide en pies. Kerry desea que su distancia de frenado no exceda los 175 pies. ¿En qué intervalo de velocidades puede viajar?
+\end{quote}
+
+\begin{paso}{Paso 1 --- Plantear la desigualdad}
+\textbf{Qué hago:} escribo $d(v)\le 175$ y paso todo a un lado con denominador común $25$.
+
+\textbf{¿De dónde sale?} Del enunciado: «que su distancia de frenado no exceda los 175 pies».
+
+\textbf{¿Por qué?} «No exceder» significa $\le$; y la guía pide comparar contra $0$.
+\[
+v+\frac{v^2}{25}-175\le 0
+\quad\Longrightarrow\quad
+\frac{25v+v^2-4375}{25}\le 0
+\]
+\end{paso}
+
+\begin{paso}{Paso 2 --- El denominador constante no cambia el signo}
+\textbf{Qué hago:} me quedo con $v^2+25v-4375\le 0$.
+
+\textbf{¿De dónde sale?} Del cociente del paso 1, cuyo denominador es la constante $25$.
+
+\textbf{¿Por qué?} $25>0$ es constante: dividir entre un positivo no altera el sentido de la desigualdad (aquí sí se puede, a diferencia de un denominador con $v$).
+\end{paso}
+
+\begin{paso}{Paso 3 --- Ceros por la fórmula general}
+\textbf{Qué hago:} aplico $v=\dfrac{-b\pm\sqrt{b^2-4ac}}{2a}$ con $a=1$, $b=25$, $c=-4375$.
+
+\textbf{¿De dónde sale?} Del trinomio del paso 2, que no factoriza por inspección.
+
+\textbf{¿Por qué?} La fórmula general da los ceros reales de cualquier cuadrática.
+\[
+v=\frac{-25\pm\sqrt{625+17\,500}}{2}=\frac{-25\pm\sqrt{18\,125}}{2}=\frac{-25\pm 25\sqrt{29}}{2}
+\]
+\[
+v_1=\frac{-25-25\sqrt{29}}{2}\approx -79.81,\qquad
+v_2=\frac{25(\sqrt{29}-1)}{2}\approx 54.81
+\]
+\end{paso}
+
+\begin{paso}{Paso 4 --- Tabla de signos y contexto físico}
+\textbf{Qué hago:} pruebo $v=-100,\,0,\,100$ y luego restrinjo a velocidades $v\ge 0$.
+
+\textbf{¿De dónde sale?} De los ceros del paso 3.
+
+\textbf{¿Por qué?} La cuadrática es negativa entre sus dos ceros (abre hacia arriba porque $a=1>0$), y una velocidad no puede ser negativa.
+\[
+\begin{array}{l|ccc}
+ & (-\infty,v_1) & (v_1,v_2) & (v_2,\infty)\\\hline
+\text{Signo de } v-v_1 & - & + & +\\
+\text{Signo de } v-v_2 & - & - & +\\\hline
+\text{Signo de } v^2+25v-4375 & + & - & +
+\end{array}
+\]
+Comprobación en el extremo: $d(54.81)=54.81+\dfrac{54.81^2}{25}\approx 54.81+120.19=175.0$ pies.
+\end{paso}
+
+\begin{resp}
+$0\le v\le \dfrac{25\left(\sqrt{29}-1\right)}{2}\approx 54.81$, es decir, puede viajar a lo sumo a unas $54.8$ mi/h.
+\end{resp}
+
+\end{document}
