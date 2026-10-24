@@ -1,0 +1,779 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+\usetikzlibrary{arrows.meta,positioning,calc,matrix,decorations.pathreplacing}
+% shared TikZ styles for digraphs
+\tikzset{
+  vert/.style={circle,draw,thick,minimum size=7mm,inner sep=0pt,font=\small},
+  arr/.style={-{Stealth[length=2.5mm]},thick},
+  ok/.style={arr,blue!60!black},
+  bad/.style={arr,red!75!black},
+  cam/.style={arr,orange!90!black},
+}
+
+\title{\textbf{Solucionario --- Matemática Discreta}\\[0.3em]\large Segundo Parcial, I Semestre 2024 (31 puntos)\\[0.3em]\normalsize Instituto Tecnológico de Costa Rica --- Escuela de Matemática}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+% ============================================================
+% THEORY: INDUCTION
+% ============================================================
+\clearpage
+\section*{Teoría: inducción matemática}
+\addcontentsline{toc}{section}{Teoría: inducción matemática}
+
+\begin{minipage}[t]{0.55\textwidth}
+\defi{Inducción matemática (Def. 5.4 del folleto)}{es la forma de demostrar que una fórmula sirve para \textbf{todos} los enteros $n\ge n_0$ sin probarlos uno por uno. Se hacen tres pasos:}
+\begin{enumerate}[label=(\alph*),leftmargin=1.6em]
+\item \textbf{Caso base:} se comprueba la fórmula en el primer valor $n=n_0$.
+\item \textbf{Hipótesis de inducción (H.I.):} se \emph{supone} que la fórmula se cumple para un $n=p$ cualquiera ($p\ge n_0$).
+\item \textbf{Paso inductivo:} usando la H.I., se demuestra que también se cumple para $n=p+1$.
+\end{enumerate}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\textwidth}
+\vspace{0pt}
+\begin{tikzpicture}[scale=0.75]
+  \foreach \i/\l in {0/n_0,1.3/{n_0{+}1},2.6/p,3.9/{p{+}1}} {
+    \draw[thick,fill=gray!15] (\i,0) rectangle ++(0.45,2);
+    \node[font=\scriptsize] at (\i+0.22,-0.35) {$\l$};
+  }
+  \node at (2.0,1) {$\cdots$};
+  \node at (5.0,1) {$\cdots$};
+  \draw[->,very thick,red!75!black] (-1.2,1.6) -- (-0.1,1.6);
+  \node[red!75!black,font=\scriptsize\bfseries,align=center] at (-1.0,2.3) {caso\\base};
+  \draw[->,very thick,blue!60!black] (3.1,2.2) to[bend left=40] (3.9,2.2);
+  \node[blue!60!black,font=\scriptsize\bfseries,align=center] at (3.5,3.0) {paso inductivo};
+\end{tikzpicture}
+\end{minipage}
+
+\medskip
+\textbf{¿Por qué funciona?} Es como una fila de dominós. El caso base empuja el primer dominó ($n_0$). El paso inductivo garantiza que \emph{cualquier} dominó que cae ($p$) tumba al siguiente ($p+1$). Entonces cae $n_0$, eso tumba $n_0+1$, eso tumba $n_0+2$, y así sin fin: caen todos. Por eso la H.I. no es ``hacer trampa'': solo se usa para ver que un dominó empuja al siguiente.
+
+\medskip
+\begin{minipage}[t]{0.55\textwidth}
+\defi{Sumatoria}{$\displaystyle\sum_{i=m}^{n} a_i$ significa sumar los términos $a_i$ desde $i=m$ hasta $i=n$ (Def. 5.1). Por ejemplo
+\[\sum_{i=0}^{n}(i+1)\cdot 2^i = 1\cdot 2^0+2\cdot 2^1+\cdots+(n+1)\cdot 2^n.\]}
+\textbf{Separar el último término.} Sumar hasta $p+1$ es sumar hasta $p$ y después agregar el término número $p+1$:
+\[\sum_{i=0}^{p+1} a_i=\Big(\sum_{i=0}^{p} a_i\Big)+a_{p+1}.\]
+Este es el paso clave de casi todas las inducciones con sumas: la parte entre paréntesis es justo lo que dice la H.I.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\textwidth}
+\vspace{4pt}
+\begin{tikzpicture}[scale=0.8]
+  \foreach \i in {0,1,2,3} \draw[thick,fill=blue!15] (\i*0.9,0) rectangle ++(0.8,0.8);
+  \draw[thick,fill=orange!35] (3.6,0) rectangle ++(0.8,0.8);
+  \foreach \i/\t in {0/a_0,1/a_1,2/\cdots,3/a_p} \node[font=\scriptsize] at (\i*0.9+0.4,0.4) {$\t$};
+  \node[font=\scriptsize] at (4.0,0.4) {$a_{p+1}$};
+  \draw[decorate,decoration={brace,mirror,amplitude=5pt},blue!60!black,thick] (0,-0.1) -- (3.5,-0.1)
+     node[midway,below=6pt,font=\scriptsize\bfseries,align=center] {suma hasta $p$\\(la H.I.)};
+  \draw[decorate,decoration={brace,mirror,amplitude=4pt},orange!90!black,thick] (3.6,-0.1) -- (4.4,-0.1)
+     node[midway,below=6pt,font=\scriptsize\bfseries,align=center] {último\\término};
+\end{tikzpicture}
+\end{minipage}
+
+\medskip
+\begin{minipage}[t]{0.55\textwidth}
+\defi{Divisibilidad (Def. 5.3 del folleto)}{$a\mid b$ (``$a$ divide a $b$'') si existe un entero $k$ tal que $a\,k=b$. O sea, $b$ es $a$ multiplicado por un entero.}
+\textbf{Ejemplo:} $6\mid 132$ porque $6\cdot 22=132$ y $22\in\mathbb Z$.
+
+\textbf{¿Cómo se usa en inducción?} La H.I. se escribe con su $k$: ``existe $k\in\mathbb Z$ con $6k=\dots$''. Después, en el paso inductivo, se busca escribir la nueva expresión como $6\cdot(\text{algo entero})$.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\textwidth}
+\vspace{4pt}
+\begin{tikzpicture}[scale=0.55]
+  \foreach \j in {0,...,5} \draw[thick,fill=green!20] (\j*1.05,0) rectangle ++(0.95,0.9);
+  \foreach \j in {0,...,5} \node[font=\scriptsize] at (\j*1.05+0.47,0.45) {$22$};
+  \draw[decorate,decoration={brace,amplitude=5pt},thick] (0,1.0) -- (6.25,1.0)
+    node[midway,above=6pt,font=\scriptsize\bfseries] {$6$ grupos de $22$ $=132$};
+  \node[font=\scriptsize,align=center] at (3.1,-0.8) {sobra $0$: $6\mid 132$};
+\end{tikzpicture}
+\end{minipage}
+
+% ============================================================
+\clearpage
+\section*{Pregunta 1}
+\addcontentsline{toc}{section}{Pregunta 1 --- Inducción con sumatoria}
+
+\begin{quote}
+Cabe señalar que la pregunta \#1 evalúa el atributo Conocimiento de Ingeniería nivel inicial para el contenido del curso ``Inducción matemática'', el cuál tiene por objetivo: adquirir el principio de la inducción matemática.
+\end{quote}
+
+1. Demuestre, utilizando el \colorbox{green!35}{método de inducción matemática}, que se cumple:
+\[1\cdot 2^0+2\cdot 2^1+3\cdot 2^2+\cdots+(n+1)\cdot 2^n=2^{n+1}n+1,\]
+para todo entero \colorbox{green!35}{$n$ mayor o igual a 2}. \hfill (4 puntos)
+
+\begin{center}\small
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{|c|c|c|}
+\hline
+$n$ & lado izquierdo & lado derecho $2^{n+1}n+1$\\ \hline
+$2$ & $1+4+12=\textcolor{blue!60!black}{17}$ & $8\cdot2+1=\textcolor{blue!60!black}{17}$\\ \hline
+$3$ & $17+4\cdot 8=\textcolor{blue!60!black}{49}$ & $16\cdot3+1=\textcolor{blue!60!black}{49}$\\ \hline
+$4$ & $49+5\cdot 16=\textcolor{blue!60!black}{129}$ & $32\cdot4+1=\textcolor{blue!60!black}{129}$\\ \hline
+\end{tabular}
+\end{center}
+
+\calculo{\sum_{i=0}^{p+1}(i+1)2^i=\bajo{\big(2^{p+1}p+1\big)}{\text{H.I.}}+\bajo{(p+2)\,2^{p+1}}{\text{último término}}=2^{p+2}(p+1)+1}
+
+\begin{explica}
+\textbf{Paso 1, escribir la suma con sumatoria.} El término general es $(i+1)\cdot 2^i$: con $i=0$ da $1\cdot2^0$, con $i=1$ da $2\cdot 2^1$, y con $i=n$ da el último, $(n+1)\cdot2^n$. Así la igualdad es $\sum_{i=0}^{n}(i+1)2^i=2^{n+1}n+1$. La tabla de arriba solo muestra que la fórmula ``pinta bien''; tres casos no demuestran todos, por eso se necesita inducción.
+
+\textbf{Paso 2, caso base.} El enunciado dice ``mayor o igual a 2'', así que $n_0=2$. Se calcula cada lado por separado con $n=2$ y se ve que dan lo mismo, $17$.
+
+\textbf{Paso 3, H.I.} Se supone cierta la fórmula para $n=p$: la suma hasta $p$ vale $2^{p+1}p+1$.
+
+\textbf{Paso 4, qué hay que demostrar (HQD).} Se cambia cada $n$ por $p+1$: la suma hasta $p+1$ debe dar $2^{(p+1)+1}(p+1)+1=2^{p+2}(p+1)+1$. Esta es la meta; se escribe antes de empezar para saber a dónde llegar.
+
+\textbf{Paso 5, separar el último término.} El término número $p+1$ es $\big((p+1)+1\big)2^{p+1}=(p+2)2^{p+1}$. Lo que queda antes es la suma hasta $p$, y por la H.I. se cambia por $2^{p+1}p+1$.
+
+\textbf{Paso 6, álgebra.} Los dos pedazos tienen el factor $2^{p+1}$: se saca factor común y queda $2^{p+1}(p+p+2)+1=2^{p+1}\cdot2(p+1)+1$. Como $2^{p+1}\cdot 2=2^{p+2}$ (se suman exponentes), sale $2^{p+2}(p+1)+1$, que es la meta.
+
+\textbf{¿Tiene sentido?} Con $p=2$: suma hasta $3$ debería ser $2^{4}\cdot 3+1=49$, y la tabla dice $49$.
+\end{explica}
+
+\textbf{Demostración (formato de examen).}
+
+\textbf{(a) Caso base, $n=2$:}
+\[\sum_{i=0}^{2}(i+1)2^i=1\cdot2^0+2\cdot2^1+3\cdot2^2=1+4+12=17,\qquad 2^{2+1}\cdot2+1=16+1=17.\]
+Ambos lados son iguales, así que se cumple para $n=2$.
+
+\textbf{(b) H.I.:} Suponga que para $n=p$ ($p\ge2$) se cumple $\displaystyle\sum_{i=0}^{p}(i+1)2^i=2^{p+1}p+1$.
+
+\textbf{(c) HQD:} $\displaystyle\sum_{i=0}^{p+1}(i+1)2^i=2^{p+2}(p+1)+1$.
+\begin{align*}
+\sum_{i=0}^{p+1}(i+1)2^i &=\sum_{i=0}^{p}(i+1)2^i+(p+2)2^{p+1} && \text{Separar el último término}\\
+&=\underbrace{\big(2^{p+1}p+1\big)}_{\text{H.I.}}+(p+2)2^{p+1} && \text{H.I.}\\
+&=2^{p+1}\big(p+p+2\big)+1 && \text{Factor}\\
+&=2^{p+1}\cdot 2(p+1)+1 && \text{Op.}\\
+&=2^{p+2}(p+1)+1 && \text{Op. (potencias)}
+\end{align*}
+Por lo tanto, la fórmula se cumple para $n=p+1$ y, por inducción matemática, para todo entero $n\ge2$.
+
+\textbf{Respuesta:} queda demostrado que $1\cdot 2^0+2\cdot 2^1+\cdots+(n+1)\cdot 2^n=2^{n+1}n+1$ para todo entero $n\ge 2$.
+
+% ============================================================
+\clearpage
+\section*{Pregunta 2}
+\addcontentsline{toc}{section}{Pregunta 2 --- Inducción con divisibilidad}
+
+2. Utilice el método de inducción matemática para demostrar que $5^{2n+1}+7$ es \colorbox{green!35}{divisible por 6} para todo entero \colorbox{green!35}{$n$ mayor a 0}. \hfill (4 puntos)
+
+\begin{center}\small
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{|c|c|c|}
+\hline
+$n$ & $5^{2n+1}+7$ & ¿múltiplo de $6$?\\ \hline
+$1$ & $125+7=132$ & $6\cdot\textcolor{blue!60!black}{22}$\\ \hline
+$2$ & $3125+7=3132$ & $6\cdot\textcolor{blue!60!black}{522}$\\ \hline
+$3$ & $78125+7=78132$ & $6\cdot\textcolor{blue!60!black}{13022}$\\ \hline
+\end{tabular}
+\end{center}
+
+\calculo{5^{2p+3}+7=\bajo{25}{5^2}\cdot\bajo{5^{2p+1}}{6k-7\ (\text{H.I.})}+7=150k-168=6\,\bajo{(25k-28)}{\in\mathbb Z}}
+
+\begin{explica}
+\textbf{Fórmula:} Def. 5.3, $6\mid b$ si existe $k\in\mathbb Z$ con $6k=b$.
+
+\textbf{Paso 1, caso base.} ``Mayor a 0'' significa $n\ge1$, así que $n_0=1$. Con $n=1$: $5^{2\cdot1+1}+7=5^3+7=125+7=132$, y $132=6\cdot22$ con $22$ entero.
+
+\textbf{Paso 2, H.I. escrita con su $k$.} Se supone $6\mid 5^{2p+1}+7$, o sea, existe $k\in\mathbb Z$ con $6k=5^{2p+1}+7$. Se despeja la potencia: $5^{2p+1}=6k-7$. Se despeja porque en el paso siguiente aparecerá justo $5^{2p+1}$ y así se podrá cambiar.
+
+\textbf{Paso 3, HQD.} Cambiando $n$ por $p+1$: el exponente es $2(p+1)+1=2p+3$. Hay que hallar un entero $m$ con $6m=5^{2p+3}+7$.
+
+\textbf{Paso 4, hacer aparecer la H.I.} Como $2p+3=(2p+1)+2$, se tiene $5^{2p+3}=5^2\cdot5^{2p+1}=25\cdot5^{2p+1}$ (al multiplicar potencias de igual base se suman exponentes). Ahora se sustituye $5^{2p+1}=6k-7$.
+
+\textbf{Paso 5, la cuenta.} $25(6k-7)+7=150k-175+7=150k-168$. Los dos números son múltiplos de $6$: $150=6\cdot25$ y $168=6\cdot 28$. Se saca el $6$: $6(25k-28)$.
+
+\textbf{Paso 6, ¿es entero lo de adentro?} $k$ es entero, $25k$ es entero y restarle $28$ sigue dando entero. Entonces $m=25k-28\in\mathbb Z$ cumple la Def. 5.3.
+
+\textbf{¿Tiene sentido?} Con $p=1$, $k=22$: $m=25\cdot22-28=522$, y la tabla dice $3132=6\cdot522$.
+\end{explica}
+
+\textbf{Demostración (formato de examen).}
+
+\textbf{(a) Caso base, $n=1$:} $5^{2(1)+1}+7=125+7=132=6\cdot 22$, con $22\in\mathbb Z$. Luego $6\mid 5^{3}+7$.
+
+\textbf{(b) H.I.:} Suponga que para $n=p$ ($p\ge 1$) se cumple $6\mid 5^{2p+1}+7$, es decir,
+\[(\exists k\in\mathbb Z)\ \ 6k=5^{2p+1}+7,\quad\text{de donde}\quad 5^{2p+1}=6k-7.\]
+
+\textbf{(c) HQD:} $6\mid 5^{2(p+1)+1}+7$, es decir, $(\exists m\in\mathbb Z)\ 6m=5^{2p+3}+7$.
+\begin{align*}
+5^{2p+3}+7 &=5^2\cdot 5^{2p+1}+7 && \text{Op. (potencias)}\\
+&=25\,(6k-7)+7 && \text{H.I.}\\
+&=150k-175+7 && \text{Dist.}\\
+&=150k-168 && \text{Op.}\\
+&=6\,(25k-28) && \text{Factor}\\
+&=6m,\quad m=25k-28\in\mathbb Z && \text{Def. } m
+\end{align*}
+Así $6\mid 5^{2(p+1)+1}+7$ por la Def. 5.3. Por inducción matemática, $6\mid 5^{2n+1}+7$ para todo entero $n>0$.
+
+\textbf{Respuesta:} $5^{2n+1}+7$ es divisible por $6$ para todo entero $n\ge1$.
+
+% ============================================================
+% THEORY: RECURRENCES
+% ============================================================
+\clearpage
+\section*{Teoría: recurrencias lineales homogéneas}
+\addcontentsline{toc}{section}{Teoría: recurrencias lineales homogéneas}
+
+\begin{minipage}[t]{0.55\textwidth}
+\defi{Recurrencia lineal homogénea de orden $k$}{es una regla que calcula cada término con los $k$ anteriores, multiplicados por números fijos y sumados, sin nada extra suelto:
+\[a_n=c_1a_{n-1}+c_2a_{n-2}+\cdots+c_ka_{n-k}.\]}
+\textbf{Orden} = cuántos términos anteriores se usan. \textbf{Homogénea} = no hay un término sin $a$ (como $+n$ o $+2^n$). Para arrancar se necesitan $k$ condiciones iniciales ($a_0,\dots,a_{k-1}$).
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\textwidth}
+\vspace{2pt}
+\begin{tikzpicture}[scale=0.85]
+  \foreach \i/\t in {0/a_{n-3},1.3/a_{n-2},2.6/a_{n-1}} \node[draw,thick,fill=blue!12,minimum width=1.0cm,minimum height=0.7cm,font=\scriptsize] (b\i) at (\i,0) {$\t$};
+  \node[draw,thick,fill=orange!30,minimum width=1.0cm,minimum height=0.7cm,font=\scriptsize] (c) at (4.0,0) {$a_n$};
+  \foreach \i/\c in {0/c_3,1.3/c_2,2.6/c_1} \draw[->,thick,blue!60!black] (\i,0.38) to[bend left=35] node[above,font=\tiny] {$\cdot\c$} (4.0,0.38);
+  \node[font=\scriptsize,align=center] at (2,-0.9) {orden 3: usa los 3 anteriores};
+\end{tikzpicture}
+\end{minipage}
+
+\medskip
+\begin{minipage}[t]{0.55\textwidth}
+\defi{Ecuación característica}{se cambia cada $a_{n-j}$ por una potencia de $x$, bajando un grado por cada paso hacia atrás. Para orden 3:
+\[a_n=c_1a_{n-1}+c_2a_{n-2}+c_3a_{n-3}\ \longleftrightarrow\ x^3=c_1x^2+c_2x+c_3.\]}
+\textbf{¿Por qué?} Se prueba si una potencia $a_n=x^n$ cumple la regla: $x^n=c_1x^{n-1}+c_2x^{n-2}+c_3x^{n-3}$. Dividiendo todo entre $x^{n-3}$ queda la ecuación de arriba. Sus soluciones (raíces) son las bases de las potencias que sirven.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\textwidth}
+\vspace{2pt}
+\begin{tikzpicture}[yscale=0.7]
+  \foreach \y/\a/\x in {3/a_n/x^3,2/a_{n-1}/x^2,1/a_{n-2}/x,0/a_{n-3}/1} {
+    \node[font=\small] (L\y) at (0,\y) {$\a$};
+    \node[font=\small] (R\y) at (2.6,\y) {$\x$};
+    \draw[<->,thick,orange!90!black] (0.7,\y) -- (2.1,\y);
+  }
+  \node[font=\scriptsize\bfseries] at (0,3.8) {recurrencia};
+  \node[font=\scriptsize\bfseries] at (2.6,3.8) {ecuación};
+\end{tikzpicture}
+\end{minipage}
+
+\medskip
+\begin{minipage}[t]{0.55\textwidth}
+\defi{Raíz con multiplicidad}{la \textbf{multiplicidad} de una raíz $r$ es cuántas veces aparece el factor $(x-r)$. Una raíz $r$ de multiplicidad $m$ aporta a la fórmula explícita
+\[\big(c_0+c_1n+\cdots+c_{m-1}n^{m-1}\big)\,r^n.\]}
+\textbf{¿Por qué un polinomio en $n$?} La fórmula necesita tantas constantes como el orden (una por condición inicial). Si $r$ se repite, $r^n$ solo daría una constante; multiplicar por $n$, $n^2$, \dots\ da las que faltan, y se puede comprobar que esas sucesiones también cumplen la regla.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\textwidth}
+\vspace{2pt}
+\begin{tikzpicture}[scale=0.85]
+  \node[draw,thick,fill=red!10,font=\scriptsize,align=center] (r1) at (0,1.6) {$r=-1$\\mult. $2$};
+  \node[draw,thick,fill=red!10,font=\scriptsize,align=center] (r2) at (0,0) {$r=5$\\mult. $1$};
+  \node[draw,thick,fill=blue!10,font=\scriptsize] (t1) at (3.0,1.6) {$(A+Bn)(-1)^n$};
+  \node[draw,thick,fill=blue!10,font=\scriptsize] (t2) at (3.0,0) {$C\cdot 5^n$};
+  \draw[->,thick] (r1) -- (t1);
+  \draw[->,thick] (r2) -- (t2);
+  \node[font=\scriptsize,align=center] at (1.5,-0.95) {$2+1=3$ constantes $=$ orden 3};
+\end{tikzpicture}
+\end{minipage}
+
+\medskip
+\textbf{Dos tipos de ejercicio.}
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Raíces dadas $\to$ fórmula explícita:} se escribe la forma general (un bloque por raíz), se evalúa en $n=0,1,2$, se igualan a $a_0,a_1,a_2$ y se resuelve el sistema.
+\item \textbf{Fórmula explícita $\to$ recurrencia:} se leen las bases de las potencias (raíces) y el grado del polinomio en $n$ que las acompaña (multiplicidad $=$ grado $+1$), se arma $\prod (x-r)^m$, se expande, se traduce cada $x^j$ al $a$ que le toca y se calculan $a_0,a_1,a_2$ con la explícita.
+\end{itemize}
+
+% ============================================================
+\clearpage
+\section*{Pregunta 3}
+\addcontentsline{toc}{section}{Pregunta 3 --- Fórmula explícita desde las raíces}
+
+3. La sucesión $(a_n)_{n\in\mathbb N}$ esta definida de manera recursiva, su fórmula es \colorbox{green!35}{lineal homogenéa de orden 3}. La ecuación característica asociada a dicha fórmula tiene soluciones:
+\[s_1=-1\ \text{de multiplicidad:}\ \ 2\qquad\qquad s_2=5\ \text{de multiplicidad:}\ \ 1\]
+Además, se sabe que $a_0=5,a_1=12,a_2=79$. Determine la \colorbox{green!35}{fórmula explícita} de $(a_n)_{n\in\mathbb N}$. \hfill (3 puntos)
+
+\calculo{a_n=\big(\bajo{A}{2}+\bajo{B}{1}\,n\big)(-1)^n+\bajo{C}{3}\cdot 5^n=(2+n)(-1)^n+3\cdot5^n}
+
+\begin{explica}
+\textbf{Paso 1, forma general.} La raíz $-1$ tiene multiplicidad $2$, así que aporta un polinomio de grado $1$ en $n$: $(A+Bn)(-1)^n$. La raíz $5$ tiene multiplicidad $1$ y aporta solo $C\cdot5^n$ (ver la teoría). Sumando: $a_n=(A+Bn)(-1)^n+C\cdot5^n$. Son $3$ constantes porque el orden es $3$.
+
+\textbf{Paso 2, una ecuación por cada dato.} Se sustituye $n$ y se usa $(-1)^0=1$, $(-1)^1=-1$, $(-1)^2=1$:
+\begin{itemize}[leftmargin=1.2em,itemsep=0pt]
+\item $n=0$: $(A+0)\cdot1+C\cdot1=5$, o sea $A+C=5$.
+\item $n=1$: $(A+B)(-1)+5C=12$, o sea $-A-B+5C=12$.
+\item $n=2$: $(A+2B)\cdot1+25C=79$, o sea $A+2B+25C=79$.
+\end{itemize}
+
+\textbf{Paso 3, resolver por sustitución.} De la primera, $A=5-C$. En la segunda: $-(5-C)-B+5C=12\Rightarrow -5+6C-B=12\Rightarrow B=6C-17$. En la tercera se cambian $A$ y $B$:
+\begin{align*}
+&(5-C)+2(6C-17)+25C=79\ \Rightarrow\ 5-C+12C-34+25C=79\\
+&\Rightarrow\ 36C-29=79\ \Rightarrow\ 36C=108\ \Rightarrow\ C=3.
+\end{align*}
+Entonces $B=6\cdot3-17=1$ y $A=5-3=2$.
+
+\textbf{¿Tiene sentido?} Se revisan los tres datos con $a_n=(2+n)(-1)^n+3\cdot5^n$:
+$a_0=2+3=5$ \checkmark, $a_1=-3+15=12$ \checkmark, $a_2=4+75=79$ \checkmark. Además, la recurrencia de estas raíces es $(x+1)^2(x-5)=x^3-3x^2-9x-5$, o sea $a_n=3a_{n-1}+9a_{n-2}+5a_{n-3}$; da $a_3=3\cdot79+9\cdot12+5\cdot5=370$, y la fórmula da $a_3=(5)(-1)+3\cdot125=370$ \checkmark.
+\end{explica}
+
+\textbf{Solución (formato de examen).} Por las raíces y sus multiplicidades,
+\[a_n=(A+Bn)(-1)^n+C\cdot5^n.\]
+Con las condiciones iniciales:
+\[\begin{cases} A+C=5 & (n=0)\\ -A-B+5C=12 & (n=1)\\ A+2B+25C=79 & (n=2)\end{cases}\qquad\Longrightarrow\qquad A=2,\ B=1,\ C=3.\]
+
+\textbf{Respuesta:} $a_n=(2+n)(-1)^n+3\cdot 5^n$, para $n\ge0$.
+
+% ============================================================
+\clearpage
+\section*{Pregunta 4}
+\addcontentsline{toc}{section}{Pregunta 4 --- Recurrencia desde la fórmula explícita}
+
+4. Determine una \colorbox{green!35}{fórmula por recurrencia} de la sucesión cuya fórmula explícita es
+\[a_n=5n^2\cdot 3^{n+1}\]
+para $n\ge0$. \hfill (4 puntos)
+
+\begin{center}
+\begin{tikzpicture}
+  \node[font=\large] (f) at (0,0) {$a_n=\big(\textcolor{blue!60!black}{0}+\textcolor{blue!60!black}{0}\cdot n+\textcolor{blue!60!black}{15}\,n^{\textcolor{red!75!black}{2}}\big)\cdot\textcolor{orange!90!black}{3}^{\,n}$};
+  \node[red!75!black,font=\scriptsize\bfseries,align=center] at (1.0,-1.0) {grado $2$ $\Rightarrow$ multiplicidad $3$};
+  \node[orange!90!black,font=\scriptsize\bfseries] at (2.9,0.8) {raíz $3$};
+  \draw[->,red!75!black,thick] (1.0,-0.7) -- (1.0,-0.2);
+  \draw[->,orange!90!black,thick] (2.9,0.6) -- (2.55,0.25);
+\end{tikzpicture}
+\end{center}
+
+\calculo{(x-3)^3=x^3-9x^2+27x-27\ \Longrightarrow\ a_n=\bajo{9}{x^2\to a_{n-1}}a_{n-1}\bajo{-27}{x\to a_{n-2}}a_{n-2}+\bajo{27}{1\to a_{n-3}}a_{n-3}}
+
+\begin{explica}
+\textbf{Paso 1, dejar una sola potencia $n$.} Como $3^{n+1}=3\cdot3^n$, queda $a_n=5\cdot3\cdot n^2\cdot3^n=15n^2\cdot 3^n$. Ahora se ve una sola base, $3$.
+
+\textbf{Paso 2, leer raíz y multiplicidad.} La base $3$ es la raíz. Lo que la acompaña es un polinomio de grado $2$ en $n$ ($15n^2$, con los coeficientes de $n^0$ y $n^1$ iguales a $0$). Un polinomio de grado $2$ solo aparece si la multiplicidad es $2+1=3$ (teoría: multiplicidad $m$ da grado $m-1$). Entonces la raíz $3$ tiene multiplicidad $3$ y el orden es $3$.
+
+\textbf{Paso 3, ecuación característica.} $(x-3)^3=0$. Se expande: $(x-3)^2=x^2-6x+9$ y $(x^2-6x+9)(x-3)=x^3-3x^2-6x^2+18x+9x-27=x^3-9x^2+27x-27$.
+
+\textbf{Paso 4, traducir a recurrencia.} Se despeja $x^3=9x^2-27x+27$ y se cambia $x^3\to a_n$, $x^2\to a_{n-1}$, $x\to a_{n-2}$, $1\to a_{n-3}$. Como usa tres anteriores, vale desde $n\ge3$.
+
+\textbf{Paso 5, condiciones iniciales} (se evalúa la fórmula del enunciado):
+$a_0=5\cdot0\cdot3=0$, \ $a_1=5\cdot1\cdot3^2=45$, \ $a_2=5\cdot4\cdot3^3=540$.
+
+\textbf{¿Tiene sentido?} Por la explícita, $a_3=5\cdot9\cdot3^4=3645$. Por la recurrencia, $a_3=9\cdot540-27\cdot45+27\cdot0=4860-1215+0=3645$ \checkmark.
+\end{explica}
+
+\textbf{Solución (formato de examen).} $a_n=5n^2\cdot3^{n+1}=15n^2\cdot3^n$: raíz $3$ con multiplicidad $3$. Ecuación característica:
+\[(x-3)^3=0\iff x^3-9x^2+27x-27=0\iff x^3=9x^2-27x+27.\]
+
+\textbf{Respuesta:}
+\[\begin{cases} a_n=9a_{n-1}-27a_{n-2}+27a_{n-3}, & n\ge3,\\ a_0=0,\quad a_1=45,\quad a_2=540.\end{cases}\]
+
+% ============================================================
+% THEORY: RELATIONS
+% ============================================================
+\clearpage
+\section*{Teoría: relaciones}
+\addcontentsline{toc}{section}{Teoría: relaciones}
+
+\begin{minipage}[t]{0.55\textwidth}
+\defi{Relación y gráfico (Def. 3.1)}{una relación $R$ sobre $A$ es un conjunto de parejas $G_R\subseteq A\times A$. Se escribe $aRb$ cuando $(a,b)\in G_R$: ``$a$ está relacionado con $b$''. Se dibuja con una flecha $a\to b$.}
+\defi{Matriz asociada}{se ordena $A$ (aquí $e,s,t,u$). La \textbf{fila} es el primer elemento y la \textbf{columna} el segundo: $M_R[i,j]=1\iff a_iRa_j$; si no, $0$.}
+\textbf{Gráfico $\to$ matriz:} por cada pareja $(a,b)$ se pone un $1$ en fila $a$, columna $b$. \textbf{Matriz $\to$ gráfico:} cada $1$ de la fila $a$ y columna $b$ da la pareja $(a,b)$.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\textwidth}
+\vspace{2pt}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,nodes={minimum size=6mm,anchor=center},left delimiter=(,right delimiter=),
+     row 1/.style={nodes={fill=blue!15}}, column 2/.style={nodes={fill=orange!20}}] {
+     0 & 1 & 0 & 1\\ 1 & 0 & 1 & 0\\ 1 & 0 & 0 & 1\\ 0 & 1 & 0 & 1\\};
+  \foreach \i/\l in {1/e,2/s,3/t,4/u} {
+    \node[font=\small,blue!60!black] at ($(m-\i-1.west)+(-0.6,0)$) {$\l$};
+    \node[font=\small,orange!90!black] at ($(m-1-\i.north)+(0,0.35)$) {$\l$};
+  }
+  \draw[red!75!black,very thick] (m-1-2) circle (3.2mm);
+  \node[red!75!black,font=\scriptsize\bfseries] at ($(m-4-2.south)+(0,-0.5)$) {fila $e$, columna $s$: $e\mathcal{R}s$};
+\end{tikzpicture}
+\end{minipage}
+
+\medskip
+\begin{minipage}[t]{0.55\textwidth}
+\defi{Complemento $\overline R$}{son todas las parejas de $A\times A$ que \textbf{no} están en $R$: $a\overline Rb\iff \neg(aRb)$. En la matriz se cambian todos los $0$ por $1$ y los $1$ por $0$.}
+\textbf{¿Por qué?} Un $1$ dice ``sí está'' y un $0$ ``no está''; el complemento pide exactamente lo contrario en cada casilla.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\textwidth}
+\vspace{2pt}
+\begin{tikzpicture}
+  \matrix (a) [matrix of math nodes,nodes={minimum size=5mm},left delimiter=(,right delimiter=)] {0 & 1\\ 1 & 0\\};
+  \matrix (b) [matrix of math nodes,nodes={minimum size=5mm},left delimiter=(,right delimiter=),right=1.3cm of a] {1 & 0\\ 0 & 1\\};
+  \draw[->,very thick,orange!90!black] ($(a.east)+(0.2,0)$) -- node[above=3pt,font=\scriptsize\bfseries] {$0\leftrightarrow1$} ($(b.west)+(-0.2,0)$);
+  \node[font=\small] at ($(a.south)+(0,-0.3)$) {$M_R$};
+  \node[font=\small] at ($(b.south)+(0,-0.3)$) {$M_{\overline R}$};
+\end{tikzpicture}
+\end{minipage}
+
+\medskip
+\begin{minipage}[t]{0.55\textwidth}
+\defi{Composición (Def. 3.1)}{$a(S\circ R)c\iff\exists b$ tal que $aRb\wedge bSc$. Se lee de derecha a izquierda: \textbf{primero $R$, luego $S$}. Es un camino de dos flechas $a\to b\to c$.}
+\textbf{Ejemplo:} en $\overline{\mathcal R}\circ S$ el primer paso es con $S$ y el segundo con $\overline{\mathcal R}$.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\textwidth}
+\vspace{2pt}
+\begin{tikzpicture}
+  \node[vert] (a) at (0,0) {$a$};
+  \node[vert] (b) at (1.8,0) {$b$};
+  \node[vert] (c) at (3.6,0) {$c$};
+  \draw[ok] (a) -- node[above,font=\scriptsize] {$R$} (b);
+  \draw[cam] (b) -- node[above,font=\scriptsize] {$S$} (c);
+  \draw[arr,red!75!black,dashed] (a) to[bend right=35] node[below,font=\scriptsize] {$S\circ R$} (c);
+  \node[font=\scriptsize] at (0.9,0.6) {1.\textsuperscript{o}};
+  \node[font=\scriptsize] at (2.7,0.6) {2.\textsuperscript{o}};
+\end{tikzpicture}
+\end{minipage}
+
+\medskip
+\begin{minipage}[t]{0.55\textwidth}
+\defi{Producto booleano}{$M_{S\circ R}=M_R\odot M_S$ (la matriz de la relación que va \emph{primero} se escribe a la izquierda). La casilla $[i,j]$ es $1$ si en la fila $i$ de la primera y la columna $j$ de la segunda hay algún $1$ en la \textbf{misma posición}; si no, $0$.}
+\textbf{¿Por qué?} Un $1$ en la posición $k$ de la fila $i$ es la flecha $a_i\to a_k$; un $1$ en la posición $k$ de la columna $j$ es la flecha $a_k\to a_j$. Juntas forman el camino $a_i\to a_k\to a_j$.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\textwidth}
+\vspace{2pt}
+\begin{tikzpicture}
+  \matrix (p) [matrix of math nodes,nodes={minimum size=5mm},left delimiter=(,right delimiter=),row 1/.style={nodes={fill=blue!15}}] {0 & 1 & 1\\ 0&0&1\\ 1&0&0\\};
+  \node at ($(p.east)+(0.35,0)$) {$\odot$};
+  \matrix (q) [matrix of math nodes,nodes={minimum size=5mm},left delimiter=(,right delimiter=),right=0.75cm of p,column 1/.style={nodes={fill=orange!25}}] {0 & 1 & 0\\ 1&0&0\\ 0&0&1\\};
+  \draw[red!75!black,thick] (p-1-2) circle (2.6mm);
+  \draw[red!75!black,thick] (q-2-1) circle (2.6mm);
+  \node[font=\scriptsize,align=center,red!75!black] at ($(p.south)!0.5!(q.south)+(0,-0.55)$) {fila 1 y columna 1 tienen $1$ en la\\posición 2 $\Rightarrow$ resultado$[1,1]=1$};
+\end{tikzpicture}
+\end{minipage}
+
+\clearpage
+\defi{Propiedades (Def. 3.2)}{para una relación $R$ sobre $A$:}
+
+\begin{center}
+\begin{tabular}{*{4}{>{\raggedright\arraybackslash}m{0.22\textwidth}}}
+\begin{tikzpicture}
+  \node[vert] (a) at (0,0) {$a$}; \node[vert] (b) at (1.4,0) {$b$};
+  \draw[ok] (a) to[loop above,looseness=6] (a);
+  \draw[ok] (b) to[loop above,looseness=6] (b);
+\end{tikzpicture}
+&
+\begin{tikzpicture}
+  \node[vert] (a) at (0,0) {$a$}; \node[vert] (b) at (1.6,0) {$b$};
+  \draw[ok] (a) to[bend left=30] (b);
+  \draw[cam] (b) to[bend left=30] (a);
+\end{tikzpicture}
+&
+\begin{tikzpicture}
+  \node[vert] (a) at (0,0) {$a$}; \node[vert] (b) at (0.8,1.2) {$b$}; \node[vert] (c) at (1.6,0) {$c$};
+  \draw[ok] (a) -- (b); \draw[ok] (b) -- (c); \draw[cam] (a) -- (c);
+\end{tikzpicture}
+&
+\begin{tikzpicture}
+  \node[vert] (a) at (0,0) {$a$}; \node[vert] (b) at (1.6,0) {$b$};
+  \draw[ok] (a) to[bend left=30] (b);
+  \draw[bad,dashed] (b) to[bend left=30] node[midway,font=\large]{$\times$} (a);
+\end{tikzpicture}
+\\
+\textbf{Reflexiva:} $\forall a\in A,\ aRa$. Todo elemento tiene lazo.
+&
+\textbf{Simétrica:} $aRb\Rightarrow bRa$. Toda flecha tiene su regreso.
+&
+\textbf{Transitiva:} $aRb\wedge bRc\Rightarrow aRc$. Si hay camino de dos flechas, hay atajo directo.
+&
+\textbf{Antisimétrica:} $aRb\wedge bRa\Rightarrow a=b$. Entre elementos distintos nunca hay ida \emph{y} vuelta.
+\end{tabular}
+\end{center}
+
+\textbf{¿Cómo se prueba cada una?} Con la definición, en el formato del profesor: ``HQD: \dots'', ``Sean \dots\ fijos pero arbitrarios tales que \dots'', una cadena de $\Rightarrow$ con la justificación a la derecha, y ``Por lo tanto, \dots''.
+
+\textbf{¿Cómo se muestra que una propiedad NO se cumple?} Con un \textbf{contraejemplo}: elementos concretos que cumplen la parte de la izquierda de la flecha pero no la de la derecha. Para antisimetría: dos elementos \textbf{distintos} $x\neq y$ con $xRy$ y $yRx$.
+
+\textbf{Notación lógica usada en las pruebas:} Simp. (de $p\wedge q$ se obtiene $p$), Adj. (de $p$ y $q$ se obtiene $p\wedge q$), SD (de $p\vee q$ y $\neg q$ se obtiene $p$), MP (de $p\Rightarrow q$ y $p$ se obtiene $q$).
+
+% ============================================================
+\clearpage
+\section*{Pregunta 5}
+\addcontentsline{toc}{section}{Pregunta 5 --- Matriz de \texorpdfstring{$\overline{\mathcal R}\circ S$}{complemento de R compuesta con S}}
+
+5. Considere el conjunto $A=\{e,s,t,u\}$ y sea $\mathcal R$ una relación sobre $A$ cuya matriz asociada es
+\[M_{\mathcal R}=\begin{pmatrix}0&1&0&1\\1&0&1&0\\1&0&0&1\\0&1&0&1\end{pmatrix}\]
+y sea $S$ otra relación sobre $A$ tal que su gráfico es
+\[G_S=\{(e,s),(e,t),(s,t),(t,t),(u,t)\}\]
+Determine la matriz asociada a \colorbox{green!35}{$\overline{\mathcal R}\circ S$}. \hfill (3 puntos)
+
+\begin{center}
+\begin{tikzpicture}[xscale=2.4,yscale=0.62]
+  \foreach \c in {0,1,2} \foreach \y/\l in {3/e,2/s,1/t,0/u} \node[vert] (n\c\l) at (\c,\y) {$\l$};
+  \node[font=\small\bfseries] at (0.5,3.8) {$S$ (primero)};
+  \node[font=\small\bfseries] at (1.5,3.8) {$\overline{\mathcal R}$ (segundo)};
+  \foreach \a/\b in {e/s,e/t,s/t,t/t,u/t} \draw[ok] (n0\a) -- (n1\b);
+  \foreach \a/\b in {e/e,e/t,s/s,s/u,t/s,t/t,u/e,u/t} \draw[cam] (n1\a) -- (n2\b);
+\end{tikzpicture}
+\end{center}
+
+\calculo{M_{\overline{\mathcal R}\circ S}=\bajo{M_S}{\text{primero}}\odot \bajo{M_{\overline{\mathcal R}}}{\text{segundo}}
+=\begin{pmatrix}0&1&1&0\\0&0&1&0\\0&0&1&0\\0&0&1&0\end{pmatrix}\odot\begin{pmatrix}1&0&1&0\\0&1&0&1\\0&1&1&0\\1&0&1&0\end{pmatrix}
+=\begin{pmatrix}0&1&1&1\\0&1&1&0\\0&1&1&0\\0&1&1&0\end{pmatrix}}
+
+\begin{explica}
+\textbf{Fórmula:} Def. 3.1, $M_{S\circ R}=M_R\odot M_S$. Aquí la relación de la derecha es $S$ (va primero) y la de la izquierda es $\overline{\mathcal R}$ (va segundo), así que $M_{\overline{\mathcal R}\circ S}=M_S\odot M_{\overline{\mathcal R}}$. El orden importa: el producto booleano no es conmutativo.
+
+\textbf{Paso 1, $M_{\overline{\mathcal R}}$:} se cambia cada $0$ por $1$ y cada $1$ por $0$ en $M_{\mathcal R}$. Fila $e$: $(0,1,0,1)\to(1,0,1,0)$; fila $s$: $(1,0,1,0)\to(0,1,0,1)$; fila $t$: $(1,0,0,1)\to(0,1,1,0)$; fila $u$: $(0,1,0,1)\to(1,0,1,0)$.
+
+\textbf{Paso 2, $M_S$ con el orden $e,s,t,u$:} $(e,s)$ y $(e,t)$ ponen $1$ en la fila $e$, columnas $s$ y $t$: fila $e=(0,1,1,0)$. $(s,t)$: fila $s=(0,0,1,0)$. $(t,t)$: fila $t=(0,0,1,0)$. $(u,t)$: fila $u=(0,0,1,0)$.
+
+\textbf{Paso 3, producto fila por fila.} Para la fila $x$ del resultado se miran a dónde llega $x$ con $S$ (los $1$ de la fila $x$ de $M_S$) y se juntan (con ``o'') esas filas de $M_{\overline{\mathcal R}}$:
+\begin{itemize}[leftmargin=1.2em,nosep]
+\item Fila $e$: $eSs$ y $eSt$, así que se unen la fila $s$ y la fila $t$ de $M_{\overline{\mathcal R}}$: $(0,1,0,1)\vee(0,1,1,0)=(0,1,1,1)$.
+\item Fila $s$: solo $sSt$, así que se copia la fila $t$ de $M_{\overline{\mathcal R}}$: $(0,1,1,0)$.
+\item Fila $t$: solo $tSt$: otra vez la fila $t$: $(0,1,1,0)$.
+\item Fila $u$: solo $uSt$: otra vez la fila $t$: $(0,1,1,0)$.
+\end{itemize}
+
+\textbf{¿Tiene sentido?} En el dibujo, siguiendo azul y luego naranja, desde $e$ se llega a $s,t,u$ y nunca a $e$, igual que la fila $e$. Gráfico: $\{(e,s),(e,t),(e,u),(s,s),(s,t),(t,s),(t,t),(u,s),(u,t)\}$.
+\end{explica}
+
+\textbf{Respuesta:}
+\[M_{\overline{\mathcal R}\circ S}=\begin{pmatrix}0&1&1&1\\0&1&1&0\\0&1&1&0\\0&1&1&0\end{pmatrix}\quad(\text{orden } e,s,t,u).\]
+
+% ============================================================
+\clearpage
+\section*{Pregunta 6a}
+\addcontentsline{toc}{section}{Pregunta 6a --- Reflexiva}
+
+6. Sobre el conjunto $\mathbb R$ se define la relación $R$ de la siguiente manera
+\[aRb\Leftrightarrow(\exists k\in\mathbb Z)\,(a=b+k)\]
+(a) Demuestre que $R$ es una relación \colorbox{green!35}{reflexiva}. \hfill (2 puntos)
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+  \draw[->,thick] (-0.5,0) -- (5.5,0);
+  \foreach \x in {0,...,5} \draw (\x,0.08) -- (\x,-0.08) node[below,font=\scriptsize] {$\x$};
+  \fill[blue!60!black] (2.5,0) circle (2pt) node[below=16pt,font=\scriptsize] {$a=2{,}5$};
+  \draw[ok] (2.45,0.1) to[out=120,in=60,looseness=12] (2.55,0.1);
+  \node[blue!60!black,font=\scriptsize\bfseries] at (2.5,1.15) {$k=0$: no se mueve};
+\end{tikzpicture}
+\end{center}
+
+\calculo{a=a+\bajo{0}{k\,\in\,\mathbb Z}\ \Longrightarrow\ aRa}
+
+\begin{explica}
+\textbf{¿Qué dice $aRb$?} Que se puede ir de $b$ a $a$ sumando un \textbf{entero} $k$; dicho de otra forma, que $a$ y $b$ se diferencian en un número entero (por ejemplo $3{,}5\,R\,1{,}5$ porque $3{,}5=1{,}5+2$).
+
+\textbf{Paso 1, HQD.} Reflexiva (Def. 3.2): $(\forall a\in\mathbb R)\ aRa$. Por la definición de $R$, $aRa$ significa: existe $k\in\mathbb Z$ con $a=a+k$.
+
+\textbf{Paso 2, elegir el $k$.} Hay que hallar un entero que sumado a $a$ deje $a$ igual. Ese número es $k=0$, y $0$ es entero.
+
+\textbf{¿Tiene sentido?} Todo número está a distancia $0$ de sí mismo, y $0$ es un entero; en el dibujo, el lazo no se mueve.
+\end{explica}
+
+\textbf{Demostración (formato de examen).}
+
+\textbf{HQD:} $R$ es reflexiva $\equiv(\forall a\in\mathbb R)\ aRa$.
+
+Sea $a\in\mathbb R$ fijo pero arbitrario.
+\begin{align*}
+a=a+0 &\ \Rightarrow\ (\exists k\in\mathbb Z)\,(a=a+k),\ k=0 && \text{Intro. }\exists,\ 0\in\mathbb Z\\
+&\ \Rightarrow\ aRa && \text{Def. de } R
+\end{align*}
+Por lo tanto, $R$ es reflexiva.
+
+\textbf{Respuesta:} $R$ es reflexiva, tomando $k=0$.
+
+% ============================================================
+\clearpage
+\section*{Pregunta 6b}
+\addcontentsline{toc}{section}{Pregunta 6b --- Simétrica}
+
+6. Sobre el conjunto $\mathbb R$ se define la relación $R$ de la siguiente manera
+\[aRb\Leftrightarrow(\exists k\in\mathbb Z)\,(a=b+k)\]
+(b) Demuestre que $R$ es una relación \colorbox{green!35}{simétrica}. \hfill (2 puntos)
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+  \draw[->,thick] (-0.5,0) -- (5.5,0);
+  \foreach \x in {0,...,5} \draw (\x,0.08) -- (\x,-0.08) node[below,font=\scriptsize] {$\x$};
+  \fill (1.5,0) circle (2pt) node[above=4pt,font=\scriptsize] {$b=1{,}5$};
+  \fill (4.5,0) circle (2pt) node[above=4pt,font=\scriptsize] {$a=4{,}5$};
+  \draw[ok] (1.5,0.45) to[bend left=35] node[above,font=\scriptsize] {$+3$} (4.5,0.45);
+  \draw[cam] (4.5,-0.5) to[bend left=35] node[below,font=\scriptsize] {$+(-3)$} (1.5,-0.45);
+\end{tikzpicture}
+\end{center}
+
+\calculo{a=b+k\ \Longrightarrow\ b=a+\bajo{(-k)}{\in\,\mathbb Z}}
+
+\begin{explica}
+\textbf{Paso 1, HQD.} Simétrica (Def. 3.2): $(\forall a,b\in\mathbb R)\ aRb\Rightarrow bRa$.
+
+\textbf{Paso 2, usar el dato.} $aRb$ da un entero $k$ con $a=b+k$ (Def. de $R$).
+
+\textbf{Paso 3, despejar $b$.} Restando $k$ a ambos lados: $b=a-k=a+(-k)$.
+
+\textbf{Paso 4, el nuevo entero.} Para tener $bRa$ se necesita un entero $k_1$ con $b=a+k_1$. Sirve $k_1=-k$: el opuesto de un entero es entero.
+
+\textbf{¿Tiene sentido?} En el dibujo, de $1{,}5$ a $4{,}5$ se suma $3$ y de regreso se suma $-3$: si la ida es un salto entero, la vuelta también.
+\end{explica}
+
+\textbf{Demostración (formato de examen).}
+
+\textbf{HQD:} $R$ es simétrica $\equiv(\forall a,b\in\mathbb R)\ [aRb\Rightarrow bRa]$.
+
+Sean $a,b\in\mathbb R$ fijos pero arbitrarios tales que $aRb$.
+\begin{align*}
+aRb &\Rightarrow (\exists k\in\mathbb Z)\,(a=b+k) && \text{Def. de } R\\
+&\Rightarrow b=a-k && \text{Op. (despeje)}\\
+&\Rightarrow b=a+(-k) && \text{Op.}\\
+&\Rightarrow (\exists k_1\in\mathbb Z)\,(b=a+k_1),\ k_1=-k && -k\in\mathbb Z\\
+&\Rightarrow bRa && \text{Def. de } R
+\end{align*}
+Por lo tanto, $R$ es simétrica.
+
+\textbf{Respuesta:} $R$ es simétrica, tomando $k_1=-k$.
+
+% ============================================================
+\clearpage
+\section*{Pregunta 6c}
+\addcontentsline{toc}{section}{Pregunta 6c --- Transitiva}
+
+6. Sobre el conjunto $\mathbb R$ se define la relación $R$ de la siguiente manera
+\[aRb\Leftrightarrow(\exists k\in\mathbb Z)\,(a=b+k)\]
+(c) Demuestre que $R$ es una relación \colorbox{green!35}{transitiva}. \hfill (2 puntos)
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+  \draw[->,thick] (-0.5,0) -- (6.5,0);
+  \foreach \x in {0,...,6} \draw (\x,0.08) -- (\x,-0.08) node[below,font=\scriptsize] {$\x$};
+  \fill (0.5,0) circle (2pt) node[below=6pt,font=\scriptsize] {$c$};
+  \fill (2.5,0) circle (2pt) node[below=6pt,font=\scriptsize] {$b$};
+  \fill (5.5,0) circle (2pt) node[below=6pt,font=\scriptsize] {$a$};
+  \draw[ok] (0.5,0.1) to[bend left=40] node[above,font=\scriptsize] {$+k_2=+2$} (2.5,0.1);
+  \draw[ok] (2.5,0.1) to[bend left=40] node[above,font=\scriptsize] {$+k_1=+3$} (5.5,0.1);
+  \draw[cam] (0.5,-0.45) to[bend right=25] node[below,font=\scriptsize] {$+(k_1+k_2)=+5$} (5.5,-0.45);
+\end{tikzpicture}
+\end{center}
+
+\calculo{a=b+k_1=\bajo{(c+k_2)}{b}+k_1=c+\bajo{(k_1+k_2)}{\in\,\mathbb Z}}
+
+\begin{explica}
+\textbf{Paso 1, HQD.} Transitiva (Def. 3.2): $(\forall a,b,c\in\mathbb R)\ aRb\wedge bRc\Rightarrow aRc$.
+
+\textbf{Paso 2, los dos datos.} $aRb$ da un entero $k_1$ con $a=b+k_1$; $bRc$ da \emph{otro} entero $k_2$ con $b=c+k_2$. Se usan nombres distintos porque no tienen por qué ser el mismo número.
+
+\textbf{Paso 3, sustituir.} En $a=b+k_1$ se cambia $b$ por $c+k_2$: $a=c+k_2+k_1=c+(k_1+k_2)$.
+
+\textbf{Paso 4, el nuevo entero.} $k_3=k_1+k_2$ es entero porque la suma de enteros es entera. Por la Def. de $R$, $aRc$.
+
+\textbf{¿Tiene sentido?} En el dibujo, saltar $2$ y luego $3$ es lo mismo que saltar $5$ de una vez: dos saltos enteros seguidos forman un salto entero.
+\end{explica}
+
+\textbf{Demostración (formato de examen).}
+
+\textbf{HQD:} $R$ es transitiva $\equiv(\forall a,b,c\in\mathbb R)\ [aRb\wedge bRc\Rightarrow aRc]$.
+
+Sean $a,b,c\in\mathbb R$ fijos pero arbitrarios tales que $aRb\wedge bRc$.
+\begin{align*}
+aRb\wedge bRc &\Rightarrow (\exists k_1\in\mathbb Z)\,(a=b+k_1)\wedge(\exists k_2\in\mathbb Z)\,(b=c+k_2) && \text{Def. de } R\\
+&\Rightarrow a=(c+k_2)+k_1 && \text{Sust.}\\
+&\Rightarrow a=c+(k_1+k_2) && \text{Aso., Con.}\\
+&\Rightarrow (\exists k_3\in\mathbb Z)\,(a=c+k_3),\ k_3=k_1+k_2 && \text{Def. } k_3\\
+&\Rightarrow aRc && \text{Def. de } R
+\end{align*}
+Por lo tanto, $R$ es transitiva.
+
+\textbf{Respuesta:} $R$ es transitiva, tomando $k_3=k_1+k_2$.
+
+% ============================================================
+\clearpage
+\section*{Pregunta 7}
+\addcontentsline{toc}{section}{Pregunta 7 --- Contraejemplo de antisimetría}
+
+7. Sobre $\mathbb Z\times\mathbb Z^*$ se define la relación $S$ por
+\[(a,b)\,S\,(c,d)\quad\Leftrightarrow\quad a-c\le b-d\]
+Brinde un \colorbox{green!35}{contraejemplo} que muestre que $S$ \colorbox{green!35}{no es antisimétrica}. \hfill (3 puntos)
+
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+  \fill[red!10] (-0.4,-0.25) rectangle (3.4,0.25);
+  \node[red!75!black,font=\scriptsize\bfseries,anchor=west] at (3.5,0) {segunda coordenada $0$: prohibida};
+  \foreach \x in {0,...,3} \foreach \y in {-1,1,2,3} \fill[gray!60] (\x,\y) circle (1.5pt);
+  \foreach \x in {0,...,3} \node[red!75!black] at (\x,0) {$\times$};
+  \draw[->] (-0.6,0) -- (3.6,0); \draw[->] (0,-1.5) -- (0,3.5);
+  \node[vert,fill=blue!15,minimum size=5mm,font=\tiny] (p) at (2,2) {};
+  \node[vert,fill=blue!15,minimum size=5mm,font=\tiny] (q) at (1,1) {};
+  \node[font=\scriptsize,anchor=south west] at (2.1,2.1) {$(2,2)$};
+  \node[font=\scriptsize,anchor=north west] at (1.15,0.85) {$(1,1)$};
+  \draw[bad] (p) to[bend left=30] (q);
+  \draw[bad] (q) to[bend left=30] (p);
+\end{tikzpicture}
+\end{center}
+
+\calculo{\bajo{2-1}{a-c}=1\le 1=\bajo{2-1}{b-d}\qquad\text{y}\qquad \bajo{1-2}{a-c}=-1\le-1=\bajo{1-2}{b-d}}
+
+\begin{explica}
+\textbf{Paso 1, qué hay que romper.} Antisimétrica (Def. 3.2): $xSy\wedge ySx\Rightarrow x=y$. Para que \textbf{no} lo sea basta un caso con $xSy$, $ySx$ y $x\neq y$ (flechas de ida y vuelta entre dos puntos distintos).
+
+\textbf{Paso 2, ¿qué parejas pueden servir?} Con $x=(a,b)$, $y=(c,d)$: $xSy$ dice $a-c\le b-d$ y $ySx$ dice $c-a\le d-b$, que es lo mismo que $a-c\ge b-d$ (se multiplicó por $-1$ y se dio vuelta la desigualdad). Las dos juntas obligan $a-c=b-d$. Así que hay que buscar dos parejas distintas donde la diferencia de las primeras coordenadas sea igual a la de las segundas.
+
+\textbf{Paso 3, elegir.} $(2,2)$ y $(1,1)$: $2-1=1$ y $2-1=1$. Son distintas.
+
+\textbf{Paso 4, cuidar el conjunto.} $\mathbb Z^*=\mathbb Z-\{0\}$: la segunda coordenada no puede ser $0$ (fila tachada en el dibujo). Por eso no se usa algo como $(1,0)$ y $(0,-1)$: $(1,0)$ ni siquiera está en $\mathbb Z\times\mathbb Z^*$. En $(2,2)$ y $(1,1)$ las segundas coordenadas son $2$ y $1$, que no son cero (y además son positivas, así que sirven aunque $\mathbb Z^*$ se leyera como enteros positivos).
+
+\textbf{¿Tiene sentido?} Se revisan las dos desigualdades por separado (ver el cálculo): ambas son ``$\le$'' con los dos lados iguales, que es verdadero.
+\end{explica}
+
+\textbf{Solución (formato de examen).} Se mostrará un contraejemplo. Sean $x=(2,2)$ y $y=(1,1)$, ambos en $\mathbb Z\times\mathbb Z^*$.
+\begin{itemize}[leftmargin=1.2em]
+\item $(2,2)\,S\,(1,1)$, pues $2-1=1\le 1=2-1$.
+\item $(1,1)\,S\,(2,2)$, pues $1-2=-1\le -1=1-2$.
+\end{itemize}
+Así $(2,2)\,S\,(1,1)\wedge(1,1)\,S\,(2,2)$, pero $(2,2)\neq(1,1)$.
+
+\textbf{Respuesta:} con $(2,2)$ y $(1,1)$ se tiene ida y vuelta entre elementos distintos; por lo tanto, $S$ no es antisimétrica.
+
+% ============================================================
+\clearpage
+\section*{Pregunta 8}
+\addcontentsline{toc}{section}{Pregunta 8 --- Prueba con unión, intersección, complemento y composición}
+
+8. Sea $A$ un conjunto no vacío. Considere las relaciones $R$ y $S$ sobre $A$ tales que \colorbox{green!35}{$S$ es simétrica}. Pruebe que \hfill (4 puntos)
+\[a\big[\big(R\cup\overline S\big)\cap S\big]\,b\Longrightarrow a\,(S\circ R)\,a\]
+
+\begin{center}
+\begin{tikzpicture}
+  \node[vert] (a) at (0,0) {$a$};
+  \node[vert] (b) at (3.4,0) {$b$};
+  \draw[ok] (a) to[bend left=30] node[above,font=\scriptsize] {$R$ (1.\textsuperscript{o})} (b);
+  \draw[cam] (b) to[bend left=30] node[below,font=\scriptsize] {$S$ (2.\textsuperscript{o}, por simetría)} (a);
+  \draw[arr,gray] (a) -- node[fill=white,font=\scriptsize] {$S$ (dato)} (b);
+  \draw[bad,dashed] (a) to[loop left,looseness=6] node[left,font=\scriptsize] {$S\circ R$} (a);
+\end{tikzpicture}
+\end{center}
+
+\calculo{\bajo{aRb}{\text{SD}}\ \wedge\ \bajo{bSa}{S \text{ simétrica}}\ \Longrightarrow\ a\,(S\circ R)\,a}
+
+\begin{explica}
+\textbf{Paso 1, abrir la intersección.} Def. $\cap$: estar en $(R\cup\overline S)\cap S$ es estar en las dos. Entonces $a(R\cup\overline S)b$ y $aSb$.
+
+\textbf{Paso 2, abrir la unión.} Def. $\cup$: $a(R\cup\overline S)b$ dice $aRb$ \textbf{o} $a\overline Sb$.
+
+\textbf{Paso 3, descartar $a\overline Sb$.} Def. complemento: $a\overline Sb$ significa $\neg(aSb)$. Pero ya se sabe $aSb$, así que la opción $a\overline Sb$ es falsa. Si de un ``o'' una parte es falsa, queda la otra: eso es el silogismo disyuntivo (SD). Resultado: $aRb$.
+
+\textbf{Paso 4, darle la vuelta a $S$.} $S$ es simétrica (hipótesis), así que de $aSb$ sale $bSa$.
+
+\textbf{Paso 5, armar la composición.} Def. composición: $a(S\circ R)a$ pide un elemento intermedio $x$ con $aRx$ (primero $R$) y $xSa$ (después $S$). El intermedio es $x=b$: se tienen $aRb$ y $bSa$ (Adj.).
+
+\textbf{¿Tiene sentido?} En el dibujo se sale de $a$, se va a $b$ con $R$ (azul) y se regresa a $a$ con $S$ (naranja): un camino de dos flechas de $a$ hasta $a$, que es justo $a(S\circ R)a$.
+\end{explica}
+
+\textbf{Demostración (formato de examen).}
+
+\textbf{HQD:} $a\big[(R\cup\overline S)\cap S\big]b\Rightarrow a(S\circ R)a$.
+
+Sean $a,b\in A$ fijos pero arbitrarios tales que $a\big[(R\cup\overline S)\cap S\big]b$.
+\begin{align*}
+a\big[(R\cup\overline S)\cap S\big]b &\Rightarrow a(R\cup\overline S)b\wedge aSb && \text{Def. }\cap\\
+&\Rightarrow (aRb\vee a\overline Sb)\wedge aSb && \text{Def. }\cup\\
+&\Rightarrow \big(aRb\vee\neg(aSb)\big)\wedge aSb && \text{Def. complemento}\\
+&\Rightarrow aRb\wedge aSb && \text{Simp., SD, Adj.}\\
+&\Rightarrow aRb\wedge bSa && S \text{ simétrica}\\
+&\Rightarrow (\exists x\in A)\,(aRx\wedge xSa),\ x=b && \text{Intro. }\exists\\
+&\Rightarrow a(S\circ R)a && \text{Def. composición}
+\end{align*}
+Por lo tanto, $a\big[(R\cup\overline S)\cap S\big]b\Rightarrow a(S\circ R)a$.
+
+\textbf{Respuesta:} queda probado; el elemento intermedio de la composición es $b$.
+
+\end{document}

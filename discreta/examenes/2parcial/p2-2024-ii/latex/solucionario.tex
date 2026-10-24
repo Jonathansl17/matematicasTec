@@ -1,0 +1,798 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+\usetikzlibrary{arrows.meta,positioning,calc,matrix}
+
+\title{\textbf{Solucionario --- Matemática Discreta}\\[0.3em]\large Segundo Parcial --- II Semestre 2024\\[0.3em]\normalsize Instituto Tecnológico de Costa Rica --- Valor 28 pts --- Tiempo: 2 horas}
+\author{}
+\date{}
+
+% Common TikZ styles for digraphs and matrices
+\tikzset{
+  nodo/.style={circle,draw,thick,minimum size=7mm,inner sep=0pt,font=\small},
+  flecha/.style={-{Stealth[length=2.5mm]},thick},
+  celda/.style={draw=gray!60,minimum size=6mm,inner sep=0pt,font=\small},
+}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+% ============================================================
+% THEORY: INDUCTION AND DIVISIBILITY
+% ============================================================
+\clearpage
+\section*{Teoría 1: inducción matemática y divisibilidad}
+\addcontentsline{toc}{section}{Teoría 1: inducción matemática y divisibilidad}
+
+\begin{minipage}[t]{0.56\textwidth}
+\defi{Inducción matemática (Def.~5.4 del folleto)}{es la forma de demostrar que una propiedad $P(n)$ se cumple para \textbf{todos} los naturales $n\ge n_0$, sin probarlos uno por uno. Se hacen siempre estos pasos:}
+\begin{enumerate}[label=(\alph*),leftmargin=1.6em]
+\item \textbf{Caso base:} se verifica $P(n_0)$, el primer valor.
+\item \textbf{Hipótesis de inducción (H.I.):} se supone que $P(p)$ es cierta para un $p\ge n_0$ fijo pero arbitrario.
+\item \textbf{Paso inductivo:} usando la H.I., se demuestra $P(p+1)$.
+\item \textbf{Conclusión:} por el principio de inducción, $P(n)$ vale para todo $n\ge n_0$.
+\end{enumerate}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.40\textwidth}
+\vspace{0.6em}
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  % first domino falls (base case)
+  \draw[thick,fill=red!25,rotate around={-25:(0.35,0)}] (0,0) rectangle (0.35,1.6);
+  \foreach \i in {1,2,3,4} {
+    \draw[thick,fill=blue!15] (\i*0.9,0) rectangle ++(0.35,1.6);
+  }
+  \draw[thick] (-0.3,0) -- (4.2,0);
+  \node[below,font=\scriptsize] at (0.2,0) {$n_0$};
+  \node[below,font=\scriptsize] at (1.08,0) {$n_0{+}1$};
+  \node[below,font=\scriptsize] at (1.98,0) {$\cdots$};
+  \node[below,font=\scriptsize] at (2.88,0) {$p$};
+  \node[below,font=\scriptsize] at (3.78,0) {$p{+}1$};
+  \draw[->,thick,orange!90!black] (3.05,1.8) to[bend left=40] node[above,font=\scriptsize\bfseries] {si $p$ cae, cae $p{+}1$} (3.9,1.8);
+  \node[red!75!black,font=\scriptsize\bfseries,align=center] at (0.3,2.35) {caso\\base};
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+
+\textbf{¿Por qué funciona?} Es como una fila de dominós. El caso base empuja la primera ficha ($n_0$). El paso inductivo garantiza que \textbf{cualquier} ficha que cae tumba a la siguiente ($p\Rightarrow p+1$). Entonces caen $n_0$, $n_0+1$, $n_0+2$, \dots\ y ninguna queda de pie. Si falta el caso base, nada empieza a caer; si falta el paso inductivo, la cadena se corta.
+
+\textbf{Dónde se usa la H.I.:} en el paso (c) hay que acomodar la expresión de $p+1$ hasta que aparezca la expresión de $p$. Ahí se reemplaza usando la H.I. En este solucionario ese lugar se marca con una llave roja.
+
+\textbf{Mini-ejemplo:} $2^n\ge n+1$ para $n\ge 0$. Base: $2^0=1\ge 1$. H.I.: $2^p\ge p+1$. Paso: $2^{p+1}=2\cdot 2^p\ \ge\ 2(p+1)=2p+2\ \ge\ p+2$, porque $p\ge 0$.
+
+\bigskip
+\begin{minipage}[t]{0.56\textwidth}
+\defi{Divisibilidad (Def.~5.3 del folleto)}{$a$ divide a $b$ cuando $b$ es $a$ multiplicado por algún entero:}
+\[
+a\mid b \iff (\exists k\in\mathbb Z)\ ak=b .
+\]
+Se lee ``$a$ divide a $b$'' o ``$b$ es divisible por $a$''. Para \textbf{demostrar} $10\mid N$ hay que escribir $N$ como $10\cdot(\text{algo})$ y explicar por qué ese ``algo'' es entero.
+
+\textbf{Mini-ejemplo:} $10\mid 250$ porque $250=10\cdot 25$ y $25\in\mathbb Z$.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.40\textwidth}
+\vspace{0.4em}
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \draw[->,thick] (-0.2,0) -- (4.6,0);
+  \foreach \x/\l in {0/0,1/10,2/20,3/30,4/40} {
+    \draw (\x,0.1) -- (\x,-0.1) node[below,font=\scriptsize] {\l};
+  }
+  \foreach \x in {0,1,2} {
+    \draw[->,thick,blue!60!black] (\x,0.1) to[bend left=50] (\x+1,0.1);
+  }
+  \node[blue!60!black,font=\scriptsize\bfseries] at (1.5,0.95) {saltos de 10};
+  \fill[red!75!black] (3,0) circle (2.5pt);
+  \node[red!75!black,font=\scriptsize\bfseries,align=center] at (3,-0.95) {$30=10\cdot 3$\\$k=3$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+
+\textbf{¿Por qué esa definición?} ``Ser divisible por 10'' significa que se llega a $b$ dando saltos completos de tamaño $10$ desde $0$, sin que sobre nada. El número de saltos es $k$, y tiene que ser entero: no se vale dar medio salto.
+
+% ============================================================
+% QUESTION 1
+% ============================================================
+\clearpage
+\section*{Pregunta 1}
+\addcontentsline{toc}{section}{Pregunta 1}
+
+\begin{quote}\small
+Cabe señalar que la pregunta \#1 evalúa el atributo Conocimiento de Ingeniería nivel inicial para el contenido del curso ``Inducción matemática'', el cuál tiene por objetivo: adquirir el principio de la inducción matemática.
+\end{quote}
+
+1. Use el \colorbox{green!35}{método de inducción matemática} para demostrar que:
+\[
+3n+4\le n^2
+\]
+para todo natural \colorbox{green!35}{$n$ con $n\ge 4$.} \hfill (5 puntos)
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  \draw[->,thick] (0,0) -- (10.6,0);
+  \fill[blue!60!black] (1,0) circle (2.5pt) node[above=3pt,font=\small] {$3(p+1)+4$};
+  \fill[blue!60!black] (5,0) circle (2.5pt) node[above=3pt,font=\small] {$p^2+3$};
+  \fill[red!75!black] (9,0) circle (2.5pt) node[above=3pt,font=\small] {$(p+1)^2$};
+  \draw[->,thick,orange!90!black] (1.1,-0.15) to[bend right=25] node[below,font=\scriptsize\bfseries] {por la H.I.} (4.9,-0.15);
+  \draw[->,thick,orange!90!black] (5.1,-0.15) to[bend right=25] node[below,font=\scriptsize\bfseries] {porque $3\le 2p+1$} (8.9,-0.15);
+\end{tikzpicture}
+\end{center}
+
+\calculo{3(p+1)+4=\underbrace{(3p+4)}_{\textcolor{red!75!black}{\le\, p^2\ \text{(H.I.)}}}+3\ \le\ p^2+\bajo{3}{\le\, 2p+1}\ \le\ (p+1)^2}
+
+\begin{explica}
+\textbf{Fórmula:} pasos de inducción de la Def.~5.4 (página de teoría) con $P(n):\ 3n+4\le n^2$ y $n_0=4$.
+
+\textbf{Paso 1, caso base:} el primer natural permitido es $n=4$. Lado izquierdo: $3\cdot 4+4=12+4=16$. Lado derecho: $4^2=16$. Como $16\le 16$, $P(4)$ es cierta (el ``$\le$'' acepta la igualdad).
+
+\textbf{Paso 2, H.I.:} se supone que para un $p\ge 4$ fijo pero arbitrario se cumple $3p+4\le p^2$. No se demuestra: es lo que se permite usar.
+
+\textbf{Paso 3, la meta:} hay que llegar a $P(p+1)$, que se obtiene cambiando cada $n$ por $p+1$: $3(p+1)+4\le (p+1)^2$.
+
+\textbf{Paso 4, hacer aparecer la H.I.:} se reparte el $3$: $3(p+1)+4=3p+3+4$, y se agrupa $3p+4$, que es justo el lado izquierdo de la H.I. Queda $(3p+4)+3$. La H.I. dice que ese paréntesis es a lo sumo $p^2$, así que todo es a lo sumo $p^2+3$ (primera flecha naranja).
+
+\textbf{Paso 5, llegar a $(p+1)^2$:} se sabe que $(p+1)^2=p^2+2p+1$. Comparar $p^2+3$ con $p^2+2p+1$ es comparar $3$ con $2p+1$, porque los dos tienen $p^2$. Como $p\ge 4$, $2p+1\ge 2\cdot 4+1=9\ge 3$. Por eso $p^2+3\le p^2+2p+1$ (segunda flecha).
+
+\textbf{¿Tiene sentido?} Con números: $n=5$ da $19\le 25$; $n=6$ da $22\le 36$; $n=7$ da $25\le 49$. El lado derecho crece mucho más rápido, como dice la demostración. (Para $n=3$ falla: $13\le 9$ es falso; por eso el enunciado pide $n\ge 4$.)
+\end{explica}
+
+\textbf{Demostración formal.}
+
+\textbf{HQD:} $(\forall n\in\mathbb N,\ n\ge 4)\ \ 3n+4\le n^2$.
+
+\textbf{(a) Caso base, $n=4$:} $\ 3\cdot 4+4=16$ y $4^2=16$; como $16\le 16$, la proposición se cumple para $n=4$.
+
+\textbf{(b) Hipótesis de inducción:} sea $p\in\mathbb N$, $p\ge 4$, fijo pero arbitrario, tal que $3p+4\le p^2$.
+
+\textbf{(c) HQD para $n=p+1$:} $3(p+1)+4\le (p+1)^2$.
+\begin{align*}
+3(p+1)+4 &= 3p+3+4 && \text{Dist.}\\
+&= (3p+4)+3 && \text{Con., Aso.}\\
+&\le \underbrace{p^2}_{\textcolor{red!75!black}{\text{H.I.}}}+3 && \text{H.I.}\\
+&\le p^2+2p+1 && 3\le 2p+1 \text{ pues } p\ge 4\\
+&= (p+1)^2 && \text{Factor}
+\end{align*}
+Así, $3(p+1)+4\le (p+1)^2$. Por el principio de inducción matemática, $3n+4\le n^2$ para todo natural $n\ge 4$.
+
+\textbf{Respuesta:} queda demostrado por inducción que $3n+4\le n^2$ para todo natural $n\ge 4$.
+
+% ============================================================
+% QUESTION 2
+% ============================================================
+\clearpage
+\section*{Pregunta 2}
+\addcontentsline{toc}{section}{Pregunta 2}
+
+2. Utilice el método de inducción matemática para demostrar que $3^{4n+1}+7$ es \colorbox{green!35}{divisible por 10} para todo entero \colorbox{green!35}{$n\in\mathbb N$.} \hfill (4 puntos)
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|c|c|c|}
+\hline
+$n$ & $3^{4n+1}+7$ & como $10\cdot k$\\ \hline
+$0$ & $3^1+7=10$ & $10\cdot 1$\\ \hline
+$1$ & $3^5+7=250$ & $10\cdot 25$\\ \hline
+$2$ & $3^9+7=19\,690$ & $10\cdot 1969$\\ \hline
+\end{tabular}
+\end{center}
+
+\calculo{3^{4p+5}+7=81\cdot\underbrace{3^{4p+1}}_{\textcolor{red!75!black}{10k-7\ \text{(H.I.)}}}+7=810k-560=10\,\bajo{(81k-56)}{\in\,\mathbb Z}}
+
+\begin{explica}
+\textbf{Fórmula:} pasos de inducción (Def.~5.4) y divisibilidad (Def.~5.3): $10\mid N\iff(\exists k\in\mathbb Z)\ 10k=N$.
+
+\textbf{Paso 1, caso base:} en el curso $\mathbb N=\{0,1,2,\dots\}$, así que el primer valor es $n=0$: $3^{4\cdot 0+1}+7=3^1+7=10=10\cdot 1$, con $1\in\mathbb Z$. Se cumple. (Si se toma $\mathbb N$ desde $1$, la base sería $3^5+7=250=10\cdot 25$, y el resto es idéntico.)
+
+\textbf{Paso 2, H.I.:} se supone que $10\mid 3^{4p+1}+7$, es decir, por la Def.~5.3 existe $k\in\mathbb Z$ con $3^{4p+1}+7=10k$. Despejando: $3^{4p+1}=10k-7$. Ese despeje es la herramienta que se va a usar.
+
+\textbf{Paso 3, la meta:} cambiando $n$ por $p+1$ en el exponente: $4(p+1)+1=4p+4+1=4p+5$. Hay que probar que $3^{4p+5}+7$ es $10$ por un entero.
+
+\textbf{Paso 4, hacer aparecer la H.I.:} el exponente $4p+5$ es $4+(4p+1)$. Por la regla de potencias de igual base ($x^{a+b}=x^a\cdot x^b$), $3^{4p+5}=3^4\cdot 3^{4p+1}=81\cdot 3^{4p+1}$. Ahí aparece $3^{4p+1}$, que la H.I. permite cambiar por $10k-7$.
+
+\textbf{Paso 5, la cuenta:} $81(10k-7)+7=810k-567+7=810k-560$. Los dos números terminan en $0$, así que se saca el $10$: $10(81k-56)$. Como $k$ es entero, $81k-56$ también es entero (producto y resta de enteros).
+
+\textbf{¿Tiene sentido?} Con $n=1$ ($p=0$, $k=1$): $81\cdot 1-56=25$, y efectivamente $3^5+7=250=10\cdot 25$. Coincide con la tabla.
+\end{explica}
+
+\textbf{Demostración formal.}
+
+\textbf{HQD:} $(\forall n\in\mathbb N)\ \ 10\mid 3^{4n+1}+7$.
+
+\textbf{(a) Caso base, $n=0$:} $\ 3^{4\cdot 0+1}+7=3+7=10=10\cdot 1$, con $1\in\mathbb Z$; por Def.~5.3, $10\mid 3^{1}+7$.
+
+\textbf{(b) Hipótesis de inducción:} sea $p\in\mathbb N$ fijo pero arbitrario tal que $10\mid 3^{4p+1}+7$, es decir, $(\exists k\in\mathbb Z)\ 3^{4p+1}+7=10k$, de donde $3^{4p+1}=10k-7$.
+
+\textbf{(c) HQD para $n=p+1$:} $10\mid 3^{4(p+1)+1}+7$.
+\begin{align*}
+3^{4(p+1)+1}+7 &= 3^{4p+5}+7 && \text{Op.}\\
+&= 3^{4}\cdot 3^{4p+1}+7 && \text{Potencias de igual base}\\
+&= 81\cdot\underbrace{(10k-7)}_{\textcolor{red!75!black}{\text{H.I.}}}+7 && \text{H.I., Sust.}\\
+&= 810k-567+7 && \text{Dist.}\\
+&= 810k-560 && \text{Op.}\\
+&= 10(81k-56) && \text{Factor}\\
+&= 10k_1,\quad k_1=81k-56\in\mathbb Z && \text{Def. } k_1
+\end{align*}
+Por la Def.~5.3, $10\mid 3^{4(p+1)+1}+7$. Por el principio de inducción matemática, $10\mid 3^{4n+1}+7$ para todo $n\in\mathbb N$.
+
+\textbf{Respuesta:} $3^{4n+1}+7$ es divisible por $10$ para todo $n\in\mathbb N$.
+
+% ============================================================
+% THEORY: RECURRENCES
+% ============================================================
+\clearpage
+\section*{Teoría 2: recurrencias lineales homogéneas}
+\addcontentsline{toc}{section}{Teoría 2: recurrencias lineales homogéneas}
+
+\defi{Fórmula por recurrencia}{dice cómo se calcula cada término a partir de los anteriores, junto con los primeros términos (condiciones iniciales). La \textbf{fórmula explícita} da $a_n$ directamente con $n$, sin usar los anteriores.}
+
+\begin{minipage}[t]{0.55\textwidth}
+\defi{Recurrencia lineal homogénea de orden 3}{}
+\[
+a_n=c_1a_{n-1}+c_2a_{n-2}+c_3a_{n-3},\qquad n\ge 3,
+\]
+con $a_0,a_1,a_2$ dados. ``Homogénea'' quiere decir que no sobra ningún término sin $a$.
+
+\defi{Ecuación característica}{se cambia cada término por una potencia de $x$, bajando un exponente por cada paso hacia atrás:}
+\[
+x^3=c_1x^2+c_2x+c_3 .
+\]
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\textwidth}
+\vspace{1.2em}
+\begin{center}
+\begin{tikzpicture}[font=\small]
+  \foreach \i/\a/\x in {0/a_n/x^3,1/a_{n-1}/x^2,2/a_{n-2}/x,3/a_{n-3}/1} {
+    \node[draw,thick,blue!60!black,minimum width=12mm,minimum height=7mm] (a\i) at (\i*1.4,1.4) {$\a$};
+    \node[draw,thick,red!75!black,minimum width=12mm,minimum height=7mm] (x\i) at (\i*1.4,0) {$\x$};
+    \draw[{Stealth}-{Stealth},thick,orange!90!black] (a\i) -- (x\i);
+  }
+  \node[font=\scriptsize\bfseries,orange!90!black] at (2.1,2.15) {diccionario $x^k\ \leftrightarrow\ a_{n-3+k}$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+
+\textbf{¿Por qué?} Si se prueba una solución de la forma $a_n=r^n$, la recurrencia queda $r^n=c_1r^{n-1}+c_2r^{n-2}+c_3r^{n-3}$; dividiendo entre $r^{n-3}$ queda $r^3=c_1r^2+c_2r+c_3$. O sea, $r^n$ sirve exactamente cuando $r$ es raíz de la ecuación característica.
+
+\begin{minipage}[t]{0.55\textwidth}
+\defi{Raíces y multiplicidad}{si $r$ es raíz con multiplicidad $m$ (el factor $(x-r)$ aparece $m$ veces), aporta a la fórmula explícita}
+\[
+(c_0+c_1n+\dots+c_{m-1}n^{m-1})\,r^n .
+\]
+Raíz simple ($m=1$): solo una constante por $r^n$. Raíz doble ($m=2$): $(c_0+c_1n)\,r^n$, un polinomio de grado $1$.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\textwidth}
+\vspace{0.6em}
+\begin{center}
+\begin{tikzpicture}[font=\small]
+  \node[draw,thick,fill=blue!8,align=center] (f) at (0,0) {$(\,\underbrace{c_0+c_1n}_{\text{grado }1}\,)\cdot \underbrace{5^n}_{\text{base}}$};
+  \node[red!75!black,font=\scriptsize\bfseries,align=center] at (-1.1,-1.35) {grado $+1$\\$=$ multiplicidad $2$};
+  \node[red!75!black,font=\scriptsize\bfseries,align=center] at (1.3,-1.35) {raíz $r=5$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+
+\textbf{De explícita a recurrencia (lo que pide el examen):}
+\begin{enumerate}[leftmargin=1.6em]
+\item Escribir la explícita como suma de (polinomio en $n$)$\cdot r^n$, juntando todo lo que tenga la misma base.
+\item Cada base $r$ es una raíz; su multiplicidad es el grado del polinomio que la acompaña, más $1$.
+\item Polinomio característico: $\prod (x-r)^m$; el grado total es el orden de la recurrencia. Se expande.
+\item Se traduce con el diccionario $x^k\leftrightarrow a_{n-3+k}$ y se calculan $a_0,a_1,a_2$ con la explícita.
+\end{enumerate}
+
+\textbf{Mini-ejemplo:} $a_n=2^n+3^n$. Raíces $2$ y $3$ (simples). $(x-2)(x-3)=x^2-5x+6$, o sea $x^2=5x-6$, que se traduce $a_n=5a_{n-1}-6a_{n-2}$, con $a_0=2$, $a_1=5$. Verificación: $a_2=5\cdot 5-6\cdot 2=13=4+9$.
+
+% ============================================================
+% QUESTION 3
+% ============================================================
+\clearpage
+\section*{Pregunta 3}
+\addcontentsline{toc}{section}{Pregunta 3}
+
+3. Determine una \colorbox{green!35}{fórmula por recurrencia} de la sucesión cuya fórmula explícita es
+\[
+a_n=2^n+5^{n+1}-n\cdot 5^{n+2}
+\]
+para $n\ge 0$. \hfill (4 puntos)
+
+\calculo{a_n=\bajo{1}{\text{grado }0}\cdot 2^n+\bajo{(5-25n)}{\text{grado }1}\cdot 5^n\ \Rightarrow\ (x-2)(x-5)^2}
+
+\calculo{a_n=12a_{n-1}-45a_{n-2}+50a_{n-3}}
+
+\begin{explica}
+\textbf{Fórmula:} raíz $r$ de multiplicidad $m$ $\leftrightarrow$ término $(c_0+\dots+c_{m-1}n^{m-1})r^n$; diccionario $x^k\leftrightarrow a_{n-3+k}$ (Teoría 2).
+
+\textbf{Paso 1, juntar por bases:} los términos tienen exponentes $n+1$ y $n+2$; hay que dejarlos con $5^n$. Por potencias de igual base: $5^{n+1}=5\cdot 5^n$ y $n\cdot 5^{n+2}=n\cdot 25\cdot 5^n=25n\cdot 5^n$. Entonces $a_n=1\cdot 2^n+(5-25n)\cdot 5^n$.
+
+\textbf{Paso 2, leer raíces y multiplicidades:} la base $2$ va acompañada de la constante $1$ (grado $0$), así que $2$ es raíz de multiplicidad $0+1=1$. La base $5$ va acompañada de $5-25n$ (grado $1$), así que $5$ es raíz de multiplicidad $1+1=2$.
+
+\textbf{¿Por qué el grado da la multiplicidad?} Una raíz doble aporta $(c_0+c_1n)5^n$; si $5$ fuera simple, la fórmula no podría tener la $n$ multiplicando a $5^n$.
+
+\textbf{Paso 3, polinomio característico:} $(x-2)(x-5)^2$, de grado $1+2=3$, así que la recurrencia es de orden 3. Primero $(x-5)^2=x^2-10x+25$. Luego $(x-2)(x^2-10x+25)=x^3-10x^2+25x-2x^2+20x-50=x^3-12x^2+45x-50$.
+
+\textbf{Paso 4, traducir:} se iguala a cero y se despeja $x^3$: $x^3=12x^2-45x+50$. Con el diccionario: $x^3\to a_n$, $x^2\to a_{n-1}$, $x\to a_{n-2}$, $1\to a_{n-3}$. Queda $a_n=12a_{n-1}-45a_{n-2}+50a_{n-3}$, válida para $n\ge 3$ (necesita tres términos anteriores).
+
+\textbf{Paso 5, condiciones iniciales} (se evalúa la explícita original):
+$a_0=2^0+5^1-0\cdot 5^2=1+5-0=6$;\quad
+$a_1=2^1+5^2-1\cdot 5^3=2+25-125=-98$;\quad
+$a_2=2^2+5^3-2\cdot 5^4=4+125-1250=-1121$.
+
+\textbf{¿Tiene sentido?} Se calcula $a_3$ de las dos formas. Explícita: $2^3+5^4-3\cdot 5^5=8+625-9375=-8742$. Recurrencia: $12(-1121)-45(-98)+50(6)=-13452+4410+300=-8742$. Coinciden.
+\end{explica}
+
+\textbf{Respuesta:}
+\[
+\begin{cases}
+a_n=12a_{n-1}-45a_{n-2}+50a_{n-3}, & n\ge 3,\\
+a_0=6,\quad a_1=-98,\quad a_2=-1121.
+\end{cases}
+\]
+
+% ============================================================
+% THEORY: RELATIONS, MATRICES, COMPOSITION, COMPLEMENT
+% ============================================================
+\clearpage
+\section*{Teoría 3: relaciones, matriz asociada y composición}
+\addcontentsline{toc}{section}{Teoría 3: relaciones, matriz asociada y composición}
+
+\begin{minipage}[t]{0.56\textwidth}
+\defi{Relación y gráfico (Def.~3.1)}{una relación $\mathcal R$ de $A$ en $B$ es una regla que dice qué parejas están relacionadas. Su \textbf{gráfico} es el conjunto de esas parejas:}
+\[
+a\mathcal Rb\iff (a,b)\in G_{\mathcal R}\subseteq A\times B .
+\]
+Cada pareja $(a,b)$ se dibuja como una flecha que sale de $a$ y llega a $b$. Si $A=B$ se dice ``relación sobre $A$''.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.40\textwidth}
+\vspace{0.3em}
+\begin{center}
+\begin{tikzpicture}[font=\small]
+  \draw[thick] (0,0) ellipse (0.6 and 1.1);
+  \draw[thick] (2.6,0) ellipse (0.6 and 1.1);
+  \node at (0,1.4) {$A$}; \node at (2.6,1.4) {$B$};
+  \node (a1) at (0,0.5) {$1$}; \node (a2) at (0,-0.5) {$2$};
+  \node (b1) at (2.6,0.5) {$x$}; \node (b2) at (2.6,-0.5) {$y$};
+  \draw[flecha,blue!60!black] (a1) -- (b2);
+  \draw[flecha,blue!60!black] (a2) -- (b2);
+  \node[font=\scriptsize,blue!60!black] at (1.3,-1.45) {$G=\{(1,y),(2,y)\}$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+
+\begin{minipage}[t]{0.52\textwidth}
+\defi{Matriz asociada}{con $A=\{a_1,\dots,a_n\}$ en un orden fijo (el orden en que se escribe el conjunto):}
+\[
+M_{\mathcal R}[i,j]=1\iff a_i\,\mathcal R\,a_j .
+\]
+\textbf{Cómo leerla:} la \textbf{fila} es el elemento de donde sale la flecha (primer elemento del par) y la \textbf{columna} es el elemento adonde llega (segundo elemento). Con $A=\{2,3,7,8\}$ las filas y las columnas son, en orden, $2,3,7,8$.
+
+\textbf{Gráfico $\to$ matriz:} por cada par $(a,b)$ se pone un $1$ en fila $a$, columna $b$; el resto son $0$. \textbf{Matriz $\to$ gráfico:} se recorre fila por fila y cada $1$ da un par (fila, columna).
+\end{minipage}\hfill
+\begin{minipage}[t]{0.44\textwidth}
+\vspace{0.2em}
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,nodes={celda},column sep=-\pgflinewidth,row sep=-\pgflinewidth] {
+    0 & 1 & 0 & |[fill=orange!40]| 1 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 1 \\
+    1 & 0 & 0 & 1 \\
+  };
+  \foreach \i/\l in {1/2,2/3,3/7,4/8} {
+    \node[left=2pt,font=\small\bfseries,red!75!black] at (m-\i-1.west) {\l};
+    \node[above=2pt,font=\small\bfseries,blue!60!black] at (m-1-\i.north) {\l};
+  }
+  \node[red!75!black,font=\scriptsize\bfseries,rotate=90] at ($(m-2-1.west)+(-0.75,-0.3)$) {fila: sale};
+  \node[blue!60!black,font=\scriptsize\bfseries] at ($(m-1-2.north)+(0.3,0.6)$) {columna: llega};
+  \node[orange!90!black,font=\scriptsize\bfseries,align=center] at ($(m-4-4.south)+(-0.9,-0.6)$) {fila 2, columna 8 $\Rightarrow (2,8)$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+
+\bigskip
+\begin{minipage}[t]{0.52\textwidth}
+\defi{Composición (Def.~3.1)}{}
+\[
+a\,(\mathcal S\circ\mathcal R)\,c\iff(\exists b)\ a\mathcal Rb\wedge b\mathcal Sc .
+\]
+En palabras: se puede ir de $a$ a $c$ caminando \textbf{primero} una flecha de $\mathcal R$ y \textbf{luego} una flecha de $\mathcal S$. El elemento intermedio $b$ es la ``escala''.
+
+\textbf{El orden:} en $\mathcal S\circ\mathcal R$ se lee de derecha a izquierda, como en funciones $g(f(x))$: primero actúa la de la derecha. Por eso $\mathcal R\circ\mathcal S$ es \textbf{primero $\mathcal S$, luego $\mathcal R$}.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.44\textwidth}
+\vspace{0.4em}
+\begin{center}
+\begin{tikzpicture}[font=\small]
+  \foreach \x/\n in {0/A,1.8/A,3.6/A} { \draw[thick,gray] (\x,0) ellipse (0.45 and 1.0); \node at (\x,-1.25) {$\n$}; }
+  \node (a) at (0,0.3) {$a$};
+  \node (b) at (1.8,-0.2) {$b$};
+  \node (c) at (3.6,0.3) {$c$};
+  \draw[flecha,blue!60!black] (a) -- node[below,font=\scriptsize] {$\mathcal R$} (b);
+  \draw[flecha,green!50!black] (b) -- node[below,font=\scriptsize] {$\mathcal S$} (c);
+  \draw[flecha,orange!90!black,dashed] (a) to[bend left=35] node[above,font=\scriptsize\bfseries] {$\mathcal S\circ\mathcal R$} (c);
+  \node[font=\scriptsize,align=center] at (1.8,-1.75) {1.\ $\mathcal R$ \quad 2.\ $\mathcal S$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+
+\clearpage
+\begin{minipage}[t]{0.50\textwidth}
+\defi{Producto booleano}{igual que el producto de matrices, pero sumar es ``o'' ($\vee$) y multiplicar es ``y'' ($\wedge$): la casilla $[i,j]$ vale $1$ si \textbf{algún} $k$ tiene un $1$ en la fila $i$ de la primera \textbf{y} un $1$ en la columna $j$ de la segunda.}
+\[
+M_{\mathcal S\circ\mathcal R}=M_{\mathcal R}\odot M_{\mathcal S}.
+\]
+(La matriz de la relación que actúa primero va primero.)
+
+\textbf{Fila por fila (más rápido):} la fila $i$ del producto es el ``o'' de las filas de la segunda matriz indicadas por los $1$ de la fila $i$ de la primera.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.46\textwidth}
+\vspace{0.2em}
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m1) [matrix of math nodes,nodes={celda}] {
+    |[fill=orange!40]| 1 & |[fill=orange!40]| 0 \\ 1 & 1 \\ };
+  \node at ($(m1.east)+(0.35,0)$) {$\odot$};
+  \matrix (m2) [matrix of math nodes,nodes={celda}] at ($(m1.east)+(1.3,0)$) {
+    0 & |[fill=orange!40]| 1 \\ 1 & |[fill=orange!40]| 0 \\ };
+  \node at ($(m2.east)+(0.35,0)$) {$=$};
+  \matrix (m3) [matrix of math nodes,nodes={celda}] at ($(m2.east)+(1.3,0)$) {
+    0 & |[fill=orange!40]| 1 \\ 1 & 1 \\ };
+  \node[orange!90!black,font=\scriptsize\bfseries,align=center] at ($(m2.south)+(0,-0.75)$) {fila 1 $\times$ columna 2:\\$(1\wedge 1)\vee(0\wedge 0)=1$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+
+\textbf{¿Por qué funciona?} El $k$ que se recorre es justamente el elemento intermedio $b$ de la composición: ``fila $i$ tiene $1$ en $k$'' es $a_i\mathcal Ra_k$ y ``columna $j$ tiene $1$ en $k$'' es $a_k\mathcal Sa_j$. El ``o'' pregunta si existe \textbf{al menos una} escala.
+
+\begin{minipage}[t]{0.56\textwidth}
+\defi{Complemento de una relación}{son las parejas que \textbf{no} están en la relación:}
+\[
+G_{\overline{\mathcal R}}=(A\times A)-G_{\mathcal R}.
+\]
+En la matriz basta cambiar cada $0$ por $1$ y cada $1$ por $0$.
+
+\textbf{Control de conteo:} $|A\times A|=|A|^2$, así que $|G_{\overline{\mathcal R}}|=|A|^2-|G_{\mathcal R}|$.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.40\textwidth}
+\vspace{0.2em}
+\begin{center}
+\begin{tikzpicture}
+  \matrix (n1) [matrix of math nodes,nodes={celda}] { 1 & 0 \\ 1 & 1 \\ };
+  \matrix (n2) [matrix of math nodes,nodes={celda,fill=red!12}] at ($(n1.east)+(2.0,0)$) { 0 & 1 \\ 0 & 0 \\ };
+  \draw[flecha,red!75!black] ($(n1.east)+(0.2,0)$) -- node[above,font=\scriptsize\bfseries] {$0\leftrightarrow 1$} ($(n2.west)+(-0.2,0)$);
+  \node[font=\scriptsize] at ($(n1.south)+(0,-0.3)$) {$M_{\mathcal R}$};
+  \node[font=\scriptsize] at ($(n2.south)+(0,-0.3)$) {$M_{\overline{\mathcal R}}$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+
+% ============================================================
+% QUESTION 4
+% ============================================================
+\clearpage
+\section*{Pregunta 4}
+\addcontentsline{toc}{section}{Pregunta 4}
+
+4. Considere el conjunto $A=\{2,3,7,8\}$ y sea $\mathcal R$ una relación sobre $A$ cuya matriz asociada es
+\[
+M_{\mathcal R}=\begin{pmatrix}0&1&0&1\\0&1&0&0\\0&0&1&1\\1&0&0&1\end{pmatrix}
+\]
+y sea $\mathcal S$ otra relación que cumple que
+\[
+a\mathcal Sb\quad\Leftrightarrow\quad (a+b)\ \text{es par.}
+\]
+Determine el \colorbox{green!35}{gráfico de la relación $\overline{\mathcal R\circ\mathcal S}$.} \hfill (4 puntos)
+
+\begin{center}
+\begin{tikzpicture}[font=\small]
+  \foreach \x/\t in {0/A,2.6/A,5.2/A} { \node at (\x,2.9) {$\t$}; }
+  \node[green!50!black,font=\scriptsize\bfseries] at (1.3,2.9) {1.\ $\mathcal S$};
+  \node[blue!60!black,font=\scriptsize\bfseries] at (3.9,2.9) {2.\ $\mathcal R$};
+  \foreach \c/\x in {L/0,M/2.6,D/5.2} {
+    \foreach \v/\y in {2/2.1,3/1.4,7/0.7,8/0} { \node[nodo] (\c\v) at (\x,\y) {\v}; }
+  }
+  % S: same parity
+  \foreach \a/\b in {2/2,2/8,3/3,3/7,7/3,7/7,8/2,8/8} { \draw[flecha,green!50!black] (L\a) -- (M\b); }
+  % R from the matrix
+  \foreach \a/\b in {2/3,2/8,3/3,7/7,7/8,8/2,8/8} { \draw[flecha,blue!60!black] (M\a) -- (D\b); }
+  % node 7 on the right receives only from 7
+  \draw[very thick,red!75!black] (D7) circle (4.6mm);
+\end{tikzpicture}
+\hspace{1.2cm}
+\begin{tikzpicture}[font=\small]
+  \node[nodo] (n2) at (0,1.8) {2};
+  \node[nodo] (n3) at (1.8,1.8) {3};
+  \node[nodo] (n7) at (1.8,0) {7};
+  \node[nodo] (n8) at (0,0) {8};
+  \draw[flecha,red!75!black] (n2) to[bend left=12] (n7);
+  \draw[flecha,red!75!black] (n7) to[bend left=12] (n2);
+  \draw[flecha,red!75!black] (n3) -- (n2);
+  \draw[flecha,red!75!black] (n8) -- (n7);
+  \node[red!75!black,font=\scriptsize\bfseries] at (0.9,-0.75) {$\overline{\mathcal R\circ\mathcal S}$};
+\end{tikzpicture}
+\end{center}
+
+\calculo{G_{\overline{\mathcal R\circ\mathcal S}}=\bajo{(A\times A)}{16\ \text{pares}}-\bajo{G_{\mathcal R\circ\mathcal S}}{12\ \text{pares}}=\{(2,7),(3,2),(7,2),(8,7)\}}
+
+\begin{explica}
+\textbf{Fórmula:} $a(\mathcal R\circ\mathcal S)c\iff(\exists b)\ a\mathcal Sb\wedge b\mathcal Rc$, así que $M_{\mathcal R\circ\mathcal S}=M_{\mathcal S}\odot M_{\mathcal R}$; luego $G_{\overline{\mathcal R\circ\mathcal S}}=(A\times A)-G_{\mathcal R\circ\mathcal S}$ (Teoría 3).
+
+\textbf{Paso 1, gráfico de $\mathcal R$:} se lee la matriz con filas y columnas en el orden $2,3,7,8$. Fila de $2$: $(0,1,0,1)$, unos en las columnas $3$ y $8$, así que $2\mathcal R3$ y $2\mathcal R8$. Fila de $3$: un $1$ en la columna $3$. Fila de $7$: columnas $7$ y $8$. Fila de $8$: columnas $2$ y $8$.
+\[
+G_{\mathcal R}=\{(2,3),(2,8),(3,3),(7,7),(7,8),(8,2),(8,8)\}.
+\]
+
+\textbf{Paso 2, gráfico de $\mathcal S$:} $a+b$ es par cuando $a$ y $b$ son los dos pares o los dos impares. Los pares de $A$ son $2,8$ y los impares son $3,7$. Así:
+\[
+G_{\mathcal S}=\{(2,2),(2,8),(8,2),(8,8),(3,3),(3,7),(7,3),(7,7)\},\qquad
+M_{\mathcal S}=\begin{pmatrix}1&0&0&1\\0&1&1&0\\0&1&1&0\\1&0&0&1\end{pmatrix}.
+\]
+
+\textbf{Paso 3, el orden:} en $\mathcal R\circ\mathcal S$ actúa \textbf{primero $\mathcal S$} (la de la derecha) y luego $\mathcal R$. Por eso la matriz de $\mathcal S$ va primero en el producto (dibujo: flechas verdes y después azules).
+
+\textbf{Paso 4, producto booleano fila por fila:} la fila de $2$ en $M_{\mathcal S}$ tiene unos en $2$ y $8$, entonces se hace el ``o'' de las filas $2$ y $8$ de $M_{\mathcal R}$. Lo mismo con las demás:
+\begin{align*}
+\text{fila } 2&:\ (0,1,0,1)\vee(1,0,0,1)=(1,1,0,1) &&\text{filas 2 y 8 de } M_{\mathcal R}\\
+\text{fila } 3&:\ (0,1,0,0)\vee(0,0,1,1)=(0,1,1,1) &&\text{filas 3 y 7 de } M_{\mathcal R}\\
+\text{fila } 7&:\ (0,1,0,0)\vee(0,0,1,1)=(0,1,1,1) &&\text{filas 3 y 7 de } M_{\mathcal R}\\
+\text{fila } 8&:\ (0,1,0,1)\vee(1,0,0,1)=(1,1,0,1) &&\text{filas 2 y 8 de } M_{\mathcal R}
+\end{align*}
+
+\textbf{Paso 5, complemento:} se cambia $0\leftrightarrow 1$ y se lee cada $1$ como par (fila, columna):
+\[
+M_{\mathcal R\circ\mathcal S}=\begin{pmatrix}1&1&0&1\\0&1&1&1\\0&1&1&1\\1&1&0&1\end{pmatrix}
+\ \Longrightarrow\
+M_{\overline{\mathcal R\circ\mathcal S}}=\begin{pmatrix}0&0&\mathbf{1}&0\\\mathbf{1}&0&0&0\\\mathbf{1}&0&0&0\\0&0&\mathbf{1}&0\end{pmatrix}.
+\]
+El $1$ de la fila $2$ está en la columna $7$: par $(2,7)$. Fila $3$, columna $2$: $(3,2)$. Fila $7$, columna $2$: $(7,2)$. Fila $8$, columna $7$: $(8,7)$.
+
+\textbf{¿Tiene sentido?} $(2,7)$: desde $2$, $\mathcal S$ solo lleva a $2$ y $8$, y desde ellos $\mathcal R$ solo llega a $3,8,2$; nunca a $7$ (en el dibujo, al $7$ de la derecha solo llega una flecha azul, desde $7$, y a ese $7$ solo se llega desde los impares). Conteo: $G_{\mathcal R\circ\mathcal S}$ tiene $3+3+3+3=12$ pares y $16-12=4$. Coincide.
+\end{explica}
+
+\textbf{Respuesta:}
+\[
+G_{\mathcal R\circ\mathcal S}=\{(2,2),(2,3),(2,8),(3,3),(3,7),(3,8),(7,3),(7,7),(7,8),(8,2),(8,3),(8,8)\},
+\]
+\[
+G_{\overline{\mathcal R\circ\mathcal S}}=\{(2,7),\ (3,2),\ (7,2),\ (8,7)\}.
+\]
+
+% ============================================================
+% THEORY: PROPERTIES AND EQUIVALENCE
+% ============================================================
+\clearpage
+\section*{Teoría 4: propiedades, equivalencia y clases}
+\addcontentsline{toc}{section}{Teoría 4: propiedades, equivalencia y clases}
+
+\begin{minipage}[t]{0.62\textwidth}
+\defi{Reflexiva (Def.~3.2)}{todo elemento se relaciona consigo mismo: $(\forall a)\ a\mathcal Ra$. En el dibujo, cada punto tiene su lazo.}
+\defi{Simétrica}{$(\forall a,b)\ a\mathcal Rb\Rightarrow b\mathcal Ra$. Toda flecha tiene su flecha de regreso.}
+\defi{Transitiva}{$(\forall a,b,c)\ a\mathcal Rb\wedge b\mathcal Rc\Rightarrow a\mathcal Rc$. Si se puede ir de $a$ a $c$ en dos pasos, también hay atajo directo.}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.34\textwidth}
+\vspace{0.2em}
+\begin{center}
+\begin{tikzpicture}[font=\small]
+  \node[nodo] (r) at (0,0) {$a$};
+  \draw[flecha,blue!60!black] (r) edge[loop above,looseness=8] (r);
+  \node[nodo] (s1) at (1.2,0) {$a$}; \node[nodo] (s2) at (2.5,0) {$b$};
+  \draw[flecha,blue!60!black] (s1) to[bend left=25] (s2);
+  \draw[flecha,blue!60!black] (s2) to[bend left=25] (s1);
+  \node[nodo] (t1) at (0.3,-1.9) {$a$}; \node[nodo] (t2) at (1.3,-1.0) {$b$}; \node[nodo] (t3) at (2.3,-1.9) {$c$};
+  \draw[flecha,blue!60!black] (t1) -- (t2); \draw[flecha,blue!60!black] (t2) -- (t3);
+  \draw[flecha,orange!90!black,dashed] (t1) -- (t3);
+  \node[font=\scriptsize] at (0,-0.55) {refl.}; \node[font=\scriptsize] at (1.85,-0.55) {sim.};
+  \node[font=\scriptsize] at (1.3,-2.4) {trans.};
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+
+\begin{minipage}[t]{0.56\textwidth}
+\defi{Relación de equivalencia}{es reflexiva, simétrica y transitiva a la vez. Se comporta como ``ser parecido a'' en algún aspecto.}
+\defi{Clase de equivalencia}{todos los que se relacionan con $a$:}
+\[
+\overline{a}=\{x\in A:\ x\mathcal Ra\}.
+\]
+Las clases parten el conjunto en ``cajas'' sin elementos compartidos; el conjunto de cajas es el cociente $A/\mathcal R$.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.40\textwidth}
+\vspace{0.3em}
+\begin{center}
+\begin{tikzpicture}[font=\small]
+  \draw[thick,fill=blue!10] (0,0) rectangle (1.3,1.6);
+  \draw[thick,fill=green!12] (1.3,0) rectangle (2.6,1.6);
+  \draw[thick,fill=orange!15] (2.6,0) rectangle (3.9,1.6);
+  \node at (0.65,1.1) {$0\ \ 3$}; \node at (0.65,0.5) {$6$};
+  \node at (1.95,1.1) {$1\ \ 4$}; \node at (1.95,0.5) {$7$};
+  \node at (3.25,1.1) {$2$}; \node at (3.25,0.5) {$5$};
+  \node[font=\scriptsize] at (0.65,-0.3) {$\overline 0$};
+  \node[font=\scriptsize] at (1.95,-0.3) {$\overline 1$};
+  \node[font=\scriptsize] at (3.25,-0.3) {$\overline 2$};
+  \node[font=\scriptsize,align=center] at (1.95,2.05) {$a\mathcal Rb\iff 3\mid a-b$ en $\{0,\dots,7\}$};
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+
+\textbf{¿Por qué las tres propiedades?} Reflexiva asegura que cada elemento está en su propia caja ($a\in\overline a$). Simétrica asegura que ``estar en la misma caja'' no depende de quién se nombra primero. Transitiva asegura que si $a$ está con $b$ y $b$ con $c$, los tres comparten caja. Así las cajas no se enciman.
+
+\textbf{Cómo se demuestra cada una (formato del curso):} se escribe HQD con la definición, se toman elementos ``fijos pero arbitrarios'', se desarma la hipótesis con la Def.~de $\mathcal R$ (aparece un $k$), se opera y se arma un nuevo entero $k_1$ con la forma pedida. Si el $k_1$ es entero, se concluye con la Def.~de $\mathcal R$.
+
+% ============================================================
+% QUESTION 5a
+% ============================================================
+\clearpage
+\section*{Pregunta 5a}
+\addcontentsline{toc}{section}{Pregunta 5a}
+
+5. Sobre el conjunto $\mathbb R$ se define la relación $\mathcal R$ de la siguiente manera
+\[
+a\mathcal Rb\Leftrightarrow(\exists k\in\mathbb Z)\left(a-b=k\sqrt2\right)
+\]
+(a) Demuestre que $\mathcal R$ es una \colorbox{green!35}{relación de equivalencia.} \hfill (5 puntos)
+
+\begin{center}
+\begin{tikzpicture}[font=\small,x=1.15cm]
+  \draw[->,thick] (-0.4,0) -- (9.4,0);
+  \foreach \x/\l in {1/a,5.2/b,8.0/c} { \fill[blue!60!black] (\x,0) circle (2.5pt) node[below=3pt] {$\l$}; }
+  \draw[->,thick,blue!60!black] (1,0.15) to[bend left=30] node[above,font=\scriptsize\bfseries] {$a-b=k_1\sqrt2$} (5.2,0.15);
+  \draw[->,thick,blue!60!black] (5.2,0.15) to[bend left=30] node[above,font=\scriptsize\bfseries] {$b-c=k_2\sqrt2$} (8.0,0.15);
+  \draw[->,thick,orange!90!black,dashed] (1,-0.45) to[bend right=18] node[below,font=\scriptsize\bfseries] {$a-c=(k_1+k_2)\sqrt2$} (8.0,-0.45);
+\end{tikzpicture}
+\end{center}
+
+\calculo{k=\bajo{0}{\text{refl.}}\qquad k_1=\bajo{-k}{\text{sim.}}\qquad k_3=\bajo{k_1+k_2}{\text{trans.}}}
+
+\begin{explica}
+\textbf{Fórmula:} equivalencia $=$ reflexiva $+$ simétrica $+$ transitiva (Def.~3.2); y $a\mathcal Rb$ significa ``la diferencia $a-b$ es un múltiplo \textbf{entero} de $\sqrt2$''.
+
+\textbf{Paso 1, reflexiva:} hay que ver que $a-a$ es múltiplo entero de $\sqrt2$. Pero $a-a=0$ y $0=0\cdot\sqrt2$, con $0\in\mathbb Z$. El entero que sirve es $k=0$.
+
+\textbf{Paso 2, simétrica:} se sabe $a-b=k\sqrt2$ y hay que obtener $b-a$ como entero por $\sqrt2$. Como $b-a$ es la misma diferencia con el signo cambiado, $b-a=-(a-b)=-k\sqrt2=(-k)\sqrt2$. El nuevo entero es $-k$, que es entero porque el opuesto de un entero es entero.
+
+\textbf{Paso 3, transitiva:} se sabe $a-b=k_1\sqrt2$ y $b-c=k_2\sqrt2$. Al sumar las dos igualdades, la $b$ se cancela: $(a-b)+(b-c)=a-c$. Del otro lado queda $k_1\sqrt2+k_2\sqrt2=(k_1+k_2)\sqrt2$. El nuevo entero es $k_1+k_2$, entero porque la suma de enteros es entero.
+
+\textbf{¿Por qué siempre hay que decir que el nuevo $k$ es entero?} Porque la definición de $\mathcal R$ exige $k\in\mathbb Z$. Si quedara, por ejemplo, $k/2$, no se podría concluir nada.
+
+\textbf{¿Tiene sentido?} En el dibujo, ir de $a$ a $b$ y de $b$ a $c$ son saltos de tamaño ``entero por $\sqrt2$''; juntos dan un salto del mismo tipo.
+\end{explica}
+
+\textbf{Demostración formal.}
+
+\textbf{Reflexiva. HQD:} $\mathcal R$ es reflexiva $\equiv(\forall a\in\mathbb R)\ a\mathcal Ra$.
+
+Sea $a\in\mathbb R$ fijo pero arbitrario.
+\begin{align*}
+a-a&=0 && \text{Op.}\\
+&=0\cdot\sqrt2 && \text{Op.}\\
+&\Rightarrow(\exists k\in\mathbb Z)\ a-a=k\sqrt2,\ \ k=0 && \text{Intro. }\exists,\ 0\in\mathbb Z\\
+&\Rightarrow a\mathcal Ra && \text{Def. de }\mathcal R
+\end{align*}
+Por lo tanto, $\mathcal R$ es reflexiva.
+
+\textbf{Simétrica. HQD:} $\mathcal R$ es simétrica $\equiv(\forall a,b\in\mathbb R)\ [a\mathcal Rb\Rightarrow b\mathcal Ra]$.
+
+Sean $a,b\in\mathbb R$ fijos pero arbitrarios tales que $a\mathcal Rb$.
+\begin{align*}
+a\mathcal Rb&\Rightarrow(\exists k\in\mathbb Z)\ a-b=k\sqrt2 && \text{Def. de }\mathcal R\\
+&\Rightarrow b-a=-(a-b) && \text{Op.}\\
+&\Rightarrow b-a=-k\sqrt2 && \text{Sust.}\\
+&\Rightarrow b-a=(-k)\sqrt2 && \text{Factor}\\
+&\Rightarrow(\exists k_1\in\mathbb Z)\ b-a=k_1\sqrt2,\ \ k_1=-k && -k\in\mathbb Z\\
+&\Rightarrow b\mathcal Ra && \text{Def. de }\mathcal R
+\end{align*}
+Por lo tanto, $\mathcal R$ es simétrica.
+
+\textbf{Transitiva. HQD:} $\mathcal R$ es transitiva $\equiv(\forall a,b,c\in\mathbb R)\ [a\mathcal Rb\wedge b\mathcal Rc\Rightarrow a\mathcal Rc]$.
+
+Sean $a,b,c\in\mathbb R$ fijos pero arbitrarios tales que $a\mathcal Rb\wedge b\mathcal Rc$.
+\begin{align*}
+a\mathcal Rb\wedge b\mathcal Rc&\Rightarrow(\exists k_1\in\mathbb Z)\ a-b=k_1\sqrt2\ \wedge\ (\exists k_2\in\mathbb Z)\ b-c=k_2\sqrt2 && \text{Def. de }\mathcal R\\
+&\Rightarrow(a-b)+(b-c)=k_1\sqrt2+k_2\sqrt2 && \text{Suma término a término}\\
+&\Rightarrow a-c=(k_1+k_2)\sqrt2 && \text{Op., Factor}\\
+&\Rightarrow(\exists k_3\in\mathbb Z)\ a-c=k_3\sqrt2,\ \ k_3=k_1+k_2 && \text{Def. }k_3\\
+&\Rightarrow a\mathcal Rc && \text{Def. de }\mathcal R
+\end{align*}
+Por lo tanto, $\mathcal R$ es transitiva.
+
+\textbf{Respuesta:} $\mathcal R$ es reflexiva, simétrica y transitiva; por lo tanto, es una relación de equivalencia.
+
+% ============================================================
+% QUESTION 5b
+% ============================================================
+\clearpage
+\section*{Pregunta 5b}
+\addcontentsline{toc}{section}{Pregunta 5b}
+
+(b) Determine la \colorbox{green!35}{clase de equivalencia de 3} y \colorbox{green!35}{tres elementos} de esta clase.\\
+(2 puntos)
+
+\begin{center}
+\begin{tikzpicture}[font=\small,x=1.4cm]
+  \draw[->,thick] (-2.8,0) -- (2.8,0);
+  \foreach \k/\l in {-2/{3-2\sqrt2},-1/{3-\sqrt2},0/3,1/{3+\sqrt2},2/{3+2\sqrt2}} {
+    \fill[blue!60!black] (\k,0) circle (2.5pt);
+    \node[below=4pt,font=\scriptsize] at (\k,0) {$\l$};
+    \node[above=4pt,font=\scriptsize,red!75!black] at (\k,0) {$k=\k$};
+  }
+  \foreach \k in {-2,-1,0,1} { \draw[->,thick,orange!90!black] (\k+0.05,0.55) to[bend left=35] node[above,font=\scriptsize] {$+\sqrt2$} (\k+0.95,0.55); }
+  \node[font=\scriptsize] at (-2.75,0.3) {$\cdots$}; \node[font=\scriptsize] at (2.75,0.3) {$\cdots$};
+\end{tikzpicture}
+\end{center}
+
+\calculo{\overline 3=\{x\in\mathbb R:\ x-3=k\sqrt2,\ k\in\mathbb Z\}=\{\,3+\bajo{k\sqrt2}{\text{despejar }x}\ :\ k\in\mathbb Z\,\}}
+
+\begin{explica}
+\textbf{Fórmula:} clase de equivalencia $\overline a=\{x\in A:\ x\mathcal Ra\}$ (Teoría 4), con $A=\mathbb R$ y $a=3$.
+
+\textbf{Paso 1, aplicar la definición:} $x\in\overline 3$ significa $x\mathcal R3$. Por la definición de $\mathcal R$ (con $a=x$, $b=3$), eso es: existe $k\in\mathbb Z$ con $x-3=k\sqrt2$.
+
+\textbf{Paso 2, despejar $x$:} se suma $3$ a ambos lados: $x=3+k\sqrt2$. Entonces la clase de $3$ son todos los números que se obtienen sumándole a $3$ un múltiplo entero de $\sqrt2$.
+
+\textbf{Paso 3, tres elementos:} se le da a $k$ tres valores enteros cualesquiera.
+$k=0$: $x=3+0\cdot\sqrt2=3$. \quad $k=1$: $x=3+\sqrt2$. \quad $k=-1$: $x=3-\sqrt2$. (También sirve $k=2$: $3+2\sqrt2$.)
+
+\textbf{¿Tiene sentido?} Se verifica cada uno con la definición. $3-3=0=0\cdot\sqrt2$ y $0\in\mathbb Z$. $(3+\sqrt2)-3=\sqrt2=1\cdot\sqrt2$ y $1\in\mathbb Z$. $(3-\sqrt2)-3=-\sqrt2=(-1)\sqrt2$ y $-1\in\mathbb Z$. En el dibujo son puntos de la recta separados por saltos de $\sqrt2$. En cambio $4$ no está: $4-3=1=k\sqrt2$ daría $k=1/\sqrt2\notin\mathbb Z$.
+\end{explica}
+
+\textbf{Solución formal.}
+\[
+\overline 3=\{x\in\mathbb R:\ x\mathcal R3\}=\{x\in\mathbb R:\ (\exists k\in\mathbb Z)\ x-3=k\sqrt2\}=\{3+k\sqrt2:\ k\in\mathbb Z\}.
+\]
+Tres elementos: $3\ (k=0)$, $\ 3+\sqrt2\ (k=1)$, $\ 3-\sqrt2\ (k=-1)$.
+
+\textbf{Respuesta:} $\overline 3=\{3+k\sqrt2:\ k\in\mathbb Z\}$; por ejemplo $3,\ 3+\sqrt2,\ 3-\sqrt2\in\overline 3$.
+
+% ============================================================
+% QUESTION 6
+% ============================================================
+\clearpage
+\section*{Pregunta 6}
+\addcontentsline{toc}{section}{Pregunta 6}
+
+6. Sea $A$ un conjunto no vacío. Considere las relaciones $\mathcal R$ y $\mathcal S$ sobre $A$ tales que \colorbox{green!35}{$\mathcal R$ es transitiva.} Pruebe que: \hfill (4 puntos)
+\[
+a\,(\mathcal S\circ\mathcal R)\,b\wedge b\mathcal Ra\quad\Longrightarrow\quad b\,(\mathcal S\circ\mathcal R)\,b
+\]
+
+\begin{center}
+\begin{tikzpicture}[font=\small]
+  \node[nodo] (a) at (0,-1.4) {$a$};
+  \node[nodo] (c) at (3.2,1.6) {$c$};
+  \node[nodo] (b) at (6.4,0) {$b$};
+  \draw[flecha,blue!60!black] (a) -- node[above left,font=\scriptsize\bfseries] {$\mathcal R$ (dato)} (c);
+  \draw[flecha,green!50!black] (c) to[bend left=30] node[above right,font=\scriptsize\bfseries] {$\mathcal S$ (dato)} (b);
+  \draw[flecha,blue!60!black] (b) -- node[below right,font=\scriptsize\bfseries] {$\mathcal R$ (dato)} (a);
+  \draw[flecha,orange!90!black,dashed] (b) to[bend left=30] node[pos=0.45,below left=1pt,font=\scriptsize\bfseries] {$\mathcal R$ (transitiva)} (c);
+\end{tikzpicture}
+\end{center}
+
+\calculo{\bajo{b\mathcal Ra\wedge a\mathcal Rc}{\mathcal R\ \text{transitiva}}\Rightarrow b\mathcal Rc,\qquad \bajo{b\mathcal Rc\wedge c\mathcal Sb}{\text{Def. composición}}\Rightarrow b(\mathcal S\circ\mathcal R)b}
+
+\begin{explica}
+\textbf{Fórmula:} composición $x(\mathcal S\circ\mathcal R)y\iff(\exists c)\ x\mathcal Rc\wedge c\mathcal Sy$ (primero $\mathcal R$, luego $\mathcal S$); transitiva: $x\mathcal Ry\wedge y\mathcal Rz\Rightarrow x\mathcal Rz$ (Teorías 3 y 4).
+
+\textbf{Paso 1, desarmar el dato:} $a(\mathcal S\circ\mathcal R)b$ quiere decir que hay un camino de $a$ a $b$: primero una flecha de $\mathcal R$ hasta una escala $c$, luego una flecha de $\mathcal S$ de $c$ a $b$. O sea, $a\mathcal Rc$ y $c\mathcal Sb$ (flechas azul y verde de arriba).
+
+\textbf{Paso 2, qué hay que construir:} $b(\mathcal S\circ\mathcal R)b$ es un camino que sale de $b$ y vuelve a $b$: primero $\mathcal R$ desde $b$ hasta alguna escala, luego $\mathcal S$ de esa escala a $b$. La parte de $\mathcal S$ ya está: $c\mathcal Sb$. Falta conseguir $b\mathcal Rc$.
+
+\textbf{Paso 3, usar la transitividad:} se tiene $b\mathcal Ra$ (dato) y $a\mathcal Rc$ (Paso 1). Son dos flechas seguidas de $\mathcal R$: $b\to a\to c$. Como $\mathcal R$ es transitiva, hay atajo directo: $b\mathcal Rc$ (flecha naranja).
+
+\textbf{Paso 4, cerrar:} $b\mathcal Rc$ y $c\mathcal Sb$ forman el camino $b\to c\to b$, primero $\mathcal R$ y luego $\mathcal S$. Por la definición de composición (con escala $c$), $b(\mathcal S\circ\mathcal R)b$.
+
+\textbf{¿Tiene sentido?} La misma escala $c$ sirve en los dos caminos; lo único que cambió es el punto de partida (de $a$ a $b$), y la flecha $b\mathcal Ra$ más la transitividad permiten ese cambio.
+\end{explica}
+
+\textbf{Demostración formal.}
+
+\textbf{HQD:} $(\forall a,b\in A)\ \big[a(\mathcal S\circ\mathcal R)b\wedge b\mathcal Ra\Rightarrow b(\mathcal S\circ\mathcal R)b\big]$.
+
+Sean $a,b\in A$ fijos pero arbitrarios tales que $a(\mathcal S\circ\mathcal R)b\wedge b\mathcal Ra$.
+\begin{align*}
+a(\mathcal S\circ\mathcal R)b\wedge b\mathcal Ra&\Rightarrow(\exists c\in A)\ (a\mathcal Rc\wedge c\mathcal Sb)\wedge b\mathcal Ra && \text{Def. composición}\\
+&\Rightarrow(\exists c\in A)\ (b\mathcal Ra\wedge a\mathcal Rc)\wedge c\mathcal Sb && \text{Con., Aso.}\\
+&\Rightarrow(\exists c\in A)\ b\mathcal Rc\wedge c\mathcal Sb && \mathcal R\ \text{transitiva}\\
+&\Rightarrow b(\mathcal S\circ\mathcal R)b && \text{Def. composición, Intro. }\exists
+\end{align*}
+Por lo tanto, $a(\mathcal S\circ\mathcal R)b\wedge b\mathcal Ra\Rightarrow b(\mathcal S\circ\mathcal R)b$.
+
+\textbf{Respuesta:} queda demostrado: si $\mathcal R$ es transitiva, $a(\mathcal S\circ\mathcal R)b\wedge b\mathcal Ra$ implica $b(\mathcal S\circ\mathcal R)b$.
+
+\end{document}

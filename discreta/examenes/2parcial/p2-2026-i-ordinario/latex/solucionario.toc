@@ -1,0 +1,15 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{Teoría 1: relaciones, gráfico y matriz}{2}{section*.2}%
+\contentsline {section}{Teoría 2: inversa, complemento y composición}{3}{section*.3}%
+\contentsline {section}{Teoría 3: propiedades de una relación}{4}{section*.4}%
+\contentsline {section}{Teoría 4: relación de equivalencia y clases}{5}{section*.5}%
+\contentsline {section}{Pregunta 1}{6}{section*.6}%
+\contentsline {section}{Pregunta 2}{9}{section*.8}%
+\contentsline {section}{Pregunta 3a}{10}{section*.9}%
+\contentsline {section}{Pregunta 3b}{11}{section*.10}%
+\contentsline {section}{Pregunta 4a}{12}{section*.11}%
+\contentsline {section}{Pregunta 4b}{13}{section*.12}%
+\contentsline {section}{Teoría 5: funciones}{14}{section*.13}%
+\contentsline {section}{Pregunta 5}{15}{section*.14}%
+\contentsline {section}{Pregunta 6}{18}{section*.17}%
+\contentsline {section}{Pregunta 7}{19}{section*.18}%

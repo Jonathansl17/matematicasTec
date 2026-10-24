@@ -1,0 +1,53 @@
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot,es-noshorthands]{babel}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage[hidelinks]{hyperref}
+
+% Notación española opcional (descomenta si quieres \sen en lugar de \sin)
+% \DeclareMathOperator{\sen}{sen}
+% \DeclareMathOperator{\tg}{tg}
+% \DeclareMathOperator{\ctg}{ctg}
+
+\newtcolorbox{sol}{colback=blue!5,colframe=blue!50!black,title=Solución paso a paso,breakable}
+\newtcolorbox{teo}{colback=orange!8,colframe=orange!70!black,title=Teoría,breakable}
+\newtcolorbox{nota}{colback=green!5,colframe=green!50!black,title=Idea clave,breakable}
+\newtcolorbox{tip}{colback=yellow!10,colframe=yellow!60!black,title=Consejo,breakable}
+\newtcolorbox{resp}{colback=red!5,colframe=red!50!black,title=Respuesta,breakable}
+\newtcolorbox{reg}{colback=red!5,colframe=red!60!black,title=Regla,breakable}
+\newtcolorbox{paso}[1]{colback=gray!5,colframe=gray!50!black,title={#1},breakable}
+
+\graphicspath{{../images/}{images/}}
+\setlength{\parskip}{0.4em}
+\setlength{\parindent}{0pt}
+
+% ---- Formato "clase" (como Clase Leslie, 14 oct 2026) ----
+\usepackage[scaled]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{sfmath}
+\usepackage{bm}
+% X sobre la letra de la opción correcta
+\newcommand{\correcta}[1]{\makebox[0pt][l]{\hspace{-0.25em}\raisebox{-0.25ex}{\textcolor{red!75!black}{\huge$\bm{\times}$}}}#1}
+% anotación a mano en color
+\newcommand{\anot}[2]{\textcolor{#1}{\bfseries #2}}
+% número con la operación escrita debajo (en rojo)
+\newcommand{\bajo}[2]{\underset{\textcolor{red!75!black}{#2}}{#1}}
+% cálculo grande en azul, centrado
+\newcommand{\calculo}[1]{\begin{center}\Large\color{blue!60!black}$\displaystyle #1$\end{center}}
+% figura original con anotaciones encima: coordenadas 0..1 (x desde la izquierda, y desde abajo)
+\newenvironment{figanotada}[2]{\begin{center}\begin{tikzpicture}\node[anchor=south west,inner sep=0] (img) at (0,0) {\includegraphics[width=#1]{#2}};\begin{scope}[x={(img.south east)},y={(img.north west)}]}{\end{scope}\end{tikzpicture}\end{center}}
+% explicación corta con la fórmula
+\newtcolorbox{explica}{colback=blue!3,colframe=blue!45!black,title={¿Cómo se resuelve?},fonttitle=\bfseries,breakable}
+% opciones apiladas como en el examen; la correcta se marca con \correcta{A)}
+\newenvironment{opciones}{\par\smallskip\begin{list}{}{\leftmargin=2.2em\itemsep=0.35em\parsep=0pt\topsep=0pt}\item[]}{\end{list}\par}
+\newcommand{\op}{\par}
+% definición de teoría al estilo de la clase
+\newcommand{\defi}[2]{\par\noindent\textbf{#1:} #2\par\medskip}

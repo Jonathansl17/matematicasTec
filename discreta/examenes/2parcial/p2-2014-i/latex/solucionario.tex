@@ -1,0 +1,994 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+\usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric}
+\tikzset{
+  nd/.style={circle,draw,thick,minimum size=7mm,inner sep=0pt,font=\small},
+  ar/.style={-{Stealth[length=2.6mm]},thick},
+  lp/.style={-{Stealth[length=2.2mm]},thick,looseness=6},
+}
+\newcommand{\Rr}{\mathcal{R}}
+\newcommand{\Ss}{\mathcal{S}}
+\newcommand{\nRr}{\not\mathcal{R}}
+\newcommand{\hl}[1]{\colorbox{green!35}{#1}}
+% sagittal diagram: #1 left labels, #2 right labels, #3 extra tikz code (nodes x1.., y1..)
+\newcommand{\sag}[3]{\begin{tikzpicture}[baseline=(current bounding box.center)]
+  \draw (0,-1.2) ellipse (0.55 and 1.5); \draw (2.6,-1.2) ellipse (0.55 and 1.5);
+  \foreach \t [count=\i] in {#1} \node[nd] (x\i) at (0,{0.4-0.8*\i}) {$\t$};
+  \foreach \t [count=\i] in {#2} \node[nd] (y\i) at (2.6,{0.4-0.8*\i}) {$\t$};
+  #3
+\end{tikzpicture}}
+% labels of the 8 subsets of {1,3,9}
+\newcommand{\lbl}[1]{\ifcase#1\or$\emptyset$\or$\{1\}$\or$\{3\}$\or$\{9\}$\or$\{1,3\}$\or$\{1,9\}$\or$\{3,9\}$\or$\{1,3,9\}$\fi}
+% sagittal diagram of question 5: #1..#8 arrow colors, #9 extra code
+\newcommand{\diagcinco}[9]{\begin{center}\begin{tikzpicture}
+  \draw (0,-2.1) ellipse (0.95 and 2.8); \draw (4.2,-2.25) ellipse (0.6 and 1.9);
+  \node at (0,1.05) {$P(A)$}; \node at (4.2,0.0) {$B$};
+  \foreach \i in {1,...,8} \node[font=\small,inner sep=2pt] (L\i) at (0,{-0.6*(\i-1)}) {\lbl{\i}};
+  \foreach \v/\y in {0/-0.9,1/-1.8,3/-2.7,9/-3.6} \node[nd] (B\v) at (4.2,\y) {$\v$};
+  \draw[ar,#1] (L1.east) -- (B0); \draw[ar,#2] (L2.east) -- (B1);
+  \draw[ar,#3] (L3.east) -- (B3); \draw[ar,#4] (L4.east) -- (B9);
+  \draw[ar,#5] (L5.east) -- (B1); \draw[ar,#6] (L6.east) -- (B1);
+  \draw[ar,#7] (L7.east) -- (B3); \draw[ar,#8] (L8.east) -- (B1);
+  #9
+\end{tikzpicture}\end{center}}
+
+% two-column theory block: text left, drawing right
+\newcommand{\teoria}[2]{\par\noindent\begin{minipage}[t]{0.56\textwidth}\vspace{0pt}#1\end{minipage}\hfill\begin{minipage}[t]{0.40\textwidth}\vspace{0pt}\centering #2\end{minipage}\par\medskip}
+
+\title{\textbf{Matemática Discreta --- Segundo Examen Parcial}\\[0.3em]\large Instituto Tecnológico de Costa Rica, Escuela de Matemática\\[0.2em]\normalsize I Semestre 2014 --- Total: 31 puntos --- Solucionario (clase anotada)}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+
+% ============================================================
+% THEORY: RELATIONS
+% ============================================================
+\clearpage
+\section*{Teoría 1: relaciones}
+\addcontentsline{toc}{section}{Teoría 1: relaciones}
+
+\teoria{%
+\defi{Relación y gráfico}{una relación $\Rr$ sobre $A$ es una regla que dice qué parejas $(a,b)$ de elementos de $A$ ``están conectadas''. Se escribe $a\Rr b$ cuando $a$ está relacionado con $b$. El \textbf{gráfico} $G_\Rr$ es la lista de todas esas parejas:}
+\[ a\Rr b \iff (a,b)\in G_\Rr\subseteq A\times A. \]
+\textbf{Ejemplo:} $A=\{1,2,3\}$ y $G_\Rr=\{(1,2),(2,2),(3,1)\}$. En el dibujo (digrafo) cada pareja $(a,b)$ es una flecha que sale de $a$ y llega a $b$. Una pareja $(a,a)$ es un lazo: una flecha que vuelve al mismo punto.
+}{%
+\begin{tikzpicture}
+  \node[nd] (1) at (0,1.6) {1};
+  \node[nd] (2) at (2.2,1.6) {2};
+  \node[nd] (3) at (1.1,0) {3};
+  \draw[ar,blue!60!black] (1) -- (2);
+  \draw[lp,blue!60!black] (2) to[out=60,in=120,loop] (2);
+  \draw[ar,blue!60!black] (3) -- (1);
+  \node[font=\scriptsize,blue!60!black] at (1.1,2.0) {$(1,2)$};
+  \node[font=\scriptsize,blue!60!black] at (2.9,2.3) {$(2,2)$};
+  \node[font=\scriptsize,blue!60!black] at (0.1,0.6) {$(3,1)$};
+\end{tikzpicture}}
+
+\teoria{%
+\defi{Matriz asociada}{es una tabla de ceros y unos. Las \textbf{filas} son el \textbf{primer} elemento de la pareja y las \textbf{columnas} el \textbf{segundo}, los dos en el orden en que aparece $A$. Se pone un $1$ cuando la pareja está en la relación y un $0$ cuando no:}
+\[ M_\Rr[i,j]=1 \iff a_i\,\Rr\,a_j. \]
+\textbf{Gráfico $\to$ matriz:} para cada pareja $(a,b)$ de $G_\Rr$ se va a la fila de $a$ y a la columna de $b$ y se escribe un $1$; todo lo demás es $0$.
+
+\textbf{Matriz $\to$ gráfico:} se recorre fila por fila; si en la fila de $a$ hay un $1$ en la columna de $b$, entonces $(a,b)\in G_\Rr$.
+
+¿Por qué funciona? La tabla es solo otra forma de escribir la lista de parejas: cada casilla responde la pregunta ``¿$a$ está relacionado con $b$?''.
+}{%
+\begin{tikzpicture}[scale=0.8]
+  \foreach \c [count=\j] in {1,2,3} \node[font=\small\bfseries,red!70!black] at (\j,0.75) {\c};
+  \foreach \r [count=\i] in {1,2,3} \node[font=\small\bfseries,blue!60!black] at (-0.1,-\i+0.75) {\r};
+  \fill[orange!30] (0.5,-0.5) rectangle (3.5,0.25);
+  \fill[green!30] (1.5,-2.75) rectangle (2.5,0.25);
+  \fill[orange!70] (1.5,-0.5) rectangle (2.5,0.25);
+  \foreach \i/\row in {1/{0,1,0},2/{0,1,0},3/{1,0,0}}
+    \foreach \v [count=\j] in \row \node at (\j,-\i+0.75-0.0) {$\v$};
+  \draw[thick] (0.5,0.25) rectangle (3.5,-2.75);
+  \node[font=\scriptsize,align=center] at (2,-3.4) {fila = primer elemento\\columna = segundo elemento};
+  \node[font=\scriptsize,orange!70!black] at (2,-4.1) {fila 1, columna 2 tiene 1: $1\Rr 2$};
+\end{tikzpicture}
+\[
+M_\Rr=\begin{pmatrix}0&1&0\\0&1&0\\1&0&0\end{pmatrix}
+\]}
+
+\teoria{%
+\defi{Relación inversa}{se le da vuelta a cada pareja: lo que era $(a,b)$ pasa a ser $(b,a)$. En el digrafo, todas las flechas cambian de sentido; en la matriz, las filas pasan a ser columnas (transpuesta).}
+\[ G_{\Rr^{-1}}=\{(b,a)\ :\ a\Rr b\},\qquad M_{\Rr^{-1}}=(M_\Rr)^T. \]
+\textbf{Ejemplo:} con $G_\Rr=\{(1,2),(2,2),(3,1)\}$ queda $G_{\Rr^{-1}}=\{(2,1),(2,2),(1,3)\}$. El lazo $(2,2)$ no cambia porque al darle vuelta queda igual.
+}{%
+\begin{tikzpicture}
+  \node[nd] (1) at (0,1.6) {1};
+  \node[nd] (2) at (2.2,1.6) {2};
+  \node[nd] (3) at (1.1,0) {3};
+  \draw[ar,orange!90!black] (2) -- (1);
+  \draw[lp,orange!90!black] (2) to[out=60,in=120,loop] (2);
+  \draw[ar,orange!90!black] (1) -- (3);
+  \node[font=\scriptsize,orange!90!black] at (1.1,2.0) {$(2,1)$};
+  \node[font=\scriptsize,orange!90!black] at (0.1,0.6) {$(1,3)$};
+  \node[font=\scriptsize,align=center] at (1.1,-0.8) {mismas flechas,\\sentido contrario};
+\end{tikzpicture}}
+
+\clearpage
+\teoria{%
+\defi{Diferencia $\Rr-\Ss$}{son las parejas que están en $\Rr$ pero \textbf{no} están en $\Ss$.}
+\[ a(\Rr-\Ss)b\iff a\Rr b\ \wedge\ a\,\not\!\Ss\, b. \]
+\textbf{Ejemplo:} $G_\Rr=\{(1,2),(2,2),(3,1)\}$ y $G_\Ss=\{(2,2),(2,3)\}$. Se le quitan a $G_\Rr$ las parejas que también estén en $G_\Ss$ (solo $(2,2)$): $G_{\Rr-\Ss}=\{(1,2),(3,1)\}$.
+}{%
+\begin{tikzpicture}
+  \fill[blue!20] (0,0) circle (1.1);
+  \begin{scope} \clip (0,0) circle (1.1); \fill[white] (1.3,0) circle (1.1); \end{scope}
+  \draw[thick] (0,0) circle (1.1) (1.3,0) circle (1.1);
+  \node at (-0.5,1.35) {$G_\Rr$}; \node at (1.8,1.35) {$G_\Ss$};
+  \node[font=\scriptsize] at (-0.4,0) {$\Rr-\Ss$};
+\end{tikzpicture}}
+
+\teoria{%
+\defi{Intersección $\Rr\cap\Ss$}{son las parejas que están en las \textbf{dos} relaciones a la vez. En matrices se pone $1$ solo donde las dos matrices tienen $1$ (``y'' lógico, casilla por casilla):}
+\[ a(\Rr\cap\Ss)b\iff a\Rr b\wedge a\Ss b,\qquad M_{\Rr\cap\Ss}=M_\Rr\wedge M_\Ss. \]
+\textbf{Ejemplo:} con las relaciones de arriba, $G_{\Rr\cap\Ss}=\{(2,2)\}$.
+}{%
+\begin{tikzpicture}
+  \begin{scope} \clip (0,0) circle (1.1); \fill[green!40] (1.3,0) circle (1.1); \end{scope}
+  \draw[thick] (0,0) circle (1.1) (1.3,0) circle (1.1);
+  \node at (-0.5,1.35) {$G_\Rr$}; \node at (1.8,1.35) {$G_\Ss$};
+  \node[font=\scriptsize] at (0.65,0) {$\Rr\cap\Ss$};
+\end{tikzpicture}}
+
+\teoria{%
+\defi{Complemento $\overline{\Ss}$}{son todas las parejas de $A\times A$ que \textbf{no} están en $\Ss$. En la matriz basta cambiar cada $0$ por $1$ y cada $1$ por $0$.}
+\[ a\,\overline{\Ss}\,b\iff a\,\not\!\Ss\,b,\qquad G_{\overline\Ss}=(A\times A)-G_\Ss. \]
+¿Por qué se cambian los ceros por unos? Un $0$ en $M_\Ss$ significa ``la pareja no está en $\Ss$'', y eso es justamente lo que pide $\overline\Ss$.
+}{%
+\begin{tikzpicture}
+  \fill[red!20] (-1.4,-1.2) rectangle (2.0,1.2);
+  \fill[white] (0.3,0) circle (0.9);
+  \draw[thick] (-1.4,-1.2) rectangle (2.0,1.2) (0.3,0) circle (0.9);
+  \node at (0.3,0) {$G_\Ss$};
+  \node[font=\scriptsize] at (-0.8,0.95) {$A\times A$};
+  \node[font=\scriptsize,red!70!black] at (1.5,-0.95) {$\overline{\Ss}$};
+\end{tikzpicture}}
+
+\teoria{%
+\defi{Composición $\Ss\circ\Rr$}{es caminar dos pasos: \textbf{primero} un paso con $\Rr$ y \textbf{luego} un paso con $\Ss$. Se lee de derecha a izquierda, como $g(f(x))$ en funciones.}
+\[ a(\Ss\circ\Rr)c\iff(\exists b\in A)\,[\,a\Rr b\wedge b\Ss c\,]. \]
+\textbf{Ejemplo:} si $1\Rr 2$ y $2\Ss 3$, entonces $1(\Ss\circ\Rr)3$: el camino $1\to2\to3$ usa primero $\Rr$ y luego $\Ss$.
+
+¿Por qué ese orden? Porque el folleto lo define así: la relación escrita a la \textbf{derecha} del $\circ$ es la que se usa primero.
+}{%
+\begin{tikzpicture}
+  \foreach \x/\t in {0/A,1.6/A,3.2/A} \node[font=\small] at (\x,1.9) {$\t$};
+  \foreach \x in {0,1.6,3.2} \draw (\x,0.7) ellipse (0.45 and 1.0);
+  \node[nd] (a) at (0,0.7) {$a$};
+  \node[nd] (b) at (1.6,0.7) {$b$};
+  \node[nd] (c) at (3.2,0.7) {$c$};
+  \draw[ar,blue!60!black] (a) -- node[above,font=\scriptsize] {$\Rr$} (b);
+  \draw[ar,orange!90!black] (b) -- node[above,font=\scriptsize] {$\Ss$} (c);
+  \draw[ar,red!70!black,dashed] (a) to[bend right=40] node[below,font=\scriptsize] {$\Ss\circ\Rr$} (c);
+  \node[font=\scriptsize] at (0.8,-0.8) {1.º};
+  \node[font=\scriptsize] at (2.4,-0.8) {2.º};
+\end{tikzpicture}}
+
+\clearpage
+\teoria{%
+\defi{Producto booleano y matriz de la composición}{es como multiplicar matrices, pero con ``y'' ($\wedge$) en vez de multiplicar y ``o'' ($\vee$) en vez de sumar. La matriz de $\Ss\circ\Rr$ se obtiene con la matriz de la relación que va \textbf{primero} a la izquierda:}
+\[ M_{\Ss\circ\Rr}=M_\Rr\odot M_\Ss, \]
+\[ (M_\Rr\odot M_\Ss)[i,j]=\bigvee_{k}\big(M_\Rr[i,k]\wedge M_\Ss[k,j]\big). \]
+La casilla $(i,j)$ vale $1$ si existe al menos un $k$ con un $1$ en la fila $i$ de $M_\Rr$ \textbf{y} un $1$ en la columna $j$ de $M_\Ss$, en la misma posición $k$. Eso es exactamente ``existe un camino $i\to k\to j$''.
+
+\textbf{Forma rápida fila por fila:} la fila $i$ del resultado es el ``o'' de las filas $k$ de $M_\Ss$ para las que $M_\Rr[i,k]=1$.
+}{%
+\begin{tikzpicture}[scale=0.62]
+  % left matrix
+  \fill[orange!35] (0.5,-0.5) rectangle (3.5,0.5);
+  \foreach \i/\row in {0/{1,0,1},1/{0,1,0},2/{0,0,1}}
+    \foreach \v [count=\j] in \row \node[font=\small] at (\j,-\i) {$\v$};
+  \draw[thick] (0.5,0.5) rectangle (3.5,-2.5);
+  \node[font=\small] at (2,1.1) {$M_\Rr$};
+  \node at (4.1,-1) {$\odot$};
+  % right matrix
+  \fill[blue!20] (5.5,0.5) rectangle (6.5,-2.5);
+  \foreach \i/\row in {0/{0,1,0},1/{1,0,0},2/{0,1,1}}
+    \foreach \v [count=\j] in \row \node[font=\small] at (\j+4,-\i) {$\v$};
+  \draw[thick] (4.5,0.5) rectangle (7.5,-2.5);
+  \node[font=\small] at (6,1.1) {$M_\Ss$};
+  \node[font=\scriptsize,align=center] at (4,-3.9) {fila 1 $\wedge$ columna 2, casilla a casilla:\\$(1\wedge1)\vee(0\wedge0)\vee(1\wedge1)=1$};
+\end{tikzpicture}}
+
+\teoria{%
+\defi{Reflexiva}{cada elemento está relacionado consigo mismo: todos tienen lazo. En la matriz, la diagonal es toda de unos ($I_n\le M_\Rr$).}
+\[ \Rr\text{ reflexiva}\iff(\forall a\in A)\ a\Rr a. \]
+Basta que falte un solo lazo para que no sea reflexiva.
+}{%
+\begin{tikzpicture}
+  \node[nd] (1) at (0,0) {1}; \node[nd] (2) at (1.5,0) {2}; \node[nd] (3) at (3,0) {3};
+  \foreach \n in {1,2,3} \draw[lp,blue!60!black] (\n) to[out=60,in=120,loop] (\n);
+  \node[font=\scriptsize] at (1.5,-0.7) {todos con lazo};
+\end{tikzpicture}}
+
+\teoria{%
+\defi{Simétrica}{si hay flecha de ida, también hay de vuelta.}
+\[ \Rr\text{ simétrica}\iff(\forall a,b)\ [a\Rr b\Rightarrow b\Rr a]. \]
+}{%
+\begin{tikzpicture}
+  \node[nd] (a) at (0,0) {$a$}; \node[nd] (b) at (2,0) {$b$};
+  \draw[ar,blue!60!black] (a) to[bend left=25] (b);
+  \draw[ar,blue!60!black] (b) to[bend left=25] (a);
+\end{tikzpicture}}
+
+\teoria{%
+\defi{Antisimétrica}{entre dos elementos \textbf{distintos} nunca hay ida y vuelta a la vez. Si $a\Rr b$ y $b\Rr a$, entonces tienen que ser el mismo elemento.}
+\[ \Rr\text{ antisim.}\iff(\forall a,b)\ [a\Rr b\wedge b\Rr a\Rightarrow a=b]. \]
+Una relación con solo flechas ``de ida'' cumple la definición: como nunca pasa $a\Rr b\wedge b\Rr a$ con $a\neq b$, la implicación nunca falla (se dice que se cumple ``por vacuidad'').
+}{%
+\begin{tikzpicture}
+  \node[nd] (a) at (0,0.9) {$a$}; \node[nd] (b) at (2,0.9) {$b$};
+  \draw[ar,blue!60!black] (a) -- (b);
+  \node[font=\scriptsize,blue!60!black] at (1,1.45) {solo ida: sí};
+  \node[nd] (c) at (0,-0.6) {$c$}; \node[nd] (d) at (2,-0.6) {$d$};
+  \draw[ar,red!70!black] (c) to[bend left=25] (d);
+  \draw[ar,red!70!black] (d) to[bend left=25] (c);
+  \node[font=\scriptsize,red!70!black] at (1,-1.35) {ida y vuelta, $c\neq d$: falla};
+\end{tikzpicture}}
+
+\teoria{%
+\defi{Transitiva}{si se puede ir de $a$ a $b$ y de $b$ a $c$, también hay flecha directa de $a$ a $c$.}
+\[ \Rr\text{ trans.}\iff(\forall a,b,c)\ [a\Rr b\wedge b\Rr c\Rightarrow a\Rr c]. \]
+}{%
+\begin{tikzpicture}
+  \node[nd] (a) at (0,0) {$a$}; \node[nd] (b) at (1.2,1.2) {$b$}; \node[nd] (c) at (2.4,0) {$c$};
+  \draw[ar,blue!60!black] (a) -- (b); \draw[ar,blue!60!black] (b) -- (c);
+  \draw[ar,orange!90!black] (a) -- (c);
+\end{tikzpicture}}
+
+\clearpage
+\teoria{%
+\defi{Relación de equivalencia}{es una relación que es reflexiva, simétrica y transitiva al mismo tiempo. Para demostrarlo hay que probar las \textbf{tres} propiedades por separado.}
+
+\defi{Clase de equivalencia}{la clase de $a$ es el grupo de todos los elementos relacionados con $a$:}
+\[ \overline{a}=\{x\in A\ :\ x\Rr a\}. \]
+Para calcularla se sustituye $b=a$ en la definición de $\Rr$ y se despeja qué valores de $x$ cumplen la condición. Las clases parten el conjunto en ``cajas'' sin elementos repetidos; el conjunto de todas las cajas es el cociente $A/\Rr$.
+}{%
+\begin{tikzpicture}
+  \draw[thick,rounded corners] (0,0) rectangle (3.6,2.4);
+  \draw[thick,blue!60!black,rounded corners,fill=blue!10] (0.15,0.15) rectangle (1.15,2.25);
+  \draw[thick,orange!90!black,rounded corners,fill=orange!15] (1.3,0.15) rectangle (2.3,2.25);
+  \draw[thick,green!50!black,rounded corners,fill=green!15] (2.45,0.15) rectangle (3.45,2.25);
+  \node at (0.65,1.6) {$1$}; \node at (0.65,0.8) {$4$};
+  \node at (1.8,1.6) {$2$}; \node at (1.8,0.8) {$5$};
+  \node at (2.95,1.2) {$3$};
+  \node[font=\scriptsize] at (1.8,2.7) {$A$ partido en clases};
+  \node[font=\scriptsize,blue!60!black] at (0.65,-0.3) {$\overline1$};
+  \node[font=\scriptsize,orange!90!black] at (1.8,-0.3) {$\overline2$};
+  \node[font=\scriptsize,green!50!black] at (2.95,-0.3) {$\overline3$};
+\end{tikzpicture}}
+
+% ============================================================
+% QUESTION 1
+% ============================================================
+\clearpage
+\section*{Pregunta 1a}
+\addcontentsline{toc}{section}{Pregunta 1a}
+
+1. Sean $\Rr$ y $\Ss$ dos relaciones definidas sobre $A=\{1,2,3,5\}$. La relación $\Rr$ se define por
+\[ a\Rr b\Leftrightarrow(a<2\ \vee\ a+b\geq5) \]
+y la matriz de $\Ss$ es
+\[ M_\Ss=\begin{pmatrix}0&1&1&1\\1&0&0&1\\0&1&0&1\\1&0&0&1\end{pmatrix} \]
+\hspace*{1.5em}(a) Calcule el \hl{gráfico} de la relación \hl{$(\Rr-\Ss)^{-1}$}. \hfill\textbf{(3 puntos)}
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{scope}
+    \node[font=\small\bfseries,blue!60!black] at (1.2,3.3) {$\Rr-\Ss$};
+    \node[nd] (1) at (0,2.2) {1}; \node[nd] (2) at (2.4,2.2) {2};
+    \node[nd] (3) at (2.4,0) {3}; \node[nd] (5) at (0,0) {5};
+    \draw[lp,blue!60!black] (1) to[out=150,in=210,loop] (1);
+    \draw[lp,blue!60!black] (3) to[out=-30,in=30,loop] (3);
+    \draw[ar,blue!60!black] (2) -- (3);
+    \draw[ar,blue!60!black] (5) -- (2);
+    \draw[ar,blue!60!black] (5) -- (3);
+  \end{scope}
+  \draw[-{Stealth},very thick,red!70!black] (3.6,1.1) -- node[above,font=\small] {inversa} (5.2,1.1);
+  \begin{scope}[xshift=6.6cm]
+    \node[font=\small\bfseries,orange!90!black] at (1.2,3.3) {$(\Rr-\Ss)^{-1}$};
+    \node[nd] (1) at (0,2.2) {1}; \node[nd] (2) at (2.4,2.2) {2};
+    \node[nd] (3) at (2.4,0) {3}; \node[nd] (5) at (0,0) {5};
+    \draw[lp,orange!90!black] (1) to[out=150,in=210,loop] (1);
+    \draw[lp,orange!90!black] (3) to[out=-30,in=30,loop] (3);
+    \draw[ar,orange!90!black] (3) -- (2);
+    \draw[ar,orange!90!black] (2) -- (5);
+    \draw[ar,orange!90!black] (3) -- (5);
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\calculo{G_{(\Rr-\Ss)^{-1}}=\{\bajo{(1,1)}{(1,1)},\ \bajo{(3,2)}{(2,3)},\ \bajo{(3,3)}{(3,3)},\ \bajo{(2,5)}{(5,2)},\ \bajo{(3,5)}{(5,3)}\}}
+\begin{center}\small\color{red!75!black} debajo: la pareja de $G_{\Rr-\Ss}$ a la que se le dio vuelta\end{center}
+
+\begin{explica}
+\textbf{Fórmulas:} $a(\Rr-\Ss)b\iff a\Rr b\wedge a\not\!\Ss b$ (Def.\ diferencia) y $G_{\Rr^{-1}}=\{(b,a): a\Rr b\}$ (Def.\ inversa). Se necesitan tres listas: $G_\Rr$, $G_\Ss$ y luego quitar y dar vuelta.
+
+\textbf{Paso 1, el gráfico de $\Rr$:} la pareja $(a,b)$ está en $\Rr$ si $a<2$ \textbf{o} si $a+b\ge5$ (basta una de las dos). En $A=\{1,2,3,5\}$ el único número menor que $2$ es el $1$, así que el $1$ se relaciona con \textbf{todos}: $(1,1),(1,2),(1,3),(1,5)$. Para los demás se revisa la suma $a+b$ en la tabla (en verde las sumas $\ge5$):
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{c|cccc}
+$a+b$ & $b=1$ & $b=2$ & $b=3$ & $b=5$\\\hline
+$a=2$ & $3$ & $4$ & \colorbox{green!35}{$5$} & \colorbox{green!35}{$7$}\\
+$a=3$ & $4$ & \colorbox{green!35}{$5$} & \colorbox{green!35}{$6$} & \colorbox{green!35}{$8$}\\
+$a=5$ & \colorbox{green!35}{$6$} & \colorbox{green!35}{$7$} & \colorbox{green!35}{$8$} & \colorbox{green!35}{$10$}
+\end{tabular}
+\end{center}
+\[ G_\Rr=\{(1,1),(1,2),(1,3),(1,5),(2,3),(2,5),(3,2),(3,3),(3,5),(5,1),(5,2),(5,3),(5,5)\}. \]
+
+\textbf{Paso 2, el gráfico de $\Ss$:} se lee $M_\Ss$ fila por fila; las filas y columnas van en el orden $1,2,3,5$. La fila de $1$ es $(0,1,1,1)$: tiene unos en las columnas de $2,3,5$, así que $1\Ss2$, $1\Ss3$, $1\Ss5$. La fila de $2$ es $(1,0,0,1)$: unos en las columnas de $1$ y $5$. La fila de $3$ es $(0,1,0,1)$: columnas de $2$ y $5$. La fila de $5$ es $(1,0,0,1)$: columnas de $1$ y $5$.
+\[ G_\Ss=\{(1,2),(1,3),(1,5),(2,1),(2,5),(3,2),(3,5),(5,1),(5,5)\}. \]
+
+\textbf{Paso 3, la diferencia:} se recorre $G_\Rr$ y se tachan las parejas que también estén en $G_\Ss$. Por ejemplo, $(1,2)$ está en los dos, se quita; $(1,1)$ no está en $G_\Ss$ (la fila de $1$ empieza con $0$), se queda. Quedan:
+\[ G_{\Rr-\Ss}=\{(1,1),(2,3),(3,3),(5,2),(5,3)\}. \]
+
+\textbf{Paso 4, la inversa:} a cada pareja se le cambia el orden: $(2,3)\to(3,2)$, $(5,2)\to(2,5)$, $(5,3)\to(3,5)$; los lazos $(1,1)$ y $(3,3)$ quedan iguales. En el dibujo, las flechas azules se convierten en las naranjas, apuntando al revés.
+
+\textbf{¿Tiene sentido?} $G_{\Rr-\Ss}$ tiene $5$ parejas y su inversa también tiene $5$: dar vuelta las parejas no agrega ni quita ninguna. Además, $13$ parejas de $\Rr$ menos las $8$ que comparte con $\Ss$ dan $13-8=5$.
+\end{explica}
+
+\textbf{Respuesta:} $G_{(\Rr-\Ss)^{-1}}=\{(1,1),(3,2),(3,3),(2,5),(3,5)\}$.
+
+% ------------------------------------------------------------
+\clearpage
+\section*{Pregunta 1b}
+\addcontentsline{toc}{section}{Pregunta 1b}
+
+(Mismas $\Rr$ y $\Ss$ sobre $A=\{1,2,3,5\}$ de la pregunta 1.)
+
+\hspace*{1.5em}(b) Calcule la \hl{matriz asociada} a la relación \hl{$(\Rr\cap\Ss)\circ\overline{\Ss}$}. \hfill\textbf{(3 puntos)}
+
+\begin{center}
+\begin{tikzpicture}[yscale=0.85]
+  \foreach \x/\t in {0/{$A$},3.2/{$A$},6.4/{$A$}} \node at (\x,0.9) {\t};
+  \foreach \x in {0,3.2,6.4} \draw (\x,-1.85) ellipse (0.6 and 2.6);
+  \foreach \v/\y in {1/0,2/-1.2,3/-2.4,5/-3.6} {
+    \node[nd] (L\v) at (0,\y) {\v};
+    \node[nd] (M\v) at (3.2,\y) {\v};
+    \node[nd] (D\v) at (6.4,\y) {\v};
+  }
+  % complement of S (first step)
+  \foreach \a/\b in {1/1,2/2,2/3,3/1,3/3,5/2,5/3} \draw[ar,orange!90!black] (L\a) -- (M\b);
+  % R cap S (second step)
+  \foreach \a/\b in {1/2,1/3,1/5,2/5,3/2,3/5,5/1,5/5} \draw[ar,blue!60!black] (M\a) -- (D\b);
+  \node[font=\small\bfseries,orange!90!black] at (1.6,1.3) {1.º $\overline{\Ss}$};
+  \node[font=\small\bfseries,blue!60!black] at (4.8,1.3) {2.º $\Rr\cap\Ss$};
+\end{tikzpicture}
+\end{center}
+
+\calculo{M_{(\Rr\cap\Ss)\circ\overline\Ss}=\bajo{\begin{pmatrix}1&0&0&0\\0&1&1&0\\1&0&1&0\\0&1&1&0\end{pmatrix}}{M_{\overline\Ss}\ (1.^{\circ})}\odot\bajo{\begin{pmatrix}0&1&1&1\\0&0&0&1\\0&1&0&1\\1&0&0&1\end{pmatrix}}{M_{\Rr\cap\Ss}\ (2.^{\circ})}=\begin{pmatrix}0&1&1&1\\0&1&0&1\\0&1&1&1\\0&1&0&1\end{pmatrix}}
+
+\begin{explica}
+\textbf{Fórmula:} $a\big((\Rr\cap\Ss)\circ\overline\Ss\big)c\iff(\exists b\in A)[\,a\overline\Ss b\wedge b(\Rr\cap\Ss)c\,]$ (Def.\ composición) y $M_{(\Rr\cap\Ss)\circ\overline\Ss}=M_{\overline\Ss}\odot M_{\Rr\cap\Ss}$. La relación de la \textbf{derecha} del $\circ$, $\overline\Ss$, se usa \textbf{primero}, y por eso su matriz va a la \textbf{izquierda} del producto booleano (ver teoría).
+
+\textbf{Paso 1, $M_{\overline\Ss}$:} el complemento tiene las parejas que \textbf{no} están en $\Ss$, así que se cambian los ceros por unos y los unos por ceros en $M_\Ss$. La fila $(0,1,1,1)$ pasa a $(1,0,0,0)$, la fila $(1,0,0,1)$ pasa a $(0,1,1,0)$, etc. Es decir, $G_{\overline\Ss}=\{(1,1),(2,2),(2,3),(3,1),(3,3),(5,2),(5,3)\}$ (flechas naranjas).
+
+\textbf{Paso 2, $M_{\Rr\cap\Ss}$:} la intersección tiene las parejas que están en $G_\Rr$ \textbf{y} en $G_\Ss$ (pregunta 1a). De las $9$ parejas de $G_\Ss$ solo $(2,1)$ no está en $\Rr$, porque $2\not<2$ y $2+1=3<5$. Así $G_{\Rr\cap\Ss}=\{(1,2),(1,3),(1,5),(2,5),(3,2),(3,5),(5,1),(5,5)\}$ (flechas azules). En la matriz: es $M_\Ss$ con un $0$ en la casilla fila $2$, columna $1$.
+
+\textbf{Paso 3, el producto booleano fila por fila:} la fila $i$ del resultado es el ``o'' ($\vee$) de las filas de $M_{\Rr\cap\Ss}$ que están en las posiciones donde la fila $i$ de $M_{\overline\Ss}$ tiene un $1$.
+\begin{itemize}[leftmargin=1.2em,itemsep=2pt]
+\item Fila de $1$: $(1,0,0,0)$, un $1$ en la posición $1$ $\Rightarrow$ fila $1$ de $M_{\Rr\cap\Ss}$: $(0,1,1,1)$.
+\item Fila de $2$: $(0,1,1,0)$, unos en posiciones $2$ y $3$ $\Rightarrow$ $(0,0,0,1)\vee(0,1,0,1)=(0,1,0,1)$.
+\item Fila de $3$: $(1,0,1,0)$, unos en posiciones $1$ y $3$ $\Rightarrow$ $(0,1,1,1)\vee(0,1,0,1)=(0,1,1,1)$.
+\item Fila de $5$: $(0,1,1,0)$, igual que la de $2$ $\Rightarrow$ $(0,1,0,1)$.
+\end{itemize}
+Con la fórmula casilla por casilla, por ejemplo la casilla fila $2$, columna $2$: $(0\wedge1)\vee(1\wedge0)\vee(1\wedge1)\vee(0\wedge0)=0\vee0\vee1\vee0=1$.
+
+\textbf{¿Tiene sentido?} En el dibujo, el $1$ de la casilla (fila $2$, columna $2$) es el camino $2\xrightarrow{\overline\Ss}3\xrightarrow{\Rr\cap\Ss}2$. La primera columna es toda de ceros porque al $1$ de la columna derecha solo llega una flecha azul, la que sale de $5$, y al $5$ del centro no llega ninguna flecha naranja.
+\end{explica}
+
+\textbf{Respuesta:} $M_{(\Rr\cap\Ss)\circ\overline\Ss}=\begin{pmatrix}0&1&1&1\\0&1&0&1\\0&1&1&1\\0&1&0&1\end{pmatrix}$, es decir,
+\[ G_{(\Rr\cap\Ss)\circ\overline\Ss}=\{(1,2),(1,3),(1,5),(2,2),(2,5),(3,2),(3,3),(3,5),(5,2),(5,5)\}. \]
+
+% ============================================================
+% QUESTION 2
+% ============================================================
+\clearpage
+\section*{Pregunta 2a}
+\addcontentsline{toc}{section}{Pregunta 2a}
+
+2. Si $\Rr$ y $\Ss$ son dos relaciones definidas sobre un conjunto $A$, con $A$ no vacío.
+
+\hspace*{1.5em}(a) Pruebe que si $\Rr$ y $\Ss$ son \hl{reflexivas}, entonces \hl{$\Rr\circ\Ss$ es reflexiva}. \hfill\textbf{(2 puntos)}
+
+\begin{center}
+\begin{tikzpicture}
+  \foreach \x in {0,2.6,5.2} \draw (\x,0) ellipse (0.6 and 0.9);
+  \node[nd] (a1) at (0,0) {$a$}; \node[nd] (a2) at (2.6,0) {$a$}; \node[nd] (a3) at (5.2,0) {$a$};
+  \draw[ar,orange!90!black] (a1) -- node[above,font=\small] {$\Ss$ (lazo)} (a2);
+  \draw[ar,blue!60!black] (a2) -- node[above,font=\small] {$\Rr$ (lazo)} (a3);
+  \draw[ar,red!70!black,dashed] (a1) to[bend right=30] node[below,font=\small] {$\Rr\circ\Ss$: el puente es $b=a$} (a3);
+\end{tikzpicture}
+\end{center}
+
+\calculo{a\bajo{\Ss}{\Ss\text{ refl.}}a\ \wedge\ a\bajo{\Rr}{\Rr\text{ refl.}}a\ \Longrightarrow\ a\,(\Rr\circ\Ss)\,a\quad(b=a)}
+
+\begin{explica}
+\textbf{Fórmulas:} $\Rr$ reflexiva $\equiv(\forall a\in A)\,a\Rr a$, y $a(\Rr\circ\Ss)c\iff(\exists b\in A)[a\Ss b\wedge b\Rr c]$ (Def.\ composición: en $\Rr\circ\Ss$ se usa \textbf{primero} $\Ss$ y \textbf{luego} $\Rr$).
+
+\textbf{Paso 1, qué hay que probar:} que \textbf{cualquier} elemento $a$ cumple $a(\Rr\circ\Ss)a$. Por la definición de composición, eso significa encontrar un ``puente'' $b$ con $a\Ss b$ y $b\Rr a$.
+
+\textbf{Paso 2, elegir el puente:} como $\Ss$ es reflexiva, $a$ tiene lazo en $\Ss$: $a\Ss a$. Como $\Rr$ es reflexiva, $a$ tiene lazo en $\Rr$: $a\Rr a$. Entonces el puente puede ser el mismo $a$, es decir, $b=a$.
+
+\textbf{¿Por qué funciona?} Dar dos vueltas en el mismo punto (primero el lazo de $\Ss$, después el de $\Rr$) es un camino de $a$ a $a$, que es justo lo que pide la composición.
+\end{explica}
+
+\textbf{HQD:} $\Rr\circ\Ss$ es reflexiva $\equiv(\forall a\in A)\ a(\Rr\circ\Ss)a$.
+
+Sea $a\in A$ fijo pero arbitrario.
+\begin{align*}
+a\in A &\Rightarrow a\Ss a\wedge a\Rr a && \Ss\text{ reflexiva},\ \Rr\text{ reflexiva, Adj.}\\
+&\Rightarrow (\exists b\in A)\,[\,a\Ss b\wedge b\Rr a\,],\ b=a && \text{Intro.\ }\exists\\
+&\Rightarrow a(\Rr\circ\Ss)a && \text{Def.\ composición}
+\end{align*}
+Por lo tanto, $\Rr\circ\Ss$ es reflexiva.
+
+\textbf{Respuesta:} queda probado que si $\Rr$ y $\Ss$ son reflexivas, $\Rr\circ\Ss$ es reflexiva.
+
+% ------------------------------------------------------------
+\clearpage
+\section*{Pregunta 2b}
+\addcontentsline{toc}{section}{Pregunta 2b}
+
+(Mismas hipótesis: $\Rr$ y $\Ss$ relaciones sobre $A$, $A$ no vacío.)
+
+\hspace*{1.5em}(b) Si $\Rr$ y $\Ss$ son \hl{antisimétricas}, determine si \hl{$\Rr\cup\Ss$ es antisimétrica}. \hfill\textbf{(2 puntos)}
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{scope}
+    \node[font=\small\bfseries,blue!60!black] at (1,1.0) {$\Rr$};
+    \node[nd] (1) at (0,0) {1}; \node[nd] (2) at (2,0) {2};
+    \draw[ar,blue!60!black] (1) -- (2);
+    \node[font=\scriptsize] at (1,-0.7) {solo ida: antisim.};
+  \end{scope}
+  \begin{scope}[xshift=3.6cm]
+    \node[font=\small\bfseries,orange!90!black] at (1,1.0) {$\Ss$};
+    \node[nd] (1) at (0,0) {1}; \node[nd] (2) at (2,0) {2};
+    \draw[ar,orange!90!black] (2) -- (1);
+    \node[font=\scriptsize] at (1,-0.7) {solo ida: antisim.};
+  \end{scope}
+  \begin{scope}[xshift=7.2cm]
+    \node[font=\small\bfseries,red!70!black] at (1,1.0) {$\Rr\cup\Ss$};
+    \node[nd] (1) at (0,0) {1}; \node[nd] (2) at (2,0) {2};
+    \draw[ar,red!70!black] (1) to[bend left=25] (2);
+    \draw[ar,red!70!black] (2) to[bend left=25] (1);
+    \node[font=\scriptsize,red!70!black] at (1,-0.8) {ida y vuelta con $1\neq2$};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\calculo{1\,(\Rr\cup\Ss)\,2\ \wedge\ 2\,(\Rr\cup\Ss)\,1\quad\text{pero}\quad \bajo{1\neq2}{\text{falla la antisimetría}}}
+
+\begin{explica}
+\textbf{Fórmulas:} $\Rr$ antisimétrica $\equiv(\forall a,b\in A)[a\Rr b\wedge b\Rr a\Rightarrow a=b]$, y $a(\Rr\cup\Ss)b\iff a\Rr b\vee a\Ss b$ (Def.\ unión).
+
+\textbf{Paso 1, la idea:} cada relación por separado puede tener solo flechas ``de ida''. Pero al juntarlas, la flecha de ida puede venir de $\Rr$ y la de vuelta de $\Ss$. Entonces la unión tendría ida y vuelta entre dos elementos distintos, y eso rompe la antisimetría. Para mostrar que algo \textbf{no} siempre se cumple basta un solo ejemplo donde falle (contraejemplo).
+
+\textbf{Paso 2, el ejemplo:} $A=\{1,2\}$, $G_\Rr=\{(1,2)\}$ y $G_\Ss=\{(2,1)\}$.
+
+\textbf{Paso 3, $\Rr$ y $\Ss$ sí son antisimétricas:} en $\Rr$ nunca pasa $a\Rr b\wedge b\Rr a$, porque la única pareja es $(1,2)$ y $(2,1)\notin G_\Rr$. Entonces la hipótesis de la implicación siempre es falsa y la implicación es verdadera (por vacuidad). Lo mismo pasa con $\Ss$, cuya única pareja es $(2,1)$ y $(1,2)\notin G_\Ss$.
+
+\textbf{Paso 4, la unión falla:} $G_{\Rr\cup\Ss}=\{(1,2),(2,1)\}$, así que $1(\Rr\cup\Ss)2$ y $2(\Rr\cup\Ss)1$, pero $1\neq2$.
+\end{explica}
+
+Se mostrará un contraejemplo. Sean $A=\{1,2\}$, $G_\Rr=\{(1,2)\}$ y $G_\Ss=\{(2,1)\}$.
+\begin{itemize}[leftmargin=1.2em]
+\item $\Rr$ es antisimétrica: la única pareja con $a\Rr b$ es $(1,2)$ y $2\not\!\Rr\,1$, por lo que $a\Rr b\wedge b\Rr a$ es siempre falso y la implicación $a\Rr b\wedge b\Rr a\Rightarrow a=b$ es verdadera. Análogamente $\Ss$ es antisimétrica, pues $(1,2)\notin G_\Ss$.
+\item Sean $a=1$ y $b=2$. Como $1\Rr2$, se tiene $1(\Rr\cup\Ss)2$ (Def.\ unión, Adi.). Como $2\Ss1$, se tiene $2(\Rr\cup\Ss)1$ (Def.\ unión, Adi.). Así $1(\Rr\cup\Ss)2\wedge2(\Rr\cup\Ss)1$ (Adj.), pero $1\neq2$.
+\end{itemize}
+Por lo tanto, $\Rr\cup\Ss$ no es antisimétrica en este caso.
+
+\textbf{Respuesta:} no; aunque $\Rr$ y $\Ss$ sean antisimétricas, $\Rr\cup\Ss$ no es necesariamente antisimétrica (contraejemplo de arriba).
+
+% ============================================================
+% QUESTION 3
+% ============================================================
+\clearpage
+\section*{Pregunta 3a}
+\addcontentsline{toc}{section}{Pregunta 3a}
+
+3. Considere la relación $\Rr$ definida sobre $\mathbb{Z}$ de la siguiente manera
+\[ a\Rr b\iff a^2+b=b^2+a \]
+\hspace*{1.5em}(a) Demuestre que $\Rr$ es una \hl{relación de equivalencia}. \hfill\textbf{(4 puntos)}
+
+\begin{center}
+\begin{tikzpicture}
+  \node[nd] (a) at (0,0) {$a$}; \node[nd] (b) at (3,1.5) {$b$}; \node[nd] (c) at (6,0) {$c$};
+  \draw[ar,blue!60!black] (a) -- node[above left,font=\scriptsize] {$a^2+b=b^2+a$} (b);
+  \draw[ar,blue!60!black] (b) -- node[above right,font=\scriptsize] {$b^2+c=c^2+b$} (c);
+  \draw[ar,orange!90!black] (a) -- node[below=3pt,font=\scriptsize] {sumar y cancelar $b^2+b$: $a^2+c=c^2+a$} (c);
+  \draw[lp,blue!60!black] (a) to[out=150,in=210,loop] node[left,font=\scriptsize] {refl.} (a);
+\end{tikzpicture}
+\end{center}
+
+\calculo{\bajo{a^2+b=b^2+a}{a\Rr b}\ \ +\ \ \bajo{b^2+c=c^2+b}{b\Rr c}\ \Longrightarrow\ \bajo{a^2+c=c^2+a}{a\Rr c}}
+
+\begin{explica}
+\textbf{Fórmula:} equivalencia $=$ reflexiva $+$ simétrica $+$ transitiva (ver teoría). Se prueba cada una por separado, siempre usando la Def.\ de $\Rr$: $a\Rr b$ significa que la igualdad $a^2+b=b^2+a$ es cierta.
+
+\textbf{Paso 1, reflexiva:} hay que ver $a\Rr a$, o sea, cambiar $b$ por $a$: $a^2+a=a^2+a$. Eso es cierto siempre, porque los dos lados son la misma expresión.
+
+\textbf{Paso 2, simétrica:} si $a^2+b=b^2+a$, se lee la igualdad de derecha a izquierda: $b^2+a=a^2+b$. Esa es justamente la definición de $b\Rr a$ (en la definición, el primer elemento va al cuadrado al lado izquierdo).
+
+\textbf{Paso 3, transitiva:} se tienen dos igualdades, una de $a\Rr b$ y otra de $b\Rr c$. Se suman lado izquierdo con lado izquierdo y derecho con derecho. Quedan $b$ y $b^2$ en ambos lados, así que se cancelan, y queda $a^2+c=c^2+a$, que es $a\Rr c$.
+
+\textbf{¿Tiene sentido?} Ejemplo: $0\Rr1$ porque $0^2+1=1=1^2+0$; y $1\Rr0$ porque $1^2+0=1=0^2+1$. Tanto la ida como la vuelta funcionan, como dice la simetría.
+\end{explica}
+
+\textbf{Reflexiva.} \textbf{HQD:} $(\forall a\in\mathbb Z)\ a\Rr a$. Sea $a\in\mathbb Z$ fijo pero arbitrario.
+\begin{align*}
+a\in\mathbb Z &\Rightarrow a^2+a=a^2+a && \text{Igualdad (reflexividad de }=)\\
+&\Rightarrow a\Rr a && \text{Def.\ de }\Rr
+\end{align*}
+\textbf{Simétrica.} \textbf{HQD:} $(\forall a,b\in\mathbb Z)\ [a\Rr b\Rightarrow b\Rr a]$. Sean $a,b\in\mathbb Z$ fijos pero arbitrarios tales que $a\Rr b$.
+\begin{align*}
+a\Rr b &\Rightarrow a^2+b=b^2+a && \text{Def.\ de }\Rr\\
+&\Rightarrow b^2+a=a^2+b && \text{Simetría de la igualdad}\\
+&\Rightarrow b\Rr a && \text{Def.\ de }\Rr
+\end{align*}
+\textbf{Transitiva.} \textbf{HQD:} $(\forall a,b,c\in\mathbb Z)\ [a\Rr b\wedge b\Rr c\Rightarrow a\Rr c]$. Sean $a,b,c\in\mathbb Z$ fijos pero arbitrarios tales que $a\Rr b\wedge b\Rr c$.
+\begin{align*}
+a\Rr b\wedge b\Rr c &\Rightarrow a^2+b=b^2+a\ \wedge\ b^2+c=c^2+b && \text{Def.\ de }\Rr\\
+&\Rightarrow a^2+b+b^2+c=b^2+a+c^2+b && \text{Suma término a término}\\
+&\Rightarrow a^2+c=a+c^2 && \text{Cancelación de }b^2+b\\
+&\Rightarrow a^2+c=c^2+a && \text{Con.}\\
+&\Rightarrow a\Rr c && \text{Def.\ de }\Rr
+\end{align*}
+Por lo tanto, $\Rr$ es reflexiva, simétrica y transitiva, es decir, $\Rr$ es una relación de equivalencia.
+
+\textbf{Respuesta:} $\Rr$ es una relación de equivalencia.
+
+% ------------------------------------------------------------
+\clearpage
+\section*{Pregunta 3b}
+\addcontentsline{toc}{section}{Pregunta 3b}
+
+(Misma $\Rr$ sobre $\mathbb Z$: $a\Rr b\iff a^2+b=b^2+a$.)
+
+\hspace*{1.5em}(b) Calcule la \hl{clase de equivalencia de 1}. \hfill\textbf{(1 punto)}
+
+\begin{center}
+\begin{tikzpicture}
+  \draw[->,thick] (-3.5,0) -- (4.5,0);
+  \foreach \x in {-3,...,4} {\draw (\x,0.1) -- (\x,-0.1); \node[below,font=\small] at (\x,-0.1) {$\x$};}
+  \fill[blue!60!black] (0,0) circle (3pt) (1,0) circle (3pt);
+  \draw[thick,blue!60!black,rounded corners] (-0.4,-0.65) rectangle (1.4,0.4);
+  \node[font=\small\bfseries,blue!60!black] at (0.5,0.75) {$\overline1=\{0,1\}$};
+  \foreach \x in {-3,-2,-1,2,3,4} \node[red!70!black,font=\scriptsize] at (\x,0.35) {$\times$};
+\end{tikzpicture}
+\end{center}
+
+\calculo{x\Rr1\iff x^2+\bajo{1}{b=1}=\bajo{1^2}{b^2=1}+x\iff x(x-1)=0\iff x=0\ \vee\ x=1}
+
+\begin{explica}
+\textbf{Fórmula:} $\overline a=\{x\in\mathbb Z: x\Rr a\}$ (Def.\ de clase de equivalencia). Con $a=1$ se buscan todos los enteros $x$ que cumplen $x\Rr1$.
+
+\textbf{Paso 1, sustituir en la definición:} en $a^2+b=b^2+a$ se pone el primer elemento $x$ en el lugar de $a$ y el $1$ en el lugar de $b$: $x^2+1=1^2+x$, o sea $x^2+1=1+x$.
+
+\textbf{Paso 2, despejar:} se resta $1$ a ambos lados: $x^2=x$. Se pasa la $x$ restando: $x^2-x=0$. Se saca factor común $x$: $x(x-1)=0$.
+
+\textbf{Paso 3, resolver:} un producto da $0$ solo si alguno de los factores es $0$: $x=0$ o $x-1=0$, es decir $x=0$ o $x=1$. Ambos son enteros, así que los dos entran en la clase.
+
+\textbf{¿Tiene sentido?} $x=0$: $0^2+1=1$ y $1^2+0=1$, iguales. $x=1$: está por reflexividad. Un valor que no sirve, $x=2$: $2^2+1=5$ y $1^2+2=3$, distintos (marcado con $\times$ en el dibujo).
+\end{explica}
+
+\begin{align*}
+\overline1=\{x\in\mathbb Z: x\Rr1\} &=\{x\in\mathbb Z: x^2+1=1^2+x\} && \text{Def.\ de }\Rr\\
+&=\{x\in\mathbb Z: x^2-x=0\} && \text{Op.}\\
+&=\{x\in\mathbb Z: x(x-1)=0\} && \text{Factor}\\
+&=\{x\in\mathbb Z: x=0\vee x=1\}=\{0,1\}
+\end{align*}
+
+\textbf{Respuesta:} $\overline1=\{0,1\}$.
+
+% ============================================================
+% THEORY: FUNCTIONS
+% ============================================================
+\clearpage
+\section*{Teoría 2: funciones}
+\addcontentsline{toc}{section}{Teoría 2: funciones}
+
+\teoria{%
+\defi{Función}{$f:A\to B$ es una relación en la que \textbf{cada} elemento de $A$ (dominio) tiene \textbf{exactamente una} flecha hacia $B$ (codominio). Puede pasar que a un elemento de $B$ le lleguen varias flechas o ninguna.}
+\textbf{Ejemplo:} $f(a)=1$, $f(b)=1$, $f(c)=3$: de cada letra sale una sola flecha; al $2$ no le llega ninguna.
+}{%
+\sag{a,b,c}{1,2,3}{\draw[ar,blue!60!black] (x1) -- (y1); \draw[ar,blue!60!black] (x2) -- (y1); \draw[ar,blue!60!black] (x3) -- (y3);}}
+
+\teoria{%
+\defi{Conjunto potencia}{$P(A)$ es el conjunto de \textbf{todos} los subconjuntos de $A$, incluyendo el vacío $\emptyset$ y el mismo $A$. Si $A$ tiene $n$ elementos, $P(A)$ tiene $2^n$ elementos:}
+\[ |P(A)|=2^{|A|}. \]
+¿Por qué $2^n$? Para armar un subconjunto, cada elemento de $A$ tiene dos opciones: entra o no entra. Con $n$ elementos son $2\cdot2\cdots2=2^n$ maneras.
+
+\textbf{Ejemplo:} $P(\{a,b\})=\{\emptyset,\{a\},\{b\},\{a,b\}\}$, que tiene $2^2=4$ elementos.
+}{%
+\begin{tikzpicture}[font=\small]
+  \node[draw,rounded corners,fill=gray!10] at (0,0) {$\emptyset$};
+  \node[draw,rounded corners,fill=blue!10] at (-1,-1) {$\{a\}$};
+  \node[draw,rounded corners,fill=blue!10] at (1,-1) {$\{b\}$};
+  \node[draw,rounded corners,fill=orange!15] at (0,-2) {$\{a,b\}$};
+  \node[font=\scriptsize,align=center] at (0,-2.9) {$a$: entra o no ($2$)\\$b$: entra o no ($2$) $\Rightarrow 2\cdot2=4$};
+\end{tikzpicture}}
+
+\teoria{%
+\defi{Imagen directa}{$f(E)$ son los puntos de $B$ a los que llega alguna flecha que sale de $E$. Se calcula aplicando $f$ a cada elemento de $E$ y juntando los resultados (sin repetir).}
+\[ f(E)=\{b\in B\ :\ (\exists a\in E)\ b=f(a)\}. \]
+\textbf{Ejemplo:} con la $f$ de arriba y $E=\{a,b\}$: $f(E)=\{f(a),f(b)\}=\{1,1\}=\{1\}$.
+}{%
+\sag{a,b,c}{1,2,3}{\fill[blue!15] (x1) circle (0.33) (x2) circle (0.33); \fill[orange!30] (y1) circle (0.33); \node[nd] at (x1) {$a$}; \node[nd] at (x2) {$b$}; \node[nd] at (y1) {$1$}; \draw[ar,blue!60!black] (x1) -- (y1); \draw[ar,blue!60!black] (x2) -- (y1); \draw[ar,gray] (x3) -- (y3); \node[font=\scriptsize,blue!60!black] at (0,0.8) {$E$}; \node[font=\scriptsize,orange!90!black] at (2.6,0.8) {$f(E)$};}}
+
+\teoria{%
+\defi{Imagen inversa (preimagen)}{$f^{-1}(F)$ son los elementos de $A$ cuya flecha cae dentro de $F$. Se calcula recorriendo \textbf{todo} el dominio y quedándose con los que caen en $F$. Existe siempre, aunque $f$ no tenga inversa.}
+\[ f^{-1}(F)=\{a\in A\ :\ f(a)\in F\}. \]
+\textbf{Ejemplo:} $F=\{1,2\}$: caen en $F$ la $a$ y la $b$, así que $f^{-1}(F)=\{a,b\}$. El $2$ no aporta nada porque no le llega flecha.
+}{%
+\sag{a,b,c}{1,2,3}{\fill[orange!30] (y1) circle (0.33) (y2) circle (0.33); \fill[blue!15] (x1) circle (0.33) (x2) circle (0.33); \node[nd] at (x1) {$a$}; \node[nd] at (x2) {$b$}; \node[nd] at (y1) {$1$}; \node[nd] at (y2) {$2$}; \draw[ar,blue!60!black] (x1) -- (y1); \draw[ar,blue!60!black] (x2) -- (y1); \draw[ar,gray] (x3) -- (y3); \node[font=\scriptsize,orange!90!black] at (2.6,0.8) {$F$}; \node[font=\scriptsize,blue!60!black] at (0,0.8) {$f^{-1}(F)$};}}
+
+\clearpage
+\teoria{%
+\defi{Inyectiva}{elementos distintos van a imágenes distintas: a ningún punto de $B$ le llegan dos flechas.}
+\[ f\text{ inyectiva}\iff(\forall x_1,x_2\in A)\ [f(x_1)=f(x_2)\Rightarrow x_1=x_2]. \]
+Para \textbf{probarla} se supone $f(x_1)=f(x_2)$ y se despeja hasta llegar a $x_1=x_2$. Para \textbf{negarla} basta un ejemplo: dos elementos distintos con la misma imagen.
+}{%
+\scalebox{0.82}{\sag{a,b}{1,2,3}{\draw[ar,blue!60!black] (x1) -- (y1); \draw[ar,blue!60!black] (x2) -- (y3); \node[font=\small,blue!60!black] at (1.3,-3.1) {inyectiva};}\ \sag{a,b}{1,2,3}{\draw[ar,red!70!black] (x1) -- (y2); \draw[ar,red!70!black] (x2) -- (y2); \node[font=\small,red!70!black] at (1.3,-3.1) {no inyectiva};}}}
+
+\teoria{%
+\defi{Sobreyectiva}{todo punto de $B$ recibe al menos una flecha, es decir, la imagen de todo el dominio es el codominio completo.}
+\[ f\text{ sobreyectiva}\iff f(A)=B \]
+\[ \iff(\forall y\in B)(\exists x\in A)\ f(x)=y. \]
+Para \textbf{probarla} con números reales: se toma $y$ fijo pero arbitrario, se despeja $x$ de $y=f(x)$, se verifica que ese $x$ está en el dominio y que $f(x)=y$.
+}{%
+\scalebox{0.76}{\sag{a,b,c}{1,2}{\draw[ar,blue!60!black] (x1) -- (y1); \draw[ar,blue!60!black] (x2) -- (y2); \draw[ar,blue!60!black] (x3) -- (y2); \node[font=\small,blue!60!black] at (1.3,-3.1) {sobreyectiva};}\ \sag{a,b}{1,2,3}{\draw[ar,red!70!black] (x1) -- (y1); \draw[ar,red!70!black] (x2) -- (y2); \node[font=\small,red!70!black] at (1.3,-3.1) {no sobreyectiva}; \draw[red!70!black,thick] (y3) circle (0.42);}}}
+
+\teoria{%
+\defi{Biyectiva y función inversa}{$f$ es biyectiva si es inyectiva \textbf{y} sobreyectiva: cada punto de $B$ recibe \textbf{exactamente una} flecha. Solo entonces existe $f^{-1}:B\to A$, que recorre las flechas al revés.}
+\[ f^{-1}(y)=x\iff f(x)=y. \]
+\textbf{Cómo se calcula (despeje):} se escribe $y=f(x)$, se despeja $x$ en términos de $y$, y al final se renombra la variable como $x$.
+
+\textbf{Ejemplo:} $f(x)=3x+1$. De $y=3x+1$ sale $x=\dfrac{y-1}{3}$, entonces $f^{-1}(x)=\dfrac{x-1}{3}$. Prueba: $f(2)=7$ y $f^{-1}(7)=\dfrac{6}{3}=2$.
+}{%
+\sag{a,b,c}{1,2,3}{\foreach \i in {1,2,3} {\draw[ar,blue!60!black] (x\i) to[bend left=18] (y\i); \draw[ar,orange!90!black,dashed] (y\i) to[bend left=18] (x\i);} \node[font=\scriptsize,blue!60!black] at (1.3,0.75) {$f$}; \node[font=\scriptsize,orange!90!black] at (1.3,-3.05) {$f^{-1}$ (punteada)};}}
+
+\teoria{%
+\defi{Composición de funciones}{$(g\circ f)(x)=g\big(f(x)\big)$: primero se aplica $f$ (la de la derecha) y al resultado se le aplica $g$. Es el mismo orden que en relaciones: lo de la derecha va primero.}
+\textbf{Ejemplo:} $f(x)=x+1$, $g(x)=x^2$: $(g\circ f)(x)=g(x+1)=(x+1)^2$. En lugar de cada $x$ de la fórmula de $g$ se escribe \textbf{toda} la expresión $f(x)$.
+}{%
+\begin{tikzpicture}
+  \node[nd,minimum size=8mm] (x) at (0,0) {$x$};
+  \node[nd,minimum size=10mm] (fx) at (2,0) {$f(x)$};
+  \node[draw,thick,rounded corners,minimum height=8mm] (gfx) at (4.4,0) {$g(f(x))$};
+  \draw[ar,blue!60!black] (x) -- node[above=2pt,font=\scriptsize] {$f$} (fx);
+  \draw[ar,orange!90!black] (fx) -- node[above=2pt,font=\scriptsize] {$g$} (gfx);
+  \draw[ar,red!70!black,dashed] (x) to[bend right=35] node[below,font=\scriptsize] {$g\circ f$} (gfx);
+\end{tikzpicture}}
+
+% ============================================================
+% QUESTION 4
+% ============================================================
+\clearpage
+\section*{Pregunta 4}
+\addcontentsline{toc}{section}{Pregunta 4}
+
+4. Considere las funciones $f$ y $g$ definidas sobre sus respectivos dominios de números reales de manera que ambas son \hl{biyectivas} y sus criterios son $f(x)=\dfrac{x+2}{x+1}$, $g(x)=2x-1$. Calcule \hl{$(g^{-1}\circ f)(x)$}. \hfill\textbf{(3 puntos)}
+
+\begin{center}
+\begin{tikzpicture}
+  \node[nd,minimum size=8mm] (x) at (0,0) {$x$};
+  \node[draw,thick,rounded corners,minimum height=9mm] (fx) at (3.2,0) {$\dfrac{x+2}{x+1}$};
+  \node[draw,thick,rounded corners,minimum height=9mm] (r) at (7.4,0) {$\dfrac{\frac{x+2}{x+1}+1}{2}$};
+  \draw[ar,blue!60!black] (x) -- node[above,font=\scriptsize] {1.º $f$} (fx);
+  \draw[ar,orange!90!black] (fx) -- node[above,font=\scriptsize] {2.º $g^{-1}$: sumar 1,} node[below,font=\scriptsize] {dividir entre 2} (r);
+\end{tikzpicture}
+\end{center}
+
+\calculo{(g^{-1}\circ f)(x)=g^{-1}\big(\bajo{f(x)}{\text{va en lugar de }x}\big)=\frac{\frac{x+2}{x+1}+1}{2}=\frac{\bajo{2x+3}{(x+2)+(x+1)}}{2(x+1)}=\frac{2x+3}{2x+2}}
+
+\begin{explica}
+\textbf{Fórmulas:} función inversa por despeje, $g^{-1}(y)=x\iff g(x)=y$, y composición $(g^{-1}\circ f)(x)=g^{-1}\big(f(x)\big)$: primero $f$, luego $g^{-1}$ (ver teoría). El enunciado dice que $g$ es biyectiva, por eso $g^{-1}$ existe.
+
+\textbf{Paso 1, calcular $g^{-1}$:} se escribe $y=2x-1$ y se despeja $x$. Se suma $1$: $y+1=2x$. Se divide entre $2$: $x=\dfrac{y+1}{2}$. Renombrando la variable: $g^{-1}(x)=\dfrac{x+1}{2}$. En palabras: $g$ ``multiplica por 2 y resta 1''; la inversa deshace eso en orden contrario, ``suma 1 y divide entre 2''.
+
+\textbf{Paso 2, componer:} en $g^{-1}(x)=\dfrac{x+1}{2}$ se cambia la $x$ por \textbf{toda} la expresión $f(x)=\dfrac{x+2}{x+1}$:
+\[ g^{-1}\big(f(x)\big)=\frac{\dfrac{x+2}{x+1}+1}{2}. \]
+
+\textbf{Paso 3, simplificar:} se suman las fracciones de arriba escribiendo $1=\dfrac{x+1}{x+1}$: $\dfrac{x+2}{x+1}+\dfrac{x+1}{x+1}=\dfrac{2x+3}{x+1}$. Dividir entre $2$ es multiplicar el denominador por $2$: $\dfrac{2x+3}{2(x+1)}=\dfrac{2x+3}{2x+2}$. El valor $x=-1$ no se puede usar porque ya en $f$ el denominador $x+1$ daría $0$.
+
+\textbf{¿Tiene sentido?} Con $x=0$: $f(0)=\dfrac{2}{1}=2$ y $g^{-1}(2)=\dfrac{3}{2}$. La fórmula final da $\dfrac{2\cdot0+3}{2\cdot0+2}=\dfrac32$. Coinciden. Además $g\big(\tfrac32\big)=2\cdot\tfrac32-1=2=f(0)$, como debe ser.
+\end{explica}
+
+\begin{align*}
+y=2x-1 &\Rightarrow y+1=2x && \text{Op.}\\
+&\Rightarrow x=\frac{y+1}{2} && \text{Op.}\\
+&\Rightarrow g^{-1}(x)=\frac{x+1}{2} && \text{Def.\ inversa}
+\end{align*}
+\begin{align*}
+(g^{-1}\circ f)(x)=g^{-1}\big(f(x)\big) &=\frac{\frac{x+2}{x+1}+1}{2} && \text{Def.\ composición, Sust.}\\
+&=\frac{\frac{x+2+x+1}{x+1}}{2}=\frac{2x+3}{2(x+1)} && \text{Op.}
+\end{align*}
+
+\textbf{Respuesta:} $(g^{-1}\circ f)(x)=\dfrac{2x+3}{2x+2}$, con $x\neq-1$.
+
+% ============================================================
+% QUESTION 5
+% ============================================================
+\clearpage
+\section*{Pregunta 5a}
+\addcontentsline{toc}{section}{Pregunta 5a}
+
+5. Sea $A=\{1,3,9\}$, $B=\{0,1,3,9\}$ y $f:P(A)\to B$ definida por
+\[ f(M)=\begin{cases}0 & \text{si } M=\emptyset\\ k & \text{si } M\neq\emptyset\end{cases} \]
+donde $k$ es el \hl{menor elemento} del conjunto $M$
+
+\hspace*{1.5em}(a) Determine si $f$ es \hl{inyectiva} y si es \hl{sobreyectiva}. \hfill\textbf{(2 puntos)}
+
+\diagcinco{red!70!black}{blue!60!black}{blue!60!black}{blue!60!black}{red!70!black}{blue!60!black}{blue!60!black}{blue!60!black}{%
+  \draw[red!70!black,thick] (L2) circle (0.42) (L5) circle (0.48) (B1) circle (0.32);
+  \node[red!70!black,font=\scriptsize,align=left,anchor=west] at (5.2,-1.4) {cuatro flechas\\llegan al $1$};}
+
+\calculo{f(\bajo{\{1\}}{\text{mín}=1})=f(\bajo{\{1,3\}}{\text{mín}=1})=1,\qquad f\big(P(A)\big)=\{0,1,3,9\}=B}
+
+\begin{explica}
+\textbf{Fórmulas:} $f$ inyectiva $\iff[f(x_1)=f(x_2)\Rightarrow x_1=x_2]$; $f$ sobreyectiva $\iff f(P(A))=B$ (ver teoría). Primero se arma la tabla de valores.
+
+\textbf{Paso 1, el dominio:} el dominio es $P(A)$, todos los subconjuntos de $A=\{1,3,9\}$. Como $|A|=3$, son $2^3=8$ subconjuntos: $\emptyset$; los de un elemento $\{1\},\{3\},\{9\}$; los de dos $\{1,3\},\{1,9\},\{3,9\}$; y $\{1,3,9\}$.
+
+\textbf{Paso 2, la tabla:} al vacío le toca $0$. A los demás, su elemento más pequeño:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{c|cccccccc}
+$M$ & $\emptyset$ & $\{1\}$ & $\{3\}$ & $\{9\}$ & $\{1,3\}$ & $\{1,9\}$ & $\{3,9\}$ & $\{1,3,9\}$\\\hline
+$f(M)$ & $0$ & $1$ & $3$ & $9$ & $1$ & $1$ & $3$ & $1$
+\end{tabular}
+\end{center}
+
+\textbf{Paso 3, ¿inyectiva?} No: al $1$ le llegan varias flechas. Por ejemplo $\{1\}\neq\{1,3\}$, pero los dos tienen como menor elemento al $1$.
+
+\textbf{Paso 4, ¿sobreyectiva?} Sí: se revisa cada elemento de $B$ y se busca quién llega a él: al $0$ llega $\emptyset$, al $1$ llega $\{1\}$, al $3$ llega $\{3\}$ y al $9$ llega $\{9\}$. Ninguno se queda sin flecha.
+
+\textbf{¿Tiene sentido?} Hay $8$ elementos en el dominio y solo $4$ en el codominio: es imposible que $8$ flechas caigan en $4$ puntos sin repetir, así que la no inyectividad era de esperar.
+\end{explica}
+
+\textbf{No es inyectiva.} Se mostrará un contraejemplo. Sean $M_1=\{1\}$ y $M_2=\{1,3\}$. Entonces $f(M_1)=1$ y $f(M_2)=1$ (el menor elemento de ambos es $1$), es decir $f(M_1)=f(M_2)$, pero $M_1\neq M_2$.
+
+\textbf{Sí es sobreyectiva.} De la tabla,
+\[ f\big(P(A)\big)=\{f(\emptyset),f(\{1\}),f(\{3\}),f(\{9\}),\dots\}=\{0,1,3,9\}=B. \]
+
+\textbf{Respuesta:} $f$ no es inyectiva y sí es sobreyectiva.
+
+% ------------------------------------------------------------
+\clearpage
+\section*{Pregunta 5b}
+\addcontentsline{toc}{section}{Pregunta 5b}
+
+(Misma $f:P(A)\to B$, $A=\{1,3,9\}$, $B=\{0,1,3,9\}$, $f(M)=$ menor elemento de $M$, $f(\emptyset)=0$.)
+
+\hspace*{1.5em}(b) Si $C=\{M\in P(A)\ /\ |M|=2\}$, calcule \hl{$f(C)$}. \hfill\textbf{(2 puntos)}
+
+\diagcinco{gray!50}{gray!50}{gray!50}{gray!50}{blue!60!black}{blue!60!black}{blue!60!black}{gray!50}{%
+  \draw[blue!60!black,thick,rounded corners,fill=blue!12,fill opacity=0.4] (-0.7,-2.15) rectangle (0.7,-3.85);
+  \node[left,font=\small\bfseries,blue!60!black] at (-0.95,-3.0) {$C$};
+  \draw[orange!90!black,very thick] (B1) circle (0.32) (B3) circle (0.32);
+  \node[orange!90!black,font=\small\bfseries,anchor=west] at (5.2,-2.4) {$f(C)$};}
+
+\calculo{f(C)=\{f(\bajo{\{1,3\}}{\to1}),\ f(\bajo{\{1,9\}}{\to1}),\ f(\bajo{\{3,9\}}{\to3})\}=\{1,1,3\}=\{1,3\}}
+
+\begin{explica}
+\textbf{Fórmula:} $f(C)=\{b\in B:(\exists M\in C)\ b=f(M)\}$ (Def.\ imagen directa): se aplica $f$ a cada elemento de $C$ y se juntan los resultados.
+
+\textbf{Paso 1, quién es $C$:} $C$ son los subconjuntos de $A$ con exactamente $2$ elementos ($|M|=2$ es ``la cantidad de elementos de $M$ es $2$''). Se escogen $2$ de los $3$ números $1,3,9$: $C=\{\{1,3\},\{1,9\},\{3,9\}\}$. Ojo: los elementos de $C$ son conjuntos, porque $C\subseteq P(A)$.
+
+\textbf{Paso 2, aplicar $f$ a cada uno:} el menor de $\{1,3\}$ es $1$; el menor de $\{1,9\}$ es $1$; el menor de $\{3,9\}$ es $3$ (flechas azules).
+
+\textbf{Paso 3, juntar sin repetir:} los resultados son $1,1,3$; en un conjunto el $1$ repetido se escribe una sola vez: $f(C)=\{1,3\}$.
+
+\textbf{¿Tiene sentido?} El $9$ no puede aparecer, porque todo conjunto de dos elementos de $A$ tiene algún número menor que $9$. El $0$ tampoco, porque ningún elemento de $C$ es vacío.
+\end{explica}
+
+\textbf{Respuesta:} $C=\{\{1,3\},\{1,9\},\{3,9\}\}$ y $f(C)=\{1,3\}$.
+
+% ------------------------------------------------------------
+\clearpage
+\section*{Pregunta 5c}
+\addcontentsline{toc}{section}{Pregunta 5c}
+
+(Misma $f:P(A)\to B$, $A=\{1,3,9\}$, $B=\{0,1,3,9\}$, $f(M)=$ menor elemento de $M$, $f(\emptyset)=0$.)
+
+\hspace*{1.5em}(c) Calcule \hl{$f^{-1}(\{0,3\})$}. \hfill\textbf{(1 punto)}
+
+\diagcinco{blue!60!black}{gray!50}{blue!60!black}{gray!50}{gray!50}{gray!50}{blue!60!black}{gray!50}{%
+  \draw[orange!90!black,very thick] (B0) circle (0.32) (B3) circle (0.32);
+  \node[orange!90!black,font=\small\bfseries,anchor=west] at (5.2,-1.8) {$F=\{0,3\}$};
+  \foreach \v in {1,3,7} \node[draw=blue!60!black,very thick,fill=blue!12,rounded corners,font=\small] at (L\v) {\lbl{\v}};}
+
+\calculo{f^{-1}(\{0,3\})=\{\bajo{\emptyset}{f=0},\ \bajo{\{3\}}{f=3},\ \bajo{\{3,9\}}{f=3}\}}
+
+\begin{explica}
+\textbf{Fórmula:} $f^{-1}(F)=\{M\in P(A): f(M)\in F\}$ (Def.\ imagen inversa) con $F=\{0,3\}$. Se recorren los $8$ subconjuntos de la tabla de 5a y se guardan los que caen en $0$ o en $3$.
+
+\textbf{Paso 1, los que caen en $0$:} solo $\emptyset$, porque la definición le da $0$ al vacío y a ningún otro (los demás dan su menor elemento, que es $1$, $3$ o $9$).
+
+\textbf{Paso 2, los que caen en $3$:} los conjuntos cuyo menor elemento es $3$. No pueden tener al $1$ (si lo tuvieran, el menor sería $1$) y sí deben tener al $3$: son $\{3\}$ y $\{3,9\}$.
+
+\textbf{Paso 3, juntar:} $f^{-1}(\{0,3\})=\{\emptyset,\{3\},\{3,9\}\}$. El resultado es un subconjunto de $P(A)$, por eso sus elementos son conjuntos.
+
+\textbf{¿Tiene sentido?} Aplicando $f$ de vuelta: $f(\emptyset)=0$, $f(\{3\})=3$, $f(\{3,9\})=3$, todos en $\{0,3\}$. Y ningún otro subconjunto de la tabla da $0$ o $3$.
+\end{explica}
+
+\textbf{Respuesta:} $f^{-1}(\{0,3\})=\{\emptyset,\{3\},\{3,9\}\}$.
+
+% ============================================================
+% QUESTION 6
+% ============================================================
+\clearpage
+\section*{Pregunta 6a}
+\addcontentsline{toc}{section}{Pregunta 6a}
+
+6. Considere la función $f:\,]-\infty,1]\longrightarrow[2,+\infty[$ definida por $f(x)=(x-1)^2+2$.
+
+\hspace*{1.5em}(a) Pruebe que $f$ es una función \hl{biyectiva}. \hfill\textbf{(4 puntos)}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=8.5cm,height=6cm,axis lines=middle,xmin=-2.6,xmax=3.6,ymin=-0.5,ymax=8.6,
+  xtick={-2,-1,1,2,3},ytick={2,4,6,8},xlabel={$x$},ylabel={$y$},font=\small,clip=false]
+  \addplot[domain=1:3.6,samples=60,gray,dashed,thick] {(x-1)^2+2};
+  \addplot[domain=-1.7:1,samples=60,blue!60!black,very thick] {(x-1)^2+2};
+  \addplot[orange!90!black,thick] coordinates {(-2.6,5) (3.6,5)};
+  \fill[orange!90!black] (axis cs:1-1.732,5) circle (2.5pt);
+  \fill[blue!60!black] (axis cs:1,2) circle (2.5pt);
+  \node[orange!90!black,font=\scriptsize,anchor=south west] at (axis cs:-2.55,5.1) {$y=5$};
+  \node[gray,font=\scriptsize,anchor=west] at (axis cs:2.55,3.6) {(fuera del dominio)};
+  \node[blue!60!black,font=\scriptsize,anchor=north] at (axis cs:1,1.9) {$(1,2)$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\calculo{\text{Iny.: }\bajo{(x_1-1)^2=(x_2-1)^2}{f(x_1)=f(x_2)}\Rightarrow\bajo{1-x_1=1-x_2}{x-1\le0}\Rightarrow x_1=x_2}
+\calculo{\text{Sobre.: }x=\bajo{1-\sqrt{y-2}}{\le1}\ \Rightarrow\ f(x)=y}
+
+\begin{explica}
+\textbf{Fórmulas:} biyectiva $=$ inyectiva $+$ sobreyectiva. Inyectiva: $f(x_1)=f(x_2)\Rightarrow x_1=x_2$. Sobreyectiva: para todo $y\in[2,+\infty[$ existe $x\in\,]-\infty,1]$ con $f(x)=y$ (ver teoría).
+
+\textbf{Paso 0, $f$ cae dentro del codominio:} si $x\le1$, el cuadrado $(x-1)^2$ es $\ge0$ (todo cuadrado lo es), así que $f(x)=(x-1)^2+2\ge2$. Por eso escribir $f:\,]-\infty,1]\to[2,+\infty[$ tiene sentido.
+
+\textbf{Paso 1, inyectiva:} se iguala $f(x_1)=f(x_2)$ y se quita el $+2$ de los dos lados: $(x_1-1)^2=(x_2-1)^2$. Sacar raíz cuadrada da valores absolutos, porque $\sqrt{t^2}=|t|$: $|x_1-1|=|x_2-1|$. Aquí se usa el dominio: como $x_1\le1$, el número $x_1-1$ es $\le0$, y el valor absoluto de un número negativo (o cero) es su opuesto: $|x_1-1|=-(x_1-1)=1-x_1$. Igual con $x_2$. Queda $1-x_1=1-x_2$, y restando $1$ y cambiando el signo: $x_1=x_2$.
+
+\textbf{¿Por qué importa el dominio?} En toda la recta real $f$ \textbf{no} sería inyectiva: $f(0)=3=f(2)$. El dominio $]-\infty,1]$ se queda solo con la mitad izquierda de la parábola (azul), y la parte punteada ya no cuenta. En el dibujo, cada recta horizontal corta a la parte azul una sola vez.
+
+\textbf{Paso 2, sobreyectiva:} se toma un $y\ge2$ cualquiera y se busca $x$ despejando $y=(x-1)^2+2$: $(x-1)^2=y-2$, $|x-1|=\sqrt{y-2}$ y, como se quiere $x\le1$, $1-x=\sqrt{y-2}$, o sea $x=1-\sqrt{y-2}$. La raíz existe porque $y-2\ge0$, y $x\le1$ porque a $1$ se le resta algo $\ge0$.
+
+\textbf{¿Tiene sentido?} Con $y=5$: $x=1-\sqrt3\approx-0{,}73$, que es $\le1$, y $f(1-\sqrt3)=(-\sqrt3)^2+2=3+2=5$. Es el punto naranja del dibujo.
+\end{explica}
+
+\textbf{Inyectiva.} \textbf{HQD:} $(\forall x_1,x_2\in\,]-\infty,1])\ [f(x_1)=f(x_2)\Rightarrow x_1=x_2]$.
+
+Sean $x_1,x_2\in\,]-\infty,1]$ fijos pero arbitrarios tales que $f(x_1)=f(x_2)$.
+\begin{align*}
+f(x_1)=f(x_2) &\Rightarrow (x_1-1)^2+2=(x_2-1)^2+2 && \text{Def.\ de }f\\
+&\Rightarrow (x_1-1)^2=(x_2-1)^2 && \text{Cancelación}\\
+&\Rightarrow |x_1-1|=|x_2-1| && \sqrt{t^2}=|t|\\
+&\Rightarrow -(x_1-1)=-(x_2-1) && x_1-1\le0,\ x_2-1\le0\ (x_1,x_2\le1)\\
+&\Rightarrow 1-x_1=1-x_2 && \text{Op.}\\
+&\Rightarrow x_1=x_2 && \text{Cancelación}
+\end{align*}
+Por lo tanto, $f$ es inyectiva.
+
+\textbf{Sobreyectiva.} \textbf{HQD:} $(\forall y\in[2,+\infty[)(\exists x\in\,]-\infty,1])\ f(x)=y$.
+
+Sea $y\in[2,+\infty[$ fijo pero arbitrario. Se propone $x=1-\sqrt{y-2}$.
+\begin{itemize}[leftmargin=1.2em]
+\item $x$ está bien definido: $y\ge2\Rightarrow y-2\ge0$, entonces $\sqrt{y-2}\in\mathbb R$.
+\item $x\in\,]-\infty,1]$: $\sqrt{y-2}\ge0\Rightarrow-\sqrt{y-2}\le0\Rightarrow1-\sqrt{y-2}\le1$.
+\item $f(x)=y$:
+\begin{align*}
+f\big(1-\sqrt{y-2}\big) &=\big(1-\sqrt{y-2}-1\big)^2+2 && \text{Def.\ de }f\\
+&=\big(-\sqrt{y-2}\big)^2+2=(y-2)+2 && \text{Op.}\\
+&=y && \text{Op.}
+\end{align*}
+\end{itemize}
+Por lo tanto, $f$ es sobreyectiva. Como es inyectiva y sobreyectiva, $f$ es biyectiva.
+
+\textbf{Respuesta:} $f$ es biyectiva (inyectiva y sobreyectiva, probado arriba).
+
+% ------------------------------------------------------------
+\clearpage
+\section*{Pregunta 6b}
+\addcontentsline{toc}{section}{Pregunta 6b}
+
+(Misma $f:\,]-\infty,1]\longrightarrow[2,+\infty[$, $f(x)=(x-1)^2+2$.)
+
+\hspace*{1.5em}(b) Determine el criterio \hl{$f^{-1}(x)$}. \hfill\textbf{(1 punto)}
+
+\begin{center}
+\begin{tikzpicture}
+  \node[draw,thick,rounded corners,fill=blue!8] (A) at (0,0) {$x\in\,]-\infty,1]$};
+  \node[draw,thick,rounded corners,fill=orange!12] (B) at (6,0) {$y\in[2,+\infty[$};
+  \draw[ar,blue!60!black] (A) to[bend left=18] node[above,font=\small] {$f$: restar 1, al cuadrado, sumar 2} (B);
+  \draw[ar,orange!90!black] (B) to[bend left=18] node[below,font=\small] {$f^{-1}$: restar 2, raíz, ``$1-$''} (A);
+\end{tikzpicture}
+\end{center}
+
+\calculo{y=(x-1)^2+2\ \Rightarrow\ \bajo{|x-1|}{=1-x}=\sqrt{y-2}\ \Rightarrow\ f^{-1}(x)=1-\sqrt{x-2}}
+
+\begin{explica}
+\textbf{Fórmula:} $f^{-1}(y)=x\iff f(x)=y$; se despeja $x$ de $y=f(x)$ y al final se renombra la variable (ver teoría). La inversa existe porque en 6a se probó que $f$ es biyectiva.
+
+\textbf{Paso 1, aislar el cuadrado:} de $y=(x-1)^2+2$ se resta $2$: $(x-1)^2=y-2$.
+
+\textbf{Paso 2, la raíz:} $\sqrt{(x-1)^2}=|x-1|$, así que $|x-1|=\sqrt{y-2}$.
+
+\textbf{Paso 3, ¿por qué el signo menos?} El valor absoluto deja dos posibilidades: $x-1=\sqrt{y-2}$ o $x-1=-\sqrt{y-2}$. Pero $x$ viene del dominio $]-\infty,1]$, así que $x-1\le0$, y la primera opción daría $x\ge1$ (solo sirve en $y=2$). Por eso $|x-1|=1-x$, es decir, $1-x=\sqrt{y-2}$, y entonces $x=1-\sqrt{y-2}$. Con el signo $+$ se obtendría la mitad derecha de la parábola (la punteada en 6a), que no es parte de esta función.
+
+\textbf{Paso 4, renombrar:} $f^{-1}(x)=1-\sqrt{x-2}$, con $x\in[2,+\infty[$ (el dominio de $f^{-1}$ es el codominio de $f$).
+
+\textbf{¿Tiene sentido?} $f(0)=(0-1)^2+2=3$ y $f^{-1}(3)=1-\sqrt{1}=0$: se regresa al punto de partida. Con el signo $+$ daría $1+1=2$, que no es $0$.
+\end{explica}
+
+\begin{align*}
+y=(x-1)^2+2 &\Rightarrow (x-1)^2=y-2 && \text{Op.}\\
+&\Rightarrow |x-1|=\sqrt{y-2} && \sqrt{t^2}=|t|\\
+&\Rightarrow 1-x=\sqrt{y-2} && x\le1\Rightarrow x-1\le0\\
+&\Rightarrow x=1-\sqrt{y-2} && \text{Op.}
+\end{align*}
+
+\textbf{Respuesta:} $f^{-1}:[2,+\infty[\,\to\,]-\infty,1]$, $f^{-1}(x)=1-\sqrt{x-2}$.
+
+% ============================================================
+% QUESTION 7
+% ============================================================
+\clearpage
+\section*{Pregunta 7}
+\addcontentsline{toc}{section}{Pregunta 7}
+
+7. Sea $f:\mathbb R\longrightarrow\mathbb R$ una función \hl{inyectiva}, además, sea $g:\mathbb R\longrightarrow\mathbb R$ otra función definida por
+\[ g(x)=2f(5x)+3 \]
+Demuestre que \hl{$g$ es una función inyectiva}. \hfill\textbf{(3 puntos)}
+
+\begin{center}
+\begin{tikzpicture}[font=\small]
+  \node[nd,minimum size=8mm] (x) at (0,0) {$x$};
+  \node[draw,thick,rounded corners] (a) at (2.2,0) {$5x$};
+  \node[draw,thick,rounded corners] (b) at (4.6,0) {$f(5x)$};
+  \node[draw,thick,rounded corners] (c) at (7.4,0) {$2f(5x)+3$};
+  \draw[ar,blue!60!black] (x) -- node[above,font=\scriptsize] {$\cdot5$} (a);
+  \draw[ar,orange!90!black] (a) -- node[above,font=\scriptsize] {$f$} (b);
+  \draw[ar,blue!60!black] (b) -- node[above,font=\scriptsize] {$\cdot2,\ +3$} (c);
+  \node[font=\scriptsize,align=center,red!70!black] at (3.7,-1.0) {para probar $x_1=x_2$ se deshace cada paso de derecha a izquierda:\\quitar $+3$, dividir entre $2$, usar que $f$ es inyectiva, dividir entre $5$};
+\end{tikzpicture}
+\end{center}
+
+\calculo{2f(5x_1)+3=2f(5x_2)+3\Rightarrow f(5x_1)=f(5x_2)\Rightarrow\bajo{5x_1=5x_2}{f\text{ inyectiva}}\Rightarrow x_1=x_2}
+
+\begin{explica}
+\textbf{Fórmula:} $g$ inyectiva $\equiv(\forall x_1,x_2\in\mathbb R)\,[g(x_1)=g(x_2)\Rightarrow x_1=x_2]$ (ver teoría). La hipótesis dice lo mismo para $f$: si $f(u)=f(v)$, entonces $u=v$.
+
+\textbf{Paso 1, empezar:} se supone $g(x_1)=g(x_2)$ y, usando la definición de $g$, se escribe $2f(5x_1)+3=2f(5x_2)+3$.
+
+\textbf{Paso 2, quitar lo de afuera:} se resta $3$ a ambos lados y se divide entre $2$ (se puede porque $2\neq0$): queda $f(5x_1)=f(5x_2)$.
+
+\textbf{Paso 3, usar la hipótesis:} aquí entra que $f$ es inyectiva, con $u=5x_1$ y $v=5x_2$: si $f(5x_1)=f(5x_2)$, entonces $5x_1=5x_2$. Es el único paso donde se usa lo que dice el enunciado sobre $f$.
+
+\textbf{Paso 4, terminar:} se divide entre $5$: $x_1=x_2$.
+
+\textbf{¿Por qué funciona?} $g$ hace cuatro cosas en cadena: multiplicar por $5$, aplicar $f$, multiplicar por $2$ y sumar $3$. Cada una ``no junta'' valores distintos, así que la cadena completa tampoco. La prueba deshace los pasos de afuera hacia adentro.
+\end{explica}
+
+\textbf{HQD:} $g$ es inyectiva $\equiv(\forall x_1,x_2\in\mathbb R)\ [g(x_1)=g(x_2)\Rightarrow x_1=x_2]$.
+
+Sean $x_1,x_2\in\mathbb R$ fijos pero arbitrarios tales que $g(x_1)=g(x_2)$.
+\begin{align*}
+g(x_1)=g(x_2) &\Rightarrow 2f(5x_1)+3=2f(5x_2)+3 && \text{Def.\ de }g\\
+&\Rightarrow 2f(5x_1)=2f(5x_2) && \text{Cancelación}\\
+&\Rightarrow f(5x_1)=f(5x_2) && \text{Cancelación }(2\neq0)\\
+&\Rightarrow 5x_1=5x_2 && f\text{ inyectiva}\\
+&\Rightarrow x_1=x_2 && \text{Cancelación }(5\neq0)
+\end{align*}
+Por lo tanto, $g$ es inyectiva.
+
+\textbf{Respuesta:} queda probado que $g$ es inyectiva.
+
+
+\end{document}

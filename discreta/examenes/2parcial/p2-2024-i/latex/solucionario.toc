@@ -1,0 +1,14 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{Teoría: inducción matemática}{2}{section*.2}%
+\contentsline {section}{Pregunta 1 --- Inducción con sumatoria}{3}{section*.3}%
+\contentsline {section}{Pregunta 2 --- Inducción con divisibilidad}{5}{section*.4}%
+\contentsline {section}{Teoría: recurrencias lineales homogéneas}{6}{section*.5}%
+\contentsline {section}{Pregunta 3 --- Fórmula explícita desde las raíces}{7}{section*.6}%
+\contentsline {section}{Pregunta 4 --- Recurrencia desde la fórmula explícita}{8}{section*.7}%
+\contentsline {section}{Teoría: relaciones}{9}{section*.8}%
+\contentsline {section}{Pregunta 5 --- Matriz de $\overline {\mathcal R}\circ S$}{11}{section*.9}%
+\contentsline {section}{Pregunta 6a --- Reflexiva}{12}{section*.10}%
+\contentsline {section}{Pregunta 6b --- Simétrica}{13}{section*.11}%
+\contentsline {section}{Pregunta 6c --- Transitiva}{14}{section*.12}%
+\contentsline {section}{Pregunta 7 --- Contraejemplo de antisimetría}{15}{section*.13}%
+\contentsline {section}{Pregunta 8 --- Prueba con unión, intersección, complemento y composición}{16}{section*.14}%

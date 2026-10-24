@@ -1,0 +1,674 @@
+\documentclass[11pt]{article}
+\input{preamble.tex}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,backgrounds,shapes.geometric}
+
+% Shared TikZ styles for digraphs and sagittal diagrams
+\tikzset{
+  nodo/.style={circle,draw,thick,minimum size=6.5mm,inner sep=1pt,font=\small},
+  pto/.style={circle,fill,inner sep=1.4pt},
+  fl/.style={-{Stealth[length=2.4mm]},thick},
+  ovalo/.style={draw,thick,ellipse,minimum width=1.5cm,minimum height=2.6cm}
+}
+% Text on the left, drawing on the right
+\newcommand{\ladoalado}[2]{\par\noindent\begin{minipage}[c]{0.56\textwidth}#1\end{minipage}\hfill\begin{minipage}[c]{0.41\textwidth}\centering #2\end{minipage}\par\medskip}
+\newcommand{\R}{\mathcal{R}}
+\newcommand{\Sr}{\mathcal{S}}
+
+\title{\textbf{Matemática Discreta --- II Semestre 2025}\\[0.3em]\large Segundo Parcial (valor 27 pts) --- Solucionario como clase\\[0.3em]\normalsize Instituto Tecnológico de Costa Rica, Escuela de Matemática}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+
+% ============================================================
+\clearpage
+\section*{Teoría 1: relaciones}
+\addcontentsline{toc}{section}{Teoría 1: relaciones}
+
+\ladoalado{%
+\defi{Relación y gráfico}{una relación $\R$ de $A$ en $B$ es una lista de parejas ordenadas $(a,b)$; esa lista se llama el \textbf{gráfico} $G_\R$. Se escribe $a\R b$ (``$a$ está relacionado con $b$'') cuando la pareja está en la lista.}
+\[a\R b \iff (a,b)\in G_\R\subseteq A\times B\]
+Cada pareja es una flecha que sale del primer elemento y llega al segundo. El orden importa: $(2,6)$ es una flecha de $2$ a $6$, no de $6$ a $2$.}{%
+\begin{tikzpicture}
+  \node[ovalo] (A) at (0,0) {}; \node[ovalo] (B) at (2.6,0) {};
+  \node[above] at (0,1.35) {$A$}; \node[above] at (2.6,1.35) {$B$};
+  \node[pto,label=left:$2$] (a2) at (0,0.6) {}; \node[pto,label=left:$4$] (a4) at (0,-0.5) {};
+  \node[pto,label=right:$6$] (b6) at (2.6,0.6) {}; \node[pto,label=right:$8$] (b8) at (2.6,-0.5) {};
+  \draw[fl,blue!60!black] (a2) -- (b6); \draw[fl,blue!60!black] (a4) -- (b8);
+  \node[font=\scriptsize] at (1.3,-1.7) {$G_\R=\{(2,6),(4,8)\}$};
+\end{tikzpicture}}
+
+\ladoalado{%
+\defi{Matriz asociada (cómo leerla)}{se escriben los elementos de $A$ en el orden dado, una vez a la izquierda (filas) y otra vez arriba (columnas). La casilla de la fila $a$ y la columna $b$ vale $1$ si $a\R b$, y $0$ si no.}
+\[M_\R[i,j]=1 \iff a_i\,\R\, a_j\]
+\textbf{Fila} = primer elemento (de dónde sale la flecha); \textbf{columna} = segundo elemento (a dónde llega). Para pasar de gráfico a matriz: por cada pareja $(a,b)$ se pone un $1$ en fila $a$, columna $b$. Para pasar de matriz a gráfico: cada $1$ se lee como ``fila, columna''.}{%
+\begin{tikzpicture}[scale=0.62]
+  \foreach \e [count=\i] in {2,4,6,8} {
+    \node[font=\small\bfseries,red!70!black] at (\i,0.9) {\e};
+    \node[font=\small\bfseries,blue!60!black] at (-0.1,1-\i) {\e};}
+  \fill[orange!35] (0.5,-0.5) rectangle (4.5,0.5);
+  \fill[orange!70] (2.5,-0.5) rectangle (3.5,0.5);
+  \foreach \row [count=\r] in {{0,0,1,0},{0,0,0,1},{0,1,0,1},{0,0,1,0}}
+    \foreach \v [count=\c] in \row \node at (\c,1-\r) {\v};
+  \draw[thick] (0.5,0.5) rectangle (4.5,-3.5);
+  \node[font=\scriptsize,align=center] at (2.5,-4.5) {fila $2$, columna $6$: hay un $1$\\ $\Rightarrow$ $2\,\R\,6$};
+  \node[font=\scriptsize,blue!60!black] at (-0.1,1.7) {fila};
+  \node[font=\scriptsize,red!70!black] at (2.5,1.7) {columna};
+\end{tikzpicture}}
+
+\ladoalado{%
+\defi{Relación inversa}{se le da vuelta a cada flecha.}
+\[G_{\R^{-1}}=\{(b,a)\mid a\R b\},\qquad b\,\R^{-1}a\iff a\R b\]
+En la matriz, dar vuelta las flechas es cambiar filas por columnas: $M_{\R^{-1}}=M_\R^{\,T}$ (la transpuesta). \textbf{¿Por qué?} Si antes el $1$ estaba en fila $a$, columna $b$, ahora la flecha sale de $b$ y llega a $a$, o sea fila $b$, columna $a$.}{%
+\begin{tikzpicture}
+  \node[nodo] (a) at (0,0) {$2$}; \node[nodo] (b) at (2.4,0) {$6$};
+  \draw[fl,blue!60!black] (a) to[bend left=25] node[above,font=\scriptsize] {$2\,\R\,6$} (b);
+  \draw[fl,orange!90!black,dashed] (b) to[bend left=25] node[below,font=\scriptsize] {$6\,\R^{-1}\,2$} (a);
+\end{tikzpicture}}
+
+\ladoalado{%
+\defi{Intersección de relaciones}{una pareja está en $\R\cap\Sr$ cuando está en las dos listas a la vez.}
+\[a(\R\cap\Sr)b\iff a\R b\wedge a\Sr b\qquad(\text{Def. }\cap)\]
+En la matriz: $M_{\R\cap\Sr}=M_\R\wedge M_\Sr$ (un $1$ solo donde las dos tienen $1$).}{%
+\begin{tikzpicture}
+  \node[nodo] (a) at (0,0) {$a$}; \node[nodo] (b) at (2.4,0) {$b$};
+  \draw[fl,blue!60!black] (a) to[bend left=22] node[above,font=\scriptsize] {$\R$} (b);
+  \draw[fl,green!50!black] (a) to[bend right=22] node[below,font=\scriptsize] {$\Sr$} (b);
+\end{tikzpicture}}
+
+% ------------------------------------------------------------
+\clearpage
+\ladoalado{%
+\defi{Composición}{es caminar dos flechas seguidas: primero una de $\R$ y después una de $\Sr$.}
+\[a(\Sr\circ\R)c\iff (\exists b)\;a\R b\wedge b\Sr c\]
+\textbf{El orden:} en $\Sr\circ\R$ se lee de derecha a izquierda, así que \textbf{primero se usa $\R$} (la de la derecha) y \textbf{después $\Sr$}. El elemento $b$ es la ``parada intermedia''. Por ejemplo, en $\R^{-1}\circ\Sr$ primero se camina con $\Sr$ y luego con $\R^{-1}$.}{%
+\begin{tikzpicture}
+  \foreach \x/\t in {0/a,2/b,4/c} \node[nodo] (\t) at (\x,0) {$\t$};
+  \draw[fl,blue!60!black] (a) -- node[above,font=\scriptsize] {$\R$} (b);
+  \draw[fl,green!50!black] (b) -- node[above,font=\scriptsize] {$\Sr$} (c);
+  \draw[fl,orange!90!black,very thick] (a) to[bend right=35] node[below,font=\scriptsize] {$\Sr\circ\R$} (c);
+  \node[font=\scriptsize] at (0,0.75) {sale}; \node[font=\scriptsize] at (2,0.75) {parada}; \node[font=\scriptsize] at (4,0.75) {llega};
+\end{tikzpicture}}
+
+\ladoalado{%
+\defi{Producto booleano}{es la forma de calcular la composición con matrices. Las matrices se escriben \textbf{en el orden en que se camina}:}
+\[M_{\Sr\circ\R}=M_\R\odot M_\Sr\]
+La casilla (fila $i$, columna $j$) del producto vale $1$ si \textbf{existe algún} $k$ tal que la fila $i$ de la primera matriz tiene $1$ en la posición $k$ \textbf{y} la columna $j$ de la segunda tiene $1$ en la posición $k$. Ese $k$ es la parada intermedia. Se suma con ``o'': $1\vee1=1$, $1\vee0=1$, $0\vee0=0$.
+
+\textbf{Forma rápida por filas:} la fila $i$ del producto es el ``o'' de las filas de la segunda matriz que la fila $i$ de la primera señala con un $1$.}{%
+\begin{tikzpicture}[scale=0.55]
+  % first matrix: highlight row 2
+  \fill[blue!20] (0.5,-1.5) rectangle (3.5,-0.5);
+  \foreach \row [count=\r] in {{0,1,0},{1,0,1},{0,0,1}}
+    \foreach \v [count=\c] in \row \node[font=\small] at (\c,1-\r) {\v};
+  \draw[thick] (0.5,0.5) rectangle (3.5,-2.5);
+  \node at (4.2,-1) {$\odot$};
+  % second matrix: highlight column 2
+  \fill[green!25] (5.9,0.5) rectangle (6.9,-2.5);
+  \foreach \row [count=\r] in {{0,1,0},{0,0,1},{1,1,0}}
+    \foreach \v [count=\c] in \row \node[font=\small] at (\c+4.4,1-\r) {\v};
+  \draw[thick] (4.9,0.5) rectangle (7.9,-2.5);
+  \node[font=\scriptsize,align=center] at (4.2,-4) {fila 2 $=(1,0,1)$, columna 2 $=(1,0,1)$\\ coinciden en $k=1$ y $k=3$ $\Rightarrow$ casilla $(2,2)=1$};
+\end{tikzpicture}}
+
+\defi{Propiedades de una relación sobre $A$}{se leen en el digrafo (cada elemento es un círculo, cada pareja una flecha; la pareja $(a,a)$ es un lazo).}
+
+\begin{center}
+\begin{tikzpicture}
+  % reflexive
+  \begin{scope}
+    \node[nodo] (x) at (0,0) {$a$}; \node[nodo] (y) at (1.3,0) {$b$};
+    \draw[fl,blue!60!black] (x) to[loop above] (x); \draw[fl,blue!60!black] (y) to[loop above] (y);
+    \node[font=\scriptsize\bfseries] at (0.65,-0.8) {Reflexiva};
+    \node[font=\scriptsize] at (0.65,-1.2) {$\forall a:\ a\R a$};
+  \end{scope}
+  % symmetric
+  \begin{scope}[xshift=3.2cm]
+    \node[nodo] (x) at (0,0) {$a$}; \node[nodo] (y) at (1.5,0) {$b$};
+    \draw[fl,blue!60!black] (x) to[bend left=30] (y); \draw[fl,orange!90!black] (y) to[bend left=30] (x);
+    \node[font=\scriptsize\bfseries] at (0.75,-0.8) {Simétrica};
+    \node[font=\scriptsize] at (0.75,-1.2) {$a\R b\Rightarrow b\R a$};
+  \end{scope}
+  % transitive
+  \begin{scope}[xshift=6.6cm]
+    \node[nodo] (x) at (0,0) {$a$}; \node[nodo] (y) at (0.8,1.1) {$b$}; \node[nodo] (z) at (1.6,0) {$c$};
+    \draw[fl,blue!60!black] (x) -- (y); \draw[fl,blue!60!black] (y) -- (z); \draw[fl,orange!90!black] (x) -- (z);
+    \node[font=\scriptsize\bfseries] at (0.8,-0.8) {Transitiva};
+    \node[font=\scriptsize] at (0.8,-1.2) {$a\R b\wedge b\R c\Rightarrow a\R c$};
+  \end{scope}
+  % antisymmetric
+  \begin{scope}[xshift=10.4cm]
+    \node[nodo] (x) at (0,0) {$a$}; \node[nodo] (y) at (1.5,0) {$b$};
+    \draw[fl,blue!60!black] (x) to[bend left=30] (y); \draw[fl,red!75!black,dashed] (y) to[bend left=30] node[font=\large] {$\times$} (x);
+    \node[font=\scriptsize\bfseries] at (0.75,-0.8) {Antisimétrica};
+    \node[font=\scriptsize] at (0.75,-1.2) {$a\R b\wedge b\R a\Rightarrow a=b$};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+\textbf{¿Por qué así?} Reflexiva: todos se relacionan consigo mismos (todos tienen lazo). Simétrica: toda flecha tiene su flecha de regreso. Transitiva: si se puede ir de $a$ a $c$ en dos pasos, también hay flecha directa. Antisimétrica: entre dos elementos \textbf{distintos} nunca hay ida y vuelta; si hay ida y vuelta entre $a$ y $b$, es porque $a$ y $b$ son el mismo elemento.
+
+\ladoalado{%
+\defi{Relación de equivalencia}{una relación que es reflexiva, simétrica y transitiva a la vez.}
+\defi{Clase de equivalencia de $a$}{todos los elementos que están relacionados con $a$:}
+\[\overline{a}=\{x\in A : x\R a\}\]
+Las clases parten el conjunto en ``cajas'' que no se tocan: cada elemento cae en exactamente una caja, y dentro de una caja todos se relacionan con todos.}{%
+\begin{tikzpicture}
+  \draw[thick,rounded corners] (0,0) rectangle (4,2.4);
+  \node[font=\small] at (2,2.65) {$A$};
+  \draw[blue!60!black,thick,fill=blue!8,rounded corners] (0.15,0.15) rectangle (1.3,2.25);
+  \draw[orange!90!black,thick,fill=orange!10,rounded corners] (1.45,0.15) rectangle (2.6,2.25);
+  \draw[green!50!black,thick,fill=green!8,rounded corners] (2.75,0.15) rectangle (3.85,2.25);
+  \node[font=\scriptsize] at (0.72,1.2) {$\overline{0}$}; \node[font=\scriptsize] at (2.02,1.2) {$\overline{1}$}; \node[font=\scriptsize] at (3.3,1.2) {$\overline{2}$};
+\end{tikzpicture}}
+
+% ============================================================
+\clearpage
+\section*{Pregunta 1}
+\addcontentsline{toc}{section}{Pregunta 1}
+
+1. Considere el conjunto $A=\{2,4,6,8\}$ y sea $\R$ una relación sobre $A$ cuya matriz asociada es
+\[M_\R=\begin{pmatrix} c&0&1&0\\0&0&0&1\\0&1&0&1\\0&0&1&0\end{pmatrix}\]
+donde \colorbox{green!35}{$c$ es una constante desconocida}. Considera también la relación $S$ sobre $A$ que cumple que
+\[a\Sr b\quad\Leftrightarrow\quad |a-b|=2\]
+Determine \colorbox{green!35}{el gráfico de la relación $\R^{-1}\circ\Sr$}. \hfill (4 puntos)
+
+\begin{center}
+\begin{tikzpicture}[yscale=0.95]
+  \foreach \e/\y in {2/3,4/2,6/1,8/0} {
+    \node[nodo] (x\e) at (0,\y) {$\e$};
+    \node[nodo] (y\e) at (3.4,\y) {$\e$};
+    \node[nodo] (z\e) at (6.8,\y) {$\e$};}
+  \node[font=\small\bfseries] at (0,3.8) {$x$ (sale)};
+  \node[font=\small\bfseries] at (3.4,3.8) {$y$ (parada)};
+  \node[font=\small\bfseries] at (6.8,3.8) {$z$ (llega)};
+  \node[font=\small,blue!60!black] at (1.7,4.3) {primero $\Sr$};
+  \node[font=\small,orange!90!black] at (5.1,4.3) {después $\R^{-1}$};
+  % S arrows
+  \foreach \a/\b in {2/4,4/2,4/6,6/4,6/8,8/6} \draw[fl,blue!60!black] (x\a) -- (y\b);
+  % R^{-1} arrows
+  \foreach \a/\b in {4/6,6/2,6/8,8/4,8/6} \draw[fl,orange!90!black] (y\a) -- (z\b);
+  \draw[fl,red!75!black,dashed] (y2) -- node[above,font=\scriptsize] {solo si $c=1$} (z2);
+\end{tikzpicture}
+\end{center}
+
+\calculo{G_{\R^{-1}\circ\Sr}=\{\bajo{(2,6)}{2\Sr4,\,4\R^{-1}6},\,(4,2),\,(4,8),\,(6,4),\,(6,6),\,(8,2),\,(8,8)\}}
+
+\begin{explica}
+\textbf{Paso 1, qué se pide.} Por la definición de composición (teoría), con $\R^{-1}\circ\Sr$ \textbf{primero se camina con $\Sr$ y después con $\R^{-1}$}:
+\[(x,z)\in \R^{-1}\circ\Sr\iff(\exists y\in A)\ (x,y)\in\Sr\wedge(y,z)\in\R^{-1}.\]
+O sea, se sale de $x$, se hace una parada $y$ usando una flecha de $\Sr$, y desde ahí se llega a $z$ usando una flecha de $\R^{-1}$.
+
+\textbf{Paso 2, el gráfico de $\Sr$.} La regla dice $a\Sr b$ cuando $a$ y $b$ están a distancia $2$. Se revisa cada elemento: el $2$ solo está a distancia $2$ del $4$ (el $0$ no está en $A$); el $4$ está a distancia $2$ del $2$ y del $6$; el $6$, del $4$ y del $8$; el $8$ solo del $6$ (el $10$ no está en $A$). Por eso
+\[G_\Sr=\{(2,4),(4,2),(4,6),(6,4),(6,8),(8,6)\}.\]
+
+\textbf{Paso 3, el gráfico de $\R$ leyendo la matriz.} Filas y columnas van en el orden $2,4,6,8$. Fila $2$: hay un $1$ en la columna $6$, así que $2\R6$; además la casilla de la columna $2$ es $c$, así que $(2,2)$ está solo si $c=1$. Fila $4$: un $1$ en la columna $8$, así que $4\R8$. Fila $6$: unos en las columnas $4$ y $8$. Fila $8$: un $1$ en la columna $6$.
+\[G_\R=\{(2,6),(4,8),(6,4),(6,8),(8,6)\}\ \ (\text{más }(2,2)\text{ si }c=1).\]
+
+\textbf{Paso 4, la inversa.} Por la definición de inversa se le da vuelta a cada pareja:
+\[G_{\R^{-1}}=\{(6,2),(8,4),(4,6),(8,6),(6,8)\}\ \ (\text{más }(2,2)\text{ si }c=1).\]
+\end{explica}
+
+\begin{explica}
+\textbf{Paso 5, caminar los caminos (dibujo de arriba).} Para cada $x$ se siguen las flechas azules ($\Sr$) y desde cada parada las naranjas ($\R^{-1}$):
+\begin{itemize}[leftmargin=1.3em,itemsep=1pt]
+\item $x=2$: $2\Sr4$ y $4\R^{-1}6$. Da $(2,6)$.
+\item $x=4$: $4\Sr6$ y $6\R^{-1}2$, $6\R^{-1}8$. Da $(4,2)$ y $(4,8)$. También $4\Sr2$, pero desde $2$ solo sale la flecha punteada $2\R^{-1}2$ (cuando $c=1$).
+\item $x=6$: $6\Sr4$ y $4\R^{-1}6$; $6\Sr8$ y $8\R^{-1}4$, $8\R^{-1}6$. Da $(6,6)$ y $(6,4)$.
+\item $x=8$: $8\Sr6$ y $6\R^{-1}2$, $6\R^{-1}8$. Da $(8,2)$ y $(8,8)$.
+\end{itemize}
+
+\textbf{Paso 6, ¿importa el valor de $c$?} La constante $c$ solo decide si existe la flecha $2\R^{-1}2$. Esa flecha solo se puede usar si se llega a $2$ con $\Sr$, y eso solo pasa desde el $4$ ($4\Sr2$). El camino $4\Sr2$, $2\R^{-1}2$ daría la pareja $(4,2)$.
+\begin{itemize}[leftmargin=1.3em,itemsep=1pt]
+\item \textbf{Caso $c=0$:} la flecha $2\R^{-1}2$ no existe, pero $(4,2)$ igual aparece por el camino $4\Sr6$, $6\R^{-1}2$ (porque $2\R6$).
+\item \textbf{Caso $c=1$:} la flecha existe y vuelve a dar $(4,2)$, que \textbf{ya estaba}. No aparece ninguna pareja nueva.
+\end{itemize}
+Así, \textbf{el gráfico es el mismo para $c=0$ y para $c=1$}: la respuesta no depende de $c$.
+\end{explica}
+
+\textbf{Comprobación con matrices.} Como se camina primero con $\Sr$ y después con $\R^{-1}$, $M_{\R^{-1}\circ\Sr}=M_\Sr\odot M_{\R^{-1}}=M_\Sr\odot M_\R^{\,T}$:
+\[
+M_{\R^{-1}\circ\Sr}=
+\begin{pmatrix}0&1&0&0\\1&0&1&0\\0&1&0&1\\0&0&1&0\end{pmatrix}\odot
+\begin{pmatrix}c&0&0&0\\0&0&1&0\\1&0&0&1\\0&1&1&0\end{pmatrix}
+=\begin{pmatrix}0&0&1&0\\1&0&0&1\\0&1&1&0\\1&0&0&1\end{pmatrix}.
+\]
+Por filas (teoría, forma rápida): la fila $2$ de $M_\Sr$ señala la fila $4$ de $M_\R^T$: $(0,0,1,0)$. La fila $4$ señala las filas $2$ y $6$: $(c,0,0,0)\vee(1,0,0,1)=(1,0,0,1)$, porque $c\vee1=1$ sin importar $c$. La fila $6$ señala las filas $4$ y $8$: $(0,0,1,0)\vee(0,1,1,0)=(0,1,1,0)$. La fila $8$ señala la fila $6$: $(1,0,0,1)$. Cada $1$ leído como ``fila, columna'' da exactamente las siete parejas del gráfico.
+
+\begin{center}
+\begin{tikzpicture}
+  \node[nodo] (n4) at (0,2.2) {$4$}; \node[nodo] (n8) at (3,2.2) {$8$};
+  \node[nodo] (n2) at (0,0) {$2$}; \node[nodo] (n6) at (3,0) {$6$};
+  \draw[fl,orange!90!black] (n4) -- (n2);
+  \draw[fl,orange!90!black] (n4) -- (n8);
+  \draw[fl,orange!90!black] (n2) -- (n6);
+  \draw[fl,orange!90!black] (n6) to[bend right=12] (n4);
+  \draw[fl,orange!90!black] (n8) to[bend left=12] (n2);
+  \draw[fl,orange!90!black] (n6) to[loop right] (n6);
+  \draw[fl,orange!90!black] (n8) to[loop right] (n8);
+  \node[font=\small] at (1.5,-0.8) {Digrafo de $\R^{-1}\circ\Sr$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{Respuesta:} $G_{\R^{-1}\circ\Sr}=\{(2,6),(4,2),(4,8),(6,4),(6,6),(8,2),(8,8)\}$, para cualquier valor de $c$.
+
+% ============================================================
+\clearpage
+\section*{Pregunta 2a}
+\addcontentsline{toc}{section}{Pregunta 2a}
+
+2. Sobre $\mathbb R$ se define la relación $\Sr$ por
+\[a\Sr b\quad\Leftrightarrow\quad\frac{a-b}{5}\in\mathbb Z\]
+(a) Demuestre que $S$ es una \colorbox{green!35}{relación de equivalencia}. \hfill (5 puntos)
+
+\calculo{\frac{\bajo{a-b}{\text{diferencia}}}{5}=\bajo{k}{\text{entero}}\qquad\Longleftrightarrow\qquad a\Sr b}
+
+\begin{explica}
+\textbf{Paso 1, qué hay que probar.} Equivalencia significa tres cosas (teoría): reflexiva, simétrica y transitiva. Se prueba cada una por separado.
+
+\textbf{Paso 2, traducir la regla.} ``$\frac{a-b}{5}\in\mathbb Z$'' quiere decir que al dividir la diferencia entre $5$ da un entero. Para poder hacer cuentas se le pone nombre a ese entero: $(\exists k\in\mathbb Z)\ \frac{a-b}{5}=k$. Por ejemplo, $8\Sr3$ porque $\frac{8-3}{5}=1$; en cambio $4$ no se relaciona con $3$ porque $\frac15$ no es entero.
+
+\textbf{Paso 3, reflexiva.} Hay que ver que cada número se relaciona consigo mismo. La diferencia $a-a$ es $0$, y $\frac05=0$, que es entero.
+
+\textbf{Paso 4, simétrica.} Si $\frac{a-b}{5}=k$, al cambiar el orden la diferencia cambia de signo: $b-a=-(a-b)$. Entonces $\frac{b-a}{5}=-k$, que también es entero.
+
+\textbf{Paso 5, transitiva.} Si $\frac{a-b}{5}=k_1$ y $\frac{b-c}{5}=k_2$, al sumar las dos igualdades la $b$ se cancela: $\frac{a-b}{5}+\frac{b-c}{5}=\frac{a-c}{5}$. Queda $\frac{a-c}{5}=k_1+k_2$, y la suma de dos enteros es entera.
+
+\textbf{¿Tiene sentido?} Dos números se relacionan cuando están a una distancia que es un múltiplo de $5$ ($0$, $\pm5$, $\pm10$, \dots). Estar a distancia $0$ (reflexiva), medir la distancia al revés (simétrica) y encadenar dos saltos de múltiplos de $5$ (transitiva) sigue dando múltiplos de $5$.
+\end{explica}
+
+\textbf{Solución como se escribe en el examen.}
+
+\textbf{Reflexiva.} \textbf{HQD:} $\Sr$ es reflexiva $\equiv(\forall a\in\mathbb R)\,[a\Sr a]$.
+
+Sea $a\in\mathbb R$ fijo pero arbitrario.
+\begin{align*}
+\frac{a-a}{5}&=\frac{0}{5} && \text{Op.}\\
+&=0,\quad 0\in\mathbb Z && \text{Op.}\\
+&\Rightarrow (\exists k\in\mathbb Z)\ \frac{a-a}{5}=k,\ k=0 && \text{Intro. }\exists\\
+&\Rightarrow a\Sr a && \text{Def. de } \Sr
+\end{align*}
+Por lo tanto, $\Sr$ es reflexiva.
+
+\textbf{Simétrica.} \textbf{HQD:} $\Sr$ es simétrica $\equiv(\forall a,b\in\mathbb R)\,[a\Sr b\Rightarrow b\Sr a]$.
+
+Sean $a,b\in\mathbb R$ fijos pero arbitrarios tales que $a\Sr b$.
+\begin{align*}
+a\Sr b&\Rightarrow(\exists k\in\mathbb Z)\ \frac{a-b}{5}=k && \text{Def. de } \Sr\\
+&\Rightarrow \frac{b-a}{5}=-\frac{a-b}{5} && \text{Op.}\\
+&\Rightarrow \frac{b-a}{5}=-k && \text{Sust.}\\
+&\Rightarrow (\exists k_1\in\mathbb Z)\ \frac{b-a}{5}=k_1,\ k_1=-k && -k\in\mathbb Z\\
+&\Rightarrow b\Sr a && \text{Def. de } \Sr
+\end{align*}
+Por lo tanto, $\Sr$ es simétrica.
+
+\textbf{Transitiva.} \textbf{HQD:} $\Sr$ es transitiva $\equiv(\forall a,b,c\in\mathbb R)\,[a\Sr b\wedge b\Sr c\Rightarrow a\Sr c]$.
+
+Sean $a,b,c\in\mathbb R$ fijos pero arbitrarios tales que $a\Sr b\wedge b\Sr c$.
+\begin{align*}
+a\Sr b\wedge b\Sr c&\Rightarrow(\exists k_1\in\mathbb Z)\ \frac{a-b}{5}=k_1\wedge(\exists k_2\in\mathbb Z)\ \frac{b-c}{5}=k_2 && \text{Def. de } \Sr\\
+&\Rightarrow \frac{a-b}{5}+\frac{b-c}{5}=k_1+k_2 && \text{Suma término a término}\\
+&\Rightarrow \frac{a-c}{5}=k_1+k_2 && \text{Op.}\\
+&\Rightarrow (\exists k_3\in\mathbb Z)\ \frac{a-c}{5}=k_3,\ k_3=k_1+k_2 && \text{Def. } k_3\\
+&\Rightarrow a\Sr c && \text{Def. de } \Sr
+\end{align*}
+Por lo tanto, $\Sr$ es transitiva.
+
+\textbf{Respuesta:} $\Sr$ es reflexiva, simétrica y transitiva; por lo tanto, es una relación de equivalencia.
+
+% ============================================================
+\clearpage
+\section*{Pregunta 2b}
+\addcontentsline{toc}{section}{Pregunta 2b}
+
+(b) Determine \colorbox{green!35}{la clase de equivalencia de 3} y \colorbox{green!35}{tres elementos} de esta clase. \hfill (2 puntos)
+
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+  \draw[->,thick] (-8.6,0) -- (14.6,0);
+  \foreach \t in {-8,-7,...,14} \draw (\t,0.12) -- (\t,-0.12);
+  \foreach \t in {-5,0,5,10} \node[below,font=\scriptsize,gray] at (\t,-0.15) {$\t$};
+  \foreach \t in {-7,-2,3,8,13} \fill[blue!60!black] (\t,0) circle (4.5pt);
+  \foreach \t in {-2,3,8} \node[above,font=\small\bfseries,blue!60!black] at (\t,0.25) {$\t$};
+  \draw[orange!90!black,very thick,-{Stealth}] (3,0.9) to[bend left=40] node[above,font=\scriptsize] {$+5$} (8,0.9);
+  \draw[orange!90!black,very thick,-{Stealth}] (3,0.9) to[bend right=40] node[above,font=\scriptsize] {$-5$} (-2,0.9);
+  \node[font=\small,blue!60!black] at (-7,0.6) {$\cdots$}; \node[font=\small,blue!60!black] at (13,0.6) {$\cdots$};
+\end{tikzpicture}
+\end{center}
+
+\calculo{\overline{3}=\{x\in\mathbb R : x\Sr3\}=\{\bajo{3+5k}{\text{saltos de }5}: k\in\mathbb Z\}=\{\dots,-7,-2,3,8,13,\dots\}}
+
+\begin{explica}
+\textbf{Paso 1, la definición.} Por la definición de clase de equivalencia (teoría), $\overline{3}$ son todos los reales $x$ que se relacionan con $3$:
+\[\overline{3}=\{x\in\mathbb R : x\Sr3\}=\left\{x\in\mathbb R : \tfrac{x-3}{5}\in\mathbb Z\right\}.\]
+
+\textbf{Paso 2, despejar $x$.} Se llama $k$ al entero: $\frac{x-3}{5}=k$. Se multiplica por $5$: $x-3=5k$. Se suma $3$: $x=3+5k$. Entonces la clase son los números que se obtienen sumándole a $3$ un múltiplo de $5$.
+
+\textbf{Paso 3, tres elementos.} Se escogen valores de $k$: con $k=-1$ sale $3-5=-2$; con $k=0$ sale $3$; con $k=1$ sale $3+5=8$.
+
+\textbf{¿Tiene sentido?} Se verifica cada uno con la regla: $\frac{-2-3}{5}=\frac{-5}{5}=-1\in\mathbb Z$; $\frac{3-3}{5}=0\in\mathbb Z$; $\frac{8-3}{5}=\frac55=1\in\mathbb Z$. Los tres cumplen. Un número como $4$ no está, porque $\frac{4-3}{5}=\frac15\notin\mathbb Z$. En la recta, la clase son los puntos azules, separados de $5$ en $5$ a partir del $3$.
+\end{explica}
+
+\textbf{Respuesta:} $\overline{3}=\left\{x\in\mathbb R : \frac{x-3}{5}\in\mathbb Z\right\}=\{3+5k : k\in\mathbb Z\}=\{\dots,-7,-2,3,8,13,\dots\}$. Tres elementos: $-2$, $3$ y $8$.
+
+% ============================================================
+\clearpage
+\section*{Pregunta 3}
+\addcontentsline{toc}{section}{Pregunta 3}
+
+3. Sea $A$ un conjunto no vacío. Considere las relaciones $\R$ y $\Sr$ sobre $A$ tales que \colorbox{green!35}{$\R$ es antisimétrica}. Pruebe que \hfill (4 puntos)
+\[a\,(\Sr\cap\R)\,b\wedge a\left(\R^{-1}\cap\Sr\right)b\quad\Longrightarrow\quad(a,a)\in G_S\]
+
+\begin{center}
+\begin{tikzpicture}
+  \node[nodo] (a) at (0,0) {$a$}; \node[nodo] (b) at (3,0) {$b$};
+  \draw[fl,blue!60!black] (a) to[bend left=30] node[above,font=\scriptsize] {$a\R b$} (b);
+  \draw[fl,orange!90!black] (b) to[bend left=30] node[below,font=\scriptsize] {$b\R a$ \ (de $a\R^{-1}b$)} (a);
+  \draw[fl,green!50!black] (a) -- node[above,font=\scriptsize,pos=0.5] {$\Sr$} (b);
+  \node[font=\large] at (4.3,0) {$\Longrightarrow$};
+  \node[nodo] (c) at (6,0) {$a$};
+  \draw[fl,green!50!black] (c) to[loop right] node[right,font=\scriptsize] {$a\Sr a$} (c);
+  \node[font=\scriptsize,align=center] at (6.3,-1) {$\R$ antisimétrica:\\ $b$ es el mismo $a$};
+\end{tikzpicture}
+\end{center}
+
+\calculo{\bajo{a\R b\wedge b\R a}{\text{ida y vuelta}}\ \Rightarrow\ \bajo{a=b}{\R\text{ antisimétrica}}\ \Rightarrow\ \bajo{a\Sr a}{\text{sust. en }a\Sr b}}
+
+\begin{explica}
+\textbf{Paso 1, abrir las intersecciones.} Por la definición de intersección (teoría), $a(\Sr\cap\R)b$ dice dos cosas: $a\Sr b$ y $a\R b$. Igual, $a(\R^{-1}\cap\Sr)b$ dice $a\R^{-1}b$ y $a\Sr b$.
+
+\textbf{Paso 2, la inversa.} Por la definición de inversa, $a\R^{-1}b$ es lo mismo que $b\R a$ (se le da vuelta a la flecha).
+
+\textbf{Paso 3, usar que $\R$ es antisimétrica.} Ya se tiene ida ($a\R b$) y vuelta ($b\R a$). La antisimetría dice que eso solo puede pasar si $a=b$.
+
+\textbf{Paso 4, sustituir.} Se sabe $a\Sr b$ y que $b$ es $a$. Cambiando $b$ por $a$ queda $a\Sr a$, que por la definición de gráfico es $(a,a)\in G_S$.
+
+\textbf{¿Por qué funciona?} En el dibujo, la flecha azul y la naranja forman una ida y vuelta de $\R$. Como $\R$ no permite ida y vuelta entre elementos distintos, los dos círculos son en realidad el mismo, y la flecha verde de $\Sr$ se convierte en un lazo.
+\end{explica}
+
+\textbf{Solución como se escribe en el examen.}
+
+\textbf{HQD:} $(\forall a,b\in A)\,\left[a(\Sr\cap\R)b\wedge a(\R^{-1}\cap\Sr)b\Rightarrow(a,a)\in G_S\right]$.
+
+Sean $a,b\in A$ fijos pero arbitrarios tales que $a(\Sr\cap\R)b\wedge a(\R^{-1}\cap\Sr)b$.
+\begin{align*}
+a(\Sr\cap\R)b\wedge a(\R^{-1}\cap\Sr)b&\Rightarrow (a\Sr b\wedge a\R b)\wedge(a\R^{-1}b\wedge a\Sr b) && \text{Def. }\cap\\
+&\Rightarrow a\R b\wedge a\R^{-1}b && \text{Simp.}\\
+&\Rightarrow a\R b\wedge b\R a && \text{Def. inversa}\\
+&\Rightarrow a=b && \R\text{ antisimétrica}\\
+&\Rightarrow a=b\wedge a\Sr b && \text{Adj. (con } a\Sr b\text{ de la línea 1, Simp.)}\\
+&\Rightarrow a\Sr a && \text{Sust.}\\
+&\Rightarrow (a,a)\in G_S && \text{Def. de } G_S
+\end{align*}
+Por lo tanto, $a(\Sr\cap\R)b\wedge a(\R^{-1}\cap\Sr)b\Rightarrow(a,a)\in G_S$.
+
+\textbf{Respuesta:} queda demostrado; la clave es que $a\R b$ y $b\R a$ obligan, por antisimetría, a que $a=b$.
+
+% ============================================================
+\clearpage
+\section*{Teoría 2: funciones}
+\addcontentsline{toc}{section}{Teoría 2: funciones}
+
+\ladoalado{%
+\defi{Conjunto de partes}{$P(A)$ es el conjunto de \textbf{todos} los subconjuntos de $A$, incluido el vacío $\varnothing$ y el mismo $A$. Si $A$ tiene $n$ elementos, $|P(A)|=2^n$ (cada elemento está o no está).}
+\[|P(A)|=2^{|A|}\]
+$P(A)-\{\varnothing\}$ quita solo el vacío. Con $A=\{0,1,2,3,6\}$ quedan $2^5-1=31$ subconjuntos.}{%
+\begin{tikzpicture}[font=\scriptsize]
+  \node (r) at (0,0) {$\{1,2\}$};
+  \node (a) at (-1.1,-1) {$\{1\}$}; \node (b) at (1.1,-1) {$\{2\}$};
+  \node[red!75!black] (c) at (0,-2) {$\varnothing$};
+  \draw (r)--(a) (r)--(b) (a)--(c) (b)--(c);
+  \node[align=center] at (0,-2.8) {$P(\{1,2\})$ tiene $2^2=4$ elementos};
+\end{tikzpicture}}
+
+\ladoalado{%
+\defi{Función}{$f:A\to B$ le asigna a \textbf{cada} elemento de $A$ (dominio) \textbf{exactamente un} elemento de $B$ (codominio).}
+\defi{Imagen directa}{$f(E)$ es el conjunto de los resultados que salen al evaluar los elementos de $E$.}
+\[f(E)=\{b\in B\mid \exists a\in E,\ b=f(a)\}\]
+\defi{Imagen inversa}{$f^{-1}(F)$ son los elementos del dominio cuyo resultado cae dentro de $F$.}
+\[f^{-1}(F)=\{a\in A\mid f(a)\in F\}\]
+\textbf{¿Por qué?} La imagen directa va ``hacia adelante'' (de $E$ a lo que produce); la inversa va ``hacia atrás'' (de $F$ a quién lo produce). $f^{-1}(F)$ existe siempre, aunque $f$ no sea biyectiva.}{%
+\begin{tikzpicture}
+  \node[ovalo,minimum height=3cm] (A) at (0,0) {}; \node[ovalo,minimum height=3cm] (B) at (2.8,0) {};
+  \node[above] at (0,1.55) {$A$}; \node[above] at (2.8,1.55) {$B$};
+  \fill[blue!15] (0,0.6) ellipse (0.55 and 0.7); \node[font=\scriptsize,blue!60!black] at (-0.5,1.15) {$E$};
+  \fill[orange!20] (2.8,-0.6) ellipse (0.55 and 0.7); \node[font=\scriptsize,orange!90!black] at (3.4,-1.2) {$F$};
+  \node[pto] (a1) at (0,0.9) {}; \node[pto] (a2) at (0,0.35) {}; \node[pto] (a3) at (0,-0.6) {}; \node[pto] (a4) at (0,-1.05) {};
+  \node[pto] (b1) at (2.8,0.8) {}; \node[pto] (b2) at (2.8,-0.4) {}; \node[pto] (b3) at (2.8,-0.95) {};
+  \draw[fl,blue!60!black] (a1)--(b1); \draw[fl,blue!60!black] (a2)--(b1);
+  \draw[fl,orange!90!black] (a3)--(b2); \draw[fl,orange!90!black] (a4)--(b3);
+  \node[font=\scriptsize,blue!60!black,anchor=west] at (3.6,0.8) {$f(E)$};
+  \node[font=\scriptsize,orange!90!black,anchor=east] at (-0.8,-0.8) {$f^{-1}(F)$};
+\end{tikzpicture}}
+
+\ladoalado{%
+\defi{Inyectiva}{elementos distintos dan resultados distintos: nunca llegan dos flechas al mismo punto.}
+\[f(x_1)=f(x_2)\Rightarrow x_1=x_2\]
+Se prueba así: se supone que dos resultados son iguales y se demuestra que los elementos eran el mismo.}{%
+\begin{tikzpicture}[scale=0.85]
+  \begin{scope}
+    \node[pto] (a1) at (0,0.5) {}; \node[pto] (a2) at (0,-0.5) {};
+    \node[pto] (b1) at (1.4,0.5) {}; \node[pto] (b2) at (1.4,-0.5) {};
+    \draw[fl,blue!60!black] (a1)--(b1); \draw[fl,blue!60!black] (a2)--(b2);
+    \node[font=\scriptsize] at (0.7,-1.1) {inyectiva};
+  \end{scope}
+  \begin{scope}[xshift=2.6cm]
+    \node[pto] (a1) at (0,0.5) {}; \node[pto] (a2) at (0,-0.5) {};
+    \node[pto] (b1) at (1.4,0) {};
+    \draw[fl,red!75!black] (a1)--(b1); \draw[fl,red!75!black] (a2)--(b1);
+    \node[font=\scriptsize] at (0.7,-1.1) {no inyectiva};
+  \end{scope}
+\end{tikzpicture}}
+
+\ladoalado{%
+\defi{Sobreyectiva}{todo elemento del codominio recibe al menos una flecha.}
+\[f(A)=B\iff(\forall y\in B)(\exists x\in A)\ f(x)=y\]
+Se prueba así: se toma un $y$ cualquiera de $B$, se busca (se despeja) quién lo produce, y se verifica que ese $x$ sí está en el dominio.}{%
+\begin{tikzpicture}[scale=0.85]
+  \begin{scope}
+    \node[pto] (a1) at (0,0.6) {}; \node[pto] (a2) at (0,0) {}; \node[pto] (a3) at (0,-0.6) {};
+    \node[pto] (b1) at (1.4,0.4) {}; \node[pto] (b2) at (1.4,-0.4) {};
+    \draw[fl,blue!60!black] (a1)--(b1); \draw[fl,blue!60!black] (a2)--(b1); \draw[fl,blue!60!black] (a3)--(b2);
+    \node[font=\scriptsize] at (0.7,-1.1) {sobreyectiva};
+  \end{scope}
+  \begin{scope}[xshift=2.6cm]
+    \node[pto] (a1) at (0,0.4) {}; \node[pto] (a2) at (0,-0.4) {};
+    \node[pto] (b1) at (1.4,0.4) {}; \node[pto,red!75!black] (b2) at (1.4,-0.4) {};
+    \draw[fl,blue!60!black] (a1)--(b1); \draw[fl,blue!60!black] (a2)--(b1);
+    \node[font=\scriptsize] at (0.7,-1.1) {no sobreyectiva};
+  \end{scope}
+\end{tikzpicture}}
+
+\ladoalado{%
+\defi{Biyectiva}{inyectiva y sobreyectiva a la vez: cada elemento de $B$ recibe \textbf{exactamente una} flecha. Solo entonces existe la función inversa $f^{-1}:B\to A$.}}{%
+\begin{tikzpicture}[scale=0.85]
+  \foreach \y in {0.6,0,-0.6} {\node[pto] (a) at (0,\y) {}; \node[pto] (b) at (1.4,\y) {}; \draw[fl,green!50!black] (a)--(b);}
+\end{tikzpicture}}
+
+\ladoalado{%
+\defi{Composición de funciones}{aplicar primero $f$ y luego $g$.}
+\[(g\circ f)(a)=g(f(a)),\qquad g\circ f:A\to D\]
+Igual que con relaciones, \textbf{la de la derecha se aplica primero}. Por eso $(g\circ f)(A)$ son los resultados de recorrer el camino completo $A\to B\to D$.}{%
+\begin{tikzpicture}[scale=0.85]
+  \foreach \x/\n in {0/A,1.8/B,3.6/D} {\draw[thick] (\x,0) ellipse (0.45 and 0.9); \node at (\x,1.15) {$\n$};}
+  \node[pto,label=below:{\scriptsize$a$}] (a) at (0,0) {}; \node[pto,label=below:{\scriptsize$f(a)$}] (b) at (1.8,0) {}; \node[pto,label=below:{\scriptsize$g(f(a))$}] (d) at (3.6,0) {};
+  \draw[fl,blue!60!black] (a) -- node[above,font=\scriptsize] {$f$} (b);
+  \draw[fl,green!50!black] (b) -- node[above,font=\scriptsize] {$g$} (d);
+  \draw[fl,orange!90!black] (a) to[bend right=50] node[below,font=\scriptsize] {$g\circ f$} (d);
+\end{tikzpicture}}
+
+% ============================================================
+\clearpage
+\section*{Pregunta 4}
+\addcontentsline{toc}{section}{Pregunta 4}
+
+4. Sea $A=\{0,1,2,3,6\}$ y $P(A)$ el conjunto de partes de $A$. Considere la función
+\[f:P(A)-\{\varnothing\}\longrightarrow\mathbb N\]
+tal que \colorbox{green!35}{$f(X)$ es la suma de los elementos de $X$}. Además, si $X$ es un conjunto unitario, entonces $f(X)$ es el único elemento de $X$.\\
+Por ejemplo, $f(\{2,6\})=2+6=8$ y $f(\{2\})=2$. Dados los conjuntos\\
+$B=\{\{2\},\{0,1,2,3\},\{2,3,6\}\}$ y $C=\{1,4,6\}$. Determine \colorbox{green!35}{$f(B)$ y $f^{-1}(C)$}. \hfill (3 puntos)
+
+\begin{center}
+\begin{tikzpicture}
+  \node[ovalo,minimum width=3cm,minimum height=2.4cm] at (0,0) {};
+  \node[ovalo,minimum width=1.2cm,minimum height=2.4cm] at (3.6,0) {};
+  \node at (0,1.45) {$B$}; \node at (3.6,1.45) {$f(B)$};
+  \node (x1) at (0,0.65) {$\{2\}$}; \node (x2) at (0,0) {$\{0,1,2,3\}$}; \node (x3) at (0,-0.65) {$\{2,3,6\}$};
+  \node (y1) at (3.6,0.65) {$2$}; \node (y2) at (3.6,0) {$6$}; \node (y3) at (3.6,-0.65) {$11$};
+  \draw[fl,blue!60!black] (x1)--(y1); \draw[fl,blue!60!black] (x2)--node[above,font=\scriptsize] {$0+1+2+3$} (y2); \draw[fl,blue!60!black] (x3)--node[below,font=\scriptsize] {$2+3+6$} (y3);
+\end{tikzpicture}
+\end{center}
+
+\calculo{f(B)=\{\bajo{2}{\{2\}},\ \bajo{6}{0+1+2+3},\ \bajo{11}{2+3+6}\}}
+
+\begin{explica}
+\textbf{Paso 1, qué es cada cosa.} El dominio son los subconjuntos no vacíos de $A$, así que $f$ recibe \textbf{conjuntos} y devuelve \textbf{números}. $B$ es un conjunto de tres conjuntos; $C$ es un conjunto de tres números.
+
+\textbf{Paso 2, $f(B)$.} Por la definición de imagen directa, se evalúa $f$ en cada elemento de $B$: $f(\{2\})=2$ (unitario); $f(\{0,1,2,3\})=0+1+2+3=6$; $f(\{2,3,6\})=2+3+6=11$. Entonces $f(B)=\{2,6,11\}$.
+
+\textbf{Paso 3, $f^{-1}(C)$.} Por la definición de imagen inversa, son todos los subconjuntos $X$ (no vacíos) cuya suma da $1$, $4$ o $6$. En vez de revisar los $31$ subconjuntos al azar, se busca \textbf{por suma objetivo}, de forma ordenada (siguiente página).
+
+\textbf{Idea clave del $0$:} agregar el $0$ a un conjunto \textbf{no cambia la suma}. Así que primero se buscan los subconjuntos de $\{1,2,3,6\}$ con la suma pedida, y después cada uno se repite agregándole el $0$. El conjunto $\{0\}$ solo suma $0$, que no está en $C$.
+\end{explica}
+
+\begin{explica}
+\textbf{Paso 4, buscar en $\{1,2,3,6\}$ por cada suma objetivo.} Todos los números son positivos, así que al agregar un número la suma solo crece.
+\begin{itemize}[leftmargin=1.3em,itemsep=2pt]
+\item \textbf{Suma $1$:} el único número que no pasa de $1$ es el $1$. Solo $\{1\}$.
+\item \textbf{Suma $4$:} el $6$ no sirve (ya se pasa). Con $\{1,2,3\}$: $1+3=4$ sí; $1+2=3$, $2+3=5$, $1+2+3=6$ no; solos $1,2,3$ no. Solo $\{1,3\}$.
+\item \textbf{Suma $6$:} si se usa el $6$, no se puede agregar nada más (se pasaría), así que $\{6\}$. Si no se usa el $6$, hay que llegar a $6$ con $\{1,2,3\}$, cuya suma máxima es $1+2+3=6$: solo $\{1,2,3\}$.
+\end{itemize}
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Suma objetivo} & \textbf{sin el $0$} & \textbf{con el $0$} \\ \hline
+$1$ & $\{1\}$ & $\{0,1\}$ \\ \hline
+$4$ & $\{1,3\}$ & $\{0,1,3\}$ \\ \hline
+$6$ & $\{6\},\ \{1,2,3\}$ & $\{0,6\},\ \{0,1,2,3\}$ \\ \hline
+\end{tabular}
+\end{center}
+\textbf{¿Tiene sentido?} Se suman de nuevo: $0+1=1$; $1+3=4$; $0+1+3=4$; $0+6=6$; $1+2+3=6$; $0+1+2+3=6$. Todos dan $1$, $4$ o $6$. Además, $\{0,1,2,3\}\in B$ y sale en $f^{-1}(C)$ porque su suma, $6$, también está en $C$.
+\end{explica}
+
+\calculo{f^{-1}(C)=\{\bajo{\{1\},\{0,1\}}{\text{suma }1},\ \bajo{\{1,3\},\{0,1,3\}}{\text{suma }4},\ \bajo{\{6\},\{0,6\},\{1,2,3\},\{0,1,2,3\}}{\text{suma }6}\}}
+
+\textbf{Respuesta:} $f(B)=\{2,6,11\}$ y
+\[f^{-1}(C)=\big\{\{1\},\{0,1\},\{1,3\},\{0,1,3\},\{6\},\{0,6\},\{1,2,3\},\{0,1,2,3\}\big\}\quad(8\text{ conjuntos}).\]
+
+% ============================================================
+\clearpage
+\section*{Pregunta 5}
+\addcontentsline{toc}{section}{Pregunta 5}
+
+5. Sea $f:\mathbb R^+\to\left]-\infty,1\right[$, con $f(x)=1-x^2$. Demuestre que \colorbox{green!35}{$f$ es biyectiva}. \hfill (5 puntos)
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[width=7.2cm,height=5.2cm,axis lines=middle,xmin=-0.3,xmax=2.3,ymin=-3.4,ymax=1.7,
+    xtick={1,2},ytick={-3,-2,-1,1},font=\scriptsize,xlabel={$x$},ylabel={$y$}]
+    \addplot[blue!60!black,very thick,domain=0.02:2.05,samples=60] {1-x^2};
+    \addplot[red!75!black,dashed,thick,domain=-0.3:2.3] {1};
+    \draw[blue!60!black,fill=white] (axis cs:0,1) circle (2.5pt);
+    \addplot[orange!90!black,thick,domain=0:1.414] {-1};
+    \draw[orange!90!black,thick,dashed] (axis cs:1.414,-1) -- (axis cs:1.414,0);
+    \fill[orange!90!black] (axis cs:1.414,-1) circle (2pt);
+    \node[orange!90!black,font=\scriptsize,anchor=north] at (axis cs:0.6,-1.05) {$y=-1$: $x=\sqrt{2}$};
+    \node[red!75!black,font=\scriptsize,anchor=south east] at (axis cs:2.25,1) {$y=1$ no se alcanza};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\calculo{x=\sqrt{\bajo{1-y}{>0\text{ porque }y<1}}\ \in\mathbb R^+,\qquad f(x)=1-\big(\sqrt{1-y}\big)^2=\bajo{y}{\checkmark}}
+
+\begin{explica}
+\textbf{Paso 1, qué hay que probar.} Biyectiva es inyectiva más sobreyectiva (teoría). El dominio es $\mathbb R^+$ (solo positivos) y el codominio es $\left]-\infty,1\right[$ (todos los reales menores que $1$).
+
+\textbf{Paso 2, $f$ está bien definida.} Si $x>0$ entonces $x^2>0$, y al restarle algo positivo a $1$ queda menos que $1$: $f(x)=1-x^2<1$. O sea, $f$ siempre cae en el codominio.
+
+\textbf{Paso 3, inyectiva.} Se supone $f(x_1)=f(x_2)$: al quitar el $1$ y el signo queda $x_1^2=x_2^2$. Pasando todo a un lado y factorizando, $(x_1-x_2)(x_1+x_2)=0$. Un producto da cero solo si uno de los factores es cero. Pero $x_1+x_2>0$ porque los dos son positivos, así que tiene que ser $x_1-x_2=0$. \textbf{Aquí es donde se usa el dominio}: en todos los reales no sería inyectiva, porque $f(-1)=f(1)=0$.
+
+\textbf{Paso 4, sobreyectiva.} Se toma un $y<1$ cualquiera y se busca el $x$ que lo produce: $y=1-x^2\Rightarrow x^2=1-y\Rightarrow x=\sqrt{1-y}$ (raíz positiva, porque $x$ debe ser positivo). Se revisa que sirva: como $y<1$, $1-y>0$, la raíz existe y es positiva, así que $x\in\mathbb R^+$. Al evaluar: $f(x)=1-(1-y)=y$.
+
+\textbf{¿Tiene sentido?} En el dibujo, cada recta horizontal de altura $y<1$ (naranja) corta la curva \textbf{exactamente una vez}: una vez por ser sobreyectiva, no más de una por ser inyectiva. El ejemplo $y=-1$ da $x=\sqrt2$, y $f(\sqrt2)=1-2=-1$.
+\end{explica}
+
+\textbf{Solución como se escribe en el examen.}
+
+\textbf{Inyectividad.} \textbf{HQD:} $(\forall x_1,x_2\in\mathbb R^+)\ f(x_1)=f(x_2)\Rightarrow x_1=x_2$.
+
+Sean $x_1,x_2\in\mathbb R^+$ fijos pero arbitrarios tales que $f(x_1)=f(x_2)$.
+\begin{align*}
+f(x_1)=f(x_2)&\Rightarrow 1-x_1^2=1-x_2^2 && \text{Def. de } f\\
+&\Rightarrow x_1^2=x_2^2 && \text{Cancelación}\\
+&\Rightarrow x_1^2-x_2^2=0 && \text{Op.}\\
+&\Rightarrow (x_1-x_2)(x_1+x_2)=0 && \text{Factor}\\
+&\Rightarrow x_1-x_2=0\ \vee\ x_1+x_2=0 && \text{Producto igual a cero}\\
+&\Rightarrow x_1-x_2=0 && \text{SD, pues } x_1+x_2>0\ (x_1,x_2\in\mathbb R^+)\\
+&\Rightarrow x_1=x_2 && \text{Op.}
+\end{align*}
+Por lo tanto, $f$ es inyectiva.
+
+\textbf{Sobreyectividad.} \textbf{HQD:} $(\forall y\in\left]-\infty,1\right[)(\exists x\in\mathbb R^+)\ f(x)=y$.
+
+Sea $y\in\left]-\infty,1\right[$ fijo pero arbitrario. Se despeja $x$:
+\[y=1-x^2\ \Rightarrow\ x^2=1-y\ \Rightarrow\ x=\sqrt{1-y}\quad(x>0).\]
+Como $y<1$, se tiene $1-y>0$; entonces $\sqrt{1-y}$ es un número real y $\sqrt{1-y}>0$, es decir, $x\in\mathbb R^+$. Además,
+\[f(x)=f\big(\sqrt{1-y}\big)=1-\big(\sqrt{1-y}\big)^2=1-(1-y)=y.\]
+Por lo tanto, $f$ es sobreyectiva.
+
+\textbf{Respuesta:} $f$ es inyectiva y sobreyectiva; por lo tanto, $f$ es biyectiva.
+
+% ============================================================
+\clearpage
+\section*{Pregunta 6}
+\addcontentsline{toc}{section}{Pregunta 6}
+
+6. Considere las funciones $f:A\to B$ y $g:B\to D$ con \colorbox{green!35}{$f$ una función sobreyectiva}.\\
+Pruebe que \hfill (4 puntos)
+\[g(B)\subseteq(g\circ f)(A)\]
+
+\begin{center}
+\begin{tikzpicture}
+  \foreach \x/\n in {0/A,3.6/B,7.2/D} {\draw[thick] (\x,0) ellipse (0.7 and 1.3); \node at (\x,1.6) {$\n$};}
+  \node[pto,label=below:{$a$}] (a) at (0,0) {};
+  \node[pto,label=below:{$b$}] (b) at (3.6,0) {};
+  \node[pto,label=below:{$z$}] (z) at (7.2,0) {};
+  \draw[fl,blue!60!black] (a) -- node[above,font=\scriptsize] {$f(a)=b$} (b);
+  \draw[fl,green!50!black] (b) -- node[above,font=\scriptsize] {$g(b)=z$} (z);
+  \draw[fl,orange!90!black] (a) to[bend right=45] node[below,font=\scriptsize] {$(g\circ f)(a)=z$} (z);
+  \node[font=\scriptsize,align=center,red!75!black] at (1.8,0.75) {existe porque\\ $f$ es sobreyectiva};
+\end{tikzpicture}
+\end{center}
+
+\calculo{z=g(\bajo{b}{=f(a)})=g(f(a))=(g\circ f)(\bajo{a}{\in A})}
+
+\begin{explica}
+\textbf{Paso 1, qué significa $\subseteq$.} Hay que mostrar que todo elemento de $g(B)$ también está en $(g\circ f)(A)$. Se toma un $z\in g(B)$ cualquiera.
+
+\textbf{Paso 2, imagen directa.} Por la definición de imagen directa, $z\in g(B)$ quiere decir que algún $b\in B$ produce a $z$: $g(b)=z$.
+
+\textbf{Paso 3, usar que $f$ es sobreyectiva.} Todo elemento de $B$ recibe una flecha de $f$. En particular, $b$ la recibe: existe $a\in A$ con $f(a)=b$.
+
+\textbf{Paso 4, armar el camino completo.} Se cambia $b$ por $f(a)$ en $g(b)=z$: queda $g(f(a))=z$, que por la definición de composición es $(g\circ f)(a)=z$. Como $a\in A$, $z$ está en $(g\circ f)(A)$.
+
+\textbf{¿Por qué hace falta la sobreyectividad?} Sin ella, podría haber un $b$ en $B$ al que no llega ninguna flecha de $f$; su imagen $g(b)$ estaría en $g(B)$, pero no se podría alcanzar recorriendo $A\to B\to D$.
+\end{explica}
+
+\textbf{Solución como se escribe en el examen.}
+
+\textbf{HQD:} $(\forall z\in D)\ z\in g(B)\Rightarrow z\in(g\circ f)(A)$.
+
+Sea $z\in D$ fijo pero arbitrario tal que $z\in g(B)$.
+\begin{align*}
+z\in g(B)&\Rightarrow(\exists b\in B)\ g(b)=z && \text{Def. imagen directa}\\
+&\Rightarrow(\exists a\in A)\ f(a)=b\ \wedge\ g(b)=z && f\text{ sobreyectiva}\\
+&\Rightarrow g(f(a))=z && \text{Sust.}\\
+&\Rightarrow (g\circ f)(a)=z && \text{Def. composición}\\
+&\Rightarrow z\in(g\circ f)(A) && \text{Def. imagen directa}
+\end{align*}
+Por lo tanto, $g(B)\subseteq(g\circ f)(A)$.
+
+\textbf{Respuesta:} queda demostrado que $g(B)\subseteq(g\circ f)(A)$.
+
+\end{document}

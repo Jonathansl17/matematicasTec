@@ -1,0 +1,10 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{Teoría 1: relaciones}{2}{section*.2}%
+\contentsline {section}{Pregunta 1}{4}{section*.3}%
+\contentsline {section}{Pregunta 2a}{6}{section*.4}%
+\contentsline {section}{Pregunta 2b}{8}{section*.5}%
+\contentsline {section}{Pregunta 3}{9}{section*.6}%
+\contentsline {section}{Teoría 2: funciones}{10}{section*.7}%
+\contentsline {section}{Pregunta 4}{12}{section*.8}%
+\contentsline {section}{Pregunta 5}{14}{section*.9}%
+\contentsline {section}{Pregunta 6}{16}{section*.10}%
